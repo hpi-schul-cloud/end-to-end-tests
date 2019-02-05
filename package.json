@@ -1,0 +1,28 @@
+{
+  "name": "integration-tests",
+  "version": "1.0.0",
+  "description": "integration-tests",
+  "main": "index.js",
+  "scripts": {
+    "test": "cucumber-js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/schul-cloud/integration-tests.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/schul-cloud/integration-tests/issues"
+  },
+  "homepage": "https://github.com/schul-cloud/integration-tests#readme",
+  "devDependencies": {
+    "cucumber": "^5.1.0"
+  },
+  "dependencies": {
+    "chai": "^4.2.0",
+    "selenium-cucumber-js": "^1.6.2",
+    "selenium-webdriver": "^4.0.0-alpha.1"
+  }
+}
