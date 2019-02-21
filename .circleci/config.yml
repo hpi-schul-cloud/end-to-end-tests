@@ -1,0 +1,172 @@
+#    KlassiTech Automated Testing Tool
+#    Created by Larry Goddard
+#
+#    Copyright © klassitech 2019 - Larry Goddard <larryg@klassitech.co.uk>
+#
+#    Licensed under the Apache License, Version 2.0 (the "License");
+#    you may not use this file except in compliance with the License.
+#    You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+#
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+
+version: 2.0
+
+references:
+  container_config: &container_config
+    working_directory: ~/klassi-cucumber-js
+    docker:
+      - image: circleci/openjdk:8u181-jdk-node-browsers
+
+  restore_repo: &restore_repo
+    restore_cache:
+      keys:
+        - v1-klassi-repo-{{ .Branch }}-{{ .Revision }}
+        - v1-klassi-repo-{{ .Branch }}
+        - v1-klassi-repo
+
+jobs:
+  checkout_code:
+    <<: *container_config
+    steps:
+      - *restore_repo
+      - checkout
+      - run:
+          name: Update npm
+          command: 'sudo npm install -g npm@latest'
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+
+  install_dependencies:
+    <<: *container_config
+    steps:
+      - *restore_repo
+      - checkout
+      - run:
+          name: Update npm
+          command: 'sudo npm install -g npm@latest'
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+          - node_modules
+
+  integration_test_build:
+    <<: *container_config
+    steps:
+      - *restore_repo
+      - checkout
+      - run:
+          name: Create Test-Result Directory
+          command: mkdir ./test-results
+      - run:
+          name: Download Selenium
+          command: curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar
+      - run:
+          name: Start Selenium Server
+          command: java -jar selenium-server-standalone-3.5.3.jar -log test-results/selenium.log
+          background: true
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - run:
+          name: Integration Test Run
+          command: npm run-script dev
+      - store_artifacts:
+          path: artifacts
+      - store_test_results:
+          path: ./test-results
+
+  acceptance_test_build:
+      <<: *container_config
+      steps:
+        - *restore_repo
+        - checkout
+        - run:
+            name: Create Test-Result Directory
+            command: mkdir ./test-results
+        - run:
+            name: Download Selenium
+            command: curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar
+        - run:
+            name: Start Selenium Server
+            command: java -jar selenium-server-standalone-3.5.3.jar -log test-results/selenium.log
+            background: true
+        - run:
+            name: Install Dependencies
+            command: npm install
+        - save_cache:
+            key: dependency-cache-{{ checksum "package.json" }}
+            paths:
+              - node_modules
+
+        - run:
+            name: Set BrowserStack Local Identifier
+            command: echo 'export BROWSERSTACK_LOCAL_IDENTIFIER=acceptance_test_$BROWSER_NAME_run_$CIRCLE_BUILD_NUM' >> $BASH_ENV
+
+        - run:
+            name: Acceptance Test Run
+#            command: npm run-script uat
+            command: BROWSERSTACK_LOCAL_IDENTIFIER=larryg BROWSERSTACK_USERNAME=larryg2 BROWSERSTACK_ACCESS_KEY=JhxyJ1qdNhAx75KuwpQc npm run-script uat
+        - store_artifacts:
+            path: artifacts
+        - store_test_results:
+            path: ./test-results
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - checkout_code
+
+      - install_dependencies:
+          requires:
+            - checkout_code
+
+      - integration_test_build:
+          requires:
+            - checkout_code
+            - install_dependencies
+
+#      - run_basic_integration_tests:
+#          type: approval
+#          requires:
+#            - integration_test_build
+#          filters:
+#            branches:
+#              ignore:
+#                - develop
+#                - master
+
+      - acceptance_test_build:
+          requires:
+            - checkout_code
+            - install_dependencies
+
+#      - run_basic_acceptance_tests:
+#                type: approval
+#                requires:
+#                  - acceptance_test_build
+#                filters:
+#                  branches:
+#                    ignore:
+#                      - develop
+#                      - master
+

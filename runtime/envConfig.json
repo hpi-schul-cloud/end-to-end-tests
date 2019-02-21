@@ -1,0 +1,10 @@
+{
+  "Details" : {
+    "Name": "KlassiTech Automated Testing Tool",
+    "Created by": "Larry Goddard"
+  },
+
+  "url" : {
+    "api_base_url": "http://httpbin.org/"
+  }
+}
