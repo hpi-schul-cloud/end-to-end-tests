@@ -9,6 +9,7 @@ Feature: Logging in as a teacher
   Scenario Outline: User inputs the username and password
     When they put in <username> and <password> and click the login-button
     Then they should see their dashboard
+    Then the dashboard should look like it looked before for <username>
 
     Examples:
       |username|password|

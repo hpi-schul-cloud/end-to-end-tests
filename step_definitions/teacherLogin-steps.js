@@ -2,7 +2,6 @@
 
 let teacherLogin = require('../page-objects/teacherLogin');
 let loginData = require('../shared-objects/loginData');
-
 let shared = ({loginData});
 let page = ({teacherLogin});
 
@@ -17,6 +16,11 @@ When(/^they put in (.*) and (.*) and click the login-button$/, function(username
 });
 
 Then(/^they should see their dashboard$/, function() {
-  /** return the promise of an element to the following then */
   return page.teacherLogin.loginResult();
 });
+
+Then(/^the dashboard should look like it looked before for (.*)$/, function(username) {
+  let filename = `${username}_dashboard`;
+  return page.teacherLogin.compareScreenshots(filename);
+});
+
