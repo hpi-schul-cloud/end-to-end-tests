@@ -38,6 +38,14 @@ or
 npm run bslocal chrome/@search // via browserstack
 ```
 
+## Running the teacher-login test locally
+
+First you need to setup and start a local version of Schulcloud & a database following this documentation: https://docs.schul-cloud.org/display/SCDOK/Setup
+
+Second you need to install and start the selenium standalone server from the installation part. 
+
+Now run the test using the local command:  `node index.js -d -t @teacherLogin`
+
 ### Options
 
 ```bash
