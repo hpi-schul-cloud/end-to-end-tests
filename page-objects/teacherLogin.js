@@ -14,13 +14,12 @@ module.exports = {
         image = username; 
         await verify.saveScreenshot(`${image}_1-0.png`);
 
-        await driver.setValue(shared.loginData.elem.usernameInput, username)
-        await driver.setValue(shared.loginData.elem.passwordInput, password)
+        await driver.setValue(shared.loginData.elem.usernameInput, username);
+        await driver.setValue(shared.loginData.elem.passwordInput, password);
         
-        await saveScreenshot(`${image}_1-1.png`);
-
         await driver.click(shared.loginData.elem.loginBtn);
         await driver.pause(DELAY_3_SECOND);
+        await verify.saveScreenshot(`${image}_1-1.png`);
         await helpers.compareImage(`${image}_1-0.png`);
         await helpers.compareImage(`${image}_1-1.png`);
     },

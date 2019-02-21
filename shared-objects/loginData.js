@@ -1,12 +1,12 @@
 module.exports = {
     
-    url: 'http://localhost:3100/',
+    url: 'https://schul-cloud.org/login',
     
     elem: {
-        usernameInput: 'rootNode.querySelector("[data-testid="username"]")',
-        passwordInput: 'rootNode.querySelector("[data-testid="password"]")',
-        loginBtn: 'rootNode.querySelector("[data-testid="submit-login"]")',
-        resultInitials: 'rootNode.querySelector("[data-testid="initials"]")' 
+        usernameInput: "section#loginarea input[name='username']",
+        passwordInput: "section#loginarea input[name='password']",
+        loginBtn: "section#loginarea input[name='submit-login']",
+        resultInitials: '.avatar-circle .initials' 
     },
     
 };

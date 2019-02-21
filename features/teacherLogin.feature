@@ -12,5 +12,5 @@ Feature: Logging in as a teacher
 
     Examples:
       |username|password|
-      |lehrer@schul-cloud.org|Schulcloud1!|
+      |demo-lehrer@schul-cloud.org|schulcloud|
       
