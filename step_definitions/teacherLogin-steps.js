@@ -21,6 +21,6 @@ Then(/^they should see their dashboard$/, function() {
 Then(/^the dashboard should look like it looked before for (.*)$/, function(username) {
   // let filename = `${username}_dashboard`;
   let filename = `dashboard`;
-  return await page.teacherLogin.compareScreenshots(filename);
+  return page.teacherLogin.compareScreenshots(filename);
 });
 
