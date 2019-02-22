@@ -5,7 +5,6 @@ let loginData = require('../shared-objects/loginData');
 let shared = ({loginData});
 let page = ({teacherLogin});
 
-
 Given(/^The user arrives on the Schul-Cloud homepage$/, function() {
   return helpers.loadPage(shared.loginData.url, 10);
 });
@@ -20,7 +19,8 @@ Then(/^they should see their dashboard$/, function() {
 });
 
 Then(/^the dashboard should look like it looked before for (.*)$/, function(username) {
-  let filename = `${username}_dashboard`;
-  return page.teacherLogin.compareScreenshots(filename);
+  // let filename = `${username}_dashboard`;
+  let filename = `dashboard`;
+  return await page.teacherLogin.compareScreenshots(filename);
 });
 

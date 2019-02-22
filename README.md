@@ -76,7 +76,7 @@ By default tests are run using Google Chrome, to run tests using another browser
 | Chrome | `-b chrome` |
 | Firefox | `-b firefox` |
 
-The following variables are available within the ```Given()```, ```When()``` and ```Then()``` functions:
+The following variables are available within the ```Given()```, ```When()``` and ```()``` functions:
 
 | Variable | Description |
 | :--- | :---  |
