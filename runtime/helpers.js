@@ -72,9 +72,13 @@ module.exports = {
    */
   compareImage: async function(fileName){
     const verify = require('./imageCompare');
+
     await verify.assertion(fileName);
+    // await driver.pause(500);
     await verify.value();
+    console.log('3');
     await verify.pass();
+    console.log('4'); 
   },
     
   /**

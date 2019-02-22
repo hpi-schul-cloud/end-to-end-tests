@@ -90,7 +90,6 @@ module.exports ={
       .ignoreColors()
       .onComplete(async function (res) {
         result = await res;
-        // console.log('this is the result: ',  result.misMatchPercentage);
       });
     
     /**
@@ -103,8 +102,10 @@ module.exports ={
       
       const resultPathNegative = `${resultDirNegative}${filename}`;
       const resultPathPositive = `${resultDirPositive}${filename}`;
-      await driver.pause(500);
-      // console.log('this is the result 1: ', result);
+      //await driver.pause(500);
+      while(typeof result == 'undefined')
+        continue;
+      console.log('this is the result from value: ', result);
       const error = parseFloat(result.misMatchPercentage); // value this.pass is called with
       fs.ensureDirSync(diffDirNegative);
     
