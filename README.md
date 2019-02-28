@@ -43,6 +43,7 @@ npm run bslocal chrome/@TESTNAME // via browserstack
 ```bash
 adminLogin                  tests the login with an admin account
 teacherLogin                tests the login with a teacher account
+pupilLogin                  tests the login with a pupil account
 search                      example test utilizing a duckDuckGo search 
 ```
 
