@@ -20,7 +20,7 @@ module.exports = {
     },
 
     loginResult: async function() {
-        expect(await helpers.getElementText('.avatar-circle')).to.equal('EM');
+        expect(await helpers.getElementText('.avatar-circle')).to.equal('TT');
     },
     compareScreenshots: async function(filename) {
       await imageCompare.saveScreenshot(`${filename}.png`);
