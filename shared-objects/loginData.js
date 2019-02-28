@@ -1,6 +1,6 @@
 module.exports = {
     
-    url: 'https://schul-cloud.org/login',
+    url: 'https://test.schul-cloud.org/login',
     
     elem: {
         usernameInput: "section#loginarea input[name='username']",
