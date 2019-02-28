@@ -33,9 +33,17 @@ selenium-standalone start
 # run 'npm install' in a terminal window from within the project folder
 node ./node_modules/klassi-js/index.js -s ./step-definitions
 or
-node index.js -d -t @search // locally
+node index.js -d -t @TESTNAME // locally
 or
-npm run bslocal chrome/@search // via browserstack
+npm run bslocal chrome/@TESTNAME // via browserstack
+```
+
+## Available Tests
+
+```bash
+adminLogin                  tests the login with an admin account
+teacherLogin                tests the login with a teacher account
+search                      example test utilizing a duckDuckGo search 
 ```
 
 ## Running the teacher-login test locally
