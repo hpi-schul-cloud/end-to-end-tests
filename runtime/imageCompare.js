@@ -101,7 +101,7 @@ module.exports ={
       filename = await file_name;
       
       const resultPathNegative = `${resultDirNegative}${filename}`;
-      const resultPathPositive = `${resultDirPositive}${filename}`;);
+      const resultPathPositive = `${resultDirPositive}${filename}`;
       while(typeof result == 'undefined'){
         await driver.pause(100);
         continue;
