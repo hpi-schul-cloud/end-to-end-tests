@@ -1,11 +1,12 @@
 module.exports = {
     
-    url: 'https://test.schul-cloud.org/login',
+    url: 'http://localhost:3100/login',
+    //'https://test.schul-cloud.org/login',
     
     elem: {
-        usernameInput: "section#loginarea input[name='username']",
-        passwordInput: "section#loginarea input[name='password']",
-        loginBtn: "section#loginarea input[name='submit-login']",
+        usernameInput: "section#loginarea input[data-testid='username']",
+        passwordInput: "section#loginarea input[data-testid='password']",
+        loginBtn: "section#loginarea input[data-testid='submit-login']",
         resultInitials: '.avatar-circle .initials' 
     },
     
