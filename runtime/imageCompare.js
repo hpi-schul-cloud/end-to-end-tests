@@ -101,11 +101,13 @@ module.exports ={
       filename = await file_name;
       
       const resultPathNegative = `${resultDirNegative}${filename}`;
-      const resultPathPositive = `${resultDirPositive}${filename}`;
-      //await driver.pause(500);
-      while(typeof result == 'undefined')
+      const resultPathPositive = `${resultDirPositive}${filename}`;);
+      while(typeof result == 'undefined'){
+        await driver.pause(100);
         continue;
-      console.log('this is the result from value: ', result);
+      }
+
+      //console.log('this is the result from value: ', result);
       const error = parseFloat(result.misMatchPercentage); // value this.pass is called with
       fs.ensureDirSync(diffDirNegative);
     
