@@ -44,7 +44,10 @@ module.exports ={
    * @param filename
    * @returns {Promise<void>}
    */
-  saveScreenshot: async function(filename) {
+  saveScreenshot: async function(filename, elementsToHide) {
+    if (elementsToHide) {
+      await hideElements(elementsToHide);
+    }
     fs.ensureDirSync(resultDirPositive); // Make sure destination folder exists, if not, create it
     const resultPathPositive = `${resultDirPositive}${filename}`;
     await driver.saveScreenshot(resultPathPositive, err => {
@@ -52,6 +55,9 @@ module.exports ={
         log.error(err.message);
       }
     });
+    if (elementsToHide) {
+      await showElements(elementsToHide);
+    }
     log.info(`\tScreenshot saved to: ${resultPathPositive}`);
   },
   

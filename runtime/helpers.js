@@ -72,15 +72,40 @@ module.exports = {
    */
   compareImage: async function(fileName){
     const verify = require('./imageCompare');
-
     await verify.assertion(fileName);
-    // await driver.pause(500);
     await verify.value();
-    console.log('3');
     await verify.pass();
-    console.log('4'); 
   },
-    
+  /**
+   * hideElemements hide elements 
+   * @param  string  selectors   css selector or array of css selectors
+   */     
+  hideElements: async function(selectors) {
+    // if arg is no array make it one
+    selectors = typeof selectors == 'string' ? [selectors] : selectors;
+    for (let i = 0; i < selectors.length; i++) {
+      const script = `document.querySelectorAll('${
+        selectors[i]
+      }').forEach(element => element.style.opacity = '0')`;
+
+      await driver.execute(script);
+    }
+  },
+  /**
+     * showElemements show elements 
+     * @param  string  selectors   css selector or array of css selectors
+     */
+  showElemements: async function(selectors) {
+    // if arg is no array make it one
+    selectors = typeof selectors == 'string' ? [selectors] : selectors;
+    for (let i = 0; i < selectors.length; i++) {
+      const script = `document.querySelectorAll('${
+        selectors[i]
+      }').forEach(element => element.style.opacity = '1')`;
+
+      await driver.execute(script);
+    }
+  },
   /**
      * writeTextFile write data to file on hard drive
      * @param  string  filepath   Path to file on hard drive
