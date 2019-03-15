@@ -44,6 +44,7 @@ npm run bslocal chrome/@TESTNAME // via browserstack
 adminLogin                  tests the login with an admin account
 teacherLogin                tests the login with a teacher account
 pupilLogin                  tests the login with a pupil account
+wrongPasswordLogin          tests the login with a wrong password
 search                      example test utilizing a duckDuckGo search 
 ```
 

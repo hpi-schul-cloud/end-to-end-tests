@@ -4,11 +4,11 @@ Feature: Logging in as an admin
   I want to be able to login with an admin account
 
   Background:
-    Given I arrive on the Schul-Cloud login homepage
+    Given an admin arrives on the Schul-Cloud login homepage
 
   Scenario Outline: User inputs the username and password
-    When I put in <username> and <password> and click the login-button
-    Then I should see my dashboard
+    When an admin puts in <username> and <password> and click the login-button
+    Then an admin should see my dashboard
     Then the admin-dashboard should look like it looked before for <username>
 
     Examples:
