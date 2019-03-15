@@ -23,7 +23,7 @@ module.exports = {
         expect(await helpers.getElementText('.avatar-circle')).to.equal('EM');
     },
     compareScreenshots: async function(filename) {
-      await imageCompare.saveScreenshot(`${filename}.png`);
+      await imageCompare.saveScreenshot(`${filename}.png`, '.timetable');
       
       await helpers.compareImage(`${filename}.png`);
     
