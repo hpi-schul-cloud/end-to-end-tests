@@ -19,6 +19,6 @@ Then(/^a pupil should see the dashboard$/, function () {
 });
 
 Then(/^the pupil-dashboard should look like it looked before for (.*)$/, function(username) {
-    let filename = 'dashboard';
+    let filename = 'pupil-dashboard';
     return page.pupilLogin.compareScreenshots(filename);
   });

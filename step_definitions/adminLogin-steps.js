@@ -19,6 +19,6 @@ Then(/^an admin should see my dashboard$/, function () {
 });
 
 Then(/^the admin-dashboard should look like it looked before for (.*)$/, function(username) {
-    let filename = 'dashboard';
+    let filename = 'admin-dashboard';
     return page.adminLogin.compareScreenshots(filename);
   });

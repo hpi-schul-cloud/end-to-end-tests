@@ -20,7 +20,7 @@ Then(/^the teacher should see their dashboard$/, function() {
 
 Then(/^the teacher-dashboard should look like it looked before for (.*)$/, function(username) {
   // let filename = `${username}_dashboard`;
-  let filename = `dashboard`;
+  let filename = `teacher-dashboard`;
   return page.teacherLogin.compareScreenshots(filename);
 });
 

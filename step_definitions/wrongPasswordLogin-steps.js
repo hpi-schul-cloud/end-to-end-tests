@@ -19,6 +19,6 @@ Then(/^a user should see a notification$/, function () {
 });
 
 Then(/^the login-page should look like it looked before for (.*)$/, function(username) {
-    let filename = 'login-page';
+    let filename = 'failed-login-page';
     return page.wrongPasswordLogin.compareScreenshots(filename);
   });

@@ -95,7 +95,7 @@ module.exports = {
      * showElemements show elements 
      * @param  string  selectors   css selector or array of css selectors
      */
-  showElemements: async function(selectors) {
+  showElements: async function(selectors) {
     // if arg is no array make it one
     selectors = typeof selectors == 'string' ? [selectors] : selectors;
     for (let i = 0; i < selectors.length; i++) {

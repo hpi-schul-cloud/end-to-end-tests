@@ -47,7 +47,7 @@ module.exports ={
    */
   saveScreenshot: async function(filename, elementsToHide) {
     if (elementsToHide) {
-      await hideElements(elementsToHide);
+      await helpers.hideElements(elementsToHide);
     }
     fs.ensureDirSync(resultDirPositive); // Make sure destination folder exists, if not, create it
     const resultPathPositive = `${resultDirPositive}${filename}`;
@@ -57,7 +57,7 @@ module.exports ={
       }
     });
     if (elementsToHide) {
-      await showElements(elementsToHide);
+      await helpers.showElements(elementsToHide);
     }
     log.info(`\tScreenshot saved to: ${resultPathPositive}`);
   },

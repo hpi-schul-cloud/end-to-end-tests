@@ -75,6 +75,7 @@ Now run the test using the local command:  `node index.js -d -t @teacherLogin`
 -e, --email [optional]      sends email reports to stakeholders
 -n, --environment [<path>]  name of environment to run the framework/test in. default to dev
 -g, --reportName [optional] basename for report files e.g. use report for report.json
+-u, --updateBaselineImage [optional] automatically update the baseline image after a failed comparison
 -x, --extraSettings [optional]  further piped configs split with pipes
 -w, --remoteService [optional]  which remote driver service, if any, should be used e.g. browserstack
 ```
