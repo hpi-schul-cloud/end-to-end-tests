@@ -21,20 +21,40 @@ npm i klassi-js
 # launch a selenium standalone server with chrome, firefox and phantomjs drivers via the 
 # following commands in a separate terminal:
 
-yarn global add selenium-standalone@latest
-selenium-standalone install && selenium-standalone start
+npm install selenium-standalone@latest -g --save-dev
+selenium-standalone install
 ```
 
 ## Usage
 
 ```bash
-# run 'yarn install' in a terminal window from within the project folder
+# run 'npm install' in a terminal window from within the project folder
 node ./node_modules/klassi-js/index.js -s ./step-definitions
 or
-node index.js -dt @search // locally
+node index.js -d -t @TESTNAME // locally
 or
-yarn run bslocal chrome/@search // via browserstack
+npm run bslocal chrome/@TESTNAME // via browserstack
 ```
+
+## Available Tests
+
+```bash
+adminLogin                  tests the login with an admin account
+teacherLogin                tests the login with a teacher account
+pupilLogin                  tests the login with a pupil account
+wrongPasswordLogin          tests the login with a wrong password
+search                      example test utilizing a duckDuckGo search 
+```
+
+## Running the teacher-login test locally
+
+First you need to setup and start a local version of Schulcloud & a database following this documentation: https://docs.schul-cloud.org/display/SCDOK/Setup
+
+When installing the Schulcloud-Client make sure to use the following branch: `SC-785-adding-selectors-for-test-relevant-html-elements`
+
+Second you need to install and start the selenium standalone server from the installation part. 
+
+Now run the test using the local command:  `node index.js -d -t @teacherLogin`
 
 ### Options
 
@@ -53,6 +73,7 @@ yarn run bslocal chrome/@search // via browserstack
 -e, --email [optional]      sends email reports to stakeholders
 -n, --environment [<path>]  name of environment to run the framework/test in. default to dev
 -g, --reportName [optional] basename for report files e.g. use report for report.json
+-u, --updateBaselineImage [optional] automatically update the baseline image after a failed comparison
 -x, --extraSettings [optional]  further piped configs split with pipes
 -w, --remoteService [optional]  which remote driver service, if any, should be used e.g. browserstack
 ```
@@ -64,17 +85,17 @@ By default tests are run using Google Chrome, to run tests using another browser
 | Chrome | `-b chrome` |
 | Firefox | `-b firefox` |
 
-The following variables are available within the ```Given()```, ```When()``` and ```Then()``` functions:
+The following variables are available within the ```Given()```, ```When()``` and ```()``` functions:
 
 | Variable | Description |
 | :--- | :---  |
-| `driver`     | an instance of [web driver](https://webdriver.io/docs/setuptypes.html) (_the browser_) |
-| `webdriverio`| the raw [webdriver](https://webdriver.io/docs/api.html) module, providing access to static properties/methods |
+| `driver`     | an instance of [web driver](http://webdriver.io/guide/services/selenium-standalone.html) (_the browser_) |
+| `webdriverio`| the raw [webdriver](http://webdriver.io/api.html) module, providing access to static properties/methods |
 | `page`       | collection of **page** objects loaded from disk and keyed by filename |
 | `shared`     | collection of **shared** objects loaded from disk and keyed by filename |
 | `helpers`    | a collection of [helper methods](runtime/helpers.js) _things webdriver.io does not provide but really should!_ |
-| `expect`     | instance of [chai expect](https://www.chaijs.com/api/bdd/) to ```expect('something').to.equal('something')``` |
-| `assert`     | instance of [chai assert](https://www.chaijs.com/api/assert/) to ```assert.isOk('everything', 'everything is ok')``` |
+| `expect`     | instance of [chai expect](http://chaijs.com/api/bdd/) to ```expect('something').to.equal('something')``` |
+| `assert`     | instance of [chai assert](http://chaijs.com/api/assert/) to ```assert.isOk('everything', 'everything is ok')``` |
 | `trace`      | handy trace method to log console output with increased visibility |
 | `fs`         | exposes fs (file system) for use globally |
 | `dir`        | exposes dir for getting an array of files, subdirectories or both |
@@ -83,15 +104,14 @@ The following variables are available within the ```Given()```, ```When()``` and
 | `log`        | exposes the log method for output to files and emailing  |
 | `envConfig`  | exposes the global environment configuration file  | ```for use when changing environment types (i.e. dev, test, preprod)``` |
 
-### Visual Regression functionality with [Resemble JS](https://github.com/rsmbl/Resemble.js)
+### Visual Regression functionality with [Resemble JS](https://github.com/HuddleEng/Resemble.js)
 
 Visual regression testing, gives the ability to take and compare whole page screenshots or of specific parts of the application / page under test.
-If there are Elements in the page that contain dynamic contents (like a clock or something like tipp of the day), you can hide this elements before 
-taking the screenshot by passing the selector (or an array of selectors) to  the saveScreenshot function.
+
 ```js
 // ./runtime/imageCompare.js
 
-compareImage: async (fileName) => {
+compareImage: async function (fileName) {
   const verify = require('./imageCompare');
   await verify.assertion(fileName);
   await verify.value();
@@ -99,7 +119,7 @@ compareImage: async (fileName) => {
 }
 
 // usage within page-object file:
-  await verify.saveScreenshot(fileName);
+
   await helpers.compareImage(fileName);
 ```
 
@@ -203,4 +223,4 @@ Anyone can contribute to this project simply by [opening an issue here](https://
 
 ## License
 
-[Apache License](LICENSE) &copy; 2016 [Larry Goddard](https://uk.linkedin.com/in/larryg)
+[Apache License](LICENSE) &copy; 2019 [Larry Goddard](https://uk.linkedin.com/in/larryg)
