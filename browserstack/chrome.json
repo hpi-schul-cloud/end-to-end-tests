@@ -1,11 +1,11 @@
 {
-  "project":"KlassiTech Automated Test",
+  "project":"SchulCloud Automated Tests",
 
   "os": "Windows",
   "os_version": "10",
   "browserName": "Chrome",
   "browser_version": "66.0",
-  "resolution": "1280x800",
+  "resolution": "1920x1080",
   "chromeOptions": {
     "args": ["disable-infobars"]
   },

@@ -62,8 +62,8 @@ module.exports = function chromeDriver(options){
     /**
      * sets the browser window size to maximum or a particular size
      */
-    driver.windowHandleMaximize();
-    // driver.windowHandleSize({width: 1024, height: 800});
+    // driver.windowHandleMaximize();
+    driver.windowHandleSize({width: 1920, height: 1080});
   });
   
   return driver;

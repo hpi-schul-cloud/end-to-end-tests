@@ -42,6 +42,7 @@ module.exports ={
    * @method saveScreenshot
    * @param {string} filename The complete path to the file name where the screenshot should be saved.
    * @param filename
+   * @param elementsToHide Css selectors for elements that should be hidden (because they are dynamic) in order to make the screenshot comparable.
    * @returns {Promise<void>}
    */
   saveScreenshot: async function(filename, elementsToHide) {
