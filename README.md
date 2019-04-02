@@ -31,10 +31,30 @@ selenium-standalone install && selenium-standalone start
 # run 'yarn install' in a terminal window from within the project folder
 node ./node_modules/klassi-js/index.js -s ./step-definitions
 or
-node index.js -dt @search // locally
+node index.js -d -t @TESTNAME // locally
 or
-yarn run bslocal chrome/@search // via browserstack
+yarn run bslocal chrome/@TESTNAME // via browserstack
 ```
+
+## Available Tests
+
+```bash
+adminLogin                  tests the login with an admin account
+teacherLogin                tests the login with a teacher account
+pupilLogin                  tests the login with a pupil account
+wrongPasswordLogin          tests the login with a wrong password
+search                      example test utilizing a duckDuckGo search 
+```
+
+## Running the teacher-login test locally
+
+First you need to setup and start a local version of Schulcloud & a database following this documentation: https://docs.schul-cloud.org/display/SCDOK/Setup
+
+When installing the Schulcloud-Client make sure to use the following branch: `SC-785-adding-selectors-for-test-relevant-html-elements`
+
+Second you need to install and start the selenium standalone server from the installation part. 
+
+Now run the test using the local command:  `node index.js -d -t @teacherLogin`
 
 ### Options
 
@@ -53,6 +73,7 @@ yarn run bslocal chrome/@search // via browserstack
 -e, --email [optional]      sends email reports to stakeholders
 -n, --environment [<path>]  name of environment to run the framework/test in. default to dev
 -g, --reportName [optional] basename for report files e.g. use report for report.json
+-u, --updateBaselineImage [optional] automatically update the baseline image after a failed comparison
 -x, --extraSettings [optional]  further piped configs split with pipes
 -w, --remoteService [optional]  which remote driver service, if any, should be used e.g. browserstack
 ```
@@ -64,7 +85,7 @@ By default tests are run using Google Chrome, to run tests using another browser
 | Chrome | `-b chrome` |
 | Firefox | `-b firefox` |
 
-The following variables are available within the ```Given()```, ```When()``` and ```Then()``` functions:
+The following variables are available within the ```Given()```, ```When()``` and ```()``` functions:
 
 | Variable | Description |
 | :--- | :---  |
@@ -88,10 +109,11 @@ The following variables are available within the ```Given()```, ```When()``` and
 Visual regression testing, gives the ability to take and compare whole page screenshots or of specific parts of the application / page under test.
 If there are Elements in the page that contain dynamic contents (like a clock or something like tipp of the day), you can hide this elements before 
 taking the screenshot by passing the selector (or an array of selectors) to  the saveScreenshot function.
+
 ```js
 // ./runtime/imageCompare.js
 
-compareImage: async (fileName) => {
+compareImage: async function (fileName) {
   const verify = require('./imageCompare');
   await verify.assertion(fileName);
   await verify.value();
@@ -203,4 +225,4 @@ Anyone can contribute to this project simply by [opening an issue here](https://
 
 ## License
 
-[Apache License](LICENSE) &copy; 2016 [Larry Goddard](https://uk.linkedin.com/in/larryg)
+[Apache License](LICENSE) &copy; 2019 [Larry Goddard](https://uk.linkedin.com/in/larryg)

@@ -294,12 +294,11 @@ module.exports = {
      * @param selector
      * @returns text
      */
-  getElementText: function (selector) {
-    return driver.waitForExist(selector, DELAY_10_SECOND).pause(DELAY_3_SECOND).then(function () {
-      return driver.getText(selector).then(function (text) {
-        return text;
-      });
-    });
+  getElementText: async function (selector) {
+    let elem = await driver.$(selector);
+    await elem.waitForExist(DELAY_10_SECOND);
+    let text = await elem.getText();
+    return text;
   },
 
   /**
