@@ -4,9 +4,6 @@ module.exports = {
     //'https://test.schul-cloud.org/login',
 
     elem: {
-        usernameInput: "section#loginarea input[data-testid='username']",
-        passwordInput: "section#loginarea input[data-testid='password']",
-        loginBtn: "section#loginarea input[data-testid='submit-login']",
         courseButtonDashboard: "a[data-testid='Kurse']",
         createCourseButton: "a[data-testid='CreateCourseButton']",
         submitCourseButton: "button[data-testid='CreateCourseButton']",

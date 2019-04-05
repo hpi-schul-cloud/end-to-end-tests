@@ -9,20 +9,6 @@ let image;
 
 module.exports = {
 
-    performLogin: async function (username, password) {
-        image = username; 
-
-        let loginSel = await driver.$(shared.createCourseData.elem.usernameInput);
-        await loginSel.setValue(username);
-
-        let passwordSel = await driver.$(shared.createCourseData.elem.passwordInput);
-        await passwordSel.setValue(password);
-
-        let loginBtnSel = await driver.$(shared.createCourseData.elem.loginBtn);
-        await loginBtnSel.click();
-
-    },
-
     clickSidebarCourseButton: async function() {
         //let button = await driver.$(shared.createCourseData.elem.courseButtonDashboard);
         await helpers.waitAndClick(shared.createCourseData.elem.courseButtonDashboard);
