@@ -28,12 +28,13 @@ module.exports = {
     },
 
     createCourseResult: async function(coursename) {
-        var selector = shared.createCourseData.elem.courseScCardTitle;
-        const script = `document.querySelectorAll('${selector}')`;
-        var courseElements = await driver.execute(script);
+        let courseElements = await driver.$$(shared.createCourseData.elem.courseScCardTitle);
+        let elem;
         for(var i = 0; i<courseElements.length; i++){
-            expect(
-                await helpers.getElementText(courseElements[i])).to.equal(coursename);  
+             elem = courseElements[i];
+             if(elem.getText()==coursename){
+                 break;
+             }
         }
         /*expect(
             await helpers.getElementText(shared.createCourseData.elem.courseScCardTitle)).to.equal(coursename);*/
