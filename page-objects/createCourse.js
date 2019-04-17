@@ -29,16 +29,15 @@ module.exports = {
 
     createCourseResult: async function(coursename) {
         let courseElements = await driver.$$(shared.createCourseData.elem.courseScCardTitle);
+        let courseNames = new Array(courseElements.length);
         let elem;
+        let text;
         for(var i = 0; i<courseElements.length; i++){
-             elem = courseElements[i];
-             if(elem.getText()==coursename){
-                 break;
-             }
+             elem = await courseElements[i];
+             text = await elem.getText();
+             courseNames[i] = text;
         }
-        /*expect(
-            await helpers.getElementText(shared.createCourseData.elem.courseScCardTitle)).to.equal(coursename);*/
-        
+        expect(coursename).to.be.oneOf(courseNames);
     }
 
 
