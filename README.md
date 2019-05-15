@@ -11,11 +11,7 @@
 ## Installation
 
 ```bash
-git-clone-ssh: git@github.com:larryg01/klassi-js.git
-git-clone-https: https://github.com/larryg01/klassi-js.git
-download: https://github.com/larryg01/klassi-js/archive/develop.zip
-npm i klassi-js 
-
+npm install
 
 # To run your test locally, you'll need a local selenium server running, you can install and
 # launch a selenium standalone server with chrome, firefox and phantomjs drivers via the 
