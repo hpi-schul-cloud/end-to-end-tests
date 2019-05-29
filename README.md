@@ -19,6 +19,11 @@ npm install
 
 yarn global add selenium-standalone@latest
 selenium-standalone install && selenium-standalone start
+
+# If the command above do not work for you, try it with the following commands instead:
+npm install selenium-standalone -g
+selenium-standalone install
+selenium-standalone start
 ```
 
 ## Usage
