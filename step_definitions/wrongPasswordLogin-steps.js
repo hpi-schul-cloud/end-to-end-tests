@@ -2,7 +2,8 @@
 
 let wrongPasswordLogin = require('../page-objects/wrongPasswordLogin');
 let loginData = require('../shared-objects/loginData');
-let shared = ({loginData});
+let performLogin = require('../page-objects/performLogin');
+let shared = ({loginData, performLogin});
 let page = ({wrongPasswordLogin});
 
 Given(/^a user arrives on the Schul-Cloud login homepage$/, function () {
@@ -10,7 +11,7 @@ Given(/^a user arrives on the Schul-Cloud login homepage$/, function () {
 });
 
 When(/^a user puts in (.*) and the wrong (.*) and click the login-button$/, function (username, password) {
-    return page.wrongPasswordLogin.performLogin(username,password);
+    return shared.performLogin.performLogin(username,password);
 });  
 
 Then(/^a user should see a notification$/, function () {

@@ -2,7 +2,8 @@
 
 let teacherLogin = require('../page-objects/teacherLogin');
 let loginData = require('../shared-objects/loginData');
-let shared = ({loginData});
+let performLogin = require('../page-objects/performLogin');
+let shared = ({loginData, performLogin});
 let page = ({teacherLogin});
 
 Given(/^The teacher arrives on the Schul-Cloud homepage$/, function() {
@@ -11,7 +12,7 @@ Given(/^The teacher arrives on the Schul-Cloud homepage$/, function() {
 
 When(/^the teacher puts in (.*) and (.*) and click the login-button$/, function(username, password) {
   /** use a method on the page object which also returns a promise */
-  return page.teacherLogin.performLogin(username,password);
+  return shared.performLogin.performLogin(username,password);
 });
 
 Then(/^the teacher should see their dashboard$/, function() {

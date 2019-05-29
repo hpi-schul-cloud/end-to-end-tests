@@ -2,7 +2,8 @@
 
 let adminLogin = require('../page-objects/adminLogin');
 let loginData = require('../shared-objects/loginData');
-let shared = ({loginData});
+let performLogin = require('../page-objects/performLogin');
+let shared = ({loginData, performLogin});
 let page = ({adminLogin});
 
 Given(/^an admin arrives on the Schul-Cloud login homepage$/, function () {
@@ -10,7 +11,7 @@ Given(/^an admin arrives on the Schul-Cloud login homepage$/, function () {
 });
 
 When(/^an admin puts in (.*) and (.*) and click the login-button$/, function (username, password) {
-    return page.adminLogin.performLogin(username,password);
+    return shared.performLogin.performLogin(username,password);
 });  
 
 Then(/^an admin should see my dashboard$/, function () {
