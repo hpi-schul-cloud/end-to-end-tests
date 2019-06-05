@@ -9,9 +9,9 @@ Feature: Logging in as a teacher
   Scenario Outline: User inputs the username and password
     When the teacher puts in <username> and <password> and click the login-button
     Then the teacher should see their dashboard
-    Then the teacher-dashboard should look like it looked before for <username>
+   # Then the teacher-dashboard should look like it looked before for <username>
 
     Examples:
       |username|password|
-      |demo-lehrer@schul-cloud.org|schulcloud|
+      |klara.fall@schul-cloud.org|Schulcloud1!|
       
