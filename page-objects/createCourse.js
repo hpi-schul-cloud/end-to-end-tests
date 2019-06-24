@@ -6,14 +6,13 @@ const imageCompare = require('../runtime/imageCompare');
 const shared = { loginData };
 const course = { courseData };
 
-const expect = require('chai');
-
 module.exports = {
   usrname: async function(username) {
     image = username;
   },
   count: async function() {
     const elem = await driver.$$('#section-courses .sc-card-wrapper');
+    await driver.pause(1000);
     return elem.length;
   },
   clickAdd: async function() {

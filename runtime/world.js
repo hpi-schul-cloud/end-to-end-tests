@@ -102,16 +102,16 @@ async function getDriverInstance() {
   }
   assert.isNotEmpty(browser, 'Browser must be defined');
   switch (browser || '') {
-    case 'firefox':
-      {
-        driver = FirefoxDriver(options);
-      }
-    break;
-    case 'chrome':
-      {
-        driver = ChromeDriver(options);
-      }
-    break;
+  case 'firefox':
+    {
+      driver = FirefoxDriver(options);
+    }
+      break;
+  case 'chrome':
+    {
+      driver = ChromeDriver(options);
+    }
+      break;
   }
   return driver;
 }
@@ -276,15 +276,18 @@ AfterAll(function(done) {
         global.settings.reportName + '-' + date + '.html'
       ),
       reportSuiteAsScenarios: true,
-      launchReport: (!global.settings.disableReport),
+      launchReport: !global.settings.disableReport,
       ignoreBadJsonFile: true,
       metadata: {
         'Test Started': startDateTime,
         'Test Completion': endDateTime,
-        'Platform': process.platform,
+        Platform: process.platform,
         'Test Environment': process.env.NODE_ENV || 'DEVELOPMENT',
-        'Browser': global.settings.remoteConfig || global.browserName,
-        'Executed': remoteService && remoteService.type === 'browserstack' ? 'Remote' : 'Local'
+        Browser: global.settings.remoteConfig || global.browserName,
+        Executed:
+          remoteService && remoteService.type === 'browserstack'
+            ? 'Remote'
+            : 'Local'
       },
       brandTitle: reportName + '-' + date,
       name: projectName

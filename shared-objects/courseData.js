@@ -1,5 +1,6 @@
 module.exports = {
   url: 'http://localhost:3100/courses',
+  url2: 'http://localhost:3100/login',
   elem: {
     addBtn: 'section#section-courses a[data-testid=\'courseAddButton\']',
     courseContainer:
@@ -12,21 +13,14 @@ module.exports = {
       'section#section-course select[data-testid\'substituent\']',
     appointmentCourse:
       'section#section-course input[data-testid=\'startingDate\']',
-    expiresAt: 'section#section-course input[data-testid=\'untilDay\']',
-    /* schulStundenTerminKurs: "section#section-1 span[data-testid='termin']",
-            wochentag: "section#section-1 label[data-testid='termin']",
-            startDerSchulstunde: "section#section-1 label[data-testid='termin']",
-            dauerDerSchulstunde: "section#section-1 label[data-testid='termin']",
-            raum: "section#section-1 label[data-testid='termin']",
-        },
-        */
+    cloneBtn: 'section#section-course input[data-testid=\'startingDate\']',
+
     weiterBtn: 'section#section-course button[data-next-label=\'Weiter\']',
     classesOfTheCourse: 'section#section-2 input[data-testid=\'classes\']',
-    pupilsOfTheCourse: 'section#section-2 input[data-testid=\'pupils\']',
+    pupilsOfTheCourse: 'section#section-course select[data-testid=\'pupils\']',
     kursAnlegenUndWeiterBtn:
       'section#section-course button[data-submit-label=\'Kurs anlegen und Weiter\']',
-    zurUebersichtBtn: 'section#section-course a[id=\'preshow\']'
-    // eslint-disable-next-line prettier/prettier
-    // courseCounter: 
+    zurUebersichtBtn: 'section#section-course a[id=\'preshow\']',
+    teilnehmerFenster: 'section#section-courses '
   }
 };
