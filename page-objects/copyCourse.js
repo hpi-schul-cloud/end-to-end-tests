@@ -5,27 +5,95 @@ const courseData = require('../shared-objects/courseData');
 const { expect } = require('chai');
 
 const createCourse = require('../page-objects/createCourse');
+const addPupilToTheCourse = require('../page-objects/addPupilToTheCourse');
 const shared = { loginData };
 const course = { courseData };
-
-let existingCourses;
-
+let before;
 module.exports = {
-  doesTheCourseExist: async function() {
-    existingCourses = await createCourse.count();
-    await driver.pause(1000);
-    await expect(existingCourses).to.not.equal(0);
+  create: async function(name) {
+    await createCourse.clickAdd();
+    await createCourse.inputCourseName(name);
+    await createCourse.chooseColor();
+    await addPupilToTheCourse.addVertretung();
+    await addPupilToTheCourse.nextButton();
+    await addPupilToTheCourse.addPupils();
+    await addPupilToTheCourse.addClass();
+    await addPupilToTheCourse.createCourseAndNext();
+    await helpers.loadPage(courseData.url, 20);
+  },
+  copyCourse: async function() {
+    await this.chooseCourse();
+    await this.clickClone();
+    await this.confirmClone();
   },
   chooseCourse: async function() {
     const courses = await driver.$$('#section-courses .sc-card-wrapper');
-
-    let coursesLength = await courses.length;
-
-    let lastCourseIndex = coursesLength - 1;
-
+    let lastCourseIndex = courses.length - 1;
     let lastCourse = await courses[lastCourseIndex];
-
     await lastCourse.click();
+  },
+  addText: async function() {
+    const thema = 'Test';
+    await this.chooseCourse();
+    let themaBtn = await driver.$(
+      '#main-content > section > div.course-card > div.sectionsContainer > div > div.section.active > div > div:nth-child(2) > div.add-button > a > span'
+    );
+    await themaBtn.click();
+    let textBtn = await driver.$(
+      '#content-blocks > div > div.form-group > div > button:nth-child(1)'
+    );
+    await textBtn.click();
+    let themaTitle = await driver.$(
+      '#main-content > section > form > div:nth-child(4) > input'
+    );
+    await themaTitle.setValue(thema);
+    let subthema = 'Subtopic';
+    let subthemaWindow = await driver.$(
+      '#content-blocks > div > div:nth-child(1) > div > div > div.card-header > div > input.form-control'
+    );
+    await subthemaWindow.setValue(subthema);
+    let mainText = await driver.$('html');
+    let mainTextContent = 'here is some text';
+    await mainText.setValue(mainTextContent);
+    let submitBtn = await driver.$(
+      '#main-content > section > form > div.modal-footer > button.btn.btn-primary.btn-submit'
+    );
+    await submitBtn.click();
+  },
+  verifyCopyCourseWithText: async function() {
+    let wantedThema = await this.addText().thema;
+    await this.chooseCourse();
+    let topicNames = await Promise.all(
+      (await driver.$$('#topic-list > div > div > div')).map(
+        async element => await element.getText()
+      )
+    );
+    await expect(topicNames).to.include(wantedThema);
+  },
+  delete: async function() {
+    await helpers.loadPage(courseData.url, 20);
+    const courses = await driver.$$('#section-courses .sc-card-wrapper');
+    let lastCourseIndex = (await courses.length) - 1;
+    let lastCourse = await courses[lastCourseIndex];
+    await lastCourse.click();
+    let course = await driver.$('#page-title');
+    await course.click();
+    let deleteBtn = await driver.$(
+      '#main-content > div.dropdown.dropdown-course.minimal-button.open > div > a.dropdown-item.btn-course-edit'
+    );
+    await deleteBtn.click();
+    let deleteBtn2 = await driver.$(
+      '#main-content > section > form > div.modal-footer > a'
+    );
+    await deleteBtn2.click();
+    let lastBtn = await driver.$(
+      'body > div.modal.fade.delete-modal.in > div > div > div.modal-footer > button.btn.btn-primary.btn-submit'
+    );
+    await lastBtn.click();
+  },
+  deleteAll: async function() {
+    await this.delete();
+    await this.delete();
   },
   clickClone: async function() {
     let container = await driver.$('#page-title');
@@ -46,14 +114,6 @@ module.exports = {
       '#main-content > section > form > div.modal-footer > button.btn.btn-primary.btn-submit'
     );
     await btn.click();
-  },
-  isSucessful: async function() {
-    let mainCourses = await driver.$(
-      'body > section > div.content-min-height > nav > ol > li:nth-child(1) > a'
-    );
-    await mainCourses.click();
-    let newCourses = await createCourse.count();
-    let difference = newCourses - existingCourses;
-    await expect(difference).to.equal(1);
+    await helpers.loadPage(courseData.url, 20);
   }
 };

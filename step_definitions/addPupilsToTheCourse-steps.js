@@ -8,18 +8,19 @@ let loginData = require('../shared-objects/loginData');
 let courseData = require('../shared-objects/courseData');
 let shared = { loginData };
 let courseCount;
+const Login = require('../shared-objects/loginData');
 
 Given(/^teacher arrives on the Schul-Cloud page$/, function() {
   return helpers.loadPage(shared.loginData.url, 10);
 });
-When(/^teacher is logged in (.*),(.*) successfully$/, function(
-  username,
-  password
-) {
-  return teacherLogin.performLogin(username, password);
+Given(/^teacher is logged in successfully$/, function() {
+  return teacherLogin.performLogin(
+    Login.deafultTeacherUsername,
+    Login.defaultTeacherpassword
+  );
 });
 
-When('teacher goes to courses page', function() {
+Given('teacher goes to courses page', function() {
   return helpers.loadPage(courseData.url, 20);
 });
 

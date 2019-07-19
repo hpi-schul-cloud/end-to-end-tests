@@ -6,11 +6,11 @@ I want to be able to add some pupils to a new course on Schul-Cloud
 
 Background:
      Given teacher arrives on the Schul-Cloud page
+     Given teacher is logged in successfully
+     Given teacher goes to courses page
      
 
 Scenario Outline:
-     When teacher is logged in <username>,<password> successfully
-     When teacher goes to courses page
      Then teacher sees existing courses
      Then teacher clicks the btn
      Then teacher enters a <courseName>
@@ -24,5 +24,5 @@ Scenario Outline:
      Then teacher sees the created course and the added pupil 
      Then teacher closes the info window
 Examples:
-     |username|password|courseName|
-     |klara.fall@schul-cloud.org|Schulcloud1!|Mathe|
+     |courseName|
+     |Mathe|

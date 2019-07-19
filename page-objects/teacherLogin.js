@@ -24,11 +24,11 @@ module.exports = {
 
   loginResult: async function() {
     expect(await helpers.getElementText('.avatar-circle')).to.equal('KF');
-  }
-  /*  compareScreenshots: async function(filename) {
+  },
+  compareScreenshots: async function(filename) {
     await sleep(100);
     await imageCompare.saveScreenshot(`${filename}.png`, '.timetable');
 
     await helpers.compareImage(`${filename}.png`);
-  } */
+  }
 };

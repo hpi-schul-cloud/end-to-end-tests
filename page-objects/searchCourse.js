@@ -11,13 +11,13 @@ module.exports = {
     let searchfield = await driver.$('#searchBar > div > input');
     await searchfield.setValue(name);
   },
-  amountToBeDisplayed: async function(string) {
+  amountToBeDisplayed: async function(name) {
     let names = await Promise.all(
       (await driver.$$('#section-courses .sc-card-title > div span')).map(
         async element => await element.getText()
       )
     );
-    var re = new RegExp(string, 'gi');
+    var re = new RegExp(name, 'gi');
     const matchingNames = names.filter(n => n.match(re));
     return matchingNames.length;
   },

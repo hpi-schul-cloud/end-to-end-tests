@@ -3,12 +3,18 @@
 const loginData = require('../shared-objects/loginData');
 const courseData = require('../shared-objects/courseData');
 const imageCompare = require('../runtime/imageCompare');
+const teacherLogin = require('../page-objects/teacherLogin');
 const shared = { loginData };
 const course = { courseData };
 
 module.exports = {
   usrname: async function(username) {
     image = username;
+  },
+  performteacherLogin: async function(username, passwort) {
+    await teacherLogin.performLogin(username, passwort);
+    await teacherLogin.loginResult();
+    await teacherLogin.compareScreenshots();
   },
   count: async function() {
     const elem = await driver.$$('#section-courses .sc-card-wrapper');
@@ -20,7 +26,6 @@ module.exports = {
     await clickBtn.click();
   },
   inputCourseName: async function(courseName) {
-    /* ___________Section 1_____________*/
     let inputCourseName = await driver.$(courseData.elem.nameCourse);
     await inputCourseName.setValue(courseName);
   },
@@ -29,15 +34,13 @@ module.exports = {
     await inputColor.click();
   },
   performCreateCourse: async function() {
-    let weiterBtn2 = await driver.$(courseData.elem.kursAnlegenUndWeiterBtn);
+    let weiterBtn2 = await driver.$('#nextSection');
     await weiterBtn2.click();
-    let kursAnlegenUndWeiterBtn = await driver.$(
-      courseData.elem.kursAnlegenUndWeiterBtn
-    );
+    let kursAnlegenUndWeiterBtn = await driver.$('#nextSection');
     await kursAnlegenUndWeiterBtn.click();
   },
   zurUebersicht: async function() {
-    let zurUebersicht = await driver.$(courseData.elem.zurUebersichtBtn);
+    let zurUebersicht = await driver.$('#preshow');
     await zurUebersicht.click();
   }
 };

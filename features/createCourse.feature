@@ -1,13 +1,13 @@
-@teacherLogin @course @createCourse
+@createCourse 
 Feature: logging in as a teachen and create a new course 
 I want to be able to create a new course on Schul-Cloud 
 
 Background:
      Given The teacher arrives on the Schul-Cloud page
+     Given the teacher is logged in successfully
      
 
 Scenario Outline:
-     When the teacher is logged in <username>,<password> successfully
      When the teacher goes to courses page
      Then the teacher sees existing courses
      Then the teacher clicks the btn
@@ -17,7 +17,9 @@ Scenario Outline:
      Then the teacher clicks to preview
      Then the teacher sees the created course 
 Examples:
-     |username|password|courseName|
-     |klara.fall@schul-cloud.org|Schulcloud1!|Mathe|
+     |courseName|
+     |Mathe|
+
+     
 
 

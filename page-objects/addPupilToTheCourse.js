@@ -58,13 +58,11 @@ module.exports = {
     await classSelectbox.click();
   },
   createCourseAndNext: async function() {
-    let kursAnlegenUndWeiterBtn = await driver.$(
-      courseData.elem.kursAnlegenUndWeiterBtn
-    );
+    let kursAnlegenUndWeiterBtn = await driver.$('#nextSection');
     await kursAnlegenUndWeiterBtn.click();
   },
   zurUebersicht: async function() {
-    let zurUebersicht = await driver.$(courseData.elem.zurUebersichtBtn);
+    let zurUebersicht = await driver.$('#preshow');
     await zurUebersicht.click();
   },
   clickPupilIcon: async function() {

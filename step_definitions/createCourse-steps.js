@@ -12,11 +12,10 @@ let courseCount;
 Given(/^The teacher arrives on the Schul-Cloud page$/, function() {
   return helpers.loadPage(shared.loginData.url, 10);
 });
-When(/^the teacher is logged in (.*),(.*) successfully$/, function(
-  username,
-  password
-) {
-  return teacherLogin.performLogin(username, password);
+Given(/^the teacher is logged in successfully$/, function() {
+  let username = loginData.deafultTeacherUsername;
+  let password = loginData.defaultTeacherpassword;
+  return createCourse.performteacherLogin(username, password);
 });
 
 When('the teacher goes to courses page', function() {
