@@ -22,6 +22,7 @@ module.exports = {
     await helpers.loadPage(courseData.url, 20);
   },
   copyCourse: async function() {
+    await helpers.loadPage(courseData.url, 20);
     await this.chooseCourse();
     await this.clickClone();
     await this.confirmClone();
@@ -32,17 +33,30 @@ module.exports = {
     let lastCourse = await courses[lastCourseIndex];
     await lastCourse.click();
   },
-  addText: async function() {
-    const thema = 'Test';
-    await this.chooseCourse();
-    let themaBtn = await driver.$(
-      '#main-content > section > div.course-card > div.sectionsContainer > div > div.section.active > div > div:nth-child(2) > div.add-button > a > span'
+  addThema: async function() {
+    let addBtn = await driver.$(
+      ' #main-content > section > div.course-card > div.sectionsContainer > div > div.section.active > div > div:nth-child(2) > div.add-button > a'
     );
-    await themaBtn.click();
+    await addBtn.click();
+  },
+  addText: async function() {
+    await this.chooseCourse();
+    await this.addThema();
     let textBtn = await driver.$(
       '#content-blocks > div > div.form-group > div > button:nth-child(1)'
     );
     await textBtn.click();
+    let text = 'lalalala, blala';
+    await driver.pause(4000);
+    let iframe = await driver.$('#cke_1_contents > iframe');
+    let textField = await driver.$('body');
+    await iframe.click();
+    await driver.switchToFrame(iframe);
+    await textField.setValue(text);
+    await driver.switchToParentFrame();
+  },
+  themaAndSubthema: async function() {
+    const thema = 'TEST';
     let themaTitle = await driver.$(
       '#main-content > section > form > div:nth-child(4) > input'
     );
@@ -52,24 +66,101 @@ module.exports = {
       '#content-blocks > div > div:nth-child(1) > div > div > div.card-header > div > input.form-control'
     );
     await subthemaWindow.setValue(subthema);
-    let mainText = await driver.$('html');
-    let mainTextContent = 'here is some text';
-    await mainText.setValue(mainTextContent);
     let submitBtn = await driver.$(
       '#main-content > section > form > div.modal-footer > button.btn.btn-primary.btn-submit'
     );
     await submitBtn.click();
   },
-  verifyCopyCourseWithText: async function() {
-    let wantedThema = await this.addText().thema;
+  gotoTopics: async function() {
+    let topicsBtn = await driver.$(
+      '#main-content > section > div.course-card > div.tabContainer > div > span.tab.active > span'
+    );
+    await topicsBtn.click();
+  },
+  verify: async function() {
+    await await helpers.loadPage(courseData.url, 20);
     await this.chooseCourse();
+    await this.gotoTopics();
     let topicNames = await Promise.all(
       (await driver.$$('#topic-list > div > div > div')).map(
         async element => await element.getText()
       )
     );
-    await expect(topicNames).to.include(wantedThema);
+    await expect(topicNames).to.include('TEST');
   },
+  verifyPupils: async function() {
+    let numberOfPupils = await driver.$(
+      '#section-courses > section.section.section-courses > div > div > div:nth-child(7) > article > div.sc-card-footer > div > a'
+    );
+    let numberText = await numberOfPupils.getText();
+    let number = await parseInt(numberText);
+    await expect(number).to.equal(0);
+  },
+  addGeoGebraArbeitsblatt: async function() {
+    await this.chooseCourse();
+    await this.addThema();
+    let geoGebraBtn = await driver.$(
+      '#content-blocks > div > div.form-group > div > button:nth-child(2)'
+    );
+    await geoGebraBtn.click();
+    let geoID = await driver.$('.form-control');
+    let id = 'ucxngdjf';
+    await geoID.setValue(id);
+    var thema = 'geoGebra';
+    await this.themaAndSubthema();
+  },
+  addNeXboard: async function() {
+    await this.chooseCourse();
+    await this.addThema();
+    let name = 'Test';
+    let description = 'here is some text';
+    let neXboard = await driver.$(
+      '#content-blocks > div > div.form-group > div > button:nth-child(4)'
+    );
+    await neXboard.click();
+    let insertName = await driver.$(
+      '#content-blocks > div > div:nth-child(1) > div > div > div.card-block > div > div:nth-child(1) > input'
+    );
+    await insertName.setValue(name);
+    let insertDescription = await driver.$(
+      '#content-blocks > div > div:nth-child(1) > div > div > div.card-block > div > div:nth-child(2) > textarea'
+    );
+    await insertDescription.setValue(description);
+    await this.themaAndSubthema();
+  },
+  addEtherpad: async function() {
+    await this.chooseCourse();
+    await this.addThema();
+    let name = 'Test';
+    let description = 'etherpad test';
+    let etherpadBtn = await driver.$(
+      '#content-blocks > div > div.form-group > div > button:nth-child(5)'
+    );
+    await etherpadBtn.click();
+    let nameField = await driver.$(
+      '#content-blocks > div > div:nth-child(1) > div > div > div.card-block > div > div:nth-child(1) > input'
+    );
+    let descriptionField = await driver.$(
+      '#content-blocks > div > div:nth-child(1) > div > div > div.card-block > div > div:nth-child(2) > textarea'
+    );
+    await nameField.setValue(name);
+    await descriptionField.setValue(description);
+    await this.themaAndSubthema();
+  },
+  editEtherpad: async function() {
+    await helpers.loadPage(courseData.url, 20);
+    await this.chooseCourse();
+    await this.gotoTopics();
+    let etherpad = await driver.$('#topic-list > div > div > div > p');
+    await etherpad.click();
+    //let iframe = await driver.$('#outerdocbody > iframe');
+    // await iframe.click();
+    await driver.switchToFrame(0);
+    let body = await driver.$('#innerdocbody');
+    await body.click();
+    await body.clear();
+  },
+
   delete: async function() {
     await helpers.loadPage(courseData.url, 20);
     const courses = await driver.$$('#section-courses .sc-card-wrapper');
@@ -115,5 +206,11 @@ module.exports = {
     );
     await btn.click();
     await helpers.loadPage(courseData.url, 20);
+  },
+  ok: async function() {
+    let submitBtn = await driver.$(
+      '#main-content > section > form > div.modal-footer > button.btn.btn-primary.btn-submit'
+    );
+    await submitBtn.click();
   }
 };

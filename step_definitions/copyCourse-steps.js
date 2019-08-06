@@ -50,26 +50,30 @@ Then(/^the amount of courses should be x plus one$/, async function() {
 When(/^the teacher adds some Text to the course$/, function() {
   return copyCourse.addText();
 });
+When(/^the teacher adds a topic$/, function() {
+  return copyCourse.themaAndSubthema();
+});
 When(/^the teacher clicks copy course with Text$/, function() {
   return copyCourse.copyCourse();
 });
+
 When(
   /^teacher sees the course copy and the Text is still availiable$/,
   function() {
-    return copyCourse.verifyCopyCourseWithText();
+    return copyCourse.verify();
   }
 );
 // _________With GeoGebraArbeitsblatt__________
 When(/^the teacher adds some GeoGebraArbeitsblatt to the course$/, function() {
-  return 'pending';
+  return copyCourse.addGeoGebraArbeitsblatt();
 });
 When(/^the teacher clicks copy course with GeoGebraArbeitsblatt$/, function() {
-  return 'pending';
+  return copyCourse.copyCourse();
 });
 When(
   /^teacher sees the course copy and the GeoGebraArbeitsblatt is still availiable$/,
   function() {
-    return 'pending';
+    return copyCourse.verify();
   }
 );
 
@@ -89,29 +93,32 @@ When(
 
 // _________With NeXboard__________
 When(/^the teacher adds some NeXboard to the course$/, function() {
-  return 'pending';
+  return copyCourse.addNeXboard();
 });
 When(/^the teacher clicks copy course with NeXboard$/, function() {
-  return 'pending';
+  return copyCourse.copyCourse();
 });
 When(
   /^teacher sees the course copy and the NeXboard is still availiable$/,
   function() {
-    return 'pending';
+    return copyCourse.verify();
   }
 );
 
 // _________With Etherpad__________
 When(/^the teacher adds some Etherpad to the course$/, function() {
-  return 'pending';
+  return copyCourse.addEtherpad();
+});
+When(/^the teacher edits the content of the etherpad$/, function() {
+  return copyCourse.editEtherpad();
 });
 When(/^the teacher clicks copy course with Etherpad$/, function() {
-  return 'pending';
+  return copyCourse.copyCourse();
 });
 When(
   /^teacher sees the course copy and the Etherpad is still availiable$/,
   function() {
-    return 'pending';
+    return copyCourse.verify();
   }
 );
 // _________With InternComponents__________
@@ -130,16 +137,16 @@ When(
 
 // _________With pupils__________
 When(/^the teacher copies the course with pupils$/, function() {
-  return 'pending';
+  return copyCourse.copyCourse();
 });
 Then(
   /^the teacher should see the cloned course but without pupils$/,
   function() {
-    return 'pending';
+    return copyCourse.verifyPupils();
   }
 );
 // clearup
 
-After(function() {
+/*AfterAll(function() {
   return copyCourse.deleteAll();
-});
+});*/
