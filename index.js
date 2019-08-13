@@ -271,7 +271,7 @@ let klassiCli = new (require('cucumber').Cli )({
 
 new Promise(async function(resolve, reject) {
   try {
-    klassiCli.run(function(success) {
+    klassiCli.run().then((success) => {
       resolve = success ? 0 : 1;
       function exitNow() {
         process.exit(resolve);
