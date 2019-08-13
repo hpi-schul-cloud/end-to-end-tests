@@ -35,10 +35,9 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "node index.js -dt @search",
-    "all": "node index.js -ed",
+    "test": "node index.js -dt @teacherLogin",
+    "all": "node index.js -d",
     "dev": "node index.js -dt @api",
-    "uat": "yarn node index.js -dt @search",
     "local": "node index.js -edt",
     "bslocal": "node runtime/remotes/browserstackLocal && node index.js -edw browserstack -x"
   },
