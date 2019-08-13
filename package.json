@@ -35,10 +35,9 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "node index.js -dt @search",
-    "all": "node index.js -ed",
+    "test": "node index.js -dt @teacherLogin",
+    "all": "node index.js -d",
     "dev": "node index.js -dt @api",
-    "uat": "yarn node index.js -dt @search",
     "local": "node index.js -edt",
     "bslocal": "node runtime/remotes/browserstackLocal && node index.js -edw browserstack -x"
   },
@@ -61,14 +60,7 @@
   },
   "devDependencies": {
     "chromedriver": "^2.46.0",
-    "eslint": "^5.15.1",
-    "eslint-config-prettier": "^4.1.0",
-    "eslint-plugin-prettier": "^3.0.1",
     "geckodriver": "^1.16.0",
-    "prettier": "^1.16.4",
     "webdriverio": "^5.7.5"
-  },
-  "prettier": {
-    "singleQuote": true
   }
 }
