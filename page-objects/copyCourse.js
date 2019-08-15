@@ -20,12 +20,13 @@ module.exports = {
     await addPupilToTheCourse.addPupils();
     await addPupilToTheCourse.addClass();
     await addPupilToTheCourse.createCourseAndNext();
+
     await driver.pause(1000);
+
     await helpers.loadPage(courseData.url, 20);
   },
   copyCourse: async function() {
     await helpers.loadPage(courseData.url, 20);
-    await this.countBeforeCopied();
     await this.chooseCourse();
     await this.clickClone();
     await this.confirmClone();
@@ -212,6 +213,7 @@ module.exports = {
     await btn.click();
     await helpers.loadPage(courseData.url, 20);
   },
+
   countBeforeCopied: async function() {
     before = await createCourse.count();
     return before;
