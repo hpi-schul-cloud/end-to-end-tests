@@ -11,18 +11,11 @@ Background:
      
 
 Scenario Outline:
-     Then teacher sees existing courses
-     Then teacher clicks the btn
-     Then teacher enters a <courseName>
-     Then teacher chooses a color of the course
-     Then teacher sets the sub.teacher
-     Then teacher clicks the "Next" button
-     Then teacher adds pupils to the course
-     Then teacher adds a class to the course
-     Then teacher clicks next
-     Then teacher clicks to preview
-     Then teacher sees the created course and the added pupil 
-     Then teacher closes the info window
+     When teacher creates a course <courseName> and adds pupils to this course
+     When teacher clicks the participants icon
+     When teacher added a certain pupil
+     Then he should see the pupil in this course
+
 Examples:
      |courseName|
      |Mathe|

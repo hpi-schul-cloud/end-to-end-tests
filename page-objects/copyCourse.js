@@ -9,6 +9,7 @@ const addPupilToTheCourse = require('../page-objects/addPupilToTheCourse');
 const shared = { loginData };
 const course = { courseData };
 let before;
+
 module.exports = {
   create: async function(name) {
     await createCourse.clickAdd();
@@ -19,16 +20,20 @@ module.exports = {
     await addPupilToTheCourse.addPupils();
     await addPupilToTheCourse.addClass();
     await addPupilToTheCourse.createCourseAndNext();
+    await driver.pause(1000);
     await helpers.loadPage(courseData.url, 20);
   },
   copyCourse: async function() {
     await helpers.loadPage(courseData.url, 20);
+    await this.countBeforeCopied();
     await this.chooseCourse();
     await this.clickClone();
     await this.confirmClone();
   },
   chooseCourse: async function() {
-    const courses = await driver.$$('#section-courses .sc-card-wrapper');
+    const courses = await driver.$$(
+      '#main-content > section > div.course-card > div.sectionsContainer > div > div.section.section-course.active > section > div > div > div'
+    );
     let lastCourseIndex = courses.length - 1;
     let lastCourse = await courses[lastCourseIndex];
     await lastCourse.click();
@@ -73,7 +78,7 @@ module.exports = {
   },
   gotoTopics: async function() {
     let topicsBtn = await driver.$(
-      '#main-content > section > div.course-card > div.tabContainer > div > span.tab.active > span'
+      '#main-content > section > div.course-card > div.tabContainer > div > button.tab.active'
     );
     await topicsBtn.click();
   },
@@ -207,10 +212,13 @@ module.exports = {
     await btn.click();
     await helpers.loadPage(courseData.url, 20);
   },
-  ok: async function() {
-    let submitBtn = await driver.$(
-      '#main-content > section > form > div.modal-footer > button.btn.btn-primary.btn-submit'
-    );
-    await submitBtn.click();
+  countBeforeCopied: async function() {
+    before = await createCourse.count();
+    return before;
+  },
+  verifySimpleCopyCourse: async function() {
+    let after = await createCourse.count();
+    let result = after - before;
+    await expect(result).to.equal(1);
   }
 };

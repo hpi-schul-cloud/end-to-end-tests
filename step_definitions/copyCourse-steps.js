@@ -26,7 +26,7 @@ Given(/^goes the course page$/, function() {
 Given(
   /^the course, which must be cloned, will be created with some name$/,
   async function() {
-    var name = 'I should not see this';
+    var name = 'Test course';
     return copyCourse.create(name);
   }
 );
@@ -41,9 +41,7 @@ When(/^the teacher selects the course and clicks clones it$/, function() {
   return copyCourse.copyCourse();
 });
 Then(/^the amount of courses should be x plus one$/, async function() {
-  let after = await createCourse.count();
-  let result = after - before;
-  await expect(result).to.equal(1);
+  await copyCourse.verifySimpleCopyCourse();
 });
 
 // _________With Text__________
@@ -145,8 +143,3 @@ Then(
     return copyCourse.verifyPupils();
   }
 );
-// clearup
-
-/*AfterAll(function() {
-  return copyCourse.deleteAll();
-});*/

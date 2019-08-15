@@ -4,6 +4,7 @@ let teacherLogin = require('../page-objects/teacherLogin');
 let loginData = require('../shared-objects/loginData');
 let shared = { loginData };
 let page = { teacherLogin };
+const firstLogin = require('../shared_steps/firstLogin.js');
 
 Given(/^The teacher arrives on the Schul-Cloud homepage$/, function() {
   return helpers.loadPage(shared.loginData.url, 10);
@@ -14,18 +15,16 @@ When(/^the teacher puts in (.*) and (.*) and click the login-button$/, function(
   password
 ) {
   /** use a method on the page object which also returns a promise */
-  return page.teacherLogin.performLogin();
+  return page.teacherLogin.performLogin(username, password);
 });
 
-Then(/^the teacher should see their dashboard$/, function() {
-  return page.teacherLogin.loginResult();
+Then(/^the teacher should accept the data protection$/, function() {
+  return firstLogin.firstLoginAdmin();
 });
 
 Then(
-  /^the teacher-dashboard should look like it looked before for (.*)$/,
-  function(username) {
-    let filename = `${username}_dashboard`;
-    //let filename = 'teacher-dashboard';
-    return page.teacherLogin.compareScreenshots(filename);
+  /^the teacher-dashboard should have an icon with the teacher's initials$/,
+  function() {
+    return teacherLogin.loginResult();
   }
 );

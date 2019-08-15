@@ -7,15 +7,17 @@ let loginData = require('../shared-objects/loginData');
 let courseData = require('../shared-objects/courseData');
 let shared = { loginData };
 let page = { teacherLogin };
-let courseCount;
+var countBefore;
+const Login = require('../shared-objects/loginData');
 
 Given(/^The teacher arrives on the Schul-Cloud page$/, function() {
   return helpers.loadPage(shared.loginData.url, 10);
 });
 Given(/^the teacher is logged in successfully$/, function() {
-  let username = loginData.deafultTeacherUsername;
-  let password = loginData.defaultTeacherpassword;
-  return createCourse.performteacherLogin(username, password);
+  return teacherLogin.performLogin(
+    Login.deafultTeacherUsername,
+    Login.defaultTeacherpassword
+  );
 });
 
 When('the teacher goes to courses page', function() {
@@ -23,7 +25,7 @@ When('the teacher goes to courses page', function() {
 });
 
 Then(/^the teacher sees existing courses$/, async function() {
-  return (courseCount = await createCourse.count());
+  return createCourse.countBefore();
 });
 
 Then(/^the teacher clicks the btn$/, function() {
@@ -44,7 +46,5 @@ Then(/^the teacher clicks to preview$/, function() {
 });
 
 Then(/^the teacher sees the created course$/, async function() {
-  let after = await createCourse.count();
-  let result = after - courseCount;
-  expect(result).to.equal(1);
+  return createCourse.verify();
 });

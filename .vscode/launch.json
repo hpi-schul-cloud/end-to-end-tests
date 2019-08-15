@@ -9,9 +9,11 @@
             "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceFolder}/index.js",
-            "args": ["-d","-t","@copyCourse" ],
+            "args": ["-d","-t","@newsIsVisible" ],
             "console":"integratedTerminal",
-            "runtimeVersion": "10.15.3"
+            "runtimeVersion": "10.15.3",
+            "timeout": 40000,
+            "outputCapture": "std"
         }
     ]
 }

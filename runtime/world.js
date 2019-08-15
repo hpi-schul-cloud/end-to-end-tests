@@ -102,16 +102,16 @@ async function getDriverInstance() {
   }
   assert.isNotEmpty(browser, 'Browser must be defined');
   switch (browser || '') {
-  case 'firefox':
-    {
-      driver = FirefoxDriver(options);
-    }
-      break;
-  case 'chrome':
-    {
-      driver = ChromeDriver(options);
-    }
-      break;
+    case 'firefox':
+      {
+        driver = FirefoxDriver(options);
+      }
+    break;
+    case 'chrome':
+      {
+        driver = ChromeDriver(options);
+      }
+    break;
   }
   return driver;
 }
@@ -141,12 +141,21 @@ function consoleInfo() {
  * All Global variables
  * @constructor
  */
-const { Before, After, AfterAll, Status } = require('cucumber');
-const { Given, When, Then } = require('cucumber');
+const {
+  Before,
+  After,
+  AfterAll,
+  Status,
+  Given,
+  And,
+  When,
+  Then
+} = require('cucumber');
 
 global.Given = Given;
 global.When = When;
 global.Then = Then;
+global.And = And;
 
 function World() {
   /**
@@ -333,4 +342,10 @@ After(function(scenario) {
       world.attach(screenShot, 'image/png');
     });
   }
+});
+
+After(function() {
+  const { execSync } = require('child_process');
+  const output = execSync('cd ../schulcloud-server; npm run setup');
+  return Promise.resolve();
 });

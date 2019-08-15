@@ -7,15 +7,10 @@ const course = { courseData };
 let name;
 
 module.exports = {
-  usrname: async function(username) {
-    image = username;
-  },
-  count: async function() {
-    const elem = await driver.$$('#section-courses .sc-card-wrapper');
-    return elem.length;
-  },
   clickAdd: async function() {
-    let clickBtn = await driver.$(courseData.elem.addBtn);
+    let clickBtn = await driver.$(
+      '#main-content > section > div.course-card > div.sectionsContainer > div > div.section.section-course.active > div:nth-child(3) > div > div > div > a.btn.btn-primary.btn-add'
+    );
     await clickBtn.click();
   },
   inputCourseName: async function(courseName) {
@@ -40,6 +35,11 @@ module.exports = {
     );
     name = await selectbox.getText();
     await selectbox.click();
+    await searchbox.click();
+    let anotherPupil = await driver.$(
+      container + '.chosen-drop .active-result:nth-of-type(2)'
+    );
+    await anotherPupil.click();
   },
   addVertretung: async function() {
     let container = await driver.$(
@@ -66,29 +66,24 @@ module.exports = {
     await zurUebersicht.click();
   },
   clickPupilIcon: async function() {
-    const courses = await driver.$$('#section-courses .sc-card-wrapper');
-    await driver.pause(500);
+    const courses = await driver.$$(
+      '#main-content > section > div.course-card > div.sectionsContainer > div > div.section.section-course.active > section > div > div > div'
+    );
+    await driver.pause(1000);
     let coursesLength = await courses.length;
-    await driver.pause(500);
     let lastCourseIndex = coursesLength - 1;
-    await driver.pause(500);
     let lastCourse = await courses[lastCourseIndex];
-    await driver.pause(500);
     let pupilIcon = await lastCourse.$('.btn-member');
     await pupilIcon.click();
-    await driver.pause(1000);
-    let memberNames = await driver.$$('#member-modal-body ol li');
-    let j = (await memberNames.length) - 1;
-    let result = [];
-    for (var i = 0; i <= j; i++) {
-      let resultName = await memberNames[i].getText();
-      await result.push(resultName);
-    }
-    await driver.pause(1500);
-    await expect(result).to.include(name);
-    await driver.pause(2000);
+    await driver.pause(500);
   },
-  closeWindow: async function() {
-    await driver.closeWindow();
+  whatName: function() {
+    return name;
+  },
+  verify: async function() {
+    const elements = await driver.$$('#member-modal-body > ol > li');
+    const namePromises = elements.map(async element => await element.getText());
+    const memberNames = await Promise.all(namePromises);
+    return memberNames;
   }
 };

@@ -2,27 +2,37 @@
 
 const loginData = require('../shared-objects/loginData');
 const courseData = require('../shared-objects/courseData');
-const imageCompare = require('../runtime/imageCompare');
 const teacherLogin = require('../page-objects/teacherLogin');
 const shared = { loginData };
 const course = { courseData };
+const { expect } = require('chai');
+let before;
 
 module.exports = {
-  usrname: async function(username) {
-    image = username;
-  },
-  performteacherLogin: async function(username, passwort) {
-    await teacherLogin.performLogin(username, passwort);
-    await teacherLogin.loginResult();
-    await teacherLogin.compareScreenshots();
-  },
   count: async function() {
-    const elem = await driver.$$('#section-courses .sc-card-wrapper');
+    const elem = await driver.$$(
+      '#main-content > section > div.course-card > div.sectionsContainer > div > div.section.section-course.active > section > div > div > div'
+    );
     await driver.pause(1000);
     return elem.length;
   },
+  countBefore: async function() {
+    before = await this.count();
+    return before;
+  },
+  verify: async function() {
+    let after = await this.count();
+    let result = after - before;
+    await expect(result).to.equal(1);
+  },
   clickAdd: async function() {
-    let clickBtn = await driver.$(courseData.elem.addBtn);
+    let actualCourses = await driver.$(
+      '#main-content > section > div.course-card > div.tabContainer > div > button.tab.active > span'
+    );
+    await actualCourses.click();
+    let clickBtn = await driver.$(
+      '#main-content > section > div.course-card > div.sectionsContainer > div > div.section.section-course.active > div > div > div > div > a.btn.btn-primary.btn-add'
+    );
     await clickBtn.click();
   },
   inputCourseName: async function(courseName) {

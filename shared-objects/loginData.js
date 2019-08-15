@@ -3,6 +3,10 @@ module.exports = {
   //'https://test.schul-cloud.org/login',
   deafultTeacherUsername: 'klara.fall@schul-cloud.org',
   defaultTeacherpassword: 'Schulcloud1!',
+  eligiblePupilUsername: 'demo-schueler@schul-cloud.org',
+  eligiblePupilPassword: 'schulcloud',
+  notEligiblePupilUsername: 'paula.meyer@schul-cloud.org',
+  notEligiblePupilPassword: 'Schulcloud1!',
 
   elem: {
     usernameInput: "section#loginarea input[data-testid='username']",

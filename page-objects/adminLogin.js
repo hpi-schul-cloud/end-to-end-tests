@@ -3,6 +3,7 @@
 const loginData = require('../shared-objects/loginData'),
   imageCompare = require('../runtime/imageCompare'),
   shared = { loginData };
+const firstLogin = require('../shared_steps/firstLogin.js');
 
 let log = global.log;
 let image;
@@ -22,10 +23,8 @@ module.exports = {
   },
 
   loginResult: async function() {
-    expect(
-      //let initialsSel = await driver.$('.avatar-circle');
-      await helpers.getElementText('.avatar-circle')
-    ).to.equal('KF');
+    let initials = await firstLogin.getInitials();
+    expect(await helpers.getElementText('.avatar-circle')).to.equal(initials);
   },
   compareScreenshots: async function(filename) {
     await imageCompare.saveScreenshot(`${filename}.png`, '.timetable');

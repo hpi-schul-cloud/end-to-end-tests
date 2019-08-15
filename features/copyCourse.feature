@@ -22,7 +22,6 @@ Scenario: teacher can copy course with certain text
 When the teacher adds some Text to the course
 When the teacher adds a topic
 When the teacher clicks copy course with Text
-#When teacher submits
 Then teacher sees the course copy and the Text is still availiable 
 
 #OK
