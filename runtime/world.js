@@ -255,6 +255,13 @@ Before(async () => {
   await driver;
 });
 
+// cleanup database before each scenario
+Before(function() {
+  const { execSync } = require('child_process');
+  const output = execSync('cd ../schulcloud-server; npm run setup');
+  return Promise.resolve();
+});
+
 /**
  * send email with the report to stakeholders after test run
  */
@@ -342,10 +349,4 @@ After(function(scenario) {
       world.attach(screenShot, 'image/png');
     });
   }
-});
-
-After(function() {
-  const { execSync } = require('child_process');
-  const output = execSync('cd ../schulcloud-server; npm run setup');
-  return Promise.resolve();
 });

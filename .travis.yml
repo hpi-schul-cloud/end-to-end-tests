@@ -22,8 +22,6 @@ before_install:
 install:
   - cd docker-compose && docker-compose -f docker-compose.integration-test.yml up -d && cd ..
   - cd integration-tests && npm ci && cd ..
-before_script:
-  - cd schulcloud-server && npm run setup && cd ..
 script:
   - echo $TRAVIS_BRANCH
   - echo $TRAVIS_TAG
