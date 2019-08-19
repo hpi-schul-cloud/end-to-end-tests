@@ -1,4 +1,5 @@
 'use strict';
+const { CLIENT } = require("../shared-objects/servers");
 const Login = require('../shared-objects/loginData');
 
 module.exports = {
@@ -68,7 +69,7 @@ module.exports = {
     await pass1.setValue(password);
     await pass2.setValue(password);
     await nextBtn.click();
-    await driver.url('http://localhost:3100/dashboard');
+    await driver.url(`${CLIENT.URL}/dashboard`);
   },
   getInitials: async function() {
     let userIcon = await driver.$(

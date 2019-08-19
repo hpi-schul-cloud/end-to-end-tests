@@ -1,4 +1,5 @@
 'use strict';
+const { CLIENT } = require("../shared-objects/servers");
 const loginData = require('../shared-objects/loginData');
 const courseData = require('../shared-objects/courseData');
 const { expect } = require('chai');
@@ -127,11 +128,11 @@ module.exports = {
     // await adminLogin.compareScreenshots();
   },
   checkWithPupil: async function() {
-    await driver.newWindow('http://localhost:3100/login');
+    await driver.newWindow(`${CLIENT.URL}/login`);
     let actualUrl = await driver.getUrl();
     await driver.pause(500);
     await actualUrl.toString();
-    if (actualUrl == 'http://localhost:3100/dashboard') {
+    if (actualUrl == `${CLIENT.URL}/dashboard`) {
       await driver
         .$(
           'body > section > div.content-min-height > nav > ul > li:nth-child(5) > div > div > a > div > span'
