@@ -1,2 +1,2 @@
- cd ../schulcloud-server
-  npm run seed
+cd ../schulcloud-server
+npm run seed
