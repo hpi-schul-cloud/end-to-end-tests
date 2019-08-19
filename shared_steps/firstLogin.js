@@ -28,6 +28,17 @@ module.exports = {
     );
     await start.click();
   },
+  firstLoginAdmin: async function() {
+    let nextBtn = await driver.$('#nextSection');
+    await nextBtn.click();
+    await nextBtn.click();
+    await this.dataProtection();
+    await nextBtn.click();
+    let start = await driver.$(
+      'body > main > div > div > form > div.panels.mb-2 > section:nth-child(4) > p > a'
+    );
+    await start.click();
+  },
   dataProtection: async function() {
     let box1 = await driver.$(
       'body > main > div > div > form > div.panels.mb-2 > section.submit-page > label:nth-child(4) > input[type=checkbox]'

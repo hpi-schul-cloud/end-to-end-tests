@@ -27,7 +27,8 @@ before_script:
 script:
   - echo $TRAVIS_BRANCH
   - echo $TRAVIS_TAG
-  - cd integration-tests && npm run all && cd ..
+  # - cd integration-tests && npm run all && cd ..
+  - cd integration-tests && npm run test && cd ..
 cache:
   directories:
     - schulcloud-client/node_modules
