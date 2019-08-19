@@ -16,7 +16,7 @@ env:
     - IT_CLIENT_HOST=client
 before_install:
   - mkdir -p integration-tests
-  - mv !(integration-tests) integration-tests
+  - mv -u !(integration-tests) integration-tests
   - git clone https://github.com/schul-cloud/schulcloud-server.git schulcloud-server
   - git clone -b integration-test https://github.com/schul-cloud/docker-compose.git docker-compose
 install:
