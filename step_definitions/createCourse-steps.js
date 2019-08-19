@@ -13,6 +13,7 @@ const Login = require('../shared-objects/loginData');
 Given(/^The teacher arrives on the Schul-Cloud page$/, function() {
   return helpers.loadPage(shared.loginData.url, 10);
 });
+
 Given(/^the teacher is logged in successfully$/, function() {
   return teacherLogin.performLogin(
     Login.deafultTeacherUsername,
