@@ -3,7 +3,6 @@
 
 let addPupilToTheCourse = require('../page-objects/addPupilToTheCourse');
 let teacherLogin = require('../page-objects/teacherLogin');
-
 let copyCourse = require('../page-objects/copyCourse');
 let loginData = require('../shared-objects/loginData');
 let courseData = require('../shared-objects/courseData');
@@ -25,7 +24,6 @@ Given(/^teacher is logged in successfully$/, function() {
 Given('teacher goes to courses page', function() {
   return helpers.loadPage(courseData.url, 20);
 });
-
 When(
   /^teacher creates a course (.*) and adds pupils to this course$/,
   async function(name) {
