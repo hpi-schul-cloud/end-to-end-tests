@@ -312,9 +312,10 @@ module.exports = {
   
   waitAndClick: async function (selector) {
     try {
-      await driver.waitForVisible(selector, DELAY_3_SECOND);
-      await driver.waitForEnabled(selector, DELAY_1_SECOND);
-      await driver.click(selector);
+      let elem = await driver.$(selector);
+      await elem.waitForDisplayed(DELAY_3_SECOND);
+      await elem.waitForEnabled(DELAY_1_SECOND);
+      await elem.click();
       await driver.pause(DELAY_500_MILLISECOND);
     }
     catch (err) {

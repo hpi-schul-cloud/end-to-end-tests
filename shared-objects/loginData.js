@@ -1,6 +1,8 @@
+const { CLIENT } = require("./servers");
+
 module.exports = {
-  url: 'http://localhost:3100/login',
-  //'https://test.schul-cloud.org/login',
+  url: `${CLIENT.URL}/login`,
+
   deafultTeacherUsername: 'klara.fall@schul-cloud.org',
   defaultTeacherpassword: 'Schulcloud1!',
   eligiblePupilUsername: 'demo-schueler@schul-cloud.org',
