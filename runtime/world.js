@@ -255,10 +255,13 @@ Before(async () => {
   await driver;
 });
 
-// cleanup database before each scenario
+/**
+ * cleanup database before each scenario
+ */
 Before(function() {
   const { execSync } = require('child_process');
-  const output = execSync('cd ../schulcloud-server; npm run setup');
+  const output = execSync('cd ../schulcloud-server; echo reset database; npm run setup', { stdio: 'pipe' });
+  // access output via `output.toString()`
   return Promise.resolve();
 });
 
