@@ -17,12 +17,10 @@ env:
 before_install:
   - mkdir -p integration-tests
   - mv !(integration-tests) integration-tests
-  - git clone https://github.com/schul-cloud/schulcloud-client.git schulcloud-client
   - git clone https://github.com/schul-cloud/schulcloud-server.git schulcloud-server
-  - git clone https://github.com/schul-cloud/docker-compose.git docker-compose
+  - git clone -b integration-test https://github.com/schul-cloud/docker-compose.git docker-compose
 install:
   - cd docker-compose && docker-compose -f docker-compose.integration-test.yml up -d && cd ..
-  - cd schulcloud-client && npm ci && cd .. # client packages are needed for mocha
   - cd integration-tests && npm ci && cd ..
 before_script:
   - cd schulcloud-server && npm run setup && cd ..
