@@ -6,6 +6,7 @@ Feature: Creating a task as a teacher
 
    Scenario Outline: The user logs in as a teacher and creates a simple task
    When a teacher logs in his account using <username> and <password> in order to create a task
+   When the teacher has accepted the data protection agreement
    Then he should click the task-button in the dashboard-sidebar
    Then he should click the create-task-button on the task page
    Then he should put the taskname <taskname> into the name field
