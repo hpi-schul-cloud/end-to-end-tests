@@ -82,7 +82,7 @@ module.exports = {
     let firstNameBox = await driver.$('input[name="firstName"]');
     let firstName = await firstNameBox.getValue();
     let firstCharacter = firstName[0];
-    let secondNameBox = await driver.$('input[name="lastname"]');
+    let secondNameBox = await driver.$('input[name="lastName"]');
     let secondName = await secondNameBox.getValue();
     let secondChacter = secondName[0];
     let initials = firstCharacter + secondChacter;
