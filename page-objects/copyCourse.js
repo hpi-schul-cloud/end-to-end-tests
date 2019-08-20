@@ -95,7 +95,7 @@ module.exports = {
   },
   verifyPupils: async function() {
     let numberOfPupils = await driver.$(
-      '#section-courses > section.section.section-courses > div > div > div:nth-child(7) > article > div.sc-card-footer > div > a'
+      '.section-course.active > section > div > div > div:nth-child(2) > article a.btn-member'
     );
     let numberText = await numberOfPupils.getText();
     let number = await parseInt(numberText);

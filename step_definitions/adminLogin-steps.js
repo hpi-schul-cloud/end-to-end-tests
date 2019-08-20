@@ -35,10 +35,3 @@ Then(
     return firstLogin.firstLoginAdmin();
   }
 );
-
-Then(
-  /^the admin-dashboard should look like it looked before for (.*)$/,
-  function(username) {
-    return adminLogin.loginResult();
-  }
-);

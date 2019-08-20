@@ -6,7 +6,7 @@ let courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
 
 Given(/^teacher goes to the login page$/, function() {
-  return helpers.loadPage(courseData.url2, 20);
+  return helpers.loadPage(courseData.urlLogin, 20);
 });
 Given(/^the teacher logs in/, function() {
   return teacherLogin.performLogin(

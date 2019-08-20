@@ -9,7 +9,7 @@ const Login = require('../shared-objects/loginData');
 
 const { After, Before, AfterAll, BeforeAll } = require('cucumber');
 Given(/^the teacher starts on the login page$/, function() {
-  return helpers.loadPage(courseData.url2, 20);
+  return helpers.loadPage(courseData.urlLogin, 20);
 });
 
 Given(/^the teacher is logged-in successfully$/, function() {

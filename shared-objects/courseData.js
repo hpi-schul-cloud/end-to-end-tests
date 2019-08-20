@@ -2,7 +2,7 @@ const { CLIENT } = require("./servers");
 
 module.exports = {
   url: `${CLIENT.URL}/courses`,
-  url2: `${CLIENT.URL}/login`,
+  urlLogin: `${CLIENT.URL}/login`,
   elem: {
     addBtn: 'section#section-courses a[data-testid=\'courseAddButton\']',
     courseContainer:

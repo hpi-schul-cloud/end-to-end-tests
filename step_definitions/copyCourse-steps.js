@@ -13,7 +13,7 @@ let before;
 //________Background_________
 
 Given(/^teacher goes to the home page$/, function() {
-  return helpers.loadPage(courseData.url2, 20);
+  return helpers.loadPage(courseData.urlLogin, 20);
 });
 Given(/^teacher is successfully logged in/, function() {
   return teacherLogin.performLogin(
