@@ -24,14 +24,13 @@ Then(/^an admin should see my dashboard$/, function() {
 Then(
   /^the admin-dashboard should look like it looked before for (.*)$/,
   function(username) {
-    let filename = 'admin-dashboard';
-    return page.adminLogin.compareScreenshots(filename);
+    return adminLogin.loginResult();
   }
 );
 
 Then(
   /^the user is supposed to accept the data protection agreement$/,
   function() {
-    return firstLogin.firstLoginAdmin();
+    return firstLogin.firstLoginTeacher();
   }
 );

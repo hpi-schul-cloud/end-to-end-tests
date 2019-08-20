@@ -1,6 +1,7 @@
 'use strict';
 const { CLIENT } = require("../shared-objects/servers");
 const Login = require('../shared-objects/loginData');
+const courseData = require('../shared-objects/courseData');
 
 module.exports = {
   pupilLogin: async function() {
@@ -24,9 +25,7 @@ module.exports = {
     await nextBtn.click();
     await this.dataProtection();
     await nextBtn.click();
-    let start = await driver.$(
-      'body > main > div > div > form > div.panels.mb-2 > section:nth-child(4) > p > a'
-    );
+    let start = await driver.$(courseData.elem.schulcloudErkundenBtn);
     await start.click();
   },
   firstLoginAdmin: async function() {

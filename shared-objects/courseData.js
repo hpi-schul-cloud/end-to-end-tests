@@ -21,8 +21,10 @@ module.exports = {
     classesOfTheCourse: 'section#section-2 input[data-testid=\'classes\']',
     pupilsOfTheCourse: 'select[data-testid=\'pupils\']',
     kursAnlegenUndWeiterBtn:
-      'button[data-submit-label=\'Kurs anlegen und Weiter\']',
-    zurUebersichtBtn: 'a[id=\'preshow\']',
-    teilnehmerFenster: 'section#section-courses '
+      'section#section-course button[data-submit-label=\'Kurs anlegen und Weiter\']',
+    zurUebersichtBtn: 'section#section-course a[id=\'preshow\']',
+    teilnehmerFenster: 'section#section-courses ',
+    // Dataschutz:
+    schulcloudErkundenBtn: 'a[data-testid=\'Schul-Cloud-erkunden-Btn\']'
   }
 };
