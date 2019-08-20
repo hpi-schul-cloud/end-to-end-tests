@@ -34,4 +34,3 @@ script:
 cache:
   directories:
     - schulcloud-client/node_modules
-    - integration-tests/node_modules

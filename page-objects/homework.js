@@ -128,8 +128,8 @@ module.exports = {
     // await adminLogin.compareScreenshots();
   },
   checkWithPupil: async function() {
-    await driver.deleteCookies();
     await driver.newWindow(`${CLIENT.URL}/login`);
+    await driver.deleteCookies();
     let actualUrl = await driver.getUrl();
     await driver.pause(500);
     await actualUrl.toString();
