@@ -72,21 +72,17 @@ module.exports = {
   },
   getInitials: async function() {
     let userIcon = await driver.$(
-      'body > section > div.content-min-height > nav > ul > li:nth-child(5) > div > div > a > div > span'
+      '.btn-avatar > a'
     );
     await userIcon.click();
     let settings = await driver.$(
-      'body > section > div.content-min-height > nav > ul > li:nth-child(5) > div > div > div > a:nth-child(2)'
+      '.btn-avatar a[href="/account/"]'
     );
     await settings.click();
-    let firstNameBox = await driver.$(
-      '#main-content > div.route-account > form > div:nth-child(1) > input'
-    );
+    let firstNameBox = await driver.$('input[name="firstName"]');
     let firstName = await firstNameBox.getValue();
     let firstCharacter = firstName[0];
-    let secondNameBox = await driver.$(
-      '#main-content > div.route-account > form > div:nth-child(2) > input'
-    );
+    let secondNameBox = await driver.$('input[name="lastname"]');
     let secondName = await secondNameBox.getValue();
     let secondChacter = secondName[0];
     let initials = firstCharacter + secondChacter;

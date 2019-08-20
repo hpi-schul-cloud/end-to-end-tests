@@ -21,7 +21,7 @@ module.exports = {
   },
 
   loginResult: async function() {
-      expect(await helpers.getElementText(shared.loginData.elem.failedLoginNotification)).to.equal('Login fehlgeschlagen.');
+      expect(await helpers.getElementText(".notification-content")).to.equal('Login fehlgeschlagen.');
   },
 
   compareScreenshots: async function(filename) {
