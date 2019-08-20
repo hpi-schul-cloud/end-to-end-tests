@@ -5,6 +5,7 @@ let createCourse = require('../page-objects/createCourse');
 let copyCourse = require('../page-objects/copyCourse');
 let courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
+const firstLogin = require('../shared_steps/firstLogin.js');
 
 const { After, Before, AfterAll, BeforeAll } = require('cucumber');
 let before;
@@ -19,6 +20,9 @@ Given(/^teacher is successfully logged in/, function() {
     Login.deafultTeacherUsername,
     Login.defaultTeacherpassword
   );
+});
+Given(/^teacher has accepted the data protection agreement$/, function() {
+  return firstLogin.firstLoginTeacher();
 });
 Given(/^goes the course page$/, function() {
   return helpers.loadPage(courseData.url, 20);

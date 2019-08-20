@@ -3,8 +3,9 @@ Feature: copy a created course with different data
 
 
 Background: teacher is logged in and has created a course
-Given teacher goes to the home page 
+Given teacher goes to the home page
 Given teacher is successfully logged in
+Given teacher has accepted the data protection agreement
 Given goes the course page
 Given the course, which must be cloned, will be created with some name
 Given the amount of courses is x
