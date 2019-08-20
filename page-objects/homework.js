@@ -200,6 +200,7 @@ module.exports = {
       Login.deafultTeacherUsername,
       Login.defaultTeacherpassword
     );
+    await firstLogin.firstLoginTeacher();
     await await helpers.loadPage(courseData.url, 20);
     await copyCourse.chooseCourse();
     let tasks = await driver.$(
