@@ -21,12 +21,9 @@ Then(/^an admin should see my dashboard$/, function() {
   return page.adminLogin.loginResult();
 });
 
-Then(
-  /^the admin-dashboard should look like it looked before for (.*)$/,
-  function(username) {
-    return adminLogin.loginResult();
-  }
-);
+Then( /^the admin-dashboard should have the admins initials$/, function(username) {
+  return adminLogin.loginResult();
+});
 
 Then(
   /^the user is supposed to accept the data protection agreement$/,

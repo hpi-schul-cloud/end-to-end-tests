@@ -81,15 +81,15 @@ When(
 
 // _________With Material__________
 When(/^the teacher adds some Material to the course$/, function() {
-  return 'pending';
+  return 'not implemented';
 });
 When(/^the teacher clicks copy course with Material$/, function() {
-  return 'pending';
+  return 'not implemented';
 });
 When(
   /^teacher sees the course copy and the Material is still availiable$/,
   function() {
-    return 'pending';
+    return 'not implemented';
   }
 );
 
@@ -125,17 +125,14 @@ When(
 );
 // _________With InternComponents__________
 When(/^the teacher adds some InternComponents to the course$/, function() {
-  return 'pending';
+  return 'not implemented';
 });
 When(/^the teacher clicks copy course with InternComponents$/, function() {
-  return 'pending';
+  return 'not implemented';
 });
-When(
-  /^teacher sees the course copy and the InternComponents is (are) still availiable$/,
-  function() {
-    return 'pending';
-  }
-);
+When(/^teacher sees the course copy and the InternComponents is (are) still availiable$/, function() {
+  return 'not implemented';
+});
 
 // _________With pupils__________
 When(/^the teacher copies the course with pupils$/, function() {
