@@ -32,13 +32,10 @@ Then(
 Then(
   /^the user is supposed to accept the data protection agreement$/,
   function() {
-    return firstLogin.firstLoginAdmin();
+    return firstLogin.firstLoginTeacher();
   }
 );
 
-Then(
-  /^the admin-dashboard should look like it looked before for (.*)$/,
-  function(username) {
-    return adminLogin.loginResult();
-  }
-);
+Then(/^the admin-dashboard should have the admin#s initials$/, function() {
+  return adminLogin.loginResult();
+});

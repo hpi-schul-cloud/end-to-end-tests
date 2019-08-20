@@ -21,6 +21,8 @@ module.exports = {
     kursAnlegenUndWeiterBtn:
       'section#section-course button[data-submit-label=\'Kurs anlegen und Weiter\']',
     zurUebersichtBtn: 'section#section-course a[id=\'preshow\']',
-    teilnehmerFenster: 'section#section-courses '
+    teilnehmerFenster: 'section#section-courses ',
+    // Dataschutz:
+    schulcloudErkundenBtn: 'a[data-testid=\'Schul-Cloud-erkunden-Btn\']'
   }
 };
