@@ -27,7 +27,7 @@ module.exports = {
   },
   addPupils: async function() {
     const container =
-      '#section-course .course-submit-page .form-group:nth-of-type(2) ';
+      '.course-submit-page .form-group:nth-of-type(2) ';
     let searchbox = await driver.$(container + '.search-field input');
     await searchbox.click();
     let selectbox = await driver.$(
@@ -43,13 +43,13 @@ module.exports = {
   },
   addVertretung: async function() {
     let container = await driver.$(
-      '#section-course > div.wizard-card > form > div.panels.mb-2 > section:nth-child(1) > div:nth-child(4) > div:nth-child(2) > div > ul'
+      'form > div.panels > section:nth-child(1) > div:nth-child(4) > div:nth-child(2) > div > ul'
     );
     await container.click();
   },
   addClass: async function() {
     const classContainer =
-      '#section-course .course-submit-page .form-group:nth-of-type(1) ';
+      '.course-submit-page .form-group:nth-of-type(1) ';
     let classSearchbox = await driver.$(classContainer + '.search-field input');
     await classSearchbox.click();
     let classSelectbox = await driver.$(

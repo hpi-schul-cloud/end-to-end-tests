@@ -31,7 +31,7 @@ module.exports = {
     );
     await actualCourses.click();
     let clickBtn = await driver.$(
-      '#main-content > section > div.course-card > div.sectionsContainer > div > div.section.section-course.active > div > div > div > div > a.btn.btn-primary.btn-add'
+      'a[href="/courses/add"]'
     );
     await clickBtn.click();
   },
