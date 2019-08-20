@@ -1,13 +1,34 @@
 language: node_js
-
-node_js:
-  - "10.15.3"
-  - "11.0.0"
-yarn:
-  - "1.13.0"
-
+node_js: '10'
+sudo: required
+branches:
+  only:
+    - develop
+    - master
+    - /^(?i:release|hotfix).*$/
+services:
+  - docker
+env:
+  global:
+    - GIT_SHA=$( git rev-parse HEAD )
+    - SC_DEMO_USER_PASSWORD=schulcloud
+    - FEATURE_TEAMS_ENABLED=true
+    - IT_CLIENT_HOST=client
+before_install:
+  - mkdir -p integration-tests
+  - mv !(integration-tests|node_modules) integration-tests
+  - git clone https://github.com/schul-cloud/schulcloud-server.git schulcloud-server
+  - git clone -b integration-test https://github.com/schul-cloud/docker-compose.git docker-compose
+install:
+  - cd docker-compose && docker-compose -f docker-compose.integration-test.yml up -d && cd ..
+  - cd integration-tests && npm ci && cd ..
 before_script:
-  - npm install selenium-standalone@latest -g
-  - selenium-standalone install
-  - selenium-standalone start &
-  - sleep 5
+  - cd schulcloud-server && npm run setup && cd ..
+script:
+  - echo $TRAVIS_BRANCH
+  - echo $TRAVIS_TAG
+  - cd integration-tests && npm run all && cd ..
+cache:
+  directories:
+    - schulcloud-client/node_modules
+    - integration-tests/node_modules

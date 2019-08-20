@@ -1,5 +1,5 @@
 {
-  "name": "klassi-js",
+  "name": "sc-integration-tests",
   "version": "2.5.0",
   "description": "A platform independent debuggable BDD Javascript testing framework. It's simple, easy to use and not dependant to any other tool or library, using Nodejs, webdriverio and cucumber-js",
   "Author": {
@@ -27,25 +27,24 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/larryg01/klassi-js"
+    "url": "https://github.com/schul-cloud/integration-tests"
   },
   "engines": {
     "node": ">= 10.15.0",
-    "yarn": ">= 1.3.2"
+    "npm": ">= 6.4.1"
   },
   "main": "index.js",
   "scripts": {
-    "test": "node index.js -dt @search",
-    "all": "node index.js -ed",
+    "test": "node index.js -dt @teacherLogin",
+    "all": "node index.js -d",
     "dev": "node index.js -dt @api",
-    "uat": "yarn node index.js -dt @search",
     "local": "node index.js -edt",
     "bslocal": "node runtime/remotes/browserstackLocal && node index.js -edw browserstack -x",
     "startServer": "./starts.sh",
     "clean": "./clean.sh",
     "cleantest": "npm run clean && npm run test"
   },
-  "homepage": "https://github.com/larryg01/klassi-js#readme",
+  "homepage": "https://github.com/schul-cloud/integration-tests#readme",
   "dependencies": {
     "browserstack-local": "^1.3.7",
     "chai": "^4.2.0",
@@ -64,18 +63,11 @@
   },
   "devDependencies": {
     "chromedriver": "^2.46.0",
-    "eslint": "^5.15.1",
-    "eslint-config-prettier": "^4.1.0",
-    "eslint-plugin-prettier": "^3.0.1",
     "expect": "^1.20.2",
     "glob": "^7.1.2",
     "geckodriver": "^1.16.0",
-    "prettier": "^1.16.4",
     "util-arity": "^1.1.0",
     "reuse-cucumber-scenarios": "^1.1.7",
     "webdriverio": "^5.7.5"
-  },
-  "prettier": {
-    "singleQuote": true
   }
 }
