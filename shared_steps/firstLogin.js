@@ -27,9 +27,6 @@ module.exports = {
     await this.dataProtection();
     await nextBtn.click();
     let start = await driver.$('a[data-testid=\'Schul-Cloud-erkunden-Btn\']');
-    /* await driver.wait(function() {
-      return driver.isElementPresent
-    }) */
     await start.waitForExist(5000);
     await start.click();
   },
@@ -54,25 +51,21 @@ module.exports = {
     );
     await box2.click();
   },
-  firstLoginPupilFullAge: async function() {
+  firstLoginPupilFullAge: async function(name, password) {
     let nextBtn = await driver.$('#nextSection');
     await nextBtn.click();
+    /*let emailBox = await driver.$('a[data-testid=\'e-mail-ueberpruefen\'');
+    await emailBox.setValue(name);*/
     await nextBtn.click();
-    let box1 = await driver.$(
-      'body > main > div > div > form > div.panels.mb-2 > section:nth-child(3) > label:nth-child(4) > input[type=checkbox]'
-    );
-    let box2 = await driver.$(
-      'body > main > div > div > form > div.panels.mb-2 > section:nth-child(3) > label:nth-child(6) > input[type=checkbox]'
-    );
-    await box1.click();
-    await box2.click();
-    await nextBtn.click();
-    let password = 'Schulcloud1!';
     let pass1 = await driver.$('#password');
     let pass2 = await driver.$('#password_control');
     await pass1.setValue(password);
     await pass2.setValue(password);
     await nextBtn.click();
+    await driver.pause(2000);
+    let start = await driver.$('a[data-testid=\'Schul-Cloud-erkunden-Btn\']');
+    await start.waitForExist(5000);
+    await start.click();
     await driver.url(`${CLIENT.URL}/dashboard`);
   },
   getInitials: async function() {

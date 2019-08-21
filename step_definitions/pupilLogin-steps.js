@@ -15,8 +15,8 @@ When(/^a pupil puts in (.*) and (.*) and clicks the login-button$/, function (us
     return shared.performLogin.performLogin(username,password);
 });  
 
-Then(/^pupil accepts data security$/, function() {
-    return firstLogin.firstLoginPupilFullAge();
+Then(/^pupil accepts data security, checks the email (.*) and sets password (.*) .$/, function(username,password) {
+    return firstLogin.firstLoginPupilFullAge(username, password);
   });
 
 Then(/^a pupil should see the dashboard$/, function () {    
