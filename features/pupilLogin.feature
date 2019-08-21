@@ -8,8 +8,9 @@ Feature: Logging in as an pupil
 
   Scenario Outline: User inputs the username and password
     When a pupil puts in <username> and <password> and clicks the login-button
+    Then pupil accepts data security 
     Then a pupil should see the dashboard
-    #Then the pupil-dashboard should look like it looked before for <username>
+    
 
     Examples:
       |username|password|

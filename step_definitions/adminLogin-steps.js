@@ -17,17 +17,15 @@ When(/^an admin puts in (.*) and (.*) and click the login-button$/, function(
   return page.adminLogin.performLogin(username, password);
 });
 
-Then(/^an admin should see my dashboard$/, function() {
-  return page.adminLogin.loginResult();
-});
-
-Then( /^the admin-dashboard should have the admins initials$/, async function(username) {
-  return adminLogin.loginResult();
-});
-
 Then(
   /^the user is supposed to accept the data protection agreement$/,
   function() {
     return firstLogin.firstLoginTeacher();
+  }
+);
+Then(
+  /^the admin-dashboard should have the admin initials$/,
+  function() {
+    return adminLogin.loginResult();
   }
 );

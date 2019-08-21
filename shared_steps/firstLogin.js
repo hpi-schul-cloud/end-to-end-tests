@@ -2,6 +2,7 @@
 const { CLIENT } = require("../shared-objects/servers");
 const Login = require('../shared-objects/loginData');
 const courseData = require('../shared-objects/courseData');
+var secondCharacter;
 
 module.exports = {
   pupilLogin: async function() {
@@ -25,7 +26,11 @@ module.exports = {
     await nextBtn.click();
     await this.dataProtection();
     await nextBtn.click();
-    let start = await driver.$(courseData.elem.schulcloudErkundenBtn);
+    let start = await driver.$('a[data-testid=\'Schul-Cloud-erkunden-Btn\']');
+    /* await driver.wait(function() {
+      return driver.isElementPresent
+    }) */
+    await start.waitForExist(5000);
     await start.click();
   },
   firstLoginAdmin: async function() {
@@ -73,15 +78,21 @@ module.exports = {
   getInitials: async function() {
     let userIcon = await driver.$('.btn-avatar > a');
     await userIcon.click();
-    let settings = await driver.$('.btn-avatar a[href="/account/"]');
-    await settings.click();
-    let firstNameBox = await driver.$('input[name="firstName"]');
-    let firstName = await firstNameBox.getValue();
-    let firstCharacter = firstName[0];
-    let secondNameBox = await driver.$('input[name="lastName"]');
-    let secondName = await secondNameBox.getValue();
-    let secondChacter = secondName[0];
-    let initials = firstCharacter + secondChacter;
+  
+    let nameBox = await driver.$(
+      '.dropdown-name'
+    );
+    let name = await nameBox.getText();
+    let firstCharacter = name[0];
+    let length = name.length; 
+    for (var i=1; i<=length; i++) {
+      if (name[i] == " ") {
+      secondCharacter = name[i+1];
+      break;
+      }
+      
+    }
+    let initials = firstCharacter + secondCharacter;
     return initials;
   },
   logout: async function() {
