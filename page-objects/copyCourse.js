@@ -31,12 +31,15 @@ module.exports = {
     await this.confirmClone();
   },
   chooseCourse: async function() {
-    const courses = await driver.$$(
-      '#main-content > section > div.course-card > div.sectionsContainer > div > div.section.section-course.active > section > div > div > div'
-    );
-    let lastCourseIndex = courses.length - 1;
-    let lastCourse = await courses[lastCourseIndex];
-    await lastCourse.click();
+    let coursesContainer = await driver.$('div[data-testid=\'courses\']');
+    let courses = await driver.$$('div[data-testid=\'courses\'] > div');
+    let lastCourseIndex = courses.length;
+    //let lastCourse = await driver.$('div[data-testid=\'courses\'] > div:nth-child' + '('+ lastCourseIndex + ')');
+    let lastCourse = await driver.$('div[data-testid=\'courses\'] > div:nth-child(1)');
+    await lastCourse.click(); 
+    // wir gehen davon aus, dass noch keine aktuelle Kurse vorhanden sind:
+    /*let course = await driver.$('div[data-testid=\'courses\'] > div');
+    await course.click(); */
   },
   addThema: async function() {
     let addBtn = await driver.$(

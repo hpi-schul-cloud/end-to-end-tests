@@ -95,6 +95,7 @@ module.exports = {
   addBasicHomework: async function() {
     await this.basicHomework();
     await this.clickAdd();
+    await driver.pause(1000);
   },
   gotoTasks: async function() {
     let hometasks = await driver.$(
@@ -128,27 +129,6 @@ module.exports = {
     // await adminLogin.compareScreenshots();
   },
   checkWithPupil: async function() {
-    await driver.newWindow(`${CLIENT.URL}/login`);
-    let actualUrl = await driver.getUrl();
-    await driver.pause(500);
-    await actualUrl.toString();
-    if (actualUrl == `${CLIENT.URL}/dashboard`) {
-      await driver
-        .$(
-          'body > section > div.content-min-height > nav > ul > li:nth-child(5) > div > div > a > div > span'
-        )
-        .click();
-      await driver
-        .$(
-          'body > section > div.content-min-height > nav > ul > li:nth-child(5) > div > div > div > a:nth-child(3)'
-        )
-        .click();
-    } else {
-      await firstLogin.firstLoginTeacher();
-      await firstLogin.logout();
-    }
-    // now pupil login:
-    await firstLogin.pupilLogin();
     await helpers.loadPage(courseData.url, 20);
     await copyCourse.chooseCourse();
     let courseTasks = await driver.$(
@@ -175,8 +155,18 @@ module.exports = {
   pupilLogin: async function() {
     return firstLogin.pupilLogin();
   },
+  userLogsOut: async function() {
+    let icon = await driver.$('.avatar-circle');
+    await icon.click();
+    let logout = loginData.elem.logout;
+    await logout.click()
+  },
   pupilEditsTextHomework: async function() {
-    await this.checkWithPupil();
+    await this.userLogsOut();
+    await this.pupilLogin();
+    await firstLogin.firstLoginPupilFullAge();
+    await helpers.loadPage(courseData.url, 20);
+    await copyCourse.chooseCourse();
     let tasks = await driver.$(
       '#main-content > section > div.course-card > div.tabContainer > div > button.tab.active > span'
     );
@@ -201,7 +191,7 @@ module.exports = {
       Login.defaultTeacherpassword
     );
     await firstLogin.firstLoginTeacher();
-    await await helpers.loadPage(courseData.url, 20);
+    await helpers.loadPage(courseData.url, 20);
     await copyCourse.chooseCourse();
     let tasks = await driver.$(
       '#main-content > section > div.course-card > div.tabContainer > div > button.tab.active > span'

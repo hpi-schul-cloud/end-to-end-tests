@@ -15,5 +15,9 @@ module.exports = {
     passwordInput: 'section#loginarea input[data-testid=\'password\']',
     loginBtn: 'section#loginarea input[data-testid=\'submit-login\']',
     resultInitials: '.avatar-circle .initials',
+    icon: 'span[data-testid=\'initials\']',
+    settings: 'a[data-testid=\'settings\']',
+    logout: 'a[data-testid=\'logout\']'
+
   }
 };
