@@ -19,7 +19,7 @@ When(/^the teacher puts in (.*) and (.*) and click the login-button$/, function(
 });
 
 Then(/^the teacher should accept the data protection$/, function() {
-  return firstLogin.firstLoginAdmin();
+  return firstLogin.firstLoginTeacher();
 });
 
 Then(

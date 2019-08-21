@@ -1,6 +1,7 @@
 'use strict';
 const Login = require('../shared-objects/loginData');
 const courseData = require('../shared-objects/courseData');
+var secondCharacter;
 
 module.exports = {
   pupilLogin: async function() {
@@ -24,7 +25,11 @@ module.exports = {
     await nextBtn.click();
     await this.dataProtection();
     await nextBtn.click();
-    let start = await driver.$(courseData.elem.schulcloudErkundenBtn);
+    let start = await driver.$('a[data-testid=\'Schul-Cloud-erkunden-Btn\']');
+    /* await driver.wait(function() {
+      return driver.isElementPresent
+    }) */
+    await start.waitForExist(5000);
     await start.click();
   },
   dataProtection: async function() {
@@ -63,21 +68,21 @@ module.exports = {
       'body > section > div.content-min-height > nav > ul > li:nth-child(5) > div > div > a > div > span'
     );
     await userIcon.click();
-    let settings = await driver.$(
-      'body > section > div.content-min-height > nav > ul > li:nth-child(5) > div > div > div > a:nth-child(2)'
+  
+    let nameBox = await driver.$(
+      '.dropdown-name'
     );
-    await settings.click();
-    let firstNameBox = await driver.$(
-      '#main-content > div.route-account > form > div:nth-child(1) > input'
-    );
-    let firstName = await firstNameBox.getValue();
-    let firstCharacter = firstName[0];
-    let secondNameBox = await driver.$(
-      '#main-content > div.route-account > form > div:nth-child(2) > input'
-    );
-    let secondName = await secondNameBox.getValue();
-    let secondChacter = secondName[0];
-    let initials = firstCharacter + secondChacter;
+    let name = await nameBox.getText();
+    let firstCharacter = name[0];
+    let length = name.length; 
+    for (var i=1; i<=length; i++) {
+      if (name[i] == " ") {
+      secondCharacter = name[i+1];
+      break;
+      }
+      
+    }
+    let initials = firstCharacter + secondCharacter;
     return initials;
   },
   logout: async function() {
