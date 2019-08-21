@@ -129,7 +129,6 @@ module.exports = {
   },
   checkWithPupil: async function() {
     await driver.newWindow(`${CLIENT.URL}/login`);
-    await driver.deleteCookies();
     let actualUrl = await driver.getUrl();
     await driver.pause(500);
     await actualUrl.toString();
@@ -196,7 +195,6 @@ module.exports = {
     await ok.click();
   },
   teacherCanSeeTheTextSubmission: async function() {
-    await driver.deleteCookies();
     await driver.newWindow(Login.url);
     await teacherLogin.performLogin(
       Login.deafultTeacherUsername,

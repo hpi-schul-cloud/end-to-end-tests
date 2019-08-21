@@ -46,13 +46,13 @@ When the teacher adds some NeXboard to the course
 When the teacher clicks copy course with NeXboard
 Then teacher sees the course copy and the NeXboard is still availiable 
 
-#OK, verify-Methode fehlt noch 
-@copyCourseWithEtherpad
-Scenario: teacher can copy course with certain Etherpad
-When the teacher adds some Etherpad to the course
-When the teacher edits the content of the etherpad
-When the teacher clicks copy course with Etherpad
-Then teacher sees the course copy and the Etherpad is still availiable 
+# OK, verify-Methode fehlt noch 
+# @copyCourseWithEtherpad
+# Scenario: teacher can copy course with certain Etherpad
+# When the teacher adds some Etherpad to the course
+# When the teacher edits the content of the etherpad
+# When the teacher clicks copy course with Etherpad
+# Then teacher sees the course copy and the Etherpad is still availiable 
 
 #Links???
 @copyCourseWithInternComponents

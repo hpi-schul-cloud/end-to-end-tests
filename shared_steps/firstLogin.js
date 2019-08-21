@@ -71,13 +71,9 @@ module.exports = {
     await driver.url(`${CLIENT.URL}/dashboard`);
   },
   getInitials: async function() {
-    let userIcon = await driver.$(
-      '.btn-avatar > a'
-    );
+    let userIcon = await driver.$('.btn-avatar > a');
     await userIcon.click();
-    let settings = await driver.$(
-      '.btn-avatar a[href="/account/"]'
-    );
+    let settings = await driver.$('.btn-avatar a[href="/account/"]');
     await settings.click();
     let firstNameBox = await driver.$('input[name="firstName"]');
     let firstName = await firstNameBox.getValue();

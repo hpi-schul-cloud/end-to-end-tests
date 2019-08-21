@@ -21,7 +21,7 @@ Then(/^an admin should see my dashboard$/, function() {
   return page.adminLogin.loginResult();
 });
 
-Then( /^the admin-dashboard should have the admins initials$/, function(username) {
+Then( /^the admin-dashboard should have the admins initials$/, async function(username) {
   return adminLogin.loginResult();
 });
 
