@@ -21,6 +21,14 @@ module.exports = {
     // Einwilligungserklärung:
     box1: 'input[name=\'privacyConsent\']',
     box2: 'input[name=\'termsOfUseConsent\']',
+    passwordSet: 'input[data-testid=\'password\']',
+    passwordSet2: 'input[data-testid=\'password_control\']',
+
+    // course_tabs:
+    topics: 'button[data-testid=\'topics\']',
+    tasks_tab: 'button[data-testid=\'hometasks\']',
+    tools: 'button[data-testid=\'tools\']',
+    groups: 'button[data-testid=\'groups\']',
 
   }
 };

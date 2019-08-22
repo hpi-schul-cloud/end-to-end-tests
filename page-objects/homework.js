@@ -14,6 +14,7 @@ const imageCompare = require('../runtime/imageCompare');
 var fs = require('fs');
 const firstLogin = require('../shared_steps/firstLogin.js');
 let name;
+let was_submitted_by; 
 
 module.exports = {
   basicHomework: async function() {
@@ -159,14 +160,15 @@ module.exports = {
     await helpers.loadPage(courseData.urlLogout, 20);
   },
   pupilEditsTextHomework: async function() {
+    let pass = "Schulcloud1!";
+    let name = "paula.meyer@schul-cloud.org";
     await this.userLogsOut();
     await this.pupilLogin();
-    await firstLogin.firstLoginPupilFullAge();
+    await firstLogin.firstLoginPupilFullAge(name, pass);
+    was_submitted_by = await firstLogin.getNameAndPosition();
     await helpers.loadPage(courseData.urlCourses, 20);
     await copyCourse.chooseCourse();
-    let tasks = await driver.$(
-      '#main-content > section > div.course-card > div.tabContainer > div > button.tab.active > span'
-    );
+    let tasks = await driver.$(Login.elem.tasks_tab);
     await tasks.click();
 
     let task = await driver.$('#homeworks > ol > div > li:nth-child(1)');
@@ -182,7 +184,7 @@ module.exports = {
     await ok.click();
   },
   teacherCanSeeTheTextSubmission: async function() {
-    await driver.newWindow(Login.url);
+    await this.userLogsOut();
     await teacherLogin.performLogin(
       Login.deafultTeacherUsername,
       Login.defaultTeacherpassword
@@ -190,9 +192,17 @@ module.exports = {
     await firstLogin.firstLoginTeacher();
     await helpers.loadPage(courseData.urlCourses, 20);
     await copyCourse.chooseCourse();
-    let tasks = await driver.$(
-      '#main-content > section > div.course-card > div.tabContainer > div > button.tab.active > span'
-    );
+    let tasks = await driver.$(Login.elem.tasks_tab);
     await tasks.click();
+    let homework = await driver.$('#homeworks > ol > div > li');
+    await homework.click();
+    let submissions_tab = await driver.$('#submissions-tab-link');
+    await submissions_tab.click();
+    
+    let submitted_by_box = await driver.$('#submissions .groupNames > span');
+    let submitted_by_name = await submitted_by_box.getText();
+    await expect(was_submitted_by).to.contain(submitted_by_name);
+
+
   }
 };

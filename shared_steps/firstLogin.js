@@ -51,7 +51,7 @@ module.exports = {
     await box2.waitForExist(2000);
     await box2.click();
   },
-  firstLoginPupilFullAge: async function(name, password) {
+  firstLoginPupilFullAge: async function(name, pass) {
     // es gibt mehrere Login Möglichkeiten, hier fangen wir alle ab:
     let nextBtn = await driver.$('#nextSection');
     await nextBtn.click();
@@ -62,10 +62,10 @@ module.exports = {
      await this.dataProtection();
       await nextBtn.click();
     }
-    let pass1 = await driver.$('#password');
-    let pass2 = await driver.$('#password_control');
-    await pass1.setValue(password);
-    await pass2.setValue(password);
+    let password = await driver.$('input[data-testid=\'password\']');
+    let password_control = await driver.$('input[data-testid=\'password_control\']');
+    await password.setValue(pass);
+    await password_control.setValue(pass);
     await nextBtn.click();
     await driver.pause(2000);
     let start = await driver.$('a[data-testid=\'Schul-Cloud-erkunden-Btn\']');
@@ -74,13 +74,7 @@ module.exports = {
     await driver.url(`${CLIENT.URL}/dashboard`);
   },
   getInitials: async function() {
-    let userIcon = await driver.$('.btn-avatar > a');
-    await userIcon.click();
-  
-    let nameBox = await driver.$(
-      '.dropdown-name'
-    );
-    let name = await nameBox.getText();
+    let name = await this.getNameAndPosition();
     let firstCharacter = name[0];
     let length = name.length; 
     for (var i=1; i<=length; i++) {
@@ -88,10 +82,19 @@ module.exports = {
       secondCharacter = name[i+1];
       break;
       }
-      
     }
     let initials = firstCharacter + secondCharacter;
     return initials;
+  },
+  getNameAndPosition: async function() {
+    let userIcon = await driver.$('.btn-avatar > a');
+    await userIcon.click();
+  
+    let nameBox = await driver.$(
+      '.dropdown-name'
+    );
+    let name = await nameBox.getText();
+    return name; 
   },
   logout: async function() {
     let icon = await driver.$(
