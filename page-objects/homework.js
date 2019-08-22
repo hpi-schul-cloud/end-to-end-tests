@@ -154,7 +154,9 @@ module.exports = {
     await expect(taskNames).not.to.include(name);
   },
   pupilLogin: async function() {
-    return firstLogin.pupilLogin();
+    let name = "paula.meyer@schul-cloud.org";
+    let password = "Schulcloud1!";
+    return firstLogin.pupilLogin(name,password);
   },
   userLogsOut: async function() {
     await helpers.loadPage(courseData.urlLogout, 20);

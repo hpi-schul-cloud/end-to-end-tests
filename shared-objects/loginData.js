@@ -14,6 +14,7 @@ module.exports = {
     usernameInput: 'section#loginarea input[data-testid=\'username\']',
     passwordInput: 'section#loginarea input[data-testid=\'password\']',
     loginBtn: 'section#loginarea input[data-testid=\'submit-login\']',
+    submitBtn: 'input[data-testid=\'submit-Btn\']',
     resultInitials: '.avatar-circle .initials',
     icon: 'div[data-testid=\'icon-clickable\']',
     settings: 'a[data-testid=\'settings\']',
@@ -29,6 +30,8 @@ module.exports = {
     tasks_tab: 'button[data-testid=\'hometasks\']',
     tools: 'button[data-testid=\'tools\']',
     groups: 'button[data-testid=\'groups\']',
-
+// news:
+timeNewsMustBePublished: 'input[data-testid=\'dateToBeDisplayed\']',
+submitNewsBtn: 'button[data-testid=\'submitNews-Btn\']',
   }
 };

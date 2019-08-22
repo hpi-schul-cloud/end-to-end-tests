@@ -12,7 +12,7 @@ Given(/^I am logged in as a teacher$/, function() {
     Login.defaultTeacherpassword
   );
 });
-Given(/^I create some news$/, function() {
+When(/^teacher creats some news which has to be published immediately$/, function() {
   return news.performCreateNews();
 });
 
@@ -23,5 +23,20 @@ When(/^he goes to the news page$/, function() {
   return news.gotoNews();
 });
 Then(/^he can see the news$/, function() {
-  return news.verifyWhetherVisible();
+  return news.ShouldBeVisible();
 });
+
+When(/^teacher creats some news which has to be published later$/, function() {
+  return news.performCreateNewsLater();
+});
+
+When(/^a pupil logs in$/, function() {
+  return news.loginAsPupil();
+});
+When(/^he goes to news page$/, function() {
+  return news.gotoNews();
+});
+Then(/^he cannot see the news whis is not due yet$/, function() {
+  return news.ShouldNotBeVisible();
+});
+

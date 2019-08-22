@@ -27,37 +27,53 @@ module.exports = {
     let body = await driver.$('body');
     await body.setValue(bodytext);
     await driver.switchToParentFrame();
-    let whenItMustBeShown = await driver.$(
-      '#news-form > div:nth-child(5) > input'
-    );
-    let date = new Date(2019, 8);
-    let time = await homework.dateToString(date);
     await driver.pause(300);
-    //await whenItMustBeShown.setValue(time);
-    await driver.pause(300);
-    let add = await driver.$(
-      '#news-form > div.modal-footer > button.btn.btn-primary.btn-submit'
-    );
-    await add.click();
   },
   performCreateNews: async function() {
     await firstLogin.firstLoginTeacher();
     await this.gotoNews();
     await this.createNews();
+    let add = await driver.$(Login.elem.submitNewsBtn);
+    await add.click();
+  },
+  performCreateNewsLater: async function() {
+    await firstLogin.firstLoginTeacher();
+    await this.gotoNews();
+    await this.createNews();
+    let dateBox = await driver.$(Login.elem.timeNewsMustBePublished);
+    await dateBox.click();
+    let date = "22.08.2025 16:44"
+    await dateBox.addValue(date);
+    await driver.pause(2000);
+    let add = await driver.$(Login.elem.submitNewsBtn);
+    await add.click();
+
+
   },
   loginAsPupil: async function() {
-    let name= "@newsIsNotVisible";
+    let name= "paula.meyer@schul-cloud.org";
     let pass= "Schulcloud1!";
     await firstLogin.logout();
-    await firstLogin.pupilLogin();
+    await firstLogin.pupilLogin(name,pass);
     await firstLogin.firstLoginPupilFullAge(name, pass);
   },
+  
   verifyWhetherVisible: async function() {
     const elements = await driver.$$(
       '#main-content > div.route-news > div > section > div > div > div > article > div.sc-card-header > span > div > span'
     );
     const namePromises = elements.map(async element => await element.getText());
     const newsNames = await Promise.all(namePromises);
+    return newsNames;
+
+  },
+  ShouldBeVisible: async function() {
+    let newsNames = await this.verifyWhetherVisible();
     await expect(newsNames).to.include(name);
-  }
+  },
+  ShouldNotBeVisible: async function() {
+    let newsNames = await this.verifyWhetherVisible();
+    await expect(newsNames).to.not.include(name);
+  },
+
 };

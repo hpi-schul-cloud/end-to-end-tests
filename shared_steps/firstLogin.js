@@ -5,19 +5,12 @@ const courseData = require('../shared-objects/courseData');
 var secondCharacter;
 
 module.exports = {
-  pupilLogin: async function() {
-    // Paula Meyer Daten:
-    let usernameBox = await driver.$(
-      '#loginarea > div > div.card-text.form-wrapper > form > div:nth-child(2) > input:nth-child(1)'
-    );
-    await usernameBox.setValue(Login.notEligiblePupilUsername);
-    let passwordBox = await driver.$(
-      '#loginarea > div > div.card-text.form-wrapper > form > div:nth-child(2) > input:nth-child(2)'
-    );
-    await passwordBox.setValue(Login.notEligiblePupilPassword);
-    let loginBtn = await driver.$(
-      '#loginarea > div > div.card-text.form-wrapper > form > div:nth-child(5) > input'
-    );
+  pupilLogin: async function(name,password) {
+    let usernameBox = await driver.$(Login.elem.usernameInput);
+    await usernameBox.setValue(name);
+    let passwordBox = await driver.$(Login.elem.passwordInput);
+    await passwordBox.setValue(password);
+    let loginBtn = await driver.$(Login.elem.submitBtn);
     await loginBtn.click();
   },
   firstLoginTeacher: async function() {

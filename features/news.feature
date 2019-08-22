@@ -2,16 +2,18 @@
 Feature: Different options for news. I would like to test whether users with different permissions can see my news
 Background: I am logged in as a teacher and I create some news
 Given I am logged in as a teacher
-Given I create some news
+
 
 @newsIsVisible
-Scenario: User with permission can see the news
+Scenario: User can see the news
+When teacher creats some news which has to be published immediately
 When a user who has permissions to see the news logs in
 When he goes to the news page
 Then he can see the news
 
 @newsIsNotVisible
-Scenario: User mithout permission cannot see the news
-When a user who has no permissions logs in
+Scenario: User  cannot see the news if the news is not due yet
+When teacher creats some news which has to be published later
+When a pupil logs in
 When he goes to news page
-Then he cannot see the news
+Then he cannot see the news whis is not due yet
