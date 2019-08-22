@@ -15,7 +15,8 @@ Given(/^the teacher logs in/, function() {
   );
 });
 Given(/^the teacher goes to the courses page$/, function() {
-  return helpers.loadPage(courseData.url, 20);
+  let url = courseData.urlCourses;
+  return helpers.loadPage(url, 20);
 });
 When(
   /^the teacher tipps the name (.*) of the course in the searchfield$/,
