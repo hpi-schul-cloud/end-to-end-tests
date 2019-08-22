@@ -42,21 +42,26 @@ module.exports = {
     await start.click();
   },
   dataProtection: async function() {
-    let box1 = await driver.$(
-      'body > main > div > div > form > div.panels.mb-2 > section.submit-page > label:nth-child(4) > input[type=checkbox]'
-    );
+   let box1 = await driver.$(
+   'input[name=\'privacyConsent\']');
+   await box1.waitForExist(2000);
     await box1.click();
     let box2 = await driver.$(
-      'body > main > div > div > form > div.panels.mb-2 > section.submit-page > label:nth-child(6) > input[type=checkbox]'
-    );
+      'input[name=\'termsOfUseConsent\']');
+    await box2.waitForExist(2000);
     await box2.click();
   },
   firstLoginPupilFullAge: async function(name, password) {
+    // es gibt mehrere Login Möglichkeiten, hier fangen wir alle ab:
     let nextBtn = await driver.$('#nextSection');
     await nextBtn.click();
-    /*let emailBox = await driver.$('a[data-testid=\'e-mail-ueberpruefen\'');
-    await emailBox.setValue(name);*/
     await nextBtn.click();
+    // wenn Einwilligungserklärung:
+    let section_three_name = await driver.$('.panels.mb-2 > section:nth-child(3) > h2');
+    if (await section_three_name.getText()== "Einwilligungserklärung") {
+     await this.dataProtection();
+      await nextBtn.click();
+    }
     let pass1 = await driver.$('#password');
     let pass2 = await driver.$('#password_control');
     await pass1.setValue(password);

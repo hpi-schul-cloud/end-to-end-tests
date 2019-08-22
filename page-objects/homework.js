@@ -129,7 +129,7 @@ module.exports = {
     // await adminLogin.compareScreenshots();
   },
   checkWithPupil: async function() {
-    await helpers.loadPage(courseData.url, 20);
+    await helpers.loadPage(courseData.urlCourses, 20);
     await copyCourse.chooseCourse();
     let courseTasks = await driver.$(
       '#main-content > section > div.course-card > div.tabContainer > div > button:nth-child(2) > span'
@@ -156,16 +156,13 @@ module.exports = {
     return firstLogin.pupilLogin();
   },
   userLogsOut: async function() {
-    let icon = await driver.$('.avatar-circle');
-    await icon.click();
-    let logout = loginData.elem.logout;
-    await logout.click()
+    await helpers.loadPage(courseData.urlLogout, 20);
   },
   pupilEditsTextHomework: async function() {
     await this.userLogsOut();
     await this.pupilLogin();
     await firstLogin.firstLoginPupilFullAge();
-    await helpers.loadPage(courseData.url, 20);
+    await helpers.loadPage(courseData.urlCourses, 20);
     await copyCourse.chooseCourse();
     let tasks = await driver.$(
       '#main-content > section > div.course-card > div.tabContainer > div > button.tab.active > span'
@@ -191,7 +188,7 @@ module.exports = {
       Login.defaultTeacherpassword
     );
     await firstLogin.firstLoginTeacher();
-    await helpers.loadPage(courseData.url, 20);
+    await helpers.loadPage(courseData.urlCourses, 20);
     await copyCourse.chooseCourse();
     let tasks = await driver.$(
       '#main-content > section > div.course-card > div.tabContainer > div > button.tab.active > span'

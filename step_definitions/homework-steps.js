@@ -20,7 +20,8 @@ Given(/^the teacher is logged-in successfully$/, function() {
 });
 
 Given(/^the teacher goes to the course page as a next step$/, function() {
-  return helpers.loadPage(courseData.url, 20);
+  let url = courseData.urlCourses;
+  return helpers.loadPage(url, 20);
 });
 
 Given(/^the teacher creates one course$/, function() {

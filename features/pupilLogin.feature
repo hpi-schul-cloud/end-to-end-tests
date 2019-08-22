@@ -14,4 +14,4 @@ Feature: Logging in as an pupil
 
     Examples:
       |username|password|
-      |schueler@schul-cloud.org|Schulcloud1!|
+      |paula.meyer@schul-cloud.org|Schulcloud1!|

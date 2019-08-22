@@ -1,8 +1,9 @@
 const { CLIENT } = require("./servers");
 
 module.exports = {
-  url: `${CLIENT.URL}/courses`,
+  urlCourses: 'localhost:3100/courses',
   urlLogin: `${CLIENT.URL}/login`,
+  urlLogout: `${CLIENT.URL}/logout`,
   elem: {
     addBtn: 'section#section-courses a[data-testid=\'courseAddButton\']',
     courseContainer:
