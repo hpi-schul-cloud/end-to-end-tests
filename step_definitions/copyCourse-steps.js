@@ -25,7 +25,8 @@ Given(/^teacher has accepted the data protection agreement$/, function() {
   return firstLogin.firstLoginTeacher();
 });
 Given(/^goes the course page$/, function() {
-  return helpers.loadPage(courseData.url, 20);
+  let url = courseData.urlCourses;
+  return helpers.loadPage(url, 20);
 });
 Given(
   /^the course, which must be cloned, will be created with some name$/,
