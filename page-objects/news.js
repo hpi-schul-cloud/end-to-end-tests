@@ -46,9 +46,11 @@ module.exports = {
     await this.createNews();
   },
   loginAsPupil: async function() {
+    let name= "@newsIsNotVisible";
+    let pass= "Schulcloud1!";
     await firstLogin.logout();
     await firstLogin.pupilLogin();
-    await firstLogin.firstLoginPupilFullAge();
+    await firstLogin.firstLoginPupilFullAge(name, pass);
   },
   verifyWhetherVisible: async function() {
     const elements = await driver.$$(
