@@ -12,7 +12,7 @@ Given(/^a pupil arrives on the Schul-Cloud login homepage$/, function () {
 });
 
 When(/^a pupil puts in (.*) and (.*) and clicks the login-button$/, function (username, password) {
-    return shared.performLogin.performLogin(username,password);
+    return pupilLogin.performLogin(username, password)
 });  
 
 Then(/^pupil accepts data security, checks the email (.*) and sets password (.*) .$/, function(username,password) {

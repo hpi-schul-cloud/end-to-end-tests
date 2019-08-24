@@ -18,7 +18,8 @@ module.exports = {
     let passwordSel = await driver.$(shared.loginData.elem.passwordInput);
     await passwordSel.setValue(password);
 
-    let loginBtnSel = await driver.$(shared.loginData.elem.loginBtn);
+    let loginBtnSel = await driver.$('input[data-testid=\'submit-Btn\'');
+    await loginBtnSel.waitForExist(5000);
     await loginBtnSel.click();
   },
 
