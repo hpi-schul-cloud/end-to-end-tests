@@ -16,7 +16,7 @@ module.exports = {
     let passwordSel = await driver.$(shared.loginData.elem.passwordInput);
     await passwordSel.setValue("password");
 
-    let loginBtnSel = await driver.$(shared.loginData.elem.loginBtn);
+    let loginBtnSel = await driver.$(loginData.elem.submitBtn);
     await loginBtnSel.click();
   },
 

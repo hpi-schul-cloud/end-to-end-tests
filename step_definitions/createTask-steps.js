@@ -9,7 +9,7 @@ let shared = ({loginData, performLogin});
 let page = ({createTask});
 
 When(/^a teacher logs in his account using (.*) and (.*) in order to create a task$/, function (username,password) {
-  helpers.loadPage(shared.loginData.url, 10);
+  helpers.loadPage(loginData.url, 10);
   return shared.performLogin.performLogin(username, password);
 });
 
