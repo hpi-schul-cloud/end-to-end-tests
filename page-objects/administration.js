@@ -1,0 +1,57 @@
+'use strict';
+let teacherLogin = require('../page-objects/teacherLogin');
+const firstLogin = require('../shared_steps/firstLogin.js');
+const homework = require('../page-objects/homework');
+const { expect } = require('chai');
+const Login = require('../shared-objects/loginData');
+const Admin = require('../shared-objects/administrationData');
+let emails = [];
+
+
+
+module.exports = {
+goToAdministration: function() {
+    let url = Admin.urlAdministration;
+    return helpers.loadPage(url, 10);
+},
+
+createNewPupil: async function(firstname, lastname, email) {
+    await this.goToAdministration();
+    let administrateStudentsBtn = await driver.$(Admin.administrateStudentsBtn);
+    await administrateStudentsBtn.click();
+    let addBtn = await driver.$(Admin.addStudentBtn);
+    await addBtn.click();
+    let firstName= await driver.$(Admin.setFirstName);
+    await firstName.waitForExist(5000);
+    await firstName.setValue(firstname);
+    let secondName = await driver.$(Admin.setLastName);
+    await secondName.waitForExist(5000);
+    await secondName.setValue(lastname);
+    await driver.pause(1500);
+    let eMail = await driver.$(Admin.setEmail);
+    await eMail.waitForExist(5000);
+    await eMail.setValue(email);
+    let sendAMessageBox = await driver.$(Admin.sendALinkBox);
+    await sendAMessageBox.click();
+    let addButton = await driver.$('body > div.modal.fade.add-modal.in > div > div > form > div.modal-footer > button.btn.btn-primary.btn-submit');
+    await addButton.click();
+},
+namesOfThePupils: async function() {
+    let names = await driver.$$(Admin.namesContainer + ' > tr');
+    let length = names.length; 
+    for (var i = 1; i<= length; i++) {
+        let pupil = await driver.$(Admin.namesContainer + ' > tr:nth-child('+i+')');
+        let emailPromise =  await driver.$(Admin.namesContainer + ' > tr:nth-child('+i+') > td:nth-child(3)');
+        let email = await emailPromise.getText();
+        await emails.push(email);
+    }
+
+    return emails;
+
+},
+verify: async function(email) {
+    let names = await this.namesOfThePupils();
+    await expect(names).to.contain(email);
+}
+
+}
