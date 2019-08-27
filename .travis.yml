@@ -31,6 +31,9 @@ script:
   - echo $TRAVIS_BRANCH
   - echo $TRAVIS_TAG
   - cd integration-tests && npm run all && cd ..
+after_script:
+  - npm i -g @adrianjost/report-viewer
+  - rv-upload -F **/integration-tests/reports/**/*.html
 cache:
   directories:
     - schulcloud-client/node_modules
