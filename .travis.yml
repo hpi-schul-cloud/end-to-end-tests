@@ -33,7 +33,8 @@ script:
   - cd integration-tests && npm run all && cd ..
 after_script:
   - npm i -g @adrianjost/report-viewer
-  - cd integration-tests && rv-upload -F **/reports/**/*.html
+  - cd integration-tests # seperat line to catch errors. if tests are failing, we are already in the directory
+  - rv-upload -F **/reports/**/*.html
 cache:
   directories:
     - schulcloud-client/node_modules
