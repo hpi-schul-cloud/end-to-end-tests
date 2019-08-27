@@ -131,7 +131,7 @@ When(/^the teacher adds some InternComponents to the course$/, function() {
 When(/^the teacher clicks copy course with InternComponents$/, function() {
   return 'not implemented';
 });
-When(/^teacher sees the course copy and the InternComponents is are still availiable$/, function() {
+When(/^teacher sees the course copy and the InternComponents is (are) still availiable$/, function() {
   return 'not implemented';
 });
 

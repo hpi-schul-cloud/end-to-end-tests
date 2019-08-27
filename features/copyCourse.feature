@@ -59,7 +59,7 @@ Then teacher sees the course copy and the NeXboard is still availiable
 Scenario: teacher can copy course with certain InternComponents
 When the teacher adds some InternComponents to the course
 When the teacher clicks copy course with InternComponents
-Then teacher sees the course copy and the InternComponents is are still availiable
+Then teacher sees the course copy and the InternComponents is (are) still availiable 
 
 #OK
 @copyCourseWithPupils
