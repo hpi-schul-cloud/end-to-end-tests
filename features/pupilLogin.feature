@@ -10,7 +10,6 @@ Feature: Logging in as an pupil
     When a pupil puts in <username> and <password> and clicks the login-button
     Then pupil accepts data security, checks the email <username> and sets password <password> .
     Then a pupil should see the dashboard
-    
 
     Examples:
       |username|password|

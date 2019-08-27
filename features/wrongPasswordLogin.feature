@@ -15,4 +15,3 @@ Feature: Logging in with a wrong password
     Examples:
       |username|password|
       |admin@schul-cloud.org|wrongPasswordPlaceholder|
-      

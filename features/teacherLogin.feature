@@ -14,4 +14,3 @@ Feature: Logging in as a teacher
     Examples:
       |username|password|
       |klara.fall@schul-cloud.org|Schulcloud1!|
-      
