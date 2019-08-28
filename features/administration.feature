@@ -3,7 +3,7 @@ Feature: Administrate pupils, classes and teachers
   As an admin on Schul-Cloud
   I want to be able to administrate pupils, teachers and classes
   Background:
-    Given admin arrives on the Schul-Cloud login homepage 
+    Given admin arrives on the Schul-Cloud login homepage
     Given this admin logs in successfully
 
   Scenario Outline: Admin creates a pupil

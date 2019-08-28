@@ -25,12 +25,17 @@ before_install:
 install:
   # TODO use "Images" Dockerfile to improve speed
   # - cd docker-compose && docker-compose -f docker-compose.integration-test-Images.yml up -d && cd ..
-  - cd docker-compose && docker-compose -f docker-compose.integration-test-Build.yml up -d && cd ..
+  - docker-compose -f docker-compose/docker-compose.integration-test-Build.yml up -d
   - cd integration-tests && npm ci && cd ..
 script:
   - echo $TRAVIS_BRANCH
   - echo $TRAVIS_TAG
-  - cd integration-tests && npm run all && cd ..
+  - cd integration-tests
+  - npm run all
+  - cd ..
+after_script:
+  - npm i -g @adrianjost/report-viewer
+  - rv-upload -F **/reports/**/*.html
 cache:
   directories:
     - schulcloud-client/node_modules

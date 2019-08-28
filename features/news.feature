@@ -11,9 +11,9 @@ When a user who has permissions to see the news logs in
 When he goes to the news page
 Then he can see the news
 
-@newsIsNotVisible
-Scenario: User  cannot see the news if the news is not due yet
-When teacher creats some news which has to be published later
-When a pupil logs in
-When he goes to news page
-Then he cannot see the news whis is not due yet
+# @newsIsNotVisible
+# Scenario: User  cannot see the news if the news is not due yet
+# When teacher creats some news which has to be published later
+# When a pupil logs in
+# When he goes to news page
+# Then he cannot see the news whis is not due yet

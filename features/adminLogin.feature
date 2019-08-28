@@ -14,4 +14,4 @@ Feature: Logging in as an admin
     Examples:
       |username|password|
       |admin@schul-cloud.org|Schulcloud1!|
-      
+
