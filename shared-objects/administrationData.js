@@ -13,6 +13,8 @@ module.exports = {
   setEmail:'input[data-testid=\'createStudentSetEmail\']',
   sendALinkBox:'input[data-testid=\'createStudentSendALink\']',
   namesContainer: 'tbody[data-testid=\'studentsNamesContainer\']',
+  consentSubmitBtn: 'button[data-testid=\'submitConsent\']',
+  birthday_field: 'input[data-testid=\'create_birthday\']'
  
 
 }

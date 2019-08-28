@@ -25,6 +25,9 @@ When(/^an admin puts in (.*) and (.*) and (.*) of the new pupil$/, function(firs
 Then(/^the admin should see new pupil with email (.*) among his pupils$/, function(email) {
     return administration.verify(email);
   });
+  Then(/^the teacher can manually submit a consent (.*)$/, function(e_mail) {
+    return administration.submitConsent(e_mail);
+  });
 
 
 

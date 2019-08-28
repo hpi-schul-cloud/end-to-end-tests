@@ -9,9 +9,12 @@ Feature: Administrate pupils, classes and teachers
   Scenario Outline: Admin creates a pupil
     When an admin puts in <firstName> and <secondName> and <email> of the new pupil
     Then the admin should see new pupil with email <email> among his pupils
+    Then the teacher can manually submit a consent <email>
+
+  
     
 
     Examples:
       |firstName|secondName|email|
-      |Georg|Beispielmann|mustermann@schul-cloud.org|
+      |Zeorg|Beispielmann|yulia.shikhareva@gmail.com|
       
