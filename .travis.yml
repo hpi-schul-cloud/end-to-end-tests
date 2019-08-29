@@ -21,7 +21,7 @@ before_install:
   - git clone -b aj/integration-tests https://github.com/schul-cloud/schulcloud-client.git schulcloud-client
   # TODO remove branch from next line
   - git clone -b aj/integration-tests https://github.com/schul-cloud/schulcloud-server.git schulcloud-server
-  - git clone -b integration-test https://github.com/schul-cloud/docker-compose.git docker-compose
+  - git clone https://github.com/schul-cloud/docker-compose.git docker-compose
 install:
   # TODO use "Images" Dockerfile to improve speed
   # - cd docker-compose && docker-compose -f docker-compose.integration-test-Images.yml up -d && cd ..
