@@ -19,11 +19,11 @@ When if any pupil of this course goes to hometasks
 Then the pupil will not see this task
 
 @submitTextHomework
-Scenario: pupil submits a homework
+Scenario: pupil submits a homework and teacher evaluates it
 When the teacher creates a basic text homework
 When the pupil edits a text hometask
 Then the teacher should see the changes been done
-
+Then the teacher can evaluate it
 
 
 

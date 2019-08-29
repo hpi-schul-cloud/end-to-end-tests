@@ -60,3 +60,6 @@ When(/^the pupil edits a text hometask$/, function() {
 Then(/^the teacher should see the changes been done$/, function() {
   return homework.teacherCanSeeTheTextSubmission();
 });
+Then(/^the teacher can evaluate it$/, function() {
+  return homework.evaluateSubmission();
+});

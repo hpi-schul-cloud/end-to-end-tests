@@ -44,17 +44,10 @@ module.exports = {
     await driver.switchToParentFrame();
   },
   setAccomplishTime: async function() {
-    let startDate = await driver.$('#availableDate');
-    let dueDate = await driver.$('#dueDate');
-
-    var begin = await new Date();
-    var beginToString = await this.dateToString(begin);
-    var end = await this.randomDate(new Date(), new Date(2022, 0));
-    var endToString = await this.dateToString(end);
-
-    await startDate.setValue(beginToString);
-    await driver.pause(500);
-    await dueDate.setValue(endToString);
+    var begin = await this.dateToString();
+    await driver.execute('document.querySelector("#availableDate").value="15.08.2018 11:00"');
+    var end = await this.randomDate();
+    await driver.execute('document.querySelector("#dueDate").value="15.08.2022 11:00"');
   },
   clickAdd: async function() {
     let addBtn2 = await driver.$(
@@ -63,29 +56,40 @@ module.exports = {
     await addBtn2.click();
   },
 
-  dateToString: async function(date) {
-    var dd = await date.getDate().toString();
-    var mm = ((await date.getMonth()) + 1).toString();
-    var yyyy = await date.getFullYear().toString();
-    var minutes = await date.getHours().toString();
-    var seconds = await date.getMinutes().toString();
+  dateToString: async function() {
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1; //January is 0!
+    let yyyy = today.getFullYear();
+    let hours = "11";
+    let minutes = "00";
+  
     if (dd < 10) {
       dd = '0' + dd;
     }
     if (mm < 10) {
       mm = '0' + mm;
     }
-    if (minutes < 10) {
+  
+    return dd + '.' + mm + '.' + yyyy + '.' + hours + '.' + minutes;
+  
+  },
+  randomDate: async function() {
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1; //January is 0!
+    let yyyy = today.getFullYear()+1;
+    let hours = "11";
+    let minutes = "00";
+  
+    if (dd < 10) {
+      dd = '0' + dd;
+    }
+    if (mm < 10) {
       mm = '0' + mm;
     }
-    var dateToBeSet =
-      dd + '.' + mm + '.' + yyyy + '.' + minutes + '.' + seconds;
-    return dateToBeSet;
-  },
-  randomDate: async function(start, end) {
-    return new Date(
-      start.getTime() + Math.random() * (end.getTime() - start.getTime())
-    );
+  
+    return dd + '.' + mm + '.' + yyyy + '.' + hours + '.' + minutes;
   },
   addHomework: async function() {
     let addBtn = await driver.$(
@@ -204,7 +208,18 @@ module.exports = {
     let submitted_by_box = await driver.$('#submissions .groupNames > span');
     let submitted_by_name = await submitted_by_box.getText();
     await expect(was_submitted_by).to.contain(submitted_by_name);
-
-
+  },
+  evaluateSubmission: async function() {
+    let submittedTasks = await driver.$('.usersubmission');
+    await submittedTasks.click();
+    let evaluationTab = await driver.$('#comment-tab-link');
+    await evaluationTab.click();
+    let evaluation = await driver.$(courseData.elem.evaluationInProcent);
+    await evaluation.setValue(95);
+    await driver.switchToFrame(0); 
+    let body = await driver.$('body');
+    let comment = 'sehr gut!';
+    await body.setValue(comment);
+    await driver.switchToParentFrame();
   }
 };

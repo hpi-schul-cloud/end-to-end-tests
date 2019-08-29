@@ -27,5 +27,8 @@ module.exports = {
     teilnehmerFenster: 'section#section-courses ',
     // Dataschutz:
     schulcloudErkundenBtn: 'a[data-testid=\'Schul-Cloud-erkunden-Btn\']',
+    // homework:
+    evaluationInProcent: 'input[data-testid=\'evaluationProcent\']',
+    homeworkComment: 'input[data-testid=\'evaluationProcent\']',
 }
 }
