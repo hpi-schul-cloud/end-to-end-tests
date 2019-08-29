@@ -26,6 +26,6 @@ module.exports = {
     zurUebersichtBtn: 'section#section-course a[id=\'preshow\']',
     teilnehmerFenster: 'section#section-courses ',
     // Dataschutz:
-    schulcloudErkundenBtn: 'a[data-testid=\'Schul-Cloud-erkunden-Btn\']'
-  }
-};
+    schulcloudErkundenBtn: 'a[data-testid=\'Schul-Cloud-erkunden-Btn\']',
+}
+}

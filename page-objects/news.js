@@ -36,15 +36,17 @@ module.exports = {
     let add = await driver.$(Login.elem.submitNewsBtn);
     await add.click();
   },
+  executeScript: async function() {
+    let dateBox = await driver.$(Login.elem.timeNewsMustBePublished);
+    await dateBox.click();
+    await driver.execute('document.querySelector("#news_date_to_be_displayed").value = "13.08.2020"');
+
+  },
   performCreateNewsLater: async function() {
     await firstLogin.firstLoginTeacher();
     await this.gotoNews();
     await this.createNews();
-    let dateBox = await driver.$(Login.elem.timeNewsMustBePublished);
-    await dateBox.click();
-    let date = "22.08.2025 16:44"
-    await dateBox.addValue(date);
-    await driver.pause(2000);
+    await this.executeScript();
     let add = await driver.$(Login.elem.submitNewsBtn);
     await add.click();
 

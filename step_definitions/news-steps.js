@@ -36,7 +36,7 @@ When(/^a pupil logs in$/, function() {
 When(/^he goes to news page$/, function() {
   return news.gotoNews();
 });
-Then(/^he cannot see the news whis is not due yet$/, function() {
+Then(/^he cannot see the news which is not due yet$/, function() {
   return news.ShouldNotBeVisible();
 });
 
