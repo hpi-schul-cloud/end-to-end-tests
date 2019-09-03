@@ -4,7 +4,7 @@ module.exports = {
   url: `${CLIENT.URL}/login`,
   urlDashboard: `${CLIENT.URL}/dashboard`,
 
-  deafultTeacherUsername: 'klara.fall@schul-cloud.org',
+  defaultTeacherUsername: 'klara.fall@schul-cloud.org',
   defaultTeacherpassword: 'Schulcloud1!',
   eligiblePupilUsername: 'demo-schueler@schul-cloud.org',
   eligiblePupilPassword: 'schulcloud',

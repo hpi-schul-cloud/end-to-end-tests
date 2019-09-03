@@ -11,10 +11,6 @@ Feature: Administrate pupils, classes and teachers
     Then the admin should see new pupil with email <email> among his pupils
     Then the teacher can manually submit a consent <email>
 
-  
-    
-
     Examples:
       |firstName|secondName|email|
       |Zeorg|Beispielmann|yulia.shikhareva@gmail.com|
-      
