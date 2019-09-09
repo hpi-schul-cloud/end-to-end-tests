@@ -327,7 +327,7 @@ After(async function(scenario) {
   if (scenario.result.status === Status.FAILED) {
     if (remoteService && remoteService.type === 'browserstack') {
       await driver.deleteSession();
-    } else {
+    } else if(!global.settings.keepOpenOnError){
       // Comment out to do nothing | leave browser open
       await driver.deleteSession();
     }
@@ -335,7 +335,7 @@ After(async function(scenario) {
     if (remoteService && remoteService.type !== 'browserstack') {
       // Comment out to do nothing | leave browser open
       await driver.deleteSession();
-    } else {
+    } else if(!global.settings.keepOpenOnError){
       await driver.deleteSession();
     }
   }

@@ -98,6 +98,7 @@ program
   )
   .option('-d, --disableReport [optional]', 'Disables the auto opening the browser with test report')
   .option('-e, --email [optional]', 'email for sending reports to stakeholders')
+  .option('-k, --keepOpenOnError', 'keep Browser open on error')
   .option(
     '-f, --featuresPath <path>',
     'path to feature definitions. defaults to ./features',
@@ -165,7 +166,8 @@ let settings = {
   disableReport: program.disableReport,
   updateBaselineImage: program.updateBaselineImage,
   defaultTimeout: '300000 * 1000', // 5 mins
-  remoteService: program.remoteService
+  remoteService: program.remoteService,
+  keepOpenOnError: program.keepOpenOnError
 };
 
 if (program.remoteService && program.extraSettings) {

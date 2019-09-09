@@ -11,8 +11,6 @@ services:
 env:
   global:
     - GIT_SHA=$( git rev-parse HEAD )
-    - SC_DEMO_USER_PASSWORD=schulcloud
-    - FEATURE_TEAMS_ENABLED=true
     - IT_CLIENT_HOST=client
 before_install:
   - mkdir -p integration-tests
