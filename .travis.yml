@@ -29,7 +29,7 @@ script:
   - echo $TRAVIS_BRANCH
   - echo $TRAVIS_TAG
   - cd integration-tests
-  - npm run all
+  - npm run test
   - cd ..
 after_script:
   - npm i -g @adrianjost/report-viewer
