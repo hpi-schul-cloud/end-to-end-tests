@@ -29,6 +29,6 @@ module.exports = {
     schulcloudErkundenBtn: 'a[data-testid=\'Schul-Cloud-erkunden-Btn\']',
     // homework:
     evaluationInProcent: 'input[data-testid=\'evaluationProcent\']',
-    homeworkComment: 'input[data-testid=\'evaluationProcent\']',
+
 }
 }
