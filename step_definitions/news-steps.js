@@ -4,6 +4,7 @@ let teacherLogin = require('../page-objects/teacherLogin');
 let copyCourse = require('../page-objects/copyCourse');
 let courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
+const createTeam = require('../page-objects/createTeam');
 
 Given(/^I am logged in as a teacher$/, function() {
   helpers.loadPage(courseData.urlLogin, 20);
@@ -39,4 +40,17 @@ When(/^he goes to news page$/, function() {
 Then(/^he cannot see the news which is not due yet$/, function() {
   return news.ShouldNotBeVisible();
 });
+// TEAM
 
+When(/^teacher creates a team$/, function() {
+  return createTeam.createATeam();
+});
+When(/^teacher creates team news$/, function() {
+  return news.createTeamNews();
+});
+/* Then(/^team member can see the news$/, function() {
+  return news.();
+});
+Then(/^team non-members cannot see the news$/, function() {
+  return news.();
+}); */

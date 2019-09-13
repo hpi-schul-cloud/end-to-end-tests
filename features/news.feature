@@ -17,3 +17,10 @@ When teacher creats some news which has to be published later
 When a pupil logs in
 When he goes to news page
 Then he cannot see the news which is not due yet
+
+@teamnews
+Scenario: teacher creates team news and this news can only be visible for team members
+When teacher creates a team
+When teacher creates team news
+#Then team member can see the news
+#Then team non-members cannot see the news

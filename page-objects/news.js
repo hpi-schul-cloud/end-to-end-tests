@@ -5,6 +5,7 @@ const homework = require('../page-objects/homework');
 const { expect } = require('chai');
 let name;
 const Login = require('../shared-objects/loginData');
+const team = require('../shared-objects/teamsData');
 
 module.exports = {
   gotoNews: async function() {
@@ -49,8 +50,6 @@ module.exports = {
     await this.executeScript();
     let add = await driver.$(Login.elem.submitNewsBtn);
     await add.click();
-
-
   },
   loginAsPupil: async function() {
     let name= "paula.meyer@schul-cloud.org";
@@ -77,5 +76,13 @@ module.exports = {
     let newsNames = await this.verifyWhetherVisible();
     await expect(newsNames).to.not.include(name);
   },
+
+  createTeamNews: async function() {
+    let newsTab = await driver.$(team.newsTab);
+    await newsTab.click();
+    let newsBtn = await driver.$(team.submitBtn);
+    await newsBtn.click();
+    await this.createNews();
+  }
 
 };
