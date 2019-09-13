@@ -32,14 +32,14 @@ module.exports = {
     },
     tryWithOld: async function() {
         await firstLogin.logout();
-        await teacherLogin.performLogin(loginData.deafultTeacherUsername, loginData.defaultTeacherpassword);
+        await teacherLogin.performLogin(loginData.defaultTeacherUsername, loginData.defaultTeacherpassword);
         let messageField = await driver.$(loginData.elem.loginNotification);
         let message = await messageField.getText();
         let expectedMessage = "Login fehlgeschlagen.";
         await expect(message).to.equal(expectedMessage);
     },
     tryWithNew: async function() {
-        await teacherLogin.performLogin(loginData.deafultTeacherUsername, legiblePassword);
+        await teacherLogin.performLogin(loginData.defaultTeacherUsername, legiblePassword);
         /* let url = await driver.getUrl();
         let expectedUrl = loginData.urlDashboard;
         await expect(url).to.equal(expectedUrl);*/

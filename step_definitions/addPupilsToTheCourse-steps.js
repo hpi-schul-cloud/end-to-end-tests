@@ -16,7 +16,7 @@ Given(/^teacher arrives on the Schul-Cloud page$/, function() {
 });
 Given(/^teacher is logged in successfully$/, function() {
   return teacherLogin.performLogin(
-    Login.deafultTeacherUsername,
+    Login.defaultTeacherUsername,
     Login.defaultTeacherpassword
   );
 });

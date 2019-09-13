@@ -192,7 +192,7 @@ module.exports = {
   teacherCanSeeTheTextSubmission: async function() {
     await this.userLogsOut();
     await teacherLogin.performLogin(
-      Login.deafultTeacherUsername,
+      Login.defaultTeacherUsername,
       Login.defaultTeacherpassword
     );
     await firstLogin.firstLoginTeacher();

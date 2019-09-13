@@ -13,7 +13,7 @@ Given(/^the user goes to login page$/, function() {
   });
 Given(/^the user logs in$/, function() {
     return teacherLogin.performLogin(
-      Login.deafultTeacherUsername,
+      Login.defaultTeacherUsername,
       Login.defaultTeacherpassword
     );
   });

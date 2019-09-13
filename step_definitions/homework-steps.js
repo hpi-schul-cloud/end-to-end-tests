@@ -14,7 +14,7 @@ Given(/^the teacher starts on the login page$/, function() {
 
 Given(/^the teacher is logged-in successfully$/, function() {
   return teacherLogin.performLogin(
-    Login.deafultTeacherUsername,
+    Login.defaultTeacherUsername,
     Login.defaultTeacherpassword
   );
 });

@@ -9,7 +9,7 @@ const createTeam = require('../page-objects/createTeam');
 Given(/^I am logged in as a teacher$/, function() {
   helpers.loadPage(courseData.urlLogin, 20);
   return teacherLogin.performLogin(
-    Login.deafultTeacherUsername,
+    Login.defaultTeacherUsername,
     Login.defaultTeacherpassword
   );
 });
