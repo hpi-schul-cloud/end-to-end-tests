@@ -8,7 +8,7 @@ const course = { courseData };
 const firstLogin = require('../shared_steps/firstLogin.js');
 const { expect } = require('chai');
 const helpers = require('../runtime/helpers.js');
-let legiblePassword;
+let legiblePassword = "KfHnAnP1!";
 
 module.exports = {
     goToSettings: async function() {
@@ -20,17 +20,21 @@ module.exports = {
         await settings.click();
     },
     setNewPassword: async function() {
-        /*legiblePassword = "KfHnAnP1!"
-        let newPassword = await driver.$(loginData.elem.newPassword);
-        await newPassword.setValue(legiblePassword);
-        let repeatNewPassword = await driver.$(loginData.elem.repeatNewPassword);
-        await repeatNewPassword.setValue(legiblePassword); */
+        let passwordField = await driver.$('#passwordNew');
+        await passwordField.setValue(legiblePassword);
+        await driver.pause(500);
+        let passwordControlField = await driver.$('#password_control');
+        await passwordControlField.setValue(legiblePassword);
+        await driver.pause(500);
+        let currentPassword = await driver.$('#settings_current_password');
+        let current_password = "Schulcloud1!";
+        await currentPassword.setValue(current_password);
+        let okBtn = await driver.$('#submit_new_password_btn');
+        await okBtn.click();
         await driver.pause(1000);
-        await driver.execute('document.querySelector("#passwordNew").value="KfHnAnP1!"');
-        await driver.execute('document.querySelector("#password_control").value="KfHnAnP1!"');
-        await driver.execute('document.querySelector("#submit_new_password_btn").click()');
     },
     tryWithOld: async function() {
+        await driver.pause(2000);
         await firstLogin.logout();
         await teacherLogin.performLogin(loginData.defaultTeacherUsername, loginData.defaultTeacherpassword);
         let messageField = await driver.$(loginData.elem.loginNotification);
@@ -40,9 +44,6 @@ module.exports = {
     },
     tryWithNew: async function() {
         await teacherLogin.performLogin(loginData.defaultTeacherUsername, legiblePassword);
-        /* let url = await driver.getUrl();
-        let expectedUrl = loginData.urlDashboard;
-        await expect(url).to.equal(expectedUrl);*/
         await helpers.assertUrl('http://localhost:3100/dashboard');
     }
 }
