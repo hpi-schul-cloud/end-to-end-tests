@@ -28,6 +28,12 @@ Then(/^the admin should see new pupil with email (.*) among his pupils$/, functi
   Then(/^the teacher can manually submit a consent (.*)$/, function(e_mail) {
     return administration.submitConsent(e_mail);
   });
+ Then(/^new pupil can log in$/, function() {
+    return administration.newPupilLogsIn() ;
+  });
+  Then(/^new pupil accepts data protection policy and sets new password for the profile$/, function() {
+    return administration.pupilAcceptsDataProtection();
+  });
 
 
 

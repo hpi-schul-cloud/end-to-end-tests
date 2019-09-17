@@ -1,22 +1,21 @@
 'use strict';
-let teacherLogin = require('../page-objects/teacherLogin');
 const firstLogin = require('../shared_steps/firstLogin.js');
-const homework = require('../page-objects/homework');
 const { expect } = require('chai');
-const Login = require('../shared-objects/loginData');
 const Admin = require('../shared-objects/administrationData');
 let emails = [];
 var length;
-
-
+let oldPassword;
+let eMAIL;
+let name;
 
 module.exports = {
 goToAdministration: function() {
     let url = Admin.urlAdministration;
     return helpers.loadPage(url, 10);
 },
-
 createNewPupil: async function(firstname, lastname, email) {
+    name=firstname;
+    eMAIL = email;
     await this.goToAdministration();
     let administrateStudentsBtn = await driver.$(Admin.administrateStudentsBtn);
     await administrateStudentsBtn.click();
@@ -38,7 +37,6 @@ createNewPupil: async function(firstname, lastname, email) {
 executeScript: async function() {
     await driver.pause(1500);
     await driver.execute('document.querySelector("#create_birthday").value = "13.08.1990"')
-
 },
 namesOfThePupils: async function() {
     let names = await driver.$$(Admin.namesContainer + ' > tr');
@@ -65,11 +63,21 @@ submitConsent: async function(e_mail) {
         if (email===e_mail){
             let boxConsent = await driver.$(Admin.namesContainer + ' > tr:nth-child('+i+') > td:nth-child(7) > a:nth-child(2) > i');
             await boxConsent.click();
-            await driver.pause(2000);
             let submitBtn = await driver.$(Admin.consentSubmitBtn);
+            let passwordField = await driver.$('#passwd');
+            let password_old = await passwordField.getValue();
+            oldPassword = password_old;
             await submitBtn.click();
             break;
         }
     }
+},
+newPupilLogsIn: async function() {
+    await firstLogin.logout();
+    await firstLogin.pupilLogin(eMAIL, oldPassword);
+},
+pupilAcceptsDataProtection: async function() {
+    let newPassword = "Schulcloud1!";
+    await firstLogin.firstLoginPupilFullAge(name, newPassword);
 }
 }
