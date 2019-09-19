@@ -13,7 +13,7 @@ module.exports ={
     selectTeamMembers: 'select[data-testid=\'select_team_members_add\']',
     // team internal options
     filesTab: 'div[data-testid=\'team_files\']',
-    newsTab: 'div[data-testid=\'teams_news\']',
+    newsTab: 'button[data-tab=\'js-news\']',
     appointmentsTab: 'div[data-testid=\'team_events\']',
 
     // team events:

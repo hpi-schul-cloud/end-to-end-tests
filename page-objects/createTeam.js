@@ -2,19 +2,19 @@
 
 const teamData = require('../shared-objects/teamsData');
 const { expect } = require('chai');
-let name;
+let team_name;
 let indexes = [];
 var searchBox;
 var numberOFmatches;
 let pupilNames;
 
+
 module.exports = {
-    createATeamSTEPS: async function() {
+    createATeamSTEPS: async function(team_name) {
         let url = teamData.addTeamURL;
         await helpers.loadPage(url, 20);
-        name= "a team";
         let nameField = await driver.$(teamData.teamName);
-        await nameField.setValue(name);
+        await nameField.setValue(team_name);
         let createBtn = await driver.$(teamData.createTeamBtn);
         await createBtn.click();
     },
@@ -33,7 +33,6 @@ module.exports = {
         let promiseNames = pupils.map(async element => await element.getText());
         pupilNames = await Promise.all(promiseNames);
     },
-    
     getTeamNames: async function() {
         let teamsPage = teamData.url;
         await helpers.loadPage(teamsPage, 20);
@@ -41,31 +40,32 @@ module.exports = {
         const namePromises = elements.map(async element => await element.getText());
         const teamNames = await Promise.all(namePromises);
         return teamNames;
-
     },
     addTeamMemberSTEPS: async function(fullname) {
         await searchBox.click();
-        for (var i=0; i<=numberOFmatches; i++) {
+        for (var i=0; i<=numberOFmatches-1; i++) {
             if (pupilNames[i]==fullname) {
                 await indexes.push(i+1);
             }
         }
     },
-        addTeamMemberOne: async function() {
-            let chooseTeammember1 = await driver.$('#userIds___chosen > div > ul > li:nth-child('+indexes[0]+')');
-            await chooseTeammember1.click();
-        },
-        addTeamMemberTwo: async function() {
-            let chooseTeammember1 = await driver.$('#userIds___chosen > div > ul > li:nth-child('+indexes[1]+')');
-            await chooseTeammember1.click();
-        },
-       
+    addTeamMemberOne: async function() {
+        let chooseTeammember1 = await driver.$('#userIds___chosen > div > ul > li:nth-child('+indexes[0]+')');
+        await chooseTeammember1.click();   
+    },
+    addTeamMemberTwo: async function() {
+        let chooseTeammember1 = await driver.$('#userIds___chosen > div > ul > li:nth-child('+indexes[1]+')');
+        await chooseTeammember1.click();
+        let submitContainer = await driver.$('.add-member-modal');
+        let submitBtn = await submitContainer.$('button[type="submit"]'); 
+        await submitBtn.click();
+    },
     createTeamWithTwoMembers: async function(nameOne, nameTwo) {
-        await this.createATeamSTEPS();
+        team_name = "a team";
+        await this.createATeamSTEPS(team_name);
         await this.addMembersToTheTeamSTEPS();
         await this.addTeamMemberSTEPS(nameOne);
         await this.addTeamMemberOne();
-        await searchBox.click();
         await this.addTeamMemberSTEPS(nameTwo);
         await this.addTeamMemberTwo();
     },
@@ -73,6 +73,6 @@ module.exports = {
         let url = teamData.url;
         await helpers.loadPage(url, 20);
         let names = await this.getTeamNames();
-        await expect(names).to.include(name);
+        await expect(names).to.include(team_name);
     }
 }

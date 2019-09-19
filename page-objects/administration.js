@@ -7,6 +7,7 @@ var length;
 let oldPassword;
 let eMAIL;
 let name;
+let newPassword = "Schulcloud1!"
 
 module.exports = {
 goToAdministration: function() {
@@ -77,7 +78,6 @@ newPupilLogsIn: async function() {
     await firstLogin.pupilLogin(eMAIL, oldPassword);
 },
 pupilAcceptsDataProtection: async function() {
-    let newPassword = "Schulcloud1!";
     await firstLogin.firstLoginPupilFullAge(name, newPassword);
 }
 }

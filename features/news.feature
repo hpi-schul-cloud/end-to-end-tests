@@ -20,7 +20,6 @@ Then he cannot see the news which is not due yet
 
 @teamnews
 Scenario: teacher creates team news and this news can only be visible for team members
-When teacher creates a team
-When teacher creates team news
-#Then team member can see the news
-#Then team non-members cannot see the news
+When teacher creates two teams team and news for these teams
+Then team member can see the news
+Then team non-members cannot see the news

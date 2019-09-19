@@ -32,6 +32,7 @@ Then(/^the admin should see new pupil with email (.*) among his pupils$/, functi
     return administration.newPupilLogsIn() ;
   });
   Then(/^new pupil accepts data protection policy and sets new password for the profile$/, function() {
+
     return administration.pupilAcceptsDataProtection();
   });
 
