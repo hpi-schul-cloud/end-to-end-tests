@@ -43,6 +43,7 @@ module.exports = {
   createNews: async function(name) {
     let nameField = await driver.$('#news_title_id');
     let bodytext = 'Here are some announcements for my pupuils';
+    await nameField.waitForExist(10000);
     await nameField.setValue(name);
     await driver.pause(2000);
     await driver.switchToFrame(0);
@@ -72,6 +73,7 @@ module.exports = {
     await driver.pause(1000);
     let nameField = await driver.$('#news_title_id');
     let bodytext = 'Here are some announcements for my pupuils';
+    await nameField.waitForExist(1000);
     await nameField.setValue(name);
     await driver.pause(2000);
     await this.executeScript();
