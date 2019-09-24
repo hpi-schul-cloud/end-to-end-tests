@@ -12,14 +12,20 @@ env:
   global:
     - GIT_SHA=$( git rev-parse HEAD )
     - IT_CLIENT_HOST=client
+    - BRANCH_NAME=${TRAVIS_PULL_REQUEST_BRANCH:=$TRAVIS_BRANCH}
 before_install:
   - mkdir -p integration-tests
   - mv !(integration-tests|node_modules) integration-tests
-  # TODO remove next line
-  - git clone -b aj/integration-tests https://github.com/schul-cloud/schulcloud-client.git schulcloud-client
-  # TODO remove branch from next line
-  - git clone -b aj/integration-tests https://github.com/schul-cloud/schulcloud-server.git schulcloud-server
+  # fetch switch_branch script
+  - curl https://gist.githubusercontent.com/schul-cloud-bot/26e57e99fdae76f30927089c9dd99df7/raw/a590139da5f969a6d330f38ab2d85d3769c86f3f/switch_branch.sh > switch_branch.sh
+  - chmod 700 switch_branch.sh
+  # clone other required repositories and try to switch to branch with same name as current one
   - git clone https://github.com/schul-cloud/docker-compose.git docker-compose
+  - sh switch_branch.sh "docker-compose" "$BRANCH_NAME"
+  - git clone https://github.com/schul-cloud/schulcloud-client.git schulcloud-client
+  - sh switch_branch.sh "schulcloud-client" "$BRANCH_NAME"
+  - git clone https://github.com/schul-cloud/schulcloud-server.git schulcloud-server
+  - sh switch_branch.sh "schulcloud-server" "$BRANCH_NAME"
 install:
   # TODO use "Images" Dockerfile to improve speed
   # - cd docker-compose && docker-compose -f docker-compose.integration-test-Images.yml up -d && cd ..
