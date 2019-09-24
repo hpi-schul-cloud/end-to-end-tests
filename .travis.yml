@@ -42,4 +42,4 @@ after_script:
   - rv-upload -F **/reports/**/*.html
 cache:
   directories:
-    - schulcloud-client/node_modules
+    - "$HOME/.npm" # cache all packages installed with "npm ci"
