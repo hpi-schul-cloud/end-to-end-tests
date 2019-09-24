@@ -1,10 +1,5 @@
-[![STAT](https://nodei.co/npm/klassi-js.png?download=true)](https://nodei.co/npm/klassi-js/)
+# BDD Testing for the HPI Schul-Cloud
 
-# klassi-js [![Run Status](https://api.shippable.com/projects/585832b28171491100bb123f/badge?branch=master)](https://app.shippable.com/projects/585832b28171491100bb123f) [![Build Status](https://travis-ci.org/larryg01/klassi-js.svg?branch=master)](https://travis-ci.org/larryg01/klassi-js) [![Downloads](https://img.shields.io/npm/dt/webdriverio-cucumber-js.svg?longCache=true&style=flat)](https://npm-stat.com/charts.html?author=larryg01&from=2016-12-01)
-
-A platform independent debuggable BDD Javascript testing framework. It's simple, easy to use and not dependant to
-any other tool or library. It's built with [nodeJs](https://nodejs.org/en/), [webdriver.io (Next-gen WebDriver for Node.js)](http://webdriver.io/) and [cucumber-js](https://github.com/cucumber/cucumber-js "view 
-  cucumber js documentation") complete with integrated API Testing.
 
 ## Available Tests
 
@@ -191,7 +186,16 @@ You can use the framework without any command line arguments if your application
     └── cucumber-report.html
 ```
 
-## Credits
+## Bugs
+
+Please raise framework related bugs via the [klassi-js issue tracker](https://github.com/larryg01/klassi-js/issues) and, if possible, please provide enough information to allow the bug to be 
+reproduced. 
+
+## Contributing to the framework
+
+Anyone can contribute to this project simply by [opening an issue here](https://github.com/larryg01/klassi-js/issues) or fork the project and issue a pull request with suggested improvements. In lieu of a formal styleguide, please take care to maintain the existing coding style.
+
+## Credits for the testing framework
 
 [John Doherty](https://www.linkedin.com/in/john-i-doherty)
 
