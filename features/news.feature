@@ -18,8 +18,8 @@ When a pupil logs in
 When he goes to news page
 Then he cannot see the news which is not due yet
 
-# @teamnews
-# Scenario: teacher creates team news and this news can only be visible for team members
-# When teacher creates two teams team and news for these teams
-# Then team member can see the news
-# Then team non-members cannot see the news
+@teamnews
+Scenario: teacher creates team news and this news can only be visible for team members
+When teacher creates two teams team and news for these teams
+Then team member can see the news
+Then team non-members cannot see the news
