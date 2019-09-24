@@ -15,7 +15,7 @@ module.exports = {
     usernameInput: 'section#loginarea input[data-testid="username"]',
     passwordInput: 'section#loginarea input[data-testid="password"]',
     loginBtn: 'section#loginarea input[data-testid="submit-login"]',
-    submitBtn: "input[name=submit-login]",
+    submitBtn: "input[data-testid=submit-login]",
     resultInitials: '.avatar-circle .initials',
     icon: 'div[data-testid="icon-clickable"]',
     settings: 'a[data-testid="settings"]',
