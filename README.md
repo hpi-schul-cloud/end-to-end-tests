@@ -46,7 +46,7 @@ npm run test -- -t @teacherLogin
 
 ### Options
 
-#### Enviroment Variables
+#### Environment Variables
 
 key | description
 ---|---

@@ -21,18 +21,18 @@ module.exports = {
         await settings.click();
     },
     setNewPassword: async function() {
-        let passwordField = await driver.$('#passwordNew');
-        await passwordField.setValue(legiblePassword);
-        await driver.pause(500);
-        let passwordControlField = await driver.$('#password_control');
-        await passwordControlField.setValue(legiblePassword);
-        await driver.pause(500);
-        let currentPassword = await driver.$('#settings_current_password');
+        let currentPassword = await driver.$('[data-testid="settings_password_current"]');
         let current_password = "Schulcloud1!";
         await currentPassword.setValue(current_password);
-        let okBtn = await driver.$('#submit_new_password_btn');
+
+        let passwordField = await driver.$('[data-testid="settings_password_new"]');
+        await passwordField.setValue(legiblePassword);
+
+        let passwordControlField = await driver.$('[data-testid="settings_password_control"]');
+        await passwordControlField.setValue(legiblePassword);
+
+        let okBtn = await driver.$('[data-testid="submit_new_password_btn"]');
         await okBtn.click();
-        await driver.pause(1000);
     },
     tryWithOld: async function() {
         await driver.pause(2000);
