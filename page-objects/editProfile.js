@@ -3,6 +3,7 @@
 const loginData = require('../shared-objects/loginData');
 const courseData = require('../shared-objects/courseData');
 const teacherLogin = require('../page-objects/teacherLogin');
+const { CLIENT } = require("../shared-objects/servers");
 const shared = { loginData };
 const course = { courseData };
 const firstLogin = require('../shared_steps/firstLogin.js');
@@ -44,6 +45,6 @@ module.exports = {
     },
     tryWithNew: async function() {
         await teacherLogin.performLogin(loginData.defaultTeacherUsername, legiblePassword);
-        await helpers.assertUrl('http://localhost:3100/dashboard');
+        await helpers.assertUrl(`${CLIENT.URL}/dashboard`);
     }
 }

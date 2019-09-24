@@ -1,4 +1,5 @@
 'use strict';
+const { CLIENT } = require("../shared-objects/servers");
 let administration = require('../page-objects/administration');
 const firstLogin = require('../shared_steps/firstLogin.js');
 const teams = require('../page-objects/createTeam');
@@ -28,16 +29,16 @@ let oldPassword2;
 
 module.exports = {
   gotoNews: async function() {
-    let url = "http://localhost:3100/news/";
+    let url = `${CLIENT.URL}/news/`;
     await helpers.loadPage(url, 100);
   
   },
   createNewNews: async function() {
-    let url = "http://localhost:3100/news/new";
+    let url = `${CLIENT.URL}/news/new`;
     await helpers.loadPage(url, 100);
   },
   gotoTeams: async function() {
-    let url = "http://localhost:3100/teams/";
+    let url = `${CLIENT.URL}/teams/`;
     await helpers.loadPage(url, 100);
 },
   createNews: async function(name) {
