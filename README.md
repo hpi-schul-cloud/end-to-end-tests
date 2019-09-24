@@ -209,14 +209,14 @@ You can use the framework without any command line arguments if your application
 
 ## Bugs
 
-Please raise bugs via the [klassi-js issue tracker](https://github.com/larryg01/klassi-js/issues) and, if possible, please provide enough information to allow the bug to be 
-reproduced.
+Please raise framework related bugs via the [klassi-js issue tracker](https://github.com/larryg01/klassi-js/issues) and, if possible, please provide enough information to allow the bug to be 
+reproduced. 
 
-## Contributing
+## Contributing to the framework
 
 Anyone can contribute to this project simply by [opening an issue here](https://github.com/larryg01/klassi-js/issues) or fork the project and issue a pull request with suggested improvements. In lieu of a formal styleguide, please take care to maintain the existing coding style.
 
-## Credits
+## Credits for the testing framework
 
 [John Doherty](https://www.linkedin.com/in/john-i-doherty)
  
