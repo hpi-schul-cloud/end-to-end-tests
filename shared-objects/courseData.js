@@ -15,8 +15,8 @@ module.exports = {
     representativeCourse:
       'select[data-testid\'substituent\']',
     appointmentCourse:
-      'input[data-testid=\'startingDate\']',
-    cloneBtn: 'input[data-testid=\'startingDate\']',
+      'input[data-testid=\'date_start\']',
+    cloneBtn: 'input[data-testid=\'date_start\']',
 
     weiterBtn: 'button[data-next-label=\'Weiter\']',
     classesOfTheCourse: 'section#section-2 input[data-testid=\'classes\']',
@@ -26,9 +26,9 @@ module.exports = {
     zurUebersichtBtn: 'section#section-course a[id=\'preshow\']',
     teilnehmerFenster: 'section#section-courses ',
     // Dataschutz:
-    schulcloudErkundenBtn: 'a[data-testid=\'Schul-Cloud-erkunden-Btn\']',
+    schulcloudErkundenBtn: 'a[data-testid=\'btn_schul-cloud_erkunden\']',
     // homework:
-    evaluationInProcent: 'input[data-testid=\'evaluationProcent\']',
+    evaluationInProcent: 'input[data-testid=\'evaluation_procent\']',
 
 }
 }

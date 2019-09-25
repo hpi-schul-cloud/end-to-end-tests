@@ -19,7 +19,7 @@ module.exports = {
     await nextBtn.click();
     await this.dataProtection();
     await nextBtn.click();
-    let start = await driver.$('a[data-testid=\'Schul-Cloud-erkunden-Btn\']');
+    let start = await driver.$('a[data-testid=\'btn_schul-cloud_erkunden\']');
     await start.waitForExist(5000);
     await start.click();
   },
@@ -61,7 +61,7 @@ module.exports = {
     await password_control.setValue(pass);
     await nextBtn.click();
     await driver.pause(2000);
-    let start = await driver.$('a[data-testid=\'Schul-Cloud-erkunden-Btn\']');
+    let start = await driver.$('a[data-testid=\'btn_schul-cloud_erkunden\']');
     await start.waitForExist(5000);
     await start.click();
     await driver.url(`${CLIENT.URL}/dashboard`);
