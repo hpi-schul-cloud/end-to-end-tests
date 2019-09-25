@@ -42,7 +42,7 @@ module.exports = {
     await helpers.loadPage(url, 100);
 },
   createNews: async function(name) {
-    let nameField = await driver.$('[data-testid="news_title"]);
+    let nameField = await driver.$('[data-testid="news_title"]');
     let bodytext = 'Here are some announcements for my pupuils';
     await nameField.waitForExist(10000);
     await nameField.setValue(name);
