@@ -19,10 +19,10 @@ module.exports = {
         await createBtn.click();
     },
     addMembersToTheTeamSTEPS: async function() {
-        await driver.execute('document.querySelector("#team_settings").click()');
-        await driver.$('#team_settings').then(button=>button.click());
-        await driver.execute('document.querySelector("#administrate_team_members").click()');
-        await driver.execute('document.querySelector("#internal_team_members").click()');
+        await driver.execute(`document.querySelector('[data-testid="team_settings"]').click()`);
+        await driver.$('[data-testid="team_settings"]').then(button=>button.click());
+        await driver.execute(`document.querySelector('a[data-testid="administrate_team_members"]').click()`);
+        await driver.execute(`document.querySelector('[data-testid="internal_team_members"]').click()`);
         await driver.pause(2000);
         let container = await driver.$('#userIds___chosen > ul');
         searchBox = await container.$('li > input');

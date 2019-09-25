@@ -159,7 +159,7 @@ module.exports = {
       
     },
     gotoTeamNews: async function() {
-      let newsTab = await driver.$('#js-news > span');
+      let newsTab = await driver.$('[data-tab="js-news"] > span');
       await newsTab.click();
       let btn = await driver.$(team.submitBtn);
       await btn.click();
