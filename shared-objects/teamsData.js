@@ -20,13 +20,4 @@ module.exports ={
     appointmentsTab: 'input[data-testid=\'team_event_name\']',
     descriptionTeamEvent: 'input[data-testid=\'description_team_event\']',
     locationTeamEvent: 'input[data-testid=\'team_event_location\']',
-    
-    
-
-
-    
-
-
-
-
 }
