@@ -55,7 +55,7 @@ module.exports = {
      await this.dataProtection();
       await nextBtn.click();
     }
-    let password = await driver.$('input[data-testid=\'password\']');
+    let password = await driver.$('input[data-testid=\'firstlogin_password\']');
     let password_control = await driver.$('input[data-testid=\'firstlogin_password_control\']');
     await password.setValue(pass);
     await password_control.setValue(pass);
