@@ -46,13 +46,12 @@ module.exports = {
   performCreateCourse: async function() {
     let weiterBtn2 = await driver.$('#nextSection');
     await weiterBtn2.click();
+
     let kursAnlegenUndWeiterBtn = await driver.$('#nextSection');
     await kursAnlegenUndWeiterBtn.click();
+    await driver.$('.form-submitted');
   },
-  zurUebersicht: async function() {
-    let zurUebersicht = await driver.$('#preshow');
-    await zurUebersicht.click();
-  }
+
 };
 
 

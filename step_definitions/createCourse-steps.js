@@ -42,6 +42,7 @@ Then(/^the teacher chooses a color of the course$/, function() {
 });
 Then(/^the teacher clicks the create button$/, function() {
   return createCourse.performCreateCourse();
+  
 });
 Then(/^the teacher clicks to preview$/, function() {
   let url = courseData.urlCourses;
