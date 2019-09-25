@@ -42,7 +42,7 @@ module.exports = {
     await helpers.loadPage(url, 100);
 },
   createNews: async function(name) {
-    let nameField = await driver.$('#news_title_id');
+    let nameField = await driver.$('[data-testid="news_title"]);
     let bodytext = 'Here are some announcements for my pupuils';
     await nameField.waitForExist(10000);
     await nameField.setValue(name);
@@ -64,7 +64,7 @@ module.exports = {
     await this.createNews(newsName);
   },
   executeScript: async function() {
-    await driver.execute('document.querySelector("#news_date_to_be_displayed").value = "13.08.2020"');
+    await driver.execute(`document.querySelector('input[data-testid="news_date_to_be_displayed"]').value = "13.08.2020"`);
   },
   performCreateNewsLater: async function(name) {
    // await firstLogin.firstLoginTeacher();
@@ -72,7 +72,7 @@ module.exports = {
     await driver.pause(1000);
     await this.createNewNews();
     await driver.pause(1000);
-    let nameField = await driver.$('#news_title_id');
+    let nameField = await driver.$('[data-testid="news_title"]');
     let bodytext = 'Here are some announcements for my pupuils';
     await nameField.waitForExist(1000);
     await nameField.setValue(name);

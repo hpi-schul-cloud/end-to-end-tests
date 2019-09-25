@@ -32,8 +32,8 @@ module.exports = {
     tools: 'button[data-testid="tools"]',
     groups: 'button[data-testid="groups"]',
     // news:
-    timeNewsMustBePublished: 'input[data-testid="dateToBeDisplayed"]',
-    submitNewsBtn: 'button[data-testid="submitNews-Btn"]',
+    timeNewsMustBePublished: 'input[data-testid="news_date_to_be_displayed"]',
+    submitNewsBtn: 'button[data-testid="btn_news_submit"]',
     // new password
     iconClickable: 'div[data-testid="initials"]',
     currentPassword: 'input[data-testid="settings_password_current"]',
