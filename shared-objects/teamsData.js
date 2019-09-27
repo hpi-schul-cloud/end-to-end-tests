@@ -10,7 +10,9 @@ module.exports ={
     createTeamBtn: 'button[data-testid="create_team_btn"]',
     teamSettings: 'a[data-testid="team_settings"]',
     administrateTeamMembers: 'a[data-testid="administrate_team_members"]',
+    dropboxContainer: 'div[data-testid="dropbox_container"]',
     selectTeamMembers: 'select[data-testid="select_team_members_add"]',
+    addInternamMembers: 'button[data-testid="internal_team_members"]',
     // team internal options
     filesTab: 'div[data-testid="team_files"]',
     newsTab: 'button[data-tab="js-news"]',
