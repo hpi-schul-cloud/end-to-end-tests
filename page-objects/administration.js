@@ -2,7 +2,6 @@
 const firstLogin = require('../shared_steps/firstLogin.js');
 const { expect } = require('chai');
 const Admin = require('../shared-objects/administrationData');
-let emails = [];
 var length;
 let oldPassword;
 let eMAIL;
@@ -39,26 +38,21 @@ executeScript: async function() {
     await driver.pause(1500);
     await driver.execute('document.querySelector("#create_birthday").value = "13.08.1990"')
 },
-namesOfThePupils: async function() {
+emailsOfThePupils: async function() {
     let names = await driver.$$(Admin.namesContainer + ' > tr');
-    length = names.length; 
-    for (var i = 1; i<= length; i++) {
-        let pupil = await driver.$(Admin.namesContainer + ' > tr:nth-child('+i+')');
-        let emailPromise =  await driver.$(Admin.namesContainer + ' > tr:nth-child('+i+') > td:nth-child(3)');
-        let email = await emailPromise.getText();
-        await emails.push(email);
-    }
-    return emails;
+    return Promise.all(names.map(async (nameContainer) => {
+        const emailContainer = await nameContainer.$("td:nth-child(3)");
+        return await emailContainer.getText();
+    }))
 },
 verify: async function(email) {
-    let names = await this.namesOfThePupils();
-    await expect(names).to.contain(email);
+    let emails = await this.emailsOfThePupils();
+    await expect(emails).to.contain(email);
 },
 submitConsent: async function(e_mail) {
     let names = await driver.$$(Admin.namesContainer + ' > tr');
     length = names.length; 
     for (var i = 1; i<= length; i++) {
-        let pupil = await driver.$(Admin.namesContainer + ' > tr:nth-child('+i+')');
         let emailPromise =  await driver.$(Admin.namesContainer + ' > tr:nth-child('+i+') > td:nth-child(3)');
         let email = await emailPromise.getText();
         if (email===e_mail){
