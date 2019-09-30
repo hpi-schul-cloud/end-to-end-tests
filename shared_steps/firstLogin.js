@@ -20,7 +20,7 @@ module.exports = {
     await this.dataProtection();
     await nextBtn.click();
     await driver.$('.form-submitted');
-    let start = await driver.$('a[data-testid="btn_schul-cloud_erkunden"]');
+    let start = await driver.$('a[href="/"]');
     await start.click();
   },
   firstLoginAdmin: async function() {
@@ -30,7 +30,7 @@ module.exports = {
     await this.dataProtection();
     await nextBtn.click();
     await driver.$('.form-submitted');
-    let start = await driver.$('a[data-testid="btn_schul-cloud_erkunden"]');
+    let start = await driver.$('a[href="/"]');
     await start.click();
   },
   dataProtection: async function() {
@@ -60,7 +60,7 @@ module.exports = {
     await password_control.setValue(pass);
     await nextBtn.click();
     await driver.$('.form-submitted');
-    let start = await driver.$('a[data-testid=\'btn_schul-cloud_erkunden\']');
+    let start = await driver.$('a[href="/"]');
     await start.click();
   },
   getInitials: async function() {
@@ -84,7 +84,7 @@ module.exports = {
       '.dropdown-name'
     );
     let name = await nameBox.getText();
-    return name; 
+    return name;
   },
   logout: async function() {
     let icon = await driver.$(
