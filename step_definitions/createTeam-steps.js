@@ -25,7 +25,6 @@ Given(/^teacher successfully logged in$/, function() {
   When(/^teacher adds one more student with (.*), (.*), (.*)$/,  function(firstname2, lastname2, email2) {
     fullname2 = firstname2+" "+lastname2;
     return newPupil.createNewPupil(firstname2, lastname2, email2);
-  
   });
 
   When(/^teacher creates a new team with (.*) and$/,  function(teamname) {
@@ -33,7 +32,6 @@ Given(/^teacher successfully logged in$/, function() {
     return createTeam.createTeamAndGoToSettings(teamname);
   });
 When(/^teacher adds two students to this team$/, function() {
-  
   return createTeam.addTwoTeamMemebers(fullname1, fullname2)
 
   });

@@ -17,9 +17,10 @@ const chosenSearchableSelectHelper = (driver, selectSelector) => ({
     },
     selectOptionByName: async (name) => {
         // TODO search by full name (including spaces) => remove split()
-        const searchName = name.split(" ")[0]
+        const searchName = name.trim().split(" ")[0]
         const container = await driver.$(`${selectSelector} + .chosen-container`);
         const searchInput = await container.$(".chosen-search-input");
+        await searchInput.click();
         await searchInput.setValue(searchName);
         const searchResult = await container.$(`.chosen-results .active-result.highlighted`)
         await searchResult.click();
