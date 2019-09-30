@@ -20,7 +20,7 @@ module.exports = {
     await this.dataProtection();
     await nextBtn.click();
     await driver.$('.form-submitted');
-    let start = await driver.$('[data-testid="btn_schul-cloud_erkunden"]');
+    let start = await driver.$('a[data-testid="btn_schul-cloud_erkunden"]');
     await start.click();
   },
   firstLoginAdmin: async function() {
@@ -30,7 +30,7 @@ module.exports = {
     await this.dataProtection();
     await nextBtn.click();
     await driver.$('.form-submitted');
-    let start = await driver.$('[data-testid="btn_schul-cloud_erkunden"]');
+    let start = await driver.$('a[data-testid="btn_schul-cloud_erkunden"]');
     await start.click();
   },
   dataProtection: async function() {
