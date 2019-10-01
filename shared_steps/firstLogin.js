@@ -19,8 +19,9 @@ module.exports = {
     await nextBtn.click();
     await this.dataProtection();
     await nextBtn.click();
-    let start = await driver.$('a[data-testid=\'btn_schul-cloud_erkunden\']');
-    await start.waitForExist(5000);
+    await driver.$('.form-submitted');
+    let start = await driver.$('a[data-testid="btn_schul-cloud_erkunden"]');
+    await start.waitForDisplayed(15000);
     await start.click();
   },
   firstLoginAdmin: async function() {
@@ -29,9 +30,9 @@ module.exports = {
     await nextBtn.click();
     await this.dataProtection();
     await nextBtn.click();
-    let start = await driver.$(
-      'body > main > div > div > form > div.panels.mb-2 > section:nth-child(4) > p > a'
-    );
+    await driver.$('.form-submitted');
+    let start = await driver.$('a[data-testid="btn_schul-cloud_erkunden"]');
+    await start.waitForDisplayed(15000);
     await start.click();
   },
   dataProtection: async function() {
@@ -52,7 +53,7 @@ module.exports = {
     // wenn Einwilligungserklärung:
     let section_three_name = await driver.$('.panels.mb-2 > section:nth-child(3) > h2');
     if (await section_three_name.getText()== "Einwilligungserklärung") {
-     await this.dataProtection();
+      await this.dataProtection();
       await nextBtn.click();
     }
     let password = await driver.$('input[data-testid=\'firstlogin_password\']');
@@ -60,11 +61,10 @@ module.exports = {
     await password.setValue(pass);
     await password_control.setValue(pass);
     await nextBtn.click();
-    await driver.pause(2000);
-    let start = await driver.$('a[data-testid=\'btn_schul-cloud_erkunden\']');
-    await start.waitForExist(5000);
+    await driver.$('.form-submitted');
+    let start = await driver.$('a[data-testid="btn_schul-cloud_erkunden"]');
+    await start.waitForDisplayed(15000);
     await start.click();
-    await driver.url(`${CLIENT.URL}/dashboard`);
   },
   getInitials: async function() {
     let name = await this.getNameAndPosition();
@@ -87,7 +87,7 @@ module.exports = {
       '.dropdown-name'
     );
     let name = await nameBox.getText();
-    return name; 
+    return name;
   },
   logout: async function() {
     let icon = await driver.$(

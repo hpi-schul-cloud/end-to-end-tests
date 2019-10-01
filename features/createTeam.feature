@@ -1,12 +1,19 @@
-# @createTeam
-# Feature: a teacher can create a team 
+@createTeam
+Feature: a teacher can create a team 
 
-# Background: a teacher logs in and creates a new pupil and then the teacher can create a team consisting of a new pupil and existing one
+Background: a teacher logged in and created a new pupil 
 
-# Given the teacher starts on the login page and
-# Given teacher successfully logs in and
-# Given the teacher creates a new pupil 
+Given the teacher started on the login page and
+Given teacher successfully logged in
 
-# Scenario: create a team
-# When teacher creates a new team 
-# Then this team should be displayed on the team page
+
+Scenario Outline: create a team with two new members
+When teacher adds a new student with <firstname1>, <lastname1>, <email1>
+When teacher adds one more student with <firstname2>, <lastname2>, <email2>
+When teacher creates a new team with <teamname> and
+When teacher adds two students to this team
+Then this team should be displayed on the team page
+
+Examples:
+| teamname | firstname1 | lastname1 | email1 | firstname2 | lastname2 | email2 | 
+| test team | Mia | Raupe | raupe@schul-cloud.org | Ronald | Müller | mueller@schul-cloud.org | 
