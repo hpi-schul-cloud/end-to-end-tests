@@ -214,6 +214,7 @@ module.exports = {
       '#main-content > section > form > div.modal-footer > button.btn.btn-primary.btn-submit'
     );
     await btn.click();
+    await driver.$('[href*="/topics/add"]');
     await helpers.loadPage(courseData.urlCourses, 20);
   },
   countBeforeCopied: async function() {
