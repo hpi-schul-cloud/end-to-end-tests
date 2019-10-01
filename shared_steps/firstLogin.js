@@ -21,7 +21,7 @@ module.exports = {
     await nextBtn.click();
     await driver.$('.form-submitted');
     let start = await driver.$('a[data-testid="btn_schul-cloud_erkunden"]');
-    await start.waitForDisplayed();
+    await start.waitForDisplayed(15000);
     await start.click();
   },
   firstLoginAdmin: async function() {
@@ -32,7 +32,7 @@ module.exports = {
     await nextBtn.click();
     await driver.$('.form-submitted');
     let start = await driver.$('a[data-testid="btn_schul-cloud_erkunden"]');
-    await start.waitForDisplayed();
+    await start.waitForDisplayed(15000);
     await start.click();
   },
   dataProtection: async function() {
@@ -63,7 +63,7 @@ module.exports = {
     await nextBtn.click();
     await driver.$('.form-submitted');
     let start = await driver.$('a[data-testid="btn_schul-cloud_erkunden"]');
-    await start.waitForDisplayed();
+    await start.waitForDisplayed(15000);
     await start.click();
   },
   getInitials: async function() {
