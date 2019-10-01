@@ -16,13 +16,14 @@ Given(/^teacher arrives on the Schul-Cloud page$/, function() {
 });
 Given(/^teacher is logged in successfully$/, function() {
   return teacherLogin.performLogin(
-    Login.deafultTeacherUsername,
+    Login.defaultTeacherUsername,
     Login.defaultTeacherpassword
   );
 });
 
 Given('teacher goes to courses page', function() {
-  return helpers.loadPage(courseData.url, 20);
+  let url = courseData.urlCourses;
+  return helpers.loadPage(url, 20);
 });
 When(
   /^teacher creates a course (.*) and adds pupils to this course$/,

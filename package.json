@@ -35,19 +35,16 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "node index.js -dt @teacherLogin",
-    "all": "node index.js -d",
-    "dev": "node index.js -dt @api",
-    "local": "node index.js -edt",
-    "bslocal": "node runtime/remotes/browserstackLocal && node index.js -edw browserstack -x",
-    "startServer": "./starts.sh",
-    "clean": "./clean.sh",
-    "cleantest": "npm run clean && npm run test"
+    "test": "node index.js -d",
+    "test:dev": "node index.js -d -k",
+    "selenium": "npx selenium-standalone install && npx selenium-standalone start"
   },
   "homepage": "https://github.com/schul-cloud/integration-tests#readme",
   "dependencies": {
     "browserstack-local": "^1.3.7",
     "chai": "^4.2.0",
+    "commander": "^3.0.1",
+    "concurrently": "^4.1.2",
     "cucumber": "^5.1.0",
     "cucumber-html-reporter": "^4.0.5",
     "cucumber-pretty": "^1.5.0",
@@ -59,6 +56,7 @@
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "require-dir": "^1.2.0",
+    "selenium-standalone": "^6.16.0",
     "winston": "^3.2.1"
   },
   "devDependencies": {

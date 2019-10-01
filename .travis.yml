@@ -11,24 +11,35 @@ services:
 env:
   global:
     - GIT_SHA=$( git rev-parse HEAD )
-    - SC_DEMO_USER_PASSWORD=schulcloud
-    - FEATURE_TEAMS_ENABLED=true
     - IT_CLIENT_HOST=client
+    - BRANCH_NAME=${TRAVIS_PULL_REQUEST_BRANCH:=$TRAVIS_BRANCH}
 before_install:
   - mkdir -p integration-tests
   - mv !(integration-tests|node_modules) integration-tests
+  # fetch switch_branch script
+  - curl https://gist.githubusercontent.com/schul-cloud-bot/26e57e99fdae76f30927089c9dd99df7/raw/a590139da5f969a6d330f38ab2d85d3769c86f3f/switch_branch.sh > switch_branch.sh
+  - chmod 700 switch_branch.sh
+  # clone other required repositories and try to switch to branch with same name as current one
+  - git clone https://github.com/schul-cloud/docker-compose.git docker-compose
+  - sh switch_branch.sh "docker-compose" "$BRANCH_NAME"
+  - git clone https://github.com/schul-cloud/schulcloud-client.git schulcloud-client
+  - sh switch_branch.sh "schulcloud-client" "$BRANCH_NAME"
   - git clone https://github.com/schul-cloud/schulcloud-server.git schulcloud-server
-  - git clone -b integration-test https://github.com/schul-cloud/docker-compose.git docker-compose
+  - sh switch_branch.sh "schulcloud-server" "$BRANCH_NAME"
 install:
-  - cd docker-compose && docker-compose -f docker-compose.integration-test.yml up -d && cd ..
+  # TODO use "Images" Dockerfile to improve speed
+  # - cd docker-compose && docker-compose -f docker-compose.integration-test-Images.yml up -d && cd ..
+  - docker-compose -f docker-compose/docker-compose.integration-test-Build.yml up -d
   - cd integration-tests && npm ci && cd ..
-before_script:
-  - cd schulcloud-server && npm run setup && cd ..
 script:
   - echo $TRAVIS_BRANCH
   - echo $TRAVIS_TAG
-  - cd integration-tests && npm run all && cd ..
+  - cd integration-tests
+  - npm run test
+  - cd ..
+after_script:
+  - npm i -g @adrianjost/report-viewer
+  - rv-upload -F **/reports/**/*.html
 cache:
   directories:
-    - schulcloud-client/node_modules
-    - integration-tests/node_modules
+    - "$HOME/.npm" # cache all packages installed with "npm ci"

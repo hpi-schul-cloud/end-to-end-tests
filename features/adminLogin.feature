@@ -9,9 +9,9 @@ Feature: Logging in as an admin
   Scenario Outline: User inputs the username and password
     When an admin puts in <username> and <password> and click the login-button
     Then the user is supposed to accept the data protection agreement
-    Then the admin-dashboard should look like it looked before for <username>
+    Then the admin-dashboard should have the admin initials
 
     Examples:
       |username|password|
       |admin@schul-cloud.org|Schulcloud1!|
-      
+

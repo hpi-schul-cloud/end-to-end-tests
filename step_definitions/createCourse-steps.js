@@ -16,13 +16,14 @@ Given(/^The teacher arrives on the Schul-Cloud page$/, function() {
 
 Given(/^the teacher is logged in successfully$/, function() {
   return teacherLogin.performLogin(
-    Login.deafultTeacherUsername,
+    Login.defaultTeacherUsername,
     Login.defaultTeacherpassword
   );
 });
 
 When('the teacher goes to courses page', function() {
-  return helpers.loadPage(courseData.url, 20);
+  let url = courseData.urlCourses;
+  return helpers.loadPage(url, 20);
 });
 
 Then(/^the teacher sees existing courses$/, async function() {
@@ -41,9 +42,11 @@ Then(/^the teacher chooses a color of the course$/, function() {
 });
 Then(/^the teacher clicks the create button$/, function() {
   return createCourse.performCreateCourse();
+  
 });
 Then(/^the teacher clicks to preview$/, function() {
-  return helpers.loadPage(courseData.url, 10);
+  let url = courseData.urlCourses;
+  return helpers.loadPage(url, 10);
 });
 
 Then(/^the teacher sees the created course$/, async function() {

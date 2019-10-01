@@ -21,22 +21,26 @@ module.exports = {
     await addPupilToTheCourse.addClass();
     await addPupilToTheCourse.createCourseAndNext();
     await driver.pause(1000);
-    await helpers.loadPage(courseData.url, 20);
+    let url = courseData.urlCourses;
+    await helpers.loadPage(url, 20);
   },
   copyCourse: async function() {
-    await helpers.loadPage(courseData.url, 20);
+    await helpers.loadPage(courseData.urlCourses, 20);
     await this.countBeforeCopied();
     await this.chooseCourse();
     await this.clickClone();
     await this.confirmClone();
   },
   chooseCourse: async function() {
-    const courses = await driver.$$(
-      '#main-content > section > div.course-card > div.sectionsContainer > div > div.section.section-course.active > section > div > div > div'
-    );
-    let lastCourseIndex = courses.length - 1;
-    let lastCourse = await courses[lastCourseIndex];
-    await lastCourse.click();
+    let coursesContainer = await driver.$('div[data-testid=\'courses\']');
+    let courses = await driver.$$('div[data-testid=\'courses\'] > div');
+    let lastCourseIndex = courses.length;
+    //let lastCourse = await driver.$('div[data-testid=\'courses\'] > div:nth-child' + '('+ lastCourseIndex + ')');
+    let lastCourse = await driver.$('div[data-testid=\'courses\'] > div:nth-child(1)');
+    await lastCourse.click(); 
+    // wir gehen davon aus, dass noch keine aktuelle Kurse vorhanden sind:
+    /*let course = await driver.$('div[data-testid=\'courses\'] > div');
+    await course.click(); */
   },
   addThema: async function() {
     let addBtn = await driver.$(
@@ -83,7 +87,7 @@ module.exports = {
     await topicsBtn.click();
   },
   verify: async function() {
-    await await helpers.loadPage(courseData.url, 20);
+    await await helpers.loadPage(courseData.urlCourses, 20);
     await this.chooseCourse();
     await this.gotoTopics();
     let topicNames = await Promise.all(
@@ -95,7 +99,7 @@ module.exports = {
   },
   verifyPupils: async function() {
     let numberOfPupils = await driver.$(
-      '#section-courses > section.section.section-courses > div > div > div:nth-child(7) > article > div.sc-card-footer > div > a'
+      '.section-course.active > section > div > div > div:nth-child(2) > article a.btn-member'
     );
     let numberText = await numberOfPupils.getText();
     let number = await parseInt(numberText);
@@ -153,7 +157,7 @@ module.exports = {
     await this.themaAndSubthema();
   },
   editEtherpad: async function() {
-    await helpers.loadPage(courseData.url, 20);
+    await helpers.loadPage(courseData.urlCourses, 20);
     await this.chooseCourse();
     await this.gotoTopics();
     let etherpad = await driver.$('#topic-list > div > div > div > p');
@@ -167,7 +171,7 @@ module.exports = {
   },
 
   delete: async function() {
-    await helpers.loadPage(courseData.url, 20);
+    await helpers.loadPage(courseData.urlCourses, 20);
     const courses = await driver.$$('#section-courses .sc-card-wrapper');
     let lastCourseIndex = (await courses.length) - 1;
     let lastCourse = await courses[lastCourseIndex];
@@ -210,7 +214,8 @@ module.exports = {
       '#main-content > section > form > div.modal-footer > button.btn.btn-primary.btn-submit'
     );
     await btn.click();
-    await helpers.loadPage(courseData.url, 20);
+    await driver.$('[href*="/topics/add"]');
+    await helpers.loadPage(courseData.urlCourses, 20);
   },
   countBeforeCopied: async function() {
     before = await createCourse.count();

@@ -10,11 +10,9 @@ let before;
 
 module.exports = {
   count: async function() {
-    const elem = await driver.$$(
-      '#main-content > section > div.course-card > div.sectionsContainer > div > div.section.section-course.active > section > div > div > div'
-    );
-    await driver.pause(1000);
-    return elem.length;
+    const countBadge = await driver.$('[data-tab="js-active"] .count-badge');
+    const number = await countBadge.getAttribute("data-badge");
+    return parseInt(number, 10)
   },
   countBefore: async function() {
     before = await this.count();
@@ -31,7 +29,7 @@ module.exports = {
     );
     await actualCourses.click();
     let clickBtn = await driver.$(
-      '#main-content > section > div.course-card > div.sectionsContainer > div > div.section.section-course.active > div > div > div > div > a.btn.btn-primary.btn-add'
+      'a[href="/courses/add"]'
     );
     await clickBtn.click();
   },
@@ -46,13 +44,12 @@ module.exports = {
   performCreateCourse: async function() {
     let weiterBtn2 = await driver.$('#nextSection');
     await weiterBtn2.click();
+
     let kursAnlegenUndWeiterBtn = await driver.$('#nextSection');
     await kursAnlegenUndWeiterBtn.click();
+    await driver.$('.form-submitted');
   },
-  zurUebersicht: async function() {
-    let zurUebersicht = await driver.$('#preshow');
-    await zurUebersicht.click();
-  }
+
 };
 
 

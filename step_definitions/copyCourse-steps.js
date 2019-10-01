@@ -5,6 +5,7 @@ let createCourse = require('../page-objects/createCourse');
 let copyCourse = require('../page-objects/copyCourse');
 let courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
+const firstLogin = require('../shared_steps/firstLogin.js');
 
 const { After, Before, AfterAll, BeforeAll } = require('cucumber');
 let before;
@@ -12,16 +13,20 @@ let before;
 //________Background_________
 
 Given(/^teacher goes to the home page$/, function() {
-  return helpers.loadPage(courseData.url2, 20);
+  return helpers.loadPage(courseData.urlLogin, 20);
 });
 Given(/^teacher is successfully logged in/, function() {
   return teacherLogin.performLogin(
-    Login.deafultTeacherUsername,
+    Login.defaultTeacherUsername,
     Login.defaultTeacherpassword
   );
 });
+Given(/^teacher has accepted the data protection agreement$/, function() {
+  return firstLogin.firstLoginTeacher();
+});
 Given(/^goes the course page$/, function() {
-  return helpers.loadPage(courseData.url, 20);
+  let url = courseData.urlCourses;
+  return helpers.loadPage(url, 20);
 });
 Given(
   /^the course, which must be cloned, will be created with some name$/,
@@ -77,15 +82,15 @@ When(
 
 // _________With Material__________
 When(/^the teacher adds some Material to the course$/, function() {
-  return 'pending';
+  return 'not implemented';
 });
 When(/^the teacher clicks copy course with Material$/, function() {
-  return 'pending';
+  return 'not implemented';
 });
 When(
   /^teacher sees the course copy and the Material is still availiable$/,
   function() {
-    return 'pending';
+    return 'not implemented';
   }
 );
 
@@ -121,17 +126,14 @@ When(
 );
 // _________With InternComponents__________
 When(/^the teacher adds some InternComponents to the course$/, function() {
-  return 'pending';
+  return 'not implemented';
 });
 When(/^the teacher clicks copy course with InternComponents$/, function() {
-  return 'pending';
+  return 'not implemented';
 });
-When(
-  /^teacher sees the course copy and the InternComponents is (are) still availiable$/,
-  function() {
-    return 'pending';
-  }
-);
+When(/^teacher sees the course copy and the InternComponents is (are) still availiable$/, function() {
+  return 'not implemented';
+});
 
 // _________With pupils__________
 When(/^the teacher copies the course with pupils$/, function() {

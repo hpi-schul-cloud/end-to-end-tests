@@ -256,6 +256,16 @@ Before(async () => {
 });
 
 /**
+ * cleanup database before each scenario
+ */
+Before(function() {
+  const { execSync } = require('child_process');
+  const output = execSync('cd ../schulcloud-server; echo reset database; npm run setup', { stdio: 'pipe' });
+  // access output via `output.toString()`
+  return Promise.resolve();
+});
+
+/**
  * send email with the report to stakeholders after test run
  */
 AfterAll(async () => {
@@ -317,7 +327,7 @@ After(async function(scenario) {
   if (scenario.result.status === Status.FAILED) {
     if (remoteService && remoteService.type === 'browserstack') {
       await driver.deleteSession();
-    } else {
+    } else if(!global.settings.keepOpenOnError){
       // Comment out to do nothing | leave browser open
       await driver.deleteSession();
     }
@@ -325,7 +335,7 @@ After(async function(scenario) {
     if (remoteService && remoteService.type !== 'browserstack') {
       // Comment out to do nothing | leave browser open
       await driver.deleteSession();
-    } else {
+    } else if(!global.settings.keepOpenOnError){
       await driver.deleteSession();
     }
   }
@@ -342,10 +352,4 @@ After(function(scenario) {
       world.attach(screenShot, 'image/png');
     });
   }
-});
-
-After(function() {
-  const { execSync } = require('child_process');
-  const output = execSync('cd ../schulcloud-server; npm run setup');
-  return Promise.resolve();
 });

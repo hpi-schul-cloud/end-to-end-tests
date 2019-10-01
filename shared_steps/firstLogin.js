@@ -1,20 +1,16 @@
 'use strict';
+const { CLIENT } = require("../shared-objects/servers");
 const Login = require('../shared-objects/loginData');
+const courseData = require('../shared-objects/courseData');
+var secondCharacter;
 
 module.exports = {
-  pupilLogin: async function() {
-    // Paula Meyer Daten:
-    let usernameBox = await driver.$(
-      '#loginarea > div > div.card-text.form-wrapper > form > div:nth-child(2) > input:nth-child(1)'
-    );
-    await usernameBox.setValue(Login.notEligiblePupilUsername);
-    let passwordBox = await driver.$(
-      '#loginarea > div > div.card-text.form-wrapper > form > div:nth-child(2) > input:nth-child(2)'
-    );
-    await passwordBox.setValue(Login.notEligiblePupilPassword);
-    let loginBtn = await driver.$(
-      '#loginarea > div > div.card-text.form-wrapper > form > div:nth-child(5) > input'
-    );
+  pupilLogin: async function(name,password) {
+    let usernameBox = await driver.$(Login.elem.usernameInput);
+    await usernameBox.setValue(name);
+    let passwordBox = await driver.$(Login.elem.passwordInput);
+    await passwordBox.setValue(password);
+    let loginBtn = await driver.$(Login.elem.submitBtn);
     await loginBtn.click();
   },
   firstLoginTeacher: async function() {
@@ -23,63 +19,75 @@ module.exports = {
     await nextBtn.click();
     await this.dataProtection();
     await nextBtn.click();
-    let start = await driver.$(
-      'body > main > div > div > form > div.panels.mb-2 > section:nth-child(4) > p > a'
-    );
+    await driver.$('.form-submitted');
+    let start = await driver.$('a[data-testid="btn_schul-cloud_erkunden"]');
+    await start.waitForDisplayed(15000);
     await start.click();
   },
-  dataProtection: async function() {
-    let box1 = await driver.$(
-      'body > main > div > div > form > div.panels.mb-2 > section.submit-page > label:nth-child(4) > input[type=checkbox]'
-    );
-    await box1.click();
-    let box2 = await driver.$(
-      'body > main > div > div > form > div.panels.mb-2 > section.submit-page > label:nth-child(6) > input[type=checkbox]'
-    );
-    await box2.click();
-  },
-  firstLoginPupilFullAge: async function() {
+  firstLoginAdmin: async function() {
     let nextBtn = await driver.$('#nextSection');
     await nextBtn.click();
     await nextBtn.click();
-    let box1 = await driver.$(
-      'body > main > div > div > form > div.panels.mb-2 > section:nth-child(3) > label:nth-child(4) > input[type=checkbox]'
-    );
-    let box2 = await driver.$(
-      'body > main > div > div > form > div.panels.mb-2 > section:nth-child(3) > label:nth-child(6) > input[type=checkbox]'
-    );
+    await this.dataProtection();
+    await nextBtn.click();
+    await driver.$('.form-submitted');
+    let start = await driver.$('a[data-testid="btn_schul-cloud_erkunden"]');
+    await start.waitForDisplayed(15000);
+    await start.click();
+  },
+  dataProtection: async function() {
+   let box1 = await driver.$(
+   'input[name=\'privacyConsent\']');
+   await box1.waitForExist(2000);
     await box1.click();
+    let box2 = await driver.$(
+      'input[name=\'termsOfUseConsent\']');
+    await box2.waitForExist(2000);
     await box2.click();
+  },
+  firstLoginPupilFullAge: async function(name, pass) {
+    // es gibt mehrere Login Möglichkeiten, hier fangen wir alle ab:
+    let nextBtn = await driver.$('#nextSection');
     await nextBtn.click();
-    let password = 'Schulcloud1!';
-    let pass1 = await driver.$('#password');
-    let pass2 = await driver.$('#password_control');
-    await pass1.setValue(password);
-    await pass2.setValue(password);
     await nextBtn.click();
-    await driver.url('http://localhost:3100/dashboard');
+    // wenn Einwilligungserklärung:
+    let section_three_name = await driver.$('.panels.mb-2 > section:nth-child(3) > h2');
+    if (await section_three_name.getText()== "Einwilligungserklärung") {
+      await this.dataProtection();
+      await nextBtn.click();
+    }
+    let password = await driver.$('input[data-testid=\'firstlogin_password\']');
+    let password_control = await driver.$('input[data-testid=\'firstlogin_password_control\']');
+    await password.setValue(pass);
+    await password_control.setValue(pass);
+    await nextBtn.click();
+    await driver.$('.form-submitted');
+    let start = await driver.$('a[data-testid="btn_schul-cloud_erkunden"]');
+    await start.waitForDisplayed(15000);
+    await start.click();
   },
   getInitials: async function() {
-    let userIcon = await driver.$(
-      'body > section > div.content-min-height > nav > ul > li:nth-child(5) > div > div > a > div > span'
-    );
-    await userIcon.click();
-    let settings = await driver.$(
-      'body > section > div.content-min-height > nav > ul > li:nth-child(5) > div > div > div > a:nth-child(2)'
-    );
-    await settings.click();
-    let firstNameBox = await driver.$(
-      '#main-content > div.route-account > form > div:nth-child(1) > input'
-    );
-    let firstName = await firstNameBox.getValue();
-    let firstCharacter = firstName[0];
-    let secondNameBox = await driver.$(
-      '#main-content > div.route-account > form > div:nth-child(2) > input'
-    );
-    let secondName = await secondNameBox.getValue();
-    let secondChacter = secondName[0];
-    let initials = firstCharacter + secondChacter;
+    let name = await this.getNameAndPosition();
+    let firstCharacter = name[0];
+    let length = name.length; 
+    for (var i=1; i<=length; i++) {
+      if (name[i] == " ") {
+      secondCharacter = name[i+1];
+      break;
+      }
+    }
+    let initials = firstCharacter + secondCharacter;
     return initials;
+  },
+  getNameAndPosition: async function() {
+    let userIcon = await driver.$('.btn-avatar > a');
+    await userIcon.click();
+  
+    let nameBox = await driver.$(
+      '.dropdown-name'
+    );
+    let name = await nameBox.getText();
+    return name;
   },
   logout: async function() {
     let icon = await driver.$(
