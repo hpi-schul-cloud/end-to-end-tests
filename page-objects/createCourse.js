@@ -10,11 +10,9 @@ let before;
 
 module.exports = {
   count: async function() {
-    const elem = await driver.$$(
-      '#main-content > section > div.course-card > div.sectionsContainer > div > div.section.section-course.active > section > div > div > div'
-    );
-    await driver.pause(1000);
-    return elem.length;
+    const countBadge = await driver.$('[data-tab="js-active"] .count-badge');
+    const number = await countBadge.getAttribute("data-badge");
+    return parseInt(number, 10)
   },
   countBefore: async function() {
     before = await this.count();
