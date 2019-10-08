@@ -42,6 +42,8 @@ module.exports = {
         let message = await messageField.getText();
         let expectedMessage = "Login fehlgeschlagen.";
         await expect(message).to.equal(expectedMessage);
+        //Brute Force Protection disables login for 15s
+        await driver.pause(16000);
     },
     tryWithNew: async function() {
         await teacherLogin.performLogin(loginData.defaultTeacherUsername, legiblePassword);
