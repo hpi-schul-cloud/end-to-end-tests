@@ -28,31 +28,31 @@ Given(/^the teacher creates one course$/, function() {
   var name = 'Hausaufgabe test';
   return copyCourse.create(name);
 });
-When(/^teacher clicks "create a new home task"$/, function() {
-  return homework.addBasicHomework();
+When(/^teacher clicks "create a new home task" with (.*)$/, function(taskname) {
+  return homework.addBasicHomework(taskname);
 });
 When(/^teacher puts some text$/, function() {
   return homework.setHometaskText();
 });
-Then(/^the hometask is to be found at the task pannel$/, function() {
-  return homework.verify();
+Then(/^the hometask with (.*) is to be found at the task pannel$/, function(taskname) {
+  return homework.verify(taskname);
 });
 
 /* PRIVATE */
 
-When(/^teacher creates a private hometask$/, function() {
-  return homework.privateHometask();
+When(/^teacher creates a private hometask with (.*)$/, function(taskname) {
+  return homework.privateHometask(taskname);
 });
 Then(/^if any pupil of this course goes to hometasks$/, function() {
   return homework.checkWithPupil();
 });
-Then(/^the pupil will not see this task$/, function() {
-  return homework.privateTaskVerify();
+Then(/^the pupil will not see this task with (.*)$/, function(taskname) {
+  return homework.privateTaskVerify(taskname);
 });
 
 /* SUBMISSION */
-When(/^the teacher creates a basic text homework$/, function() {
-  return homework.addBasicHomework();
+When(/^the teacher creates a basic text homework with (.*)$/, function(taskname) {
+  return homework.addBasicHomework(taskname);
 });
 When(/^the pupil edits a text hometask$/, function() {
   return homework.pupilEditsTextHomework();

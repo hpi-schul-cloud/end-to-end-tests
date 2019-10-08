@@ -1,35 +1,23 @@
 'use strict';
 const { CLIENT } = require("../shared-objects/servers");
-const loginData = require('../shared-objects/loginData');
 const courseData = require('../shared-objects/courseData');
 const { expect } = require('chai');
 const Login = require('../shared-objects/loginData');
-const createCourse = require('../page-objects/createCourse');
 const copyCourse = require('../page-objects/copyCourse');
 let teacherLogin = require('../page-objects/teacherLogin');
-//const addPupilToTheCourse = require('../page-objects/addPupilToTheCourse');
-//const shared = { loginData };
-//const course = { courseData };
-const imageCompare = require('../runtime/imageCompare');
-var fs = require('fs');
 const firstLogin = require('../shared_steps/firstLogin.js');
 let name;
 let was_submitted_by; 
 
 module.exports = {
-  basicHomework: async function() {
+  basicHomework: async function(taskname) {
     await copyCourse.chooseCourse();
-    let homeworkSection = await driver.$(
-      '#main-content > section > div.course-card > div.tabContainer > div > button:nth-child(2) > span'
-    );
+    let homeworkSection = await driver.$('button[data-testid="hometasks"]');
     await homeworkSection.click();
-    let addBtn = await driver.$(
-      '#main-content > section > div.course-card > div.sectionsContainer > div > div.section.active > div.row > div.col-sm-12.add-button > a'
-    );
+    let addBtn = await driver.$('.col-sm-12.add-button');
     await addBtn.click();
-    let nameField = await driver.$('#homework-form > div:nth-child(5) > input');
-    name = 'Homework Test';
-    await nameField.setValue(name);
+    let nameField = await driver.$('input[data-testid="name_of_task"]');
+    await nameField.setValue(taskname);
     let teamwork = await driver.$('#teamSubmissions');
     await teamwork.click();
     await this.setAccomplishTime();
@@ -55,7 +43,6 @@ module.exports = {
     );
     await addBtn2.click();
   },
-
   dateToString: async function() {
     let today = new Date();
     let dd = today.getDate();
@@ -92,46 +79,50 @@ module.exports = {
     return dd + '.' + mm + '.' + yyyy + '.' + hours + '.' + minutes;
   },
   addHomework: async function() {
-    let addBtn = await driver.$(
-      '#homework-form > div.modal-footer > button.btn.btn-primary.btn-submit'
-    );
+    let btnContainer = await driver.$('#homework-form .modal-footer')
+    let addBtn = await btnContainer.$('button[type="submit"]');
     await addBtn.click();
   },
-  addBasicHomework: async function() {
-    await this.basicHomework();
+  addBasicHomework: async function(taskname) {
+    await this.basicHomework(taskname);
     await this.clickAdd();
     await driver.pause(1000);
   },
   gotoTasks: async function() {
-    let hometasks = await driver.$(
-      'body > aside > nav > ul > li:nth-child(4) > a > i'
-    );
-    await hometasks.click();
+    let url = `${CLIENT.URL}/homework/`;
+    await helpers.loadPage(url, 20);
   },
-  sortHometasks: async function() {
-    let sortBtn = await driver.$(
-      '#filter > div > div.md-chip.md-theme-default.md-deletable.md-clickable > div'
-    );
+  sortHometasksLastEditedFirst: async function() {
+    let sortBtnContainer = await driver.$('.filter');
+    let sortBtn = await sortBtnContainer.$('.md-ripple');
     await sortBtn.click();
     let select = await driver.$('#selection-picker > div > div');
     await select.click();
-    let lastedited = await driver.$(
-      'body > div.md-select-menu.md-menu-content-bottom-start.md-menu-content-small.md-menu-content.md-theme-default > div > ul > li:nth-child(2) > button'
+    let lastedited = await driver.$('body > div.md-select-menu.md-menu-content-bottom-start.md-menu-content-small.md-menu-content.md-theme-default > div > ul > li:nth-child(2) > button'
     );
     await lastedited.click();
-    let ok = await driver.$(
-      'body > div.md-dialog.md-dialog-fullscreen.md-theme-default > div > div.md-dialog-actions > button.md-button.md-primary.md-theme-default > div > div'
-    );
+    let ok = await driver.$('.md-button.md-primary.md-theme-default > div > div');
     await ok.click();
+    await driver.pause(1500);
   },
-  verify: async function() {
+  // check whether the tasks include the task we expect to be displayed, finish if found
+  isTheTaskDisplayed: async function(taskname) {
+    let tasksArray = await driver.$$('.col-xl-12 > li >a:nth-child(3)> h2');
+    let length = (tasksArray.length)-1;
+    for (var i =0; i<=length; i++) {
+      let name = await tasksArray[i].getText();
+      var isSubstring = await name.includes(taskname);
+      if (isSubstring==true) {
+        break;
+      }
+    }
+    return isSubstring;
+  },
+  verify: async function(taskname) {
     await this.gotoTasks();
-    await this.sortHometasks();
-    let editBtn = await driver.$(
-      '#main-content > div > section > ol > div:nth-child(1) > div > li:nth-child(1) > div > a.btn.btn-secondary.btn-sm.btn-edit'
-    );
-    await editBtn.click();
-    // await adminLogin.compareScreenshots();
+    await this.sortHometasksLastEditedFirst();
+    let isTheTaskDisplayed = await this.isTheTaskDisplayed(taskname);
+    await expect(isTheTaskDisplayed).to.be.true;
   },
   checkWithPupil: async function() {
     await helpers.loadPage(courseData.urlCourses, 20);
@@ -141,35 +132,30 @@ module.exports = {
     );
     await courseTasks.click();
   },
-  privateHometask: async function() {
-    await this.basicHomework();
+  // set a tick to a checkbox
+  privateHometask: async function(taskname) {
+    await this.basicHomework(taskname);
     let isPrivate = await driver.$(
       '#homework-form > div:nth-child(10) > label:nth-child(1) > input[type=checkbox]'
     );
     await isPrivate.click();
     await this.clickAdd();
   },
-  privateTaskVerify: async function() {
-    let taskNames = await Promise.all(
+  privateTaskVerify: async function(taskname) {
+
+    let allTaskNames = await Promise.all(
       (await driver.$$('#homeworks > ol > div > li > a')).map(
         async element => await element.getText()
       )
     );
-    await expect(taskNames).not.to.include(name);
+    await expect(allTaskNames).not.to.include(taskname);
   },
-  pupilLogin: async function() {
-    let name = "paula.meyer@schul-cloud.org";
-    let password = "Schulcloud1!";
-    return firstLogin.pupilLogin(name,password);
-  },
-  userLogsOut: async function() {
-    await helpers.loadPage(courseData.urlLogout, 20);
-  },
+  
   pupilEditsTextHomework: async function() {
     let pass = "Schulcloud1!";
     let name = "paula.meyer@schul-cloud.org";
-    await this.userLogsOut();
-    await this.pupilLogin();
+    await firstLogin.logout();
+    await firstLogin.pupilLogin(name, pass);
     await firstLogin.firstLoginPupilFullAge(name, pass);
     was_submitted_by = await firstLogin.getNameAndPosition();
     await helpers.loadPage(courseData.urlCourses, 20);
@@ -190,7 +176,7 @@ module.exports = {
     await ok.click();
   },
   teacherCanSeeTheTextSubmission: async function() {
-    await this.userLogsOut();
+    await firstLogin.logout();
     await teacherLogin.performLogin(
       Login.defaultTeacherUsername,
       Login.defaultTeacherpassword
