@@ -2,12 +2,9 @@
 
 let createCourse = require('../page-objects/createCourse');
 let teacherLogin = require('../page-objects/teacherLogin');
-let TeacherLoginSteps = require('../step_definitions/teacherLogin-steps');
 let loginData = require('../shared-objects/loginData');
 let courseData = require('../shared-objects/courseData');
 let shared = { loginData };
-let page = { teacherLogin };
-var countBefore;
 const Login = require('../shared-objects/loginData');
 
 Given(/^The teacher arrives on the Schul-Cloud page$/, function() {
