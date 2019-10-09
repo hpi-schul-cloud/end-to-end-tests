@@ -22,17 +22,18 @@ Given(/^teacher has created a user without submitting the age$/, function () {
     return administration.createNewPupil(firstname, lastname, email)
 });
 Given(/^teacher has created a link$/, function () {
-    return registration.generateAndReturnLink();
+    return registration.generateLink();
 });
 // User is under 14
 When(/^user navigates a link$/, function () {
-    return helpers.loadPage(shared.loginData.url, 10);
+    return registration.openTheLink();
 });
 When(/^user should choose that the user is under 16$/, function () {
-    return helpers.loadPage(shared.loginData.url, 10);
+    return registration.
 });
 When(/^user should submit the birthday information$/, function () {
-    return helpers.loadPage(shared.loginData.url, 10);
+    let student_age = 13;
+    return registration.parentsSetTheirData(student_age);
 });
 When(/^parents of the student should submit a consent$/, function () {
     return helpers.loadPage(shared.loginData.url, 10);
