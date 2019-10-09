@@ -46,7 +46,7 @@ module.exports = {
         await driver.pause(1000);
         let btnValue = await loginBtnSel.getAttribute('value');
         await expect(btnValue).to.match(/^Bitte.*Sekunden warten$/);
-        //Brute Force Protection disables login for 15s
+        //Brute Force Protection disables login for LOGIN_BLOCK_TIME seconds
         let waitTime = (parseInt(process.env.LOGIN_BLOCK_TIME) || 15)+1;
         await driver.pause(waitTime*1000);
     },
