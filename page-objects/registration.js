@@ -15,7 +15,8 @@ module.exports = {
         generatedURL = await invitationField.getValue();
     },
     openTheLink: async function() {
-       await helpers.loadPage(generatedURL, 10);
+        
+        await helpers.loadPage(generatedURL, 10);
     },
     // step 1.1, choose whether over or under 16:
     submitThatTheUserIsUnder16: async function() {
