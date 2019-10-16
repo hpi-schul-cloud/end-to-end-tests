@@ -2,17 +2,34 @@
 
 const loginData = require('../shared-objects/loginData');
 const mailedPin = require('../page-objects/mailTestHelper');
+const firstLogin = require('../shared_steps/firstLogin.js');
 let generatedURL;
-let email;
-let pin;
+let studentsLoginData;
+
+
 
 module.exports = {
     generateLink: async function() {
-        let generateBtn = await driver.$('button[data-testid="generate_a_link"]');
+        let generateBtn = await driver.$('button.btn-invitation-link-with-hash');            
+        await generateBtn.waitForDisplayed(10000);
         await generateBtn.click();
         await driver.pause(1500);
         let invitationField = await driver.$('#invitation-link');
         generatedURL = await invitationField.getValue();
+        
+    },
+    chooseAPupilFromTheTable: async function(emailSTUDENT) {
+        const container = await driver.$('[data-testid="students_names_container"]');
+        const numberOfStudents = await container.$$('tr');
+        for (var i=1; i<=numberOfStudents.length; i++) {
+            let emailField = await container.$('tr:nth-child('+i+') > td:nth-child(3)');
+            let email = await emailField.getText();
+            if(email===emailSTUDENT) {
+                let editBox = await container.$('tr:nth-child('+i+')> td:nth-child(7)>a');
+                await editBox.click();
+                break;
+            }
+        };
     },
     openTheLink: async function() {
         
@@ -38,12 +55,6 @@ module.exports = {
     // step 1.2, if parents have to submit a consent
     parentsSetStudentsAge: async function(student_age) {
         await this.setAge(student_age);
-        let firstname = "Students name";
-        let lastname = "Students Last Name";
-        let firstNameField = await driver.$('input[name="firstName"]');
-        let lastNameField = await driver.$('input[name="lastName"]');
-        await firstNameField.setValue(firstname);
-        await lastNameField.setValue(lastname);
         let continueBtn = await driver.$('#nextSection');
         await continueBtn.click();
         let nextPageObject = await driver.$('[name="parent_firstName"]');
@@ -57,16 +68,14 @@ module.exports = {
         await checkbox2.click();
         await checkbox3.click();
     },
-    parentsSetTheirData: async function() {
-        email = "parents@schul-cloud.org";
-        let name = "Parent Firstname";
-        let lastname = "Parent Lastname";
+    parentsSetTheirData: async function(firstnamePARENT, lastnamePARENT, emailPARENT) {
+        
         let nameField= await driver.$('input[name="parent_firstName"]');
-        await nameField.setValue(name);
+        await nameField.setValue(firstnamePARENT);
         let lastnameField = await driver.$('input[name="parent_lastName"]');
-        await lastnameField.setValue(lastname);
+        await lastnameField.setValue(lastnamePARENT);
         let emailField = await driver.$('input[name="parent_email"]');
-        await emailField.setValue(email);
+        await emailField.setValue(emailPARENT);
         let continueButton = await driver.$('#nextSection');
         await continueButton.click();
         let checkbox1 = await driver.$('input[name="parent_parentalAuthConsent"]');
@@ -79,21 +88,42 @@ module.exports = {
     },
     // mailTestHelper gets the pin from the email
     getPin: async function() {
-        pin = await mailedPin.getLastPin(email);
+       await mailedPin.getLastPin(email);
     },
-    parentsSetPin: async function() {
-        let pinField = await driver.$('input[name="pin"]');
-        await pinField.setValue(pin);
+    parentsSetPin: async function(emailPARENT) {
+        let pin = await mailedPin.getLastPin(emailPARENT);
+        await driver.pause(3000);
+        let digit1 = await driver.$('#pinverification > div > input:nth-child(2)');
+        await digit1.setValue(pin[0]);
+        let digit2 = await driver.$('#pinverification > div > input:nth-child(3)');
+        await digit2.setValue(pin[1]);
+        let digit3 = await driver.$('#pinverification > div > input:nth-child(4)');
+        await digit3.setValue(pin[2]);
+        let digit4 = await driver.$('#pinverification > div > input:nth-child(5)');
+        await digit4.setValue(pin[3]);
         let continueBtn = await driver.$('#nextSection');
         await continueBtn.click();
         let recapMessage = await driver.$('.recap');
-        await recapMessage.waitForDisplayed(1500);
+        await recapMessage.waitForDisplayed(3500);
+        studentsLoginData = await this.saveLoginData();
     },
-    parentsGoToLogin: async function() {
-        let logout= "${CLIENT.URL}/logout";
-        await helpers.loadPage(logout, 10);
-        let dataInput = await driver.$('input[data-testid="username"]');
-        await dataInput.waitForDisplayed(3000);
+    saveLoginData: async function() {
+        let dataArray = [];
+        let loginSelector = await driver.$('.recap > p:nth-child(1) > i');
+        let login = await loginSelector.getText();
+        await dataArray.push(login);
+        let passwordSelector = await driver.$('.recap > p:nth-child(2) > i');
+        let password = await passwordSelector.getText();
+        await dataArray.push(password);
+        return dataArray;
+    },
+    // student logs in with studentsLoginData
+    studentLogsIn: async function() {
+        let username = studentsLoginData[0];
+        let password = studentsLoginData[1];
+        let newpass = "Schulcloud1!";
+        await firstLogin.pupilLogin(username, password);
+        await firstLogin.firstLoginPupilFullAge(username,newpass)
     },
     // helpers for birthday data set
     generateTodayDate: async function() {

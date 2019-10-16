@@ -14,8 +14,9 @@ const getLastPin = (email) => request(options)
         var object = data.filter(d => d.toAddresses.includes(email))[0];
         const string = object.body;
         let re = /PIN: (\d\d\d\d)/g;
-        var pin = string.match(re)[1];
-        console.log(pin);
+        var pinString = string.match(re)[0];
+        var pin = pinString.substring(5,9);
+        console.log("PIN:", pin);
         return pin;
     });
 
