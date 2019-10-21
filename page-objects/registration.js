@@ -146,7 +146,5 @@ module.exports = {
     setAge: async function(age) {
         let value = await this.generateBirthdayDataByAge(age)
         await driver.execute(`document.querySelector("#birthdateID").value="${value}"`);
-        //let ageField = await driver.$('input[name="birthDate"]');
-        //await ageField.setValue(value);
     },
 }
