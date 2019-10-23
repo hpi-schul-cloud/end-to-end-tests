@@ -26,13 +26,21 @@ When(/^teacher creates a class, chooses a year (.*) and class name (.*)$/, funct
 When(/^teacher adds student with (.*), (.*) to this class$/, function(firstname, lastname) {
     return classes.addStudentToTheClass(firstname, lastname);
 });
-Then(/^teacher should see the created class (.*)$/,async function(grade, className) {
-    let classname = grade.toString()+className;
+Then(/^teacher should see the created class (.*)(.*)$/,async function(grade, className) {
+    let gradeString = await grade.toString();
+    let classname = gradeString+className;
     let names = await classes.getAllClassNames();
     await expect(names).to.include(classname);
 
 });
 // delete 
-Then(/^teacher can delete the class with (.*)$/, function(className) {
-    return classes.deleteClass(className);
+Then(/^teacher can delete the class (.*)(.*)$/, function(grade, className) {
+    return classes.deleteClass(grade, className);
+});
+Then(/^teacher should not see the created class (.*)(.*)$/,async function(grade, className) {
+    let gradeString = await grade.toString();
+    let classname = gradeString+className;
+    let names = await classes.getAllClassNames();
+    await expect(names).not.to.include(classname);
+
 });

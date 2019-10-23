@@ -55,26 +55,30 @@ module.exports = {
         return names;
 
     },
-    deleteClass: async function(className) {
+    deleteClass: async function(grade,className) {
+        let classThatShouldBeDeleted = await  grade.toString()+className;
         let namesContainer = await driver.$('[data-testid=students_names_container]');
         let allClasses = await namesContainer.$$('tr');
         for(var i=1; i<=allClasses.length; i++) {
             const row = await namesContainer.$('tr:nth-child('+i+')');
             let nameSelector = await row.$('td:nth-child(1)');
             let name = await nameSelector.getText();
-            if (name === className) {
+            if (name === classThatShouldBeDeleted) {
                 let administrateClassContainer = await row.$('.table-actions');
                 let deleteBtn = await administrateClassContainer.$('button[type="submit"]');
                 await deleteBtn.click();
                 break;
             }
         }
-        let submitFormContainer = await driver.$('.modal-content');
+        let submitFormContainer = await driver.$('.modal.fade.delete-modal.in');
         await submitFormContainer.waitForExist(1500);
         let submitDeleteBtn = await submitFormContainer.$('button[type="submit"]');
         await submitDeleteBtn.click();
-    },
+        let selectorToBeLoaded = await driver.$('[data-testid=students_names_container]');
+        await selectorToBeLoaded.waitForExist(2000);
 
+    },
+   
 
 
 

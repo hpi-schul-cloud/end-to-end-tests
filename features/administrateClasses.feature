@@ -12,7 +12,7 @@ Scenario Outline:
     When teacher goes to administration
     When teacher creates a class, chooses a year <grade> and class name <className>
     When teacher adds student with <firstname>, <lastname> to this class
-    Then teacher should see the created class <className>
+    Then teacher should see the created class <grade><className>
 Examples:
 | firstname | lastname | email | className| grade | 
 | New  | Classmate  | newclassmate@schul-cloud.org | a | 1 |
@@ -22,10 +22,11 @@ Scenario Outline: as a teacher I can create a user, create a class with the crea
 
     When teacher creates a student with <firstname>, <lastname>, <email> and 
     When teacher goes to administration
-    When teacher creates a class, chooses a year and class <className>
+    When teacher creates a class, chooses a year <grade> and class name <className>
     When teacher adds student with <firstname>, <lastname> to this class
-    Then teacher should see the created class <className>
-    Then teacher can delete the class with <className>
+    Then teacher should see the created class <grade><className>
+    Then teacher can delete the class <grade><className>
+    Then teacher should not see the created class <grade><className>
 Examples:
 | firstname | lastname | email | className| grade | 
 | New  | Classmate  | newclassmate@schul-cloud.org | a | 1 |
