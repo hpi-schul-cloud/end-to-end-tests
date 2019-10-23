@@ -13,6 +13,7 @@ env:
 jobs:
   include:
     - stage: run parallel
+      name: test:integration
       script:
         - echo $TRAVIS_BRANCH
         - echo $TRAVIS_TAG
