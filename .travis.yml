@@ -31,9 +31,9 @@ install:
   # - cd docker-compose && docker-compose -f docker-compose.integration-test-Images.yml up -d && cd ..
   - docker-compose -f docker-compose/docker-compose.integration-test-Build.yml up -d
   - cd integration-tests && npm ci && cd ..
-script:
   - echo $TRAVIS_BRANCH
   - echo $TRAVIS_TAG
+script:
   - cd integration-tests
   - npm run test
   - cd ..
