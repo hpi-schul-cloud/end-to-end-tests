@@ -20,19 +20,15 @@ When(/^teacher goes to administration$/, function() {
     return administration.goToAdministration();
 });
 
-When(/^teacher creates a class, chooses a year (.*) and class name (.*)$/, function(grade, className) {
-    return classes.createAnewClass(grade, className);
+When(/^teacher creates a class, chooses a year and class (.*)$/, function(classSuffix) {
+    return classes.createAnewClass(classSuffix);
 });
 When(/^teacher adds student with (.*), (.*) to this class$/, function(firstname, lastname) {
     return classes.addStudentToTheClass(firstname, lastname);
 });
-Then(/^teacher should see the created class (.*)$/,async function(grade, className) {
-    let classname = grade.toString()+className;
+Then(/^teacher should see the created class (.*)$/,async function(classSuffix) {
+    let classname = "1"+classSuffix;
     let names = await classes.getAllClassNames();
     await expect(names).to.include(classname);
 
-});
-// delete 
-Then(/^teacher can delete the class with (.*)$/, function(className) {
-    return classes.deleteClass(className);
 });

@@ -5,27 +5,13 @@ I want to be able to add some pupils to a new class on Schul-Cloud
 Background:
     Given teacher arrived on the Schul-Cloud page and
     Given teacher is logged in and
-
-@createClass      
+     
 Scenario Outline:
     When teacher creates a student with <firstname>, <lastname>, <email> and 
     When teacher goes to administration
-    When teacher creates a class, chooses a year <grade> and class name <className>
+    When teacher creates a class, chooses a year and class <classSuffix>
     When teacher adds student with <firstname>, <lastname> to this class
-    Then teacher should see the created class <className>
+    Then teacher should see the created class <classSuffix>
 Examples:
-| firstname | lastname | email | className| grade | 
-| New  | Classmate  | newclassmate@schul-cloud.org | a | 1 |
-
-@deleteClass
-Scenario Outline: as a teacher I can create a user, create a class with the created student and afterwards delete that class
-
-    When teacher creates a student with <firstname>, <lastname>, <email> and 
-    When teacher goes to administration
-    When teacher creates a class, chooses a year and class <className>
-    When teacher adds student with <firstname>, <lastname> to this class
-    Then teacher should see the created class <className>
-    Then teacher can delete the class with <className>
-Examples:
-| firstname | lastname | email | className| grade | 
-| New  | Classmate  | newclassmate@schul-cloud.org | a | 1 |
+| firstname | lastname | email | classSuffix |
+| New  | Classmate  | newclassmate@schul-cloud.org | a |
