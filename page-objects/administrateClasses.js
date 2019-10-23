@@ -5,19 +5,17 @@ module.exports = {
     addANewClass: async function() {
         let addClassIcon = await driver.$('div[data-testid="administrate_classes"]');
         await addClassIcon.click();
-        let url1 = await driver.getUrl(); // expected administration/classes/....sort,limit blabla
         let btnContainer = await driver.$('.container-fluid.ajaxcontent');
         await btnContainer.waitForExist(1500);
         let addClassBtn = await btnContainer.$('.btn.btn-primary.btn-add');
         await addClassBtn.click();
-        let url2 = await driver.getUrl(); // expected /administration/classes/create
         let selectorToBeLoaded = await driver.$('input[name="classsuffix"]');
         await selectorToBeLoaded.waitForExist(3000);
     },
-    createAnewClass: async function(classSuffix) {
+    createAnewClass: async function(grade,className) {
         await this.addANewClass();
         let classSuffixSelector = await driver.$('input[name="classsuffix"]');
-        await classSuffixSelector.setValue(classSuffix);
+        await classSuffixSelector.setValue(className);
         let btnContainer = await driver.$('.create-form');
         let submitBtn = await btnContainer.$('button[type="submit"]');
         await submitBtn.click();
@@ -56,7 +54,30 @@ module.exports = {
         }
         return names;
 
-    }
+    },
+    deleteClass: async function(className) {
+        let namesContainer = await driver.$('[data-testid=students_names_container]');
+        let allClasses = await namesContainer.$$('tr');
+        for(var i=1; i<=allClasses.length; i++) {
+            const row = await namesContainer.$('tr:nth-child('+i+')');
+            let nameSelector = await row.$('td:nth-child(1)');
+            let name = await nameSelector.getText();
+            if (name === className) {
+                let administrateClassContainer = await row.$('.table-actions');
+                let deleteBtn = await administrateClassContainer.$('button[type="submit"]');
+                await deleteBtn.click();
+                break;
+            }
+        }
+        let submitFormContainer = await driver.$('.modal-content');
+        await submitFormContainer.waitForExist(1500);
+        let submitDeleteBtn = await submitFormContainer.$('button[type="submit"]');
+        await submitDeleteBtn.click();
+    },
+
+
+
+
 
     }
 
