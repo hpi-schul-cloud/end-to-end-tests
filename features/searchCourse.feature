@@ -1,18 +1,18 @@
 @searchCourse
 Feature: teacher wants to search for a course
 
-Background: teacher is logged in and visits the course page
-Given user arrives on the Schul-Cloud homepage
 
+Background: teacher is logged in and visits the course page
+Given teacher goes to the login page
+Given the teacher logs in
+Given the teacher goes to the courses page
 
 Scenario Outline:
-Given logs in with email <teacherUsername> and password <teacherPassword>
-Given teacher goes to courses page
-When teacher enters course name <coursename> into search field
-Then teacher should see that course list satisfies the search request <coursename>
+When the teacher tipps the name <name> of the course in the searchfield
+Then the list satisfies the search request <name>
 
 Examples:
-| coursename    | teacherUsername            | teacherPassword |
-| Biologie      | klara.fall@schul-cloud.org | Schulcloud1!    |
-| DoesNotExist  | klara.fall@schul-cloud.org | Schulcloud1!    |
-| Mathe         | klara.fall@schul-cloud.org | Schulcloud1!    |
+| name |
+| Biologie |
+| DoesNotExist |
+| Mathe |
