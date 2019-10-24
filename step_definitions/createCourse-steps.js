@@ -1,32 +1,54 @@
 'use strict';
 
 let createCourse = require('../page-objects/createCourse');
+let teacherLogin = require('../page-objects/teacherLogin');
+let TeacherLoginSteps = require('../step_definitions/teacherLogin-steps');
 let loginData = require('../shared-objects/loginData');
-let performLogin = require('../page-objects/performLogin');
-let shared = ({loginData, performLogin});
-let page = ({createCourse});
+let courseData = require('../shared-objects/courseData');
+let shared = { loginData };
+let page = { teacherLogin };
+var countBefore;
+const Login = require('../shared-objects/loginData');
 
-When(/^a teacher logs in his account using (.*) and (.*) in order to create a course$/, function (username, password) {
-    helpers.loadPage(shared.loginData.url, 10);
-    return shared.performLogin.performLogin(username, password);
-  });
+Given(/^The teacher arrives on the Schul-Cloud page$/, function() {
+  return helpers.loadPage(shared.loginData.url, 10);
+});
 
-  Then(/^he should click the course-button in his dashboard-sidebar$/, function () {
-    return page.createCourse.clickSidebarCourseButton();
-  });
+Given(/^the teacher is logged in successfully$/, function() {
+  return teacherLogin.performLogin(
+    Login.defaultTeacherUsername,
+    Login.defaultTeacherpassword
+  );
+});
 
-  Then(/^he should click the create-course-button on the course page$/, function () {
-    return page.createCourse.clickCreateCourseButton();
-  });
+When('the teacher goes to courses page', function() {
+  let url = courseData.urlCourses;
+  return helpers.loadPage(url, 20);
+});
 
-  Then(/^he should put the name (.*) into the name field$/, function (courseName) {
-    return page.createCourse.putCourseName(courseName);
-  });
+Then(/^the teacher sees existing courses$/, async function() {
+  return createCourse.countBefore();
+});
 
-  Then(/^he should click the create-course-button on the course-creating-form$/, function () {
-    return page.createCourse.clickSubmitCourseButton();
-  });
+Then(/^the teacher clicks the btn$/, function() {
+  return createCourse.clickAdd();
+});
 
-  Then(/^he should see the created course with the name (.*) on the course page$/, function (courseName) {
-    return page.createCourse.createCourseResult(courseName);
-  });
+Then(/^the teacher enters a (.*)$/, function(courseName) {
+  return createCourse.inputCourseName(courseName);
+});
+Then(/^the teacher chooses a color of the course$/, function() {
+  return createCourse.chooseColor();
+});
+Then(/^the teacher clicks the create button$/, function() {
+  return createCourse.performCreateCourse();
+  
+});
+Then(/^the teacher clicks to preview$/, function() {
+  let url = courseData.urlCourses;
+  return helpers.loadPage(url, 10);
+});
+
+Then(/^the teacher sees the created course$/, async function() {
+  return createCourse.verify();
+});

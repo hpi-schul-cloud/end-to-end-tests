@@ -1,44 +1,55 @@
 'use strict';
 
-const createCourseData = require('../shared-objects/createCourseData'),
-    imageCompare = require('../runtime/imageCompare'),
-    shared = ({createCourseData});
-
-let log = global.log;
-let image;
+const loginData = require('../shared-objects/loginData');
+const courseData = require('../shared-objects/courseData');
+const teacherLogin = require('../page-objects/teacherLogin');
+const shared = { loginData };
+const course = { courseData };
+const { expect } = require('chai');
+let before;
 
 module.exports = {
+  count: async function() {
+    const countBadge = await driver.$('[data-tab="js-active"] .count-badge');
+    const number = await countBadge.getAttribute("data-badge");
+    return parseInt(number, 10)
+  },
+  countBefore: async function() {
+    before = await this.count();
+    return before;
+  },
+  verify: async function() {
+    let after = await this.count();
+    let result = after - before;
+    await expect(result).to.equal(1);
+  },
+  clickAdd: async function() {
+    let actualCourses = await driver.$(
+      '#main-content > section > div.course-card > div.tabContainer > div > button.tab.active > span'
+    );
+    await actualCourses.click();
+    let clickBtn = await driver.$(
+      'a[href="/courses/add"]'
+    );
+    await clickBtn.click();
+  },
+  inputCourseName: async function(courseName) {
+    let inputCourseName = await driver.$(courseData.elem.nameCourse);
+    await inputCourseName.setValue(courseName);
+  },
+  chooseColor: async function() {
+    let inputColor = await driver.$(courseData.elem.colorCourse);
+    await inputColor.click();
+  },
+  performCreateCourse: async function() {
+    let weiterBtn2 = await driver.$('#nextSection');
+    await weiterBtn2.click();
 
-    clickSidebarCourseButton: async function() {
-        //let button = await driver.$(shared.createCourseData.elem.courseButtonDashboard);
-        await helpers.waitAndClick(shared.createCourseData.elem.courseButtonDashboard);
-    },
+    let kursAnlegenUndWeiterBtn = await driver.$('#nextSection');
+    await kursAnlegenUndWeiterBtn.click();
+    await driver.$('.form-submitted');
+  },
 
-    clickCreateCourseButton: async function() {
-        await helpers.waitAndClick(shared.createCourseData.elem.createCourseButton);
-    },
-
-    clickSubmitCourseButton: async function() {
-        await helpers.waitAndClick(shared.createCourseData.elem.submitCourseButton);
-    },
-
-    putCourseName: async function(coursename) {
-        let nameField = await driver.$(shared.createCourseData.elem.courseNameField);
-        await nameField.setValue(coursename);
-    },
-
-    createCourseResult: async function(coursename) {
-        let courseElements = await driver.$$(shared.createCourseData.elem.courseScCardTitle);
-        let courseNames = new Array(courseElements.length);
-        let elem;
-        let text;
-        for(var i = 0; i<courseElements.length; i++){
-             elem = await courseElements[i];
-             text = await elem.getText();
-             courseNames[i] = text;
-        }
-        expect(coursename).to.be.oneOf(courseNames);
-    }
+};
 
 
-}

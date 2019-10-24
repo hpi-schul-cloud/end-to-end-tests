@@ -141,12 +141,21 @@ function consoleInfo() {
  * All Global variables
  * @constructor
  */
-const { Before, After, AfterAll, Status } = require('cucumber');
-const { Given, When, Then } = require('cucumber');
+const {
+  Before,
+  After,
+  AfterAll,
+  Status,
+  Given,
+  And,
+  When,
+  Then
+} = require('cucumber');
 
 global.Given = Given;
 global.When = When;
 global.Then = Then;
+global.And = And;
 
 function World() {
   /**
@@ -247,6 +256,16 @@ Before(async () => {
 });
 
 /**
+ * cleanup database before each scenario
+ */
+Before(function() {
+  const { execSync } = require('child_process');
+  const output = execSync('cd ../schulcloud-server; echo reset database; npm run setup', { stdio: 'pipe' });
+  // access output via `output.toString()`
+  return Promise.resolve();
+});
+
+/**
  * send email with the report to stakeholders after test run
  */
 AfterAll(async () => {
@@ -276,15 +295,18 @@ AfterAll(function(done) {
         global.settings.reportName + '-' + date + '.html'
       ),
       reportSuiteAsScenarios: true,
-      launchReport: (!global.settings.disableReport),
+      launchReport: !global.settings.disableReport,
       ignoreBadJsonFile: true,
       metadata: {
         'Test Started': startDateTime,
         'Test Completion': endDateTime,
-        'Platform': process.platform,
+        Platform: process.platform,
         'Test Environment': process.env.NODE_ENV || 'DEVELOPMENT',
-        'Browser': global.settings.remoteConfig || global.browserName,
-        'Executed': remoteService && remoteService.type === 'browserstack' ? 'Remote' : 'Local'
+        Browser: global.settings.remoteConfig || global.browserName,
+        Executed:
+          remoteService && remoteService.type === 'browserstack'
+            ? 'Remote'
+            : 'Local'
       },
       brandTitle: reportName + '-' + date,
       name: projectName
@@ -305,7 +327,7 @@ After(async function(scenario) {
   if (scenario.result.status === Status.FAILED) {
     if (remoteService && remoteService.type === 'browserstack') {
       await driver.deleteSession();
-    } else {
+    } else if(!global.settings.keepOpenOnError){
       // Comment out to do nothing | leave browser open
       await driver.deleteSession();
     }
@@ -313,7 +335,7 @@ After(async function(scenario) {
     if (remoteService && remoteService.type !== 'browserstack') {
       // Comment out to do nothing | leave browser open
       await driver.deleteSession();
-    } else {
+    } else if(!global.settings.keepOpenOnError){
       await driver.deleteSession();
     }
   }

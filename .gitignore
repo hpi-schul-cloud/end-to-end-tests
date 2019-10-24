@@ -27,6 +27,7 @@ reports
 artifacts
 coverage
 testDir
+**/*.swp
 
 # IntelliJ project files
 .idea
