@@ -1,7 +1,7 @@
 'use strict';
 
-const loginData = require('../shared-objects/loginData');
-const mailedPin = require('./mailTestHelper');
+
+//const mailedPin = require('./mailTestHelper');
 const firstLogin = require('../shared_steps/firstLogin.js');
 let generatedURL;
 let studentsLoginData;
