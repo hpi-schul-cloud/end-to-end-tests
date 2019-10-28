@@ -25,8 +25,16 @@ module.exports = {
         let nameField = await driver.$(shared.createTaskData.elem.taskNameField);
         await nameField.setValue(taskName);
     },
+    goToTasks: async function() {
+        let url = "http://localhost:3100/homework";
+        await helpers.loadPage(url, 100);
+        let selectorToBeLoaded = await driver.$('.col-xl-12');
+        await selectorToBeLoaded.waitForExist(3000);
+
+    },
 
     createTaskResult: async function(taskName){
+        await this.goToTasks();
         let taskElements = await driver.$$(shared.createTaskData.elem.taskCardTitle);
         let taskNames = new Array(taskElements.length);
         let elem;
@@ -37,5 +45,16 @@ module.exports = {
             taskNames[i] = text;
         }
         expect(taskName).to.be.oneOf(taskNames);
+    },
+    getTaskNames: async function() {
+        let container = await driver.$('.col-xl-12');
+        let tasksArray = await container.$$('li');
+        const namesArray=[];
+        for (var i=1; i<=tasksArray.length; i++) {
+            let task = await container.$('li:nth-child('+i+') > a:nth-child(1)');
+            let taskName = (await task.getAttribute('title')).replace("Details der Aufgabe: '", '').replace(/'$/gi, '');
+            await namesArray.push(taskName);
+        }
+        return namesArray;
     }
 }

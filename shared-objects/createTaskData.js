@@ -1,3 +1,5 @@
+const { CLIENT } = require("../shared-objects/servers");
+
 module.exports = {
 
     elem: {
@@ -5,7 +7,8 @@ module.exports = {
         createTaskButton: "a[href='/homework/new']",
         taskNameField: "input[placeholder='Titel']",
         submitTaskButton: ".btn-submit",
-        taskCardTitle: ".title"
+        taskCardTitle: ".title",
+        url: `${CLIENT.URL}/homework`,
     }
 
 };

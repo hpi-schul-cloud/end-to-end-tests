@@ -32,7 +32,11 @@ Then(/^he should put the taskname (.*) into the name field$/, function (taskName
 Then(/^he should click the submit-task-button on the task-creation-form$/, function () {
   return page.createTask.clickSubmitTaskButton();
 });
+Then(/^teacher goes to tasks page$/, function () {
+  return page.createTask.goToTasks();
+});
 
-Then(/^he should see the created task with the name (.*) on the task page$/, function (taskName) {
-  return page.createTask.createTaskResult(taskName);
+Then(/^he should see the created task with the name (.*) on the task page$/, async function (taskName) {
+  let tasks = await page.createTask.getTaskNames();
+  await expect(taskName).to.be.oneOf(tasks);
 });
