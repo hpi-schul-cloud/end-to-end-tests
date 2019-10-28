@@ -1,17 +1,10 @@
 'use strict';
-const { CLIENT } = require("../shared-objects/servers");
-const loginData = require('../shared-objects/loginData');
+
 const courseData = require('../shared-objects/courseData');
 const { expect } = require('chai');
 const Login = require('../shared-objects/loginData');
-const createCourse = require('../page-objects/createCourse');
 const copyCourse = require('../page-objects/copyCourse');
 let teacherLogin = require('../page-objects/teacherLogin');
-//const addPupilToTheCourse = require('../page-objects/addPupilToTheCourse');
-//const shared = { loginData };
-//const course = { courseData };
-const imageCompare = require('../runtime/imageCompare');
-var fs = require('fs');
 const firstLogin = require('../shared_steps/firstLogin.js');
 let name;
 let was_submitted_by; 
@@ -103,10 +96,8 @@ module.exports = {
     await driver.pause(1000);
   },
   gotoTasks: async function() {
-    let hometasks = await driver.$(
-      'body > aside > nav > ul > li:nth-child(4) > a > i'
-    );
-    await hometasks.click();
+    let url = courseData.urlTasks;
+    return helpers.loadPage(url, 10);
   },
   sortHometasks: async function() {
     let sortBtn = await driver.$(

@@ -2,6 +2,7 @@ const { CLIENT } = require("./servers");
 
 module.exports = {
   urlCourses: `${CLIENT.URL}/courses`,
+  urlTasks: `${CLIENT.URL}/homework`,
   urlLogin: `${CLIENT.URL}/login`,
   urlLogout: `${CLIENT.URL}/logout`,
   elem: {
