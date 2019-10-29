@@ -11,7 +11,7 @@ module.exports = {
   performLogin: async function() {
 
     let loginSel = await driver.$(shared.loginData.elem.usernameInput);
-    await loginSel.setValue("username");
+    await loginSel.setValue("username@something.de");
 
     let passwordSel = await driver.$(shared.loginData.elem.passwordInput);
     await passwordSel.setValue("password");
