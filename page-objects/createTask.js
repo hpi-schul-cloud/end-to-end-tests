@@ -26,7 +26,7 @@ module.exports = {
         await nameField.setValue(taskName);
     },
     goToTasks: async function() {
-        await helpers.loadPage(createTaskData.url, 10);
+        await helpers.loadPage(createTaskData.elem.url, 10);
         let selectorToBeLoaded = await driver.$('.col-xl-12');
         await selectorToBeLoaded.waitForExist(3000);
 
