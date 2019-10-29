@@ -26,8 +26,7 @@ module.exports = {
         await nameField.setValue(taskName);
     },
     goToTasks: async function() {
-        let url = "http://localhost:3100/homework";
-        await helpers.loadPage(url, 100);
+        await helpers.loadPage(createTaskData.url, 10);
         let selectorToBeLoaded = await driver.$('.col-xl-12');
         await selectorToBeLoaded.waitForExist(3000);
 
