@@ -8,7 +8,9 @@ module.exports = {
         taskNameField: "input[placeholder='Titel']",
         submitTaskButton: ".btn-submit",
         taskCardTitle: ".title",
-        url: `${CLIENT.URL}/homework`,
+        get url() {
+            return `${CLIENT.URL}/homework`
+        }
     }
 
 };
