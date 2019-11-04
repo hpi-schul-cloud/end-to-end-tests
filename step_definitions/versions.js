@@ -14,5 +14,5 @@ When(/^a user arrives on the nuxt version page$/, function() {
 When(/^he should see the git sha$/, async function() {
   const page = await driver.$("body")
   const pageContent = await page.getText()
-  await expect(pageContent).to.contain('"sha":');
+  await expect(pageContent).to.match(/"sha":\W*"[a-z0-9]{40}"/);
 });
