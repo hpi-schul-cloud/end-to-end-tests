@@ -48,7 +48,7 @@ Then(
 );
 Then(/^teacher goes to tasks page$/, function() {
   return page.createTask.goToTasks();
-});
+x});
 
 Then(
   /^he should see the created task with the name (.*) on the task page$/,

@@ -34,25 +34,8 @@ module.exports = {
     await selectorToBeLoaded.waitForExist(3000);
   },
 
-  // createTaskResult: async function(taskName) {
-  //   await this.goToTasks();
-  //   const taskElements = await driver.$$(
-  //     shared.createTaskData.elem.taskCardTitle
-  //   );
-  //   console.log(taskElements, "taskElements");
-  //   const taskNames = new Array(taskElements.length);
-  //   const elem;
-  //   const text;
-  //   for (var i = 0; i < taskElements.length; i++) {
-  //     elem = await taskElements[i];
-  //     text = await elem.getText();
-  //     taskNames[i] = text;
-  //   }
-  //   console.log(taskNames, "taskNames");
-  //   expect(taskName).to.be.oneOf(taskNames);
-  // },
-
   getTaskNames: async function() {
+    await driver.pause(1000 * 10);
     const container = await driver.$(".col-xl-12");
     const tasksArray = await container.$$("li");
     const namesArray = [];
