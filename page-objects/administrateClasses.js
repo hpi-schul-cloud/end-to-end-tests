@@ -1,5 +1,5 @@
 'use strict';
-
+let theNextSchoolYear;
 
 module.exports = {
     addANewClass: async function() {
@@ -43,6 +43,8 @@ module.exports = {
         await selectorToBeLoaded.waitForExist(3000);
     },
     getAllClassNames: async function() {
+        let isThereAnyClass = await this.isThereAnyClass();
+        if (isThereAnyClass==true) {
         let names = [];
         let namesContainer = await driver.$('[data-testid=students_names_container]');
         let allClasses = await namesContainer.$$('tr');
@@ -53,11 +55,15 @@ module.exports = {
             await names.push(name);
         }
         return names;
+    } else {
+        return "there are no classes";
+    }
 
     },
     deleteClass: async function(grade,className) {
         let classThatShouldBeDeleted = await  grade.toString()+className;
-        let namesContainer = await driver.$('[data-testid=students_names_container]');
+        let namesContainer = await driver.$('[data-testid="students_names_container"]');
+       
         let allClasses = await namesContainer.$$('tr');
         for(var i=1; i<=allClasses.length; i++) {
             const row = await namesContainer.$('tr:nth-child('+i+')');
@@ -74,14 +80,72 @@ module.exports = {
         await submitFormContainer.waitForExist(1500);
         let submitDeleteBtn = await submitFormContainer.$('button[type="submit"]');
         await submitDeleteBtn.click();
-        let selectorToBeLoaded = await driver.$('[data-testid=students_names_container]');
+        let selectorToBeLoaded = await driver.$('.container-fluid.ajaxcontent');
         await selectorToBeLoaded.waitForExist(2000);
 
     },
-   
+    
+    isThereAnyClass: async function() {
+        let elem = await driver.$('[data-testid="students_names_container"]');
+        let isExisting = await elem.isExisting(); 
+        return isExisting;
+    },
+    clickUpgradeClass: async function(grade, className) {
+        let classThatShouldBeUpgraded = await  grade.toString()+className;
+        let namesContainer = await driver.$('[data-testid="students_names_container"]');
+       
+        let allClasses = await namesContainer.$$('tr');
+        for(var i=1; i<=allClasses.length; i++) {
+            const row = await namesContainer.$('tr:nth-child('+i+')');
+            let nameSelector = await row.$('td:nth-child(1)');
+            let name = await nameSelector.getText();
+            if (name === classThatShouldBeUpgraded) {
+                let administrateClassContainer = await row.$('.table-actions');
+                let upgradeBtn = await administrateClassContainer.$('.fa.fa-arrow-up');
+                await upgradeBtn.click();
+                break;
+            }
+        }
+
+    },
+    upgradeClassSteps: async function() {
+        // if you want to change name of the class please add steps here
+        let btnContainer = await driver.$('.create-form');
+        let submitBtn = await btnContainer.$('button[type="submit"]');
+        await submitBtn.click();
+        let selectorToBeLoaded = await driver.$('#titlebar');
+        await selectorToBeLoaded.waitForExist(3000);
+        // if you want to change the student list or teacher add here
+
+        let btnContainer2 = await driver.$('.section-classes-manage');
+        let submitBtn2 = await btnContainer2.$('button[type="submit"]');
+        await submitBtn2.click();
+        let selectorToBeLoaded2 = await driver.$('[data-testid="students_names_container"]');
+        await selectorToBeLoaded2.waitForExist(3000);
+
+    },
+    setFilterOfSchoolYear: async function() {
+        let filterContainer = await driver.$('.filter');
+        let schoolYearFilter = await filterContainer.$('div:nth-child(2)');
+        await schoolYearFilter.click();
+        let containerInFilterMenu = await driver.$('#selection-picker');
+        await containerInFilterMenu.waitForExist(2000);
+        // the next school year should be displayed at the bottom, above other options
+        let subContainer = await containerInFilterMenu.$('expanded-view.md-menu-content-container.md-scrollbar.md-theme-default');
+        let theNextSchoolYear = await subContainer.$('div > div:nth-child(1)');
+        await theNextSchoolYear.click();
+        let submitBtnContainer = await driver.$('md-dialog-container');
+        let submitBtn = submitBtnContainer('.md-button-content');
+        await submitBtn.click();
+        await driver.pause(1500);
 
 
-
+    },
+    upgradeClass: async function(grade, className) {
+        await this.clickUpgradeClass(grade, className);
+        await this.upgradeClassSteps();
+        await this.setFilterOfSchoolYear();
+    },
 
     }
 

@@ -30,3 +30,17 @@ Scenario Outline: as a teacher I can create a user, create a class with the crea
 Examples:
 | firstname | lastname | email | className| grade | 
 | New  | Classmate  | newclassmate@schul-cloud.org | a | 1 |
+
+@upgradeClass
+Scenario Outline: as a teacher I can create a user, create a class with the created student and afterwards upgrade that class
+
+    When teacher creates a student with <firstname>, <lastname>, <email> and 
+    When teacher goes to administration
+    When teacher creates a class, chooses a year <grade> and class name <className>
+    When teacher adds student with <firstname>, <lastname> to this class
+    Then teacher should see the created class <grade><className>
+    Then teacher can upgrade the class <grade><className>
+    Then teacher should see the upgraded class <grade><className> with diffrent school year
+Examples:
+| firstname | lastname | email | className| grade | 
+| New  | Classmate  | newclassmate@schul-cloud.org | a | 1 |

@@ -44,3 +44,14 @@ Then(/^teacher should not see the created class (.*)(.*)$/,async function(grade,
     await expect(names).not.to.include(classname);
 
 });
+
+// upgrade
+Then(/^teacher can upgrade the class (.*)(.*)$/, function(grade, className) {
+    return classes.upgradeClass(grade, className);
+});
+Then(/^teacher should see the upgraded class (.*)(.*) with diffrent school year$/, async function(grade, className) {
+    let nextGrade = await (grade+1).toString();
+    let classname = nextGrade+className;
+    let names = await classes.getAllClassNames();
+    await expect(names).to.include(classname);
+});
