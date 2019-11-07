@@ -26,7 +26,7 @@ When(/^teacher creates a class, chooses a year (.*) and class name (.*)$/, funct
 When(/^teacher adds student with (.*), (.*) to this class$/, function(firstname, lastname) {
     return classes.addStudentToTheClass(firstname, lastname);
 });
-Then(/^teacher should see the created class (.*)(.*)$/,async function(grade, className) {
+Then(/^teacher should see the created class (.*) (.*)$/,async function(grade, className) {
     let gradeString = await grade.toString();
     let classname = gradeString+className;
     let names = await classes.getAllClassNames();
@@ -34,7 +34,7 @@ Then(/^teacher should see the created class (.*)(.*)$/,async function(grade, cla
 
 });
 // delete 
-Then(/^teacher can delete the class (.*)(.*)$/, function(grade, className) {
+Then(/^teacher can delete the class (.*) (.*)$/, function(grade, className) {
     return classes.deleteClass(grade, className);
 });
 Then(/^teacher should not see the created class (.*)(.*)$/,async function(grade, className) {
@@ -46,12 +46,9 @@ Then(/^teacher should not see the created class (.*)(.*)$/,async function(grade,
 });
 
 // upgrade
-Then(/^teacher can upgrade the class (.*)(.*)$/, function(grade, className) {
+Then(/^teacher can upgrade the class (.*) (.*)$/, function(grade, className) {
     return classes.upgradeClass(grade, className);
 });
-Then(/^teacher should see the upgraded class (.*)(.*) with diffrent school year$/, async function(grade, className) {
-    let nextGrade = await (grade+1).toString();
-    let classname = nextGrade+className;
-    let names = await classes.getAllClassNames();
-    await expect(names).to.include(classname);
+Then(/^teacher should see the upgraded class (.*) (.*) with diffrent school year$/, async function(grade, className) {
+ await classes.verifyUpgradeClass(grade, className)
 });

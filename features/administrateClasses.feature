@@ -12,10 +12,10 @@ Scenario Outline:
     When teacher goes to administration
     When teacher creates a class, chooses a year <grade> and class name <className>
     When teacher adds student with <firstname>, <lastname> to this class
-    Then teacher should see the created class <grade><className>
+    Then teacher should see the created class <grade> <className>
 Examples:
-| firstname | lastname | email | className| grade | 
-| New  | Classmate  | newclassmate@schul-cloud.org | a | 1 |
+| firstname | lastname | email | className | grade | 
+| New | Classmate | newclassmate@schul-cloud.org | a | 1 |
 
 @deleteClass
 Scenario Outline: as a teacher I can create a user, create a class with the created student and afterwards delete that class
@@ -24,11 +24,11 @@ Scenario Outline: as a teacher I can create a user, create a class with the crea
     When teacher goes to administration
     When teacher creates a class, chooses a year <grade> and class name <className>
     When teacher adds student with <firstname>, <lastname> to this class
-    Then teacher should see the created class <grade><className>
-    Then teacher can delete the class <grade><className>
+    Then teacher should see the created class <grade> <className>
+    Then teacher can delete the class <grade> <className>
     Then teacher should not see the created class <grade><className>
 Examples:
-| firstname | lastname | email | className| grade | 
+| firstname | lastname | email | className | grade | 
 | New  | Classmate  | newclassmate@schul-cloud.org | a | 1 |
 
 @upgradeClass
@@ -38,9 +38,9 @@ Scenario Outline: as a teacher I can create a user, create a class with the crea
     When teacher goes to administration
     When teacher creates a class, chooses a year <grade> and class name <className>
     When teacher adds student with <firstname>, <lastname> to this class
-    Then teacher should see the created class <grade><className>
-    Then teacher can upgrade the class <grade><className>
-    Then teacher should see the upgraded class <grade><className> with diffrent school year
+    Then teacher should see the created class <grade> <className>
+    Then teacher can upgrade the class <grade> <className>
+    Then teacher should see the upgraded class <grade> <className> with diffrent school year
 Examples:
-| firstname | lastname | email | className| grade | 
-| New  | Classmate  | newclassmate@schul-cloud.org | a | 1 |
+| firstname | lastname | email | className | grade | 
+| New | Classmate | newclassmate@schul-cloud.org | a | 1 |

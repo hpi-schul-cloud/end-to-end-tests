@@ -16,6 +16,11 @@ module.exports = {
         await this.addANewClass();
         let classSuffixSelector = await driver.$('input[name="classsuffix"]');
         await classSuffixSelector.setValue(className);
+        await driver.pause(1000);
+        let schoolYear = await driver.$('#createnew .linked > div');
+        await schoolYear.click();
+        await schoolYeat.selectByAttribute('value', ''+grade+'');
+        await driver.pause(1000);
         let btnContainer = await driver.$('.create-form');
         let submitBtn = await btnContainer.$('button[type="submit"]');
         await submitBtn.click();
@@ -131,11 +136,11 @@ module.exports = {
         let containerInFilterMenu = await driver.$('#selection-picker');
         await containerInFilterMenu.waitForExist(2000);
         // the next school year should be displayed at the bottom, above other options
-        let subContainer = await containerInFilterMenu.$('expanded-view.md-menu-content-container.md-scrollbar.md-theme-default');
-        let theNextSchoolYear = await subContainer.$('div > div:nth-child(1)');
-        await theNextSchoolYear.click();
-        let submitBtnContainer = await driver.$('md-dialog-container');
-        let submitBtn = submitBtnContainer('.md-button-content');
+        let option = await driver.$('#selection-picker > div > div > div > div');
+        await option.click();
+        await driver.pause(500);
+        let submitBtnContainer = await driver.$('.md-dialog-actions');
+        let submitBtn = await submitBtnContainer.$('button:nth-child(2)');
         await submitBtn.click();
         await driver.pause(1500);
 
@@ -145,6 +150,16 @@ module.exports = {
         await this.clickUpgradeClass(grade, className);
         await this.upgradeClassSteps();
         await this.setFilterOfSchoolYear();
+    },
+    verifyUpgradeClass: async function(grade, className) {
+        let a = await parseInt(grade);
+        let nextgrade = (a+1).toString();
+        let name = nextgrade+ className;
+        let classes = await this.getAllClassNames();
+        await expect(classes).to.include(name);
+
+
+
     },
 
     }
