@@ -31,7 +31,6 @@ module.exports = {
     addStudentToTheClass: async function(firstname, lastname) {
         let searchRequest = firstname + " " + lastname;
         const searchName = searchRequest.trim().split(" ")[0];
-        //let container = await driver.$('.chosen-container chosen-container-multi chosen-with-drop chosen-container-active');
         let upperContainer = await driver.$('.container-fluid.ajaxcontent > div:nth-child(3)');
         let container = await upperContainer.$('.chosen-container');
         const searchInput = await container.$(".chosen-search-input");
