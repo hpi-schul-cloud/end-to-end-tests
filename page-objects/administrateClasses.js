@@ -1,5 +1,4 @@
 'use strict';
-let theNextSchoolYear;
 
 module.exports = {
     addANewClass: async function() {
@@ -17,10 +16,12 @@ module.exports = {
         let classSuffixSelector = await driver.$('input[name="classsuffix"]');
         await classSuffixSelector.setValue(className);
         await driver.pause(1000);
-        let schoolYear = await driver.$('#createnew .linked > div');
+        let schoolYear = await driver.$('#createnew .chosen-single');
         await schoolYear.click();
-        await schoolYeat.selectByAttribute('value', ''+grade+'');
-        await driver.pause(1000);
+        let index = parseInt(grade)+1;
+        let schoolYearOption = await driver.$('#createnew  .chosen-drop  .chosen-results > li:nth-child('+index+')');
+        
+        await schoolYearOption.click();
         let btnContainer = await driver.$('.create-form');
         let submitBtn = await btnContainer.$('button[type="submit"]');
         await submitBtn.click();
@@ -51,7 +52,7 @@ module.exports = {
         let isThereAnyClass = await this.isThereAnyClass();
         if (isThereAnyClass==true) {
         let names = [];
-        let namesContainer = await driver.$('[data-testid=students_names_container]');
+        let namesContainer = await driver.$('[data-testid="students_names_container"]');
         let allClasses = await namesContainer.$$('tr');
         for(var i=1; i<=allClasses.length; i++) {
             let row = await namesContainer.$('tr:nth-child('+i+')');
@@ -157,12 +158,30 @@ module.exports = {
         let name = nextgrade+ className;
         let classes = await this.getAllClassNames();
         await expect(classes).to.include(name);
-
-
-
     },
 
+    upgradeBtnGradeThirteenMustBeDeaktivated: async function(grade, className) {
+        let classThatShouldBeUpgraded = await  grade.toString()+className;
+        let namesContainer = await driver.$('[data-testid="students_names_container"]');
+       
+        let allClasses = await namesContainer.$$('tr');
+        var isExisting;
+        for(var i=1; i<=allClasses.length; i++) {
+            const row = await namesContainer.$('tr:nth-child('+i+')');
+            let nameSelector = await row.$('td:nth-child(1)');
+            let name = await nameSelector.getText();
+            
+            if (name === classThatShouldBeUpgraded) {
+                let administrateClassContainer = await row.$('.table-actions');
+                let upgradeBtn = await administrateClassContainer.$('.btn.btn-secondary.btn-sm.disabled');
+                isExisting = await upgradeBtn.isExisting();
+                break;
+            }
+        }
+        return isExisting; 
+
     }
+}
 
 
 

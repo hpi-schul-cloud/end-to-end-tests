@@ -52,3 +52,11 @@ Then(/^teacher can upgrade the class (.*) (.*)$/, function(grade, className) {
 Then(/^teacher should see the upgraded class (.*) (.*) with diffrent school year$/, async function(grade, className) {
  await classes.verifyUpgradeClass(grade, className)
 });
+
+// cannot update 13
+
+Then(/^teacher can not upgrade the class (.*) (.*)$/, async function(grade, className) {
+    let isExisting = await classes.upgradeBtnGradeThirteenMustBeDeaktivated(grade, className);
+    await expect(isExisting).to.be.true; 
+});
+

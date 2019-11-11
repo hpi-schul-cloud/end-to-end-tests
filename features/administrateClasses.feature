@@ -32,7 +32,7 @@ Examples:
 | New  | Classmate  | newclassmate@schul-cloud.org | a | 1 |
 
 @upgradeClass
-Scenario Outline: as a teacher I can create a user, create a class with the created student and afterwards upgrade that class
+Scenario Outline: as a teacher I can create a user, create a class with the created student and afterwards upgrade that class (1-12)
 
     When teacher creates a student with <firstname>, <lastname>, <email> and 
     When teacher goes to administration
@@ -43,4 +43,19 @@ Scenario Outline: as a teacher I can create a user, create a class with the crea
     Then teacher should see the upgraded class <grade> <className> with diffrent school year
 Examples:
 | firstname | lastname | email | className | grade | 
-| New | Classmate | newclassmate@schul-cloud.org | a | 1 |
+| New | Classmate | newclassmate@schul-cloud.org | a | 3 |
+
+@classGradeThirteenCannotBeUpdated
+
+Scenario Outline: as a teacher I can create a user, create a class (grade 13) with the created student and afterwards I caccot upgrade that class to 14.
+
+    When teacher creates a student with <firstname>, <lastname>, <email> and 
+    When teacher goes to administration
+    When teacher creates a class, chooses a year <grade> and class name <className>
+    When teacher adds student with <firstname>, <lastname> to this class
+    Then teacher should see the created class <grade> <className>
+    Then teacher can not upgrade the class <grade> <className>
+
+Examples:
+| firstname | lastname | email | className | grade | 
+| New | Classmate | newclassmate@schul-cloud.org | a | 13 |
