@@ -1,9 +1,12 @@
 'use strict';
 
 module.exports = {
-    addANewClass: async function() {
+    initalizeCreateClass: async function() {
         let addClassIcon = await driver.$('div[data-testid="administrate_classes"]');
         await addClassIcon.click();
+
+    },
+    addANewClass: async function() {
         let btnContainer = await driver.$('.container-fluid.ajaxcontent');
         await btnContainer.waitForExist(1500);
         let addClassBtn = await btnContainer.$('.btn.btn-primary.btn-add');
@@ -179,7 +182,18 @@ module.exports = {
         }
         return isExisting; 
 
-    }
+    },
+    //pagination
+
+    create35Classes: async function(firstname, lastname) {
+        
+        for (var i=1; i<=35; i++) {
+            await this.createAnewClass(1,i);
+            await this.addStudentToTheClass(firstname, lastname);
+        }
+    },
+
+
 }
 
 

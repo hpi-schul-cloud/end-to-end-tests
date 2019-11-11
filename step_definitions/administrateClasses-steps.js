@@ -19,7 +19,9 @@ When(/^teacher creates a student with (.*), (.*), (.*) and$/, function(firstname
 When(/^teacher goes to administration$/, function() {
     return administration.goToAdministration();
 });
-
+When(/^teacher goes to class administration$/, function() {
+    return classes.initalizeCreateClass();
+});
 When(/^teacher creates a class, chooses a year (.*) and class name (.*)$/, function(grade, className) {
     return classes.createAnewClass(grade, className);
 });
@@ -59,4 +61,16 @@ Then(/^teacher can not upgrade the class (.*) (.*)$/, async function(grade, clas
     let isExisting = await classes.upgradeBtnGradeThirteenMustBeDeaktivated(grade, className);
     await expect(isExisting).to.be.true; 
 });
+
+//pagination
+
+
+When(/^teacher creates 35 classes with names 1-35 and adds a student with (.*), (.*) to each class$/, function(firstname, lastname) {
+    return classes.create35Classes(firstname, lastname);
+});
+
+Then(/^teacher should see the created classes$/, async function() {
+    return "pending";
+    //await classes.verifyPagination()
+   });
 

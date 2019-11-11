@@ -10,6 +10,7 @@ Background:
 Scenario Outline:
     When teacher creates a student with <firstname>, <lastname>, <email> and 
     When teacher goes to administration
+    When teacher goes to class administration
     When teacher creates a class, chooses a year <grade> and class name <className>
     When teacher adds student with <firstname>, <lastname> to this class
     Then teacher should see the created class <grade> <className>
@@ -22,6 +23,7 @@ Scenario Outline: as a teacher I can create a user, create a class with the crea
 
     When teacher creates a student with <firstname>, <lastname>, <email> and 
     When teacher goes to administration
+    When teacher goes to class administration
     When teacher creates a class, chooses a year <grade> and class name <className>
     When teacher adds student with <firstname>, <lastname> to this class
     Then teacher should see the created class <grade> <className>
@@ -36,6 +38,7 @@ Scenario Outline: as a teacher I can create a user, create a class with the crea
 
     When teacher creates a student with <firstname>, <lastname>, <email> and 
     When teacher goes to administration
+    When teacher goes to class administration
     When teacher creates a class, chooses a year <grade> and class name <className>
     When teacher adds student with <firstname>, <lastname> to this class
     Then teacher should see the created class <grade> <className>
@@ -51,6 +54,7 @@ Scenario Outline: as a teacher I can create a user, create a class (grade 13) wi
 
     When teacher creates a student with <firstname>, <lastname>, <email> and 
     When teacher goes to administration
+    When teacher goes to class administration
     When teacher creates a class, chooses a year <grade> and class name <className>
     When teacher adds student with <firstname>, <lastname> to this class
     Then teacher should see the created class <grade> <className>
@@ -59,3 +63,18 @@ Scenario Outline: as a teacher I can create a user, create a class (grade 13) wi
 Examples:
 | firstname | lastname | email | className | grade | 
 | New | Classmate | newclassmate@schul-cloud.org | a | 13 |
+
+@classPagination
+
+Scenario Outline: as a teacher I create 35 classes and check whether pagination works
+    When teacher creates a student with <firstname>, <lastname>, <email> and 
+    When teacher goes to administration
+    When teacher goes to class administration
+    When teacher creates 35 classes with names 1-35 and adds a student with <firstname>, <lastname> to each class
+    Then teacher should see the created classes
+    
+
+Examples:
+| firstname | lastname | email | 
+| New | Classmate | newclassmate@schul-cloud.org |
+
