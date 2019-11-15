@@ -1,4 +1,5 @@
 'use strict';
+let loginData = require('../shared-objects/loginData');
 
 module.exports = {
     initalizeCreateClass: async function() {
@@ -51,48 +52,81 @@ module.exports = {
         await selectorToBeLoaded.waitForExist(3000);
     },
     getAllClassNames: async function() {
+        await this.deleteFilterSchoolYears();
         let isThereAnyClass = await this.isThereAnyClass();
-        if (isThereAnyClass==true) {
+        let isPaginated = await this.isPaginated();
         let names = [];
-        let namesContainer = await driver.$('[data-testid="students_names_container"]');
-        let allClasses = await namesContainer.$$('tr');
-        for(var i=1; i<=allClasses.length; i++) {
-            let row = await namesContainer.$('tr:nth-child('+i+')');
-            let nameSelector = await row.$('td:nth-child(1)');
-            let name = await nameSelector.getText();
-            await names.push(name);
+        if (isPaginated==true ) {
+            let pagesSelector = await driver.$$('.pagination-wrapper .pagination li');
+            let numberOfPages = (pagesSelector.length)-4; // there are 4 selectors for navigation
+            let lastpageIndex = pagesSelector.length-2;
+            for (var i=3; i<=lastpageIndex-1; i++) {
+                let namesContainer = await driver.$('[data-testid="students_names_container"]');
+                let allClassesOnThePage = await namesContainer.$$('tr');
+                for(var j=1; j<=allClassesOnThePage.length; j++) {
+                    let row = await namesContainer.$('tr:nth-child('+j+')');
+                    let nameSelector = await row.$('td:nth-child(1)');
+                    let name = await nameSelector.getText();
+                    await names.push(name);
+                }
+            let nextPageSelector = await driver.$('.pagination-wrapper .pagination li:nth-child('+(i+1)+') > a');
+            await nextPageSelector.click();
+            };
+        return names;
+        } else if (isThereAnyClass==true && isPaginated==false) {
+            let names = [];
+            let namesContainer = await driver.$('[data-testid="students_names_container"]');
+            let allClasses = await namesContainer.$$('tr');
+            for(var i=1; i<=allClasses.length; i++) {
+                let row = await namesContainer.$('tr:nth-child('+i+')');
+                let nameSelector = await row.$('td:nth-child(1)');
+                let name = await nameSelector.getText();
+                await names.push(name);
         }
         return names;
-    } else {
-        return "there are no classes";
+        
+        } else {
+            return "there are no classes";
     }
 
     },
     deleteClass: async function(grade,className) {
-        let classThatShouldBeDeleted = await  grade.toString()+className;
-        let namesContainer = await driver.$('[data-testid="students_names_container"]');
-       
-        let allClasses = await namesContainer.$$('tr');
-        for(var i=1; i<=allClasses.length; i++) {
-            const row = await namesContainer.$('tr:nth-child('+i+')');
-            let nameSelector = await row.$('td:nth-child(1)');
-            let name = await nameSelector.getText();
-            if (name === classThatShouldBeDeleted) {
-                let administrateClassContainer = await row.$('.table-actions');
-                let deleteBtn = await administrateClassContainer.$('button[type="submit"]');
-                await deleteBtn.click();
-                break;
+        let classThatShouldBeDeleted = await grade.toString()+className;
+        await this.deleteFilterSchoolYears();
+        let isPaginated = await this.isPaginated();
+        if (isPaginated==true) {
+            let pagesSelector = await driver.$$('.pagination-wrapper .pagination li');
+            let lastpageIndex = pagesSelector.length-2;
+            for (var i=3; i<=lastpageIndex-1; i++) {
+                let namesContainer = await driver.$('[data-testid="students_names_container"]');
+                let allClassesOnThePage = await namesContainer.$$('tr');
+                for(var j=1; j<=allClassesOnThePage.length; j++) {
+                    let row = await namesContainer.$('tr:nth-child('+j+')');
+                    let nameSelector = await row.$('td:nth-child(1)');
+                    let name = await nameSelector.getText();
+                    if(name==classThatShouldBeDeleted) {
+                        let administrateClassContainer = await row.$('.table-actions');
+                        let deleteBtn = await administrateClassContainer.$('button[type="submit"] > i');
+                        await deleteBtn.click();
+                        let container = await driver.$('.modal.fade.delete-modal.in');
+                        await container.waitForExist(1500);
+                        let submit = await container.$('.modal-footer button[type="submit"]');
+                        await submit.click();
+                        await driver.pause(1500);
+                        // since we have deleted a class there is a risk that page number has changed so we have to calculate it again
+                        pagesSelector = await driver.$$('.pagination-wrapper .pagination li');
+                        lastpageIndex = pagesSelector.length-2;
+                        break;
+                    } 
+
+            
             }
-        }
-        let submitFormContainer = await driver.$('.modal.fade.delete-modal.in');
-        await submitFormContainer.waitForExist(1500);
-        let submitDeleteBtn = await submitFormContainer.$('button[type="submit"]');
-        await submitDeleteBtn.click();
-        let selectorToBeLoaded = await driver.$('.container-fluid.ajaxcontent');
-        await selectorToBeLoaded.waitForExist(2000);
+            let nextPageSelector = await driver.$('.pagination-wrapper .pagination li:nth-child('+(i+1)+') > a');
+            await nextPageSelector.click();
+            }
+        }   
 
     },
-    
     isThereAnyClass: async function() {
         let elem = await driver.$('[data-testid="students_names_container"]');
         let isExisting = await elem.isExisting(); 
@@ -146,8 +180,6 @@ module.exports = {
         let submitBtn = await submitBtnContainer.$('button:nth-child(2)');
         await submitBtn.click();
         await driver.pause(1500);
-
-
     },
     upgradeClass: async function(grade, className) {
         await this.clickUpgradeClass(grade, className);
@@ -184,16 +216,16 @@ module.exports = {
 
     },
     //pagination
-
-    create35Classes: async function(firstname, lastname) {
-        
-        for (var i=1; i<=35; i++) {
-            await this.createAnewClass(1,i);
-            await this.addStudentToTheClass(firstname, lastname);
-        }
+    isPaginated: async function() {
+        let paginationSelector = await driver.$('.pagination-wrapper');
+        let isExisting = await paginationSelector.isExisting(); 
+        return isExisting;
     },
-
-
+    deleteFilterSchoolYears: async function() {
+        let closeFilterSelector = await driver.$('.filter div:nth-child(2) >button');
+        await closeFilterSelector.click();
+        await driver.pause(1000);
+    },
 }
 
 
