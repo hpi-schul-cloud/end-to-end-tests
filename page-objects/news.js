@@ -28,72 +28,70 @@ let oldPassword1;
 let oldPassword2;
 
 module.exports = {
-  gotoNews: async function() {
-    let url = `${CLIENT.URL}/news/`;
-    await helpers.loadPage(url, 100);
-  
+    // URL HELPER
+    gotoNews: async function() {
+      let url = `${CLIENT.URL}/news/`;
+      await helpers.loadPage(url, 100);
+    },
+    gotoNewNews: async function() {
+      let url = `${CLIENT.URL}/news/new`;
+      await helpers.loadPage(url, 100);
+    },
+    gotoTeams: async function() {
+      let url = `${CLIENT.URL}/teams/`;
+      await helpers.loadPage(url, 100);
+    },
+  // INPUT HELPER
+  setTitle: async function(title){
+    let titleField = await driver.$('input[data-testid="news_title"]');
+    await titleField.waitForExist(1000);
+    await titleField.setValue(title);
   },
-  createNewNews: async function() {
-    let url = `${CLIENT.URL}/news/new`;
-    await helpers.loadPage(url, 100);
+  setContent: async function(content){
+    let contentField = await driver.$('.editor [contenteditable="true"]');
+    await contentField.waitForExist(1000);
+    await contentField.setValue(content);
   },
-  gotoTeams: async function() {
-    let url = `${CLIENT.URL}/teams/`;
-    await helpers.loadPage(url, 100);
-},
-  createNews: async function(name) {
-    let nameField = await driver.$('[data-testid="news_title"]');
-    let bodytext = 'Here are some announcements for my pupuils';
-    await nameField.waitForExist(10000);
-    await nameField.setValue(name);
-    await driver.pause(2000);
-    await driver.switchToFrame(0);
-    await driver.pause(300);
-    let body = await driver.$('body');
-    await body.setValue(bodytext);
-    await driver.switchToParentFrame();
-    await driver.pause(300);
-    let add = await driver.$(Login.elem.submitNewsBtn);
-    await add.click();
-    await driver.pause(500);
+  setPublishDate: async function(date) {
+    await driver.execute(`document.querySelector('[data-testid="news_date"] input').value = "${date}"`);
   },
-  performCreateNews: async function(newsName) {
-    //await firstLogin.firstLoginTeacher();
-    await this.gotoNews();
-    await this.createNewNews();
-    await this.createNews(newsName);
+  setPublishTime: async function(time) {
+    await driver.execute(`document.querySelector('[data-testid="news_time"] input').value = "${time}"`);
   },
-  executeScript: async function() {
-    await driver.execute(`document.querySelector('input[data-testid="news_date_to_be_displayed"]').value = "13.08.2020"`);
-  },
-  performCreateNewsLater: async function(name) {
-   // await firstLogin.firstLoginTeacher();
-    await this.gotoNews();
-    await driver.pause(1000);
-    await this.createNewNews();
-    await driver.pause(1000);
-    let nameField = await driver.$('[data-testid="news_title"]');
-    let bodytext = 'Here are some announcements for my pupuils';
-    await nameField.waitForExist(1000);
-    await nameField.setValue(name);
-    await driver.pause(2000);
-    await this.executeScript();
-    await driver.switchToFrame(0);
-    await driver.pause(300);
-    let body = await driver.$('body');
-    await body.setValue(bodytext);
-    await driver.switchToParentFrame();
-    await driver.pause(300);
+  save: async function() {
     let add = await driver.$(Login.elem.submitNewsBtn);
     await add.click();
   },
-  loginAsPupil: async function() {
-    let name= "paula.meyer@schul-cloud.org";
-    let pass= "Schulcloud1!";
-    await firstLogin.logout();
-    await firstLogin.pupilLogin(name,pass);
-    await firstLogin.firstLoginPupilFullAge(name, pass);
+  createNews: async function({title, content, date, time}) {
+    await this.gotoNewNews();
+    if(title){
+      await this.setTitle(title)
+    }
+    if(content){
+      await this.setContent(content)
+    }
+    if(date){
+      await this.setPublishDate(date);
+    }
+    if(time){
+      await this.setPublishTime(time);
+    }
+    await this.save();
   },
+  performCreateNews: async function(title) {
+    await this.createNews({
+      title: title,
+      content: "Here are some announcements for my pupils"
+    });
+  },
+  performCreateNewsLater: async function(title) {
+    await this.createNews({
+      title: title,
+      content: "Here are some announcements for my pupils",
+      date: "13.08.2020"
+    });
+  },
+  // VERIFICATIONS
   verifyWhetherVisible: async function() {
     const elements = await driver.$$(
       '#main-content > div.route-news > div > section > div > div > div > article > div.sc-card-header > span > div > span'
@@ -103,13 +101,20 @@ module.exports = {
     return newsNames;
   },
   shouldBeVisible: async function(name) {
-
     let newsNames = await this.verifyWhetherVisible();
     await expect(newsNames).to.include(name);
   },
   shouldNotBeVisible: async function(name) {
     let newsNames = await this.verifyWhetherVisible();
     await expect(newsNames).to.not.include(name);
+  },
+  // OTHER STUFF
+  loginAsPupil: async function() {
+    let name= "paula.meyer@schul-cloud.org";
+    let pass= "Schulcloud1!";
+    await firstLogin.logout();
+    await firstLogin.pupilLogin(name,pass);
+    await firstLogin.firstLoginPupilFullAge(name, pass);
   },
   createTeam: async function(firstname, lastname, email, team_name, fullname) {
     await administration.createNewPupil(firstname, lastname, email);
@@ -156,7 +161,6 @@ module.exports = {
       await teamone.click();
       await this.gotoTeamNews();
       await this.createNews(newsName2);
-      
     },
     gotoTeamNews: async function() {
       let newsTab = await driver.$('[data-tab="js-news"] > span');

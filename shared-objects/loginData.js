@@ -35,7 +35,7 @@ module.exports = {
     timeNewsMustBePublished: 'input[data-testid="news_date_to_be_displayed"]',
     submitNewsBtn: 'button[data-testid="btn_news_submit"]',
     // new password
-    iconClickable: 'div[data-testid="initials"]',
+    iconClickable: '[data-testid="initials"]',
     currentPassword: 'input[data-testid="settings_password_current"]',
     newPassword: 'input[data-testid="settings_password_new"]',
     repeatNewPassword: 'input[data-testid="settings_password_control"]',
