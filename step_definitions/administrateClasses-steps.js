@@ -64,13 +64,7 @@ Then(/^teacher can not upgrade the class (.*) (.*)$/, async function(grade, clas
 
 //pagination
 
-
-When(/^teacher creates 35 classes with names 1-35 and adds a student with (.*), (.*) to each class$/, function(firstname, lastname) {
-    return classes.create35Classes(firstname, lastname);
-});
-
-Then(/^teacher should see the created classes$/, async function() {
-    return "pending";
-    //await classes.verifyPagination()
+Then(/^teacher should see all the existing classes with different element limit filters$/, async function() {
+    return classes.testPagination();
    });
 

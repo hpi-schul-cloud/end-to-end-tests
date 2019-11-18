@@ -1,6 +1,7 @@
 'use strict';
 let loginData = require('../shared-objects/loginData');
 
+
 module.exports = {
     initalizeCreateClass: async function() {
         let addClassIcon = await driver.$('div[data-testid="administrate_classes"]');
@@ -51,6 +52,7 @@ module.exports = {
         let selectorToBeLoaded = await driver.$('.container-fluid.ajaxcontent tr');
         await selectorToBeLoaded.waitForExist(3000);
     },
+    // get all classes names given we are on classes administration page
     getAllClassNames: async function() {
         await this.deleteFilterSchoolYears();
         let isThereAnyClass = await this.isThereAnyClass();
@@ -58,9 +60,8 @@ module.exports = {
         let names = [];
         if (isPaginated==true ) {
             let pagesSelector = await driver.$$('.pagination-wrapper .pagination li');
-            let numberOfPages = (pagesSelector.length)-4; // there are 4 selectors for navigation
             let lastpageIndex = pagesSelector.length-2;
-            for (var i=3; i<=lastpageIndex-1; i++) {
+            for (var i=3; i<=lastpageIndex; i++) {
                 let namesContainer = await driver.$('[data-testid="students_names_container"]');
                 let allClassesOnThePage = await namesContainer.$$('tr');
                 for(var j=1; j<=allClassesOnThePage.length; j++) {
@@ -69,9 +70,14 @@ module.exports = {
                     let name = await nameSelector.getText();
                     await names.push(name);
                 }
-            let nextPageSelector = await driver.$('.pagination-wrapper .pagination li:nth-child('+(i+1)+') > a');
-            await nextPageSelector.click();
+            if (i==lastpageIndex) {
+                return names; 
+            } else { 
+                let nextPageSelector = await driver.$('.pagination-wrapper .pagination li:nth-child('+(i+1)+') > a');
+                await nextPageSelector.click();
+            }
             };
+        
         return names;
         } else if (isThereAnyClass==true && isPaginated==false) {
             let names = [];
@@ -83,6 +89,7 @@ module.exports = {
                 let name = await nameSelector.getText();
                 await names.push(name);
         }
+    
         return names;
         
         } else {
@@ -97,7 +104,7 @@ module.exports = {
         if (isPaginated==true) {
             let pagesSelector = await driver.$$('.pagination-wrapper .pagination li');
             let lastpageIndex = pagesSelector.length-2;
-            for (var i=3; i<=lastpageIndex-1; i++) {
+            for (var i=3; i<=lastpageIndex; i++) {
                 let namesContainer = await driver.$('[data-testid="students_names_container"]');
                 let allClassesOnThePage = await namesContainer.$$('tr');
                 for(var j=1; j<=allClassesOnThePage.length; j++) {
@@ -118,8 +125,12 @@ module.exports = {
                         lastpageIndex = pagesSelector.length-2;
                         break;
                     } 
-
-            
+            }
+            if (i==lastpageIndex) {
+                break; 
+            } else { 
+                let nextPageSelector = await driver.$('.pagination-wrapper .pagination li:nth-child('+(i+1)+') > a');
+                await nextPageSelector.click();
             }
             let nextPageSelector = await driver.$('.pagination-wrapper .pagination li:nth-child('+(i+1)+') > a');
             await nextPageSelector.click();
@@ -127,6 +138,7 @@ module.exports = {
         }   
 
     },
+    // important to check first since otherwise the wanted selector won#t be loaded
     isThereAnyClass: async function() {
         let elem = await driver.$('[data-testid="students_names_container"]');
         let isExisting = await elem.isExisting(); 
@@ -172,7 +184,7 @@ module.exports = {
         await schoolYearFilter.click();
         let containerInFilterMenu = await driver.$('#selection-picker');
         await containerInFilterMenu.waitForExist(2000);
-        // the next school year should be displayed at the bottom, above other options
+        // the next school year should be displayed at the top, above other options
         let option = await driver.$('#selection-picker > div > div > div > div');
         await option.click();
         await driver.pause(500);
@@ -216,16 +228,105 @@ module.exports = {
 
     },
     //pagination
+
+    //check whether there is a gagination selector
     isPaginated: async function() {
-        let paginationSelector = await driver.$('.pagination-wrapper');
+        let paginationSelector = await driver.$('.pagination-wrapper > ul > li');
         let isExisting = await paginationSelector.isExisting(); 
         return isExisting;
     },
+    // so that we really get ALL the classes with attribute teacherId=teacher in this test case
     deleteFilterSchoolYears: async function() {
         let closeFilterSelector = await driver.$('.filter div:nth-child(2) >button');
         await closeFilterSelector.click();
         await driver.pause(1000);
     },
+    // now we set filter on elements on the page and check whether classes are shown correctly
+    clickOnFilterNumOfElemsSelector: async function() {
+    let filterSelector = await driver.$('.filter > div:nth-child(2) > div'); 
+    await filterSelector.click();
+    let selectorToBeLoaded = await driver.$('.md-dialog-container');
+    await selectorToBeLoaded.waitForExist(2000);
+    },
+    // some actions in web driver 
+    show25Elements: async function() {
+        await this.clickOnFilterNumOfElemsSelector();
+        let container = await driver.$('#limit-picker');
+        let option = await container.$('div:nth-child(1) > label');
+        await option.click(); 
+        await driver.pause(500);
+        let submit = await driver.$('.md-dialog-container button.md-button.md-primary > div > div');
+        await submit.click();
+        let selectorToBeLoaded = await driver.$('[data-testid="students_names_container"]');
+        await selectorToBeLoaded.waitForExist(2000);
+    },
+    show50Elements: async function() {
+        await this.clickOnFilterNumOfElemsSelector();
+        let container = await driver.$('#limit-picker');
+        let option = await container.$('div:nth-child(2) > label');
+        await option.click(); 
+        await driver.pause(500);
+        let submit = await driver.$('.md-dialog-container button.md-button.md-primary > div > div');
+        await submit.click();
+        let selectorToBeLoaded = await driver.$('[data-testid="students_names_container"]');
+        await selectorToBeLoaded.waitForExist(2000);
+    },
+    show100Elements: async function() {
+        await this.clickOnFilterNumOfElemsSelector();
+        let container = await driver.$('#limit-picker');
+        let option = await container.$('div:nth-child(3) > label');
+        await option.click();
+        let submit = await driver.$('.md-dialog-container button.md-button.md-primary > div > div');
+        await submit.click(); 
+        let selectorToBeLoaded = await driver.$('[data-testid="students_names_container"]');
+        await selectorToBeLoaded.waitForExist(2000);
+    },
+    // helper function
+    updateNumPages: async function() {
+        let actualNumPagesArray = await driver.$$('.pagination > li');
+        let actualNumPagesNumber =  actualNumPagesArray.length; 
+        return actualNumPagesNumber-4;
+    },
+
+    testPagination: async function() {
+        let arrayOfClasses =  await this.getAllClassNames();
+        let numberOfClasses = await arrayOfClasses.length;
+        let isPaginated1 = await this.isPaginated();
+        
+        if(isPaginated1==true) {
+            // switch to 1 page again
+            let firstPage = await driver.$('.pagination > li:nth-child(3) > a');
+            await firstPage.click();
+            let mustBePagesWith25ElemFilter = await Math.ceil((numberOfClasses/25)); // int value, and 2 selectors before the first page and 2 selectors after the last page
+            let mustBePagesWith50ElemFilter = await Math.ceil((numberOfClasses/50));
+            let mustBePagesWith100ElemFilter = await Math.ceil((numberOfClasses/100));
+            // test with 25 elems:
+            await this.show25Elements();
+            await driver.pause(1000);
+            let pagesWith25ElemFiler = await this.updateNumPages();
+            await expect(pagesWith25ElemFiler).to.equal(mustBePagesWith25ElemFilter);
+            // test with 50 elems:
+            await this.show50Elements();
+            await driver.pause(1000);
+            let isPaginated2 = await this.isPaginated();
+            if (isPaginated2==true) {
+                let pagesWith50ElemFiler = await this.updateNumPages();
+                await expect(pagesWith50ElemFiler).to.equal(mustBePagesWith50ElemFilter);
+            }
+            // test with 100 elems: 
+            await this.show100Elements();
+            await driver.pause(1000);
+            let isPaginated3 = await this.isPaginated();
+            if (isPaginated3==true) {
+                let pagesWith100ElemFiler = await this.updateNumPages();
+                await expect(pagesWith100ElemFiler).to.equal(mustBePagesWith100ElemFilter);
+            }    
+        }
+
+        
+
+    }
+
 }
 
 

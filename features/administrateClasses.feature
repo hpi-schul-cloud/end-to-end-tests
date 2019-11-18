@@ -66,15 +66,12 @@ Examples:
 
 @classPagination
 
-Scenario Outline: as a teacher I create 35 classes and check whether pagination works
-    When teacher creates a student with <firstname>, <lastname>, <email> and 
+Scenario: we seed 100 new classes and test whether pagination works
     When teacher goes to administration
     When teacher goes to class administration
-    When teacher creates 35 classes with names 1-35 and adds a student with <firstname>, <lastname> to each class
-    Then teacher should see the created classes
-    
+    Then teacher should see all the existing classes with different element limit filters
 
-Examples:
-| firstname | lastname | email | 
-| New | Classmate | newclassmate@schul-cloud.org |
+
+
+
 
