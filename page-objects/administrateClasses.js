@@ -1,6 +1,7 @@
 'use strict';
 
 const { SERVER } = require("../shared-objects/servers");
+const Axios = require("axios");
 
 
 module.exports = {
@@ -116,7 +117,7 @@ module.exports = {
                         let deleteBtn = await administrateClassContainer.$('button[type="submit"] > i');
                         await deleteBtn.click();
                         let container = await driver.$('.modal.fade.delete-modal.in');
-                        await container.waitForExist(1500);
+                        await container.waitForExist(2500);
                         let submit = await container.$('.modal-footer button[type="submit"]');
                         await submit.click();
                         await driver.pause(1500);
@@ -362,10 +363,34 @@ module.exports = {
             }    
         }
 
+
+    },
+    
+    parseJwt: function(token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    
+        return JSON.parse(jsonPayload);
+    },
+    getTeacherId: async function() {
+    
+        const cookies = await driver.getCookies(["jwt"])
+        const jwt = cookies[0].value;
+        const userInfo = await thius.jwtDecode(jwt);
+        const classes = await Axios.request({
+                url: `${SERVER.URL}/classes`,
+                headers: {
+                    Cookie: `jwt=Bearer ${jwt};`
+                }
+            })
         
-
-    }
-
+        const classObject = {
+            
+            "teacherIds[]": [userInfo.userId]
+        }
 }
 
 
