@@ -1,5 +1,6 @@
 'use strict';
-let loginData = require('../shared-objects/loginData');
+
+const { SERVER } = require("../shared-objects/servers");
 
 
 module.exports = {
@@ -70,15 +71,14 @@ module.exports = {
                     let name = await nameSelector.getText();
                     await names.push(name);
                 }
-            if (i==lastpageIndex) {
-                return names; 
-            } else { 
-                let nextPageSelector = await driver.$('.pagination-wrapper .pagination li:nth-child('+(i+1)+') > a');
-                await nextPageSelector.click();
-            }
+                if (i==lastpageIndex) {
+                    return names; 
+                } else { 
+                    let nextPageSelector = await driver.$('.pagination-wrapper .pagination li:nth-child('+(i+1)+') > a');
+                    await nextPageSelector.click()
+                    await driver.pause(1500);
+                }
             };
-        
-        return names;
         } else if (isThereAnyClass==true && isPaginated==false) {
             let names = [];
             let namesContainer = await driver.$('[data-testid="students_names_container"]');
@@ -161,7 +161,7 @@ module.exports = {
             }
         }
 
-    },
+    }, 
     upgradeClassSteps: async function() {
         // if you want to change name of the class please add steps here
         let btnContainer = await driver.$('.create-form');
@@ -204,6 +204,45 @@ module.exports = {
         let name = nextgrade+ className;
         let classes = await this.getAllClassNames();
         await expect(classes).to.include(name);
+    },
+    upgradeClassWithPagination: async function(grade, className) {
+        let classThatShouldBeUpgraded = await grade.toString()+className;
+        await this.deleteFilterSchoolYears();
+        let isThereAnyClass = await this.isThereAnyClass();
+        let isPaginated = await this.isPaginated();
+        if (isPaginated==true ) {
+            let pagesSelector = await driver.$$('.pagination-wrapper .pagination li');
+            let lastpageIndex = pagesSelector.length-2;
+            for (var i=3; i<=lastpageIndex; i++) {
+                let namesContainer = await driver.$('[data-testid="students_names_container"]');
+                let allClassesOnThePage = await namesContainer.$$('tr');
+                for(var j=1; j<=allClassesOnThePage.length; j++) {
+                    let row = await namesContainer.$('tr:nth-child('+j+')');
+                    let nameSelector = await row.$('td:nth-child(1)');
+                    let name = await nameSelector.getText();
+                    if(name==classThatShouldBeUpgraded) {
+                        let administrateClassContainer = await row.$('.table-actions');
+                        let upgradeBtn = await administrateClassContainer.$('.fa.fa-arrow-up');
+                        await upgradeBtn.click();
+                        await this.upgradeClassSteps();
+                        await this.setFilterOfSchoolYear();
+                        break;
+                    }
+                }
+                if (i==lastpageIndex) {
+                    break; 
+                } else { 
+                    let nextPageSelector = await driver.$('.pagination-wrapper .pagination li:nth-child('+(i+1)+') > a');
+                    await nextPageSelector.click()
+                    await driver.pause(1500);
+                }
+            };
+        } else if (isThereAnyClass==true && isPaginated==false) {
+            await this.upgradeClass(grade, classNAme);
+        }
+        else {
+            return "there are no classes";
+    }
     },
 
     upgradeBtnGradeThirteenMustBeDeaktivated: async function(grade, className) {

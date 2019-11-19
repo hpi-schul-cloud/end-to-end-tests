@@ -49,13 +49,13 @@ Then(/^teacher should not see the created class (.*)(.*)$/,async function(grade,
 
 // upgrade
 Then(/^teacher can upgrade the class (.*) (.*)$/, function(grade, className) {
-    return classes.upgradeClass(grade, className);
+    return classes.upgradeClassWithPagination(grade, className);
 });
 Then(/^teacher should see the upgraded class (.*) (.*) with diffrent school year$/, async function(grade, className) {
  await classes.verifyUpgradeClass(grade, className)
 });
 
-// cannot update 13
+// cannot update 13 grade
 
 Then(/^teacher can not upgrade the class (.*) (.*)$/, async function(grade, className) {
     let isExisting = await classes.upgradeBtnGradeThirteenMustBeDeaktivated(grade, className);
