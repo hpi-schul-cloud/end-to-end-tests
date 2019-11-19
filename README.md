@@ -191,6 +191,35 @@ You can use the framework without any command line arguments if your application
 Please raise framework related bugs via the [klassi-js issue tracker](https://github.com/larryg01/klassi-js/issues) and, if possible, please provide enough information to allow the bug to be 
 reproduced. 
 
+## Examples
+
+### Get Current User Info
+
+```js
+// returns /me result from api
+const user = await helpers.getUserInfo();
+```
+
+### Direct Server API Calls
+
+```js
+// get example
+const classes = await helpers.apiCall("/classes");
+
+// create a new news article
+const news = await helpers.apiCall("/news", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        title: "123",
+        content: "Some News",
+        schoolId: user.schoolId,
+    })
+})
+```
+
 ## Contributing to the framework
 
 Anyone can contribute to this project simply by [opening an issue here](https://github.com/larryg01/klassi-js/issues) or fork the project and issue a pull request with suggested improvements. In lieu of a formal styleguide, please take care to maintain the existing coding style.

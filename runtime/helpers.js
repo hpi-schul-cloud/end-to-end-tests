@@ -21,6 +21,10 @@
 const fs = require('fs');
 let log = global.log;
 
+const { SERVER } = require("../shared-objects/servers");
+require("isomorphic-fetch");
+const jwtDecode = require("jwt-decode");
+
 module.exports = {
   
   /**
@@ -441,6 +445,10 @@ module.exports = {
     assert.equal(actual, expected);
   },
   
+  getUserInfo: async function(){
+    return this.apiCall("/me")
+  },
+
   /**
    *  API call for GET, PUT, POST and DELETE functionality
    * @param url
@@ -450,8 +458,19 @@ module.exports = {
    * @param statusCode
    * @type {{ GET: receive all info, POST: create, PUT: edit / update, DELETE: remove info }},
    */
-  apiCall: function (url, method, body, fileName, statusCode) {
+  apiCall: async function (url, options = {}) {
     
+    const cookies = await driver.getCookies(["jwt"])
+    const jwt = cookies[0].value;
+
+    if(!options.headers){
+      options.headers = {}
+    }
+    options.headers.Authorization = `Bearer ${jwt}`
+
+    const requestUrl = `${SERVER.URL}${url}`;
+    return await fetch(requestUrl, options).then(res => res.json());
+    /*
     let options = {
       url: url,
       method: method,
@@ -481,9 +500,9 @@ module.exports = {
         }
       
         if (method === 'POST' && fileName != null) {
-          let data = res.body.adminDoc;
-          let doc_Id = data.replace(/.*documents\/([^\/]+)\/properties.*/, '$1');
-          await helpers.writeTextFile(fileName, doc_Id, function (err) {
+          let data = res.body.adminDoc;*/
+          //let doc_Id = data.replace(/.*documents\/([^\/]+)\/properties.*/, '$1');
+          /*await helpers.writeTextFile(fileName, doc_Id, function (err) {
             if (err){
               log.error(err.message);
             }
@@ -494,6 +513,7 @@ module.exports = {
         }
         return res;
       });
+      */
   },
   
   filterItem: async function (itemToFilter) {
