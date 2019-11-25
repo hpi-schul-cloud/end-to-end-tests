@@ -218,7 +218,29 @@ const news = await helpers.apiCall("/news", {
         schoolId: user.schoolId,
     })
 })
+// create news
+
+  async createNewsArticle(){
+        const newsPromises = [];
+        const user = await helpers.getUserInfo();
+        for(let i = 0; i< 100; i++){
+            const req = helpers.apiCall("/news", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    title: "News-"+i,
+                    content: "Some News",
+                    schoolId: user.schoolId,
+                })
+            })
+            newsPromises.push(req);
+        }
+        const news = await Promise.all(newsPromises);
 ```
+
+
 
 ## Contributing to the framework
 

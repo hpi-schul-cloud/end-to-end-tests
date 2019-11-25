@@ -240,7 +240,7 @@ this.World = World;
 const { setDefaultTimeout } = require('cucumber');
 
 // Add timeout based on env var.
-const cucumberTimeout = process.env.CUCUMBER_TIMEOUT || 60000;
+const cucumberTimeout = process.env.CUCUMBER_TIMEOUT || 600000;
 setDefaultTimeout(cucumberTimeout);
 
 // start recording of the Test run time

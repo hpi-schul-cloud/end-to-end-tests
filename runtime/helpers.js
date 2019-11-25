@@ -399,6 +399,13 @@ module.exports = {
     return array;
   },
 
+  getJwt: async function() {
+       
+    const cookies = await driver.getCookies(["jwt"]);
+    const jwt = cookies[0].value;
+    return (jwt);
+  },
+
   /**
      * function to get element from frame or frameset
      * @param frame_name
@@ -470,6 +477,7 @@ module.exports = {
 
     const requestUrl = `${SERVER.URL}${url}`;
     return await fetch(requestUrl, options).then(res => res.json());
+  },
     /*
     let options = {
       url: url,
@@ -514,7 +522,7 @@ module.exports = {
         return res;
       });
       */
-  },
+  
   
   filterItem: async function (itemToFilter) {
     try{
@@ -543,6 +551,6 @@ module.exports = {
         throw err;
       }
     }
-  },
-  
-};
+  }
+}
+

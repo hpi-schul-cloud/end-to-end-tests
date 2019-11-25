@@ -1,9 +1,5 @@
 'use strict';
 
-const { SERVER } = require("../shared-objects/servers");
-const Axios = require("axios");
-
-
 module.exports = {
     initalizeCreateClass: async function() {
         let addClassIcon = await driver.$('div[data-testid="administrate_classes"]');
@@ -21,6 +17,7 @@ module.exports = {
     createAnewClass: async function(grade,className) {
         await this.addANewClass();
         let classSuffixSelector = await driver.$('input[name="classsuffix"]');
+        await classSuffixSelector.waitForExist(1500);
         await classSuffixSelector.setValue(className);
         await driver.pause(1000);
         let schoolYear = await driver.$('#createnew .chosen-single');
@@ -362,35 +359,7 @@ module.exports = {
                 await expect(pagesWith100ElemFiler).to.equal(mustBePagesWith100ElemFilter);
             }    
         }
-
-
     },
-    
-    parseJwt: function(token) {
-        var base64Url = token.split('.')[1];
-        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-    
-        return JSON.parse(jsonPayload);
-    },
-    getTeacherId: async function() {
-    
-        const cookies = await driver.getCookies(["jwt"])
-        const jwt = cookies[0].value;
-        const userInfo = await thius.jwtDecode(jwt);
-        const classes = await Axios.request({
-                url: `${SERVER.URL}/classes`,
-                headers: {
-                    Cookie: `jwt=Bearer ${jwt};`
-                }
-            })
-        
-        const classObject = {
-            
-            "teacherIds[]": [userInfo.userId]
-        }
 }
 
 
