@@ -236,7 +236,7 @@ module.exports = {
                 }
             };
         } else if (isThereAnyClass==true && isPaginated==false) {
-            await this.upgradeClass(grade, classNAme);
+            await this.upgradeClass(grade, className);
         }
         else {
             return "there are no classes";
