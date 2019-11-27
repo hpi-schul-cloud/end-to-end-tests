@@ -324,6 +324,17 @@ AfterAll(function(done) {
  */
 After(async function(scenario) {
   let driver = global.driver;
+  // check console for errors and warnings
+  const logs = await driver.getLogs('browser')||[];
+  const warnings = logs.filter(log=>log.level==='WARNING');
+  const errors = logs.filter(log=>log.level==='ERROR');
+  if(warnings.length){
+    console.warn(warnings);
+  }
+  if(errors.length){
+    console.warn(errors);
+  }
+  //
   if (scenario.result.status === Status.FAILED) {
     if (remoteService && remoteService.type === 'browserstack') {
       await driver.deleteSession();
