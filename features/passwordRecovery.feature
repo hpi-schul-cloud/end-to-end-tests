@@ -8,7 +8,7 @@ Given user clicks on password recovery request
 
 Scenario Outline: user should get a password recovery email 
 When user submits valid email <registeredEmail> for password recovery
-Then user should get an email from schulcloud
+Then user should get an email <registeredEmail> from schulcloud
 Examples:
 | registeredEmail| 
 | admin@schul-cloud.org  | 
