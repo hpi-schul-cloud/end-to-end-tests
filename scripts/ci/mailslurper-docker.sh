@@ -10,4 +10,4 @@ export SMTP_HOST="localhost"
 export SMTP_PORT="2500"
 
 # run mailslurper
-docker run -v $PWD/scripts/ci/mailslurper-config.json:/opt/mailslurper/config.json -p 2500:2500 -p 8080:8080 -p 8085:8085 marcopas/docker-mailslurper &
+docker run -v $PWD/scripts/ci/mailslurper-config.json:/opt/mailslurper/config.json -p 2500:2500 -p 8080:8080 -p 8085:8085 derekahn/mailslurper &
