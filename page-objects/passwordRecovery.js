@@ -8,11 +8,10 @@ clickOnPasswordRecovery: async function() {
     const pswdRecoverySelector = await driver.$('.submit-pwrecovery');
     await pswdRecoverySelector.click();
     await driver.pause(2000);
-    //let selectorToBeLoaded = await driver.$('.window-inline modal-open');
-    //await selectorToBeLoaded.waitForExist(2500);
+
 },
 submitEmail: async function(registeredEmail) {
-    //let emailSelector = await driver.$('input[name="username"]');
+ 
     const emailSelector = await driver.$('#username');
     await emailSelector.setValue(registeredEmail);
     const btnConatiner = await driver.$('.pwrecovery-modal.in');
@@ -24,10 +23,12 @@ verifySendMail: async function(email) {
     const subjectOfEmail = await mailHelper.getEmailSubject(email)
     const expectedSubject = "Passwort zurücksetzen für die Schul-Cloud";
     await expect(subjectOfEmail).to.equal(expectedSubject);
-
-
 },
+userCanLogIn: async function(email) {
+    const mailedLink = await mailHelper.getEmailLink(email);
+    await helpers.loadPage(mailedLink, 20); 
 
+}, 
 
 
 

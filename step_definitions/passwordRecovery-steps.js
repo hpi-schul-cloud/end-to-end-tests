@@ -17,5 +17,8 @@ When(/^user submits valid email (.*) for password recovery$/, function (register
 Then(/^user should get an email (.*) from schulcloud$/, function (registeredEmail) {
     return passwordRecovery.verifySendMail(registeredEmail);
 });
+Then(/^user with (.*) can get the access to the profile with the mailed link$/, function (registeredEmail) {
+    return passwordRecovery.verifySendMail(registeredEmail);
+});
 
 
