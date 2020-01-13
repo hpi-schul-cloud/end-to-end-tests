@@ -34,6 +34,7 @@ const fs = require('fs'),
   reporter = require('cucumber-html-reporter'),
   rp = require('request-promise'),
   program = require('commander');
+const { execSync } = require('child_process');
 
 const assert = chai.assert,
   expect = chai.expect,
@@ -259,8 +260,17 @@ Before(async () => {
  * cleanup database before each scenario
  */
 Before(function() {
-  const { execSync } = require('child_process');
-  const output = execSync('cd ../schulcloud-server; echo reset database; npm run setup', { stdio: 'pipe' });
+  try {
+    console.log('\n\nResetting the DB...');
+    const output = execSync('npm run setup', { cwd: '../schulcloud-server', stdio: 'pipe' });
+    console.log('Done.');
+} catch (err) {
+    console.error('Cannot reset the DB. Additional Info:')
+    console.warn('stdout: ', err.stdout.toString());
+    console.warn('stderr: ', err.stderr.toString());
+    console.log('signal: ', err.signal);
+    console.log('status: ', err.status);
+}
   // access output via `output.toString()`
   return Promise.resolve();
 });

@@ -27,7 +27,7 @@ module.exports = {
       '#main-content > section > div.course-card > div.sectionsContainer > div > div.section.active > div.row > div.col-sm-12.add-button > a'
     );
     await addBtn.click();
-    let nameField = await driver.$('#homework-form > div:nth-child(5) > input');
+    let nameField = await driver.$('input[data-testid="homework-name"]');
     name = 'Homework Test';
     await nameField.setValue(name);
     let teamwork = await driver.$('#teamSubmissions');
@@ -144,7 +144,7 @@ module.exports = {
   privateHometask: async function() {
     await this.basicHomework();
     let isPrivate = await driver.$(
-      '#homework-form > div:nth-child(10) > label:nth-child(1) > input[type=checkbox]'
+      'input[data-testid="private-checkbox"]'
     );
     await isPrivate.click();
     await this.clickAdd();

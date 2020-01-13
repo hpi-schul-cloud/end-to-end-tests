@@ -90,9 +90,9 @@ module.exports = {
     return name;
   },
   logout: async function() {
-    let icon = await driver.$('div[data-testid="initials"]');
+    let icon = await driver.$('[data-testid="initials"]');
     await icon.click();
-    let logOut = await driver.$('a[data-testid="logout"]');
+    let logOut = await driver.$('[data-testid="logout"]');
     await logOut.waitForDisplayed(3000);
     await logOut.click();
     let usernameField = await driver.$('input[data-testid="username"]');
