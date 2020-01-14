@@ -90,13 +90,12 @@ module.exports = {
     return name;
   },
   logout: async function() {
-    let icon = await driver.$(
-      'body > section > div.content-min-height > nav > ul > li:nth-child(5) > div > div > a > div > span'
-    );
+    let icon = await driver.$('[data-testid="initials"]');
     await icon.click();
-    let logOut = await driver.$(
-      'body > section > div.content-min-height > nav > ul > li:nth-child(5) > div > div > div > a:nth-child(3)'
-    );
+    let logOut = await driver.$('[data-testid="logout"]');
+    await logOut.waitForDisplayed(3000);
     await logOut.click();
+    let usernameField = await driver.$('input[data-testid="username"]');
+    await usernameField.waitForDisplayed(3000);
   }
 };

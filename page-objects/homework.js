@@ -136,7 +136,7 @@ module.exports = {
   privateHometask: async function(taskname) {
     await this.basicHomework(taskname);
     let isPrivate = await driver.$(
-      '#homework-form > div:nth-child(10) > label:nth-child(1) > input[type=checkbox]'
+      'input[data-testid="private-checkbox"]'
     );
     await isPrivate.click();
     await this.clickAdd();
