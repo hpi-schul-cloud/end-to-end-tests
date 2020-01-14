@@ -87,3 +87,5 @@ typings/
 .next
 webdriverio-cucumber-js.iml
 /browserstack/secrets/browserstack.json
+
+**settings.json
