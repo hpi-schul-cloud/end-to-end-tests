@@ -6,8 +6,7 @@ let loginData = require('../shared-objects/loginData');
 
 
 Given(/^user arrives at schulcloud$/, function () {
-    let url = "http://localhost:3100/login";
-    return helpers.loadPage(url, 10);
+    return helpers.loadPage(loginData.url, 10);
 });
 Given(/^user clicks on password recovery request$/, function () {
     return passwordRecovery.clickOnPasswordRecovery();

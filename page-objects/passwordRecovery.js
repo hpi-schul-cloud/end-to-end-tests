@@ -36,7 +36,7 @@ isMailed: async function(email) {
 /* get the link from mailslurper, navigate and set a new valid password */ 
 setNewPassword: async function(email, password) { 
     const link = await driver.getUrl(); 
-    const regExp = /\/\/[a-z],[0-9]{4}/;
+    const regExp = /\/\/[a-z]*[0-9]{4}/;
     const url = await link.match(regExp); 
     const sys = await url.substr(2, url.length-1);
     const mailedLink = await mailHelper.getEmailLink(email, sys);
