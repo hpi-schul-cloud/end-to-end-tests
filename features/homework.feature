@@ -6,15 +6,16 @@ Background: a teacher logs in and creates a course
 Given the teacher starts on the login page
 Given the teacher is logged-in successfully
 Given the teacher goes to the course page as a next step
-Given the teacher creates one course
+
 
 @createSimpleHomework
 Scenario Outline: create a simple hometask
+When the teacher creates one course with <coursename> and
 When teacher clicks "create a new home task" with <taskname>
 Then the hometask with <taskname> is to be found at the task pannel
 Examples:
-| coursename     | firstname     | lastname  | taskname     | 
-| test hometask  | Paula         | Meyer     | task example | 
+| coursename     |  taskname     | 
+| test hometask  |  task example | 
 
 @createPrivateHomework
 Scenario Outline: create a private hometask has to be visible only for the teacher

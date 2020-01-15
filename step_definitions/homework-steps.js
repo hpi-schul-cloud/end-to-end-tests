@@ -1,33 +1,31 @@
 'use strict';
 let teacherLogin = require('../page-objects/teacherLogin');
-let createCourse = require('../page-objects/createCourse');
-
 let copyCourse = require('../page-objects/copyCourse');
+let createCourse = 
 let homework = require('../page-objects/homework');
 let courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
 
-const { After, Before, AfterAll, BeforeAll } = require('cucumber');
+/*BACKGROUND*/ 
+
 Given(/^the teacher starts on the login page$/, function() {
   return helpers.loadPage(courseData.urlLogin, 20);
 });
 
 Given(/^the teacher is logged-in successfully$/, function() {
-  return teacherLogin.performLogin(
-    Login.defaultTeacherUsername,
-    Login.defaultTeacherpassword
-  );
-});
+  return teacherLogin.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword)});
 
 Given(/^the teacher goes to the course page as a next step$/, function() {
-  let url = courseData.urlCourses;
-  return helpers.loadPage(url, 20);
+
+  return helpers.loadPage(courseData.urlCourses, 20);});
+
+
+/* CREATE A BASIC HOMEWORK */
+
+When(/^the teacher creates one course with (.*) and$/, function(coursename) {
+  return homework.
 });
 
-Given(/^the teacher creates one course$/, function() {
-  var name = 'Hausaufgabe test';
-  return copyCourse.create(name);
-});
 When(/^teacher clicks "create a new home task" with (.*)$/, function(taskname) {
   return homework.addBasicHomework(taskname);
 });
