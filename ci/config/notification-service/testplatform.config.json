@@ -1,0 +1,17 @@
+{
+	"mail": {
+	  "options": {
+		"host": "mailslurper",
+		"port": 2500,
+		"secure": false,
+		"auth": {
+		  "user": "",
+		  "pass": ""
+		}
+	  },
+	  "defaults": {
+		"from": "Sample Service <snodejs.smtp@gmail.com>",
+		"delay": 0
+	  }
+	}
+}
