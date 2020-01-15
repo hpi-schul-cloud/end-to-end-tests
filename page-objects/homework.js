@@ -4,24 +4,37 @@ const courseData = require('../shared-objects/courseData');
 const { expect } = require('chai');
 const Login = require('../shared-objects/loginData');
 const copyCourse = require('../page-objects/copyCourse');
-let teacherLogin = require('../page-objects/teacherLogin');
 const firstLogin = require('../shared_steps/firstLogin.js');
 let name;
 let was_submitted_by; 
 
+// TODO: choose course, SORT
+
 module.exports = {
-  basicHomework: async function(taskname) {
-    await copyCourse.chooseCourse();
-    let homeworkSection = await driver.$('button[data-testid="hometasks"]');
-    await homeworkSection.click();
-    let addBtn = await driver.$('.col-sm-12.add-button');
+  // add homework related functions (as a teacher)
+  clickCreateNewTaskInTheCourse: async function(coursename) {
+    await this.chooseCourse(coursename)
+    await driver.pause(2500);
+    let homeworkSectionContainer = await driver.$('.tabContainer');
+    let homeworkBtn = await homeworkSectionContainer.$('button[data-testid="hometasks"]');
+    await homeworkBtn.click();
+    //await driver.pause(2500);
+    let selectorToBeLoaded2 = await driver.$('a[title="Aufgabe hinzufügen"]');
+    await selectorToBeLoaded2.waitForDisplayed(3000);
+    let addBtn = await driver.$('div.col-sm-12.add-button > a');
     await addBtn.click();
-    let nameField = await driver.$('input[data-testid="name_of_task"]');
+    let selectorToBeLoaded3 = await driver.$('#coursePicker');
+    await selectorToBeLoaded3.waitForExist(2000);
+
+  }, 
+  setHometaskData: async function(taskname) {
+    let nameField = await driver.$('#homework-form > div:nth-child(5) > input');
     await nameField.setValue(taskname);
     let teamwork = await driver.$('#teamSubmissions');
     await teamwork.click();
     await this.setAccomplishTime();
     await this.setHometaskText();
+   
   },
   setHometaskText: async function() {
     // Aufgabenstellung:
@@ -38,11 +51,24 @@ module.exports = {
     await driver.execute('document.querySelector("#dueDate").value="15.08.2022 11:00"');
   },
   clickAdd: async function() {
-    let addBtn2 = await driver.$(
-      '#homework-form > div.modal-footer > button.btn.btn-primary.btn-submit'
-    );
-    await addBtn2.click();
+    let container = await driver.$('#homework-form');
+    let addBtn = await container.$('button[type="submit"]');
+    await addBtn.click();
+    let selectorToBeLoaded = await driver.$('#homeworks');
+    await selectorToBeLoaded.waitForExist(2000);
   },
+  addPrivateHometask: async function(taskname) {
+    await this.clickCreateNewTaskInTheCourse();
+    await this.setHometaskData(taskname);
+    let isPrivate = await driver.$(
+      '#homework-form > div:nth-child(10) > label:nth-child(1) > input[type=checkbox]'
+    );
+    await isPrivate.click();
+    await this.clickAdd();
+  },
+
+  // set deadline helpers
+
   dateToString: async function() {
     let today = new Date();
     let dd = today.getDate();
@@ -78,23 +104,24 @@ module.exports = {
   
     return dd + '.' + mm + '.' + yyyy + '.' + hours + '.' + minutes;
   },
-  addHomework: async function() {
-    let btnContainer = await driver.$('#homework-form .modal-footer')
-    let addBtn = await btnContainer.$('button[type="submit"]');
-    await addBtn.click();
-  },
-  addBasicHomework: async function(taskname) {
-    await this.basicHomework(taskname);
-    await this.clickAdd();
-    await driver.pause(1000);
-  },
   gotoTasks: async function() {
     let url = `${CLIENT.URL}/homework/`;
-    await helpers.loadPage(url, 20);
+    await helpers.loadPage(url, 100);
   },
-  sortHometasksLastEditedFirst: async function() {
-    let sortBtnContainer = await driver.$('.filter');
-    let sortBtn = await sortBtnContainer.$('.md-ripple');
+  gotoTasksTab: async function() {
+   let hometasksTab = await driver.$('button[data-testid="hometasks"]');
+   await hometasksTab.click();
+   let selectorToBeLoaded = await driver.$('.col-sm-12.container');
+   await selectorToBeLoaded.waitForExist(3000); 
+  }, 
+  gotoCourses: async function() {
+    let url = `${CLIENT.URL}/courses/`;
+    await helpers.loadPage(url, 100);
+  },
+  sortHometasks: async function() {
+    let sortBtn = await driver.$(
+      '#filter > div > div.md-chip.md-theme-default.md-deletable.md-clickable > div'
+    );
     await sortBtn.click();
     let select = await driver.$('#selection-picker > div > div');
     await select.click();
@@ -105,52 +132,113 @@ module.exports = {
     await ok.click();
     await driver.pause(1500);
   },
-  // check whether the tasks include the task we expect to be displayed, finish if found
-  isTheTaskDisplayed: async function(taskname) {
-    let tasksArray = await driver.$$('.col-xl-12 > li >a:nth-child(3)> h2');
-    let length = (tasksArray.length)-1;
-    for (var i =0; i<=length; i++) {
-      let name = await tasksArray[i].getText();
-      var isSubstring = await name.includes(taskname);
-      if (isSubstring==true) {
+  returnTaskIndex: async function(taskname) {
+    
+    const containerWithTasks = await driver.$('.col-xl-12');
+    await containerWithTasks.waitForExist(2000);
+    let numOfElems = await containerWithTasks.$$('li');
+    for (var i=1; i<=numOfElems.length-1; i++) {
+      let nameOfTheTaskSelector = await driver.$('.col-xl-12 > li:nth-child('+i+') > a:nth-child(3) > h2' );
+      let nameOfTheTask = await nameOfTheTaskSelector.getText();
+      if(await nameOfTheTask.includes(taskname)) {
+        return i;
+      } 
+    }
+    return false;
+  },
+  chooseTaskAmongAllTasks: async function(taskname) {
+    let taskindex = await this.returnTaskIndex(taskname);
+    if(taskindex!=false) {
+      let task = await driver.$('.col-xl-12 > li:nth-child('+taskindex+') > a:nth-child(3)> h2');
+      await task.click();
+      await driver.pause(1500);
+      let selectorToBeLoaded = await driver.$('#page-title');
+      await selectorToBeLoaded.waitForExist(2000);
+
+    } else {
+    console.log("No such task was found");
+    await driver.close();
+    }
+  }, 
+  chooseTasksAmongCourseTasks: async function() {
+    let container = await driver.$('#homeworks .homework .row');
+    let taskObjects = await container.$$('li');
+    for (var i=1; i<=taskObjects.length-1; i++) {
+      let container = await driver.$('#homeworks .homework .row');
+      let nameSelector = await container.$('li:nth-child('+i+') > a > .dates > h5.title');
+      let nameOfTask = await nameSelector.getText();
+      if(taskname==nameOfTask) {
+
+      }
+
+    }
+
+
+  },
+ /* chooseCourse: async function(coursename) {
+    const container = await driver.$('div[data-section="js-active"] div[data-testid="courses"] > div');
+    let coursesObjects = await container.$$('div');
+    for (var i=1; i<=coursesObjects.length-1; i++) {
+      const container = await driver.$('div[data-section="js-active"] div[data-testid="courses"] > div');
+      let nameOfCourseSelector = await container.$('div:nth-child('+i+') .title');
+      let nameOfCourse = await nameOfCourseSelector.getText();
+      if(nameOfCourse==coursename) {
+        let theRightCourse = await container.$('div:nth-child('+i+') > article > div') ;
+        await theRightCourse.click();
         break;
       }
     }
-    return isSubstring;
   },
+  */
+  chooseCourse: async function(coursename) {
+    // div.sc-card-wrapper[data-id='id']
+    const container = await driver.$('div[data-section="js-active"] div[data-testid="courses"] > div');
+    let coursesObjects = await container.$$('div .title');
+    let objectsPromises = coursesObjects.filter(async elem => {await elem.getText()==coursename;}); 
+    let objects = await Promise.all(objectsPromises);
+    let course = objects[0]
+  },
+
+
   verify: async function(taskname) {
     await this.gotoTasks();
-    await this.sortHometasksLastEditedFirst();
-    let isTheTaskDisplayed = await this.isTheTaskDisplayed(taskname);
-    await expect(isTheTaskDisplayed).to.be.true;
+    await this.sortHometasks();
+    await this.chooseTaskAmongAllTasks(taskname);
+    let pageTitleSelector = await driver.$('#page-title');
+    let courseAndTaskName = await pageTitleSelector.getText();
+    let tasknameArray = await courseAndTaskName.split("- ");
+    let taskName = tasknameArray[1];
+    await expect(taskName).to.equal(taskname);
   },
-  checkWithPupil: async function() {
-    await helpers.loadPage(courseData.urlCourses, 20);
-    await copyCourse.chooseCourse();
-    let courseTasks = await driver.$(
-      '#main-content > section > div.course-card > div.tabContainer > div > button:nth-child(2) > span'
-    );
-    await courseTasks.click();
-  },
-  // set a tick to a checkbox
-  privateHometask: async function(taskname) {
-    await this.basicHomework(taskname);
-    let isPrivate = await driver.$(
-      'input[data-testid="private-checkbox"]'
-    );
-    await isPrivate.click();
-    await this.clickAdd();
-  },
-  privateTaskVerify: async function(taskname) {
 
-    let allTaskNames = await Promise.all(
+  // other user logs in to verify 
+  pupilLogsIn: async function(username, password) {
+    await this.userLogsOut();
+    await this.pupilLogin(username,password);
+    await firstLogin.firstLoginPupilFullAge(username, password);
+  },
+  goToTasksOfTheCourse: async function (coursename, taskname) {
+    await this.gotoCourses();
+    await this.chooseCourse(coursename);
+    await this.gotoTasksTab();
+    await this.chooseTaskAmongAllTasks(taskname);
+  },
+
+
+  privateTaskVerify: async function() {
+    let taskNames = await Promise.all(
       (await driver.$$('#homeworks > ol > div > li > a')).map(
         async element => await element.getText()
       )
     );
     await expect(allTaskNames).not.to.include(taskname);
   },
-  
+  pupilLogin: async function(username, password) {
+    return firstLogin.pupilLogin(username,password);
+  },
+  userLogsOut: async function() {
+    await helpers.loadPage(courseData.urlLogout, 20);
+  },
   pupilEditsTextHomework: async function() {
     let pass = "Schulcloud1!";
     let name = "paula.meyer@schul-cloud.org";
@@ -207,5 +295,10 @@ module.exports = {
     let comment = 'sehr gut!';
     await body.setValue(comment);
     await driver.switchToParentFrame();
-  }
+  },
+  
+  uploadAHomework: async function() {
+
+
+  },
 };
