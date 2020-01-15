@@ -8,14 +8,12 @@ Background:
 
 
 Scenario Outline:
-     When the teacher goes to courses page
-     Then the teacher sees existing courses
-     Then the teacher clicks the btn
+     When the teacher goes to add-courses page
      Then the teacher enters a <courseName>
      Then the teacher chooses a color of the course
      Then the teacher clicks the create button
      Then the teacher clicks to preview
-     Then the teacher sees the created course
+     Then the teacher sees the created course <courseName>
 Examples:
      |courseName|
      |Mathe|
