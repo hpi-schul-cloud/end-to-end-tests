@@ -196,7 +196,6 @@ module.exports = {
     let coursesObjects = await container.$$('div .title');
     let objectsPromises = coursesObjects.filter(async elem => {await elem.getText()==coursename;}); 
     let objects = await Promise.all(objectsPromises);
-    let course = objects[0]
   },
 
 

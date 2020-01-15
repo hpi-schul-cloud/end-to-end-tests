@@ -13,17 +13,18 @@ Scenario Outline: create a simple hometask
 When teacher clicks "create a new home task" with <taskname>
 Then the hometask with <taskname> is to be found at the task pannel
 Examples:
-| taskname | 
-| Test Aufgabe  |
+| coursename     | firstname     | lastname  | taskname     | 
+| test hometask  | Paula         | Meyer     | task example | 
 
 @createPrivateHomework
-Scenario Outline: create a private hometask
+Scenario Outline: create a private hometask has to be visible only for the teacher
+Given the teacher creates one course with <coursename> and pupil with <firstname> and <lastname>:
 When teacher creates a private hometask with <taskname>
 When if any pupil of this course goes to hometasks
 Then the pupil will not see this task with <taskname>
 Examples:
-| taskname |
-| Hometask test  |
+| coursename            | firstname | lastname | taskname             | username                    | password     |
+| test private hometask | Paula     | Meyer    | private task example | paula.meyer@schul-cloud.org | Schulcloud1! | 
 
 @submitTextHomework
 Scenario Outline: pupil submits a homework and teacher evaluates it
@@ -32,8 +33,8 @@ When the pupil edits a text hometask
 Then the teacher should see the changes been done
 Then the teacher can evaluate it
 Examples:
-| taskname | 
-| test submission  | 
+| coursename            | firstname   | lastname | taskname   | username                     | password     |
+| course with file task | Paula       | Meyer    | file task  | paula.meyer@schul-cloud.org  | Schulcloud1! |
 
 
 

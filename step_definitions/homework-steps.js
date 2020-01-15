@@ -63,3 +63,24 @@ Then(/^the teacher should see the changes been done$/, function() {
 Then(/^the teacher can evaluate it$/, function() {
   return homework.evaluateSubmission();
 });
+
+/* File homework submission*/
+Given(/^the Teacher creates one course with (.*) and pupil with:$/, function(coursename) {
+  return copyCourse.create(coursename);
+}); 
+When(/^Teacher creates a homework for the course (.*)$/, function(coursename) {
+  return homework.clickCreateNewTaskInTheCourse(coursename);
+});
+When(/^the teacher puts in data (.*) and some text description of the task$/, function(taskname) {
+  return homework.setHometaskData(taskname);
+});
+
+When(/^the User logs in with (.*) (.*) and$/, function(username, password) {
+  return homework.pupilLogsIn(username, password);
+});
+When(/^the user goes to the course (.*) where the hometask (.*) must be submitted$/, function(coursename, taskname) {
+  return homework.uploadAHomework();
+});
+Then(/^the students can upload a file as a solution$/, function() {
+  return homework.uploadAHomework();
+});
