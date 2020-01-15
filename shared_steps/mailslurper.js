@@ -15,22 +15,12 @@ const getEmailSubject = (email) => request(options)
         const emailSubject = object.subject;
         return emailSubject;
     });
-const getEmailLink = (email, sys) => request(options)
+const getEmailLink = (email) => request(options)
     .then(function(response) {
         var data = response.mailItems;
         var object = data.filter(d => d.toAddresses.includes(email))[0];
         const emailSubject = object.body;
-        switch (sys) {
-            case "localhost": 
-            var regExp = /localhost:.*\/pwrecovery\/[a-z, 0-9, A-Z]{24}/;
-            break;
-            case staging: 
-            var regExp = /staging:.*\/pwrecovery\/[a-z, 0-9, A-Z]{24}/;
-            break;
-            case live: 
-            var regExp = /https:.*\/pwrecovery\/[a-z, 0-9, A-Z]{24}/;
-            break;
-        }
+        const regExp = /localhost:.*\/pwrecovery\/[a-z, 0-9, A-Z]{24}/;
     return emailSubject.match(regExp);
 
     });
