@@ -1,13 +1,10 @@
 'use strict';
 
-let createCourse = require('../page-objects/createCourse');
-let teacherLogin = require('../page-objects/teacherLogin');
-let TeacherLoginSteps = require('../step_definitions/teacherLogin-steps');
-let loginData = require('../shared-objects/loginData');
-let courseData = require('../shared-objects/courseData');
-let shared = { loginData };
-let page = { teacherLogin };
-var countBefore;
+const createCourse = require('../page-objects/createCourse');
+const teacherLogin = require('../page-objects/teacherLogin');
+const loginData = require('../shared-objects/loginData');
+const courseData = require('../shared-objects/courseData');
+const shared = { loginData };
 const Login = require('../shared-objects/loginData');
 
 Given(/^The teacher arrives on the Schul-Cloud page$/, function() {
@@ -15,11 +12,7 @@ Given(/^The teacher arrives on the Schul-Cloud page$/, function() {
 });
 
 Given(/^the teacher is logged in successfully$/, function() {
-  return teacherLogin.performLogin(
-    Login.defaultTeacherUsername,
-    Login.defaultTeacherpassword
-  );
-});
+  return teacherLogin.performLogin(Login.defaultTeacherUsername, Login.defaultTeacherpassword);});
 
 When('the teacher goes to courses page', function() {
   let url = courseData.urlCourses;
