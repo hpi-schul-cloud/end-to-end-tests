@@ -1,5 +1,6 @@
 'use strict';
 const { SERVER } = require("../shared-objects/servers");
+const helpers = require('../runtime/helpers.js');
 const jwtDecode = require("jwt-decode");
 const mailHelper = require('../shared_steps/mailslurper');
 const loginData = require('../shared-objects/loginData');
@@ -13,8 +14,8 @@ const Axios = require("axios");
 module.exports = {
 
 clickOnPasswordRecovery: async function() {
-    const pswdRecoverySelector = await driver.$('.submit-pwrecovery');
-    await pswdRecoverySelector.click();
+    const pswdRecoverySelector = ".submit-pwrecovery";
+    await helpers.waitAndClick(pswdRecoverySelector);
     await driver.pause(2000);
 
 },
@@ -36,10 +37,8 @@ isMailed: async function(email) {
 /* get the link from mailslurper, navigate and set a new valid password */ 
 setNewPassword: async function(email, password) { 
     const link = await driver.getUrl(); 
-    const regExp = /\/\/[a-z]*[0-9]{4}/;
-    const url = await link.match(regExp); 
-    const sys = await url.substr(2, url.length-1);
-    const mailedLink = await mailHelper.getEmailLink(email, sys);
+    const regExp = /\/\/[a-z, : 0-9]+\//;
+    const mailedLink = await mailHelper.getEmailLink(email);
     await helpers.loadPage(mailedLink, 20);
     await this.setNewPasswordSteps(password);
 }, 
