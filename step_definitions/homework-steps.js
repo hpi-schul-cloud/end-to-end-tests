@@ -1,9 +1,9 @@
 'use strict';
-let teacherLogin = require('../page-objects/teacherLogin');
-let copyCourse = require('../page-objects/copyCourse');
-let createCourse = 
-let homework = require('../page-objects/homework');
-let courseData = require('../shared-objects/courseData');
+const teacherLogin = require('../page-objects/teacherLogin');
+const copyCourse = require('../page-objects/copyCourse');
+const createCourse = require('../page-objects/createCourse');
+const homework = require('../page-objects/homework');
+const courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
 
 /*BACKGROUND*/ 
