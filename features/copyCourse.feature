@@ -21,23 +21,30 @@ Examples:
 | sample course to be cloned | 
 
 
-
-#Now we test it with Themas
-
-#notOK
 @copyCourseWithText
-Scenario: teacher can copy course with certain text
-When the teacher adds some Text to the course
-When the teacher adds a topic
-When the teacher clicks copy course with Text
-Then teacher sees the course copy and the Text is still availiable
+Scenario Outline: teacher can copy course with certain text
+Given the teacher creates some with name <coursename>
+Given the teacher chooses the created course with <coursename> and
+When the teacher adds a topic with name <topicname>
+When the teacher adds some Text <text> to the course
+When the teacher clicks copy course <coursename> with Text
+Then teacher sees the course <coursename> was copied and the topic <topicname> is still availiable
+Examples:
+| coursename    | topicname         | text                  |
+| sample course | sample topic name | some sample text here |
 
 #OK
 @copyCourseWithGeoGebraArbeitsblatt
-Scenario: teacher can copy course with certain GeoGebraArbeitsblatt
-When the teacher adds some GeoGebraArbeitsblatt to the course
-When the teacher clicks copy course with GeoGebraArbeitsblatt
-Then teacher sees the course copy and the GeoGebraArbeitsblatt is still availiable
+Scenario Outline: teacher can copy course with certain GeoGebraArbeitsblatt
+Given the teacher creates one course with name <coursename> and 
+Given the teacher chooses the course with <coursename> and
+Given the teacher adds a topic with topicname <topicname> and 
+When the teacher adds some GeoGebraArbeitsblatt with id <geogebraID> to the course
+When the teacher clicks copy course <coursename> with GeoGebraArbeitsblatt
+Then teacher sees the course <coursename> copy and the GeoGebraArbeitsblatt <topicname> is still availiable
+Examples:
+| coursename       | topicname | text                  | geogebraID |
+| sample course geo| geo topic | some sample text here | ucxngdjf   |
 
 #500 ERROR
 @copyCourseWithMaterial

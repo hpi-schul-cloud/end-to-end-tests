@@ -3,7 +3,7 @@
 
 const courseData = require('../shared-objects/courseData');
 const createCourse = require('../page-objects/createCourse');
-
+const helpers = require('../runtime/helpers.js')
 
 module.exports = {
   create: async function(coursename) {
@@ -50,61 +50,39 @@ module.exports = {
     return numOfCourses.length;
   },
 
-  addThema: async function() {
-    await helpers.waitAndClick(courseData.elem.topicsTab);
-    let addBtnContainer = await driver.$('.section active');
-    let addBtn = await addBtnContainer.$('add-button > a');
-    await addBtn.click();
-    await driver.pause(1500);
+  addTopic: async function(topicname) {
+    //await helpers.waitAndClick(courseData.elem.topicsTab);
+    let addBtn = ".add-button > a";
+    await helpers.waitAndClick(addBtn);
+    let nameSelector = await driver.$('.form-group > .form-control');
+    await nameSelector.setValue(topicname);
+    await driver.pause(500);
+
+    
   },
-  addText: async function() {
-    await this.chooseCourse();
-    await this.addThema();
-    let textBtn = await driver.$(
-      '#content-blocks > div > div.form-group > div > button:nth-child(1)'
-    );
-    await textBtn.click();
-    let text = 'lalalala, blala';
-    await driver.pause(4000);
+  addText: async function(text) {
+    let textBtn = ".btn-group > button:nth-child(1)";
+    await helpers.waitAndClick(textBtn);
+    
     let iframe = await driver.$('#cke_1_contents > iframe');
     let textField = await driver.$('body');
     await iframe.click();
     await driver.switchToFrame(iframe);
     await textField.setValue(text);
     await driver.switchToParentFrame();
+    let submitBtn = "button.btn.btn-primary.btn-submit";
+    await helpers.waitAndClick(submitBtn);
   },
-  themaAndSubthema: async function() {
-    const thema = 'TEST';
-    let themaTitle = await driver.$(
-      '#main-content > section > form > div:nth-child(4) > input'
-    );
-    await themaTitle.setValue(thema);
-    let subthema = 'Subtopic';
-    let subthemaWindow = await driver.$(
-      '#content-blocks > div > div:nth-child(1) > div > div > div.card-header > div > input.form-control'
-    );
-    await subthemaWindow.setValue(subthema);
-    let submitBtn = await driver.$(
-      '#main-content > section > form > div.modal-footer > button.btn.btn-primary.btn-submit'
-    );
-    await submitBtn.click();
-  },
-  gotoTopics: async function() {
-    let topicsBtn = await driver.$(
-      '#main-content > section > div.course-card > div.tabContainer > div > button.tab.active'
-    );
-    await topicsBtn.click();
-  },
-  verify: async function() {
-    await await helpers.loadPage(courseData.urlCourses, 20);
-    await this.chooseCourse();
-    await this.gotoTopics();
+  
+  verify: async function(coursename, topicname) {
+    await createCourse.goToCourses();
+    await this.chooseCourse(coursename)
     let topicNames = await Promise.all(
       (await driver.$$('#topic-list > div > div > div')).map(
         async element => await element.getText()
       )
     );
-    await expect(topicNames).to.include('TEST');
+    await expect(topicNames).to.include(topicname);
   },
   verifyPupils: async function() {
     let numberOfPupils = await driver.$(
@@ -114,22 +92,15 @@ module.exports = {
     let number = await parseInt(numberText);
     await expect(number).to.equal(0);
   },
-  addGeoGebraArbeitsblatt: async function() {
-    await this.chooseCourse();
-    await this.addThema();
-    let geoGebraBtn = await driver.$(
-      '#content-blocks > div > div.form-group > div > button:nth-child(2)'
-    );
-    await geoGebraBtn.click();
-    let geoID = await driver.$('.form-control');
-    let id = 'ucxngdjf';
-    await geoID.setValue(id);
-    var thema = 'geoGebra';
-    await this.themaAndSubthema();
+  addGeoGebraArbeitsblatt: async function(geogebraID) {
+    let geogebraBtn = ".btn-group > button:nth-child(2)";
+    await helpers.waitAndClick(geogebraBtn);
+    let geoIDSelector = "#editor_jenxx";
+    await helpers.waitAndSetValue(geoIDSelector, geogebraID);
   },
   addNeXboard: async function() {
     await this.chooseCourse();
-    await this.addThema();
+    await this.addTopic();
     let name = 'Test';
     let description = 'here is some text';
     let neXboard = await driver.$(
@@ -148,7 +119,7 @@ module.exports = {
   },
   addEtherpad: async function() {
     await this.chooseCourse();
-    await this.addThema();
+    await this.addTopic();
     let name = 'Test';
     let description = 'etherpad test';
     let etherpadBtn = await driver.$(

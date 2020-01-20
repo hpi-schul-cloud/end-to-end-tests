@@ -43,35 +43,47 @@ Then(/^the amount of courses is implemented$/, async function() {
 });
 
 // _________With Text__________
-When(/^the teacher adds some Text to the course$/, function() {
-  return copyCourse.addText();
+Given(/^the teacher creates some with name (.*)$/, function(coursename) {
+  return createCourse.createCourse(coursename);
 });
-When(/^the teacher adds a topic$/, function() {
-  return copyCourse.themaAndSubthema();
+Given(/^the teacher chooses the created course with (.*) and$/, function(coursename) {
+  return copyCourse.chooseCourse(coursename);
 });
-When(/^the teacher clicks copy course with Text$/, function() {
-  return copyCourse.copyCourse();
+When(/^the teacher adds a topic with name (.*)$/, function(topicname) {
+  return copyCourse.addTopic(topicname);
+});
+When(/^the teacher adds some Text (.*) to the course$/, function(text) {
+  return copyCourse.addText(text);
 });
 
-When(
-  /^teacher sees the course copy and the Text is still availiable$/,
-  function() {
-    return copyCourse.verify();
-  }
-);
+When(/^the teacher clicks copy course (.*) with Text$/, function(coursename) {
+  return copyCourse.copyCourse(coursename);
+});
+
+When(/^teacher sees the course (.*) was copied and the topic (.*) is still availiable$/,function(coursename, topicname) {
+    return copyCourse.verify(coursename, topicname);
+  });
+
 // _________With GeoGebraArbeitsblatt__________
-When(/^the teacher adds some GeoGebraArbeitsblatt to the course$/, function() {
-  return copyCourse.addGeoGebraArbeitsblatt();
+Given(/^the teacher creates one course with name (.*) and$/, function(coursename) {
+  return createCourse.createCourse(coursename);
 });
-When(/^the teacher clicks copy course with GeoGebraArbeitsblatt$/, function() {
-  return copyCourse.copyCourse();
+Given(/^the teacher chooses the course with (.*) and$/, function(coursename) {
+  return copyCourse.chooseCourse(coursename);
 });
-When(
-  /^teacher sees the course copy and the GeoGebraArbeitsblatt is still availiable$/,
-  function() {
-    return copyCourse.verify();
-  }
-);
+Given(/^the teacher adds a topic with topicname (.*) and$/, function(topicname) {
+  return copyCourse.addTopic(topicname);
+});
+
+When(/^the teacher adds some GeoGebraArbeitsblatt with id (.*) to the course$/, function(geogebraID) {
+  return copyCourse.addGeoGebraArbeitsblatt(geogebraID);
+});
+When(/^the teacher clicks copy course (.*) with GeoGebraArbeitsblatt$/, function(coursename) {
+  return copyCourse.copyCourse(coursename);
+});
+Then(/^teacher sees the course (.*) copy and the GeoGebraArbeitsblatt (.*) is still availiable$/,function(coursename, topicname) {
+    return copyCourse.verify(coursename, topicname);
+  });
 
 // _________With Material__________
 When(/^the teacher adds some Material to the course$/, function() {
