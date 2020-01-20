@@ -103,6 +103,17 @@ module.exports = {
     let submitBtn = "button.btn.btn-primary.btn-submit";
     await helpers.waitAndClick(submitBtn);
   },
+  addMaterial: async function() {
+    let materialBtn = ".btn-group > button:nth-child(3)";
+    await helpers.waitAndClick(materialBtn);
+    let addMaterialBtn = ".btn.btn-secondary.btn-add";
+    await helpers.waitAndClick(addMaterialBtn);
+    let materialContainer = await driver.$('[data-testid="container-materials"]');
+    await materialContainer.waitForExist(10000);
+    let btnContainer = await materialContainer.$('div:nth-child(1) .fa.fa-plus-square');
+    await btnContainer.click();
+    await driver.pause(1500);
+  },
   addNeXboard: async function() {
     await this.chooseCourse();
     await this.addTopic();

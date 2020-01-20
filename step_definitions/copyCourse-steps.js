@@ -86,18 +86,26 @@ Then(/^teacher sees the course (.*) copy and the GeoGebraArbeitsblatt (.*) is st
   });
 
 // _________With Material__________
-When(/^the teacher adds some Material to the course$/, function() {
-  return 'not implemented';
+Given(/^the teacher creates a course with name (.*),$/, function(coursename) {
+  return createCourse.createCourse(coursename);
 });
-When(/^the teacher clicks copy course with Material$/, function() {
-  return 'not implemented';
+Given(/^the teacher chooses this course with (.*) and$/, function(coursename) {
+  return copyCourse.chooseCourse(coursename);
 });
-When(
-  /^teacher sees the course copy and the Material is still availiable$/,
-  function() {
-    return 'not implemented';
-  }
-);
+Given(/^the teacher adds a topic with (.*)$/, function(topicname) {
+  return copyCourse.addTopic(topicname);
+});
+
+When(/^the teacher adds some Material  to the course$/, function() {
+  return copyCourse.addMaterial();
+});
+When(/^the teacher clicks copy course (.*) with Material$/, function(coursename) {
+  return copyCourse.copyCourse(coursename);
+});
+Then(/^teacher sees the course (.*) copy and the material (.*) is still availiable$/,function(coursename, topicname) {
+  return copyCourse.verify(coursename, topicname);
+});
+
 
 // _________With NeXboard__________
 When(/^the teacher adds some NeXboard to the course$/, function() {

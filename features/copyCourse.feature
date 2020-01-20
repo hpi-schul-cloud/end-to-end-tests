@@ -1,13 +1,10 @@
 
 Feature: copy a created course with different data
 
-
 Background: teacher is logged in and has created a course
 Given teacher goes to the home page
 Given teacher is successfully logged in
-#Given teacher has accepted the data protection agreement
 Given goes the course page
-
 
 @copyCourse
 Scenario Outline: teacher can copy an existing course
@@ -33,7 +30,7 @@ Examples:
 | coursename    | topicname         | text                  |
 | sample course | sample topic name | some sample text here |
 
-#OK
+
 @copyCourseWithGeoGebraArbeitsblatt
 Scenario Outline: teacher can copy course with certain GeoGebraArbeitsblatt
 Given the teacher creates one course with name <coursename> and 
@@ -48,10 +45,17 @@ Examples:
 
 #500 ERROR
 @copyCourseWithMaterial
-Scenario: teacher can copy course with certain Material
-When the teacher adds some Material to the course
-When the teacher clicks copy course with Material
-Then teacher sees the course copy and the Material is still availiable
+
+Scenario Outline: teacher can copy course with certain Material
+Given the teacher creates a course with name <coursename>, 
+Given the teacher chooses this course with <coursename> and
+Given the teacher adds a topic with <topicname> 
+When the teacher adds some Material  to the course
+When the teacher clicks copy course <coursename> with Material
+Then teacher sees the course <coursename> copy and the material <topicname> is still availiable
+Examples:
+| coursename             | topicname      | text                  | 
+| sample course material | material topic | some sample text here | 
 
 #OK
 @copyCourseWithNeXboard
