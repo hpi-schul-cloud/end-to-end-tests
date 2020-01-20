@@ -1,14 +1,13 @@
 'use strict';
-let teacherLogin = require('../page-objects/teacherLogin');
-let createCourse = require('../page-objects/createCourse');
+const teacherLogin = require('../page-objects/teacherLogin');
+const createCourse = require('../page-objects/createCourse');
 
-let copyCourse = require('../page-objects/copyCourse');
-let courseData = require('../shared-objects/courseData');
+const copyCourse = require('../page-objects/copyCourse');
+const courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
 const firstLogin = require('../shared_steps/firstLogin.js');
+let coursesCount; 
 
-const { After, Before, AfterAll, BeforeAll } = require('cucumber');
-let before;
 
 //________Background_________
 
@@ -16,37 +15,31 @@ Given(/^teacher goes to the home page$/, function() {
   return helpers.loadPage(courseData.urlLogin, 20);
 });
 Given(/^teacher is successfully logged in/, function() {
-  return teacherLogin.performLogin(
-    Login.defaultTeacherUsername,
-    Login.defaultTeacherpassword
-  );
+  return teacherLogin.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
 });
 Given(/^teacher has accepted the data protection agreement$/, function() {
   return firstLogin.firstLoginTeacher();
 });
 Given(/^goes the course page$/, function() {
-  let url = courseData.urlCourses;
-  return helpers.loadPage(url, 20);
-});
-Given(
-  /^the course, which must be cloned, will be created with some name$/,
-  async function() {
-    var name = 'Test course';
-    return copyCourse.create(name);
-  }
-);
-Given(/^the amount of courses is x$/, async function() {
-  before = await createCourse.count();
-  return before;
+  return helpers.loadPage(courseData.urlCourses, 20);
 });
 
 // _________Copy__________
 
-When(/^the teacher selects the course and clicks clones it$/, function() {
-  return copyCourse.copyCourse();
+Given(/^the teacher creates a course with name (.*) and$/, function(coursename) {
+  return createCourse.createCourse(coursename);
 });
-Then(/^the amount of courses should be x plus one$/, async function() {
-  await copyCourse.verifySimpleCopyCourse();
+
+Given(/^the amount of courses is x$/, async function() {
+  coursesCount = await copyCourse.countCourses();
+});
+
+When(/^the teacher selects the course (.*) and clicks clone it$/, function(coursename) {
+  return copyCourse.copyCourse(coursename);
+});
+Then(/^the amount of courses is implemented$/, async function() {
+  let coursesCountAfterCloning = await copyCourse.countCourses();
+  await expect(coursesCount+1).to.equal(coursesCountAfterCloning);
 });
 
 // _________With Text__________

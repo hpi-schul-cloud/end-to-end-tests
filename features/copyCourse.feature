@@ -5,15 +5,22 @@ Feature: copy a created course with different data
 Background: teacher is logged in and has created a course
 Given teacher goes to the home page
 Given teacher is successfully logged in
-Given teacher has accepted the data protection agreement
+#Given teacher has accepted the data protection agreement
 Given goes the course page
-Given the course, which must be cloned, will be created with some name
-Given the amount of courses is x
+
 
 @copyCourse
-Scenario: teacher can copy an existing course
-When the teacher selects the course and clicks clones it
-Then the amount of courses should be x plus one
+Scenario Outline: teacher can copy an existing course
+Given the teacher creates a course with name <coursename> and 
+Given the amount of courses is x
+When the teacher selects the course <coursename> and clicks clone it
+Then the amount of courses is implemented
+
+Examples:
+| coursename | 
+| sample course to be cloned | 
+
+
 
 #Now we test it with Themas
 

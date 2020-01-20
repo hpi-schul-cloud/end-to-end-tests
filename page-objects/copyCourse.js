@@ -1,52 +1,61 @@
 'use strict';
 
-const loginData = require('../shared-objects/loginData');
-const courseData = require('../shared-objects/courseData');
-const { expect } = require('chai');
 
+const courseData = require('../shared-objects/courseData');
 const createCourse = require('../page-objects/createCourse');
-const addPupilToTheCourse = require('../page-objects/addPupilToTheCourse');
-const shared = { loginData };
-const course = { courseData };
-let before;
+
 
 module.exports = {
-  create: async function(name) {
-    await createCourse.clickAdd();
-    await createCourse.inputCourseName(name);
-    await createCourse.chooseColor();
-    await addPupilToTheCourse.addVertretung();
-    await addPupilToTheCourse.nextButton();
-    await addPupilToTheCourse.addPupils();
-    await addPupilToTheCourse.addClass();
-    await addPupilToTheCourse.createCourseAndNext();
-    await driver.pause(1000);
-    let url = courseData.urlCourses;
-    await helpers.loadPage(url, 20);
+  create: async function(coursename) {
+    await createCourse.createCourse(coursename);
   },
-  copyCourse: async function() {
-    await helpers.loadPage(courseData.urlCourses, 20);
-    await this.countBeforeCopied();
-    await this.chooseCourse();
-    await this.clickClone();
-    await this.confirmClone();
+  copyCourse: async function(coursename) {
+    await createCourse.goToCourses();
+    await this.chooseCourse(coursename);
+    await this.cloneCourse();
+
   },
-  chooseCourse: async function() {
-    let coursesContainer = await driver.$('div[data-testid=\'courses\']');
-    let courses = await driver.$$('div[data-testid=\'courses\'] > div');
-    let lastCourseIndex = courses.length;
-    //let lastCourse = await driver.$('div[data-testid=\'courses\'] > div:nth-child' + '('+ lastCourseIndex + ')');
-    let lastCourse = await driver.$('div[data-testid=\'courses\'] > div:nth-child(1)');
-    await lastCourse.click(); 
-    // wir gehen davon aus, dass noch keine aktuelle Kurse vorhanden sind:
-    /*let course = await driver.$('div[data-testid=\'courses\'] > div');
-    await course.click(); */
+  chooseCourse: async function(coursename) {
+    await createCourse.goToCourses();
+    let sectionActiveCoursesSelector = await driver.$('div[data-section="js-active"]');
+    let container = await sectionActiveCoursesSelector.$('div[data-testid="courses"]');
+    let numOfCourses = await container.$$('div');
+    for (var i=1; i<=numOfCourses.length; i++) {
+      let container = await driver.$('[data-testid="courses"]');
+      let courseNameContainer = await container.$('div:nth-child('+i+')> div >article > div > span > div > span');
+      let courseName = await courseNameContainer.getText();
+      if (courseName==coursename) {
+        let course = await container.$('div:nth-child('+i+')');
+        await course.click();
+        await driver.pause(1500);
+        break;
+      }
+    }
+
   },
+  cloneCourse: async function() {
+    let settingsBtn =  ".fa.fa-cog.i-cog";
+    await helpers.waitAndClick(settingsBtn);
+    let copyCourseBtn = await driver.$('div.dropdown.dropdown-course.minimal-button.open > div > a:nth-child(4)') ; 
+    await copyCourseBtn.click();
+    await driver.pause(1500);
+    let submitBtn= "button.btn.btn-primary.btn-submit";
+    await helpers.waitAndClick(submitBtn);
+  },
+  countCourses: async function() {
+    await createCourse.goToCourses();
+    let sectionActiveCoursesSelector = await driver.$('div[data-section="js-active"]');
+    let container = await sectionActiveCoursesSelector.$('div[data-testid="courses"]');
+    let numOfCourses = await container.$$('.sc-card-wrapper.col-xl-3.col-lg-4.col-md-6.col-sm-12');
+    return numOfCourses.length;
+  },
+
   addThema: async function() {
-    let addBtn = await driver.$(
-      ' #main-content > section > div.course-card > div.sectionsContainer > div > div.section.active > div > div:nth-child(2) > div.add-button > a'
-    );
+    await helpers.waitAndClick(courseData.elem.topicsTab);
+    let addBtnContainer = await driver.$('.section active');
+    let addBtn = await addBtnContainer.$('add-button > a');
     await addBtn.click();
+    await driver.pause(1500);
   },
   addText: async function() {
     await this.chooseCourse();
@@ -162,8 +171,6 @@ module.exports = {
     await this.gotoTopics();
     let etherpad = await driver.$('#topic-list > div > div > div > p');
     await etherpad.click();
-    //let iframe = await driver.$('#outerdocbody > iframe');
-    // await iframe.click();
     await driver.switchToFrame(0);
     let body = await driver.$('#innerdocbody');
     await body.click();
@@ -217,13 +224,4 @@ module.exports = {
     await driver.$('[href*="/topics/add"]');
     await helpers.loadPage(courseData.urlCourses, 20);
   },
-  countBeforeCopied: async function() {
-    before = await createCourse.count();
-    return before;
-  },
-  verifySimpleCopyCourse: async function() {
-    let after = await createCourse.count();
-    let result = after - before;
-    await expect(result).to.equal(1);
-  }
 };

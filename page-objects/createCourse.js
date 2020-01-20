@@ -22,10 +22,8 @@ module.exports = {
     let toNextSectionBtn = "#nextSection";
     await  helpers.waitAndClick(toNextSectionBtn)
   },
-
   createCourse: async function(coursename) {
     await this.goToAddCourses();
-    await this.clickAddCourseButton();
     await this.setCourseName(coursename);
     await this.setColour();
     await this.goToNextSectionCreateCourse();
@@ -44,11 +42,6 @@ module.exports = {
     let allCourses = await this.getCourseNames();
     await expect(allCourses).to.include(coursename);
   }
-
-
-
-
-  
   }
   
 
