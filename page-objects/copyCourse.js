@@ -95,8 +95,13 @@ module.exports = {
   addGeoGebraArbeitsblatt: async function(geogebraID) {
     let geogebraBtn = ".btn-group > button:nth-child(2)";
     await helpers.waitAndClick(geogebraBtn);
-    let geoIDSelector = "#editor_jenxx";
-    await helpers.waitAndSetValue(geoIDSelector, geogebraID);
+    await driver.pause(100);
+    let idContainer = await driver.$('#content-blocks');
+    let geoIDSelector = await idContainer.$('.form-control');
+    await geoIDSelector.setValue(geogebraID);
+    await driver.pause(500);
+    let submitBtn = "button.btn.btn-primary.btn-submit";
+    await helpers.waitAndClick(submitBtn);
   },
   addNeXboard: async function() {
     await this.chooseCourse();
