@@ -43,7 +43,6 @@ Examples:
 | coursename       | topicname | text                  | geogebraID |
 | sample course geo| geo topic | some sample text here | ucxngdjf   |
 
-#500 ERROR
 @copyCourseWithMaterial
 
 Scenario Outline: teacher can copy course with certain Material
@@ -57,20 +56,20 @@ Examples:
 | coursename             | topicname      | text                  | 
 | sample course material | material topic | some sample text here | 
 
-#OK
-@copyCourseWithNeXboard
-Scenario: teacher can copy course with certain NeXboard
-When the teacher adds some NeXboard to the course
-When the teacher clicks copy course with NeXboard
-Then teacher sees the course copy and the NeXboard is still availiable
 
-# OK, verify-Methode fehlt noch
-# @copyCourseWithEtherpad
-# Scenario: teacher can copy course with certain Etherpad
-# When the teacher adds some Etherpad to the course
-# When the teacher edits the content of the etherpad
-# When the teacher clicks copy course with Etherpad
-# Then teacher sees the course copy and the Etherpad is still availiable
+@copyCourseWithEtherpad
+
+Scenario Outline: teacher can copy course with certain Etherpad
+Given the teacher creates a course with name <coursename>, 
+Given the teacher chooses this course with <coursename> and
+Given the teacher adds a topic with <topicname> 
+When the teacher adds some Etherpad with <etherpadName> and <etherpadDescription> to the course
+When the teacher clicks copy course <coursename> with Etherpad
+Then teacher sees the course <coursename> copy and the Etherpadd <topicname> is still availiable
+Examples:
+| coursename             | topicname      | etherpadName          | etherpadDescription          | 
+| sample course etherpad | etherpad topic | etherpad name         | etherpad description here    | 
+
 
 #Links???
 # @copyCourseWithInternComponents

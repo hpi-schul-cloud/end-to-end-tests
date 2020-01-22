@@ -76,7 +76,7 @@ Given(/^the teacher adds a topic with topicname (.*) and$/, function(topicname) 
 });
 
 When(/^the teacher adds some GeoGebraArbeitsblatt with id (.*) to the course$/, function(geogebraID) {
-  return copyCourse.addGeoGebraArbeitsblatt(geogebraID);
+  return copyCourse.addGeoGebra(geogebraID);
 });
 When(/^the teacher clicks copy course (.*) with GeoGebraArbeitsblatt$/, function(coursename) {
   return copyCourse.copyCourse(coursename);
@@ -107,36 +107,18 @@ Then(/^teacher sees the course (.*) copy and the material (.*) is still availiab
 });
 
 
-// _________With NeXboard__________
-When(/^the teacher adds some NeXboard to the course$/, function() {
-  return copyCourse.addNeXboard();
-});
-When(/^the teacher clicks copy course with NeXboard$/, function() {
-  return copyCourse.copyCourse();
-});
-When(
-  /^teacher sees the course copy and the NeXboard is still availiable$/,
-  function() {
-    return copyCourse.verify();
-  }
-);
 
 // _________With Etherpad__________
-When(/^the teacher adds some Etherpad to the course$/, function() {
-  return copyCourse.addEtherpad();
+When(/^the teacher adds some Etherpad with (.*) and (.*) to the course$/, function(etherpadName, etherpadDescription) {
+  return copyCourse.addEtherpad(etherpadName, etherpadDescription);
 });
-When(/^the teacher edits the content of the etherpad$/, function() {
-  return copyCourse.editEtherpad();
+When(/^the teacher clicks copy course (.*) with Etherpad$/, function(coursename) {
+  return copyCourse.copyCourse(coursename);
 });
-When(/^the teacher clicks copy course with Etherpad$/, function() {
-  return copyCourse.copyCourse();
+Then(/^teacher sees the course (.*) copy and the Etherpadd (.*) is still availiable$/, function(coursename, topicname) {
+  return copyCourse.verify(coursename, topicname);
 });
-When(
-  /^teacher sees the course copy and the Etherpad is still availiable$/,
-  function() {
-    return copyCourse.verify();
-  }
-);
+
 // _________With InternComponents__________
 When(/^the teacher adds some InternComponents to the course$/, function() {
   return 'not implemented';
