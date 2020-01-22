@@ -138,5 +138,10 @@ module.exports = {
     await body.click();
     await body.clear();
   },
+  verifyCopyWithStudents: async function(coursename) {
+    await createCourse.goToCourses();
+    await this.chooseCourse(coursename)
+
+  }
 
 };

@@ -70,19 +70,13 @@ Examples:
 | coursename             | topicname      | etherpadName          | etherpadDescription          | 
 | sample course etherpad | etherpad topic | etherpad name         | etherpad description here    | 
 
+@copyCourseWithStudents
+Scenario: teacher can copy course with students
+Given the teacher creates a course with name <coursename>, 
+When the teacher copies the course with students
+Then the teacher should see the cloned course <coursename> but without students
 
-#Links???
-# @copyCourseWithInternComponents
-# Scenario: teacher can copy course with certain InternComponents
-# When the teacher adds some InternComponents to the course
-# When the teacher clicks copy course with InternComponents
-# Then teacher sees the course copy and the InternComponents is (are) still availiable 
-
-#OK
-@copyCourseWithPupils
-Scenario: teacher can copy course with pupils
-When the teacher copies the course with pupils
-Then the teacher should see the cloned course but without pupils
-
-
+Examples:
+| coursename                  |  
+| sample course with students |
 

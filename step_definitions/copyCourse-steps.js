@@ -134,9 +134,6 @@ When(/^teacher sees the course copy and the InternComponents is (are) still avai
 When(/^the teacher copies the course with pupils$/, function() {
   return copyCourse.copyCourse();
 });
-Then(
-  /^the teacher should see the cloned course but without pupils$/,
-  function() {
-    return copyCourse.verifyPupils();
-  }
-);
+Then(/^the teacher should see the cloned course (.*) but without pupils$/, function(coursename) {
+    return copyCourse.verifyPupils(coursename);
+  });
