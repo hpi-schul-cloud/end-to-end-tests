@@ -32,6 +32,7 @@ module.exports = {
     // homework:
     evaluationInProcent: 'input[data-testid=\'evaluation_procent\']',
     topicsTab: 'button[data-testid=\'topics\']',
+    selectorWithMultipleChoiceStudents:'select[data-testid=\'pupils\']',
 
 }
 }

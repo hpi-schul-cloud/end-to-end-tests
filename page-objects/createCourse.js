@@ -3,6 +3,28 @@ const courseData = require('../shared-objects/courseData');
 const helpers = require('../runtime/helpers.js')
 
 
+const chosenSearchableSelectHelper = (driver, selectSelector) => ({
+  getAvailableOptions: async () => {
+      const options = await driver.$$(`${selectSelector} > option`);
+      return Promise.all(options.map(async opt => {
+          return {
+              text: (await opt.getHTML(false)).trim(),
+              value: await opt.getAttribute("value")
+          }
+      }))
+  },
+  selectOptionByName: async (name) => {
+      // TODO search by full name (including spaces) => remove split()
+      const searchName = name.trim().split(" ")[0]
+      const container = await driver.$(`${selectSelector} + .chosen-container`);
+      const searchInput = await container.$(".chosen-search-input");
+      await searchInput.click();
+      await searchInput.setValue(searchName);
+      const searchResult = await container.$(`.chosen-results .active-result.highlighted`)
+      await searchResult.click();
+  }
+})
+
 module.exports = {
   goToAddCourses: async function() {
     await helpers.loadPage(courseData.urlCoursesAdd, 20)
@@ -41,6 +63,15 @@ module.exports = {
   verify: async function(coursename) {
     let allCourses = await this.getCourseNames();
     await expect(allCourses).to.include(coursename);
+  },
+  createCourseWithStudents: async function(name) {
+    await this.goToAddCourses();
+    await this.setCourseName(coursename);
+    await this.setColour();
+    await this.goToNextSectionCreateCourse();
+    const helper = chosenSearchableSelectHelper(driver, courseData.elem.selectorWithMultipleChoiceStudents);
+    await helper.selectOptionByName(name);
+    await this.goToNextSectionCreateCourse();
   }
   }
   
