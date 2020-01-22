@@ -72,11 +72,11 @@ Examples:
 
 @copyCourseWithStudents
 Scenario: teacher can copy course with students
-Given the teacher creates a course with name <coursename>, 
-When the teacher copies the course with students
+Given the teacher creates a course with name <coursename> and student <studentname>, 
+When the teacher copies the course <coursename> with students
 Then the teacher should see the cloned course <coursename> but without students
 
 Examples:
-| coursename                  |  
-| sample course with students |
+| coursename                  | studentname                 | 
+| sample course with students | Paula Meyer                 | 
 

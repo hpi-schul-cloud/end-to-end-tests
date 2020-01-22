@@ -119,21 +119,14 @@ Then(/^teacher sees the course (.*) copy and the Etherpadd (.*) is still availia
   return copyCourse.verify(coursename, topicname);
 });
 
-// _________With InternComponents__________
-When(/^the teacher adds some InternComponents to the course$/, function() {
-  return 'not implemented';
-});
-When(/^the teacher clicks copy course with InternComponents$/, function() {
-  return 'not implemented';
-});
-When(/^teacher sees the course copy and the InternComponents is (are) still availiable$/, function() {
-  return 'not implemented';
-});
 
 // _________With pupils__________
-When(/^the teacher copies the course with pupils$/, function() {
-  return copyCourse.copyCourse();
+Given(/^the teacher creates a course with name (.*) and student (.*),$/, function(coursename, studentname) {
+  return createCourse.createCourseWithStudents(coursename, studentname);
+});
+When(/^the teacher copies the course (.*) with pupils$/, function(coursename) {
+  return copyCourse.copyCourse(coursename);
 });
 Then(/^the teacher should see the cloned course (.*) but without pupils$/, function(coursename) {
-    return copyCourse.verifyPupils(coursename);
+    return copyCourse.verifyCopyWithStudents(coursename);
   });
