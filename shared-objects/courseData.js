@@ -2,8 +2,10 @@ const { CLIENT } = require("./servers");
 
 module.exports = {
   urlCourses: `${CLIENT.URL}/courses`,
+  urlCoursesAdd: `${CLIENT.URL}/courses/add`,
   urlLogin: `${CLIENT.URL}/login`,
   urlLogout: `${CLIENT.URL}/logout`,
+  lernStoreUrl: `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`,
   elem: {
     addBtn: 'section#section-courses a[data-testid=\'courseAddButton\']',
     courseContainer:
@@ -29,6 +31,8 @@ module.exports = {
     schulcloudErkundenBtn: 'a[data-testid=\'btn_schul-cloud_erkunden\']',
     // homework:
     evaluationInProcent: 'input[data-testid=\'evaluation_procent\']',
+    topicsTab: 'button[data-testid=\'topics\']',
+    selectorWithMultipleChoiceStudents:'select[data-testid=\'pupils\']',
 
 }
 }

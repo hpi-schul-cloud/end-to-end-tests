@@ -329,7 +329,7 @@ module.exports = {
       await driver.waitForEnabled(selector, DELAY_3_SECOND);
       await driver.click(selector);
       await driver.pause(DELAY_500_MILLISECOND);
-      await driver.keys(value);
+      await driver.setValue(value);
     }
     catch (err) {
       log.error(err.message);
