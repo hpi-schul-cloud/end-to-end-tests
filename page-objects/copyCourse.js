@@ -8,27 +8,32 @@ const helpers = require('../runtime/helpers.js')
 module.exports = {
 
   copyCourse: async function(coursename) {
-    await createCourse.goToCourses();
     await this.chooseCourse(coursename);
     await this.cloneCourse();
 
   },
-  chooseCourse: async function(coursename) {
+  chooseCourseHelper: async function(coursename) {
     await createCourse.goToCourses();
     let sectionActiveCoursesSelector = await driver.$('div[data-section="js-active"]');
     let container = await sectionActiveCoursesSelector.$('div[data-testid="courses"]');
-    let numOfCourses = await container.$$('div');
+    let numOfCourses = await container.$$('.sc-card-wrapper.col-xl-3.col-lg-4.col-md-6.col-sm-12');
     for (var i=1; i<=numOfCourses.length; i++) {
       let container = await driver.$('[data-testid="courses"]');
-      let courseNameContainer = await container.$('div:nth-child('+i+')> div >article > div > span > div > span');
+      let courseNameContainer = await container.$('.sc-card-wrapper.col-xl-3.col-lg-4.col-md-6.col-sm-12:nth-child('+i+') .title');
       let courseName = await courseNameContainer.getText();
+      let a = courseName;
       if (courseName==coursename) {
-        let course = await container.$('div:nth-child('+i+')');
-        await course.click();
-        await driver.pause(1500);
-        break;
+        return i;
       }
     }
+  },
+  chooseCourse: async function(coursename) {
+    let courseHasIndex = await this.chooseCourseHelper(coursename);
+    let sectionActiveCoursesSelector = await driver.$('div[data-section="js-active"]');
+    let container = await sectionActiveCoursesSelector.$('div[data-testid="courses"]');
+    let course = await container.$('div:nth-child('+courseHasIndex+')');
+    await course.click();
+    await driver.pause(1500);
 
   },
   cloneCourse: async function() {
@@ -80,14 +85,7 @@ module.exports = {
     );
     await expect(topicNames).to.include(topicname);
   },
-  verifyPupils: async function() {
-    let numberOfPupils = await driver.$(
-      '.section-course.active > section > div > div > div:nth-child(2) > article a.btn-member'
-    );
-    let numberText = await numberOfPupils.getText();
-    let number = await parseInt(numberText);
-    await expect(number).to.equal(0);
-  },
+
   addGeoGebra: async function(geogebraID) {
     let geogebraBtn = ".btn-group > button:nth-child(2)";
     await helpers.waitAndClick(geogebraBtn);
@@ -140,7 +138,14 @@ module.exports = {
   },
   verifyCopyWithStudents: async function(coursename) {
     await createCourse.goToCourses();
-    await this.chooseCourse(coursename)
+    let copiedName = coursename + " - Kopie";
+    let courseHasIndex = await this.chooseCourseHelper(copiedName);
+    let sectionActiveCoursesSelector = await driver.$('div[data-section="js-active"]');
+    let container = await sectionActiveCoursesSelector.$('div[data-testid="courses"]');
+    let areThereStudentsInCourseContainer  = await container.$('.sc-card-wrapper.col-xl-3.col-lg-4.col-md-6.col-sm-12:nth-child('+courseHasIndex+') .additionalInfo .btn-member');
+    let areThereStudentsInCourse = await areThereStudentsInCourseContainer.getText();
+    let number = await parseInt(areThereStudentsInCourse);
+    await expect(number).to.equal(0);
 
   }
 

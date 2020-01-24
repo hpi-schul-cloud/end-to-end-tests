@@ -121,12 +121,12 @@ Then(/^teacher sees the course (.*) copy and the Etherpadd (.*) is still availia
 
 
 // _________With pupils__________
-Given(/^the teacher creates a course with name (.*) and student (.*),$/, function(coursename, studentname) {
+Given(/^the teacher creates a course with name (.*) and student (.*)$/, function(coursename, studentname) {
   return createCourse.createCourseWithStudents(coursename, studentname);
 });
-When(/^the teacher copies the course (.*) with pupils$/, function(coursename) {
+When(/^the teacher copies the course (.*) with students$/, function(coursename) {
   return copyCourse.copyCourse(coursename);
 });
-Then(/^the teacher should see the cloned course (.*) but without pupils$/, function(coursename) {
+Then(/^the teacher should see the cloned course (.*) but without students$/, function(coursename) {
     return copyCourse.verifyCopyWithStudents(coursename);
   });

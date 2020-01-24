@@ -64,7 +64,8 @@ module.exports = {
     let allCourses = await this.getCourseNames();
     await expect(allCourses).to.include(coursename);
   },
-  createCourseWithStudents: async function(name) {
+  
+  createCourseWithStudents: async function(coursename, name) {
     await this.goToAddCourses();
     await this.setCourseName(coursename);
     await this.setColour();
