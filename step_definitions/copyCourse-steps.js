@@ -49,7 +49,7 @@ Given(/^the teacher creates some with name (.*)$/, function(coursename) {
 Given(/^the teacher chooses the created course with (.*) and$/, function(coursename) {
   return copyCourse.chooseCourse(coursename);
 });
-When(/^the teacher adds a topic with name (.*)$/, function(topicname) {
+When(/^the teacher adds a Topic with name (.*)$/, function(topicname) {
   return copyCourse.addTopic(topicname);
 });
 When(/^the teacher adds some Text (.*) to the course$/, function(text) {
@@ -64,16 +64,7 @@ When(/^teacher sees the course (.*) was copied and the topic (.*) is still avail
     return copyCourse.verify(coursename, topicname);
   });
 
-// _________With GeoGebraArbeitsblatt__________
-Given(/^the teacher creates one course with name (.*) and$/, function(coursename) {
-  return createCourse.createCourse(coursename);
-});
-Given(/^the teacher chooses the course with (.*) and$/, function(coursename) {
-  return copyCourse.chooseCourse(coursename);
-});
-Given(/^the teacher adds a topic with topicname (.*) and$/, function(topicname) {
-  return copyCourse.addTopic(topicname);
-});
+// _________With GeoGebra__________
 
 When(/^the teacher adds some GeoGebraArbeitsblatt with id (.*) to the course$/, function(geogebraID) {
   return copyCourse.addGeoGebra(geogebraID);
