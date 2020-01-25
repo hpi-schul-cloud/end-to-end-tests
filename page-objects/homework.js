@@ -29,8 +29,7 @@ module.exports = {
     await helpers.waitAndClick(courseData.elem.teamworkActivate);
     await this.setAccomplishTime();
     await this.setHometaskText();
-    await helpers.waitAndClick(courseData.elem.submitAddHomeworkBtn);
-   
+    await helpers.waitAndClick(courseData.elem.submitAddHomeworkBtn); 
   },
   addPrivateHometask: async function(coursename, taskname) {
     await this.clickCreateNewTaskInTheCourse(coursename);
@@ -41,7 +40,6 @@ module.exports = {
     await this.setHometaskText();
     await this.setPrivate();
     await helpers.waitAndClick(courseData.elem.submitAddHomeworkBtn);
-   
   },
   setHometaskText: async function() {
     await driver.switchToFrame(0);
@@ -51,10 +49,10 @@ module.exports = {
     await driver.switchToParentFrame();
   },
   setAccomplishTime: async function() {
-    var begin = await this.dateToString();
-    await driver.execute('document.querySelector("#availableDate").value="15.08.2018 11:00"');
-    var end = await this.randomDate();
-    await driver.execute('document.querySelector("#dueDate").value="15.08.2022 11:00"');
+    var begin = await helpers.dateToString();
+    await driver.execute(`document.querySelector("#availableDate").value="${begin}"`);
+    var end = await helpers.randomDate();
+    await driver.execute(`document.querySelector("#dueDate").value="${end}"`);
   },
   clickAdd: async function() {
     let container = await driver.$('#homework-form');
@@ -64,56 +62,17 @@ module.exports = {
     await selectorToBeLoaded.waitForExist(2000);
   },
  
-  // set deadline helpers
-
-  dateToString: async function() {
-    let today = new Date();
-    let dd = today.getDate();
-    let mm = today.getMonth() + 1; //January is 0!
-    let yyyy = today.getFullYear();
-    let hours = "11";
-    let minutes = "00";
-  
-    if (dd < 10) {
-      dd = '0' + dd;
-    }
-    if (mm < 10) {
-      mm = '0' + mm;
-    }
-  
-    return dd + '.' + mm + '.' + yyyy + '.' + hours + '.' + minutes;
-  
-  },
-  randomDate: async function() {
-    let today = new Date();
-    let dd = today.getDate();
-    let mm = today.getMonth() + 1; //January is 0!
-    let yyyy = today.getFullYear()+1;
-    let hours = "11";
-    let minutes = "00";
-  
-    if (dd < 10) {
-      dd = '0' + dd;
-    }
-    if (mm < 10) {
-      mm = '0' + mm;
-    }
-  
-    return dd + '.' + mm + '.' + yyyy + '.' + hours + '.' + minutes;
-  },
   gotoTasks: async function() {
     let url = `${CLIENT.URL}/homework/`;
-    await helpers.loadPage(url, 100);
+    await helpers.loadPage(url, 20);
   },
   gotoTasksTab: async function() {
-   let hometasksTab = await driver.$('button[data-testid="hometasks"]');
-   await hometasksTab.click();
-   let selectorToBeLoaded = await driver.$('.col-sm-12.container');
-   await selectorToBeLoaded.waitForExist(3000); 
+   let hometasksTab = "button[data-testid='hometasks'";
+   await helpers.waitAndClick(hometasksTab);
   }, 
   gotoCourses: async function() {
     let url = `${CLIENT.URL}/courses/`;
-    await helpers.loadPage(url, 100);
+    await helpers.loadPage(url, 20);
   },
   sortHometasks: async function() {
     let sortBtn = await driver.$(
@@ -163,23 +122,6 @@ module.exports = {
     await driver.close();
     }
   }, 
-  /*
-  chooseTasksAmongCourseTasks: async function() {
-    let container = await driver.$('#homeworks .homework .row');
-    let taskObjects = await container.$$('li');
-    for (var i=1; i<=taskObjects.length-1; i++) {
-      let container = await driver.$('#homeworks .homework .row');
-      let nameSelector = await container.$('li:nth-child('+i+') > a > .dates > h5.title');
-      let nameOfTask = await nameSelector.getText();
-      if(taskname==nameOfTask) {
-        let homework = await driver.$('#homeworks .homework .row li:nth-child('+i+')');
-        await homework.click();
-        break;
-      }
-    }
-  },
-  */
-
 
   verify: async function(taskname) {
     await this.gotoTasks();
