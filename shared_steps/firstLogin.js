@@ -2,6 +2,7 @@
 const { CLIENT } = require("../shared-objects/servers");
 const Login = require('../shared-objects/loginData');
 const courseData = require('../shared-objects/courseData');
+const helpers = require('../runtime/helpers.js')
 var secondCharacter;
 
 module.exports = {
@@ -36,31 +37,28 @@ module.exports = {
     await start.click();
   },
   dataProtection: async function() {
-   let box1 = await driver.$(
-   'input[name=\'privacyConsent\']');
+   let box1 = await driver.$('input[name=\'privacyConsent\']');
    await box1.waitForExist(2000);
     await box1.click();
-    let box2 = await driver.$(
-      'input[name=\'termsOfUseConsent\']');
+    let box2 = await driver.$('input[name=\'termsOfUseConsent\']');
     await box2.waitForExist(2000);
     await box2.click();
   },
   firstLoginPupilFullAge: async function(name, pass) {
-    // es gibt mehrere Login Möglichkeiten, hier fangen wir alle ab:
-    let nextBtn = await driver.$('#nextSection');
-    await nextBtn.click();
-    await nextBtn.click();
-    // wenn Einwilligungserklärung:
+    let nextBtn = "#nextSection";
+    await helpers.waitAndClick(nextBtn);
+    await helpers.waitAndClick(nextBtn);
+    // if Data protection is needed
     let section_three_name = await driver.$('.panels.mb-2 > section:nth-child(3) > h2');
     if (await section_three_name.getText()== "Einwilligungserklärung") {
       await this.dataProtection();
-      await nextBtn.click();
+      await helpers.waitAndClick(nextBtn)
     }
     let password = await driver.$('input[data-testid=\'firstlogin_password\']');
     let password_control = await driver.$('input[data-testid=\'firstlogin_password_control\']');
     await password.setValue(pass);
     await password_control.setValue(pass);
-    await nextBtn.click();
+    await helpers.waitAndClick(nextBtn);
     await driver.$('.form-submitted');
     let start = await driver.$('a[data-testid="btn_schul-cloud_erkunden"]');
     await start.waitForDisplayed(15000);

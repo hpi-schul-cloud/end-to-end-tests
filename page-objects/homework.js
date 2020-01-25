@@ -1,5 +1,6 @@
 'use strict';
 const { CLIENT } = require("../shared-objects/servers");
+const helpers = require('../runtime/helpers.js')
 const courseData = require('../shared-objects/courseData');
 const { expect } = require('chai');
 const Login = require('../shared-objects/loginData');
@@ -13,31 +14,36 @@ let was_submitted_by;
 module.exports = {
   // add homework related functions (as a teacher)
   clickCreateNewTaskInTheCourse: async function(coursename) {
-    await this.chooseCourse(coursename)
-    await driver.pause(2500);
-    let homeworkSectionContainer = await driver.$('.tabContainer');
-    let homeworkBtn = await homeworkSectionContainer.$('button[data-testid="hometasks"]');
-    await homeworkBtn.click();
-    //await driver.pause(2500);
-    let selectorToBeLoaded2 = await driver.$('a[title="Aufgabe hinzufügen"]');
-    await selectorToBeLoaded2.waitForDisplayed(3000);
-    let addBtn = await driver.$('div.col-sm-12.add-button > a');
-    await addBtn.click();
-    let selectorToBeLoaded3 = await driver.$('#coursePicker');
-    await selectorToBeLoaded3.waitForExist(2000);
-
+    await copyCourse.chooseCourse(coursename);
+    let homeworktab = await driver.$('.tabs button[data-testid="hometasks"]');
+    await homeworktab.click();
+    await helpers.waitAndClick(courseData.elem.addHomeworkBtn);
   }, 
-  setHometaskData: async function(taskname) {
-    let nameField = await driver.$('#homework-form > div:nth-child(5) > input');
-    await nameField.setValue(taskname);
-    let teamwork = await driver.$('#teamSubmissions');
-    await teamwork.click();
+  setPrivate: async function() {
+    await helpers.waitAndClick(courseData.elem.checkbox);
+  },
+  addBasicHometask: async function(coursename, taskname) {
+    await this.clickCreateNewTaskInTheCourse(coursename);
+    let nameSelector = await driver.$(courseData.elem.homeworkName);
+    await nameSelector.setValue(taskname);
+    await helpers.waitAndClick(courseData.elem.teamworkActivate);
     await this.setAccomplishTime();
     await this.setHometaskText();
+    await helpers.waitAndClick(courseData.elem.submitAddHomeworkBtn);
+   
+  },
+  addPrivateHometask: async function(coursename, taskname) {
+    await this.clickCreateNewTaskInTheCourse(coursename);
+    let nameSelector = await driver.$(courseData.elem.homeworkName);
+    await nameSelector.setValue(taskname);
+    await helpers.waitAndClick(courseData.elem.teamworkActivate);
+    await this.setAccomplishTime();
+    await this.setHometaskText();
+    await this.setPrivate();
+    await helpers.waitAndClick(courseData.elem.submitAddHomeworkBtn);
    
   },
   setHometaskText: async function() {
-    // Aufgabenstellung:
     await driver.switchToFrame(0);
     let body = await driver.$('body');
     let message = 'Here is some TEXT!';
@@ -57,16 +63,7 @@ module.exports = {
     let selectorToBeLoaded = await driver.$('#homeworks');
     await selectorToBeLoaded.waitForExist(2000);
   },
-  addPrivateHometask: async function(taskname) {
-    await this.clickCreateNewTaskInTheCourse();
-    await this.setHometaskData(taskname);
-    let isPrivate = await driver.$(
-      '#homework-form > div:nth-child(10) > label:nth-child(1) > input[type=checkbox]'
-    );
-    await isPrivate.click();
-    await this.clickAdd();
-  },
-
+ 
   // set deadline helpers
 
   dateToString: async function() {
@@ -133,18 +130,24 @@ module.exports = {
     await driver.pause(1500);
   },
   returnTaskIndex: async function(taskname) {
-    
-    const containerWithTasks = await driver.$('.col-xl-12');
-    await containerWithTasks.waitForExist(2000);
-    let numOfElems = await containerWithTasks.$$('li');
-    for (var i=1; i<=numOfElems.length-1; i++) {
-      let nameOfTheTaskSelector = await driver.$('.col-xl-12 > li:nth-child('+i+') > a:nth-child(3) > h2' );
-      let nameOfTheTask = await nameOfTheTaskSelector.getText();
-      if(await nameOfTheTask.includes(taskname)) {
-        return i;
-      } 
+    let areThereAnyTasks= await this.areThereAnyTasks();
+    if (areThereAnyTasks==true) {
+      const containerWithTasks = await driver.$('.col-xl-12');
+      await containerWithTasks.waitForExist(2000);
+      let numOfElems = await containerWithTasks.$$('li');
+      for (var i=1; i<=numOfElems.length-1; i++) {
+          let nameOfTheTaskSelector = await driver.$('.col-xl-12 > li:nth-child('+i+') > a:nth-child(3) > h2' );
+          let nameOfTheTask = await nameOfTheTaskSelector.getText();
+          if(await nameOfTheTask.includes(taskname)) {
+            return i;
+          } 
+      }
     }
-    return false;
+    return;
+  },
+  areThereAnyTasks: async function() {
+    let elementWithTasks = await driver.$$('.col-xl-12');
+    return elementWithTasks.length > 0 ? true : false;
   },
   chooseTaskAmongAllTasks: async function(taskname) {
     let taskindex = await this.returnTaskIndex(taskname);
@@ -160,6 +163,7 @@ module.exports = {
     await driver.close();
     }
   }, 
+  /*
   chooseTasksAmongCourseTasks: async function() {
     let container = await driver.$('#homeworks .homework .row');
     let taskObjects = await container.$$('li');
@@ -168,35 +172,13 @@ module.exports = {
       let nameSelector = await container.$('li:nth-child('+i+') > a > .dates > h5.title');
       let nameOfTask = await nameSelector.getText();
       if(taskname==nameOfTask) {
-
-      }
-
-    }
-
-
-  },
- /* chooseCourse: async function(coursename) {
-    const container = await driver.$('div[data-section="js-active"] div[data-testid="courses"] > div');
-    let coursesObjects = await container.$$('div');
-    for (var i=1; i<=coursesObjects.length-1; i++) {
-      const container = await driver.$('div[data-section="js-active"] div[data-testid="courses"] > div');
-      let nameOfCourseSelector = await container.$('div:nth-child('+i+') .title');
-      let nameOfCourse = await nameOfCourseSelector.getText();
-      if(nameOfCourse==coursename) {
-        let theRightCourse = await container.$('div:nth-child('+i+') > article > div') ;
-        await theRightCourse.click();
+        let homework = await driver.$('#homeworks .homework .row li:nth-child('+i+')');
+        await homework.click();
         break;
       }
     }
   },
   */
-  chooseCourse: async function(coursename) {
-    // div.sc-card-wrapper[data-id='id']
-    const container = await driver.$('div[data-section="js-active"] div[data-testid="courses"] > div');
-    let coursesObjects = await container.$$('div .title');
-    let objectsPromises = coursesObjects.filter(async elem => {await elem.getText()==coursename;}); 
-    let objects = await Promise.all(objectsPromises);
-  },
 
 
   verify: async function(taskname) {
@@ -213,28 +195,35 @@ module.exports = {
   // other user logs in to verify 
   pupilLogsIn: async function(username, password) {
     await this.userLogsOut();
-    await this.pupilLogin(username,password);
+    await firstLogin.pupilLogin(username,password);
     await firstLogin.firstLoginPupilFullAge(username, password);
   },
   goToTasksOfTheCourse: async function (coursename, taskname) {
     await this.gotoCourses();
-    await this.chooseCourse(coursename);
+    await copyCourse.chooseCourse(coursename);
     await this.gotoTasksTab();
-    await this.chooseTaskAmongAllTasks(taskname);
+  },
+  logInAndGoToTasksOfTheCourse: async function(username, password,coursename, taskname) {
+    await this.userLogsOut();
+    await firstLogin.pupilLogin(username, password);
+    await firstLogin.firstLoginPupilFullAge(username,password);
+    await this.goToTasksOfTheCourse(coursename, taskname);
   },
 
 
   privateTaskVerify: async function() {
+    let areThereAnyTasks = await this.areThereAnyTasks();
+    if (areThereAnyTasks==true) {
     let taskNames = await Promise.all(
       (await driver.$$('#homeworks > ol > div > li > a')).map(
         async element => await element.getText()
-      )
-    );
+      ));
     await expect(allTaskNames).not.to.include(taskname);
+    return;
+    }
+    await expect(areThereAnyTasks).to.be.false;
   },
-  pupilLogin: async function(username, password) {
-    return firstLogin.pupilLogin(username,password);
-  },
+  
   userLogsOut: async function() {
     await helpers.loadPage(courseData.urlLogout, 20);
   },
