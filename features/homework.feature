@@ -1,5 +1,5 @@
 @createHomework
-Feature: create different types oh homework
+Feature: create different types of homework
 
 
 Background: a teacher logs in and creates a course

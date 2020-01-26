@@ -40,7 +40,7 @@ module.exports = {
     submitAddHomeworkBtn: '.btn.btn-primary.btn-submit',
     checkbox: '[data-testid="private-checkbox"]',
     teamworkActivate: '#teamSubmissions',
-
+    uploadBtn: '//*[@id="main-content"]/div/section[1]/div/div/div[1]/input',
 
 
 }
