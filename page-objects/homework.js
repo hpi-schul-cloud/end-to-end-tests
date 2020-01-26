@@ -1,14 +1,12 @@
 'use strict';
-const { CLIENT } = require("../shared-objects/servers");
+
 const helpers = require('../runtime/helpers.js')
 const courseData = require('../shared-objects/courseData');
-const { expect } = require('chai');
 const Login = require('../shared-objects/loginData');
 const copyCourse = require('../page-objects/copyCourse');
 const firstLogin = require('../shared_steps/firstLogin.js');
-let name;
-let was_submitted_by; 
-
+const createCourse = require('../page-objects/createCourse');
+const teacherLogin = require('../page-objects/teacherLogin');
 // TODO: choose course, SORT
 
 module.exports = {
@@ -63,17 +61,15 @@ module.exports = {
   },
  
   gotoTasks: async function() {
-    let url = `${CLIENT.URL}/homework/`;
-    await helpers.loadPage(url, 20);
+    await helpers.loadPage(courseData.urlHomework, 20);
   },
+
   gotoTasksTab: async function() {
-   let hometasksTab = "button[data-testid='hometasks'";
-   await helpers.waitAndClick(hometasksTab);
+   let hometasksTab = await driver.$('button[data-testid="hometasks"]');
+   await hometasksTab.click();
+   await driver.pause(1000);
   }, 
-  gotoCourses: async function() {
-    let url = `${CLIENT.URL}/courses/`;
-    await helpers.loadPage(url, 20);
-  },
+
   sortHometasks: async function() {
     let sortBtn = await driver.$(
       '#filter > div > div.md-chip.md-theme-default.md-deletable.md-clickable > div'
@@ -135,24 +131,26 @@ module.exports = {
   },
 
   // other user logs in to verify 
-  pupilLogsIn: async function(username, password) {
+  studentLogsIn: async function(username, password) {
     await this.userLogsOut();
     await firstLogin.pupilLogin(username,password);
     await firstLogin.firstLoginPupilFullAge(username, password);
   },
-  goToTasksOfTheCourse: async function (coursename, taskname) {
-    await this.gotoCourses();
+  teacherLogsIn: async function() {
+    await this.userLogsOut();
+    await teacherLogin.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
+  },
+  goToTasksOfTheCourse: async function (coursename) {
+    await createCourse.goToCourses();
     await copyCourse.chooseCourse(coursename);
     await this.gotoTasksTab();
   },
-  logInAndGoToTasksOfTheCourse: async function(username, password,coursename, taskname) {
+  studentLogsInAndGoesToTasksOfTheCourse: async function(username, password,coursename) {
     await this.userLogsOut();
     await firstLogin.pupilLogin(username, password);
     await firstLogin.firstLoginPupilFullAge(username,password);
-    await this.goToTasksOfTheCourse(coursename, taskname);
+    await this.goToTasksOfTheCourse(coursename);
   },
-
-
   privateTaskVerify: async function() {
     let areThereAnyTasks = await this.areThereAnyTasks();
     if (areThereAnyTasks==true) {
@@ -160,7 +158,7 @@ module.exports = {
       (await driver.$$('#homeworks > ol > div > li > a')).map(
         async element => await element.getText()
       ));
-    await expect(allTaskNames).not.to.include(taskname);
+    await expect(taskNames).not.to.include(taskname);
     return;
     }
     await expect(areThereAnyTasks).to.be.false;
@@ -169,49 +167,57 @@ module.exports = {
   userLogsOut: async function() {
     await helpers.loadPage(courseData.urlLogout, 20);
   },
-  pupilEditsTextHomework: async function() {
-    let pass = "Schulcloud1!";
-    let name = "paula.meyer@schul-cloud.org";
-    await firstLogin.logout();
-    await firstLogin.pupilLogin(name, pass);
-    await firstLogin.firstLoginPupilFullAge(name, pass);
-    was_submitted_by = await firstLogin.getNameAndPosition();
-    await helpers.loadPage(courseData.urlCourses, 20);
-    await copyCourse.chooseCourse();
-    let tasks = await driver.$(Login.elem.tasks_tab);
-    await tasks.click();
-
-    let task = await driver.$('#homeworks > ol > div > li:nth-child(1)');
-    await task.click();
-    let editBookmark = await driver.$('#submission-tab-link');
-    await editBookmark.click();
+  // student helpers
+  userFindsTheTask: async function(taskname) {
+    let areThereAnyTasks = await driver.$$('#homeworks > ol > div > li');
+    await expect(areThereAnyTasks.length).not.to.equal(0);
+    for (var i=1; i<=areThereAnyTasks.length; i++) {
+      let taskSelector = await driver.$('#homeworks > ol > div > li:nth-child('+i+') .h5.title');
+      let tasknameOnPage = await taskSelector.getText();
+       if(tasknameOnPage==taskname){
+        await taskSelector.click();
+         await driver.pause(1000);
+      }
+   }
+  },
+  switchToSubmissionTab: async function() {
+    let submissionTab = "#submission-tab-link";
+    await helpers.waitAndClick(submissionTab);
+  },
+  submitSolutionForTheHometask: async function() {
     await driver.switchToFrame(0);
     let iframeBody = await driver.$('body');
     let assignmentText = 'here is some text which I want to submit';
     await iframeBody.setValue(assignmentText);
     await driver.switchToParentFrame();
-    let ok = await driver.$('#submission > div.comment.editor > form > button');
-    await ok.click();
+    let container = await driver.$('#submission');
+    let submitBtn = await container.$('button[type="submit"]');
+    await submitBtn.click();
+    await driver.pause(1500);
   },
-  teacherCanSeeTheTextSubmission: async function() {
-    await firstLogin.logout();
-    await teacherLogin.performLogin(
-      Login.defaultTeacherUsername,
-      Login.defaultTeacherpassword
-    );
-    await firstLogin.firstLoginTeacher();
-    await helpers.loadPage(courseData.urlCourses, 20);
-    await copyCourse.chooseCourse();
-    let tasks = await driver.$(Login.elem.tasks_tab);
-    await tasks.click();
-    let homework = await driver.$('#homeworks > ol > div > li');
-    await homework.click();
-    let submissions_tab = await driver.$('#submissions-tab-link');
-    await submissions_tab.click();
-    
+
+  studentEditsTextHomeworkAndSubmits: async function() {
+    await this.switchToSubmissionTab();
+    await this.submitSolutionForTheHometask();
+  },
+ 
+  // teacher helpers
+  hasTheStudentSubmittedTheTask: async function(studentname) {
+    let submissionTab = "#submissions-tab-link";
+    await helpers.waitAndClick(submissionTab);
     let submitted_by_box = await driver.$('#submissions .groupNames > span');
     let submitted_by_name = await submitted_by_box.getText();
-    await expect(was_submitted_by).to.contain(submitted_by_name);
+    await expect(submitted_by_name).to.contain(studentname);
+  },
+
+  teacherLogsInAndCanSeeTheTextSubmission: async function(coursename, taskname, studentname) {
+    await this.teacherLogsIn();
+    await firstLogin.firstLoginTeacher();
+    await createCourse.goToCourses();
+    await copyCourse.chooseCourse(coursename);
+    await this.gotoTasksTab();
+    await this.userFindsTheTask(taskname);
+    await this.hasTheStudentSubmittedTheTask(studentname);
   },
   evaluateSubmission: async function() {
     let submittedTasks = await driver.$('.usersubmission');

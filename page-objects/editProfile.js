@@ -1,11 +1,8 @@
 'use strict';
 
 const loginData = require('../shared-objects/loginData');
-const courseData = require('../shared-objects/courseData');
 const teacherLogin = require('../page-objects/teacherLogin');
 const { CLIENT } = require("../shared-objects/servers");
-const shared = { loginData };
-const course = { courseData };
 const firstLogin = require('../shared_steps/firstLogin.js');
 const { expect } = require('chai');
 const helpers = require('../runtime/helpers.js');

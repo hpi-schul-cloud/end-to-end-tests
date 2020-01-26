@@ -43,26 +43,25 @@ Given(/^the teacher creates one course with (.*) and student with (.*)$/, functi
 When(/^teacher creates a private hometask in the course (.*) with (.*)$/, function(coursename, taskname) {
   return homework.addPrivateHometask(coursename,taskname);
 });
-When(/^student with (.*), (.*) of this course (.*) goes to hometask (.*)$/, function(username, password, coursename, taskname) {
-  return homework.logInAndGoToTasksOfTheCourse(username, password, coursename, taskname);
+When(/^student with (.*), (.*) of this course (.*) goes to hometasks$/, function(username, password, coursename) {
+  return homework.studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename);
 });
-Then(/^the pupil will not see this task with (.*)$/, function(taskname) {
+Then(/^the student will not see this task with (.*)$/, function(taskname) {
   return homework.privateTaskVerify(taskname);
 });
 
 /* SUBMISSION */
-When(/^the teacher creates a basic text homework with (.*)$/, function(taskname) {
-  return homework.addBasicHomework(taskname);
+When(/^the student finds (.*)$/, function(taskname) {
+  return homework.userFindsTheTask(taskname);
 });
-When(/^the pupil edits a text hometask$/, function() {
-  return homework.pupilEditsTextHomework();
+
+When(/^the student edits a text hometask and submits it$/, function() {
+  return homework.studentEditsTextHomeworkAndSubmits();
 });
-Then(/^the teacher should see the changes been done$/, function() {
-  return homework.teacherCanSeeTheTextSubmission();
+Then(/^the teacher can see the submission in course (.*) of task (.*) done by student (.*) and$/, function(coursename, taskname, studentname) {
+ return homework.teacherLogsInAndCanSeeTheTextSubmission(coursename, taskname, studentname);
 });
-Then(/^the teacher can evaluate it$/, function() {
-  return homework.evaluateSubmission();
-});
+
 
 /* File homework submission*/
 Given(/^the Teacher creates one course with (.*) and pupil with:$/, function(coursename) {
@@ -76,7 +75,7 @@ When(/^the teacher puts in data (.*) and some text description of the task$/, fu
 });
 
 When(/^the User logs in with (.*) (.*) and$/, function(username, password) {
-  return homework.pupilLogsIn(username, password);
+  return homework.studentLogsIn(username, password);
 });
 When(/^the user goes to the course (.*) where the hometask (.*) must be submitted$/, function(coursename, taskname) {
   return homework.uploadAHomework();

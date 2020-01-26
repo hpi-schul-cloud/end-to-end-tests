@@ -1,7 +1,6 @@
 'use strict';
-const { CLIENT } = require("../shared-objects/servers");
+
 const Login = require('../shared-objects/loginData');
-const courseData = require('../shared-objects/courseData');
 const helpers = require('../runtime/helpers.js')
 var secondCharacter;
 
@@ -11,19 +10,20 @@ module.exports = {
     await usernameBox.setValue(name);
     let passwordBox = await driver.$(Login.elem.passwordInput);
     await passwordBox.setValue(password);
-    let loginBtn = await driver.$(Login.elem.submitBtn);
-    await loginBtn.click();
+    await helpers.waitAndClick(Login.elem.submitBtn);
   },
   firstLoginTeacher: async function() {
     let nextBtn = await driver.$('#nextSection');
     await nextBtn.click();
     await nextBtn.click();
+    await driver.pause(1500);
     await this.dataProtection();
     await nextBtn.click();
     await driver.$('.form-submitted');
     let start = await driver.$('a[data-testid="btn_schul-cloud_erkunden"]');
     await start.waitForDisplayed(15000);
     await start.click();
+    await driver.pause(1500);
   },
   firstLoginAdmin: async function() {
     let nextBtn = await driver.$('#nextSection');
@@ -57,12 +57,15 @@ module.exports = {
     let password = await driver.$('input[data-testid=\'firstlogin_password\']');
     let password_control = await driver.$('input[data-testid=\'firstlogin_password_control\']');
     await password.setValue(pass);
+    await driver.pause(1000);
     await password_control.setValue(pass);
+    await driver.pause(1000);
     await helpers.waitAndClick(nextBtn);
     await driver.$('.form-submitted');
     let start = await driver.$('a[data-testid="btn_schul-cloud_erkunden"]');
     await start.waitForDisplayed(15000);
     await start.click();
+    await driver.pause(1500);
   },
   getInitials: async function() {
     let name = await this.getNameAndPosition();

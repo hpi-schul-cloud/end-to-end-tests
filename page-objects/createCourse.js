@@ -31,6 +31,7 @@ module.exports = {
   },
   goToCourses: async function() {
     await helpers.loadPage(courseData.urlCourses, 20);
+    await driver.pause(1000);
   },
   setCourseName: async function(coursename) {
     let nameSelector = await driver.$('[data-testid="coursename"]');
