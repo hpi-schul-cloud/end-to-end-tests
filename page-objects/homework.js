@@ -228,7 +228,14 @@ module.exports = {
   },
   
   uploadAHomework: async function() {
+    //making the upload-element visible to selenium
+    change_visibility = '$x("//*[@id="main-content"]/div/section[1]/div/div/div[1]/input").css("visibility,"visible");';
+    change_display = '$x("//*[@id="main-content"]/div/section[1]/div/div/div[1]/input").css("display,"block");';
+    await driver.execute_script(change_visibility);
+    await driver.execute_script(change_display);
 
-
+    const path = require('path');
+    const filePath = path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt');
+    await driver.$x(courseData.uploadBtn).send_keys(filePath);
   },
 };
