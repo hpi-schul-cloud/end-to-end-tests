@@ -24,7 +24,6 @@ Given(/^the teacher goes to the course page as a next step$/, function() {
 
 When(/^the teacher creates one course with (.*) and$/, function(coursename) {
   return createCourse.createCourse(coursename)
-});
 
 When(/^teacher clicks "create a new home task" in the course (.*) with (.*)$/, function(coursename, taskname) {
   return homework.addBasicHometask(coursename, taskname)
