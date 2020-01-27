@@ -10,6 +10,7 @@ const getRequestOptions = (type = 'plain') => {
 };
 
 const getEmailSubject = async email => {
+  console.log('getEmailSubject');
   const options = getRequestOptions('json');
   const response = await request(options);
   const regExp = /"subject":"(.*?)"/;
