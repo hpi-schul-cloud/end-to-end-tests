@@ -2,7 +2,7 @@
 const { SERVER } = require("../shared-objects/servers");
 const helpers = require('../runtime/helpers.js');
 const jwtDecode = require("jwt-decode");
-const mailHelper = require('../shared_steps/mailslurper');
+const mailHelper = require('../shared_steps/mailcatcher');
 const loginData = require('../shared-objects/loginData');
 const teacherLogin = require('../page-objects/teacherLogin');
 const firstLogin = require('../shared_steps/firstLogin.js');
