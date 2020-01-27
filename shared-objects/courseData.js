@@ -5,7 +5,8 @@ module.exports = {
   urlCoursesAdd: `${CLIENT.URL}/courses/add`,
   urlLogin: `${CLIENT.URL}/login`,
   urlLogout: `${CLIENT.URL}/logout`,
-  lernStoreUrl: `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`,
+  urlLernStore: `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`,
+  urlHomework: `${CLIENT.URL}/homework`,
   elem: {
     addBtn: 'section#section-courses a[data-testid=\'courseAddButton\']',
     courseContainer:
@@ -33,6 +34,14 @@ module.exports = {
     evaluationInProcent: 'input[data-testid=\'evaluation_procent\']',
     topicsTab: 'button[data-testid=\'topics\']',
     selectorWithMultipleChoiceStudents:'select[data-testid=\'pupils\']',
+    homeworkTab: 'button[data-testid="hometask"]',
+    addHomeworkBtn: '.col-sm-12.add-button>a',
+    homeworkName: '#homework-form > div:nth-child(1) > input',
+    submitAddHomeworkBtn: '.btn.btn-primary.btn-submit',
+    checkbox: '[data-testid="private-checkbox"]',
+    teamworkActivate: '#teamSubmissions',
+    uploadBtn: '//*[@id="main-content"]/div/section[1]/div/div/div[1]/input',
+
 
 }
 }
