@@ -27,19 +27,19 @@ Examples:
 | coursename            | studentname | taskname             | username                    | password     |
 | test private hometask | Paula Meyer | private task example | paula.meyer@schul-cloud.org | Schulcloud1! | 
 
-@submitTextHomework
-Scenario Outline: pupil submits a homework and teacher evaluates it
-Given the teacher creates one course with <coursename> and student with <studentname>
-Given teacher clicks "create a new home task" in the course <coursename> with <taskname>
-When student with <username>, <password> of this course <coursename> goes to hometasks
-When the student finds <taskname>
+#@submitTextHomework
+#Scenario Outline: pupil submits a homework and teacher evaluates it
+#Given the teacher creates one course with <coursename> and student with <studentname>
+#Given teacher clicks "create a new home task" in the course <coursename> with <taskname>
+#When student with <username>, <password> of this course <coursename> goes to hometasks
+#When the student finds <taskname>
 #Then the student sees the task <taskname> on the dashboard and 
-When the student edits a text hometask and submits it
-Then the teacher can see the submission in course <coursename> of task <taskname> done by student <studentname> and
+#When the student edits a text hometask and submits it
+#Then the teacher can see the submission in course <coursename> of task <taskname> done by student <studentname> and
 #Then teacher can evaluate the task <taskname>
-Examples:
-| coursename                        | firstname   | lastname | taskname   | username                     | password     | studentname  |
-| course with a task for submission | Paula       | Meyer    | task       | paula.meyer@schul-cloud.org  | Schulcloud1! | Paula Meyer  |
+#Examples:
+#| coursename                        | firstname   | lastname | taskname   | username                     | password     | studentname  |
+#| course with a task for submission | Paula       | Meyer    | task       | paula.meyer@schul-cloud.org  | Schulcloud1! | Paula Meyer  |
 
 
 
