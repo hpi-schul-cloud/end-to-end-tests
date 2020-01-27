@@ -26,7 +26,7 @@ Given(/^the teacher goes to the course page as a next step$/, function() {
 
 Given(/^the teacher creates one course$/, function() {
   var name = 'Hausaufgabe test';
-  return copyCourse.create(name);
+  return createCourse.createCourse(name);
 });
 When(/^teacher clicks "create a new home task"$/, function() {
   return homework.addBasicHomework();
