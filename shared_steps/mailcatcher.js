@@ -1,5 +1,5 @@
 'use strict';
-var request = require('request-promise');
+const request = require('request-promise');
 
 const getRequestOptions = (type = 'plain') => {
   const options = {
@@ -9,24 +9,20 @@ const getRequestOptions = (type = 'plain') => {
   return options;
 };
 
-const getEmailSubject = async email => {
-  console.log('getEmailSubject');
+const getEmailSubject = async emailAddress => {
   const options = getRequestOptions('json');
   const response = await request(options);
-  const regExp = /"subject":"(.*?)"/;
+  const regExp = /"subject":"(.*?)"/; // regexp for capturing the subject
   const subjectFromEmail = response.match(regExp); // gherkin does not allow json.parse in this case
   return subjectFromEmail[1];
 };
 
-const getEmailLink = async email => {
-  console.log('getEmailLink');
+const getEmailLink = async emailAddress => {
   const options = getRequestOptions('plain');
   const response = await request(options);
-  console.log(response, typeof response, response.length, 'res');
-  const regExp = /localhost:.*\/pwrecovery\/[a-z, 0-9, A-Z]{24}/;
-  const a = response.match(regExp);
-  console.log(a, 'response password');
-  return response.match(regExp);
+  const regExp = /localhost:.*\/pwrecovery\/[a-z, 0-9, A-Z]{24}/; // regexp for capturing the generated password link
+  const regexResult = response.match(regExp);
+  return regexResult[0];
 };
 
 module.exports = {

@@ -24,30 +24,24 @@ module.exports = {
     await submitBtn.click();
   },
   /* the func checks whether mail with password was sent */
-  isMailed: async function(email) {
-    const subjectOfEmail = await mailHelper.getEmailSubject(email);
+  isMailed: async function(emailAddress) {
+    const subjectOfEmail = await mailHelper.getEmailSubject(emailAddress);
     const expectedSubject = 'Passwort zurücksetzen für die Schul-Cloud';
     await expect(subjectOfEmail).to.equal(expectedSubject);
   },
   /* get the link from mailcatcher, navigate and set a new valid password */
 
-  setNewPassword: async function(email, password) {
-    const link = await driver.getUrl();
-    const regExp = /\/\/[a-z, : 0-9]+\//;
-    const mailedLink = await mailHelper.getEmailLink(email);
-    console.log(mailedLink, 'mailedLink');
+  setNewPassword: async function(emailAddress, password) {
+    const mailedLink = await mailHelper.getEmailLink(emailAddress);
     await helpers.loadPage(mailedLink, 20);
     await this.setNewPasswordSteps(password);
   },
   setNewPasswordSteps: async function(password) {
-    let passwordSelector = await driver.$('#password');
-    console.log(passwordSelector, 'passwordSelector');
-    let passwordControlSelector = await driver.$('#password_control');
-    console.log(passwordControlSelector, 'passwordControlSelector');
+    const passwordSelector = await driver.$('#password');
+    const passwordControlSelector = await driver.$('#password_control');
     await helpers.waitAndSetValue(passwordSelector, password);
     await helpers.waitAndSetValue(passwordControlSelector, password);
-    let submitBtn = await driver.$('input[type="submit"]');
-    console.log(submitBtn, 'submitBtn');
+    const submitBtn = await driver.$('input[type="submit"]');
     await helpers.waitAndClick(submitBtn);
   },
   /* a helper function which returns the role of the person */
