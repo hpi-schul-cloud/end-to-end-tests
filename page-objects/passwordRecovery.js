@@ -37,12 +37,13 @@ module.exports = {
     await this.setNewPasswordSteps(password);
   },
   setNewPasswordSteps: async function(password) {
-    const passwordSelector = await driver.$('#password');
-    const passwordControlSelector = await driver.$('#password_control');
+    const passwordSelector = "#password";
+    const passwordControlSelector = "#password_control";
     await helpers.waitAndSetValue(passwordSelector, password);
     await helpers.waitAndSetValue(passwordControlSelector, password);
     const submitBtn = await driver.$('input[type="submit"]');
-    await helpers.waitAndClick(submitBtn);
+    await submitBtn.click();
+    await driver.pause(1000);
   },
   /* a helper function which returns the role of the person */
 
