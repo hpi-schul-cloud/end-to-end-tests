@@ -1,12 +1,18 @@
 'use strict';
 const request = require('request-promise');
 
+const mailcatcherUrl = 'http://localhost:1080';
+
 const getRequestOptions = (type = 'plain') => {
   const options = {
     method: 'GET',
-    uri: `http://localhost:1080/messages/1.${type}`
+    uri: `${mailcatcherUrl}/messages/1.${type}`
   };
   return options;
+};
+const deleteRequestOptions = {
+    method: 'DELETE',
+    uri: `${mailcatcherUrl}/messages`
 };
 
 const getEmailSubject = async emailAddress => {
@@ -25,7 +31,13 @@ const getEmailLink = async emailAddress => {
   return regexResult[0];
 };
 
+const clearEmailCache = async () => {
+  const response = await request(deleteRequestOptions);
+  return response;
+}
+
 module.exports = {
   getEmailSubject,
-  getEmailLink
+  getEmailLink,
+  clearEmailCache
 };

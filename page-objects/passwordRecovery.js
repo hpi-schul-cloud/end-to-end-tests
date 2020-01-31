@@ -37,10 +37,12 @@ module.exports = {
     await this.setNewPasswordSteps(password);
   },
   setNewPasswordSteps: async function(password) {
-    const passwordSelector = "#password";
-    const passwordControlSelector = "#password_control";
-    await helpers.waitAndSetValue(passwordSelector, password);
-    await helpers.waitAndSetValue(passwordControlSelector, password);
+    const passwordSelector = await driver.$("#password");
+    const passwordControlSelector = await driver.$("#password_control");
+    await passwordSelector.setValue(password);
+    await driver.pause(1000);
+    await passwordControlSelector.setValue(password);
+    await driver.pause(1000);
     const submitBtn = await driver.$('input[type="submit"]');
     await submitBtn.click();
     await driver.pause(1000);
@@ -51,20 +53,20 @@ module.exports = {
     const cookies = await driver.getCookies(['jwt']);
     const jwt = cookies[0].value;
     const userInfo = jwtDecode(jwt);
-    const years = await Axios.request({
+    const info = await Axios.request({
       url: `${SERVER.URL}/me`,
       headers: {
-        Cookie: `jwt=Bearer ${jwt};`
+        Authorization: `Bearer ${jwt};`
       }
     });
-    const myRole = roles.name;
+    const myRole = info.roles[0].name;
     return myRole;
   },
   userCanLoginWithANewPassword: async function(email, password) {
     await helpers.loadPage(loginData.url, 10);
     await driver.pause(1000);
     await teacherLogin.performLogin(email, password); // this function is also applicable to student and admin login
-    let usersRole = await this.getUsersRole; // then we have to perform the first login accordingly
+    let usersRole = await this.getUsersRole(); // then we have to perform the first login accordingly
     switch (usersRole) {
       case 'teacher':
         await firstLogin.teacherLogin(email, password);
