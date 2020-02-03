@@ -49,17 +49,18 @@ module.exports = {
   },
   /* a helper function which returns the role of the person */
 
-  getUsersRole: async function() {
-    const cookies = await driver.getCookies(['jwt']);
-    const jwt = cookies[0].value;
-    const userInfo = jwtDecode(jwt);
+  getUsersRole: async function () {
+    const cookie = await driver.getCookies(['jwt']);
+    const jwt = cookie[0].value;
+    const serverUrl = SERVER.URL
     const info = await Axios.request({
-      url: `${SERVER.URL}/me`,
+      url: `${"http://localhost:3030"}/me`, // serverUrl
+      method: 'get',
       headers: {
-        Authorization: `Bearer ${jwt};`
+        Authorization: `${jwt}`
       }
     });
-    const myRole = info.roles[0].name;
+    const myRole = info.data.roles[0].displayName; // eg. administrator
     return myRole;
   },
   userCanLoginWithANewPassword: async function(email, password) {
@@ -68,14 +69,14 @@ module.exports = {
     await teacherLogin.performLogin(email, password); // this function is also applicable to student and admin login
     let usersRole = await this.getUsersRole(); // then we have to perform the first login accordingly
     switch (usersRole) {
-      case 'teacher':
-        await firstLogin.teacherLogin(email, password);
+      case 'Lehrer':
+        await firstLogin.firstLoginTeacher(email, password);
         break;
-      case 'student':
+      case 'Schüler':
         await firstLogin.firstLoginPupilFullAge(email, password);
         break;
-      case 'admin':
-        await firstLogin.teacherLogin(email, password);
+      case 'Administrator':
+        await firstLogin.firstLoginTeacher(email, password)
         break;
     }
     await teacherLogin.loginResult(); // verify that the initials in the circle correspond the name of the person
