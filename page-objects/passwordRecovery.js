@@ -68,6 +68,7 @@ module.exports = {
     await driver.pause(1000);
     await teacherLogin.performLogin(email, password); // this function is also applicable to student and admin login
     let usersRole = await this.getUsersRole(); // then we have to perform the first login accordingly
+    await driver.pause(2000);
     switch (usersRole) {
       case 'Lehrer':
         await firstLogin.firstLoginTeacher(email, password);

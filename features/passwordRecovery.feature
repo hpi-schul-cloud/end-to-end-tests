@@ -16,6 +16,6 @@ Examples:
 | registeredEmail             | password       | 
 | admin@schul-cloud.org       | SchulCloud1!!! |  
 | klara.fall@schul-cloud.org  | SchulCloud1!!! | 
-| paula.mayer@schul-cloud.org | SchulCloud1!!! | 
+| paula.meyer@schul-cloud.org | SchulCloud1!!! | 
 
 

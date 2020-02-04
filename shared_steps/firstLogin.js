@@ -82,10 +82,8 @@ module.exports = {
   getNameAndPosition: async function() {
     let userIcon = await driver.$('.btn-avatar > a');
     await userIcon.click();
-  
-    let nameBox = await driver.$(
-      '.dropdown-name'
-    );
+    await driver.pause(800);
+    let nameBox = await driver.$('.dropdown-name');
     let name = await nameBox.getText();
     return name;
   },
