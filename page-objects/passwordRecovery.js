@@ -11,12 +11,12 @@ const Axios = require('axios');
 // TODO: mail lookup
 
 module.exports = {
-  clickOnPasswordRecovery: async function() {
+  clickOnPasswordRecovery: async function () {
     const pswdRecoverySelector = '.submit-pwrecovery';
     await helpers.waitAndClick(pswdRecoverySelector);
     await driver.pause(2000);
   },
-  submitEmail: async function(registeredEmail) {
+  submitEmail: async function (registeredEmail) {
     const emailSelector = await driver.$('#username');
     await emailSelector.setValue(registeredEmail);
     const btnConatiner = await driver.$('.pwrecovery-modal.in');
@@ -24,19 +24,19 @@ module.exports = {
     await submitBtn.click();
   },
   /* the func checks whether mail with password was sent */
-  isMailed: async function(emailAddress) {
+  isMailed: async function (emailAddress) {
     const subjectOfEmail = await mailHelper.getEmailSubject(emailAddress);
-    const expectedSubject = 'Passwort zurücksetzen für die Schul-Cloud';
+    const expectedSubject = 'Passwort zurücksetzen für die Schulcloud';
     await expect(subjectOfEmail).to.equal(expectedSubject);
   },
   /* get the link from mailcatcher, navigate and set a new valid password */
 
-  setNewPassword: async function(emailAddress, password) {
+  setNewPassword: async function (emailAddress, password) {
     const mailedLink = await mailHelper.getEmailLink(emailAddress);
     await helpers.loadPage(mailedLink, 20);
     await this.setNewPasswordSteps(password);
   },
-  setNewPasswordSteps: async function(password) {
+  setNewPasswordSteps: async function (password) {
     const passwordSelector = await driver.$("#password");
     const passwordControlSelector = await driver.$("#password_control");
     await passwordSelector.setValue(password);
@@ -63,7 +63,7 @@ module.exports = {
     const myRole = info.data.roles[0].displayName; // eg. administrator
     return myRole;
   },
-  userCanLoginWithANewPassword: async function(email, password) {
+  userCanLoginWithANewPassword: async function (email, password) {
     await helpers.loadPage(loginData.url, 10);
     await driver.pause(1000);
     await teacherLogin.performLogin(email, password); // this function is also applicable to student and admin login
