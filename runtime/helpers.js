@@ -447,7 +447,7 @@ module.exports = {
       let dd = today.getDate();
       let mm = today.getMonth() + 1; //January is 0!
       let yyyy = today.getFullYear();
-      let hours = "11";
+      let hours = "00";
       let minutes = "00";
     
       if (dd < 10) {

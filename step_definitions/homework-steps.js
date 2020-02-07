@@ -58,7 +58,7 @@ When(/^the student finds (.*)$/, function(taskname) {
 When(/^the student edits a text hometask and submits it$/, function() {
   return homework.studentEditsTextHomeworkAndSubmits();
 });
-Then(/^the teacher can see the submission in course (.*) of task (.*) done by student (.*) and$/, function(coursename, taskname, studentname) {
+Then(/^the teacher can see the submission in course (.*) of task (.*) done by student (.*)$/, function(coursename, taskname, studentname) {
  return homework.teacherLogsInAndCanSeeTheTextSubmission(coursename, taskname, studentname);
 });
 
@@ -82,4 +82,8 @@ When(/^the user goes to the course (.*) where the hometask (.*) must be submitte
 });
 Then(/^the students can upload a file as a solution$/, function() {
   return homework.uploadAHomework();
+});
+// student deletes homework
+Then(/^the student can delete the homework submission$/, function() {
+  return homework.deleteHomeworkStudent();
 });

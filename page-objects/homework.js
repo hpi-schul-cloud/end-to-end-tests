@@ -232,6 +232,15 @@ module.exports = {
     await body.setValue(comment);
     await driver.switchToParentFrame();
   },
+  deleteHomeworkHelper: async function() {
+    let deleteBtn = ".btn.btn-secondary.btn-delete-submission";
+    await helpers.waitAndClick(deleteBtn);
+  },
+
+   deleteHomeworkStudent: async function() {
+     await this.switchToSubmissionTab();
+     await this.deleteHomeworkHelper();
+   },
   
   uploadAHomework: async function() {
     //making the upload-element visible to selenium
