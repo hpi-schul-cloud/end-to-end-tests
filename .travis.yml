@@ -17,7 +17,7 @@ jobs:
       script:
         - echo $TRAVIS_BRANCH
         - echo $TRAVIS_TAG
-        - curl "https://gist.githubusercontent.com/schul-cloud-bot/0cba8294a2faab5743eefea69f956541/raw/fetch.travis.sh" | bash
+        - curl "https://raw.githubusercontent.com/schul-cloud/integration-tests/master/scripts/ci/fetch.travis.sh" | bash
       name: "test:integration"
       env:
         - IT_CLIENT_HOST=nuxtclient
