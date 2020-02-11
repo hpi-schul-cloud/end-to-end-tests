@@ -235,11 +235,20 @@ module.exports = {
   deleteHomeworkHelper: async function() {
     let deleteBtn = ".btn.btn-secondary.btn-delete-submission";
     await helpers.waitAndClick(deleteBtn);
+    let submitDelete = await driver.$('#modal-delete-homework-footer .btn.btn-primary.btn-submit');
+    await submitDelete.click();
+    await driver.pause(1000);
   },
 
    deleteHomeworkStudent: async function() {
      await this.switchToSubmissionTab();
      await this.deleteHomeworkHelper();
+     await this.switchToSubmissionTab();
+     await driver.switchToFrame(0);
+     let body = await driver.$('body');
+     let textSubmission = await body.getText();
+     await expect(textSubmission).to.equal("");
+
    },
   
   uploadAHomework: async function() {
