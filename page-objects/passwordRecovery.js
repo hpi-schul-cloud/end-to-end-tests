@@ -26,7 +26,7 @@ module.exports = {
   /* the func checks whether mail with password was sent */
   isMailed: async function (emailAddress) {
     const subjectOfEmail = await mailHelper.getEmailSubject(emailAddress);
-    const expectedSubject = 'Passwort zurücksetzen für die Schul-Cloud';
+    const expectedSubject = 'Passwort zurücksetzen für die Schulcloud';
     await expect(subjectOfEmail).to.equal(expectedSubject);
   },
   /* get the link from mailcatcher, navigate and set a new valid password */
