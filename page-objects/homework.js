@@ -9,6 +9,51 @@ const createCourse = require('../page-objects/createCourse');
 const teacherLogin = require('../page-objects/teacherLogin');
 // TODO: choose course, SORT
 
+
+
+const functionHelpers = {
+dashboard: {
+  upperContainerTasks: {
+    tasksInTheCourseUpperContainer: 'section.section.section-tasks',
+    tasksWithoutCourseUpperContainer:'section.section.section-mytasks',
+  },
+  containerTasks: {
+   containerTask:  '.row.tasks.card-deck-row',
+  },
+},
+tasksOnDashboard: {
+  // must be implemented in public:
+  howManyTasks: async function(sectionSelector, container) {
+    let isThereUpperWrapper = await driver.$$(sectionSelector); // check if there is such selector
+    if (isThereUpperWrapper.length>0) {
+      let upperWrapper = await driver.$(sectionSelector);
+      let tasksWrapper = await upperWrapper.$(container);
+      let num = await tasksWrapper.$$('.sc-card-wrapper.col-xl-3.col-lg-4.col-md-6.col-sm-12');
+      return num.length;
+    } else {
+      return 0;
+    }
+  
+  },
+  getTaskNames: async function(sectionSelector, container) {
+    var names = [];
+    let numOfTasks = await this.howManyTasks(sectionSelector, container);
+    if (numOfTasks>0) {
+      for (var i=1; i<=numOfTasks; i++) {
+        let upperWrapper = await driver.$(sectionSelector);
+        let tasksContainer = await upperWrapper.$(container);
+        let taskSelector = await tasksContainer.$('div:nth-child('+i+')');
+        let titleSelector = await taskSelector.$('.title');
+        let name = await titleSelector.getText();
+        await names.push(name);
+      } 
+      return names; 
+    } else {
+      return names; // return an empty array
+    }
+},
+},
+};
 module.exports = {
   // add homework related functions (as a teacher)
   clickCreateNewTaskInTheCourse: async function(coursename) {
@@ -69,6 +114,9 @@ module.exports = {
    await hometasksTab.click();
    await driver.pause(1000);
   }, 
+  gotoDashboard: async function() {
+    await helpers.loadPage(courseData.urlDashboard, 20);
+  },
 
   sortHometasks: async function() {
     let sortBtn = await driver.$(
@@ -82,7 +130,7 @@ module.exports = {
     await lastedited.click();
     let ok = await driver.$('.md-button.md-primary.md-theme-default > div > div');
     await ok.click();
-    await driver.pause(1500);
+    await driver.waitUntil(driver.$('body'), 1000);
   },
   returnTaskIndex: async function(taskname) {
     let areThereAnyTasks= await this.areThereAnyTasks();
@@ -118,7 +166,18 @@ module.exports = {
     await driver.close();
     }
   }, 
-
+  checkDashboard: async function(taskname) {
+    await this.gotoDashboard();
+    let privateTasks = await functionHelpers.tasksOnDashboard.getTaskNames(functionHelpers.dashboard.upperContainerTasks.tasksWithoutCourseUpperContainer,
+      functionHelpers.dashboard.containerTasks.containerTask);
+    let courseTasks = await functionHelpers.tasksOnDashboard.getTaskNames(functionHelpers.dashboard.upperContainerTasks.tasksInTheCourseUpperContainer,
+      functionHelpers.dashboard.containerTasks.containerTask);
+    let privateMatches = await privateTasks.map(element=> element.includes(taskname));
+    let publicMatches = await courseTasks.map(element=> element.includes(taskname));
+    // let result = ispr
+    await expect(privateMatches.length + publicMatches.length).not.to.equal(0);
+ 
+  },
   verify: async function(taskname) {
     await this.gotoTasks();
     await this.sortHometasks();

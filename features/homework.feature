@@ -1,3 +1,5 @@
+#TODO: aufgabe anlegen ohne Kurs Zuordnung 
+
 @createHomework
 Feature: create different types of homework
 
@@ -16,6 +18,15 @@ Then the hometask with <taskname> is to be found at the task pannel
 Examples:
 | coursename     |  taskname     | 
 | test hometask  |  task example | 
+
+@homeworkIsCorrectlyShownInDashboard
+Scenario Outline: teacher creates a hometask and it is correctly displayed on the dashboard
+When the teacher creates one course with <coursename> and
+When teacher clicks "create a new home task" in the course <coursename> with <taskname>
+Then the hometask with <taskname> is to be found on the dashboard
+Examples:
+| coursename     |  taskname     | 
+| test hometask  |  task         | 
 
 @createPrivateHomework
 Scenario Outline: create a private hometask has to be visible only for the teacher
@@ -56,3 +67,4 @@ Examples:
 | course with a task for submission | Paula       | Meyer    | task       | paula.meyer@schul-cloud.org  | Schulcloud1! | Paula Meyer  |
 
 
+#TODO: 

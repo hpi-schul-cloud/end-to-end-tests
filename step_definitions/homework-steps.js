@@ -41,6 +41,13 @@ Then(/^the hometask with (.*) is to be found at the task pannel$/, function(
 ) {
   return homework.verify(taskname);
 });
+/*  DASHBOARD */
+
+Then(/^the hometask with (.*) is to be found on the dashboard$/, function(
+  taskname
+) {
+  return homework.checkDashboard(taskname);
+});
 
 /* PRIVATE */
 

@@ -7,6 +7,7 @@ module.exports = {
   urlLogout: `${CLIENT.URL}/logout`,
   urlLernStore: `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`,
   urlHomework: `${CLIENT.URL}/homework`,
+  urlDashboard: `${CLIENT.URL}/dashboard`,
   elem: {
     addBtn: 'section#section-courses a[data-testid=\'courseAddButton\']',
     courseContainer:
