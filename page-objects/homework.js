@@ -28,10 +28,17 @@ dashboard: {
   },
   tasksNameSelectors: {
     dashboard: '.title',
-    archive: '.h5.title > span',
-  }
+    archive: '.h5.title',
+  },
+  buttonIndex: {
+    unarchive: '.action-group > a:nth-child(1)',
+    edit: '.action-group > a:nth-child(2)',
+    copy: '.action-group > a:nth-child(3)',
+    delete: '.action-group > a:nth-child(4)',
+
+  },
 },
-tasksOnDashboard: {
+actions: {
   // must be implemented in public:
   howManyTasks: async function(sectionSelector, container, tasksClass) {
     let isThereUpperWrapper = await driver.$$(sectionSelector); // check if there is such selector
@@ -62,8 +69,34 @@ tasksOnDashboard: {
       return names; // return an empty array
     }
 },
+taskActions: async function(sectionSelector, container, tasksClass, taskname, taskNameSelector, buttonIndex) {
+  let numOfTasks = await this.howManyTasks(sectionSelector, container, tasksClass);
+    try {
+      for (var i=1; i<=numOfTasks; i++) {
+        let upperWrapper = await driver.$(sectionSelector);
+        let tasksContainer = await upperWrapper.$(container);
+        let taskSelector = await tasksContainer.$('div:nth-child('+i+')');
+        let titleSelector = await taskSelector.$(taskNameSelector);
+        let fullName = await titleSelector.getText();
+        let courseName = await fullName.match(/(\[.+\] - )/gi);
+        let nameOfTask = await fullName.replace(courseName[0],'');
+        
+        if (nameOfTask==taskname) {
+          let btnSelector = await taskSelector.$(buttonIndex);
+          await btnSelector.click();
+          await driver.pause(1000);
+          break;
+        }
+      } 
+      
+    } catch (err) {
+      log.error(err.message);
+      throw err;
+    }
+    }
 },
 };
+
 module.exports = {
   // add homework related functions (as a teacher)
   clickCreateNewTaskInTheCourse: async function(coursename) {
@@ -178,10 +211,10 @@ module.exports = {
   }, 
   checkDashboard: async function(taskname) {
     await this.gotoDashboard();
-    let privateTasks = await functionHelpers.tasksOnDashboard.getTaskNames(functionHelpers.dashboard.upperContainerTasks.tasksWithoutCourseUpperContainer,
+    let privateTasks = await functionHelpers.actions.getTaskNames(functionHelpers.dashboard.upperContainerTasks.tasksWithoutCourseUpperContainer,
       functionHelpers.dashboard.containerTasks.containerTask, functionHelpers.dashboard.tasksClass.dashboard,
       functionHelpers.dashboard.tasksNameSelectors.dashboard);
-    let courseTasks = await functionHelpers.tasksOnDashboard.getTaskNames(functionHelpers.dashboard.upperContainerTasks.tasksInTheCourseUpperContainer,
+    let courseTasks = await functionHelpers.actions.getTaskNames(functionHelpers.dashboard.upperContainerTasks.tasksInTheCourseUpperContainer,
       functionHelpers.dashboard.containerTasks.containerTask, functionHelpers.dashboard.tasksClass.dashboard,
       functionHelpers.dashboard.tasksNameSelectors.dashboard);
     let privateMatches = await privateTasks.map(element=> element.includes(taskname));
@@ -201,13 +234,23 @@ module.exports = {
   },
   checkArchiv: async function(taskname) {
     await this.gotoArchivedTasks();
-    let archivedTasks = await functionHelpers.tasksOnDashboard.getTaskNames(functionHelpers.dashboard.upperContainerTasks.tasksArchivedUpperContainer,
+    let archivedTasks = await functionHelpers.actions.getTaskNames(functionHelpers.dashboard.upperContainerTasks.tasksArchivedUpperContainer,
       functionHelpers.dashboard.containerTasks.archiveContainer, functionHelpers.dashboard.tasksClass.archive,
       functionHelpers.dashboard.tasksNameSelectors.archive);
     let matches = await archivedTasks.map(element=> element.includes(taskname));
     await expect(matches.length).not.to.equal(0);
-
   },
+  unarchiveHometask: async function(taskname) {
+    await this.gotoArchivedTasks();
+    await functionHelpers.actions.taskActions(functionHelpers.dashboard.upperContainerTasks.tasksArchivedUpperContainer,
+      functionHelpers.dashboard.containerTasks.archiveContainer,
+      functionHelpers.dashboard.tasksClass.archive,
+      taskname, 
+      functionHelpers.dashboard.tasksNameSelectors.archive,
+      functionHelpers.dashboard.buttonIndex.unarchive);
+   
+  },
+  // verify unarchive===this.verify();
   verify: async function(taskname) {
     await this.gotoTasks();
     await this.sortHometasks();

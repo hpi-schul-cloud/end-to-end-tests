@@ -63,6 +63,21 @@ Then(/^the hometask with name (.*) is to be found in archiv$/, function(
   return homework.checkArchiv(taskname);
 });
 
+/* UNARCHIV */ 
+
+When(/^the teacher unarchives the hometask with name (.*)$/, function(
+  taskname
+) {
+  return homework.unarchiveHometask(taskname);
+});
+
+Then(/^this (.*) is to be found among all current tasks$/, function(
+  taskname
+) {
+  return homework.verify(taskname);
+});
+
+
 /* PRIVATE */
 
 Given(

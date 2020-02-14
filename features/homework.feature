@@ -38,6 +38,18 @@ Examples:
 | coursename     |  taskname     | 
 | test hometask  |  task         | 
 
+@unarchiveHomework
+Scenario Outline: teacher creates a hometask and archives it so it is moved to archiv
+When the teacher creates one course with <coursename> and
+When teacher clicks "create a new home task" in the course <coursename> with <taskname>
+When the hometask with <taskname> is archived by teacher
+Then the hometask with name <taskname> is to be found in archiv
+When the teacher unarchives the hometask with name <taskname>
+Then this <taskname> is to be found among all current tasks
+Examples:
+| coursename     |  taskname     | 
+| test hometask  |  task         | 
+
 @createPrivateHomework
 Scenario Outline: create a private hometask has to be visible only for the teacher
 Given the teacher creates one course with <coursename> and student with <studentname>
