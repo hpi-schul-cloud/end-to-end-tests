@@ -197,14 +197,15 @@ module.exports = {
     await this.gotoTasks();
     await this.chooseTaskAmongAllTasks(taskname);
     await this.clickArchive();
+
+  },
+  checkArchiv: async function(taskname) {
     await this.gotoArchivedTasks();
     let archivedTasks = await functionHelpers.tasksOnDashboard.getTaskNames(functionHelpers.dashboard.upperContainerTasks.tasksArchivedUpperContainer,
       functionHelpers.dashboard.containerTasks.archiveContainer, functionHelpers.dashboard.tasksClass.archive,
       functionHelpers.dashboard.tasksNameSelectors.archive);
     let matches = await archivedTasks.map(element=> element.includes(taskname));
     await expect(matches.length).not.to.equal(0);
-  },
-  checkArchiv: async function(taskname) {
 
   },
   verify: async function(taskname) {
