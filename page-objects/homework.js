@@ -16,34 +16,44 @@ dashboard: {
   upperContainerTasks: {
     tasksInTheCourseUpperContainer: 'section.section.section-tasks',
     tasksWithoutCourseUpperContainer:'section.section.section-mytasks',
+    tasksArchivedUpperContainer: '.homework',
   },
   containerTasks: {
    containerTask:  '.row.tasks.card-deck-row',
+   archiveContainer: '.row',
   },
+  tasksClass: {
+    dashboard: '.sc-card-wrapper.col-xl-3.col-lg-4.col-md-6.col-sm-12',
+    archive: '.card.assignment.disableable.has-stats',
+  },
+  tasksNameSelectors: {
+    dashboard: '.title',
+    archive: '.h5.title > span',
+  }
 },
 tasksOnDashboard: {
   // must be implemented in public:
-  howManyTasks: async function(sectionSelector, container) {
+  howManyTasks: async function(sectionSelector, container, tasksClass) {
     let isThereUpperWrapper = await driver.$$(sectionSelector); // check if there is such selector
     if (isThereUpperWrapper.length>0) {
       let upperWrapper = await driver.$(sectionSelector);
       let tasksWrapper = await upperWrapper.$(container);
-      let num = await tasksWrapper.$$('.sc-card-wrapper.col-xl-3.col-lg-4.col-md-6.col-sm-12');
+      let num = await tasksWrapper.$$(tasksClass);
       return num.length;
     } else {
       return 0;
     }
   
   },
-  getTaskNames: async function(sectionSelector, container) {
+  getTaskNames: async function(sectionSelector, container, tasksClass, tasksNameSelectors) {
     var names = [];
-    let numOfTasks = await this.howManyTasks(sectionSelector, container);
+    let numOfTasks = await this.howManyTasks(sectionSelector, container, tasksClass);
     if (numOfTasks>0) {
       for (var i=1; i<=numOfTasks; i++) {
         let upperWrapper = await driver.$(sectionSelector);
         let tasksContainer = await upperWrapper.$(container);
         let taskSelector = await tasksContainer.$('div:nth-child('+i+')');
-        let titleSelector = await taskSelector.$('.title');
+        let titleSelector = await taskSelector.$(tasksNameSelectors);
         let name = await titleSelector.getText();
         await names.push(name);
       } 
@@ -117,20 +127,20 @@ module.exports = {
   gotoDashboard: async function() {
     await helpers.loadPage(courseData.urlDashboard, 20);
   },
+  gotoArchivedTasks: async function() {
+    await helpers.loadPage(courseData.urlHomeworkArchiv, 20);
+  },
 
   sortHometasks: async function() {
-    let sortBtn = await driver.$(
-      '#filter > div > div.md-chip.md-theme-default.md-deletable.md-clickable > div'
-    );
+    let sortBtn = await driver.$('.filter .md-chip.md-theme-default.md-deletable.md-clickable');
     await sortBtn.click();
-    let select = await driver.$('#selection-picker > div > div');
+    let select = await driver.$('#selection-picker');
     await select.click();
-    let lastedited = await driver.$('body > div.md-select-menu.md-menu-content-bottom-start.md-menu-content-small.md-menu-content.md-theme-default > div > ul > li:nth-child(2) > button'
-    );
+    let lastedited = await driver.$('.md-list.md-theme-default > li:nth-child(2)');
     await lastedited.click();
-    let ok = await driver.$('.md-button.md-primary.md-theme-default > div > div');
+    let ok = await driver.$('.md-dialog-actions > button:nth-child(2)');
     await ok.click();
-    await driver.waitUntil(driver.$('body'), 1000);
+    await driver.pause(1000);
   },
   returnTaskIndex: async function(taskname) {
     let areThereAnyTasks= await this.areThereAnyTasks();
@@ -146,7 +156,7 @@ module.exports = {
           } 
       }
     }
-    return;
+    return false;
   },
   areThereAnyTasks: async function() {
     let elementWithTasks = await driver.$$('.col-xl-12');
@@ -169,14 +179,33 @@ module.exports = {
   checkDashboard: async function(taskname) {
     await this.gotoDashboard();
     let privateTasks = await functionHelpers.tasksOnDashboard.getTaskNames(functionHelpers.dashboard.upperContainerTasks.tasksWithoutCourseUpperContainer,
-      functionHelpers.dashboard.containerTasks.containerTask);
+      functionHelpers.dashboard.containerTasks.containerTask, functionHelpers.dashboard.tasksClass.dashboard,
+      functionHelpers.dashboard.tasksNameSelectors.dashboard);
     let courseTasks = await functionHelpers.tasksOnDashboard.getTaskNames(functionHelpers.dashboard.upperContainerTasks.tasksInTheCourseUpperContainer,
-      functionHelpers.dashboard.containerTasks.containerTask);
+      functionHelpers.dashboard.containerTasks.containerTask, functionHelpers.dashboard.tasksClass.dashboard,
+      functionHelpers.dashboard.tasksNameSelectors.dashboard);
     let privateMatches = await privateTasks.map(element=> element.includes(taskname));
     let publicMatches = await courseTasks.map(element=> element.includes(taskname));
-    // let result = ispr
     await expect(privateMatches.length + publicMatches.length).not.to.equal(0);
  
+  },
+  clickArchive: async function() {
+    let archiveBtn = ".btn.btn-secondary.btn-archive";
+    await helpers.waitAndClick(archiveBtn);
+  },
+  archiveHometask: async function(taskname) { 
+    await this.gotoTasks();
+    await this.chooseTaskAmongAllTasks(taskname);
+    await this.clickArchive();
+    await this.gotoArchivedTasks();
+    let archivedTasks = await functionHelpers.tasksOnDashboard.getTaskNames(functionHelpers.dashboard.upperContainerTasks.tasksArchivedUpperContainer,
+      functionHelpers.dashboard.containerTasks.archiveContainer, functionHelpers.dashboard.tasksClass.archive,
+      functionHelpers.dashboard.tasksNameSelectors.archive);
+    let matches = await archivedTasks.map(element=> element.includes(taskname));
+    await expect(matches.length).not.to.equal(0);
+  },
+  checkArchiv: async function(taskname) {
+
   },
   verify: async function(taskname) {
     await this.gotoTasks();
@@ -299,7 +328,7 @@ module.exports = {
     await driver.pause(1000);
   },
 
-   deleteHomeworkStudent: async function() {
+  deleteHomeworkStudent: async function() {
      await this.switchToSubmissionTab();
      await this.deleteHomeworkHelper();
      await this.switchToSubmissionTab();

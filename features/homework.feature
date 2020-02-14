@@ -1,4 +1,4 @@
-#TODO: aufgabe anlegen ohne Kurs Zuordnung 
+#TODO: aufgabe anlegen ohne Kurs Zuordnung archiv
 
 @createHomework
 Feature: create different types of homework
@@ -24,6 +24,16 @@ Scenario Outline: teacher creates a hometask and it is correctly displayed on th
 When the teacher creates one course with <coursename> and
 When teacher clicks "create a new home task" in the course <coursename> with <taskname>
 Then the hometask with <taskname> is to be found on the dashboard
+Examples:
+| coursename     |  taskname     | 
+| test hometask  |  task         | 
+
+@archiveHomework
+Scenario Outline: teacher creates a hometask and archives it so it is moved to archiv
+When the teacher creates one course with <coursename> and
+When teacher clicks "create a new home task" in the course <coursename> with <taskname>
+When the hometask with <taskname> is archived by teacher
+Then the hometask with name <taskname> is to be found in archiv
 Examples:
 | coursename     |  taskname     | 
 | test hometask  |  task         | 
@@ -67,4 +77,4 @@ Examples:
 | course with a task for submission | Paula       | Meyer    | task       | paula.meyer@schul-cloud.org  | Schulcloud1! | Paula Meyer  |
 
 
-#TODO: 
+#TODO: attach data, submit data

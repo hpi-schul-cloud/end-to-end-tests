@@ -49,6 +49,20 @@ Then(/^the hometask with (.*) is to be found on the dashboard$/, function(
   return homework.checkDashboard(taskname);
 });
 
+/* ARCHIV */ 
+
+When(/^the hometask with (.*) is archived by teacher$/, function(
+  taskname
+) {
+  return homework.archiveHometask(taskname);
+});
+
+Then(/^the hometask with name (.*) is to be found in archiv$/, function(
+  taskname
+) {
+  return homework.checkArchiv(taskname);
+});
+
 /* PRIVATE */
 
 Given(
