@@ -7,8 +7,6 @@ const copyCourse = require('../page-objects/copyCourse');
 const firstLogin = require('../shared_steps/firstLogin.js');
 const createCourse = require('../page-objects/createCourse');
 const teacherLogin = require('../page-objects/teacherLogin');
-// TODO: choose course, SORT
-
 
 
 const functionHelpers = {
@@ -21,10 +19,12 @@ dashboard: {
   containerTasks: {
    containerTask:  '.row.tasks.card-deck-row',
    archiveContainer: '.row',
+   privateArchiveContainer: '.col-xl-12',
   },
   tasksClass: {
     dashboard: '.sc-card-wrapper.col-xl-3.col-lg-4.col-md-6.col-sm-12',
     archive: '.card.assignment.disableable.has-stats',
+    privateArchiv: '.card.assignment.private.disableable.private',
   },
   tasksNameSelectors: {
     dashboard: '.title',
@@ -115,7 +115,10 @@ module.exports = {
     await helpers.waitAndClick(courseData.elem.teamworkActivate);
     await this.setAccomplishTime();
     await this.setHometaskText();
-    await helpers.waitAndClick(courseData.elem.submitAddHomeworkBtn); 
+    let submitBtn = await driver.$(courseData.elem.submitAddHomeworkBtn);
+    await submitBtn.click();
+    await driver.pause(800);
+  
   },
   addPrivateHometask: async function(coursename, taskname) {
     await this.clickCreateNewTaskInTheCourse(coursename);
@@ -151,6 +154,9 @@ module.exports = {
   gotoTasks: async function() {
     await helpers.loadPage(courseData.urlHomework, 20);
   },
+  gotoPrivateTasks: async function() {
+    await helpers.loadPage(courseData.urlPrivateHomework, 20)
+  },
 
   gotoTasksTab: async function() {
    let hometasksTab = await driver.$('button[data-testid="hometasks"]');
@@ -182,7 +188,7 @@ module.exports = {
       await containerWithTasks.waitForExist(2000);
       let numOfElems = await containerWithTasks.$$('li');
       for (var i=1; i<=numOfElems.length-1; i++) {
-          let nameOfTheTaskSelector = await driver.$('.col-xl-12 > li:nth-child('+i+') > a:nth-child(3) > h2' );
+          let nameOfTheTaskSelector = await driver.$('.col-xl-12 > li:nth-child('+i+') .h5.title');
           let nameOfTheTask = await nameOfTheTaskSelector.getText();
           if(await nameOfTheTask.includes(taskname)) {
             return i;
@@ -198,7 +204,7 @@ module.exports = {
   chooseTaskAmongAllTasks: async function(taskname) {
     let taskindex = await this.returnTaskIndex(taskname);
     if(taskindex!=false) {
-      let task = await driver.$('.col-xl-12 > li:nth-child('+taskindex+') > a:nth-child(3)> h2');
+      let task = await driver.$('.col-xl-12 > li:nth-child('+taskindex+') .h5.title');
       await task.click();
       await driver.pause(1500);
       let selectorToBeLoaded = await driver.$('#page-title');
@@ -232,14 +238,40 @@ module.exports = {
     await this.clickArchive();
 
   },
+  archivePrivateHometask: async function(taskname) { 
+    await this.gotoPrivateTasks();
+    await this.chooseTaskAmongAllTasks(taskname);
+    await this.clickArchive();
+
+  },
   checkArchiv: async function(taskname) {
     await this.gotoArchivedTasks();
+    await driver.pause(10000);
     let archivedTasks = await functionHelpers.actions.getTaskNames(functionHelpers.dashboard.upperContainerTasks.tasksArchivedUpperContainer,
       functionHelpers.dashboard.containerTasks.archiveContainer, functionHelpers.dashboard.tasksClass.archive,
       functionHelpers.dashboard.tasksNameSelectors.archive);
     let matches = await archivedTasks.map(element=> element.includes(taskname));
     await expect(matches.length).not.to.equal(0);
   },
+  checkArchivPrivateTask: async function(taskname) {
+    await this.gotoArchivedTasks();
+    let result;
+    let container = await driver.$('.homework .col-xl-12');
+    let taskContainers = await container.$$('.card.assignment.private.disableable.private');
+    for (var i=1; i<=taskContainers.length; i++) {
+      let taskContainer = await container.$('li:nth-child('+i+')');
+      let titleSelector = await taskContainer.$('.h5.title');
+      let fullName = await titleSelector.getText();
+      let courseName = await fullName.match(/(\[.+\] - )/gi);
+      let nameOfTask = await fullName.replace(courseName[0],'');
+      if (nameOfTask==taskname) {
+        result=true;
+        break;
+    }
+   result=false;
+  };
+  await expect(result).to.be.true;
+},
   unarchiveHometask: async function(taskname) {
     await this.gotoArchivedTasks();
     await functionHelpers.actions.taskActions(functionHelpers.dashboard.upperContainerTasks.tasksArchivedUpperContainer,

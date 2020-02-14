@@ -7,6 +7,7 @@ module.exports = {
   urlLogout: `${CLIENT.URL}/logout`,
   urlLernStore: `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`,
   urlHomework: `${CLIENT.URL}/homework`,
+  urlPrivateHomework: `${CLIENT.URL}/homework/private`,
   urlHomeworkArchiv: `${CLIENT.URL}/homework/archive`,
   urlDashboard: `${CLIENT.URL}/dashboard`,
   elem: {
