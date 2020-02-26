@@ -44,6 +44,7 @@ install(){
   npm install -g wait-on
 
   cd docker-compose
+  docker-compose -f docker-compose.integration-test.yml pull
   docker-compose -f docker-compose.integration-test.yml build --parallel
   docker-compose -f docker-compose.integration-test.yml up -d
   cd ..
