@@ -41,8 +41,6 @@ fetch(){
 }
 
 install(){
-  npm install -g wait-on
-
   cd docker-compose
   docker-compose -f docker-compose.integration-test.yml pull
   docker-compose -f docker-compose.integration-test.yml build --parallel
@@ -57,7 +55,7 @@ before(){
 
   # wait for the nuxt client to be available
   echo "waiting max 150s for nuxt to be available"
-  wait-on http://localhost:4000 -t 150000
+  npx -p wait-on wait-on http://localhost:4000 -t 150000
   echo "nuxt is now online"
 }
 
