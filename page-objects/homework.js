@@ -101,9 +101,12 @@ module.exports = {
   // add homework related functions (as a teacher)
   clickCreateNewTaskInTheCourse: async function(coursename) {
     await copyCourse.chooseCourse(coursename);
-    let homeworktab = await driver.$('.tabs button[data-testid="hometasks"]');
+    let homeworktab = await driver.$('button[data-testid="hometasks"]');
     await homeworktab.click();
-    await helpers.waitAndClick(courseData.elem.addHomeworkBtn);
+    await driver.pause(DELAY_500_MILLISECOND);
+    let addHometaskBtn = await driver.$(courseData.elem.addHomeworkBtn);
+    await addHometaskBtn.click();
+    await helpers.waitForSelector('body');
   }, 
   setPrivate: async function() {
     await helpers.waitAndClick(courseData.elem.checkbox);
@@ -117,7 +120,7 @@ module.exports = {
     await this.setHometaskText();
     let submitBtn = await driver.$(courseData.elem.submitAddHomeworkBtn);
     await submitBtn.click();
-    await driver.pause(800);
+    await helpers.waitForSelector('.loaded');
   
   },
   addPrivateHometask: async function(coursename, taskname) {
@@ -143,6 +146,7 @@ module.exports = {
     var end = await helpers.randomDate();
     await driver.execute(`document.querySelector("#dueDate").value="${end}"`);
   },
+  /*
   clickAdd: async function() {
     let container = await driver.$('#homework-form');
     let addBtn = await container.$('button[type="submit"]');
@@ -150,7 +154,7 @@ module.exports = {
     let selectorToBeLoaded = await driver.$('#homeworks');
     await selectorToBeLoaded.waitForExist(2000);
   },
- 
+ */
   gotoTasks: async function() {
     await helpers.loadPage(courseData.urlHomework, 20);
   },
@@ -161,7 +165,7 @@ module.exports = {
   gotoTasksTab: async function() {
    let hometasksTab = await driver.$('button[data-testid="hometasks"]');
    await hometasksTab.click();
-   await driver.pause(1000);
+   await helpers.waitForSelector(courseData.elem.containerInTheHometasksTab);
   }, 
   gotoDashboard: async function() {
     await helpers.loadPage(courseData.urlDashboard, 20);
@@ -179,7 +183,7 @@ module.exports = {
     await lastedited.click();
     let ok = await driver.$('.md-dialog-actions > button:nth-child(2)');
     await ok.click();
-    await driver.pause(1000);
+    await driver.pause(DELAY_500_MILLISECOND);
   },
   returnTaskIndex: async function(taskname) {
     let areThereAnyTasks= await this.areThereAnyTasks();
@@ -198,7 +202,7 @@ module.exports = {
     return false;
   },
   areThereAnyTasks: async function() {
-    let elementWithTasks = await driver.$$('.col-xl-12');
+    let elementWithTasks = await driver.$$('[data-testid="hometasks-container"]');
     return elementWithTasks.length > 0 ? true : false;
   },
   chooseTaskAmongAllTasks: async function(taskname) {

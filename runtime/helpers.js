@@ -51,7 +51,19 @@ module.exports = {
       return driver.waitUntil(driver.$('body'), timeout);
     });
   },
-  
+  waitForSelector: async function(selector, seconds) {
+     /**
+     * Wait function - wait for selector to be loaded
+     * @param seconds
+     * @type {number}
+     * @param selector
+     * @type {string}
+     */
+    let timeout = (seconds) ? (seconds * 1000) : DELAY_3_SECOND;
+    await driver.waitUntil(() => {
+      return driver.$(selector);
+    }, timeout)
+  },
   /**
    * Visual comparison function
    * @param fileName
