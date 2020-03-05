@@ -42,11 +42,17 @@ fetch(){
 
 install(){
   cd docker-compose
-  docker-compose -f docker-compose.integration-test.yml build --parallel
+  echo "BUILD CONTAINERS..."
+  docker-compose -f docker-compose.integration-test.yml build
+  echo "BUILD CONTAINERS DONE"
+  echo "BOOT CONTAINERS..."
   docker-compose -f docker-compose.integration-test.yml up -d
+  echo "BOOT CONTAINERS DONE"
   cd ..
 
+  echo "INSTALL DEPENDNECIES..."
   cd integration-tests && npm ci && cd ..
+  echo "INSTALL DEPENDNECIES DONE"
 }
 
 before(){
