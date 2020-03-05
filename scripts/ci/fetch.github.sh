@@ -21,6 +21,6 @@ echo "try fetching script from $BRANCH_NAME branch"
 curl -fO "https://raw.githubusercontent.com/schul-cloud/integration-tests/$BRANCH_NAME/scripts/ci/integration-test.github.sh" || true
 
 ls -a
-chmod 700 integration-test.travis.sh
-bash integration-test.travis.sh
+chmod 700 integration-test.github.sh
+bash integration-test.github.sh
 set +e
