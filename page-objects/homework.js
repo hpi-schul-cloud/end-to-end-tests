@@ -19,7 +19,7 @@ dashboard: {
   containerTasks: {
    containerTask:  '.row.tasks.card-deck-row',
    archiveContainer: '.row',
-   privateArchiveContainer: '.col-xl-12',
+   privateArchiveContainer: '[data-testid="hometasks-container"]',
   },
   tasksClass: {
     dashboard: '.sc-card-wrapper.col-xl-3.col-lg-4.col-md-6.col-sm-12',
@@ -28,7 +28,7 @@ dashboard: {
   },
   tasksNameSelectors: {
     dashboard: '.title',
-    archive: '.h5.title',
+    archive: '[data-testid="title"]',
   },
   buttonIndex: {
     unarchive: '.action-group > a:nth-child(1)',
@@ -109,7 +109,8 @@ module.exports = {
     await helpers.waitForSelector('body');
   }, 
   setPrivate: async function() {
-    await helpers.waitAndClick(courseData.elem.checkbox);
+    let privateBox= await driver.$(courseData.elem.checkbox);
+    await privateBox.click();
   },
   addBasicHometask: async function(coursename, taskname) {
     await this.clickCreateNewTaskInTheCourse(coursename);
@@ -127,11 +128,13 @@ module.exports = {
     await this.clickCreateNewTaskInTheCourse(coursename);
     let nameSelector = await driver.$(courseData.elem.homeworkName);
     await nameSelector.setValue(taskname);
-    await helpers.waitAndClick(courseData.elem.teamworkActivate);
+    let teamworkBtn = await driver.$(courseData.elem.teamworkActivate);
+    await teamworkBtn.click();
     await this.setAccomplishTime();
     await this.setHometaskText();
     await this.setPrivate();
-    await helpers.waitAndClick(courseData.elem.submitAddHomeworkBtn);
+    let btn = await driver.$(courseData.elem.submitAddHomeworkBtn);
+    await btn.click();
   },
   setHometaskText: async function() {
     await driver.switchToFrame(0);
@@ -146,15 +149,7 @@ module.exports = {
     var end = await helpers.randomDate();
     await driver.execute(`document.querySelector("#dueDate").value="${end}"`);
   },
-  /*
-  clickAdd: async function() {
-    let container = await driver.$('#homework-form');
-    let addBtn = await container.$('button[type="submit"]');
-    await addBtn.click();
-    let selectorToBeLoaded = await driver.$('#homeworks');
-    await selectorToBeLoaded.waitForExist(2000);
-  },
- */
+
   gotoTasks: async function() {
     await helpers.loadPage(courseData.urlHomework, 20);
   },
@@ -188,11 +183,11 @@ module.exports = {
   returnTaskIndex: async function(taskname) {
     let areThereAnyTasks= await this.areThereAnyTasks();
     if (areThereAnyTasks==true) {
-      const containerWithTasks = await driver.$('.col-xl-12');
+      const containerWithTasks = await driver.$('[data-testid="hometasks-container"]');
       await containerWithTasks.waitForExist(2000);
       let numOfElems = await containerWithTasks.$$('li');
       for (var i=1; i<=numOfElems.length-1; i++) {
-          let nameOfTheTaskSelector = await driver.$('.col-xl-12 > li:nth-child('+i+') .h5.title');
+          let nameOfTheTaskSelector = await driver.$('[data-testid="hometasks-container"] > li:nth-child('+i+') [data-testid="title"]');
           let nameOfTheTask = await nameOfTheTaskSelector.getText();
           if(await nameOfTheTask.includes(taskname)) {
             return i;
@@ -208,7 +203,7 @@ module.exports = {
   chooseTaskAmongAllTasks: async function(taskname) {
     let taskindex = await this.returnTaskIndex(taskname);
     if(taskindex!=false) {
-      let task = await driver.$('.col-xl-12 > li:nth-child('+taskindex+') .h5.title');
+      let task = await driver.$('[data-testid="hometasks-container"] > li:nth-child('+taskindex+') [data-testid="title"]');
       await task.click();
       await driver.pause(1500);
       let selectorToBeLoaded = await driver.$('#page-title');
@@ -260,11 +255,11 @@ module.exports = {
   checkArchivPrivateTask: async function(taskname) {
     await this.gotoArchivedTasks();
     let result;
-    let container = await driver.$('.homework .col-xl-12');
+    let container = await driver.$('.homework [data-testid="hometasks-container"]');
     let taskContainers = await container.$$('.card.assignment.private.disableable.private');
     for (var i=1; i<=taskContainers.length; i++) {
       let taskContainer = await container.$('li:nth-child('+i+')');
-      let titleSelector = await taskContainer.$('.h5.title');
+      let titleSelector = await taskContainer.$('[data-testid="title"]');
       let fullName = await titleSelector.getText();
       let courseName = await fullName.match(/(\[.+\] - )/gi);
       let nameOfTask = await fullName.replace(courseName[0],'');
@@ -340,7 +335,7 @@ module.exports = {
     let areThereAnyTasks = await driver.$$('#homeworks > ol > div > li');
     await expect(areThereAnyTasks.length).not.to.equal(0);
     for (var i=1; i<=areThereAnyTasks.length; i++) {
-      let taskSelector = await driver.$('#homeworks > ol > div > li:nth-child('+i+') .h5.title');
+      let taskSelector = await driver.$('#homeworks > ol > div > li:nth-child('+i+') [data-testid="title"]');
       let tasknameOnPage = await taskSelector.getText();
        if(tasknameOnPage==taskname){
         await taskSelector.click();
@@ -418,16 +413,4 @@ module.exports = {
      await expect(textSubmission).to.equal("");
 
    },
-  
-  uploadAHomework: async function() {
-    //making the upload-element visible to selenium
-    change_visibility = '$x("//*[@id="main-content"]/div/section[1]/div/div/div[1]/input").css("visibility,"visible");';
-    change_display = '$x("//*[@id="main-content"]/div/section[1]/div/div/div[1]/input").css("display,"block");';
-    await driver.execute_script(change_visibility);
-    await driver.execute_script(change_display);
-
-    const path = require('path');
-    const filePath = path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt');
-    await driver.$x(courseData.uploadBtn).send_keys(filePath);
-  },
-};
+  }

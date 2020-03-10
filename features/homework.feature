@@ -1,5 +1,4 @@
-#TODO: aufgabe anlegen ohne Kurs Zuordnung archiv
-
+@homework
 @createHomework
 Feature: create different types of homework
 
@@ -99,5 +98,3 @@ Examples:
 | coursename                        | firstname   | lastname | taskname   | username                     | password     | studentname  |
 | course with a task for submission | Paula       | Meyer    | task       | paula.meyer@schul-cloud.org  | Schulcloud1! | Paula Meyer  |
 
-
-#TODO: attach data, submit data
