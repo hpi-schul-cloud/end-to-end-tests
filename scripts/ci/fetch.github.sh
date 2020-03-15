@@ -2,7 +2,7 @@
 
 set -e
 
-export BRANCH_NAME=${GITHUB_REF##*/}
+export BRANCH_NAME=${GITHUB_REF#refs/heads/}
 
 echo "BRANCH: $BRANCH_NAME"
 
