@@ -1,6 +1,6 @@
 #! /bin/bash
 
-export BRANCH_NAME=${GITHUB_REF##*/}
+export BRANCH_NAME=${GITHUB_REF#refs/heads/}
 
 _switchBranch(){
   cd $1
