@@ -1,8 +1,8 @@
 {
 	"mail": {
 	  "options": {
-		"host": "mailslurper",
-		"port": 2500,
+		"host": "mail",
+		"port": 1025,
 		"secure": false,
 		"auth": {
 		  "user": "",
