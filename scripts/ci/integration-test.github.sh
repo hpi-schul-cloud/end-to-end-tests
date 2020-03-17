@@ -1,6 +1,6 @@
 #! /bin/bash
 
-export BRANCH_NAME=${GITHUB_REF##*/}
+export BRANCH_NAME=${GITHUB_REF#refs/heads/}
 
 _switchBranch(){
   cd $1
@@ -43,10 +43,15 @@ fetch(){
 install(){
   cd docker-compose
   docker-compose -f docker-compose.integration-test.yml build --parallel
+  echo "BUILD CONTAINERS DONE"
+  echo "BOOT CONTAINERS..."
   docker-compose -f docker-compose.integration-test.yml up -d
+  echo "BOOT CONTAINERS DONE"
   cd ..
 
+  echo "INSTALL DEPENDNECIES..."
   cd integration-tests && npm ci && cd ..
+  echo "INSTALL DEPENDNECIES DONE"
 }
 
 before(){
