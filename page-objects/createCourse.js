@@ -43,7 +43,7 @@ module.exports = {
   }, 
   goToNextSectionCreateCourse: async function() {
     let toNextSectionBtn = "#nextSection";
-    await  helpers.waitAndClick(toNextSectionBtn)
+    await  toNextSectionBtn.click();
   },
   createCourse: async function(coursename) {
     await this.goToAddCourses();
