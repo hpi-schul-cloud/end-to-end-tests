@@ -46,6 +46,7 @@ install(){
   docker-compose -f docker-compose.integration-test.yml up -d
   cd ..
 
+  cd schulcloud-server && npm ci && cd ..
   cd integration-tests && npm ci && cd ..
 }
 
