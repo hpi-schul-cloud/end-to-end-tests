@@ -51,6 +51,7 @@ install(){
   cd ..
 
   echo "INSTALL DEPENDNECIES..."
+  cd schulcloud-server && npm ci && cd ..
   cd integration-tests && npm ci && cd ..
   echo "INSTALL DEPENDNECIES DONE"
 }
