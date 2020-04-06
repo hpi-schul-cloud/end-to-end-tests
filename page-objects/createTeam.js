@@ -39,6 +39,7 @@ module.exports = {
     },
     setTeamName: async function(name) {
         let nameField = await driver.$(teamData.teamName);
+        await nameField.waitForDisplayed(15000);
         await nameField.setValue(name);
     },
     confirmTeamCreate: async function() {
