@@ -77,14 +77,6 @@ module.exports = {
 				);
 				await btnEdit.click();
 
-				// TODO: remove next section. Currently a hack to generate an import hash.
-				const btnGenerateInvitationLink = await driver.$(
-					"button.btn-secondary.btn-invitation-link-with-hash.student"
-				);
-				await btnGenerateInvitationLink.click();
-				await driver.pause(1000); // wait for modal to open
-				await driver.refresh();
-
 				const btnManualConsent = await driver.$(
 					"#consents-overview a.btn.btn-secondary"
 				);
