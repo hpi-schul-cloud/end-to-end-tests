@@ -28,7 +28,6 @@ module.exports = {
 			`a[href="/administration/students/new"]`
 		);
 		await btnAddStudent.click();
-		await driver.pause(3000); // wait for page load TODO: wait for actual page load
 		// fill userdata
 		let firstName = await driver.$(Admin.setFirstName);
 		await firstName.setValue(firstname);
@@ -47,10 +46,12 @@ module.exports = {
 		await driver.execute(script);
 	},
 	emailsOfThePupils: async function () {
+		await driver.pause(1500);
+		await driver.$(Admin.namesContainer + " > tr");
 		let names = await driver.$$(Admin.namesContainer + " > tr");
 		return Promise.all(
 			names.map(async (nameContainer) => {
-				const emailContainer = await nameContainer.$("td:nth-child(3)");
+				const emailContainer = await nameContainer.$("td:nth-child(4)");
 				return await emailContainer.getText();
 			})
 		);
@@ -59,30 +60,44 @@ module.exports = {
 		let emails = await this.emailsOfThePupils();
 		await expect(emails).to.contain(email);
 	},
-	submitConsent: async function (e_mail) {
+	submitConsent: async function (userEMail) {
 		let names = await driver.$$(Admin.namesContainer + " > tr");
 		length = names.length;
 		for (var i = 1; i <= length; i++) {
 			let emailPromise = await driver.$(
-				Admin.namesContainer + " > tr:nth-child(" + i + ") > td:nth-child(3)"
+				Admin.namesContainer + " > tr:nth-child(" + i + ") > td:nth-child(4)"
 			);
-			let email = await emailPromise.getText();
-			if (email === e_mail) {
-				let boxConsent = await driver.$(
+			let currentRowEMail = await emailPromise.getText();
+			if (currentRowEMail === userEMail) {
+				let btnEdit = await driver.$(
 					Admin.namesContainer +
 						" > tr:nth-child(" +
 						i +
-						") > td:nth-child(7) > a:nth-child(2) > i"
+						") > td:last-child > a"
 				);
-				await boxConsent.click();
+				await btnEdit.click();
+
+				// TODO: remove next section. Currently a hack to generate an import hash.
+				const btnGenerateInvitationLink = await driver.$(
+					"button.btn-secondary.btn-invitation-link-with-hash.student"
+				);
+				await btnGenerateInvitationLink.click();
+				await driver.pause(1000); // wait for modal to open
+				await driver.refresh();
+
+				const btnManualConsent = await driver.$(
+					"#consents-overview a.btn.btn-secondary"
+				);
+				await btnManualConsent.click();
 				let submitBtn = await driver.$(Admin.consentSubmitBtn);
 				let passwordField = await driver.$("#passwd");
 				let password_old = await passwordField.getValue();
 				oldPassword = password_old;
 				await submitBtn.click();
-				break;
+				return;
 			}
 		}
+		throw new Error(`no user with email "${userEMail}" found`);
 	},
 	newPupilLogsIn: async function () {
 		await firstLogin.logout();
