@@ -1,15 +1,14 @@
 {
-  "Details" : {
-    "Name": "KlassiTech Automated Testing Tool",
-    "Created by": "Larry Goddard"
-  },
+	"Details" : {
+		"Name": "KlassiTech Automated Testing Tool",
+		"Created by": "Larry Goddard"
+	},
 
-  "auth1":{
-    "host": "{smtp.sitename.co.uk}",
-    "user": "{user@sitename.co.uk}",
-    "pass": "{password}"
-  },
+	"auth1":{
+		"host": "{smtp.sitename.co.uk}",
+		"user": "{user@sitename.co.uk}",
+		"pass": "{password}"
+	},
 
-  "nameList1": "Me <{your email address}>"
+	"nameList1": "Me <{your email address}>"
 }
-
