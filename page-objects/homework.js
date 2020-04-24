@@ -245,5 +245,35 @@ module.exports = {
 		await driver.$x(courseData.uploadBtn).send_keys(filePath);
 	},
 
-	testFileFeedback: async function () {},
+	testFileFeedback: async function (courseName) {
+		const click = async (selector) => (await driver.$(selector)).click();
+		const taskName = 'Art homework';
+		// create homework
+		await this.addBasicHometask(courseName, taskName);
+		// create a submission for the student paula meyer
+		// 	login as student
+		await this.studentLogsIn('paula.meyer@schul-cloud.org', 'Schulcloud1!');
+		// 	navigate to homework
+		await this.gotoTasks();
+		await click(`*=${taskName}`);
+		await this.switchToSubmissionTab();
+		await this.submitSolutionForTheHometask();
+
+		// 	back to teacher
+		await this.userLogsOut();
+		await this.teacherLogsIn();
+		// grade the submission
+		await this.gotoTasks();
+		await click(`*=${taskName}`);
+
+		await click('#submissions-tab-link');
+		await click('tbody.usersubmission');
+		await click('a*=Bewertung');
+		await driver.pause(60000000);
+
+		// upload the file
+		// ensure the file is visible
+		// ensure the student sees the file
+		// ensure the student can download the file
+	},
 };

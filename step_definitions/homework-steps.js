@@ -120,8 +120,8 @@ Then(/^the students can upload a file as a solution$/, function() {
 });
 
 Then(
-  /the teacher can upload file feedback for submitted homework, which will be seen and can be downloaded by the student/,
-  function (fileName) {
-    return homework.testFileFeedback();
-  },
+	/^the teacher can upload file feedback for submitted homework on (.*), which will be seen and can be downloaded by the student$/,
+	function (courseName) {
+		return homework.testFileFeedback(courseName);
+	},
 );
