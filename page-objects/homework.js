@@ -1,5 +1,7 @@
 'use strict';
 
+const path = require('path');
+
 const helpers = require('../runtime/helpers.js');
 const courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
@@ -8,6 +10,8 @@ const firstLogin = require('../shared_steps/firstLogin.js');
 const createCourse = require('../page-objects/createCourse');
 const teacherLogin = require('../page-objects/teacherLogin');
 // TODO: choose course, SORT
+
+const click = async (selector) => (await driver.$(selector)).click();
 
 module.exports = {
 	// add homework related functions (as a teacher)
@@ -240,14 +244,16 @@ module.exports = {
 		await driver.execute_script(change_visibility);
 		await driver.execute_script(change_display);
 
-		const path = require('path');
 		const filePath = path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt');
 		await driver.$x(courseData.uploadBtn).send_keys(filePath);
 	},
 
 	testFileFeedback: async function (courseName) {
-		const click = async (selector) => (await driver.$(selector)).click();
 		const taskName = 'Art homework';
+		const file = {
+			path: path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt'),
+			name: 'upload.txt',
+		};
 		// create homework
 		await this.addBasicHometask(courseName, taskName);
 		// create a submission for the student paula meyer
@@ -266,14 +272,34 @@ module.exports = {
 		await this.gotoTasks();
 		await click(`*=${taskName}`);
 
-		await click('#submissions-tab-link');
-		await click('tbody.usersubmission');
-		await click('a*=Bewertung');
+		await this.teacherShowGradeTabForFirstSubmission();
+		// upload the file
+
+		await driver.execute(function () {
+			document.querySelector('input[type=file]').style = {};
+		});
+		const remoteFilePath = await driver.uploadFile(file.path);
+		await (await driver.$('input[type=file]')).setValue(remoteFilePath);
+
+		// wait for reload?
+		// navigate to grade tab
+		await this.teacherShowGradeTabForFirstSubmission();
+
+		// The upload causes a page reload, which causes the current tab to change.
+		// TODO
+		await (await driver.$('.tab-content.section-homeworkdetails.active')).waitForExist();
+		const gradeFiles = await (await driver.$('list-group-files')).getText();
+		expect(gradeFiles).to.contain(file.name);
 		await driver.pause(60000000);
 
-		// upload the file
 		// ensure the file is visible
 		// ensure the student sees the file
 		// ensure the student can download the file
+	},
+
+	async teacherShowGradeTabForFirstSubmission() {
+		await click('#submissions-tab-link');
+		await click('tbody.usersubmission');
+		await click('a*=Bewertung');
 	},
 };
