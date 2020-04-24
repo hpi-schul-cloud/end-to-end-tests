@@ -9,14 +9,14 @@ Given goes the course page
 
 @simpleCopyCourse
 Scenario Outline: teacher can copy an existing course
-Given the teacher creates a course with name <coursename> and 
+Given the teacher creates a course with name <coursename> and
 Given the amount of courses is x
 When the teacher selects the course <coursename> and clicks clone it
 Then the amount of courses is implemented
 
 Examples:
-| coursename | 
-| sample course to be cloned | 
+| coursename |
+| sample course to be cloned |
 
 
 @copyCourseWithText
