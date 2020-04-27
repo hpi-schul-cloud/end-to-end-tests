@@ -1,5 +1,5 @@
 # check PWD is not this directory
-if [[ $PWD == *"/scripts/ci"* ]]; then 
+if [[ $PWD == *"/scripts/ci"* ]]; then
 	echo "call this file from integration-tests root folder to correctly map the configuration file"
 	exit -1
 fi

@@ -13,8 +13,8 @@ curl -fO "https://raw.githubusercontent.com/schul-cloud/integration-tests/develo
 # use master as default for releases & hotfixes
 if [[ $BRANCH_NAME = release* || $BRANCH_NAME = hotfix* ]];
 then
-  echo "try fetching script from master branch"
-  curl -fO "https://raw.githubusercontent.com/schul-cloud/integration-tests/master/scripts/ci/integration-test.travis.sh" || true
+	echo "try fetching script from master branch"
+	curl -fO "https://raw.githubusercontent.com/schul-cloud/integration-tests/master/scripts/ci/integration-test.travis.sh" || true
 fi
 # use branch specific script if available
 echo "try fetching script from $BRANCH_NAME branch"

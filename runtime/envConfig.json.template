@@ -1,10 +1,10 @@
 {
-  "Details" : {
-    "Name": "KlassiTech Automated Testing Tool",
-    "Created by": "Larry Goddard"
-  },
+	"Details" : {
+		"Name": "KlassiTech Automated Testing Tool",
+		"Created by": "Larry Goddard"
+	},
 
-  "reportName": "{test reportName}",
-  "projectName": "{projectName}",
+	"reportName": "{test reportName}",
+	"projectName": "{projectName}",
 
 }

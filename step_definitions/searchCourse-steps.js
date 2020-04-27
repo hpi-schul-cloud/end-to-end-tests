@@ -6,26 +6,26 @@ let courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
 
 Given(/^teacher goes to the login page$/, function() {
-  return helpers.loadPage(courseData.urlLogin, 20);
+	return helpers.loadPage(courseData.urlLogin, 20);
 });
 Given(/^the teacher logs in/, function() {
-  return teacherLogin.performLogin(
-    Login.defaultTeacherUsername,
-    Login.defaultTeacherpassword
-  );
+	return teacherLogin.performLogin(
+		Login.defaultTeacherUsername,
+		Login.defaultTeacherpassword
+	);
 });
 Given(/^the teacher goes to the courses page$/, function() {
-  let url = courseData.urlCourses;
-  return helpers.loadPage(url, 20);
+	let url = courseData.urlCourses;
+	return helpers.loadPage(url, 20);
 });
 When(
-  /^the teacher tipps the name (.*) of the course in the searchfield$/,
-  async function(name) {
-    return searchCourse.searchOne(name);
-  }
+	/^the teacher tipps the name (.*) of the course in the searchfield$/,
+	async function(name) {
+		return searchCourse.searchOne(name);
+	}
 );
 Then(/^the list satisfies the search request (.*)$/, async function(name) {
-  let a = await searchCourse.amountToBeDisplayed(name);
-  let b = await searchCourse.isCorrectlyDisplayed();
-  await expect(a).to.equal(b);
+	let a = await searchCourse.amountToBeDisplayed(name);
+	let b = await searchCourse.isCorrectlyDisplayed();
+	await expect(a).to.equal(b);
 });
