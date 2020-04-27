@@ -254,11 +254,13 @@ module.exports = {
 			path: path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt'),
 			name: 'upload.txt',
 		};
+		const student = { login: 'paula.meyer@schul-cloud.org', password: 'Schulcloud1!' };
+
 		// create homework
 		await this.addBasicHometask(courseName, taskName);
 		// create a submission for the student paula meyer
 		// 	login as student
-		await this.studentLogsIn('paula.meyer@schul-cloud.org', 'Schulcloud1!');
+		await this.studentLogsIn(student.login, student.password);
 		// 	navigate to homework
 		await this.gotoTasks();
 		await click(`*=${taskName}`);
@@ -273,33 +275,65 @@ module.exports = {
 		await click(`*=${taskName}`);
 
 		await this.teacherShowGradeTabForFirstSubmission();
-		// upload the file
 
+		// upload the file
 		await driver.execute(function () {
+			// Need to make the input visible, otherwise the webdriver can not uplaod any files 😞
 			document.querySelector('input[type=file]').style = {};
 		});
 		const remoteFilePath = await driver.uploadFile(file.path);
 		await (await driver.$('input[type=file]')).setValue(remoteFilePath);
+		await driver.pause(3000);
 
-		// wait for reload?
+		// The upload causes a page reload, which causes the current tab to change.
+		await (await driver.$('.tab-content.section-homeworksubmissions.active')).waitForDisplayed();
+
 		// navigate to grade tab
 		await this.teacherShowGradeTabForFirstSubmission();
 
-		// The upload causes a page reload, which causes the current tab to change.
-		// TODO
-		await (await driver.$('.tab-content.section-homeworkdetails.active')).waitForExist();
-		const gradeFiles = await (await driver.$('list-group-files')).getText();
-		expect(gradeFiles).to.contain(file.name);
-		await driver.pause(60000000);
+		await this.canSeeFile(file);
+		const mainWindow = await driver.getWindowHandle();
+		await click(`a*=${file.name}`);
 
-		// ensure the file is visible
+		await driver.pause(1000);
+		const fileUrl = await this.getCurrentTabUrl();
+		await driver.switchToWindow(mainWindow);
+
 		// ensure the student sees the file
+		await this.userLogsOut();
+		await firstLogin.pupilLogin(student.login, student.password);
+		await this.gotoTasks();
+		await click(`*=${taskName}`);
+		await click('a*=Bewertung');
+
+		await this.canSeeFile(file);
+
 		// ensure the student can download the file
+		await click(`a*=${file.name}`);
+		await driver.pause(1000);
+		const studentFileUrl = await this.getCurrentTabUrl();
+
+		// After all the redirect, the localstack filepath should be the same (ignoring the auth-arguments in the query)
+		expect(studentFileUrl.origin).to.equal(fileUrl.origin);
+		expect(studentFileUrl.pathname).to.equal(fileUrl.pathname);
 	},
 
 	async teacherShowGradeTabForFirstSubmission() {
 		await click('#submissions-tab-link');
 		await click('tbody.usersubmission');
 		await click('a*=Bewertung');
+	},
+
+	async canSeeFile(file) {
+		const gradeFilesList = await driver.$('.list-group-files');
+		expect(await gradeFilesList.getText()).to.contain(file.name);
+	},
+
+	async getCurrentTabUrl() {
+		const handles = await driver.getWindowHandles();
+		// switch to newest tab
+		await driver.switchToWindow(handles[handles.length - 1]);
+
+		return new URL(await driver.getUrl());
 	},
 };
