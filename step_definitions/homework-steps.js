@@ -1,4 +1,6 @@
 'use strict';
+const path = require('path');
+
 const teacherLogin = require('../page-objects/teacherLogin');
 const copyCourse = require('../page-objects/copyCourse');
 const createCourse = require('../page-objects/createCourse');
@@ -119,9 +121,28 @@ Then(/^the students can upload a file as a solution$/, function() {
 	return homework.uploadAHomework();
 });
 
-Then(
-	/^the teacher can upload file feedback for submitted homework on (.*), which will be seen and can be downloaded by the student$/,
-	function (courseName) {
-		return homework.testFileFeedback(courseName);
-	},
-);
+(function () {
+	const courseName = 'file feedback';
+	const taskName = 'Art homework';
+	const file = {
+		path: path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt'),
+		name: 'upload.txt',
+	};
+	const student = { login: 'paula.meyer@schul-cloud.org', password: 'Schulcloud1!' };
+
+	Given(/^the teacher has posed a homework$/, function () {
+		return homework.addBasicHometask(courseName, taskName);
+	});
+
+	Given(/^the student has submitted that homework$/, function () {
+		return homework.submitHomework(taskName, student);
+	});
+
+	When(/^the teacher uploads file feedback$/, function () {
+		return homework.submitFileFeedback(taskName, file);
+	});
+
+	Then(/^both the teacher and student can see and download the feedback$/, function () {
+		return homework.testFileUploadSuccess(taskName, file, student);
+	});
+})();

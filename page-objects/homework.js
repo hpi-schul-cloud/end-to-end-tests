@@ -248,17 +248,7 @@ module.exports = {
 		await driver.$x(courseData.uploadBtn).send_keys(filePath);
 	},
 
-	testFileFeedback: async function (courseName) {
-		const taskName = 'Art homework';
-		const file = {
-			path: path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt'),
-			name: 'upload.txt',
-		};
-		const student = { login: 'paula.meyer@schul-cloud.org', password: 'Schulcloud1!' };
-
-		// create homework
-		await this.addBasicHometask(courseName, taskName);
-		// create a submission for the student paula meyer
+	submitHomework: async function (taskName, student) {
 		// 	login as student
 		await this.studentLogsIn(student.login, student.password);
 		// 	navigate to homework
@@ -266,7 +256,9 @@ module.exports = {
 		await click(`*=${taskName}`);
 		await this.switchToSubmissionTab();
 		await this.submitSolutionForTheHometask();
+	},
 
+	submitFileFeedback: async function (taskName, file) {
 		// 	back to teacher
 		await this.userLogsOut();
 		await this.teacherLogsIn();
@@ -287,7 +279,9 @@ module.exports = {
 
 		// The upload causes a page reload, which causes the current tab to change.
 		await (await driver.$('.tab-content.section-homeworksubmissions.active')).waitForDisplayed();
+	},
 
+	testFileUploadSuccess: async function(taskName, file, student) {
 		// navigate to grade tab
 		await this.teacherShowGradeTabForFirstSubmission();
 
@@ -318,18 +312,18 @@ module.exports = {
 		expect(studentFileUrl.pathname).to.equal(fileUrl.pathname);
 	},
 
-	async teacherShowGradeTabForFirstSubmission() {
+	teacherShowGradeTabForFirstSubmission: async function() {
 		await click('#submissions-tab-link');
 		await click('tbody.usersubmission');
 		await click('a*=Bewertung');
 	},
 
-	async canSeeFile(file) {
+	canSeeFile: async function(file) {
 		const gradeFilesList = await driver.$('.list-group-files');
 		expect(await gradeFilesList.getText()).to.contain(file.name);
 	},
 
-	async getCurrentTabUrl() {
+	getCurrentTabUrl: async function() {
 		const handles = await driver.getWindowHandles();
 		// switch to newest tab
 		await driver.switchToWindow(handles[handles.length - 1]);

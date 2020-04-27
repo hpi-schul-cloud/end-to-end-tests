@@ -43,8 +43,11 @@ Examples:
 
 @gradeHomeworkWithFile
 Scenario Outline: grade a homework submission by uploading a file
-Given the teacher creates one course with <coursename> and student with <studentname>
-Then the teacher can upload file feedback for submitted homework on <coursename>, which will be seen and can be downloaded by the student
+Given the teacher creates one course with file feedback and student with Paula Meyer
+And the teacher has posed a homework
+And the student has submitted that homework
+When the teacher uploads file feedback
+Then both the teacher and student can see and download the feedback
 Examples:
-| coursename    | studentname |
-| file feedback | Paula Meyer |
+| coursename    | taskname      |
+| test hometask | file feedback |
