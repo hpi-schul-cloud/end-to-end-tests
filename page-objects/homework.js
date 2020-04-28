@@ -281,7 +281,7 @@ module.exports = {
 		await (await driver.$('.tab-content.section-homeworksubmissions.active')).waitForDisplayed();
 	},
 
-	testFileUploadSuccess: async function(taskName, file, student) {
+	testFileUploadSuccess: async function (taskName, file, student) {
 		// navigate to grade tab
 		await this.teacherShowGradeTabForFirstSubmission();
 
@@ -312,18 +312,19 @@ module.exports = {
 		expect(studentFileUrl.pathname).to.equal(fileUrl.pathname);
 	},
 
-	teacherShowGradeTabForFirstSubmission: async function() {
+	teacherShowGradeTabForFirstSubmission: async function () {
 		await click('#submissions-tab-link');
 		await click('tbody.usersubmission');
 		await click('a*=Bewertung');
 	},
 
-	canSeeFile: async function(file) {
+	canSeeFile: async function (file) {
 		const gradeFilesList = await driver.$('.list-group-files');
+		await gradeFilesList.waitForDisplayed();
 		expect(await gradeFilesList.getText()).to.contain(file.name);
 	},
 
-	getCurrentTabUrl: async function() {
+	getCurrentTabUrl: async function () {
 		const handles = await driver.getWindowHandles();
 		// switch to newest tab
 		await driver.switchToWindow(handles[handles.length - 1]);
