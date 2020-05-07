@@ -19,7 +19,7 @@
  */
 'use strict';
 const fs = require('fs');
-let log = global.log;
+let log = global.log || console;
 
 module.exports = {
 
