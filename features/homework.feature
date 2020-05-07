@@ -40,14 +40,3 @@ Examples:
 #Examples:
 #| coursename                        | firstname   | lastname | taskname   | username                     | password     | studentname  |
 #| course with a task for submission | Paula       | Meyer    | task       | paula.meyer@schul-cloud.org  | Schulcloud1! | Paula Meyer  |
-
-@gradeHomeworkWithFile
-Scenario Outline: grade a homework submission by uploading a file
-Given the teacher creates one course with file feedback and student with Paula Meyer
-And the teacher has posed a homework
-And the student has submitted that homework
-When the teacher uploads file feedback
-Then both the teacher and student can see and download the feedback
-Examples:
-| coursename    | taskname      |
-| test hometask | file feedback |
