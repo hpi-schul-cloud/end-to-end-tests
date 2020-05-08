@@ -6,6 +6,7 @@ var secondCharacter;
 
 module.exports = {
 	pupilLogin: async function(name,password) {
+    helpers.loadPage(Login.url, 20);
 		let usernameBox = await driver.$(Login.elem.usernameInput);
 		await usernameBox.setValue(name);
 		let passwordBox = await driver.$(Login.elem.passwordInput);
