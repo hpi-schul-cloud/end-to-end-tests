@@ -9,14 +9,14 @@ Given goes the course page
 
 @simpleCopyCourse
 Scenario Outline: teacher can copy an existing course
-Given the teacher creates a course with name <coursename> and 
+Given the teacher creates a course with name <coursename> and
 Given the amount of courses is x
 When the teacher selects the course <coursename> and clicks clone it
 Then the amount of courses is implemented
 
 Examples:
-| coursename | 
-| sample course to be cloned | 
+| coursename |
+| sample course to be cloned |
 
 
 @copyCourseWithText
@@ -47,37 +47,36 @@ Examples:
 #@copyCourseWithMaterial
 
 #Scenario Outline: teacher can copy course with certain Material
-#Given the teacher creates a course with name <coursename>, 
+#Given the teacher creates a course with name <coursename>,
 #Given the teacher chooses this course with <coursename> and
-#Given the teacher adds a topic with <topicname> 
+#Given the teacher adds a topic with <topicname>
 #When the teacher adds some Material  to the course
 #When the teacher clicks copy course <coursename> with Material
 #Then teacher sees the course <coursename> copy and the material <topicname> is still availiable
 #Examples:
-#| coursename             | topicname      | text                  | 
-#| sample course material | material topic | some sample text here | 
+#| coursename             | topicname      | text                  |
+#| sample course material | material topic | some sample text here |
 
 
 @copyCourseWithEtherpad
 
 Scenario Outline: teacher can copy course with certain Etherpad
-Given the teacher creates a course with name <coursename>, 
+Given the teacher creates a course with name <coursename>,
 Given the teacher chooses this course with <coursename> and
-Given the teacher adds a topic with <topicname> 
+Given the teacher adds a topic with <topicname>
 When the teacher adds some Etherpad with <etherpadName> and <etherpadDescription> to the course
 When the teacher clicks copy course <coursename> with Etherpad
 Then teacher sees the course <coursename> copy and the Etherpadd <topicname> is still availiable
 Examples:
-| coursename             | topicname      | etherpadName          | etherpadDescription          | 
-| sample course etherpad | etherpad topic | etherpad name         | etherpad description here    | 
+| coursename             | topicname      | etherpadName          | etherpadDescription          |
+| sample course etherpad | etherpad topic | etherpad name         | etherpad description here    |
 
 @copyCourseWithStudents
 Scenario Outline: teacher can copy course with students
-Given the teacher creates a course with name <courseName> and student <studentname> 
+Given the teacher creates a course with name <courseName> and student <studentname>
 When the teacher copies the course <courseName> with students
 Then the teacher should see the cloned course <courseName> but without students
 
 Examples:
-| courseName                  | studentname                 | 
-| sample course with students | Paula Meyer                 | 
-
+| courseName                  | studentname                 |
+| sample course with students | Paula Meyer                 |

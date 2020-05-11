@@ -177,7 +177,7 @@ module.exports = {
 	},
 	submitConsent: async function(e_mail) {
 		let names = await driver.$$(Admin.namesContainer + ' > tr');
-		length = names.length; 
+		length = names.length;
 		for (var i = 1; i<= length; i++) {
 				let pupil = await driver.$(Admin.namesContainer + ' > tr:nth-child('+i+')');
 				let emailPromise =  await driver.$(Admin.namesContainer + ' > tr:nth-child('+i+') > td:nth-child(3)');
@@ -196,7 +196,7 @@ module.exports = {
 	},
 	canTeamMemberSeeTheNews: async function() {
 		let email = emailTWO;
-		let name = email; 
+		let name = email;
 		let password = "Schulcloud1!";
 		await firstLogin.logout();
 		await firstLogin.pupilLogin(email, oldPassword2);
@@ -209,6 +209,3 @@ module.exports = {
 		await this.shouldNotBeVisible(newsName1)
 	},
 }
-
-
-

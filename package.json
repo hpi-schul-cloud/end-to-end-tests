@@ -1,71 +1,71 @@
 {
-  "name": "sc-integration-tests",
-  "version": "22.8.0",
-  "description": "A platform independent debuggable BDD Javascript testing framework. It's simple, easy to use and not dependant to any other tool or library, using Nodejs, webdriverio and cucumber-js",
-  "Author": {
-    "name": "Larry Goddard",
-    "email": "larryg@klassitech.co.uk",
-    "twitter": "twitter.com/lcgoddard",
-    "url": "linkedin.com/in/larryg"
-  },
-  "license": "Apache-2.0",
-  "keywords": [
-    "api",
-    "api testing",
-    "bdd",
-    "browserstack",
-    "cucumber",
-    "cucumber-js",
-    "javascript",
-    "framework",
-    "functional testing",
-    "tdd",
-    "testing",
-    "testing-framework",
-    "webdriver",
-    "webdriverio"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/schul-cloud/integration-tests"
-  },
-  "engines": {
-    "node": ">= 10.15.0",
-    "npm": ">= 6.4.1"
-  },
-  "main": "index.js",
-  "scripts": {
-    "test": "node index.js -d",
-    "test:dev": "node index.js -d -k",
-    "selenium": "npx selenium-standalone install && npx selenium-standalone start"
-  },
-  "homepage": "https://github.com/schul-cloud/integration-tests#readme",
-  "dependencies": {
-    "browserstack-local": "^1.3.7",
-    "chai": "^4.2.0",
-    "commander": "^3.0.1",
-    "concurrently": "^4.1.2",
-    "cucumber": "^5.1.0",
-    "cucumber-html-reporter": "^4.0.5",
-    "cucumber-pretty": "^1.5.0",
-    "fs-extra": "^7.0.1",
-    "merge": "^1.2.1",
-    "node-dir": "^0.1.17",
-    "node-resemble-js": "^0.2.0",
-    "nodemailer": "^5.1.1",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.4",
-    "require-dir": "^1.2.0",
-    "selenium-standalone": "^6.16.0",
-    "winston": "^3.2.1"
-  },
-  "devDependencies": {
-    "chromedriver": "^2.46.0",
-    "expect": "^1.20.2",
-    "glob": "^7.1.2",
-    "geckodriver": "^1.16.0",
-    "util-arity": "^1.1.0",
-    "reuse-cucumber-scenarios": "^1.1.7",
-    "webdriverio": "^5.7.5"
-  }
+	"name": "sc-integration-tests",
+	"version": "22.10.0",
+	"description": "A platform independent debuggable BDD Javascript testing framework. It's simple, easy to use and not dependant to any other tool or library, using Nodejs, webdriverio and cucumber-js",
+	"Author": {
+		"name": "Larry Goddard",
+		"email": "larryg@klassitech.co.uk",
+		"twitter": "twitter.com/lcgoddard",
+		"url": "linkedin.com/in/larryg"
+	},
+	"license": "Apache-2.0",
+	"keywords": [
+		"api",
+		"api testing",
+		"bdd",
+		"browserstack",
+		"cucumber",
+		"cucumber-js",
+		"javascript",
+		"framework",
+		"functional testing",
+		"tdd",
+		"testing",
+		"testing-framework",
+		"webdriver",
+		"webdriverio"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/schul-cloud/integration-tests"
+	},
+	"engines": {
+		"node": ">= 10.15.0",
+		"npm": ">= 6.4.1"
+	},
+	"main": "index.js",
+	"scripts": {
+		"test": "node index.js -d",
+		"test:dev": "node index.js -d -k",
+		"selenium": "npx selenium-standalone install && npx selenium-standalone start"
+	},
+	"homepage": "https://github.com/schul-cloud/integration-tests#readme",
+	"dependencies": {
+		"browserstack-local": "^1.3.7",
+		"chai": "^4.2.0",
+		"commander": "^3.0.1",
+		"concurrently": "^4.1.2",
+		"cucumber": "^5.1.0",
+		"cucumber-html-reporter": "^4.0.5",
+		"cucumber-pretty": "^1.5.0",
+		"fs-extra": "^7.0.1",
+		"merge": "^1.2.1",
+		"node-dir": "^0.1.17",
+		"node-resemble-js": "^0.2.0",
+		"nodemailer": "^5.1.1",
+		"request": "^2.88.0",
+		"request-promise": "^4.2.4",
+		"require-dir": "^1.2.0",
+		"selenium-standalone": "^6.16.0",
+		"winston": "^3.2.1"
+	},
+	"devDependencies": {
+		"chromedriver": "^2.46.0",
+		"expect": "^1.20.2",
+		"glob": "^7.1.2",
+		"geckodriver": "^1.16.0",
+		"util-arity": "^1.1.0",
+		"reuse-cucumber-scenarios": "^1.1.7",
+		"webdriverio": "^5.7.5"
+	}
 }
