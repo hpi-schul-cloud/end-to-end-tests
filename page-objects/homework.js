@@ -91,7 +91,7 @@ module.exports = {
 			await containerWithTasks.waitForExist(2000);
 			let numOfElems = await containerWithTasks.$$('li');
 			for (var i=1; i<=numOfElems.length-1; i++) {
-					let nameOfTheTaskSelector = await driver.$('.col-xl-12 > li:nth-child('+i+') > a:nth-child(3) > h2' );
+					let nameOfTheTaskSelector = await driver.$('.col-xl-12 > li:nth-child('+i+') > .content > h2' );
 					let nameOfTheTask = await nameOfTheTaskSelector.getText();
 					if(await nameOfTheTask.includes(taskname)) {
 						return i;
@@ -107,7 +107,7 @@ module.exports = {
 	chooseTaskAmongAllTasks: async function(taskname) {
 		let taskindex = await this.returnTaskIndex(taskname);
 		if(taskindex!=false) {
-			let task = await driver.$('.col-xl-12 > li:nth-child('+taskindex+') > a:nth-child(3)> h2');
+			let task = await driver.$('.col-xl-12 > li:nth-child('+taskindex+') > .content > h2');
 			await task.click();
 			await driver.pause(1500);
 			let selectorToBeLoaded = await driver.$('#page-title');
