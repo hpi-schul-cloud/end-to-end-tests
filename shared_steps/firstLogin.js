@@ -6,6 +6,8 @@ var secondCharacter;
 
 module.exports = {
 	pupilLogin: async function(name,password) {
+		let frontpageLoginBtn = await driver.$(Login.elem.frontpageLoginBtn);
+		await frontpageLoginBtn.click();
 		let usernameBox = await driver.$(Login.elem.usernameInput);
 		await usernameBox.setValue(name);
 		let passwordBox = await driver.$(Login.elem.passwordInput);
@@ -96,7 +98,7 @@ module.exports = {
 		let logOut = await driver.$('[data-testid="logout"]');
 		await logOut.waitForDisplayed(3000);
 		await logOut.click();
-		let usernameField = await driver.$('input[data-testid="username"]');
-		await usernameField.waitForDisplayed(3000);
+		let frontpageLoginBtn = await driver.$(Login.elem.frontpageLoginBtn);
+		await frontpageLoginBtn.waitForDisplayed(3000);
 	}
 };

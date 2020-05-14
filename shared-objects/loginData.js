@@ -12,6 +12,7 @@ module.exports = {
   notEligiblePupilPassword: 'Schulcloud1!',
 
   elem: {
+    frontpageLoginBtn: 'a[data-testid="login-btn"]',
     usernameInput: 'section#loginarea input[data-testid="username"]',
     passwordInput: 'section#loginarea input[data-testid="password"]',
     loginBtn: 'section#loginarea input[data-testid="submit-login"]',
