@@ -40,7 +40,7 @@ module.exports = {
 		let settingsBtn =  ".fa.fa-cog.i-cog";
 		await helpers.waitAndClick(settingsBtn);
 		let copyCourseBtn = await driver.$('div.dropdown.dropdown-course.minimal-button.open > div > a:nth-child(4)') ;
-		await copyCourseBtn.click();
+		await helpers.waitAndClick(copyCourseBtn);
 		await driver.pause(1500);
 		let submitBtn= "button.btn.btn-primary.btn-submit";
 		await helpers.waitAndClick(submitBtn);
