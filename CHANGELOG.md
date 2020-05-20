@@ -20,6 +20,3 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - added `npm ci` command to integration test ci setup to be able to execute new js seed script properly
 - This changelog has been added
 
-### Fixed in 23.0.0
-
-- fixed the @createSimpleHomework, added one more step when creating a new course
