@@ -34,6 +34,8 @@ module.exports = {
 	tryWithOld: async function() {
 		await driver.pause(2000);
 		await firstLogin.logout();
+		let frontpageLoginBtn = await driver.$(loginData.elem.frontpageLoginBtn);
+		await frontpageLoginBtn.click();
 		await teacherLogin.performLogin(loginData.defaultTeacherUsername, loginData.defaultTeacherpassword);
 		let messageField = await driver.$(loginData.elem.loginNotification);
 		let message = await messageField.getText();
