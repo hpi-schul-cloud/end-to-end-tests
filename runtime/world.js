@@ -177,7 +177,7 @@ function World() {
 		envConfig: global.envConfig, // expose the global environment configuration file for use when changing environment // types (i.e. dev, test, preprod)
 		downloader: global.downloader, // exposes the downloader for global usage
 		request: global.request, // exposes the request-promise for API testing
-		date: global.date, // expose the date method for logs and reports
+		date: global.date // expose the date method for logs and reports
 	};
 	/**
 	*  expose properties to step definition methods via global variables
@@ -294,7 +294,6 @@ AfterAll(function(done) {
 	let driver = global.driver;
 	if (global.paths.reports && fs.existsSync(global.paths.reports)) {
 		global.endDateTime = helpers.getEndDateTime();
-		let dateStringForFiles = helpers.getCurrentDateFormatted();
 		let reportOptions = {
 			theme: 'bootstrap',
 			jsonFile: path.resolve(

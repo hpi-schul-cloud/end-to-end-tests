@@ -37,13 +37,12 @@ module.exports = {
       '-' +
       ('0' + (MyDate.getMonth() + 1)).slice(-2) +
       '-' +
-      MyDate.getFullYear();
-    let dateStringForFiles = helpers.getCurrentDateFormatted();  
+      MyDate.getFullYear();  
     let infoJsonFile = path
-        .join('./logs/infoLog/' + global.reportName.replace(/ /g, '') + '-' + dateStringForFiles + '.json')
+        .join('./logs/infoLog/' + global.reportName.replace(/ /g, '') + '-' + global.dateStringForFiles + '.json')
         .replace(/ /gi, ''),
       errorJsonFile = path
-        .join('./logs/errorLog/' + global.reportName.replace(/ /g, '') + '-' + dateStringForFiles + '.json')
+        .join('./logs/errorLog/' + global.reportName.replace(/ /g, '') + '-' + global.dateStringForFiles + '.json')
         .replace(/ /gi, '');
     fs.ensureFile(infoJsonFile, function(err) {
       if (err) {
