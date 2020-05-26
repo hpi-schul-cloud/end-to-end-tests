@@ -298,11 +298,11 @@ AfterAll(function(done) {
 			theme: 'bootstrap',
 			jsonFile: path.resolve(
 				global.paths.reports,
-				global.settings.reportName + '-' + date + '.json'
+				global.settings.reportName.replace(/ /g, '') + '-' + global.dateStringForFiles + '.json'
 			),
 			output: path.resolve(
 				global.paths.reports,
-				global.settings.reportName + '-' + date + '.html'
+				global.settings.reportName.replace(/ /g, '') + '-' + global.dateStringForFiles + '.html'
 			),
 			reportSuiteAsScenarios: true,
 			launchReport: !global.settings.disableReport,
@@ -318,7 +318,7 @@ AfterAll(function(done) {
 						? 'Remote'
 						: 'Local'
 			},
-			brandTitle: reportName + '-' + date,
+			brandTitle: reportName + '-' + global.endDateTime,
 			name: projectName
 		};
 		driver.pause(DELAY_3_SECOND).then(function() {
