@@ -213,6 +213,7 @@ global.helpers = require('./runtime/helpers.js');
  *  adding global date function
  */
 global.date = helpers.currentDate();
+global.dateStringForFiles = helpers.getCurrentDateFormatted()
 
 /**
  * store EnvName globally (used within world.js when building driver)
@@ -235,9 +236,10 @@ process.argv.push(
 	'-f',
 	'json:' +
 		path.resolve(
+			
 			__dirname,
 			paths.reports,
-			settings.reportName + '-' + date + '.json'
+			settings.reportName.replace(/ /g, '') + '-' + global.dateStringForFiles + '.json'
 		)
 );
 
