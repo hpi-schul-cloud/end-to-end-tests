@@ -31,7 +31,7 @@ createNewPupil: async function(firstname, lastname, email) {
     await this.executeScript();
     let sendAMessageBox = await driver.$(Admin.sendALinkBox);
     await sendAMessageBox.click();
-    let addButton = await driver.$('body > div.modal.fade.add-modal.in > div > div > form > div.modal-footer > button.btn.btn-primary.btn-submit');
+    let addButton = await driver.$(Admin.submitCreateUserBtn);
     await addButton.click();
 },
 executeScript: async function() {

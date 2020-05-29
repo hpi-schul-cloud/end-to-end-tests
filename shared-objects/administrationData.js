@@ -14,5 +14,6 @@ module.exports = {
   sendALinkBox:'input[data-testid=\'create_student_input_send_link\']',
   namesContainer: 'tbody[data-testid=\'students_names_container\']',
   consentSubmitBtn: 'button[data-testid=\'submit_consent\']',
-  birthday_field: 'input[data-testid=\'create_birthday\']'
+  birthday_field: 'input[data-testid=\'create_birthday\']',
+  submitCreateUserBtn: 'body > div.modal.fade.add-modal.in > div > div > form > div.modal-footer > button.btn.btn-primary.btn-submit'
 }
