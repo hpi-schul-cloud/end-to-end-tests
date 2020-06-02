@@ -90,7 +90,7 @@ module.exports = {
 	},
 
 	submitAddTeammemberAfterAllMemebersWereAdded: async function() {
-		let containerBtn = await driver.$('.modal.fade.add-member-modal.in');
+		let containerBtn = await driver.$('.modal.fade.add-member-modal.show');
 		let submitBtn = await containerBtn.$('button[type="submit"]');
 		await submitBtn.click();
 	},
