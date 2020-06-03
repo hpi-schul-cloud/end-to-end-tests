@@ -45,12 +45,18 @@ module.exports = {
 		let toNextSectionBtn = "#nextSection";
 		await  helpers.waitAndClick(toNextSectionBtn)
 	},
+
+	goToCourseOverview: async function() {
+		let toCourseOverview = await driver.$('a.btn.btn-primary');
+		await toCourseOverview.click();
+	},
 	createCourse: async function(coursename) {
 		await this.goToAddCourses();
 		await this.setCourseName(coursename);
 		await this.setColour();
 		await this.goToNextSectionCreateCourse();
 		await this.goToNextSectionCreateCourse();
+		await this.goToCourseOverview();
 	},
 	getCourseNames: async function() {
 		await this.goToCourses();
