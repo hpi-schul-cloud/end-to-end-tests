@@ -31,7 +31,7 @@ module.exports = {
 		let courseHasIndex = await this.chooseCourseHelper(coursename);
 		let sectionActiveCoursesSelector = await driver.$('div[data-section="js-active"]');
 		let container = await sectionActiveCoursesSelector.$('div[data-testid="courses"]');
-		let course = await container.$('div:nth-child('+courseHasIndex+')');
+		let course = await container.$('div:nth-child('+courseHasIndex+') a');
 		await course.click();
 		await driver.pause(1500);
 
@@ -39,7 +39,7 @@ module.exports = {
 	cloneCourse: async function() {
 		let settingsBtn =  ".fa.fa-cog.i-cog";
 		await helpers.waitAndClick(settingsBtn);
-		let copyCourseBtn = "div.dropdown.dropdown-course.minimal-button > div.show > a:nth-child(4)";
+		let copyCourseBtn = "div.dropdown.dropdown-course.minimal-button > div.dropdown-menu.dropdown-menu-course > a:nth-child(4)";
 		await helpers.waitAndClick(copyCourseBtn);
 		await driver.pause(1500);
 		let submitBtn= "button.btn.btn-primary.btn-submit";
