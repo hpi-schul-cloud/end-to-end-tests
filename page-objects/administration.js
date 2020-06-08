@@ -31,7 +31,7 @@ createNewPupil: async function(firstname, lastname, email) {
     await this.executeScript();
     let sendAMessageBox = await driver.$(Admin.sendALinkBox);
     await sendAMessageBox.click();
-    let addButton = await driver.$('body > div.modal.fade.add-modal.show > div > div > form > div.modal-footer > button.btn.btn-primary.btn-submit');
+    let addButton = await driver.$('body > div.modal.fade.add-modal.in > div > div > form > div.modal-footer > button.btn.btn-primary.btn-submit');
     await addButton.click();
 },
 executeScript: async function() {
@@ -51,7 +51,7 @@ verify: async function(email) {
 },
 submitConsent: async function(e_mail) {
     let names = await driver.$$(Admin.namesContainer + ' > tr');
-    length = names.length; 
+    length = names.length;
     for (var i = 1; i<= length; i++) {
         let emailPromise =  await driver.$(Admin.namesContainer + ' > tr:nth-child('+i+') > td:nth-child(3)');
         let email = await emailPromise.getText();

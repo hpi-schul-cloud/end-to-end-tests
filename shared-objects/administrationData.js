@@ -3,7 +3,7 @@ const { CLIENT } = require("./servers");
 module.exports = {
   urlAdministration: `${CLIENT.URL}/administration`,
   submitBtn: 'button[type=\'submit\']',
-  administrateStudentsBtn: 'div[data-testid=\'administrate_students\']',
+  administrateStudentsBtn: 'a[href="/administration/students/"]',
   administrateTeachersBtn: 'div[data-testid=\'administrate_teachers\']',
   administrateClassesBtn:'div[data-testid=\'administrate_classes\']',
   addStudentBtn:'button[data-testid=\'btn_add_student\']',
