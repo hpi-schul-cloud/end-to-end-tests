@@ -9,8 +9,9 @@ const Login = require('../shared-objects/loginData');
 Given(/^The teacher arrives on the Schul-Cloud page$/, function() {
 	return helpers.loadPage(shared.loginData.url, 10);
 });
-Given(/^the teacher is logged in successfully$/, function() {
-	return teacherLogin.performLogin(Login.defaultTeacherUsername, Login.defaultTeacherpassword);});
+Given(/^the teacher with email (.*) and (.*) is logged in successfully$/, function(email, password) {
+	return teacherLogin.performLogin(email, password);
+});
 When(/^the teacher goes to courses page$/, function() {
 return createCourse.goToCourses()
 });
@@ -45,7 +46,7 @@ When(/^the teacher does not submit any course name and clicks weiter-button$/, a
 
 });
 Then(/^the teacher cannot go to section 2$/, async function() {
-	return createCourse.canProceedToStage(2);
+	await expect(await createCourse.canProceedToStage(2)).to.equal(false);
 
 });
 
