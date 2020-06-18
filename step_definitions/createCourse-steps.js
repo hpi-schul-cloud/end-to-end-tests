@@ -45,7 +45,7 @@ When(/^the teacher does not submit any course name and clicks weiter-button$/, a
 
 });
 Then(/^the teacher cannot go to section 2$/, async function() {
-	return createCourse.cannotProceedToStage(2);
+	return createCourse.canProceedToStage(2);
 
 });
 

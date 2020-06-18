@@ -93,14 +93,21 @@ module.exports = {
 		await btn.click();
 		await driver.pause(1000);
 	},
-	cannotProceedToStage: async function(stageNum) {
+	canProceedToStage: async function(stageNum) {
 		switch (stageNum) {
 			case 2: let selector = await driver.$(courseData.elem.stage1Selector);
-			let child = await selector.getElementAttribute();
-			let hatgeklappt = child.length;
-
-			case 3: let selector2 = await driver.$(courseData.elem.stage2Selector);
-			await expect((await selector2.$$('> ').length)).to.equal(0);}
-
-	},
+			let children = await selector.$$(".//*");
+			if (children.length>0) {
+				return true;
+			} else {
+			return false};
+			case 2: let selector2 = await driver.$(courseData.elem.stage2Selector);
+			let children2 = await selector2.$$(".//*");
+			if (children2.length>0) {
+				return true;
+			} else {
+				return false};
+			
+		};
 	}
+}
