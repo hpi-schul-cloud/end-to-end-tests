@@ -80,5 +80,27 @@ module.exports = {
 		const helper = chosenSearchableSelectHelper(driver, courseData.elem.selectorWithMultipleChoiceStudents);
 		await helper.selectOptionByName(name);
 		await this.goToNextSectionCreateCourse();
-	}
+	},
+	areSelectorsOnThePage: async function() {
+	let isImportCourseBtnOnThePage = await helpers.isSelectorOnThePage(courseData.elem.importCourseBtn);
+	await expect(isImportCourseBtnOnThePage).to.equal(1);
+	let isCreatedCourseBtnOnThePage = await helpers.isSelectorOnThePage(courseData.elem.createCourseBtn);
+	await expect(isCreatedCourseBtnOnThePage).to.equal(1);
+
+	},
+	clickCreateCourseBtn: async function()  {
+		let btn = await driver.$(courseData.elem.createCourseBtn);
+		await btn.click();
+		await driver.pause(1000);
+	},
+	cannotProceedToStage: async function(stageNum) {
+		switch (stageNum) {
+			case 2: let selector = await driver.$(courseData.elem.stage1Selector);
+			let child = await selector.getElementAttribute();
+			let hatgeklappt = child.length;
+
+			case 3: let selector2 = await driver.$(courseData.elem.stage2Selector);
+			await expect((await selector2.$$('> ').length)).to.equal(0);}
+
+	},
 	}

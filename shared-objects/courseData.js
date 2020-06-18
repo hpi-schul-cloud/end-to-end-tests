@@ -41,6 +41,11 @@ module.exports = {
 		checkbox: '[data-testid="private-checkbox"]',
 		teamworkActivate: '#teamSubmissions',
 		uploadBtn: '//*[@id="main-content"]/div/section[1]/div/div/div[1]/input',
+		importCourseBtn: '[data-testid="import-course-btn"]',
+		createCourseBtn: '[data-testid="create-course-btn"]',
+		stage1Selector: '[data-testid="section-1"]',
+		stage2Selector: '[data-testid="section-2"]',
+		stage2Selector: '[data-testid="section-3"]',
 
 
 }

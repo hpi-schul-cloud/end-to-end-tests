@@ -11,21 +11,41 @@ Given(/^The teacher arrives on the Schul-Cloud page$/, function() {
 });
 Given(/^the teacher is logged in successfully$/, function() {
 	return teacherLogin.performLogin(Login.defaultTeacherUsername, Login.defaultTeacherpassword);});
-When(/^the teacher goes to add-courses page$/, function() {
-return createCourse.goToAddCourses()
+When(/^the teacher goes to courses page$/, function() {
+return createCourse.goToCourses()
 });
+Then(/^the teacher should see 2 buttons: import-course and create-course$/, function() {
+	return createCourse.areSelectorsOnThePage();
+});
+
+When(/^teacher clicks create-a-course button$/, function() {
+	return createCourse.clickCreateCourseBtn();
+});
+
 When(/^the teacher enters a (.*)$/, function(coursename) {
 	return createCourse.setCourseName(coursename);
 });
-Then(/^the teacher chooses a color of the course$/, function() {
+When(/^the teacher chooses a color of the course$/, function() {
 	return createCourse.setColour();
 });
-Then(/^the teacher clicks the create button$/, function() {
+When(/^the teacher clicks the create button$/, function() {
 	return createCourse.goToNextSectionCreateCourse();
 });
-Then(/^the teacher clicks to preview$/, function() {
+When(/^the teacher clicks to preview$/, function() {
 return createCourse.goToNextSectionCreateCourse();
 });
 Then(/^the teacher sees the created course (.*)$/, async function(courseName) {
 	return createCourse.verify(courseName);
 });
+Then(/^the teacher sees the created course$/, async function(courseName) {
+	return createCourse.verify(courseName);
+});
+When(/^the teacher does not submit any course name and clicks weiter-button$/, async function() {
+	return createCourse.goToNextSectionCreateCourse();
+
+});
+Then(/^the teacher cannot go to section 2$/, async function() {
+	return createCourse.cannotProceedToStage(2);
+
+});
+
