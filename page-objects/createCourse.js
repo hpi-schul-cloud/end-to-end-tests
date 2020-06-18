@@ -1,6 +1,7 @@
 'use strict';
 const courseData = require('../shared-objects/courseData');
 const helpers = require('../runtime/helpers.js')
+const Axios = require('axios')
 
 
 const chosenSearchableSelectHelper = (driver, selectSelector) => ({
@@ -109,5 +110,46 @@ module.exports = {
 				return false};
 			
 		};
+	},
+	getUserName: async function() {
+		const cookie = await driver.getCookies(['jwt']);
+		const jwt = cookie[0].value;
+		const info = await Axios.request({
+		  url:  `${"http://localhost:3030"}/me`,
+		  method: 'get',
+		  headers: {
+			Authorization: `${jwt}`
+		  }
+		});
+		const firstName = info.data.firstName;
+		const lastName = info.data.lastName; 
+		return firstName+" "+lastName;
+	
+
+	},
+	theTeachersNameisSetAutomatically: async function() {
+		let teacherName = await this.getUserName();
+		let placeHolderSelector = await driver.$(courseData.elem.teacherNamesInCreateCourse);
+		let displayedNameSelector= await placeHolderSelector.$('.search-choice');
+		let displayedName = await displayedNameSelector.getText();
+		await expect(displayedName).to.equal(teacherName);
+	},
+	// could be extended with verifying the date is correct
+	timeSpanIsSet: async function() {
+		let startValueSelector = await driver.$(courseData.elem.timeSpan.start);
+		let startValue = await startValueSelector.getValue();
+		await expect (startValue.length).not.to.equal(0);
+		let endsValueSelector = await driver.$(courseData.elem.timeSpan.end);
+		let endsValue = await endsValueSelector.getValue();
+		await expect(endsValue.length).not.to.equal(0);
+		
+	},
+	supplyTeacherIsNotSet: async function() {
+		let placeHolderSelector = await driver.$(courseData.elem.representativeContainer);
+		let displayedNameSelector= await placeHolderSelector.$('.chosen-search-input.default');
+		let displayedName = await displayedNameSelector.getValue();
+		await expect(displayedName).to.equal("Lehrer:in auswählen");
+		
 	}
+
 }

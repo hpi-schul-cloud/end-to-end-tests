@@ -49,4 +49,15 @@ Then(/^the teacher cannot go to section 2$/, async function() {
 	await expect(await createCourse.canProceedToStage(2)).to.equal(false);
 
 });
+Then(/^the name of the teacher who is creating is already filled in the teacher's field$/, async function() {
+	await createCourse.theTeachersNameisSetAutomatically();
 
+});
+Then(/^time span is  already set$/, async function() {
+	await createCourse.timeSpanIsSet();
+
+});
+Then(/^supply teacher is not set$/, async function() {
+	await createCourse.supplyTeacherIsNotSet();
+
+});

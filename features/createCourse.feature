@@ -30,6 +30,8 @@ Scenario Outline: submit compulsory fields by creating the course
 	When the teacher does not submit any course name and clicks weiter-button
 	Then the teacher cannot go to section 2 
 	Then the name of the teacher who is creating is already filled in the teacher's field
+	Then time span is  already set
+	Then supply teacher is not set
 
 
 Examples:

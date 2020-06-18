@@ -7,6 +7,7 @@ module.exports = {
 	urlLogout: `${CLIENT.URL}/logout`,
 	urlLernStore: `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`,
 	urlHomework: `${CLIENT.URL}/homework`,
+	apiRequestUrl: `${CLIENT.URL}/me`,
 	elem: {
 		addBtn: 'section#section-courses a[data-testid=\'courseAddButton\']',
 		courseContainer:
@@ -15,8 +16,8 @@ module.exports = {
 		colorCourse: 'label[style=\'background: #FFEE58\']',
 		teacherCourse: 'select[data-testid=\'teachersearch\']',
 		findTeacher: 'option[data-testid=\'teacher\']',
-		representativeCourse:
-			'select[data-testid\'substituent\']',
+		representativeCourse: '[data-testid=\'substituent\']',
+		representativeContainer: '[data-testid=\'courseSubstitute_container\']',
 		appointmentCourse:
 			'input[data-testid=\'date_start\']',
 		cloneBtn: 'input[data-testid=\'date_start\']',
@@ -46,6 +47,13 @@ module.exports = {
 		stage1Selector: '[data-testid="section-1"]',
 		stage2Selector: '[data-testid="section-2"]',
 		stage2Selector: '[data-testid="section-3"]',
+		teacherNamesInCreateCourse: '[data-testid="teachers_container"]',
+		timeSpan: {
+			start: '[data-testid="date_start"]',
+			end: '#untilDate',
+		},
+
+
 
 
 }
