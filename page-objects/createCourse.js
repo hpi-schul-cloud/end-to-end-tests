@@ -38,9 +38,54 @@ module.exports = {
 		let nameSelector = await driver.$('[data-testid="coursename"]');
 		await nameSelector.setValue(coursename)
 	},
-	setColour: async function() {
-		let inputColor = await driver.$(courseData.elem.colorCourse);
-		await inputColor.click();
+	setColour: async function(name) {
+		switch (name) {
+			case "grey":
+			let grey = await driver.$(courseData.elem.courseColours.grey);
+			await grey.click();
+			break;
+
+			case "metallicGold": 
+			let metallicGold = await driver.$(courseData.elem.courseColours.metallicGold);
+			await metallicGold.click();
+			break;
+
+			case "blue": 
+			let metallicGold = await driver.$(courseData.elem.courseColours.blue);
+			await metallicGold.click();
+			break; 
+
+			case "green":
+			let green = await driver.$(courseData.elem.courseColours.green);
+			await green.click();
+			break;  
+
+			case "darkGrey": 
+			let darkGrey = await driver.$(courseData.elem.courseColours.darkGrey);
+			await darkGrey.click();
+			break;  
+
+			case "goldenPoppy": 
+			let goldenPoppy = await driver.$(courseData.elem.courseColours.goldenPoppy);
+			await goldenPoppy.click();
+			break;  
+
+			case "martini":  
+			let martini = await driver.$(courseData.elem.courseColours.martini);
+			await martini.click();
+			break;  
+
+			case "violetRed":
+			let violetRed = await driver.$(courseData.elem.courseColours.violetRed);
+			await violetRed.click();
+			break;  
+
+			case "corn":  
+			let corn = await driver.$(courseData.elem.courseColours.corn);
+			await corn.click();
+			break;         
+		}
+		
 	},
 	goToNextSectionCreateCourse: async function() {
 		let toNextSectionBtn = "#nextSection";
@@ -202,6 +247,9 @@ module.exports = {
 		let previewBtn = await driver.$(courseData.elem.section_three_btns.zur_uebersicht_btn);
 		await previewBtn.click();
 		await driver.pause(1000);
+	},
+	verifyColour: async function() {
+		
 	}
 	
 

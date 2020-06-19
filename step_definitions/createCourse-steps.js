@@ -26,8 +26,8 @@ When(/^teacher clicks create-a-course button$/, function() {
 When(/^the teacher enters a (.*)$/, function(coursename) {
 	return createCourse.setCourseName(coursename);
 });
-When(/^the teacher chooses a color of the course$/, function() {
-	return createCourse.setColour();
+When(/^the teacher chooses a color (.*) of the course$/, function(colour) {
+	return createCourse.setColour(colour);
 });
 When(/^the teacher clicks the create button$/, function() {
 	return createCourse.goToNextSectionCreateCourse();
@@ -87,5 +87,11 @@ Then(/^the third screen is shown$/, async function() {
 });
 Then(/^the teacher clicks zur-uebersicht-btn$/, async function() {
 	await createCourse.goToCoursePreview();
+});
+Then(/^the name (.*) is displayed correctly$/, async function(courseName) {
+	await createCourse.courseNameDisplayedCorrectly(courseName);
+});
+Then(/^the color of the course is the color (.*) that was selected during the creation process$/, async function(colour) {
+	await createCourse.verifyColour(colour);
 });
 

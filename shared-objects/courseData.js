@@ -52,6 +52,18 @@ module.exports = {
 			start: '[data-testid="date_start"]',
 			end: '#untilDate',
 		},
+		courseColours: {
+			grey:         '[#input#ACACAC]', 
+			metallicGold: '[#input#ACACAC]',
+			blue:         '[#input#00E5FF]', 
+			green:        '[#input#1DE9B6]', 
+			darkGrey:     '[#input#546E7A]', 
+			goldenPoppy:  '[#input#FFC400]', 
+			martini:      '[#input#BCAAA4]', 
+			violetRed:    '[#input#FF4081]', 
+			corn:         '[#input#FFEE58]',  
+
+		},
 		sections: {
 			sectionOne: '[data-testid="section-1-area" ]',
 			sectionTwo: '[data-testid="section-2-area" ]',
@@ -62,6 +74,11 @@ module.exports = {
 		section_three_btns: {
 			einen_weiteren_kurs_anlegen_btn: '[data-testid="einen-weiteren-kurs-anlegen-btn"]',
 			zur_uebersicht_btn:  '[data-testid="zur-uebersicht-btn"]',
+		},
+		coursesPage: {
+			container_of_element: '[data-testid="class_container"]', // in this case testid of a single course
+			header_of_element: '[data-testid="header-of-element"]', //  eg background colour
+			title: '[data-testid="title_of_an_element"]'
 		}
 
 
