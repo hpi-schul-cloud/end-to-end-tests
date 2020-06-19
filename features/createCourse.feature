@@ -32,6 +32,18 @@ Scenario Outline: submit compulsory fields by creating the course
 	Then the name of the teacher who is creating is already filled in the teacher's field
 	Then time span is  already set
 	Then supply teacher is not set
+	When the teacher enters a <courseName>
+	When the teacher clicks the create button
+	Then the second screen is shown
+	Then no class is set
+	Then no students are set
+	When teacher clicks 'Kurs anlegen und Weiter'
+	Then the third screen is shown
+	Then btns "Einen weiteren Kurs anlegen" and "Zur Kursübersicht" are visible
+	When the teacher clicks zur-uebersicht-btn
+	Then the teacher sees the created course <courseName>
+	
+	
 
 
 Examples:

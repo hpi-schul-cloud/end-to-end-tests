@@ -150,6 +150,59 @@ module.exports = {
 		let displayedName = await displayedNameSelector.getValue();
 		await expect(displayedName).to.equal("Lehrer:in auswählen");
 		
+	},
+	nextScreenIsShown: async function(num) {
+		switch (num) {
+			case 1:
+			let sectionSelector1 = await driver.$(courseData.elem.sections.sectionOne);
+			let isShown1 = await sectionSelector1.isDisplayed();
+			await expect(isShown1).to.equal(true);
+			break;
+			case 2:
+			let sectionSelector2 = await driver.$(courseData.elem.sections.sectionTwo);
+			let isShown2 = await sectionSelector2.isDisplayed();
+			await expect(isShown2).to.equal(true);
+			break;
+			case 3:
+			let sectionSelector3 = await driver.$(courseData.elem.sections.sectionThree);
+			let isShown3 = await sectionSelector3.isDisplayed();
+			await expect(isShown3).to.equal(true);
+			break;
+		}
+
+	
+	}, 
+	noStudentsAreSet: async function() {
+		let studentsContainer = await driver.$(courseData.elem.studentsContainer);
+		let displayedStudentsSelector= await studentsContainer.$('.chosen-search-input.default');
+		let contentOfPlaceholder = await displayedStudentsSelector.getValue();
+		await expect(contentOfPlaceholder).to.equal("Schüler:innen auswählen");
+
+
+	},
+	noClassIsSet: async function() {
+		let classContainer = await driver.$(courseData.elem.classContainer);
+		let displayedClassesSelector= await classContainer.$('.chosen-search-input.default');
+		let contentOfPlaceholder = await displayedClassesSelector.getValue();
+		await expect(contentOfPlaceholder).to.equal("Klasse(n) auswählen");
+
+	},
+	btnsAreVisible: async function() {
+		let elem1 = await driver.$$(courseData.elem.section_three_btns.einen_weiteren_kurs_anlegen_btn);
+		await expect(elem1.length).not.to.equal(0);
+		let elem2 = await driver.$$(courseData.elem.section_three_btns.zur_uebersicht_btn);
+		await expect(elem2.length).not.to.equal(0);
+	},
+	clickCreateCourseAndNextBtn: async function() {
+		let btn = await driver.$('#nextSection');
+		await btn.click();
+		await driver.pause(1500);
+	},
+	goToCoursePreview: async function() {
+		let previewBtn = await driver.$(courseData.elem.section_three_btns.zur_uebersicht_btn);
+		await previewBtn.click();
+		await driver.pause(1000);
 	}
+	
 
 }

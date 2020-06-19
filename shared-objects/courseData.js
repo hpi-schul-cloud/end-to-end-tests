@@ -52,6 +52,17 @@ module.exports = {
 			start: '[data-testid="date_start"]',
 			end: '#untilDate',
 		},
+		sections: {
+			sectionOne: '[data-testid="section-1-area" ]',
+			sectionTwo: '[data-testid="section-2-area" ]',
+			sectionThree: '[data-testid="section-3-area" ]',
+		},
+		classContainer: '[data-testid="class_container"]',
+		studentsContainer: '[data-testid="students_container"]',
+		section_three_btns: {
+			einen_weiteren_kurs_anlegen_btn: '[data-testid="einen-weiteren-kurs-anlegen-btn"]',
+			zur_uebersicht_btn:  '[data-testid="zur-uebersicht-btn"]',
+		}
 
 
 

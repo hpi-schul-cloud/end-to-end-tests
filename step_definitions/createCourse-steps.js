@@ -61,3 +61,31 @@ Then(/^supply teacher is not set$/, async function() {
 	await createCourse.supplyTeacherIsNotSet();
 
 });
+
+Then(/^the second screen is shown$/, async function() {
+	await createCourse.nextScreenIsShown(2);
+
+});
+Then(/^no class is set$/, async function() {
+	await createCourse.noClassIsSet();
+
+});
+Then(/^no students are set$/, async function() {
+	await createCourse.noStudentsAreSet();
+
+});
+When(/^teacher clicks 'Kurs anlegen und Weiter'$/, async function() {
+	await createCourse.clickCreateCourseAndNextBtn();
+});
+
+Then(/^btns "Einen weiteren Kurs anlegen" and "Zur Kursübersicht" are visible$/, async function() {
+	await createCourse.btnsAreVisible();
+});
+Then(/^the third screen is shown$/, async function() {
+	await createCourse.nextScreenIsShown(3);
+
+});
+Then(/^the teacher clicks zur-uebersicht-btn$/, async function() {
+	await createCourse.goToCoursePreview();
+});
+
