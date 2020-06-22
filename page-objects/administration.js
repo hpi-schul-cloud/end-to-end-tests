@@ -1,7 +1,9 @@
 'use strict';
 const firstLogin = require('../shared_steps/firstLogin.js');
-const { expect } = require('chai');
+const { expect, assert } = require('chai');
 const Admin = require('../shared-objects/administrationData');
+const helpers = require('../runtime/helpers.js');
+
 var length;
 let oldPassword;
 let eMAIL;
@@ -66,6 +68,19 @@ submitConsent: async function(e_mail) {
             break;
         }
     }
+},
+checkIfElementIsVsisble: async function (itemToCompare) {
+    let isVsisble = false;
+    let items = await driver.$$('ul.subitems span');
+    for(let i = 0; i < items.length; i++){
+        let actualLabelText = await items[i].getText();
+        await items[i].waitForEnabled(DELAY_100_MILLISECOND);
+        if(itemToCompare === actualLabelText){
+            isVsisble = true;
+            break;
+        }
+    }
+    assert.isTrue(isVsisble);
 },
 newPupilLogsIn: async function() {
     await firstLogin.logout();
