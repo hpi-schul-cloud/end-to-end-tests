@@ -69,18 +69,14 @@ submitConsent: async function(e_mail) {
         }
     }
 },
-checkIfElementIsVsisble: async function (itemToCompare) {
-    let isVsisble = false;
-    let items = await driver.$$('ul.subitems span');
+checkIfElementIsVisisble: async function (itemToCompare) {
+    let items = await driver.$$(Admin.adminidtrationsTabs);
+    var expectations = itemToCompare.hashes();
     for(let i = 0; i < items.length; i++){
         let actualLabelText = await items[i].getText();
         await items[i].waitForEnabled(DELAY_100_MILLISECOND);
-        if(itemToCompare === actualLabelText){
-            isVsisble = true;
-            break;
-        }
+        assert.equal(actualLabelText, expectations[i].tabs);
     }
-    assert.isTrue(isVsisble);
 },
 newPupilLogsIn: async function() {
     await firstLogin.logout();
