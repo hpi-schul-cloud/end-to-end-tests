@@ -22,6 +22,7 @@ module.exports = {
 	},
 
 	putTaskBody: async function(taskBody) {
+		await driver.pause(2000);
 		await driver.switchToFrame(0);
 		const body = await driver.$("body");
 		await body.setValue(taskBody);
