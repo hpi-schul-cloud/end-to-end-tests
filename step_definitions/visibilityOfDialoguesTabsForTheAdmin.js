@@ -2,6 +2,7 @@
 
 let adminLogin = require('../page-objects/adminLogin');
 let loginData = require('../shared-objects/loginData');
+const Admin = require('../shared-objects/administrationData');
 let shared = { loginData };
 let page = { adminLogin };
 let administration = require('../page-objects/administration');
@@ -26,5 +27,5 @@ const firstLogin = require('../shared_steps/firstLogin.js');
   });
 
   Then(/^Verify if all required tabs are visible in Administration area$/, function (administrationTextLabels) {
-    return administration.checkIfElementIsVisisble(administrationTextLabels);
+    return administration.checkIfElementIsVisisble(administrationTextLabels, Admin.adminidtrationsTabs);
     });

@@ -1,6 +1,6 @@
 'use strict';
 const firstLogin = require('../shared_steps/firstLogin.js');
-const { expect, assert } = require('chai');
+const { expect } = require('chai');
 const Admin = require('../shared-objects/administrationData');
 const helpers = require('../runtime/helpers.js');
 
@@ -69,13 +69,13 @@ submitConsent: async function(e_mail) {
         }
     }
 },
-checkIfElementIsVisisble: async function (itemToCompare) {
-    let items = await driver.$$(Admin.adminidtrationsTabs);
-    var expectations = itemToCompare.hashes();
+checkIfElementIsVisisble: async function (itemsToCompare, selector) {
+    let items = await driver.$$(selector);
+    let expectations = itemsToCompare.hashes();
     for(let i = 0; i < items.length; i++){
         let actualLabelText = await items[i].getText();
         await items[i].waitForEnabled(DELAY_100_MILLISECOND);
-        assert.equal(actualLabelText, expectations[i].tabs);
+        expect(actualLabelText).to.equal(expectations[i].tabs);
     }
 },
 newPupilLogsIn: async function() {

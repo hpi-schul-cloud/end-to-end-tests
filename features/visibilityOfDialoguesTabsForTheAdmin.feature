@@ -11,10 +11,10 @@ Scenario:
     Then The admin is supposed to accept the data protection agreement
     When The admin goes to the Administration page
     Then Verify if all required tabs are visible in Administration area
-                | tabs   |
-                |SCHÜLER | 
-                | LEHRER | 
-                | KURSE  |
-                |KLASSEN |
-                | TEAMS  |
-                | SCHULE |
+    | tabs   |
+    |SCHÜLER | 
+    | LEHRER | 
+    | KURSE  |
+    |KLASSEN |
+    | TEAMS  |
+    | SCHULE |
