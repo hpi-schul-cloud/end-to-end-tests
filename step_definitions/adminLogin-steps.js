@@ -17,15 +17,37 @@ When(/^an admin puts in (.*) and (.*) and click the login-button$/, function(
 	return page.adminLogin.performLogin(username, password);
 });
 
-Then(
+And(
 	/^the user is supposed to accept the data protection agreement$/,
 	function() {
-		return firstLogin.firstLoginTeacher();
+		return firstLogin.firstLoginAdmin();
 	}
 );
+
+Then(
+	/^the dashboard is shown$/,
+	function() {
+		return adminLogin.loginResultDashboard();
+	}
+);
+
 Then(
 	/^the admin-dashboard should have the admin initials$/,
 	function() {
-		return adminLogin.loginResult();
+		return adminLogin.loginInitials();
+	}
+);
+
+Then(
+	/^the admin-dashboard should have the correct school$/,
+	function() {
+		return adminLogin.loginSchool();
+	}
+);
+
+Then(
+	/^the admin-dashboard should have the admin name and profession$/,
+	function() {
+		return adminLogin.loginFullInfo();
 	}
 );

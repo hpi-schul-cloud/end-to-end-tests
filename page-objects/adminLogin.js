@@ -22,10 +22,33 @@ module.exports = {
 		await loginBtnSel.click();
 	},
 
-	loginResult: async function() {
+	goToDashboard: async function() {
+		await helpers.loadPage(loginData.urlDashboard, 20);
+		await driver.pause(1000);
+	},
+
+	loginResultDashboard: async function() {
+		await this.goToDashboard();
+		let title = 'Übersicht';
+		expect(await helpers.getElementText('.col-sm-9')).to.equal(title);
+	},
+	
+	loginInitials: async function() {
 		let initials = await firstLogin.getInitials();
 		expect(await helpers.getElementText('.avatar-circle')).to.equal(initials);
 	},
+
+	loginSchool: async function() {
+		await this.goToDashboard();
+		let schoolName = 'Paul-Gerhardt-Gymnasium';
+		expect(await helpers.getElementText('.nav-item.school-data.hidden-sm-down')).to.equal(schoolName);
+	},
+	
+	loginFullInfo: async function() {
+		let fullInfo = 'Thorsten Test (Administrator)'; await firstLogin.getFullInfo();
+		expect(await helpers.getElementText('.btn.btn-secondary.btn-thin.dropdown-toggle')).to.equal(fullInfo);
+	},
+	
 	compareScreenshots: async function(filename) {
 		await imageCompare.saveScreenshot(`${filename}.png`, '.timetable');
 
