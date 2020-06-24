@@ -21,53 +21,37 @@ module.exports = {
         const administrateClassesBtn = await driver.$(Admin.administrateClassesBtn);
         await administrateClassesBtn.click();
 
-        const pageTitle = document.querySelectorAll("title")
-        // page title is 'Administration: Klassen'
-        console.log(pageTitle, 'pageTitle')
+        const pageTitle = await driver.getTitle()
+        expect(pageTitle.startsWith('Administration: Klassen')).to.equal(true)
 
-
-
-        // clicks Klasse hinzufügen
         const createClassBtn = await driver.$(Admin.classCreateBtn);
-        // Button 'Klasse hinzufügen' is visible and clickable
-        console.log(createClassBtn, 'create')
         await createClassBtn.click();
 
-        const pageTitle2 = document.querySelectorAll("title")
-        // page title is 'Erstelle eine neue Klasse'
-        console.log(pageTitle2, 'pagetitle2')
+        const pageTitle2 = await driver.getTitle()
+        expect(pageTitle2.startsWith('Erstelle eine neue Klasse')).to.equal(true)
 
-        // clicks extra options
         const classCreationExtraOptions = await driver.$(Admin.classCreationExtraOptions)
-        // without entering anything on this page button 'Klasse hinzufügen' is visible but not clickable
-        console.log(classCreationExtraOptions, 'classCreationExtraOptions')
         await classCreationExtraOptions.click()
-        await driver.pause(3000);
 
-        // sets class name 
         const classNameInputField = await driver.$(Admin.classNameInputField)
         await classNameInputField.setValue(className);
-        // after entering a 'Klassenbezeichnung' (grade and extension e.g. "11c") button 'Klasse hinzufügen' is visible and clickable
-        console.log(classCreationExtraOptions, 'classCreationExtraOptions')
 
-        await driver.pause(3000);
-        // clicks confirmbutton
         const confirmButton = await driver.$(Admin.confirmClassCreate)
         await confirmButton.click()
-        await driver.pause(5000);
+
     },
-    verifyNewEmptyClassCreated: async function () {
-        // In the column "Klasse" the selected grade and name of the new class are displayed (e.g. "11c")
-        // no teachers are displayed in the column "Lehrer"
-        // The selected schoolyear is displayed in the column "Schuljahr"
-        // The number of students in the column "Schüler" is 0
-        // Four buttons are displayed for the new class in the rightmost column
-        /*         Klasse verwalten
-        Klasse bearbeiten
-        Klasse löschen
-        Klasse in das nächste Schuljahr versetzen
-         */
-        return false
+    verifyNewEmptyClassCreated: async function (className = '11c', numOfStudents = '0') {
+        const allClassesContainer = await driver.$('tbody[data-testid=\'students_names_container\']')
+        const allClassesContent = await allClassesContainer.getText()
+        const contentArray = allClassesContent.split(" ")
+
+        const currentYear = new Date().getFullYear().toString().substring(2) // 20
+
+        expect(contentArray.length).to.equal(3) // teacher column should be empty and therefore not 4, but 3
+        expect(contentArray[0]).to.equal('11c')
+        expect(contentArray[1].includes(currentYear)).to.equal(true)
+        expect(contentArray[2]).to.equal(numOfStudents)
+
     },
     createNewPupil: async function (firstname, lastname, email) {
         name = firstname;

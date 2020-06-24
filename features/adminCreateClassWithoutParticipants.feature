@@ -11,7 +11,7 @@ Background:
 
 Scenario Outline:
 	When admin creates a class <courseName>
-	Then admin should see the class <coursename> with <participants> participants.
+	Then admin should see the class <sameCourse> with <participants> participants.
 Examples:
-	|courseName|participants|
-	|11c       |0           |
+	|courseName|sameCourse|participants |
+	|11c       |11c       |0            |
