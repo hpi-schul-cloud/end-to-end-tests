@@ -132,6 +132,9 @@ global.DELAY_10_SECOND = 10; // 10 second delay
 global.DELAY_15_SECOND = 15; // 15 second delay
 global.DELAY_20_SECOND = 20; // 20 second delay
 
+global.SHORT_WAIT_MILLIS = 2000; // 2 seconds delay
+global.LONG_WAIT_MILLIS = 10000; // 10 seconds delay
+
 function consoleInfo() {
 	let args = [].slice.call(arguments),
 		output = chalk.bgBlue.white('\n>>>>> \n' + args + '\n<<<<<\n');

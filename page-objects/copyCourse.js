@@ -66,7 +66,7 @@ module.exports = {
 		let textBtn = ".btn-group > button:nth-child(1)";
 		await helpers.waitAndClick(textBtn);
 		let textField = await driver.$('body');
-		await driver.pause(2000);
+		await driver.pause(global.SHORT_WAIT_MILLIS);
 		await driver.switchToFrame(0);
 		await textField.setValue(text);
 		await driver.switchToParentFrame();

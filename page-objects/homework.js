@@ -40,7 +40,7 @@ module.exports = {
 		await helpers.waitAndClick(courseData.elem.submitAddHomeworkBtn);
 	},
 	setHometaskText: async function() {
-		await driver.pause(2000);
+		await driver.pause(global.SHORT_WAIT_MILLIS);
 		await driver.switchToFrame(0);
 		let body = await driver.$('body');
 		let message = 'Here is some TEXT!';

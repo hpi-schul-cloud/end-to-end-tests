@@ -1,5 +1,7 @@
 "use strict";
 
+const helpers = require("../runtime/helpers");
+
 const createTaskData = require("../shared-objects/createTaskData"),
 	shared = { createTaskData };
 
@@ -22,7 +24,7 @@ module.exports = {
 	},
 
 	putTaskBody: async function(taskBody) {
-		await driver.pause(2000);
+		await driver.pause(global.SHORT_WAIT_MILLIS);
 		await driver.switchToFrame(0);
 		const body = await driver.$("body");
 		await body.setValue(taskBody);
