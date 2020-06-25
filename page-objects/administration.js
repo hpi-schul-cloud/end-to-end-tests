@@ -2,6 +2,8 @@
 const firstLogin = require('../shared_steps/firstLogin.js');
 const { expect } = require('chai');
 const Admin = require('../shared-objects/administrationData');
+const helpers = require('../runtime/helpers.js');
+
 var length;
 let oldPassword;
 let eMAIL;
@@ -65,6 +67,15 @@ submitConsent: async function(e_mail) {
             await submitBtn.click();
             break;
         }
+    }
+},
+checkIfElementIsVisisble: async function (itemsToCompare, selector) {
+    let items = await driver.$$(selector);
+    let expectations = itemsToCompare.hashes();
+    for(let i = 0; i < items.length; i++){
+        let actualLabelText = await items[i].getText();
+        await items[i].waitForEnabled(DELAY_100_MILLISECOND);
+        expect(actualLabelText).to.equal(expectations[i].tabs);
     }
 },
 newPupilLogsIn: async function() {
