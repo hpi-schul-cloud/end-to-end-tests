@@ -48,6 +48,11 @@ Then(
 Then(
 	/^the admin-dashboard should have the admin name and profession$/,
 	function() {
-		return adminLogin.loginFullInfo();
+		return adminLogin.loginFullUserInfo();
+	}
+);
+
+Then(/^the admin-dashboard should have the following tabs$/, function (LoginTextLabels) {
+    return adminLogin.checkIfElementIsVisisble(LoginTextLabels, shared.loginData.elem.loginTabs);
 	}
 );

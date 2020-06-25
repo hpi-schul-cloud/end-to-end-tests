@@ -13,7 +13,18 @@ Feature: Logging in as an admin
 		Then the admin-dashboard should have the admin initials
 		Then the admin-dashboard should have the correct school
 		Then the admin-dashboard should have the admin name and profession
-#		Then the admin-dashboard should have the following navigation items
+		Then the admin-dashboard should have the following tabs
+		| tabs				|
+		| ÜBERSICHT			|
+		| KURSE				|
+		| TEAMS				|
+		| AUFGABEN			|
+		| MEINE DATEIEN		|
+		| NEUIGKEITEN		|
+		| TERMINE			|
+		| LERN-STORE		|
+		| HELPDESK			|
+		| ADMINISTRATION	|
 
 		Examples:
 			|username|password|

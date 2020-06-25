@@ -92,13 +92,6 @@ module.exports = {
 		let name = await nameBox.getText();
 		return name;
 	},
-	getFullInfo: async function() {
-		let info = await this.getNameAndPosition();
-//		let firstName = name;
-//		let lastName = name;
-//		let fullName = firstName + lastName;
-		return info;
-	},
 	logout: async function() {
 		let icon = await driver.$('[data-testid="initials"]');
 		await icon.click();

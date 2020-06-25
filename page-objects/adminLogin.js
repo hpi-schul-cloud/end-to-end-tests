@@ -45,12 +45,21 @@ module.exports = {
 		expect(await helpers.getElementText(shared.loginData.elem.schoolName)).to.equal(schoolName);
 	},
 	
-	loginFullInfo: async function() {
-		let fullInfo = shared.loginData.elem.fullNameAdministrator; await firstLogin.getFullInfo();
-		expect(await helpers.getElementText(shared.loginData.elem.fullUserInfo)).to.equal(fullInfo);
-		assert.include(fullInfo())
+	loginFullUserInfo: async function() {
+		await firstLogin.getNameAndPosition();
+		let fullUserInfo = shared.loginData.elem.fullNameAdministrator;
+		expect(await helpers.getElementText(shared.loginData.elem.fullUserInfo)).to.equal(fullUserInfo);
 	},
 	
+	checkIfElementIsVisisble: async function (itemsToCompare, selector) {
+    let items = await driver.$$(selector);
+    let expectations = itemsToCompare.hashes();
+    for(let i = 0; i < items.length; i++){
+        let actualLabelText = await items[i].getText();
+        await items[i].waitForEnabled(DELAY_100_MILLISECOND);
+		expect(actualLabelText).to.equal(expectations[i].tabs);
+		}
+	},
 	compareScreenshots: async function(filename) {
 		await imageCompare.saveScreenshot(`${filename}.png`, '.timetable');
 
