@@ -27,5 +27,5 @@ const firstLogin = require('../shared_steps/firstLogin.js');
   });
 
   Then(/^Verify if all required tabs are visible in Administration area$/, function (administrationTextLabels) {
-    return administration.checkIfElementIsVisisble(administrationTextLabels, Admin.adminidtrationsTabs);
+    return administration.checkIfElementIsVisisble(administrationTextLabels, Admin.administrationsTabs);
     });
