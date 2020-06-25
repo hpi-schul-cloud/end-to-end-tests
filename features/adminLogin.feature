@@ -8,7 +8,7 @@ Feature: Logging in as an admin
 
 	Scenario Outline: User inputs the username and password
 		When an admin puts in <username> and <password> and click the login-button
-		And the user is supposed to accept the data protection agreement
+		Then the user is supposed to accept the data protection agreement
 		Then the dashboard is shown
 		Then the admin-dashboard should have the admin initials
 		Then the admin-dashboard should have the correct school

@@ -26,7 +26,13 @@ module.exports = {
     box2: 'input[name="termsOfUseConsent"]',
     passwordSet: 'input[data-testid="firstlogin_password"]',
     passwordSet2: 'input[data-testid="firstlogin_password_control"]',
-
+    //Login Credentials
+    dashboardTitle: 'Übersicht',
+    dashboardHeader: '.col-sm-9',
+    fullSchoolName: 'Paul-Gerhardt-Gymnasium',
+    schoolName: '.nav-item.school-data.hidden-sm-down',
+    fullNameAdministrator: 'Thorsten Test (Administrator)',
+    fullUserInfo: 'div.dropdown-name)',
     // course_tabs:
     topics: 'button[data-testid="topics"]',
     tasks_tab: 'button[data-testid="hometasks"]',

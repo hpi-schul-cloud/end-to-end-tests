@@ -17,7 +17,7 @@ When(/^an admin puts in (.*) and (.*) and click the login-button$/, function(
 	return page.adminLogin.performLogin(username, password);
 });
 
-And(
+Then(
 	/^the user is supposed to accept the data protection agreement$/,
 	function() {
 		return firstLogin.firstLoginAdmin();

@@ -1,5 +1,6 @@
 'use strict';
 
+const { expect, assert } = require('chai');
 const loginData = require('../shared-objects/loginData'),
 	imageCompare = require('../runtime/imageCompare'),
 	shared = { loginData };
@@ -29,8 +30,8 @@ module.exports = {
 
 	loginResultDashboard: async function() {
 		await this.goToDashboard();
-		let title = 'Übersicht';
-		expect(await helpers.getElementText('.col-sm-9')).to.equal(title);
+		let title = shared.loginData.elem.dashboardTitle;
+		expect(await helpers.getElementText(shared.loginData.elem.dashboardHeader)).to.equal(title);
 	},
 	
 	loginInitials: async function() {
@@ -40,13 +41,14 @@ module.exports = {
 
 	loginSchool: async function() {
 		await this.goToDashboard();
-		let schoolName = 'Paul-Gerhardt-Gymnasium';
-		expect(await helpers.getElementText('.nav-item.school-data.hidden-sm-down')).to.equal(schoolName);
+		let schoolName = shared.loginData.elem.fullSchoolName;
+		expect(await helpers.getElementText(shared.loginData.elem.schoolName)).to.equal(schoolName);
 	},
 	
 	loginFullInfo: async function() {
-		let fullInfo = 'Thorsten Test (Administrator)'; await firstLogin.getFullInfo();
-		expect(await helpers.getElementText('.btn.btn-secondary.btn-thin.dropdown-toggle')).to.equal(fullInfo);
+		let fullInfo = shared.loginData.elem.fullNameAdministrator; await firstLogin.getFullInfo();
+		expect(await helpers.getElementText(shared.loginData.elem.fullUserInfo)).to.equal(fullInfo);
+		assert.include(fullInfo())
 	},
 	
 	compareScreenshots: async function(filename) {
