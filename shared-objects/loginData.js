@@ -39,11 +39,14 @@ module.exports = {
     submitNewsBtn: 'button[data-testid="btn_news_submit"]',
     // new password
     iconClickable: '[data-testid="initials"]',
-    currentPassword: 'input[data-testid="settings_password_current"]',
-    newPassword: 'input[data-testid="settings_password_new"]',
-    repeatNewPassword: 'input[data-testid="settings_password_control"]',
+    currentPassword: 'input[data-testid="password_current"]',
+    newPassword: 'input[data-testid="password_new"]',
+    repeatNewPassword: 'input[data-testid="password_control"]',
     loginNotification: 'div[data-testid="notification"]',
-    submitNewPassword: '[data-testid="submit_new_password_btn"]',
+    editUserDataBtn: {
+      password: 'div[data-testid="account_card_password"] button',
+    },
+    accountForm: 'form',
 
   }
 };

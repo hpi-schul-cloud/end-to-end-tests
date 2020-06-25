@@ -20,6 +20,9 @@ Given(/^the user logs in$/, function() {
 	Given(/^the user goes to profile settings$/, function() {
 		return profileEdit.goToSettings();
 	});
+	Given(/^the user clicks edit button on password-card$/, function() {
+		return profileEdit.goToChange('password');
+	});
 	When(/^user changes the passwort$/, function() {
 		return profileEdit.setNewPassword();
 	});
