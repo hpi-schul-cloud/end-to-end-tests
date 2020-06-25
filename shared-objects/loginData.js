@@ -46,7 +46,7 @@ module.exports = {
     editUserDataBtn: {
       password: 'div[data-testid="account_card_password"] button',
     },
-    accountForm: 'form',
-
+    formSubmitBtn: 'form button[type="submit"]',
+    modalConfirmationBtn: 'div[data-testid="confirmationModal"] button',
   }
 };

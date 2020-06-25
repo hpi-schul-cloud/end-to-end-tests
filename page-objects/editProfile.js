@@ -18,8 +18,8 @@ module.exports = {
 		await settings.click();
 	},
 	goToChange: async function(n) {
-		let editPasswordBtn = await driver.$(loginData.elem.editUserData[n]);
-		await editPasswordBtn.click();
+		let btn = await driver.$(loginData.elem.editUserDataBtn[n]);
+		await btn.click();
 	},
 	setNewPassword: async function() {
 		let currentPassword = await driver.$(loginData.elem.currentPassword);
@@ -32,8 +32,11 @@ module.exports = {
 		let passwordControlField = await driver.$(loginData.elem.repeatNewPassword);
 		await passwordControlField.setValue(legiblePassword);
 
-		let form = await driver.$(loginData.elem.accountForm);
-		await form.submit();
+		let formSubmitBtn = await driver.$(loginData.elem.formSubmitBtn);
+		await formSubmitBtn.click();
+
+		let modalConfirmationBtn = await driver.$(loginData.elem.modalConfirmationBtn);
+		await modalConfirmationBtn.click();
 	},
 	tryWithOld: async function() {
 		await driver.pause(2000);
