@@ -41,47 +41,47 @@ module.exports = {
 	setColour: async function(name) {
 		switch (name) {
 			case "grey":
-			let grey = await driver.$(courseData.elem.courseColours.grey);
+			let grey = await driver.$('.color-picker__item:nth-child(1)');
 			await grey.click();
 			break;
 
 			case "metallicGold": 
-			let metallicGold = await driver.$(courseData.elem.courseColours.metallicGold);
+			let metallicGold = await driver.$('.color-picker__item:nth-child(2)');
 			await metallicGold.click();
 			break;
 
 			case "blue": 
-			let metallicGold = await driver.$(courseData.elem.courseColours.blue);
-			await metallicGold.click();
+			let blue = await driver.$('.color-picker__item:nth-child(3)');
+			await blue.click();
 			break; 
 
 			case "green":
-			let green = await driver.$(courseData.elem.courseColours.green);
+			let green = await driver.$('.color-picker__item:nth-child(4)');
 			await green.click();
 			break;  
 
 			case "darkGrey": 
-			let darkGrey = await driver.$(courseData.elem.courseColours.darkGrey);
+			let darkGrey = await driver.$('.color-picker__item:nth-child(5)');
 			await darkGrey.click();
 			break;  
 
 			case "goldenPoppy": 
-			let goldenPoppy = await driver.$(courseData.elem.courseColours.goldenPoppy);
+			let goldenPoppy = await driver.$('.color-picker__item:nth-child(6)');
 			await goldenPoppy.click();
 			break;  
 
 			case "martini":  
-			let martini = await driver.$(courseData.elem.courseColours.martini);
+			let martini = await driver.$('.color-picker__item:nth-child(7)');
 			await martini.click();
 			break;  
 
 			case "violetRed":
-			let violetRed = await driver.$(courseData.elem.courseColours.violetRed);
+			let violetRed = await driver.$('.color-picker__item:nth-child(8)');
 			await violetRed.click();
 			break;  
 
 			case "corn":  
-			let corn = await driver.$(courseData.elem.courseColours.corn);
+			let corn = await driver.$('.color-picker__item:nth-child(9)');
 			await corn.click();
 			break;         
 		}
@@ -107,7 +107,7 @@ module.exports = {
 	getCourseNames: async function() {
 		await this.goToCourses();
 		let container = await driver.$('[data-testid="courses"]');
-		let coursesNameContainer = await container.$$('div > div >article > div > span > div > span');
+		let coursesNameContainer = await container.$$(courseData.elem.coursesPage.title);
 		let courseNames = await Promise.all(
 			(await coursesNameContainer.map(async element => await element.getText())
 		));
@@ -248,8 +248,68 @@ module.exports = {
 		await previewBtn.click();
 		await driver.pause(1000);
 	},
-	verifyColour: async function() {
+	verifyColour: async function(colour) {
+		await this.goToCourses();
+		let activeCourses = await driver.$(courseData.elem.activeCourses);
+		let coursesOnThePage = await activeCourses.$$(courseData.elem.coursesPage.container_of_element);
+		let indexOfTheLastAddedCourse  = await coursesOnThePage.length;
+		let container = await driver.$(courseData.elem.coursesPage.container_of_element+':nth-child('+indexOfTheLastAddedCourse+')');
+		let lastAddedCourse = await container.$(courseData.elem.coursesPage.header_of_element);
+		const styleArray = await lastAddedCourse.getHTML();
+		let regexp = /background:#[A-Z, 0-9]{6};/;
+		let styleMatches = styleArray.match(regexp);
+		let style=styleMatches[0];
+		switch (colour){
+			case "grey":
+			await expect(style).to.equal("background:#ACACAC;");
+			break;
+
+			case "metallicGold": 
+			await expect(style).to.equal("background:#D4AF37;");
+			break;
 		
+			case "blue":
+			await expect(style).to.equal("background:#00E5FF;");
+			break;
+			      
+			case "green":        
+			await expect(style).to.equal("background:#1DE9B6;");
+			break;
+
+			case "darkGrey":    
+			await expect(style).to.equal("background:#546E7A;");
+			break;
+			case "goldenPoppy":  
+			await expect(style).to.equal("background:#FFC400;");
+			break;
+
+			case "martini":      
+			await expect(style).to.equal("background:#BCAAA4;");
+			break; 
+
+			case "violetRed":    	
+			await expect(style).to.equal("background:#FF4081;");
+			break; 
+
+			case "corn":       	
+			await expect(style).to.equal("background:#FFEE58;");
+			break;
+		}
+		
+	},
+	courseNameDisplayedCorrectly: async function(coursename){
+		await this.goToCourses();
+		let activeCourses = await driver.$(courseData.elem.activeCourses);
+		let coursesOnThePage = await activeCourses.$$(courseData.elem.coursesPage.container_of_element);
+		let indexOfTheLastAddedCourse  = await coursesOnThePage.length;
+		let lastAddedCourse = await driver.$(courseData.elem.coursesPage.container_of_element+':nth-child('+indexOfTheLastAddedCourse+')');
+		await lastAddedCourse.click();
+		await driver.pause(1000);
+		let displayedTextSelector = await driver.$('#page-title');
+		let displayedText=await displayedTextSelector.getText();
+		await expect(displayedText).to.equal(coursename);
+
+
 	}
 	
 

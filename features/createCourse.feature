@@ -43,8 +43,8 @@ Scenario Outline: submit compulsory fields by creating the course
 	Then btns "Einen weiteren Kurs anlegen" and "Zur Kursübersicht" are visible
 	When the teacher clicks zur-uebersicht-btn
 	Then the teacher sees the created course <courseName>
-	#Then the name <courseName> is displayed correctly
-	#Then the color of the course is the color <courseColour> that was selected during the creation process
+	Then the name <courseName> is displayed correctly
+	Then the color of the course is the color <courseColour> that was selected during the creation process
 	
 	
 

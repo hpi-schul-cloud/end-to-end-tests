@@ -75,8 +75,9 @@ module.exports = {
 			einen_weiteren_kurs_anlegen_btn: '[data-testid="einen-weiteren-kurs-anlegen-btn"]',
 			zur_uebersicht_btn:  '[data-testid="zur-uebersicht-btn"]',
 		},
+		activeCourses: '[data-section="js-active"]',
 		coursesPage: {
-			container_of_element: '[data-testid="class_container"]', // in this case testid of a single course
+			container_of_element: '[data-testid="container_of_element"]', // in this case testid of a single course
 			header_of_element: '[data-testid="header-of-element"]', //  eg background colour
 			title: '[data-testid="title_of_an_element"]'
 		}
