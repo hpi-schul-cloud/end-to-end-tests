@@ -39,52 +39,13 @@ module.exports = {
 		await nameSelector.setValue(coursename)
 	},
 	setColour: async function(name) {
-		switch (name) {
-			case "grey":
-			let grey = await driver.$('.color-picker__item:nth-child(1)');
-			await grey.click();
-			break;
+		const colors = ["grey","metallicGold","blue","green","darkGrey","goldenPoppy","martini","violetRed","corn"]
+		const child = colors.indexOf(name) + 1
+		if (child <= 0) {
+		console.warn(`you did not insert a valid color. Must be ${colors},\n you inserted ${name}`)}
 
-			case "metallicGold": 
-			let metallicGold = await driver.$('.color-picker__item:nth-child(2)');
-			await metallicGold.click();
-			break;
-
-			case "blue": 
-			let blue = await driver.$('.color-picker__item:nth-child(3)');
-			await blue.click();
-			break; 
-
-			case "green":
-			let green = await driver.$('.color-picker__item:nth-child(4)');
-			await green.click();
-			break;  
-
-			case "darkGrey": 
-			let darkGrey = await driver.$('.color-picker__item:nth-child(5)');
-			await darkGrey.click();
-			break;  
-
-			case "goldenPoppy": 
-			let goldenPoppy = await driver.$('.color-picker__item:nth-child(6)');
-			await goldenPoppy.click();
-			break;  
-
-			case "martini":  
-			let martini = await driver.$('.color-picker__item:nth-child(7)');
-			await martini.click();
-			break;  
-
-			case "violetRed":
-			let violetRed = await driver.$('.color-picker__item:nth-child(8)');
-			await violetRed.click();
-			break;  
-
-			case "corn":  
-			let corn = await driver.$('.color-picker__item:nth-child(9)');
-			await corn.click();
-			break;         
-		}
+		const color = await driver.$(`.color-picker__item:nth-child(${child})`);
+		await color.click();
 		
 	},
 	goToNextSectionCreateCourse: async function() {
@@ -99,7 +60,6 @@ module.exports = {
 	createCourse: async function(coursename) {
 		await this.goToAddCourses();
 		await this.setCourseName(coursename);
-		await this.setColour();
 		await this.goToNextSectionCreateCourse();
 		await this.goToNextSectionCreateCourse();
 		await this.goToCourseOverview();
@@ -118,10 +78,9 @@ module.exports = {
 		await expect(allCourses).to.include(coursename);
 	},
 
-	createCourseWithStudents: async function(coursename, name) {
+	createCourseWithStudents: async function(coursename) {
 		await this.goToAddCourses();
 		await this.setCourseName(coursename);
-		await this.setColour();
 		await this.goToNextSectionCreateCourse();
 		const helper = chosenSearchableSelectHelper(driver, courseData.elem.selectorWithMultipleChoiceStudents);
 		await helper.selectOptionByName(name);
@@ -143,17 +102,10 @@ module.exports = {
 		switch (stageNum) {
 			case 2: let selector = await driver.$(courseData.elem.stage1Selector);
 			let children = await selector.$$(".//*");
-			if (children.length>0) {
-				return true;
-			} else {
-			return false};
+			return children.length>0;
 			case 2: let selector2 = await driver.$(courseData.elem.stage2Selector);
 			let children2 = await selector2.$$(".//*");
-			if (children2.length>0) {
-				return true;
-			} else {
-				return false};
-			
+			return children2.length>0	
 		};
 	},
 	getUserName: async function() {
