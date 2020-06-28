@@ -19,5 +19,9 @@ module.exports = {
   namesContainer: 'tbody[data-testid=\'students_names_container\']',
   consentSubmitBtn: 'button[data-testid=\'submit_consent\']',
   birthday_field: 'input[data-testid=\'create_birthday\']',
+<<<<<<< HEAD
   classCreationExtraOptions: 'a[data-testid=\'classCreationExtraOptions\']'
+=======
+  administrationsTabs: 'ul.subitems span'
+>>>>>>> 238dfdf224eab7fc660e3860e5c4bbf238554045
 }
