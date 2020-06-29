@@ -9,9 +9,9 @@
             "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceFolder}/index.js",
-            "args": ["-d","-t","@adminLogin" ],
+            "args": ["-d","-t","@newsIsNotVisible" ],
             "console":"integratedTerminal",
-          //  "runtimeVersion": "10.15.3",
+            "runtimeVersion": "10.15.3",
             "timeout": 40000,
             "outputCapture": "std"
         }
