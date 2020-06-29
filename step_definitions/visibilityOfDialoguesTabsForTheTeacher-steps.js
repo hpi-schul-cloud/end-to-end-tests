@@ -1,11 +1,11 @@
 'use strict';
 
-let teacherLogin = require('../page-objects/teacherLogin');
-let loginData = require('../shared-objects/loginData');
+const teacherLogin = require('../page-objects/teacherLogin');
+const loginData = require('../shared-objects/loginData');
 const Admin = require('../shared-objects/administrationData');
-let shared = { loginData };
-let page = { teacherLogin };
-let administration = require('../page-objects/administration');
+const shared = { loginData };
+const page = { teacherLogin };
+const administration = require('../page-objects/administration');
 const firstLogin = require('../shared_steps/firstLogin.js');
 
 
