@@ -10,6 +10,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+## [23.2.0] - 2020-06-29
+
+### Added in 23.2.0
+
+- Admin can create empty classes
+
 ## [23.0.0] - 2020-05-19
 
 ### Added in 23.0.0
