@@ -10,13 +10,8 @@ module.exports = {
   eligiblePupilPassword: 'schulcloud',
   notEligiblePupilUsername: 'paula.meyer@schul-cloud.org',
   notEligiblePupilPassword: 'Schulcloud1!',
-<<<<<<< HEAD
-  defaultAdminUsername: "admin@schul-cloud.org",
-  defaultAdminPassword: "Schulcloud1!",
-=======
   defaultAdminUsername: 'admin@schul-cloud.org',
   defaultAdminPassword: 'Schulcloud1!',
->>>>>>> 238dfdf224eab7fc660e3860e5c4bbf238554045
 
   elem: {
     frontpageLoginBtn: 'a[data-testid="login-btn"]',
