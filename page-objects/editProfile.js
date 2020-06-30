@@ -17,19 +17,26 @@ module.exports = {
 		let settings = await driver.$(loginData.elem.settings);
 		await settings.click();
 	},
+	goToChange: async function(n) {
+		let btn = await driver.$(loginData.elem.editUserDataBtn[n]);
+		await btn.click();
+	},
 	setNewPassword: async function() {
-		let currentPassword = await driver.$('[data-testid="settings_password_current"]');
+		let currentPassword = await driver.$(loginData.elem.currentPassword);
 		let current_password = "Schulcloud1!";
 		await currentPassword.setValue(current_password);
 
-		let passwordField = await driver.$('[data-testid="settings_password_new"]');
+		let passwordField = await driver.$(loginData.elem.newPassword);
 		await passwordField.setValue(legiblePassword);
 
-		let passwordControlField = await driver.$('[data-testid="settings_password_control"]');
+		let passwordControlField = await driver.$(loginData.elem.repeatNewPassword);
 		await passwordControlField.setValue(legiblePassword);
 
-		let okBtn = await driver.$('[data-testid="submit_new_password_btn"]');
-		await okBtn.click();
+		let formSubmitBtn = await driver.$(loginData.elem.formSubmitBtn);
+		await formSubmitBtn.click();
+
+		let modalConfirmationBtn = await driver.$(loginData.elem.modalConfirmationBtn);
+		await modalConfirmationBtn.click();
 	},
 	tryWithOld: async function() {
 		await driver.pause(2000);

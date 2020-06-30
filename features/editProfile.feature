@@ -7,6 +7,7 @@ Given the user logs in
 Given the user goes to profile settings
 
 Scenario: user changes the passwort
+Given the user clicks edit button on password-card
 When user changes the passwort
 Then after logout user must not be able to login with an old password
 Then the user must be able to log in with a new legible password
