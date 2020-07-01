@@ -19,7 +19,10 @@
  */
 'use strict';
 const fs = require('fs');
+const { SERVER } = require("../shared-objects/servers");
+const Axios = require("axios");
 let log = global.log;
+
 
 module.exports = {
 
@@ -560,5 +563,37 @@ module.exports = {
 			}
 		}
 	},
+	// SC-rest-specific
+
+	getUserInfo: async function(attribute) {
+
+		
+		const cookie = await driver.getCookies(['jwt']);
+		const jwt = cookie[0].value;
+		const info = await Axios.request({
+		  url:  `${SERVER.URL}/me`,
+		  method: 'get',
+		  headers: {
+			Authorization: `${jwt}`
+		  }
+		});
+		let object =info.data;
+		return object[attribute];
+	
+	}, 
+
+	getUserName: async function() {
+	
+		return this.getUserInfo('fullName')
+	},
+
+	getSchoolName: async function() {
+
+		return this.getUserInfo('schoolName');
+	}, 
+	getInitials: async function() {
+
+		return  this.getUserInfo('avatarInitials');
+	}, 
 
 };
