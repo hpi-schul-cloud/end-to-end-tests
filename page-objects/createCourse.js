@@ -112,7 +112,7 @@ module.exports = {
 		const cookie = await driver.getCookies(['jwt']);
 		const jwt = cookie[0].value;
 		const info = await Axios.request({
-		  url:  `${"http://localhost:3030"}/me`,
+		  url:  'http://localhost:3030/me',
 		  method: 'get',
 		  headers: {
 			Authorization: `${jwt}`
