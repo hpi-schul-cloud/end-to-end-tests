@@ -8,8 +8,21 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+- fixed the @createSimpleHomework, added one more step when creating a new course
+
 ### Added
+
+## [23.2.0] - 2020-06-29
+
+### Added in 23.2.0
+
+- Admin can create empty classes
+
+## [23.0.0] - 2020-05-19
+
+### Added in 23.0.0
 
 - copied in a basic mergify config to automerge PRs
 - added `npm ci` command to integration test ci setup to be able to execute new js seed script properly
 - This changelog has been added
+

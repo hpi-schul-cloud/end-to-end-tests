@@ -132,6 +132,9 @@ global.DELAY_10_SECOND = 10; // 10 second delay
 global.DELAY_15_SECOND = 15; // 15 second delay
 global.DELAY_20_SECOND = 20; // 20 second delay
 
+global.SHORT_WAIT_MILLIS = 2000; // 2000 milliseconds delay
+global.LONG_WAIT_MILLIS = 10000; // 10000 milliseconds delay
+
 function consoleInfo() {
 	let args = [].slice.call(arguments),
 		output = chalk.bgBlue.white('\n>>>>> \n' + args + '\n<<<<<\n');
@@ -298,11 +301,11 @@ AfterAll(function(done) {
 			theme: 'bootstrap',
 			jsonFile: path.resolve(
 				global.paths.reports,
-				global.settings.reportName + '-' + date + '.json'
+				global.settings.reportName.replace(/ /g, '') + '-' + global.dateStringForFiles + '.json'
 			),
 			output: path.resolve(
 				global.paths.reports,
-				global.settings.reportName + '-' + date + '.html'
+				global.settings.reportName.replace(/ /g, '') + '-' + global.dateStringForFiles + '.html'
 			),
 			reportSuiteAsScenarios: true,
 			launchReport: !global.settings.disableReport,
@@ -318,7 +321,7 @@ AfterAll(function(done) {
 						? 'Remote'
 						: 'Local'
 			},
-			brandTitle: reportName + '-' + date,
+			brandTitle: reportName + '-' + global.endDateTime,
 			name: projectName
 		};
 		driver.pause(DELAY_3_SECOND).then(function() {
