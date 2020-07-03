@@ -141,6 +141,8 @@ module.exports = {
 	},
 	teacherLogsIn: async function () {
 		await this.userLogsOut();
+		let frontpageLoginBtn = await driver.$(Login.elem.frontpageLoginBtn);
+		await frontpageLoginBtn.click();
 		await teacherLogin.performLogin(Login.defaultTeacherUsername, Login.defaultTeacherpassword);
 	},
 	goToTasksOfTheCourse: async function (coursename) {
@@ -187,6 +189,7 @@ module.exports = {
 		await helpers.waitAndClick(submissionTab);
 	},
 	submitSolutionForTheHometask: async function () {
+		await driver.pause(global.SHORT_WAIT_MILLIS);
 		await driver.switchToFrame(0);
 		let iframeBody = await driver.$('body');
 		let assignmentText = 'here is some text which I want to submit';
