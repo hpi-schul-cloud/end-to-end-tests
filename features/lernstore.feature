@@ -11,9 +11,8 @@ When the teacher adds a Topic with name <topicname>
 When teacher goes to content page
 When the teacher searches for content
 When teacher clicks on content-card
-When teacher clicks on "Hinzufügen zu"
+When teacher clicks on add content button
 When teacher selects course and topic
-And clicks "Hinzufügen"
 When teacher goes to topic
 Then added material should be visible
 
@@ -24,7 +23,6 @@ When teacher goes to content page
 When the teacher searches for content
 When teacher clicks on plus btn of content-card
 When teacher selects course and topic
-And clicks "Hinzufügen"
 When teacher goes to topic
 Then added material should be visible
 
@@ -34,5 +32,5 @@ When the teacher adds a Topic with name <topicname>
 When the teacher adds a new material to topic
 When the teacher searches for content
 When teacher clicks on content-card
-When teacher clicks on "Hinzufügen zu"
+When teacher clicks on add content button
 Then added material should be visible
