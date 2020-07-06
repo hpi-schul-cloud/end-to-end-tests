@@ -7,7 +7,7 @@ Given the teacher goes to the course page as a next step
 
 @lernstoreAddMaterialFromContentDetailView
 Scenario Outline: teacher can add material to topic of course from content detail view
-When the teacher adds a Topic with name <topicname>
+When the teacher adds a Topic
 When teacher goes to content page
 When the teacher searches for content
 When teacher clicks on content-card
@@ -18,7 +18,7 @@ Then added material should be visible
 
 @lernstoreAddMaterialFromContentCard
 Scenario Outline: teacher can add material to topic of course from content card
-When the teacher adds a Topic with name <topicname>
+When the teacher adds a Topic
 When teacher goes to content page
 When the teacher searches for content
 When teacher clicks on plus btn of content-card
@@ -28,7 +28,7 @@ Then added material should be visible
 
 @lernstoreAddMaterialFromTopic
 Scenario Outline: teacher can add material to topic of course while creating a new topic
-When the teacher adds a Topic with name <topicname>
+When the teacher adds a Topic
 When the teacher adds a new material to topic
 When the teacher searches for content
 When teacher clicks on content-card
