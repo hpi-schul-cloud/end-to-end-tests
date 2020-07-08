@@ -49,6 +49,7 @@
 		"cucumber-html-reporter": "^4.0.5",
 		"cucumber-pretty": "^1.5.0",
 		"fs-extra": "^7.0.1",
+		"lodash": "4.17.15",
 		"merge": "^1.2.1",
 		"node-dir": "^0.1.17",
 		"node-resemble-js": "^0.2.0",
