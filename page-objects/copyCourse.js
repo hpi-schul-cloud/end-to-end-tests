@@ -65,7 +65,7 @@ module.exports = {
 	addText: async function(text) {
 		const textBtn = ".btn-group > button:nth-child(1)";
 		await helpers.waitAndClick(textBtn);
-		const textField = await driver.$('ck-content');
+		const textField = await driver.$('.ck-content');
 		await driver.pause(global.SHORT_WAIT_MILLIS);
 		await textField.setValue(text);
 		const submitBtn = "button.btn.btn-primary.btn-submit";
