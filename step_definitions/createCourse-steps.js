@@ -1,7 +1,8 @@
 'use strict';
 
 const createCourse = require('../page-objects/createCourse');
-const teacherLogin = require('../page-objects/teacherLogin');
+const loginPage = require('../page-objects/pages/loginPage');
+const startPage = require('../page-objects/pages/startPage');
 const loginData = require('../shared-objects/loginData');
 const shared = { loginData };
 const Login = require('../shared-objects/loginData');
@@ -9,8 +10,9 @@ const Login = require('../shared-objects/loginData');
 Given(/^The teacher arrives on the Schul-Cloud page$/, function() {
 	return helpers.loadPage(shared.loginData.url, 10);
 });
-Given(/^the teacher with email (.*) and (.*) is logged in successfully$/, function(email, password) {
-	return teacherLogin.performLogin(email, password);
+Given(/^the teacher with email (.*) and (.*) is logged in successfully$/, async function(email, password) {
+	await startPage.clickLoginBtn();
+	await loginPage.performLogin(email, password);
 });
 When(/^the teacher goes to courses page$/, function() {
 return createCourse.goToCourses()

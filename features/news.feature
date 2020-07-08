@@ -1,8 +1,8 @@
 @news
 Feature: Different options for news. I would like to test whether users with different permissions can see my news
 Background: I am logged in as a teacher and I create some news
-Given I am logged in as a teacher
-
+Given teacher goes to the home page
+Given teacher is successfully logged in
 
 @newsIsVisible
 Scenario: User can see the news

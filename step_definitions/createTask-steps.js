@@ -1,18 +1,21 @@
 "use strict";
 
-let createTask = require("../page-objects/createTask");
-let loginData = require("../shared-objects/loginData");
-let performLogin = require("../page-objects/performLogin");
+const createTask = require("../page-objects/createTask");
+const loginData = require("../shared-objects/loginData");
 const firstLogin = require("../shared_steps/firstLogin.js");
+const loginPage = require('../page-objects/pages/loginPage');
+const startPage = require('../page-objects/pages/startPage');
 
 let shared = { loginData, performLogin };
 let page = { createTask };
 
-When(
-	/^a teacher logs in his account using (.*) and (.*) in order to create a task$/,
-	function(username, password) {
-		helpers.loadPage(loginData.url, 10);
-		return shared.performLogin.performLogin(username, password);
+Given(/^The teacher arrives on the Schul-Cloud page$/, function() {
+	return helpers.loadPage(shared.loginData.url, 10);
+});
+
+When(/^a teacher logs in his account using (.*) and (.*) in order to create a task$/, async function(username, password) {
+		await startPage.clickLoginBtn();	
+		await loginPage.performLogin(username, password);
 	}
 );
 
