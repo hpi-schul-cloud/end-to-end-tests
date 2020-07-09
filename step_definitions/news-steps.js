@@ -5,13 +5,14 @@ const news = require('../page-objects/news');
 const Login = require('../shared-objects/loginData');
 let name = "news";
 let laterNewsName = "news should be published later";
+const firstLogin = require('../shared_steps/firstLogin.js');
 
 
 Given(/^The teacher arrives on the Schul-Cloud page$/, function() {
-	return helpers.loadPage(shared.loginData.url, 10);
+	return helpers.loadPage(shared.loginData.url, 20);
 });  
 
-Given(/^teacher is successfully logged in/, async function() {
+Given(/^teacher is successfully logged-in$/, async function() {
 	await startPage.clickLoginBtn();
 	await loginPage.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
 });
@@ -20,7 +21,8 @@ When(/^teacher creats some news which has to be published immediately$/, functio
 	return news.performCreateNews(name);
 });
 
-When(/^a user who has permissions to see the news logs in$/, function() {
+When(/^a user who has permissions to see the news logs in$/, async function() {
+
 	return news.loginAsPupil();
 });
 When(/^he goes to the news page$/, function() {

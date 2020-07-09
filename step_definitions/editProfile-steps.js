@@ -1,29 +1,41 @@
 'use strict';
 const loginPage = require('../page-objects/pages/loginPage');
 const startPage = require('../page-objects/pages/startPage');
-let teacherLogin = require('../page-objects/teacherLogin');
-let courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
 const profileEdit = require('../page-objects/editProfile');
-const { After, Before, AfterAll, BeforeAll } = require('cucumber');
+const firstLogin = require('../shared_steps/firstLogin.js');
+
 
 Given(/^the user goes to login page$/, function() {
-		return helpers.loadPage(courseData.urlLogin, 20);
-	});
-Given(/^the user logs in$/, async function() {
+	return helpers.loadPage(Login.url, 20);
+});
+
+Given(/^the user logs in with (.*) and (.*)$/, async function(username,password) {
 	await startPage.clickLoginBtn();
-	await loginPage.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
+	await loginPage.performLogin(username, password);
 });
 	
 Given(/^the user goes to profile settings$/, function() {
 	return profileEdit.goToSettings();
 });
-When(/^user changes the passwort$/, function() {
+When(/^user changes the passwort from (.*) to (.*)$/, function(oldPassword, newPassword) {
 	return profileEdit.setNewPassword();
 });
-Then(/^after logout user must not be able to login with an old password$/, function() {
-	return profileEdit.tryWithOld();
+When(/^the user logs out$/, function() {
+	return firstLogin.logout();
 });
-Then(/^the user must be able to log in with a new legible password$/, function() {
-	return profileEdit.tryWithNew();
+
+When(/^the user (.*) logs in with an old password (.*)$/, async function(username,oldPassword) {
+	await startPage.clickLoginBtn();
+	await loginPage.performLogin(username, oldPassword);
+});
+Then(/^the login must fail$/, function() {
+	return profileEdit.loginFailed();
+});
+
+When(/^When the user (.*) logs in with the new password (.*)$/, function(username, newPassword) {
+	return loginPage.performLogin(username, newPassword)
+});
+Then(/^the login must be successful$/, function() {
+	return loginData.loginResult();
 });

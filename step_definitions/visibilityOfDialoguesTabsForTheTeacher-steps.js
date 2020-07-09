@@ -5,7 +5,6 @@ const teacherLogin = require('../page-objects/teacherLogin');
 const loginData = require('../shared-objects/loginData');
 const Admin = require('../shared-objects/administrationData');
 const shared = { loginData };
-const page = { teacherLogin };
 const administration = require('../page-objects/administration');
 const firstLogin = require('../shared_steps/firstLogin.js');
 

@@ -1,5 +1,5 @@
 'use strict';
-
+const adminLogin = require('../page-objects/adminLogin');
 const loginPage = require('../page-objects/pages/loginPage');
 const startPage = require('../page-objects/pages/startPage');
 let loginData = require('../shared-objects/loginData');
@@ -26,7 +26,7 @@ Then(
 Then(
 	/^the dashboard is shown$/,
 	function() {
-		return adminLogin.loginResultDashboard();
+		return loginPage.loginResult();
 	}
 );
 

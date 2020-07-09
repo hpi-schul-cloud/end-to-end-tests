@@ -10,7 +10,7 @@ Given(/^teacher arrives on the Schul-Cloud page$/, function() {
 	return helpers.loadPage(Login.url, 10);
 });
 Given(/^teacher is logged in successfully$/, async function() {
-	await startPage.clickLoginBtn();
+	// await startPage.clickLoginBtn();
 	await loginPage.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
 });
 

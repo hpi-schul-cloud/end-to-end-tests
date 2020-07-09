@@ -20,9 +20,7 @@ Then(/^the teacher should accept the data protection$/, function() {
 	return firstLogin.firstLoginTeacher();
 });
 
-Then(
-	/^the teacher-dashboard should have an icon with the teacher's initials$/,
-	function() {
-		return teacherLogin.loginResult();
+Then(/^the teacher-dashboard should have an icon with the teacher's initials$/,function() {
+		return loginPage.loginResult();
 	}
 );

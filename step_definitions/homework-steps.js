@@ -11,12 +11,12 @@ const Login = require('../shared-objects/loginData');
 /*BACKGROUND*/
 
 Given(/^the teacher starts on the login page$/, function() {
-	return helpers.loadPage(courseData.urlLogin, 20);
+	return helpers.loadPage(Login.url, 20);
 });
 
-Given(/^the teacher is logged-in successfully$/, function() {
+Given(/^the teacher is logged-in successfully$/, async function() {
 	await startPage.clickLoginBtn();
-	await loginPage(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
+	await loginPage.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
 });
 
 Given(/^the teacher goes to the course page as a next step$/, function() {

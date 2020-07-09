@@ -5,12 +5,12 @@ const loginData = require("../shared-objects/loginData");
 const firstLogin = require("../shared_steps/firstLogin.js");
 const loginPage = require('../page-objects/pages/loginPage');
 const startPage = require('../page-objects/pages/startPage');
+const helpers = require('../runtime/helpers.js');
 
-let shared = { loginData, performLogin };
 let page = { createTask };
 
-Given(/^The teacher arrives on the Schul-Cloud page$/, function() {
-	return helpers.loadPage(shared.loginData.url, 10);
+Given(/^teacher goes to the home page$/, function() {
+	return helpers.loadPage(loginData.url, 20);
 });
 
 When(/^a teacher logs in his account using (.*) and (.*) in order to create a task$/, async function(username, password) {

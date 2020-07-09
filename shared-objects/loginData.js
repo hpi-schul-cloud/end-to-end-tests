@@ -1,7 +1,7 @@
 const { CLIENT } = require("./servers");
 
 module.exports = {
-  url: `${CLIENT.URL}/login`,
+  url: `${CLIENT.URL}`,
   urlDashboard: `${CLIENT.URL}/dashboard`,
 
   defaultTeacherUsername: 'klara.fall@schul-cloud.org',

@@ -4,7 +4,6 @@ const startPage = require('../page-objects/pages/startPage');
 let loginData = require('../shared-objects/loginData');
 let performLogin = require('../page-objects/performLogin');
 let shared = ({loginData, performLogin});
-let page = ({pupilLogin});
 const firstLogin = require('../shared_steps/firstLogin.js');
 
 Given(/^a pupil arrives on the Schul-Cloud login homepage$/, function () {
@@ -21,5 +20,5 @@ Then(/^pupil accepts data security, checks the email (.*) and sets password (.*)
 	});
 
 Then(/^a pupil should see the dashboard$/, function () {
-	return page.pupilLogin.loginResult();
+	return loginPage.loginResult();
 });

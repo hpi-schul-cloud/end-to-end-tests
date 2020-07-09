@@ -18,5 +18,5 @@ Feature: Creating a task as a teacher
 	Then he should see the created task with the name <taskname> on the task page
 
 	Examples:
-	| username | password | taskname | taskBody |
+	| username                | password      | taskname                | taskBody |
 	| lehrer@schul-cloud.org  | Schulcloud1!  | IntegrationTestAufgabe  | MyBody |
