@@ -2,10 +2,9 @@
 
 const loginPage = require('../page-objects/pages/loginPage');
 const startPage = require('../page-objects/pages/startPage');
-let loginData = require('../shared-objects/loginData');
+const loginData = require('../shared-objects/loginData');
 const createTeam = require('../page-objects/createTeam');
-let teacherLogin = require('../page-objects/teacherLogin');
-let newPupil = require('../page-objects/administration');
+const newPupil = require('../page-objects/administration');
 const Login = require('../shared-objects/loginData');
 let fullname1;
 let fullname2;

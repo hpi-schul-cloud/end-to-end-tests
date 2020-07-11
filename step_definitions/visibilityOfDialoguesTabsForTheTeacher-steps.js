@@ -1,7 +1,6 @@
 'use strict';
 const loginPage = require('../page-objects/pages/loginPage');
 const startPage = require('../page-objects/pages/startPage');
-const teacherLogin = require('../page-objects/teacherLogin');
 const loginData = require('../shared-objects/loginData');
 const Admin = require('../shared-objects/administrationData');
 const shared = { loginData };
