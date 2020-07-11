@@ -1,10 +1,8 @@
 'use strict';
 const loginPage = require('../page-objects/pages/loginPage');
 const startPage = require('../page-objects/pages/startPage');
-let teacherLogin = require('../page-objects/teacherLogin');
-let loginData = require('../shared-objects/loginData');
-let shared = { loginData };
-let page = { teacherLogin };
+const loginData = require('../shared-objects/loginData');
+const shared = { loginData };
 const firstLogin = require('../shared_steps/firstLogin.js');
 
 Given(/^The teacher arrives on the Schul-Cloud homepage$/, function() {

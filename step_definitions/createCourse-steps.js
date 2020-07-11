@@ -3,12 +3,11 @@
 const createCourse = require('../page-objects/createCourse');
 const loginPage = require('../page-objects/pages/loginPage');
 const startPage = require('../page-objects/pages/startPage');
-const loginData = require('../shared-objects/loginData');
-const shared = { loginData };
 const Login = require('../shared-objects/loginData');
 
 Given(/^The teacher arrives on the Schul-Cloud Page$/, function() {
-	return helpers.loadPage(shared.loginData.url, 10);
+	let url = Login.url;
+	return helpers.loadPage(url, 20);
 });
 Given(/^the teacher with email (.*) and (.*) is logged in successfully$/, async function(email, password) {
 	await startPage.clickLoginBtn();

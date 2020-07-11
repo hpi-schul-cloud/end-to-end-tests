@@ -2,7 +2,6 @@
 const loginPage = require('../page-objects/pages/loginPage');
 const createCourse = require('../page-objects/createCourse');
 const startPage = require('../page-objects/pages/startPage');
-
 const copyCourse = require('../page-objects/copyCourse');
 const courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
@@ -11,7 +10,6 @@ let coursesCount;
 
 
 //________Background_________
-
 
 Given(/^the Teacher is successfully logged in/, async function() {
 	await startPage.clickLoginBtn();

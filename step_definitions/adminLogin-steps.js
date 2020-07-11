@@ -2,9 +2,8 @@
 const adminLogin = require('../page-objects/adminLogin');
 const loginPage = require('../page-objects/pages/loginPage');
 const startPage = require('../page-objects/pages/startPage');
-let loginData = require('../shared-objects/loginData');
-let shared = { loginData };
-let page = { adminLogin };
+const loginData = require('../shared-objects/loginData');
+const shared = { loginData };
 const firstLogin = require('../shared_steps/firstLogin.js');
 
 Given(/^an admin arrives on the Schul-Cloud login homepage$/, function() {
@@ -24,16 +23,9 @@ Then(
 );
 
 Then(
-	/^the dashboard is shown$/,
-	function() {
-		return loginPage.loginResult();
-	}
-);
-
-Then(
 	/^the admin-dashboard should have the admin initials$/,
 	function() {
-		return adminLogin.loginInitials();
+		return loginPage.loginResult();
 	}
 );
 
