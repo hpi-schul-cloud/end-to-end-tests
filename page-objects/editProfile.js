@@ -61,8 +61,5 @@ module.exports = {
 		let waitTime = (parseInt(process.env.LOGIN_BLOCK_TIME) || 15)+1;
 		await driver.pause(waitTime*1000);
 	},
-	tryWithNew: async function() {
-		await teacherLogin.performLogin(loginData.defaultTeacherUsername, legiblePassword);
-		await helpers.assertUrl(`${CLIENT.URL}/dashboard`);
-	}
+
 }

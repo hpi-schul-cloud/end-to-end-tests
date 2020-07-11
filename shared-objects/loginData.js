@@ -3,6 +3,7 @@ const { CLIENT } = require("./servers");
 module.exports = {
   url: `${CLIENT.URL}`,
   urlDashboard: `${CLIENT.URL}/dashboard`,
+  urlAdministration: `${CLIENT.URL}/administration`,
 
   defaultTeacherUsername: 'klara.fall@schul-cloud.org',
   defaultTeacherpassword: 'Schulcloud1!',

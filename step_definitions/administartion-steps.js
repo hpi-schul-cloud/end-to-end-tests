@@ -8,6 +8,7 @@ const copyCourse = require('../page-objects/copyCourse');
 const loginData = require('../shared-objects/loginData');
 const courseData = require('../shared-objects/courseData');
 let shared = { loginData };
+const Admin = require('../shared-objects/administrationData');
 
 
 Given(/^admin arrives on the Schul-Cloud login homepage$/, function() {
@@ -19,6 +20,13 @@ Given(/^this admin logs in successfully$/, async function() {
 	await loginPage.performLogin(loginData.defaultAdminUsername, loginData.defaultAdminPassword)
 		
 
+});
+
+When(/^admin goes to administration$/, function() {
+	//return helpers.loadPage(loginData.urlAdministration, 20);
+
+	let url = Admin.urlAdministration;
+    return helpers.loadPage(url, 20);
 });
 
 When(/^an admin puts in (.*) and (.*) and (.*) of the new pupil$/, function(firstname, secondname, email) {
