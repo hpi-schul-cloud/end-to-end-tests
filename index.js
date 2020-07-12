@@ -208,6 +208,16 @@ global.paths = paths;
  * add helpers
  */
 global.helpers = require('./runtime/helpers.js');
+global.APIhelpers = require('./runtime/helpers/APIhelpers.js');
+global.assertHelpers = require('./runtime/helpers/assertHelpers.js');
+global.dateTimeHelpers = require('./runtime/helpers/dateTimeHelpers.js');
+global.elementHelpers = require('./runtime/helpers/elementHelpers.js');
+global.filterHelpers = require('./runtime/helpers/filterHelpers.js');
+global.imageHelpers = require('./runtime/helpers/imageHelpers.js');
+global.numberHelpers = require('./runtime/helpers/numberHelpers.js');
+global.textFileHelpers = require('./runtime/helpers/textFileHelpers.js');
+global.waitHelpers = require('./runtime/helpers/waitHelpers.js');
+
 
 /**
  *  adding global date function
