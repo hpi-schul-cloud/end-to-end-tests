@@ -1,10 +1,9 @@
 'use strict';
-
-const teacherLogin = require('../page-objects/teacherLogin');
+const loginPage = require('../page-objects/pages/loginPage');
+const startPage = require('../page-objects/pages/startPage');
 const loginData = require('../shared-objects/loginData');
 const Admin = require('../shared-objects/administrationData');
 const shared = { loginData };
-const page = { teacherLogin };
 const administration = require('../page-objects/administration');
 const firstLogin = require('../shared_steps/firstLogin.js');
 
@@ -13,8 +12,9 @@ const firstLogin = require('../shared_steps/firstLogin.js');
 	return helpers.loadPage(shared.loginData.url, 10);
   });
 
-  Given(/^The Teacher is logged in successfully$/, function () {
-	return page.teacherLogin.performLogin(shared.loginData.defaultTeacherUsername, shared.loginData.defaultTeacherpassword);
+  Given(/^The Teacher is logged in successfully$/, async function () {
+    await startPage.clickLoginBtn();
+	  await loginPage.performLogin(shared.loginData.defaultTeacherUsername, shared.loginData.defaultTeacherpassword);
   });
 
   Then(/^The Teacher should accept the data protection$/,

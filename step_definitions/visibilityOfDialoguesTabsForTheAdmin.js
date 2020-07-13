@@ -1,4 +1,6 @@
 'use strict';
+const loginPage = require('../page-objects/pages/loginPage');
+const startPage = require('../page-objects/pages/startPage');
 
 let adminLogin = require('../page-objects/adminLogin');
 let loginData = require('../shared-objects/loginData');
@@ -10,11 +12,12 @@ const firstLogin = require('../shared_steps/firstLogin.js');
 
 
   Given(/^The admin arrives on the Schul-Cloud page$/, function () {
-	return helpers.loadPage(shared.loginData.url, 10);
+	  return helpers.loadPage(shared.loginData.url, 10);
   });
 
-  Given(/^The admin is logged in successfully$/, function () {
-	return page.adminLogin.performLogin(shared.loginData.defaultAdminUsername, shared.loginData.defaultAdminPassword);
+  Given(/^The admin is logged in successfully$/, async function () {
+    await startPage.clickLoginBtn();
+	  await loginPage.performLogin(shared.loginData.defaultAdminUsername, shared.loginData.defaultAdminPassword);
   });
 
   Then(/^The admin is supposed to accept the data protection agreement$/,

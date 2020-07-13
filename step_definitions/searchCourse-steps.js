@@ -1,18 +1,15 @@
-let teacherLogin = require('../page-objects/teacherLogin');
-let createCourse = require('../page-objects/createCourse');
-
-let searchCourse = require('../page-objects/searchCourse');
-let courseData = require('../shared-objects/courseData');
+const loginPage = require('../page-objects/pages/loginPage');
+const startPage = require('../page-objects/pages/startPage');
+const searchCourse = require('../page-objects/searchCourse');
+const courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
 
 Given(/^teacher goes to the login page$/, function() {
-	return helpers.loadPage(courseData.urlLogin, 20);
+	return helpers.loadPage(Login.url, 20);
 });
-Given(/^the teacher logs in/, function() {
-	return teacherLogin.performLogin(
-		Login.defaultTeacherUsername,
-		Login.defaultTeacherpassword
-	);
+Given(/^the teacher logs in/, async function() {
+	await startPage.clickLoginBtn();
+	await loginPage.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
 });
 Given(/^the teacher goes to the courses page$/, function() {
 	let url = courseData.urlCourses;

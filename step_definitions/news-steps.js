@@ -1,24 +1,28 @@
 'use strict';
-let news = require('../page-objects/news');
-let teacherLogin = require('../page-objects/teacherLogin');
-let courseData = require('../shared-objects/courseData');
+const loginPage = require('../page-objects/pages/loginPage');
+const startPage = require('../page-objects/pages/startPage');
+const news = require('../page-objects/news');
 const Login = require('../shared-objects/loginData');
 let name = "news";
 let laterNewsName = "news should be published later";
+const firstLogin = require('../shared_steps/firstLogin.js');
 
 
-Given(/^I am logged in as a teacher$/, function() {
-	helpers.loadPage(courseData.urlLogin, 20);
-	return teacherLogin.performLogin(
-		Login.defaultTeacherUsername,
-		Login.defaultTeacherpassword
-	);
+Given(/^The teacher arrives on the Schul-Cloud page$/, function() {
+	return helpers.loadPage(shared.loginData.url, 20);
+});  
+
+Given(/^teacher is successfully logged-in$/, async function() {
+	await startPage.clickLoginBtn();
+	await loginPage.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
 });
+
 When(/^teacher creats some news which has to be published immediately$/, function() {
 	return news.performCreateNews(name);
 });
 
-When(/^a user who has permissions to see the news logs in$/, function() {
+When(/^a user who has permissions to see the news logs in$/, async function() {
+
 	return news.loginAsPupil();
 });
 When(/^he goes to the news page$/, function() {

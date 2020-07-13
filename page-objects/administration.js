@@ -13,7 +13,7 @@ let newPassword = "Schulcloud1!"
 module.exports = {
 goToAdministration: function() {
     let url = Admin.urlAdministration;
-    return helpers.loadPage(url, 10);
+    return helpers.loadPage(url, 20);
 },
 createNewClass: async function (className = '11c') {
     // navigates to administration tools

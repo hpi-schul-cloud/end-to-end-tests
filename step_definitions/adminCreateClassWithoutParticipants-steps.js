@@ -1,6 +1,7 @@
 'use strict';
 
-const adminLogin = require('../page-objects/adminLogin')
+const loginPage = require('../page-objects/pages/loginPage');
+const startPage = require('../page-objects/pages/startPage');
 const administrationHelper = require("../page-objects/administration")
 const loginData = require('../shared-objects/loginData');
 
@@ -12,7 +13,8 @@ Given(/^admin arrives on the Schul-Cloud page$/, function () {
 });
 Given(/^admin is logged in successfully$/, async function () {
     const { defaultAdminUsername, defaultAdminPassword } = loginData
-    return adminLogin.performLogin(defaultAdminUsername, defaultAdminPassword)
+    await startPage.clickLoginBtn();
+    await  loginPage.performLogin(defaultAdminUsername, defaultAdminPassword)
 });
 Given(/^admin performs the first login steps$/, function () {
     return firstLogin.firstLoginAdmin();
