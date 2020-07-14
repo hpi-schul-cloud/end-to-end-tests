@@ -6,9 +6,9 @@ module.exports = {
 /**
 		* Converting String date into the Date format
 		*
-		* @param _date : String date that user passes in
-		* @param _format : "dd/MM/yyyy", "mm/dd/yyyy", "mm-dd-yyyy"
-		* @param _delimiter
+		* @param date : String date that user passes in
+		* @param format : "dd/MM/yyyy", "mm/dd/yyyy", "mm-dd-yyyy"
+		* @param delimiter
 		* @returns {Date}
 		*
 		* Example use
@@ -17,10 +17,10 @@ module.exports = {
 		* stringToDate("9/17/2014","mm/dd/yyyy","/")
 		* stringToDate("9-17-2014","mm-dd-yyyy","-")
 		*/
-        stringToDate: function (_date, _format, _delimiter) {
-            let formatLowerCase = _format.toLowerCase();
-            let formatItems = formatLowerCase.split(_delimiter);
-            let dateItems = _date.split(_delimiter);
+        stringToDate: function (date, format, delimiter) {
+            let formatLowerCase = format.toLowerCase();
+            let formatItems = formatLowerCase.split(delimiter);
+            let dateItems = date.split(delimiter);
             let monthIndex = formatItems.indexOf('mm');
             let dayIndex = formatItems.indexOf('dd');
             let yearIndex = formatItems.indexOf('yyyy');
