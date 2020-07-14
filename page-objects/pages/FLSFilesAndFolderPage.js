@@ -1,0 +1,1 @@
+/*[url/files/my]|[url/files/courses]|[url/files/teams]|[url/files/shared]*/

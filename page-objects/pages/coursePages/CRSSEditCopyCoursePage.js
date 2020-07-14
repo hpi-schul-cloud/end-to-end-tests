@@ -1,0 +1,1 @@
+/*[url/courses]/[courseId]/edit] | [url/courses]/[courseId]/copy]*/
