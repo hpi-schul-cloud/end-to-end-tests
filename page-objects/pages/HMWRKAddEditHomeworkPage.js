@@ -1,0 +1,1 @@
+/*[url/homework/new] | [url/homework/[homeworkId]/edit]*/
