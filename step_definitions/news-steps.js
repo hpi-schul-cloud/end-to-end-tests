@@ -5,10 +5,11 @@ let courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
 let name = "news";
 let laterNewsName = "news should be published later";
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 
 
 Given(/^I am logged in as a teacher$/, function() {
-	helpers.loadPage(courseData.urlLogin, 20);
+	elementHelpers.loadPage(courseData.urlLogin, 20);
 	return teacherLogin.performLogin(
 		Login.defaultTeacherUsername,
 		Login.defaultTeacherpassword

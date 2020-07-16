@@ -4,6 +4,7 @@ let createTask = require("../page-objects/createTask");
 let loginData = require("../shared-objects/loginData");
 let performLogin = require("../page-objects/performLogin");
 const firstLogin = require("../shared_steps/firstLogin.js");
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 
 let shared = { loginData, performLogin };
 let page = { createTask };
@@ -11,7 +12,7 @@ let page = { createTask };
 When(
 	/^a teacher logs in his account using (.*) and (.*) in order to create a task$/,
 	function(username, password) {
-		helpers.loadPage(loginData.url, 10);
+		elementHelpers.loadPage(loginData.url, 10);
 		return shared.performLogin.performLogin(username, password);
 	}
 );
