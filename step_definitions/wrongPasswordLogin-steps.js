@@ -1,5 +1,8 @@
 'use strict';
+
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
+const loginPage = require('../page-objects/pages/loginPage');
+const startPage = require('../page-objects/pages/startPage');
 let wrongPasswordLogin = require('../page-objects/wrongPasswordLogin');
 let loginData = require('../shared-objects/loginData');
 let shared = { loginData };
@@ -9,12 +12,10 @@ Given(/^a user arrives on the Schul-Cloud login homepage$/, function() {
 	return elementHelpers.loadPage(shared.loginData.url, 10);
 });
 
-When(
-	/^a user puts in (.*) and the wrong (.*) and click the login-button$/,
-	function(username, password) {
-	return page.wrongPasswordLogin.performLogin(username, password);
-	}
-);
+When(/^a user puts in (.*) and the wrong (.*) and click the login-button$/,async function(username, password) {
+	await startPage.clickLoginBtn();
+	await loginPage.performLogin(username, password);
+});
 
 Then(/^a user should see a notification$/, function() {
 	return page.wrongPasswordLogin.loginResult();

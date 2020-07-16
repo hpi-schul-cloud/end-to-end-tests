@@ -1,5 +1,6 @@
 'use strict';
-const teacherLogin = require('../page-objects/teacherLogin');
+const loginPage = require('../page-objects/pages/loginPage');
+const startPage = require('../page-objects/pages/startPage');
 const copyCourse = require('../page-objects/copyCourse');
 const createCourse = require('../page-objects/createCourse');
 const homework = require('../page-objects/homework');
@@ -10,14 +11,12 @@ const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 /*BACKGROUND*/
 
 Given(/^the teacher starts on the login page$/, function() {
-	return elementHelpers.loadPage(courseData.urlLogin, 20);
+	return elementHelpers.loadPage(Login.url, 20);
 });
 
-Given(/^the teacher is logged-in successfully$/, function() {
-	return teacherLogin.performLogin(
-		Login.defaultTeacherUsername,
-		Login.defaultTeacherpassword
-	);
+Given(/^the teacher is logged-in successfully$/, async function() {
+	await startPage.clickLoginBtn();
+	await loginPage.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
 });
 
 Given(/^the teacher goes to the course page as a next step$/, function() {

@@ -3,7 +3,7 @@ Feature: logging in as a teachen and create a new course
 I want to be able to create a new course on Schul-Cloud
 
 Background:
-	Given The teacher arrives on the Schul-Cloud page
+	Given The teacher arrives on the Schul-Cloud Page
 	
 
 

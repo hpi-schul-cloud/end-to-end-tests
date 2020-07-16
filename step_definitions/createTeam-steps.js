@@ -1,9 +1,10 @@
 'use strict';
 
-let loginData = require('../shared-objects/loginData');
+const loginPage = require('../page-objects/pages/loginPage');
+const startPage = require('../page-objects/pages/startPage');
+const loginData = require('../shared-objects/loginData');
 const createTeam = require('../page-objects/createTeam');
-let teacherLogin = require('../page-objects/teacherLogin');
-let newPupil = require('../page-objects/administration');
+const newPupil = require('../page-objects/administration');
 const Login = require('../shared-objects/loginData');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 let fullname1;
@@ -13,11 +14,12 @@ let teamName;
 
 
 Given(/^the teacher started on the login page and$/, function() {
-    let url = loginData.url;
-    return elementHelpers.loadPage(url, 10);
+    return elementHelpers.loadPage(loginData.url, 10);
   });
-Given(/^teacher successfully logged in$/, function() {
-    return teacherLogin.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
+Given(/^teacher successfully logged in$/, async function() {
+
+    await startPage.clickLoginBtn();
+    await loginPage.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
   });
   When(/^teacher adds a new student with (.*), (.*), (.*)$/,  function(firstname1, lastname1, email1) {
     fullname1 = firstname1+" "+lastname1;

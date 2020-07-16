@@ -8,7 +8,7 @@ const Login = require('../shared-objects/loginData');
 const copyCourse = require('../page-objects/copyCourse');
 const firstLogin = require('../shared_steps/firstLogin.js');
 const createCourse = require('../page-objects/createCourse');
-const teacherLogin = require('../page-objects/teacherLogin');
+const loginPage = require('../page-objects/pages/loginPage.js');
 // TODO: choose course, SORT
 
 module.exports = {
@@ -141,7 +141,7 @@ module.exports = {
 	},
 	teacherLogsIn: async function() {
 		await this.userLogsOut();
-		await teacherLogin.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
+		await loginPage.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
 	},
 	goToTasksOfTheCourse: async function (coursename) {
 		await createCourse.goToCourses();
