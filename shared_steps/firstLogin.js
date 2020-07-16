@@ -17,6 +17,7 @@ module.exports = {
 	firstLoginTeacher: async function() {
 		let nextBtn = await driver.$('#nextSection');
 		await nextBtn.click();
+		await driver.pause(1500);
 		await nextBtn.click();
 		await driver.pause(1500);
 		await this.dataProtection();
