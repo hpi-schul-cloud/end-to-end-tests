@@ -5,7 +5,7 @@ const teacherLogin = require('../page-objects/teacherLogin');
 const { CLIENT } = require("../shared-objects/servers");
 const firstLogin = require('../shared_steps/firstLogin.js');
 const { expect } = require('chai');
-const helpers = require('../runtime/helpers.js');
+const assertHelpers = require('../runtime/helpers/assertHelpers.js');
 let legiblePassword = "KfHnAnP1!";
 
 module.exports = {
@@ -51,6 +51,6 @@ module.exports = {
 	},
 	tryWithNew: async function() {
 		await teacherLogin.performLogin(loginData.defaultTeacherUsername, legiblePassword);
-		await helpers.assertUrl(`${CLIENT.URL}/dashboard`);
+		await assertHelpers.assertUrl(`${CLIENT.URL}/dashboard`);
 	}
 }

@@ -5,6 +5,7 @@ const loginData = require('../shared-objects/loginData'),
 	imageCompare = require('../runtime/imageCompare'),
 	shared = { loginData };
 const firstLogin = require('../shared_steps/firstLogin.js');
+const elementHelpers = require('../runtime/helpers/elementHelpers');
 
 let log = global.log;
 let image;
@@ -24,31 +25,31 @@ module.exports = {
 	},
 
 	goToDashboard: async function() {
-		await helpers.loadPage(loginData.urlDashboard, 20);
+		await elementHelpers.loadPage(loginData.urlDashboard, 20);
 		await driver.pause(1000);
 	},
 
 	loginResultDashboard: async function() {
 		await this.goToDashboard();
 		let title = shared.loginData.elem.dashboardTitle;
-		expect(await helpers.getElementText(shared.loginData.elem.dashboardHeader)).to.equal(title);
+		expect(await elementHelpers.getElementText(shared.loginData.elem.dashboardHeader)).to.equal(title);
 	},
 	
 	loginInitials: async function() {
 		let initials = await firstLogin.getInitials();
-		expect(await helpers.getElementText('.avatar-circle')).to.equal(initials);
+		expect(await elementHelpers.getElementText('.avatar-circle')).to.equal(initials);
 	},
 
 	loginSchool: async function() {
 		await this.goToDashboard();
 		let schoolName = shared.loginData.elem.fullSchoolName;
-		expect(await helpers.getElementText(shared.loginData.elem.schoolName)).to.equal(schoolName);
+		expect(await elementHelpers.getElementText(shared.loginData.elem.schoolName)).to.equal(schoolName);
 	},
 	
 	loginFullUserInfo: async function() {
 		await firstLogin.getNameAndPosition();
 		let fullUserInfo = shared.loginData.elem.fullNameAdministrator;
-		expect(await helpers.getElementText(shared.loginData.elem.fullUserInfo)).to.equal(fullUserInfo);
+		expect(await elementHelpers.getElementText(shared.loginData.elem.fullUserInfo)).to.equal(fullUserInfo);
 	},
 	
 	checkIfElementIsVisisble: async function (itemsToCompare, selector) {
@@ -63,6 +64,6 @@ module.exports = {
 	compareScreenshots: async function(filename) {
 		await imageCompare.saveScreenshot(`${filename}.png`, '.timetable');
 
-		await helpers.compareImage(`${filename}.png`);
+		await imageHelpers.compareImage(`${filename}.png`);
 	}
 };

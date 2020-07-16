@@ -1,5 +1,6 @@
 'use strict';
-
+const imageHelpers = require('../runtime/helpers/imageHelpers.js');
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const loginData = require('../shared-objects/loginData'),
 	imageCompare = require('../runtime/imageCompare'),
 	shared = { loginData };
@@ -25,10 +26,10 @@ module.exports = {
 
 	loginResult: async function() {
 		let initials = await firstLogin.getInitials();
-		expect(await helpers.getElementText('.avatar-circle')).to.equal(initials);
+		expect(await elementHelpers.getElementText('.avatar-circle')).to.equal(initials);
 	},
 	compareScreenshots: async function(filename) {
 		await imageCompare.saveScreenshot(`${filename}.png`, '.timetable');
-		await helpers.compareImage(`${filename}.png`);
+		await imageHelpers.compareImage(`${filename}.png`);
 	}
 };

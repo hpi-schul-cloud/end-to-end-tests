@@ -1,5 +1,6 @@
 'use strict';
 let log = global.log;
+const numberHelpers = require('./numberHelpers.js');
 
 module.exports = {
     /**
@@ -33,7 +34,7 @@ module.exports = {
 		* @returns randomNumber excluding index 0
 		*/
 	getRandomIntegerExcludeFirst: function (range) {
-		let randomNumber = helpers.generateRandomInteger(range);
+		let randomNumber = numberHelpers.generateRandomInteger(range);
 
 		if (randomNumber <= 1) {
 			randomNumber += 2;

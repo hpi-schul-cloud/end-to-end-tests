@@ -5,6 +5,7 @@ const createTeam = require('../page-objects/createTeam');
 let teacherLogin = require('../page-objects/teacherLogin');
 let newPupil = require('../page-objects/administration');
 const Login = require('../shared-objects/loginData');
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 let fullname1;
 let fullname2;
 let teamName;
@@ -13,7 +14,7 @@ let teamName;
 
 Given(/^the teacher started on the login page and$/, function() {
     let url = loginData.url;
-    return helpers.loadPage(url, 10);
+    return elementHelpers.loadPage(url, 10);
   });
 Given(/^teacher successfully logged in$/, function() {
     return teacherLogin.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);

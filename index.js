@@ -207,23 +207,15 @@ global.paths = paths;
 /**
  * add helpers
  */
-global.helpers = require('./runtime/helpers.js');
-global.APIhelpers = require('./runtime/helpers/APIhelpers.js');
-global.assertHelpers = require('./runtime/helpers/assertHelpers.js');
-global.dateTimeHelpers = require('./runtime/helpers/dateTimeHelpers.js');
-global.elementHelpers = require('./runtime/helpers/elementHelpers.js');
-global.filterHelpers = require('./runtime/helpers/filterHelpers.js');
-global.imageHelpers = require('./runtime/helpers/imageHelpers.js');
-global.numberHelpers = require('./runtime/helpers/numberHelpers.js');
-global.textFileHelpers = require('./runtime/helpers/textFileHelpers.js');
-global.waitHelpers = require('./runtime/helpers/waitHelpers.js');
+const dateTimeHelpers = require('./runtime/helpers/dateTimeHelpers.js');
 
 
 /**
  *  adding global date function
  */
-global.date = helpers.currentDate();
-global.dateStringForFiles = helpers.getCurrentDateFormatted()
+global.date = dateTimeHelpers.currentDate();
+global.dateStringForFiles = dateTimeHelpers.getCurrentDateFormatted()
+
 
 /**
  * store EnvName globally (used within world.js when building driver)

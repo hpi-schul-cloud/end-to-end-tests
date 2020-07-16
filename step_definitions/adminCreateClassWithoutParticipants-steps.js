@@ -3,12 +3,11 @@
 const adminLogin = require('../page-objects/adminLogin')
 const administrationHelper = require("../page-objects/administration")
 const loginData = require('../shared-objects/loginData');
-
 const firstLogin = require('../shared_steps/firstLogin.js');
-
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 
 Given(/^admin arrives on the Schul-Cloud page$/, function () {
-    return helpers.loadPage(loginData.url, 10);
+    return elementHelpers.loadPage(loginData.url, 10);
 });
 Given(/^admin is logged in successfully$/, async function () {
     const { defaultAdminUsername, defaultAdminPassword } = loginData

@@ -7,7 +7,7 @@ let page = { adminLogin };
 const firstLogin = require('../shared_steps/firstLogin.js');
 
 Given(/^an admin arrives on the Schul-Cloud login homepage$/, function() {
-	return helpers.loadPage(shared.loginData.url, 10);
+	return elementHelpers.loadPage(shared.loginData.url, 10);
 });
 
 When(/^an admin puts in (.*) and (.*) and click the login-button$/, function(

@@ -1,7 +1,7 @@
 'use strict';
 
 const Login = require('../shared-objects/loginData');
-const helpers = require('../runtime/helpers.js')
+const waitHelpers = require('../runtime/helpers/waitHelpers.js')
 var secondCharacter;
 
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
 		await usernameBox.setValue(name);
 		let passwordBox = await driver.$(Login.elem.passwordInput);
 		await passwordBox.setValue(password);
-		await helpers.waitAndClick(Login.elem.submitBtn);
+		await waitHelpers.waitAndClick(Login.elem.submitBtn);
 	},
 	firstLoginTeacher: async function() {
 		let nextBtn = await driver.$('#nextSection');
@@ -48,13 +48,13 @@ module.exports = {
 	},
 	firstLoginPupilFullAge: async function(name, pass) {
 		let nextBtn = "#nextSection";
-		await helpers.waitAndClick(nextBtn);
-		await helpers.waitAndClick(nextBtn);
+		await waitHelpers.waitAndClick(nextBtn);
+		await waitHelpers.waitAndClick(nextBtn);
 		// if Data protection is needed
 		let section_three_name = await driver.$('.panels.mb-2 > section:nth-child(3) > h2');
 		if (await section_three_name.getText()== "Einwilligungserklärung") {
 			await this.dataProtection();
-			await helpers.waitAndClick(nextBtn)
+			await waitHelpers.waitAndClick(nextBtn)
 		}
 		let password = await driver.$('input[data-testid=\'firstlogin_password\']');
 		let password_control = await driver.$('input[data-testid=\'firstlogin_password_control\']');
@@ -62,7 +62,7 @@ module.exports = {
 		await driver.pause(1000);
 		await password_control.setValue(pass);
 		await driver.pause(1000);
-		await helpers.waitAndClick(nextBtn);
+		await waitHelpers.waitAndClick(nextBtn);
 		await driver.$('.form-submitted');
 		let start = await driver.$('a[data-testid="btn_schul-cloud_erkunden"]');
 		await start.waitForDisplayed(15000);

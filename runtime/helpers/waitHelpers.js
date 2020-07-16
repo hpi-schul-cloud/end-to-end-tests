@@ -1,5 +1,4 @@
 'use strict';
-
 let log = global.log;
 
 module.exports = {

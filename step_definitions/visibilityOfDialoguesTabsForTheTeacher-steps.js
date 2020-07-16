@@ -7,10 +7,11 @@ const shared = { loginData };
 const page = { teacherLogin };
 const administration = require('../page-objects/administration');
 const firstLogin = require('../shared_steps/firstLogin.js');
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 
 
   Given(/^The Teacher arrives on the Schul-Cloud page$/, function () {
-	return helpers.loadPage(shared.loginData.url, 10);
+	return elementHelpers.loadPage(shared.loginData.url, 10);
   });
 
   Given(/^The Teacher is logged in successfully$/, function () {

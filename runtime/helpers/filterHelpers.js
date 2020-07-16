@@ -1,5 +1,6 @@
 'use strict';
 let log = global.log;
+const filterHelpers = require('./filterHelpers.js');
 
 module.exports = {
 
@@ -20,7 +21,7 @@ module.exports = {
 
 	filterItemAndClick: async function (itemToFilter) {
 		try{
-			await helpers.filterItem(itemToFilter);
+			await filterHelpers.filterItem(itemToFilter);
 			await driver.pause(DELAY_3_SECOND);
 			await driver.click(shared.adminData.filter.filteredItem);
 			await driver.pause(DELAY_3_SECOND);

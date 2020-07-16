@@ -1,5 +1,7 @@
 'use strict';
 let log = global.log;
+const fs = require('fs');
+const textFileHelpers = require('./textFileHelpers.js');
 
 module.exports = {
 /**
@@ -44,7 +46,7 @@ module.exports = {
 				if (method === 'POST' && fileName != null) {
 					let data = res.body.adminDoc;
 					let doc_Id = data.replace(/.*documents\/([^\/]+)\/properties.*/, '$1');
-					await helpers.writeTextFile(fileName, doc_Id, function (err) {
+					await textFileHelpers.writeTextFile(fileName, doc_Id, function (err) {
 						if (err){
 							log.error(err.message);
 						}

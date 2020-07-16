@@ -1,6 +1,5 @@
 'use strict';
 
-
 module.exports = {
 
 /**
@@ -91,7 +90,7 @@ module.exports = {
         },
     
         getCurrentDateFormatted: function () {
-            return helpers.getCurrentDateTime().replace(/\//g, '').replace(/:/g, '').replace(' ', '');
+            return this.getCurrentDateTime().replace(/\//g, '').replace(/:/g, '').replace(' ', '');
         },
 
         	/**
@@ -133,6 +132,40 @@ module.exports = {
 		});
 		return array;
 	},
+    dateToString: async function() {
+        let today = new Date();
+        let dd = today.getDate();
+        let mm = today.getMonth() + 1; //January is 0!
+        let yyyy = today.getFullYear();
+        let hours = "11";
+        let minutes = "00";
 
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+
+        return dd + '.' + mm + '.' + yyyy + '.' + hours + '.' + minutes;
+
+    },
+    randomDate: async function() {
+        let today = new Date();
+        let dd = today.getDate();
+        let mm = today.getMonth() + 1; //January is 0!
+        let yyyy = today.getFullYear()+1;
+        let hours = "11";
+        let minutes = "00";
+
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+
+        return dd + '.' + mm + '.' + yyyy + '.' + hours + '.' + minutes;
+    }
 }
         

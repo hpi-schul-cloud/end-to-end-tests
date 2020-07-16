@@ -3,12 +3,13 @@
 let pupilLogin = require('../page-objects/pupilLogin');
 let loginData = require('../shared-objects/loginData');
 let performLogin = require('../page-objects/performLogin');
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 let shared = ({loginData, performLogin});
 let page = ({pupilLogin});
 const firstLogin = require('../shared_steps/firstLogin.js');
 
 Given(/^a pupil arrives on the Schul-Cloud login homepage$/, function () {
-	return helpers.loadPage(shared.loginData.url, 10);
+	return elementHelpers.loadPage(shared.loginData.url, 10);
 });
 
 When(/^a pupil puts in (.*) and (.*) and clicks the login-button$/, function (username, password) {

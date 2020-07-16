@@ -5,6 +5,7 @@ const loginData = require('../shared-objects/loginData'),
 	shared = { loginData };
 const sleep = require('util').promisify(setTimeout);
 const firstLogin = require('../shared_steps/firstLogin.js');
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 let log = global.log;
 let image;
 
@@ -24,12 +25,12 @@ module.exports = {
 
 	loginResult: async function() {
 		let initials = await firstLogin.getInitials();
-		expect(await helpers.getElementText('.avatar-circle')).to.equal(initials);
+		expect(await elementHelpers.getElementText('.avatar-circle')).to.equal(initials);
 	},
 	compareScreenshots: async function(filename) {
 		await sleep(100);
 		await imageCompare.saveScreenshot(`${filename}.png`, '.timetable');
 
-		await helpers.compareImage(`${filename}.png`);
+		await imageHelpers.compareImage(`${filename}.png`);
 	}
 };

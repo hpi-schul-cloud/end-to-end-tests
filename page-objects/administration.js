@@ -2,7 +2,7 @@
 const firstLogin = require('../shared_steps/firstLogin.js');
 const { expect } = require('chai');
 const Admin = require('../shared-objects/administrationData');
-const helpers = require('../runtime/helpers.js');
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 
 var length;
 let oldPassword;
@@ -13,7 +13,7 @@ let newPassword = "Schulcloud1!"
 module.exports = {
 goToAdministration: function() {
     let url = Admin.urlAdministration;
-    return helpers.loadPage(url, 10);
+    return elementHelpers.loadPage(url, 10);
 },
 createNewClass: async function (className = '11c') {
     // navigates to administration tools

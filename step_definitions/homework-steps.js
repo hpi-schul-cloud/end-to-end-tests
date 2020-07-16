@@ -5,11 +5,12 @@ const createCourse = require('../page-objects/createCourse');
 const homework = require('../page-objects/homework');
 const courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 
 /*BACKGROUND*/
 
 Given(/^the teacher starts on the login page$/, function() {
-	return helpers.loadPage(courseData.urlLogin, 20);
+	return elementHelpers.loadPage(courseData.urlLogin, 20);
 });
 
 Given(/^the teacher is logged-in successfully$/, function() {
@@ -20,7 +21,7 @@ Given(/^the teacher is logged-in successfully$/, function() {
 });
 
 Given(/^the teacher goes to the course page as a next step$/, function() {
-	return helpers.loadPage(courseData.urlCourses, 20);
+	return elementHelpers.loadPage(courseData.urlCourses, 20);
 });
 
 /* CREATE A BASIC HOMEWORK */

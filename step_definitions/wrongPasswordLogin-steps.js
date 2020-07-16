@@ -1,12 +1,12 @@
 'use strict';
-
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 let wrongPasswordLogin = require('../page-objects/wrongPasswordLogin');
 let loginData = require('../shared-objects/loginData');
 let shared = { loginData };
 let page = { wrongPasswordLogin };
 
 Given(/^a user arrives on the Schul-Cloud login homepage$/, function() {
-	return helpers.loadPage(shared.loginData.url, 10);
+	return elementHelpers.loadPage(shared.loginData.url, 10);
 });
 
 When(

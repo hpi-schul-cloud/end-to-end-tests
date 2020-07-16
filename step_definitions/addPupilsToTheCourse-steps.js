@@ -5,9 +5,10 @@ const addPupilToTheCourse = require('../page-objects/addPupilToTheCourse');
 const teacherLogin = require('../page-objects/teacherLogin');
 const createCourse = require('../page-objects/createCourse');
 const Login = require('../shared-objects/loginData');
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 
 Given(/^teacher arrives on the Schul-Cloud page$/, function() {
-	return helpers.loadPage(Login.url, 10);
+	return elementHelpers.loadPage(Login.url, 10);
 });
 Given(/^teacher is logged in successfully$/, function() {
 	return teacherLogin.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);

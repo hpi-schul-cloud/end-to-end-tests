@@ -4,12 +4,13 @@ let createCourse = require('../page-objects/createCourse');
 let copyCourse = require('../page-objects/copyCourse');
 let homework = require('../page-objects/homework');
 let courseData = require('../shared-objects/courseData');
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const Login = require('../shared-objects/loginData');
 const profileEdit = require('../page-objects/editProfile');
 const { After, Before, AfterAll, BeforeAll } = require('cucumber');
 
 Given(/^the user goes to login page$/, function() {
-		return helpers.loadPage(courseData.urlLogin, 20);
+		return elementHelpers.loadPage(courseData.urlLogin, 20);
 	});
 Given(/^the user logs in$/, function() {
 		return teacherLogin.performLogin(
