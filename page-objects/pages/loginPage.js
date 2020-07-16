@@ -1,5 +1,7 @@
 'use strict';
-const helpers = require('../../runtime/helpers.js')
+const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
+const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
+const firstLogin = require('../../shared_steps/firstLogin.js');
 
 
 module.exports = {
@@ -44,21 +46,21 @@ performLogin: async function(username, password) {
 },
 
 loginResult: async function() {
-	let initials = await helpers.getInitials();
-	expect(await helpers.getElementText('.avatar-circle')).to.equal(initials);
+	let initials = await firstLogin.getInitials();
+	expect(await elementHelpers.getElementText('.avatar-circle')).to.equal(initials);
 },
     
     /* First Login */
     
 firstLoginStudent: async function(newPassword) {
         
-	await helpers.waitAndClick(this.selectors.firstLogin.nextSectionBtn);
-	await helpers.waitAndClick(this.selectors.firstLogin.nextSectionBtn);
+	await waitHelpers.waitAndClick(this.selectors.firstLogin.nextSectionBtn);
+	await waitHelpers.waitAndClick(this.selectors.firstLogin.nextSectionBtn);
 	// if Data protection is needed
 	let section_three_name = await driver.$('.panels.mb-2 > section:nth-child(3) > h2');
 	if (await section_three_name.getText()== "Einwilligungserklärung") {
 			await this.dataProtection();
-			await helpers.waitAndClick(this.selectors.firstLogin.nextSectionBtn);
+			await waitHelpers.waitAndClick(this.selectors.firstLogin.nextSectionBtn);
 	};
 	let password = await driver.$('input[data-testid=\'firstlogin_password\']');
 	let password_control = await driver.$('input[data-testid=\'firstlogin_password_control\']');
@@ -66,7 +68,7 @@ firstLoginStudent: async function(newPassword) {
 	await driver.pause(1000);
 	await password_control.setValue(pass);
 	await driver.pause(1000);
-	await helpers.waitAndClick(nextBtn);
+	await waitHelpers.waitAndClick(nextBtn);
 	await driver.$('.form-submitted');
 	let start = await driver.$('a[data-testid="btn_schul-cloud_erkunden"]');
 	await start.waitForDisplayed(15000);

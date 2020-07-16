@@ -2,7 +2,7 @@
 
 let addPupilToTheCourse = require('../page-objects/addPupilToTheCourse');
 let administration = require('../page-objects/administration');
-let teacherLogin = require('../page-objects/teacherLogin');
+//let teacherLogin = require('../page-objects/teacherLogin');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js')
 const loginPage = require('../page-objects/pages/loginPage');
 const startPage = require('../page-objects/pages/startPage');
@@ -28,7 +28,7 @@ When(/^admin goes to administration$/, function() {
 	//return helpers.loadPage(loginData.urlAdministration, 20);
 
 	let url = Admin.urlAdministration;
-    return helpers.loadPage(url, 20);
+    return elementHelpers.loadPage(url, 20);
 });
 
 When(/^an admin puts in (.*) and (.*) and (.*) of the new pupil$/, function(firstname, secondname, email) {

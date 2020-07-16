@@ -5,11 +5,11 @@ const loginData = require("../shared-objects/loginData");
 const firstLogin = require("../shared_steps/firstLogin.js");
 const loginPage = require('../page-objects/pages/loginPage');
 const startPage = require('../page-objects/pages/startPage');
-const helpers = require('../runtime/helpers.js');
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 let page = { createTask };
 
 Given(/^teacher goes to the home page$/, function() {
-	return helpers.loadPage(loginData.url, 20);
+	return elementHelpers.loadPage(loginData.url, 20);
 });
 
 When(/^a teacher logs in his account using (.*) and (.*) in order to create a task$/, async function(username, password) {

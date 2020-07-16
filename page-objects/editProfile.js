@@ -5,6 +5,7 @@ const { CLIENT } = require("../shared-objects/servers");
 const firstLogin = require('../shared_steps/firstLogin.js');
 const { expect } = require('chai');
 const assertHelpers = require('../runtime/helpers/assertHelpers.js');
+const loginPage = require('../page-objects/pages/loginPage.js');
 let legiblePassword = "KfHnAnP1!";
 const failureMessage = "Login fehlgeschlagen."
 
@@ -43,7 +44,7 @@ module.exports = {
 
 	},
 	tryWithNew: async function() {
-		await teacherLogin.performLogin(loginData.defaultTeacherUsername, legiblePassword);
+		await loginPage.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
 		await assertHelpers.assertUrl(`${CLIENT.URL}/dashboard`);
 	}
 }
