@@ -1,15 +1,16 @@
 let urls = require('../shared-objects/versionsData');
 let performLogin = require('../page-objects/performLogin');
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 
 
 When(/^a user arrives on the client version page$/, function() {
-	return helpers.loadPage(urls.client, 10);
+	return elementHelpers.loadPage(urls.client, 10);
 });
 When(/^a user arrives on the server version page$/, function() {
-	return helpers.loadPage(urls.server, 10);
+	return elementHelpers.loadPage(urls.server, 10);
 });
 When(/^a user arrives on the nuxt version page$/, function() {
-	return helpers.loadPage(urls.nuxt, 10);
+	return elementHelpers.loadPage(urls.nuxt, 10);
 });
 When(/^he should see the git sha$/, async function() {
 	const page = await driver.$("body")

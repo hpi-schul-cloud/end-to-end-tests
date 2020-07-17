@@ -1,12 +1,14 @@
 'use strict';
 
-const helpers = require('../runtime/helpers.js')
+const waitHelpers = require('../runtime/helpers/waitHelpers.js');
+const dateTimeHelpers = require('../runtime/helpers/dateTimeHelpers.js');
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
 const copyCourse = require('../page-objects/copyCourse');
 const firstLogin = require('../shared_steps/firstLogin.js');
 const createCourse = require('../page-objects/createCourse');
-const teacherLogin = require('../page-objects/teacherLogin');
+const loginPage = require('../page-objects/pages/loginPage.js');
 // TODO: choose course, SORT
 
 module.exports = {
@@ -15,29 +17,29 @@ module.exports = {
 		await copyCourse.chooseCourse(coursename);
 		let homeworktab = await driver.$('.tabs button[data-testid="hometasks"]');
 		await homeworktab.click();
-		await helpers.waitAndClick(courseData.elem.addHomeworkBtn);
+		await waitHelpers.waitAndClick(courseData.elem.addHomeworkBtn);
 	},
 	setPrivate: async function() {
-		await helpers.waitAndClick(courseData.elem.checkbox);
+		await waitHelpers.waitAndClick(courseData.elem.checkbox);
 	},
 	addBasicHometask: async function(coursename, taskname) {
 		await this.clickCreateNewTaskInTheCourse(coursename);
 		let nameSelector = await driver.$(courseData.elem.homeworkName);
 		await nameSelector.setValue(taskname);
-		await helpers.waitAndClick(courseData.elem.teamworkActivate);
+		await waitHelpers.waitAndClick(courseData.elem.teamworkActivate);
 		await this.setAccomplishTime();
 		await this.setHometaskText();
-		await helpers.waitAndClick(courseData.elem.submitAddHomeworkBtn);
+		await waitHelpers.waitAndClick(courseData.elem.submitAddHomeworkBtn);
 	},
 	addPrivateHometask: async function(coursename, taskname) {
 		await this.clickCreateNewTaskInTheCourse(coursename);
 		let nameSelector = await driver.$(courseData.elem.homeworkName);
 		await nameSelector.setValue(taskname);
-		await helpers.waitAndClick(courseData.elem.teamworkActivate);
+		await waitHelpers.waitAndClick(courseData.elem.teamworkActivate);
 		await this.setAccomplishTime();
 		await this.setHometaskText();
 		await this.setPrivate();
-		await helpers.waitAndClick(courseData.elem.submitAddHomeworkBtn);
+		await waitHelpers.waitAndClick(courseData.elem.submitAddHomeworkBtn);
 	},
 	setHometaskText: async function() {
 		await driver.pause(global.SHORT_WAIT_MILLIS);
@@ -46,9 +48,9 @@ module.exports = {
 		await editorContent.setValue(message);
 	},
 	setAccomplishTime: async function() {
-		var begin = await helpers.dateToString();
+		var begin = await dateTimeHelpers.dateToString();
 		await driver.execute(`document.querySelector("#availableDate").value="${begin}"`);
-		var end = await helpers.randomDate();
+		var end = await dateTimeHelpers.randomDate();
 		await driver.execute(`document.querySelector("#dueDate").value="${end}"`);
 	},
 	clickAdd: async function() {
@@ -60,7 +62,7 @@ module.exports = {
 	},
 
 	gotoTasks: async function() {
-		await helpers.loadPage(courseData.urlHomework, 20);
+		await elementHelpers.loadPage(courseData.urlHomework, 20);
 	},
 
 	gotoTasksTab: async function() {
@@ -137,7 +139,7 @@ module.exports = {
 	},
 	teacherLogsIn: async function() {
 		await this.userLogsOut();
-		await teacherLogin.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
+		await loginPage.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
 	},
 	goToTasksOfTheCourse: async function (coursename) {
 		await createCourse.goToCourses();
@@ -164,7 +166,7 @@ module.exports = {
 	},
 
 	userLogsOut: async function() {
-		await helpers.loadPage(courseData.urlLogout, 20);
+		await elementHelpers.loadPage(courseData.urlLogout, 20);
 	},
 	// student helpers
 	userFindsTheTask: async function(taskname) {
@@ -181,7 +183,7 @@ module.exports = {
 	},
 	switchToSubmissionTab: async function() {
 		let submissionTab = "#submission-tab-link";
-		await helpers.waitAndClick(submissionTab);
+		await helpewaitHelpersrs.waitAndClick(submissionTab);
 	},
 	submitSolutionForTheHometask: async function() {
 		await driver.switchToFrame(0);
@@ -203,7 +205,7 @@ module.exports = {
 	// teacher helpers
 	hasTheStudentSubmittedTheTask: async function(studentname) {
 		let submissionTab = "#submissions-tab-link";
-		await helpers.waitAndClick(submissionTab);
+		await waitHelpers.waitAndClick(submissionTab);
 		let submitted_by_box = await driver.$('#submissions .groupNames > span');
 		let submitted_by_name = await submitted_by_box.getText();
 		await expect(submitted_by_name).to.contain(studentname);

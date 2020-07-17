@@ -1,5 +1,7 @@
 'use strict';
 
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
+const imageHelpers = require('../runtime/helpers/imageHelpers.js');
 const loginData = require('../shared-objects/loginData'),
 	imageCompare = require('../runtime/imageCompare'),
 	shared = ({loginData});
@@ -21,14 +23,14 @@ module.exports = {
 	},
 
 	loginResult: async function() {
-			expect(await helpers.getElementText(".notification-content")).to.equal('Login fehlgeschlagen.');
+			expect(await elementHelpers.getElementText(".notification-content")).to.equal('Login fehlgeschlagen.');
 	},
 
 	compareScreenshots: async function(filename) {
 
 		await imageCompare.saveScreenshot(`${filename}.png`);
 
-		await helpers.compareImage(`${filename}.png`);
+		await imageHelpers.compareImage(`${filename}.png`);
 
 	}
 
