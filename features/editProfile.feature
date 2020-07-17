@@ -1,7 +1,7 @@
 @editProfile
 Feature: users can edit their profile
 
-Scenario Outline : user changes the passwort
+Scenario Outline: user changes the passwort
 Given the user goes to login page
 Given the user logs in with <username> and <password>
 Given the user goes to profile settings
