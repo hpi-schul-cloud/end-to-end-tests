@@ -4,8 +4,10 @@ const loginData = require('../shared-objects/loginData');
 const { CLIENT } = require("../shared-objects/servers");
 const firstLogin = require('../shared_steps/firstLogin.js');
 const { expect } = require('chai');
+const assertHelpers = require('../runtime/helpers/assertHelpers.js');
+const loginPage = require('../page-objects/pages/loginPage.js');
+let legiblePassword = "KfHnAnP1!";
 const failureMessage = "Login fehlgeschlagen."
-
 
 module.exports = {
 	goToSettings: async function() {
@@ -41,6 +43,8 @@ module.exports = {
 		await driver.pause(waitTime*1000);
 
 	},
-	
-
+	tryWithNew: async function() {
+		await loginPage.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
+		await assertHelpers.assertUrl(`${CLIENT.URL}/dashboard`);
+	}
 }

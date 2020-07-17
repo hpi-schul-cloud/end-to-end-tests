@@ -4,10 +4,11 @@ const createCourse = require('../page-objects/createCourse');
 const loginPage = require('../page-objects/pages/loginPage');
 const startPage = require('../page-objects/pages/startPage');
 const Login = require('../shared-objects/loginData');
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 
 Given(/^The teacher arrives on the Schul-Cloud Page$/, function() {
 	let url = Login.url;
-	return helpers.loadPage(url, 20);
+	return elementHelpers.loadPage(url, 20);
 });
 Given(/^the teacher with email (.*) and (.*) is logged in successfully$/, async function(email, password) {
 	await startPage.clickLoginBtn();

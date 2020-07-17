@@ -5,9 +5,10 @@ const startPage = require('../page-objects/pages/startPage');
 const loginData = require('../shared-objects/loginData');
 const shared = { loginData };
 const firstLogin = require('../shared_steps/firstLogin.js');
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 
 Given(/^an admin arrives on the Schul-Cloud login homepage$/, function() {
-	return helpers.loadPage(shared.loginData.url, 10);
+	return elementHelpers.loadPage(shared.loginData.url, 10);
 });
 
 When(/^an admin puts in (.*) and (.*) and click the login-button$/, async function(username,password) {

@@ -6,6 +6,7 @@ const loginData = require('../shared-objects/loginData');
 const createTeam = require('../page-objects/createTeam');
 const newPupil = require('../page-objects/administration');
 const Login = require('../shared-objects/loginData');
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 let fullname1;
 let fullname2;
 let teamName;
@@ -13,7 +14,7 @@ let teamName;
 
 
 Given(/^the teacher started on the login page and$/, function() {
-    return helpers.loadPage(loginData.url, 10);
+    return elementHelpers.loadPage(loginData.url, 10);
   });
 Given(/^teacher successfully logged in$/, async function() {
 

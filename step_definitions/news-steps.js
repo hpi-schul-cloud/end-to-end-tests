@@ -5,11 +5,12 @@ const news = require('../page-objects/news');
 const Login = require('../shared-objects/loginData');
 let name = "news";
 let laterNewsName = "news should be published later";
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const firstLogin = require('../shared_steps/firstLogin.js');
 
 
 Given(/^The teacher arrives on the Schul-Cloud page$/, function() {
-	return helpers.loadPage(shared.loginData.url, 20);
+	return elementHelpers.loadPage(shared.loginData.url, 20);
 });  
 
 Given(/^teacher is successfully logged-in$/, async function() {

@@ -1,13 +1,15 @@
 'use strict';
+
 const loginPage = require('../page-objects/pages/loginPage');
 const startPage = require('../page-objects/pages/startPage');
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const Login = require('../shared-objects/loginData');
 const profileEdit = require('../page-objects/editProfile');
 const firstLogin = require('../shared_steps/firstLogin.js');
 
 
 Given(/^the user goes to login page$/, function() {
-	return helpers.loadPage(Login.url, 20);
+	return elementHelpers.loadPage(Login.url, 20);
 });
 
 Given(/^the user logs in with (.*) and (.*)$/, async function(username,password) {

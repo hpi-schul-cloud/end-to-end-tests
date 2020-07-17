@@ -3,9 +3,11 @@ const startPage = require('../page-objects/pages/startPage');
 const searchCourse = require('../page-objects/searchCourse');
 const courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 
 Given(/^teacher goes to the login page$/, function() {
-	return helpers.loadPage(Login.url, 20);
+	return elementHelpers.loadPage(Login.url, 20);
+
 });
 Given(/^the teacher logs in/, async function() {
 	await startPage.clickLoginBtn();
@@ -13,7 +15,7 @@ Given(/^the teacher logs in/, async function() {
 });
 Given(/^the teacher goes to the courses page$/, function() {
 	let url = courseData.urlCourses;
-	return helpers.loadPage(url, 20);
+	return elementHelpers.loadPage(url, 20);
 });
 When(
 	/^the teacher tipps the name (.*) of the course in the searchfield$/,
