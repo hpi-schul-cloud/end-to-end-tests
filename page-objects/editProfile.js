@@ -6,7 +6,6 @@ const firstLogin = require('../shared_steps/firstLogin.js');
 const { expect } = require('chai');
 const assertHelpers = require('../runtime/helpers/assertHelpers.js');
 const loginPage = require('../page-objects/pages/loginPage.js');
-let legiblePassword = "KfHnAnP1!";
 const failureMessage = "Login fehlgeschlagen."
 
 module.exports = {
