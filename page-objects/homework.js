@@ -43,9 +43,11 @@ module.exports = {
 	},
 	setHometaskText: async function() {
 		await driver.pause(global.SHORT_WAIT_MILLIS);
-		const editorContent = await driver.$('.ck-content');
-		const message = 'Here is some TEXT!';
-		await editorContent.setValue(message);
+		await driver.switchToFrame(0);
+		let body = await driver.$('body');
+		let message = 'Here is some TEXT!';
+		await body.setValue(message);
+		await driver.switchToParentFrame();
 	},
 	setAccomplishTime: async function() {
 		var begin = await dateTimeHelpers.dateToString();
