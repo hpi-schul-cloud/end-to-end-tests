@@ -65,12 +65,12 @@ module.exports = {
 	},
 	addText: async function(text) {
 		const textBtn = ".btn-group > button:nth-child(1)";
-		await helpers.waitAndClick(textBtn);
+		await waitHelpers.waitAndClick(textBtn);
 		const textField = await driver.$('.ck-content');
 		await driver.pause(global.SHORT_WAIT_MILLIS);
 		await textField.setValue(text);
 		const submitBtn = "button.btn.btn-primary.btn-submit";
-		await helpers.waitAndClick(submitBtn);
+		await waitHelpers.waitAndClick(submitBtn);
 	},
 
 	verify: async function(coursename, topicname) {
