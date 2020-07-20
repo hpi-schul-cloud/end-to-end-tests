@@ -64,12 +64,14 @@ module.exports = {
 
 	},
 	addText: async function(text) {
-		const textBtn = ".btn-group > button:nth-child(1)";
+		let textBtn = ".btn-group > button:nth-child(1)";
 		await waitHelpers.waitAndClick(textBtn);
-		const textField = await driver.$('.ck-content');
+		let textField = await driver.$('body');
 		await driver.pause(global.SHORT_WAIT_MILLIS);
+		await driver.switchToFrame(0);
 		await textField.setValue(text);
-		const submitBtn = "button.btn.btn-primary.btn-submit";
+		await driver.switchToParentFrame();
+		let submitBtn = "button.btn.btn-primary.btn-submit";
 		await waitHelpers.waitAndClick(submitBtn);
 	},
 
