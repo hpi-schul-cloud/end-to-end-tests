@@ -1,6 +1,7 @@
 'use strict';
 const courseData = require('../shared-objects/courseData');
-const helpers = require('../runtime/helpers.js')
+const elementHelpers = require('../runtime/helpers/elementHelpers.js')
+const waitHelpers = require('../runtime/helpers/waitHelpers.js')
 const Axios = require('axios')
 
 
@@ -28,10 +29,10 @@ const chosenSearchableSelectHelper = (driver, selectSelector) => ({
 
 module.exports = {
 	goToAddCourses: async function() {
-		await helpers.loadPage(courseData.urlCoursesAdd, 20)
+		await elementHelpers.loadPage(courseData.urlCoursesAdd, 20)
 	},
 	goToCourses: async function() {
-		await helpers.loadPage(courseData.urlCourses, 20);
+		await elementHelpers.loadPage(courseData.urlCourses, 20);
 		await driver.pause(1000);
 	},
 	setCourseName: async function(coursename) {
@@ -50,7 +51,7 @@ module.exports = {
 	},
 	goToNextSectionCreateCourse: async function() {
 		let toNextSectionBtn = "#nextSection";
-		await  helpers.waitAndClick(toNextSectionBtn)
+		await  waitHelpers.waitAndClick(toNextSectionBtn)
 	},
 
 	goToCourseOverview: async function() {
@@ -87,9 +88,9 @@ module.exports = {
 		await this.goToNextSectionCreateCourse();
 	},
 	areSelectorsOnThePage: async function() {
-	let isImportCourseBtnOnThePage = await helpers.isSelectorOnThePage(courseData.elem.importCourseBtn);
+	let isImportCourseBtnOnThePage = await elementHelpers.isSelectorOnThePage(courseData.elem.importCourseBtn);
 	await expect(isImportCourseBtnOnThePage).to.equal(1);
-	let isCreatedCourseBtnOnThePage = await helpers.isSelectorOnThePage(courseData.elem.createCourseBtn);
+	let isCreatedCourseBtnOnThePage = await elementHelpers.isSelectorOnThePage(courseData.elem.createCourseBtn);
 	await expect(isCreatedCourseBtnOnThePage).to.equal(1);
 
 	},

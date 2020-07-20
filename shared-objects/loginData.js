@@ -1,8 +1,9 @@
 const { CLIENT } = require("./servers");
 
 module.exports = {
-  url: `${CLIENT.URL}/login`,
+  url: `${CLIENT.URL}`,
   urlDashboard: `${CLIENT.URL}/dashboard`,
+  urlAdministration: `${CLIENT.URL}/administration`,
 
   defaultTeacherUsername: 'klara.fall@schul-cloud.org',
   defaultTeacherpassword: 'Schulcloud1!',
@@ -28,7 +29,15 @@ module.exports = {
     box2: 'input[name="termsOfUseConsent"]',
     passwordSet: 'input[data-testid="firstlogin_password"]',
     passwordSet2: 'input[data-testid="firstlogin_password_control"]',
-
+    //Login Credentials
+    dashboardTitle: 'Übersicht',
+    dashboardHeader: '#titlebar h1#page-title',
+    fullSchoolName: 'Paul-Gerhardt-Gymnasium',
+    schoolName: '.nav-item.school-data',
+    fullNameAdministrator: 'Thorsten Test (Administrator)',
+    fullUserInfo: 'div.dropdown-name[data-testid="name-in-the-icon"]',
+    //Login Sidebar
+    loginTabs: 'ul.sidebar-list[title]',
     // course_tabs:
     topics: 'button[data-testid="topics"]',
     tasks_tab: 'button[data-testid="hometasks"]',

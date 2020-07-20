@@ -1,0 +1,1 @@
+/*[url/news/[newsId]/edit] | [url/news/[newsId]/new]*/

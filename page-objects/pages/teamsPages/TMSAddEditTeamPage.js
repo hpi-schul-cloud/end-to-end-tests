@@ -1,0 +1,1 @@
+/*[url/teams/[teamId]/edit]*/

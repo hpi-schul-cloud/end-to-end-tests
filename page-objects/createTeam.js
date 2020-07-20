@@ -1,5 +1,5 @@
 'use strict';
-
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const teamData = require('../shared-objects/teamsData');
 const { expect } = require('chai');
 let numberOFmatches;
@@ -30,11 +30,11 @@ const chosenSearchableSelectHelper = (driver, selectSelector) => ({
 module.exports = {
 	goToTeams: async function() {
 		let url = teamData.url;
-		await helpers.loadPage(url, 20);
+		await elementHelpers.loadPage(url, 20);
 	},
 	addTeam: async function() {
 		let url = teamData.addTeamURL;
-		await helpers.loadPage(url, 20);
+		await elementHelpers.loadPage(url, 20);
 		await driver.pause(2000);
 	},
 	setTeamName: async function(name) {
@@ -103,7 +103,7 @@ module.exports = {
 	// assertion helper in steps:
 	getTeamNames: async function() {
 		let teamsPage = teamData.url;
-		await helpers.loadPage(teamsPage, 20);
+		await elementHelpers.loadPage(teamsPage, 20);
 		let container = await driver.$('.row.tasks.card-deck-row');
 		let elements = await container.$$('div');
 		const namePromises = elements.map(async element => await element.getText());
