@@ -75,6 +75,14 @@ firstLoginStudent: async function(newPassword) {
 	await start.click();
 	await driver.pause(1500);
 
-},
+	},
+	compareScreenshots: async function(filename) {
+		await imageCompare.saveScreenshot(`${filename}.png`);
+		await imageHelpers.compareImage(`${filename}.png`);
+	},
+
+	wrongLoginResult: async function() {
+		expect(await elementHelpers.getElementText(".notification-content")).to.equal('Login fehlgeschlagen.');
 	}
+}
 
