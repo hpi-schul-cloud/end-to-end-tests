@@ -8,9 +8,11 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [23.6.0] - 2020-07-21
+
+### Fixed - 23.6.0
 - fixed the @createSimpleHomework, added one more step when creating a new course
 
-### Added
 
 ## [23.5.0] - 2020-06-21
 
