@@ -11,6 +11,7 @@ const copyCourse = require('../page-objects/copyCourse');
 const firstLogin = require('../shared_steps/firstLogin.js');
 const createCourse = require('../page-objects/createCourse');
 const loginPage = require('../page-objects/pages/loginPage.js');
+const { courseNameDisplayedCorrectly } = require('../page-objects/createCourse');
 // TODO: choose course, SORT
 
 const click = async (selector) => (await driver.$(selector)).click();
@@ -143,6 +144,8 @@ module.exports = {
 	},
 	teacherLogsIn: async function () {
 		await this.userLogsOut();
+		let frontpageLoginBtn = await driver.$(Login.elem.frontpageLoginBtn);
+		await frontpageLoginBtn.click();
 		await loginPage.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
 	},
 	goToTasksOfTheCourse: async function (coursename) {
@@ -186,7 +189,7 @@ module.exports = {
 	},
 	switchToSubmissionTab: async function() {
 		let submissionTab = "#submission-tab-link";
-		await helpewaitHelpersrs.waitAndClick(submissionTab);
+		await waitHelpers.waitAndClick(submissionTab);
 	},
 	submitSolutionForTheHometask: async function () {
 		await driver.pause(global.SHORT_WAIT_MILLIS);
@@ -255,7 +258,9 @@ module.exports = {
 		await this.studentLogsIn(student.login, student.password);
 		// 	navigate to homework
 		await this.gotoTasks();
-		await click(`*=${taskName}`);
+		
+		await waitHelpers.waitAndClick(`*=${taskName}`);
+		
 		await this.switchToSubmissionTab();
 		await this.submitSolutionForTheHometask();
 	},
@@ -272,11 +277,12 @@ module.exports = {
 
 		// upload the file
 		await driver.execute(function () {
-			// Need to make the input visible, otherwise the webdriver can not uplaod any files 😞
-			document.querySelector('input[type=file]').style = {};
+			// Need to make the input visible, otherwise the webdriver can not upload any files
+			document.querySelector('input[type=file][class=dz-hidden-input]').style = {};
 		});
+
 		const remoteFilePath = await driver.uploadFile(file.path);
-		await (await driver.$('input[type=file]')).setValue(remoteFilePath);
+		await (await driver.$('input[type=file][class=dz-hidden-input]')).setValue(remoteFilePath);
 		await driver.pause(3000);
 
 		// The upload causes a page reload, which causes the current tab to change.
