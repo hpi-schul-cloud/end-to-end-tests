@@ -1,69 +1,70 @@
 "use strict";
 
 const leftNavigation = require('../page-objects/pages/NavigationLeftPage.js');
+const leftMenuItems = leftNavigation.navItemsEnum;
 
 Then('click left navigation item {string}', function (string) {
     let navigationItem = string;
     switch (navigationItem) {
-        case "logo":
+        case leftMenuItems.LOGO:
             return leftNavigation.clickNavItemLogo();
-        case "dashboard":
+        case leftMenuItems.DASHBOARD:
             return leftNavigation.clickNavItemDashboard();
-        case "courses":
+        case leftMenuItems.COURSES:
             return leftNavigation.clickNavItemCourses();
-        case "teams":
+        case leftMenuItems.TEAMS:
             return leftNavigation.clickNavItemTeams();
-        case "homework":
+        case leftMenuItems.HOMEWORK:
             return leftNavigation.clickNavItemTasks();
-        case "asked homework":
+        case leftMenuItems.ASKEDHOMEWORK:
             return leftNavigation.clickNavItemTasksAsked();
-        case "private homework":
+        case leftMenuItems.PRIVATEHOMEWORK:
             return leftNavigation.clickNavItemTasksPrivate();
-        case "archived homework":
+        case leftMenuItems.ARCHIVEDHOMEWORK:
             return leftNavigation.clickNavItemTasksArchive();
-        case "files":
+        case leftMenuItems.FILES:
             return leftNavigation.clickNavItemFiles();
-        case "my files":
+        case leftMenuItems.MYFILES:
             return leftNavigation.clickNavItemFilesMy();
-        case "course files":
+        case leftMenuItems.COURSEFILES:
             return leftNavigation.clickNavItemFilesCourses();
-        case "team files":
+        case leftMenuItems.TEAMFILES:
             return leftNavigation.clickNavItemFilesTeams();
-        case "shared files":
+        case leftMenuItems.SHAREDFILES:
             return leftNavigation.clickNavItemFilesShared();
-        case "news":
+        case leftMenuItems.NEWS:
             return leftNavigation.clickNavItemNews();
-        case "calendar":
+        case leftMenuItems.CALENDAR:
             return leftNavigation.clickNavItemCalendar();
-        case "content":
+        case leftMenuItems.CONTENT:
             return leftNavigation.clickNavItemContent();
-        case "addons":
+        case leftMenuItems.ADDONS:
             return leftNavigation.clickNavItemAddons();
-        case "helpdesk":
+        case leftMenuItems.HELPDESK:
             return leftNavigation.clickNavItemHelpDesk();
-        case "administration":
+        case leftMenuItems.ADMINISTRATION:
             return leftNavigation.clickNavItemAdministration();
-        case "admStudents":
+        case leftMenuItems.ADMINSTUDENTS:
             return leftNavigation.clickNavItemAdminStudents();
-        case "admTeachers":
+        case leftMenuItems.ADMINTEACHERS:
             return leftNavigation.clickNavItemAdminTeachers();
-        case "admClasses":
+        case leftMenuItems.ADMINCLASSES:
             return leftNavigation.clickNavItemAdminClasses();
-        case "admCourses":
+        case leftMenuItems.ADMINCOURSES:
             return leftNavigation.clickNavItemAdminCourses();
-        case "admTeams":
+        case leftMenuItems.ADMINTEAMS:
             return leftNavigation.clickNavItemAdminTeams();
-        case "admSchool":
+        case leftMenuItems.ADMINCSCHOOL:
             return leftNavigation.clickNavItemAdminSchool();
-        case "helparea":
+        case leftMenuItems.HELPAREA:
             return leftNavigation.clickNavItemHelpArea();
-        case "help articles":
+        case leftMenuItems.HELPARTICLE:
             return leftNavigation.clickNavItemHelpArticles();
-        case "trainigs":
+        case leftMenuItems.TRAININGS:
             return leftNavigation.clickNavItemHelpTrainings();
-        case "contact":
+        case leftMenuItems.CONTACT:
             return leftNavigation.clickNavItemHelpContact();
         default:
-            return;
+            return Error("no such element found in 'click left navigation item {string}' " + navigationItem);
     }
 });

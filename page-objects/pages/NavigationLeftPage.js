@@ -7,6 +7,37 @@ let navItemStringDefault1stLevel = navItemStringStart1stLevel + stringContains;
 let navItemStringDefault2ndLevel = navItemStringStart2ndLevel + stringContains;
 
 module.exports = {
+    navItemsEnum: {
+        LOGO: 'logo',
+        DASHBOARD: 'dashboard',
+        COURSES: 'courses',
+        TEAMS: 'teams',
+        HOMEWORK: 'homework',
+		ASKEDHOMEWORK: 'asked homework',
+		PRIVATEHOMEWORK: 'private homework',
+		ARCHIVEDHOMEWORK: 'archived homework',
+		FILES: 'files',
+		MYFILES: 'my files',
+		COURSEFILES: 'course files',
+		TEAMFILES: 'team files',
+		SHAREDFILES: 'shared files',
+		NEWS: 'news',
+		CALENDAR: 'calendar',
+		ADDONS: 'addons', 
+		CONTENT: 'content', 
+		HELPDESK: 'helpdesk', 
+		ADMINISTRATION: 'administration',
+		ADMINSTUDENTS: 'admStudents',
+		ADMINTEACHERS: 'admTeachers',
+        ADMINCLASSES: 'admClasses',
+        ADMINCOURSES: 'admCourses',
+		ADMINTEAMS: 'admTeams',
+		ADMINCSCHOOL: 'admSchool',
+		HELPAREA: 'helparea', 
+        HELPARTICLE: 'helparticle',
+        TRAININGS: 'trainings', 
+		CONTACT: 'contact' 
+    },
     selectors: {
         navItemLogo: navItemStringStart1stLevel + "[contains(@class,'sc-branding')]",
         navItemDashboard: navItemStringDefault1stLevel.replace('XXX', 'Übersicht'),
