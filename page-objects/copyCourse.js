@@ -65,10 +65,9 @@ module.exports = {
 	addText: async function(text) {
 		let textBtn = ".btn-group > button:nth-child(1)";
 		await helpers.waitAndClick(textBtn);
-		let iframe = await driver.$('#cke_1_contents > iframe');
 		let textField = await driver.$('body');
-		await iframe.click();
-		await driver.switchToFrame(iframe);
+		await driver.pause(global.SHORT_WAIT_MILLIS);
+		await driver.switchToFrame(0);
 		await textField.setValue(text);
 		await driver.switchToParentFrame();
 		let submitBtn = "button.btn.btn-primary.btn-submit";

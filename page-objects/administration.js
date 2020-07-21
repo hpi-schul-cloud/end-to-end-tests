@@ -2,6 +2,8 @@
 const firstLogin = require('../shared_steps/firstLogin.js');
 const { expect } = require('chai');
 const Admin = require('../shared-objects/administrationData');
+const helpers = require('../runtime/helpers.js');
+
 var length;
 let oldPassword;
 let eMAIL;
@@ -12,6 +14,46 @@ module.exports = {
 goToAdministration: function() {
     let url = Admin.urlAdministration;
     return helpers.loadPage(url, 10);
+},
+createNewClass: async function (className = '11c') {
+    // navigates to administration tools
+    await this.goToAdministration();
+
+    // navigates to class administration
+    const administrateClassesBtn = await driver.$(Admin.administrateClassesBtn);
+    await administrateClassesBtn.click();
+
+    const pageTitle = await driver.getTitle()
+    expect(pageTitle.startsWith('Administration: Klassen')).to.equal(true)
+
+    const createClassBtn = await driver.$(Admin.classCreateBtn);
+    await createClassBtn.click();
+
+    const pageTitle2 = await driver.getTitle()
+    expect(pageTitle2.startsWith('Erstelle eine neue Klasse')).to.equal(true)
+
+    const classCreationExtraOptions = await driver.$(Admin.classCreationExtraOptions)
+    await classCreationExtraOptions.click()
+
+    const classNameInputField = await driver.$(Admin.classNameInputField)
+    await classNameInputField.setValue(className);
+
+    const confirmButton = await driver.$(Admin.confirmClassCreate)
+    await confirmButton.click()
+
+},
+verifyNewEmptyClassCreated: async function (className = '11c', numOfStudents = '0') {
+    const allClassesContainer = await driver.$('tbody[data-testid=\'students_names_container\']')
+    const allClassesContent = await allClassesContainer.getText()
+    const contentArray = allClassesContent.split(" ")
+
+    const currentYear = new Date().getFullYear().toString().substring(2) // 20
+
+    expect(contentArray.length).to.equal(3) // teacher column should be empty and therefore not 4, but 3
+    expect(contentArray[0]).to.equal('11c')
+    expect(contentArray[1].includes(currentYear)).to.equal(true)
+    expect(contentArray[2]).to.equal(numOfStudents)
+
 },
 createNewPupil: async function(firstname, lastname, email) {
     name=firstname;
@@ -65,6 +107,15 @@ submitConsent: async function(e_mail) {
             await submitBtn.click();
             break;
         }
+    }
+},
+checkIfElementIsVisisble: async function (itemsToCompare, selector) {
+    let items = await driver.$$(selector);
+    let expectations = itemsToCompare.hashes();
+    for(let i = 0; i < items.length; i++){
+        let actualLabelText = await items[i].getText();
+        await items[i].waitForEnabled(DELAY_100_MILLISECOND);
+        expect(actualLabelText).to.equal(expectations[i].tabs);
     }
 },
 newPupilLogsIn: async function() {

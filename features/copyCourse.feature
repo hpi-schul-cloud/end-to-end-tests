@@ -71,12 +71,12 @@ Examples:
 | coursename             | topicname      | etherpadName          | etherpadDescription          |
 | sample course etherpad | etherpad topic | etherpad name         | etherpad description here    |
 
-@copyCourseWithStudents
-Scenario Outline: teacher can copy course with students
-Given the teacher creates a course with name <courseName> and student <studentname>
-When the teacher copies the course <courseName> with students
-Then the teacher should see the cloned course <courseName> but without students
+# @copyCourseWithStudents
+# Scenario Outline: teacher can copy course with students
+# Given the teacher creates a course with name <courseName> and student <studentname>
+# When the teacher copies the course <courseName> with students
+# Then the teacher should see the cloned course <courseName> but without students
 
-Examples:
-| courseName                  | studentname                 |
-| sample course with students | Paula Meyer                 |
+# Examples:
+# | courseName                  | studentname                 |
+# | sample course with students | Paula Meyer                 |

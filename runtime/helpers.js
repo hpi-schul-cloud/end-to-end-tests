@@ -51,6 +51,33 @@ module.exports = {
 			return driver.waitUntil(driver.$('body'), timeout);
 		});
 	},
+	/**
+	*Selectors should be found on the page, selector is given as a path
+	* @param selector
+	* @returns {Promise<void>}
+	*/
+	isSelectorOnThePage: async function (selector) {
+		const array = await driver.$$(selector);
+		if (array.length>0) {
+			return 1;
+		} else {
+			return 0;
+		}
+	},
+	/**
+		* hideElements hide elements
+		* @param  string  selectors   css selector or array of css selectors
+		*/
+	hideElements: async function(selectors) {
+		// if arg is no array make it one
+		selectors = typeof selectors == 'string' ? [selectors] : selectors;
+		for (let i = 0; i < selectors.length; i++) {
+			const script = `document.querySelectorAll('${
+				selectors[i]
+			}').forEach(element => element.style.opacity = '0')`;
+
+			await driver.execute(script);
+		}},
 
 	/**
 	* Visual comparison function
