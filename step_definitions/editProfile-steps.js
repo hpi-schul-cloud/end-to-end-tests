@@ -20,9 +20,11 @@ Given(/^the user logs in with (.*) and (.*)$/, async function(username,password)
 Given(/^the user goes to profile settings$/, function() {
 	return profileEdit.goToSettings();
 });
+
 When(/^user changes the passwort from (.*) to (.*)$/, function(oldPassword, newPassword) {
-	return profileEdit.setNewPassword();
+	return profileEdit.setNewPassword(oldPassword, newPassword);
 });
+
 When(/^the user logs out$/, function() {
 	return firstLogin.logout();
 });
@@ -31,13 +33,15 @@ When(/^the user (.*) logs in with an old password (.*)$/, async function(usernam
 	await startPage.clickLoginBtn();
 	await loginPage.performLogin(username, oldPassword);
 });
+
 Then(/^the login must fail$/, function() {
 	return profileEdit.loginFailed();
 });
 
-When(/^When the user (.*) logs in with the new password (.*)$/, function(username, newPassword) {
+When(/^the user (.*) logs in with the new password (.*)$/, function(username, newPassword) {
 	return loginPage.performLogin(username, newPassword)
 });
+
 Then(/^the login must be successful$/, function() {
-	return loginData.loginResult();
+	return loginPage.loginResult();
 });
