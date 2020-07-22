@@ -31,7 +31,6 @@ When(
 Then(
     /^admin should be given a status 403 forbidden$/,
     async function () {
-        console.log('hello')
         await administration.requestForeignStudentAndVerify()
     }
 );
