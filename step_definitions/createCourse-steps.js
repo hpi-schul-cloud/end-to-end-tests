@@ -1,99 +1,102 @@
-'use strict';
+const elementHelpers = require("../runtime/helpers/elementHelpers.js");
+const Login = require("../shared-objects/loginData");
+const loginPage = require("../page-objects/pages/loginPage");
+const startPage = require("../page-objects/pages/startPage");
+const addCourse = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
+const courseList = require("../page-objects/pages/coursePages/CRSSCourseListPage");
 
-const createCourse = require('../page-objects/createCourse');
-const loginPage = require('../page-objects/pages/loginPage');
-const startPage = require('../page-objects/pages/startPage');
-const Login = require('../shared-objects/loginData');
-const elementHelpers = require('../runtime/helpers/elementHelpers.js');
-
-Given(/^The teacher arrives on the Schul-Cloud Page$/, function() {
-	let url = Login.url;
-	return elementHelpers.loadPage(url, 20);
+Given(/^.*arrives on the Schul-Cloud Page$/, function () {
+	return elementHelpers.loadPage(Login.url, 20);
 });
-Given(/^the teacher with email (.*) and (.*) is logged in successfully$/, async function(email, password) {
+Given(/^.*with email (.*) and (.*) is logged in successfully$/, async function (
+	username,
+	password
+) {
 	await startPage.clickLoginBtn();
-	await loginPage.performLogin(email, password);
+	await loginPage.performLogin(username, password);
 });
-When(/^the teacher goes to courses page$/, function() {
-return createCourse.goToCourses()
+When(/^.*goes to courses page$/, function () {
+	return courseList.goToCourses();
 });
-Then(/^the teacher should see 2 buttons: import-course and create-course$/, function() {
-	return createCourse.areSelectorsOnThePage();
-});
-
-When(/^teacher clicks create-a-course button$/, function() {
-	return createCourse.clickCreateCourseBtn();
+Then(/^.*should see 2 buttons: import-course and create-course$/, function () {
+	return courseList.areSelectorsOnThePage();
 });
 
-When(/^the teacher enters a (.*)$/, function(coursename) {
-	return createCourse.setCourseName(coursename);
-});
-When(/^the teacher chooses a color (.*) of the course$/, function(colour) {
-	return createCourse.setColour(colour);
-});
-When(/^the teacher clicks the create button$/, function() {
-	return createCourse.goToNextSectionCreateCourse();
-});
-When(/^the teacher clicks to preview$/, function() {
-return createCourse.goToNextSectionCreateCourse();
-});
-Then(/^the teacher sees the created course (.*)$/, async function(courseName) {
-	return createCourse.verify(courseName);
-});
-Then(/^the teacher sees the created course$/, async function(courseName) {
-	return createCourse.verify(courseName);
-});
-When(/^the teacher does not submit any course name and clicks weiter-button$/, async function() {
-	return createCourse.goToNextSectionCreateCourse();
-
-});
-Then(/^the teacher cannot go to section 2$/, async function() {
-	await expect(await createCourse.canProceedToStage(2)).to.equal(false);
-
-});
-Then(/^the name of the teacher who is creating is already filled in the teacher's field$/, async function() {
-	await createCourse.theTeachersNameisSetAutomatically();
-
-});
-Then(/^time span is  already set$/, async function() {
-	await createCourse.timeSpanIsSet();
-
-});
-Then(/^supply teacher is not set$/, async function() {
-	await createCourse.supplyTeacherIsNotSet();
-
+When(/^.*clicks create-a-course button$/, function () {
+	return courseList.clickCreateCourseBtn();
 });
 
-Then(/^the second screen is shown$/, async function() {
-	await createCourse.nextScreenIsShown(2);
+When(/^.*enters a (.*)$/, function (courseName) {
+	return addCourse.setCourseName(courseName);
+});
+When(/^.*chooses a color (.*) of the course$/, function (courseColour) {
+	return addCourse.setColour(courseColour);
+});
+When(/^.*clicks the create button$/, function () {
+	return addCourse.goToNextSection();
+});
+When(/^.*clicks to preview$/, function () {
+	return addCourse.goToNextSection();
+});
+Then(/^.*sees the created course (.*)$/, async function (courseName) {
+	return courseList.verify(courseName);
+});
+Then(/^.*sees the created course$/, async function (courseName) {
+	return courseList.verify(courseName);
+});
+When(
+	/^.*does not submit any course name and clicks weiter-button$/,
+	async function () {
+		return addCourse.goToNextSection();
+	}
+);
+Then(/^.*cannot go to section (.*)$/, async function (sectionNmber) {
+	await addCourse.sectionIsNotDisplayed(sectionNmber);
+});
+Then(
+	/^.*name of the teacher who is creating is already filled in the teacher's field$/,
+	async function () {
+		await addCourse.teachersNameisSetByDefault();
+	}
+);
+Then(/^.*time span is  already set$/, async function () {
+	await addCourse.timeSpanIsSet();
+});
+Then(/^.*supply teacher is not set$/, async function () {
+	await addCourse.noTeacherSubstituteIsSet();
+});
 
+Then(/^.*second screen is shown$/, async function () {
+	await addCourse.sectionIsDisplayed(2);
 });
-Then(/^no class is set$/, async function() {
-	await createCourse.noClassIsSet();
-
+Then(/^.*no class is set$/, async function () {
+	await addCourse.noClassIsSet();
 });
-Then(/^no students are set$/, async function() {
-	await createCourse.noStudentsAreSet();
-
+Then(/^.*no students are set$/, async function () {
+	await addCourse.noStudentIsSet();
 });
-When(/^teacher clicks 'Kurs anlegen und Weiter'$/, async function() {
-	await createCourse.clickCreateCourseAndNextBtn();
-});
-
-Then(/^btns "Einen weiteren Kurs anlegen" and "Zur Kursübersicht" are visible$/, async function() {
-	await createCourse.btnsAreVisible();
-});
-Then(/^the third screen is shown$/, async function() {
-	await createCourse.nextScreenIsShown(3);
-
-});
-Then(/^the teacher clicks zur-uebersicht-btn$/, async function() {
-	await createCourse.goToCoursePreview();
-});
-Then(/^the name (.*) is displayed correctly$/, async function(courseName) {
-	await createCourse.courseNameDisplayedCorrectly(courseName);
-});
-Then(/^the color of the course is the color (.*) that was selected during the creation process$/, async function(colour) {
-	await createCourse.verifyColour(colour);
+When(/^.*clicks 'Kurs anlegen und Weiter'$/, async function () {
+	await addCourse.clickCreateCourseAndNextBtn();
 });
 
+Then(
+	/^.*btns "Einen weiteren Kurs anlegen" and "Zur Kursübersicht" are visible$/,
+	async function () {
+		await addCourse.buttonsAreVisible();
+	}
+);
+Then(/^.*third screen is shown$/, async function () {
+	await addCourse.sectionIsDisplayed(3);
+});
+Then(/^.*clicks zur-uebersicht-btn$/, async function () {
+	await addCourse.goToCourseListPage();
+});
+Then(/^.*name (.*) is displayed correctly$/, async function (courseName) {
+	await courseList.courseNameDisplayedCorrectly(courseName);
+});
+Then(
+	/^.*color of the course is the color (.*) that was selected during the creation process$/,
+	async function (courseColour) {
+		await courseList.verifyColour(courseColour);
+	}
+);
