@@ -5,7 +5,7 @@ Feature: Creating a task as a teacher
 	Given The teacher arrives on the Schul-Cloud Page
 
 	Scenario Outline: The user logs in as a teacher and creates a simple task
-	When a teacher logs in his account using <username> and <password> in order to create a task
+	When a teacher logs in his account using <username> and <password>
 	When the teacher has accepted the data protection agreement
 	Then he should click the task-button in the dashboard-sidebar
 	Then he should click the create-task-button on the task page
