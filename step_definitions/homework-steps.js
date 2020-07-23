@@ -4,6 +4,7 @@ const startPage = require('../page-objects/pages/startPage');
 const copyCourse = require('../page-objects/copyCourse');
 const createCourse = require('../page-objects/createCourse');
 const homework = require('../page-objects/homework');
+const HMWRKHomeworkListPage = require('../page-objects/pages/HMWRKHomeworkListPage');
 const courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
@@ -39,7 +40,7 @@ When(
 Then(/^the hometask with (.*) is to be found at the task pannel$/, function(
 	taskname
 ) {
-	return homework.verify(taskname);
+	return HMWRKHomeworkListPage.verify(taskname);
 });
 
 /* PRIVATE */
