@@ -23,7 +23,6 @@ setPublishDate: async function(date) {
     let dateSelector = await driver.$('input.form-control');
     await dateSelector.waitForExist(1000);
     await dateSelector.setValue(date);
-    //await driver.execute(`document.querySelector('[data-testid="news_date"] input').value = "${date}"`);
 },
 setPublishTime: async function(time) {
     await driver.execute(`document.querySelector('[data-testid="news_time"] input').value = "${time}"`);
@@ -58,7 +57,7 @@ performCreateNewsLater: async function(title) {
     await this.createNews({
         title: title,
         content: "Here are some announcements for my pupils",
-        date: "13.08.2020"
+        date: "31.12.2020"
     });
 }
 }
