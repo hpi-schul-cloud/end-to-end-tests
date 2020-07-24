@@ -271,7 +271,7 @@ module.exports = {
 		await this.teacherLogsIn();
 		// grade the submission
 		await this.gotoTasks();
-		await click(`*=${taskName}`);
+		await waitHelpers.waitAndClick(`*=${taskName}`);
 
 		await this.teacherShowGradeTabForFirstSubmission();
 
@@ -325,7 +325,7 @@ module.exports = {
 	},
 
 	teacherShowGradeTabForFirstSubmission: async function () {
-		await click('#submissions-tab-link');
+		await waitHelpers.waitAndClick('#submissions-tab-link');
 		await click('tbody.usersubmission');
 		await click('a*=Bewertung');
 	},
