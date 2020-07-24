@@ -1,4 +1,4 @@
-@visibilityOfDialoguesTabsForTheAdmin
+@visibilityOfAdministrationTabsForAdmin
 
 
 Feature: logging in as an administrator
