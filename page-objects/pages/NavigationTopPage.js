@@ -24,10 +24,5 @@ module.exports = {
     logout: async function () {
         this.clickInitials();
         this.clickLogout();
-		/*let logOut = await driver.$('[data-testid="logout"]');
-		await logOut.waitForDisplayed(3000);
-		await logOut.click();
-		let frontpageLoginBtn = await driver.$(Login.elem.frontpageLoginBtn);
-		await frontpageLoginBtn.waitForDisplayed(3000);*/
     },
 }

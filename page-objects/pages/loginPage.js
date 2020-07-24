@@ -4,7 +4,6 @@ const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
 const firstLogin = require('../../shared_steps/firstLogin.js');
 const failureMessage = "Login fehlgeschlagen.";
 
-
 module.exports = {
 	selectors: {
 		usernameInput: 'section#loginarea input[data-testid="username"]',
@@ -33,13 +32,10 @@ module.exports = {
 	},
 
 	performLogin: async function (username, password) {
-
 		let loginSel = await driver.$(this.selectors.usernameInput);
 		await loginSel.setValue(username);
-
 		let passwordSel = await driver.$(this.selectors.passwordInput);
 		await passwordSel.setValue(password);
-
 		let loginBtnSel = await driver.$('input[data-testid="submit-login"');
 		await loginBtnSel.click();
 		await driver.pause(1500);
@@ -88,16 +84,5 @@ module.exports = {
 		let btnValue = btn.getAttribute('value');
 		await expect(btnValue).to.match(/^Bitte.*Sekunden warten$/);
 	},
-
-	// loginFailed: async function() {
-	// 	let messageField = await driver.$(loginData.elem.loginNotification);
-	// 	let message = await messageField.getText();
-	// 	let loginBtnSel = await driver.$(loginData.elem.submitBtn);
-	// 	await expect(message).to.equal(failureMessage);
-	// 	let btnValue = await loginBtnSel.getAttribute('value');
-	// 	await expect(btnValue).to.match(/^Bitte.*Sekunden warten$/);
-	// 	let waitTime = (parseInt(process.env.LOGIN_BLOCK_TIME) || 15)+1;
-	// 	await driver.pause(waitTime*1000);
-	// },
 }
 
