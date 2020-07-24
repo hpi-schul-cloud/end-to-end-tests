@@ -1,16 +1,10 @@
 /*[url/homework/new] | [url/homework/[homeworkId]/edit]*/
+'use strict';
 const waitHelpers = require('../runtime/helpers/waitHelpers.js');
 const dateTimeHelpers = require('../runtime/helpers/dateTimeHelpers.js');
-const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const courseData = require('../shared-objects/courseData');
-const Login = require('../shared-objects/loginData');
-const copyCourse = require('../page-objects/copyCourse');
-const firstLogin = require('../shared_steps/firstLogin.js');
-const createCourse = require('../page-objects/createCourse');
-const loginPage = require('../page-objects/pages/loginPage.js');
 
 module.exports = {
-
 setPrivate: async function() {
     await waitHelpers.waitAndClick(courseData.elem.checkbox);
 },

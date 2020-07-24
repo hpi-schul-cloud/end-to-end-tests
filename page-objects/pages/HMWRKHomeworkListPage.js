@@ -1,19 +1,12 @@
 /*[url/homework]*/
 'use strict';
-
-const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
-const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers.js');
 const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
 const courseData = require('../../shared-objects/courseData');
 const Login = require('../../shared-objects/loginData');
-const copyCourse = require('../../page-objects/copyCourse');
 const firstLogin = require('../../shared_steps/firstLogin.js');
-const createCourse = require('../../page-objects/createCourse');
 const loginPage = require('../../page-objects/pages/loginPage.js');
 
-
 module.exports = {
-
 	gotoTasksTab: async function() {
 	let hometasksTab = await driver.$('button[data-testid="hometasks"]');
 	await hometasksTab.click();
@@ -94,17 +87,7 @@ module.exports = {
 		await this.userLogsOut();
 		await loginPage.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
 	},
-	// goToTasksOfTheCourse: async function (coursename) {
-	// 	await createCourse.goToCourses();
-	// 	await copyCourse.chooseCourse(coursename);
-	// 	await this.gotoTasksTab();
-	// },
-	// studentLogsInAndGoesToTasksOfTheCourse: async function(username, password,coursename) {
-	// 	await this.userLogsOut();
-	// 	await firstLogin.pupilLogin(username, password);
-	// 	await firstLogin.firstLoginPupilFullAge(username,password);
-	// 	await this.goToTasksOfTheCourse(coursename);
-	// },
+
 	privateTaskVerify: async function() {
 		let areThereAnyTasks = await this.areThereAnyTasks();
 		if (areThereAnyTasks==true) {
@@ -122,9 +105,6 @@ module.exports = {
 		await elementHelpers.loadPage(courseData.urlLogout, 20);
 	},
 	
-
-	
-
 	uploadAHomework: async function() {
 		//making the upload-element visible to selenium
 		change_visibility = '$x("//*[@id="main-content"]/div/section[1]/div/div/div[1]/input").css("visibility,"visible");';
