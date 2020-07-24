@@ -85,4 +85,3 @@ module.exports = {
 		await expect(btnValue).to.match(/^Bitte.*Sekunden warten$/);
 	},
 }
-

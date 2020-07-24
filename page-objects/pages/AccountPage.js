@@ -18,6 +18,5 @@ module.exports = {
         let passwordControlField = await driver.$(this.selectors.repeatNewPasswordInp);
         await passwordControlField.setValue(newPassword);
         await waitHelpers.waitAndClick(this.selectors.submitAccountDataBtn);
-    },
-
+    }
 }
