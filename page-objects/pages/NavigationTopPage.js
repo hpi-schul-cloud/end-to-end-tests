@@ -24,5 +24,5 @@ module.exports = {
     logout: async function () {
         this.clickInitials();
         this.clickLogout();
-    },
+    }
 }
