@@ -12,8 +12,12 @@ module.exports = {
 	},
 
 	importAndCreateCourseBtnsAreVisible: async function () {
-		expect(await eh.isElementPresent(courseListData.importCourseBtn)).to.equal(true);
-		expect(await eh.isElementPresent(courseListData.createCourseBtn)).to.equal(true);
+		expect(
+			await eh.isElementPresent(courseListData.importCourseBtn)
+		).to.equal(true);
+		expect(
+			await eh.isElementPresent(courseListData.createCourseBtn)
+		).to.equal(true);
 	},
 
 	getCourseNames: async function () {
@@ -30,11 +34,13 @@ module.exports = {
 		return courseNames;
 	},
 
-	courseDisplayedCorrectly: async function (courseName) {
+	courseIsDisplayedCorrectly: async function (courseName) {
 		let activeCourses = await driver.$(courseListData.activeCourses);
-		let coursesOnThePage = await activeCourses.$$(courseListData.titleOfCourse);
-		let courseCount  = await coursesOnThePage.length;
-		let courseTitleCard = coursesOnThePage[courseCount-1];
+		let coursesOnThePage = await activeCourses.$$(
+			courseListData.titleOfCourse
+		);
+		let courseCount = await coursesOnThePage.length;
+		let courseTitleCard = coursesOnThePage[courseCount - 1];
 		let courseTitle = await courseTitleCard.getText();
 		expect(courseTitle).to.equal(courseName);
 	},
@@ -44,12 +50,21 @@ module.exports = {
 		expect(allCourses).to.include(coursename);
 	},
 
-	isCorrectCourseColour: async function(colour) {
+	isCorrectCourseColour: async function (colour) {
 		let activeCourses = await driver.$(courseListData.activeCourses);
-		let coursesOnThePage = await activeCourses.$$(courseListData.container_of_element);
-		let indexOfTheLastAddedCourse  = await coursesOnThePage.length;
-		let container = await driver.$(courseListData.container_of_element+':nth-child('+indexOfTheLastAddedCourse+')');
-		let lastAddedCourse = await container.$(courseListData.header_of_element);
+		let coursesOnThePage = await activeCourses.$$(
+			courseListData.container_of_element
+		);
+		let indexOfTheLastAddedCourse = await coursesOnThePage.length;
+		let container = await driver.$(
+			courseListData.container_of_element +
+				":nth-child(" +
+				indexOfTheLastAddedCourse +
+				")"
+		);
+		let lastAddedCourse = await container.$(
+			courseListData.header_of_element
+		);
 		const styleArray = await lastAddedCourse.getHTML();
 		let regexp = /background:#[A-F, 0-9]{6}/;
 		let styleMatches = styleArray.match(regexp);
@@ -66,31 +81,31 @@ module.exports = {
 		let colourSelector;
 		switch (colourName) {
 			case "grey":
-				colourSelector = courseListData.courseColours.grey;
+				colourSelector = courseListData.courseColour.grey;
 				break;
 			case "metallicGold":
-				colourSelector = courseListData.courseColours.metallicGold;
+				colourSelector = courseListData.courseColour.metallicGold;
 				break;
 			case "blue":
-				colourSelector = courseListData.courseColours.blue;
+				colourSelector = courseListData.courseColour.blue;
 				break;
 			case "green":
-				colourSelector = courseListData.courseColours.green;
+				colourSelector = courseListData.courseColour.green;
 				break;
 			case "darkGrey":
-				colourSelector = courseListData.courseColours.darkGrey;
+				colourSelector = courseListData.courseColour.darkGrey;
 				break;
 			case "goldenPoppy":
-				colourSelector = courseListData.courseColours.goldenPoppy;
+				colourSelector = courseListData.courseColour.goldenPoppy;
 				break;
 			case "martini":
-				colourSelector = courseListData.courseColours.martini;
+				colourSelector = courseListData.courseColour.martini;
 				break;
 			case "violetRed":
-				colourSelector = courseListData.courseColours.violetRed;
+				colourSelector = courseListData.courseColour.violetRed;
 				break;
 			case "corn":
-				colourSelector = courseListData.courseColours.corn;
+				colourSelector = courseListData.courseColour.corn;
 				break;
 			default:
 				console.error(

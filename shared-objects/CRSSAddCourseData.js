@@ -4,7 +4,7 @@ module.exports = {
 	urlCoursesAdd: `${CLIENT.URL}/courses/add`,
 
 	//Sections
-	nextSectionBtn: '#nextSection',
+	nextSectionBtn: "#nextSection",
 	section: {
 		one: '[data-testid="section-1-area"]',
 		two: '[data-testid="section-2-area"]',

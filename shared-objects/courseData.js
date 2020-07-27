@@ -46,7 +46,7 @@ module.exports = {
 		createCourseBtn: '[data-testid="create-course-btn"]',
 		stage1Selector: '[data-testid="section-1"]',
 		stage2Selector: '[data-testid="section-2"]',
-		stage3Selector: '[data-testid="section-3"]',
+		stage2Selector: '[data-testid="section-3"]',
 		teacherNamesInCreateCourse: '[data-testid="teachers_container"]',
 		timeSpan: {
 			start: '[data-testid="date_start"]',

@@ -3,22 +3,22 @@ const { CLIENT } = require("./servers");
 module.exports = {
 	pageTitle: "#page-title",
 	titleOfAnElement: '[data-testid="title_of_an_element"]',
-	titleOfCourse: '.title',
+	titleOfCourse: ".title",
 
 	urlCourses: `${CLIENT.URL}/courses`,
 
-	activeCourses: '.section-activeCourses',
+	activeCourses: ".section-activeCourses",
 	courseContainer: '[data-testid="courses"]',
 
 	importCourseBtn: '[data-testid="import-course-btn"]',
 	createCourseBtn: '[data-testid="create-course-btn"]',
 
 	container_of_element: '[data-testid="container_of_element"]', // in this case testid of a single course
-	header_of_element: '.sc-card-header', //  eg background colour
+	header_of_element: '[data-testid="header-of-element"]', //  eg background colour
 
 	title: '[data-testid="title_of_an_element"]',
 
-	courseColours: {
+	courseColour: {
 		grey: "background:#ACACAC",
 		metallicGold: "background:#ACACAC",
 		blue: "background:#00E5FF",

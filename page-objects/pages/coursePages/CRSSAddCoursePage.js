@@ -14,26 +14,13 @@ module.exports = {
 	getListOfSelected: async function (containerSelector) {
 		let container = await driver.$(containerSelector);
 		let listOfElements = await container.$$(addCourseData.chosenInput);
-		return this.getTextListFromListOfElements(listOfElements);
-	},
-
-	getTextListFromListOfElements: async function (listOfElements) {
-		return await Promise.all(
-			listOfElements.map(async (element) => await element.getText())
-		);
-	},
-
-	getValueListFromListOfElements: async function (listOfElements) {
-		return await Promise.all(
-			listOfElements.map(async (element) => await element.getValue())
-		);
+		return await eh.getTextListFromListOfElements(listOfElements);
 	},
 
 	isDefaultValueInContainer: async function (containerSelector, defaultText) {
 		let container = await driver.$(containerSelector);
 		let listOfElements = await container.$$(addCourseData.chosenDefInput);
-
-		let valueList = await this.getValueListFromListOfElements(listOfElements);
+		let valueList = await eh.getValueListFromListOfElements(listOfElements);
 		let isOnlyOneText = valueList.length == 1;
 		await expect(isOnlyOneText).is.equal(true);
 		await expect(valueList).includes(defaultText);
@@ -61,7 +48,9 @@ module.exports = {
 		let hasChildren = (await element.$$(".//*").length) > 0;
 
 		if (sectionNumber == 1) {
-			await expect(await eh.isElementPresent(sectionToCheck)).to.equal(false);
+			await expect(await eh.isElementPresent(sectionToCheck)).to.equal(
+				false
+			);
 		} else {
 			await expect(hasChildren).to.equal(false);
 		}
@@ -106,7 +95,7 @@ module.exports = {
 	//Course data section
 	courseNameIsNotEntered: async function () {
 		let courseNameInput = await driver.$(addCourseData.courseNameInput);
-		let placeholderText = await courseNameInput.getAttribute('placeholder');
+		let placeholderText = await courseNameInput.getAttribute("placeholder");
 		await expect(placeholderText).to.equal("z.B. Mathe 10a");
 	},
 
@@ -182,7 +171,11 @@ module.exports = {
 	},
 
 	finalButtonsAreVisible: async function () {
-		await expect(await eh.isElementPresent(addCourseData.createNewCourseBtn)).to.equal(true);
-		await expect(await eh.isElementPresent(addCourseData.goToCourseListBtn)).to.equal(true);
+		await expect(
+			await eh.isElementPresent(addCourseData.createNewCourseBtn)
+		).to.equal(true);
+		await expect(
+			await eh.isElementPresent(addCourseData.goToCourseListBtn)
+		).to.equal(true);
 	},
 };
