@@ -4,20 +4,20 @@ module.exports = {
 	urlCoursesAdd: `${CLIENT.URL}/courses/add`,
 
 	//Sections
-	nextSectionBtn: "#nextSection",
+	nextSectionBtn: '#nextSection',
 	section: {
 		one: '[data-testid="section-1-area"]',
-		two: '[data-testid="section-2-area" ]',
-		three: '[data-testid="section-3-area" ]',
+		two: '[data-testid="section-2-area"]',
+		three: '[data-testid="section-3-area"]',
 	},
 
-	chosenDefInput: [".chosen-search-input.default"],
-	chosenInput: [".search-choice"],
+	chosenDefInput: ".chosen-search-input.default",
+	chosenInput: ".search-choice span",
 
 	//Course data section
 	courseNameInput: '[data-testid="coursename"]',
 	teacherContainer: '[data-testid="teachers_container"]',
-	teacherSubContainer: ['[data-testid="courseSubstitute_container"]'],
+	teacherSubContainer: '[data-testid="courseSubstitute_container"]',
 
 	colourPicker: ".color-picker__item",
 	listOfColours: [
@@ -43,5 +43,5 @@ module.exports = {
 
 	//Final section
 	createNewCourseBtn: '[data-testid="einen-weiteren-kurs-anlegen-btn"]',
-	goToCourseListPageBtn: '[data-testid="zur-uebersicht-btn"]',
+	goToCourseListBtn: '[data-testid="zur-uebersicht-btn"]',
 };

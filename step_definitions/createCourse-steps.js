@@ -18,11 +18,18 @@ Given(/^.*with email (.*) and (.*) is logged in successfully$/, async function (
 When(/^.*goes to courses page$/, function () {
 	return courseList.goToCourses();
 });
-Then(/^.*should see 2 buttons: import-course and create-course$/, function () {
-	return courseList.areSelectorsOnThePage();
+Then(/^.*buttons: Import-course, Create-new-course are visible$/, function () {
+	return courseList.importAndCreateCourseBtnsAreVisible();
 });
 
-When(/^.*clicks create-a-course button$/, function () {
+Then(
+	/^.*buttons: Create-new-course, Go-to-course-list-page are visible$/,
+	async function () {
+		await addCourse.finalButtonsAreVisible();
+	}
+);
+
+When(/^.*clicks Create-new-course button$/, function () {
 	return courseList.clickCreateCourseBtn();
 });
 
@@ -32,71 +39,66 @@ When(/^.*enters a (.*)$/, function (courseName) {
 When(/^.*chooses a color (.*) of the course$/, function (courseColour) {
 	return addCourse.setColour(courseColour);
 });
-When(/^.*clicks the create button$/, function () {
+When(/^.*clicks Create-button$/, function () {
 	return addCourse.goToNextSection();
 });
 When(/^.*clicks to preview$/, function () {
 	return addCourse.goToNextSection();
 });
-Then(/^.*sees the created course (.*)$/, async function (courseName) {
-	return courseList.verify(courseName);
+
+Then(/^.*course with name (.*) is visible on the list$/, async function (courseName) {
+	return courseList.isCourseOnList(courseName);
 });
-Then(/^.*sees the created course$/, async function (courseName) {
-	return courseList.verify(courseName);
+
+Then(/^.*course with name (.*) is displayed correctly on the list$/, async function (courseName) {
+	await courseList.courseDisplayedCorrectly(courseName);
 });
 When(
-	/^.*does not submit any course name and clicks weiter-button$/,
+	/^.*clicks Next-section button$/,
 	async function () {
 		return addCourse.goToNextSection();
 	}
 );
-Then(/^.*cannot go to section (.*)$/, async function (sectionNmber) {
-	await addCourse.sectionIsNotDisplayed(sectionNmber);
+Then(/^.*the (.*) section can not be opened$/, async function (sectionNumber) {
+	await addCourse.sectionIsNotDisplayed(sectionNumber);
 });
 Then(
-	/^.*name of the teacher who is creating is already filled in the teacher's field$/,
+	/^.*his name is entered by default in teachers' field$/,
 	async function () {
 		await addCourse.teachersNameisSetByDefault();
 	}
 );
-Then(/^.*time span is  already set$/, async function () {
+Then(/^.*course name has not been entered$/, async function () {
+	await addCourse.courseNameIsNotEntered();
+});
+
+Then(/^.*time span is already set$/, async function () {
 	await addCourse.timeSpanIsSet();
 });
 Then(/^.*supply teacher is not set$/, async function () {
 	await addCourse.noTeacherSubstituteIsSet();
 });
 
-Then(/^.*second screen is shown$/, async function () {
-	await addCourse.sectionIsDisplayed(2);
+Then(/^.* (.*) section is opened$/, async function (sectionNumber) {
+	await addCourse.sectionIsDisplayed(sectionNumber);
 });
 Then(/^.*no class is set$/, async function () {
 	await addCourse.noClassIsSet();
 });
-Then(/^.*no students are set$/, async function () {
+Then(/^.*no student is set$/, async function () {
 	await addCourse.noStudentIsSet();
 });
-When(/^.*clicks 'Kurs anlegen und Weiter'$/, async function () {
-	await addCourse.clickCreateCourseAndNextBtn();
+When(/^.*clicks Create-course-and-continue button'$/, async function () {
+	await addCourse.clickCreateCourseAndContinueBtn();
+});
+
+Then(/^.*clicks Go-to-course-list$/, async function () {
+	await addCourse.clickGoToCourseListBtn();
 });
 
 Then(
-	/^.*btns "Einen weiteren Kurs anlegen" and "Zur Kursübersicht" are visible$/,
-	async function () {
-		await addCourse.buttonsAreVisible();
-	}
-);
-Then(/^.*third screen is shown$/, async function () {
-	await addCourse.sectionIsDisplayed(3);
-});
-Then(/^.*clicks zur-uebersicht-btn$/, async function () {
-	await addCourse.goToCourseListPage();
-});
-Then(/^.*name (.*) is displayed correctly$/, async function (courseName) {
-	await courseList.courseNameDisplayedCorrectly(courseName);
-});
-Then(
-	/^.*color of the course is the color (.*) that was selected during the creation process$/,
+	/^.*color of the course is (\S*) .*$/,
 	async function (courseColour) {
-		await courseList.verifyColour(courseColour);
+		await courseList.isCorrectCourseColour(courseColour);
 	}
 );

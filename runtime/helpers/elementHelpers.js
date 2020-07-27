@@ -160,23 +160,7 @@ module.exports = {
 	isElementDisplayed: async function(selector) {
 		await driver.$(selector).isDisplayed();
 	},
-
-	expectTrue: async function(condition) {
-		await expect(condition).to.equal(true);
-	},
-
-	expectFalse: async function(condition) {
-		await expect(condition).to.equal(false);
-	},
-
-	getNthChildOfSelector: async function (selector, n) {
-		await driver.$(selector).children[n];
-	},
-
-	getChildrenCount: async function (selector) {
-		await driver.$(selector).children.length;
-	},
-
+	
 	/**
 	* It checks if a given element exists on page
 	* @param selector
@@ -184,8 +168,7 @@ module.exports = {
 	*/
 	isElementPresent: async function (selector) {
 		const array = await driver.$$(selector);
-		return array.length > 0; 
-    },
-
-
+		return (array.length>0); 
+	},
+	
 }
