@@ -1,9 +1,10 @@
 /*[url/login]*/
 'use strict';
-const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
-const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
-const firstLogin = require('../../shared_steps/firstLogin.js');
+const elementHelpers = require('../../../runtime/helpers/elementHelpers.js');
+const waitHelpers = require('../../../runtime/helpers/waitHelpers.js');
+const firstLogin = require('../../../shared_steps/firstLogin.js');
 const failureMessage = "Login fehlgeschlagen.";
+
 
 module.exports = {
 	selectors: {
@@ -17,8 +18,8 @@ module.exports = {
 				box2: 'input[name="termsOfUseConsent"]',
 			},
 			setOwnPasswort: {
-				passwordSet: 'input[data-testid="firstlogin_password"]',
-				passwordSet2: 'input[data-testid="firstlogin_password_control"]',
+				passwordSet: 'input[@data-testid="firstlogin_password"]',
+				passwordSet2: 'input[@data-testid="firstlogin_password_control"]',
 			},
 			sectionNames: {
 				sectionOne: '[data-testid="name-section-1"]',

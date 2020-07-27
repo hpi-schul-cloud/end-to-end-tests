@@ -1,6 +1,6 @@
 'use strict';
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
-const startPage = require('../page-objects/page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
+const startPage = require('../page-objects//pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const TMSAddEditTeamPage = require('../page-objects/pages/teamsPages/TMSAddEditTeamPage');
 const newsAddEditNews = require('../page-objects/pages/NWSAddEditNewsPage');
 const newsListPage = require('../page-objects/pages/NWSNewsListPage');
@@ -9,6 +9,7 @@ let name = "news";
 let laterNewsName = "news should be published later";
 const elementHelpers = require('../runtime/helpers/elementHelpers');
 const firstLogin = require('../shared_steps/firstLogin.js');
+const commonKGO = require('../shared_steps/commonKGO-steps.js');
 
 
 
@@ -26,7 +27,6 @@ When(/^teacher creats some news which has to be published immediately$/, functio
 });
 
 When(/^a user who has permissions to see the news logs in$/, async function() {
-
 	return firstLogin.loginAsPupil(Login.notEligiblePupilUsername, Login.notEligiblePupilPassword);
 });
 When(/^he goes to the news page$/, function() {
@@ -62,4 +62,8 @@ Then(/^team member can see the news$/, function() {
 });
 Then(/^team non-members cannot see the news$/, function() {
 	return TMSAddEditTeamPage.canNonTeamMemberSeeTheNews();
+});
+
+Then(/^the pupil should accept the data protection$/, function() {
+	return firstLogin.firstLoginPupilFullAge(Login.notEligiblePupilPassword);
 });
