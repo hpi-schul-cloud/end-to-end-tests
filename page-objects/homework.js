@@ -10,7 +10,8 @@ const Login = require('../shared-objects/loginData');
 const copyCourse = require('../page-objects/copyCourse');
 const firstLogin = require('../shared_steps/firstLogin.js');
 const createCourse = require('../page-objects/createCourse');
-const loginPage = require('../page-objects/pages/loginPage.js');
+const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
+const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const { courseNameDisplayedCorrectly } = require('../page-objects/createCourse');
 // TODO: choose course, SORT
 
@@ -144,7 +145,7 @@ module.exports = {
 	},
 	teacherLogsIn: async function () {
 		await this.userLogsOut();
-		let frontpageLoginBtn = await driver.$(Login.elem.frontpageLoginBtn);
+		let frontpageLoginBtn = await driver.$(startPage.selectors.frontpageLoginBtn);
 		await frontpageLoginBtn.click();
 		await loginPage.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
 	},

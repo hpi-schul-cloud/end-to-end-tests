@@ -1,8 +1,8 @@
 'use strict';
 
 const createCourse = require('../page-objects/createCourse');
-const loginPage = require('../page-objects/pages/loginPage');
-const startPage = require('../page-objects/pages/startPage');
+const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
+const startPage = require('../page-objects/page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const Login = require('../shared-objects/loginData');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 

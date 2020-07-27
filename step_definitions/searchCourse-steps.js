@@ -1,5 +1,5 @@
-const loginPage = require('../page-objects/pages/loginPage');
-const startPage = require('../page-objects/pages/startPage');
+const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
+const startPage = require('../page-objects/page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const searchCourse = require('../page-objects/searchCourse');
 const courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');

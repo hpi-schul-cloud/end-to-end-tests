@@ -1,6 +1,6 @@
 'use strict';
-const loginPage = require('../page-objects/pages/loginPage');
-const startPage = require('../page-objects/pages/startPage');
+const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
+const startPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const loginData = require('../shared-objects/loginData');
