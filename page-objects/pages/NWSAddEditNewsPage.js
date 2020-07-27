@@ -3,6 +3,7 @@
 const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
 const { CLIENT } = require("../../shared-objects/servers");
 const Login = require('../../shared-objects/loginData');
+const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers');
 
 module.exports = {
 goToNewNews: async function() {
@@ -59,7 +60,7 @@ performCreateNewsLater: async function(title) {
     await this.createNews({
         title: title,
         content: "Here are some announcements for my pupils",
-        date: "31.12.2030"
+        date: dateTimeHelpers.setDate(0,1,1,'.', false)
     });
 }
 }
