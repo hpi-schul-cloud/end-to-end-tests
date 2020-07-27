@@ -7,10 +7,11 @@ Feature: Logging in as an pupil
 		Given a pupil arrives on the Schul-Cloud login homepage
 
 	Scenario Outline: User inputs the username and password
-		When a pupil puts in <username> and <password> and clicks the login-button
-		Then pupil accepts data security, checks the email <username> and sets password <password> .
+		And go from start page to login page
+		And log in with <username> and <password>
+		And the pupil should accept the data protection
 		Then a pupil should see the dashboard
 
 		Examples:
-			|username|password|
-			|paula.meyer@schul-cloud.org|Schulcloud1!|
+			| username                    | password     |
+			| paula.meyer@schul-cloud.org | Schulcloud1! |

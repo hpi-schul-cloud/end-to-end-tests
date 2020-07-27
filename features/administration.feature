@@ -11,9 +11,13 @@ Feature: Administrate pupils, classes and teachers
 		When an admin puts in <firstName> and <secondName> and <email> of the new pupil
 		Then the admin should see new pupil with email <email> among his pupils
 		Then the teacher can manually submit a consent <email>
-		Then new pupil can log in
-		Then new pupil accepts data protection policy and sets new password for the profile
+		And log out
+		And go from start page to login page
+		And log in with <username> and <password>
+		And the pupil should accept the data protection
+		#Then new pupil can log in
+		#Then new pupil accepts data protection policy and sets new password for the profile
 
 		Examples:
-			|firstName|secondName|email|
-			|Georg|Georgmann|georgmann@schul-cloud.org|
+			| firstName | secondName | email                     | username                    | password     |
+			| Georg     | Georgmann  | georgmann@schul-cloud.org | paula.meyer@schul-cloud.org | Schulcloud1! |
