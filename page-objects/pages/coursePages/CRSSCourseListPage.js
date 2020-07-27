@@ -1,32 +1,50 @@
 /*[url/courses]*/
 "use strict";
-
-const courseListData = require("../../../shared-objects/CRSSCourseListData");
+const { CLIENT } = require("../../../shared-objects/servers")
 const eh = require("../../../runtime/helpers/elementHelpers");
 const wh = require("../../../runtime/helpers/waitHelpers");
 const { expect } = require("chai");
 
+const titleOfAnElement = '[data-testid="title_of_an_element"]';
+const titleOfCourse = ".title";
+const urlCourses = `${CLIENT.URL}/courses`;
+
+const activeCourses = ".section-activeCourses";
+const courseContainer = '[data-testid="courses"]';
+
+const importCourseBtn = '[data-testid="import-course-btn"]';
+const createCourseBtn = '[data-testid="create-course-btn"]';
+
+const container_of_element = '[data-testid="container_of_element"]';
+const header_of_element = '[data-testid="header-of-element"]';
+
+const courseColour = {
+	grey: "background:#ACACAC",
+	metallicGold: "background:#ACACAC",
+	blue: "background:#00E5FF",
+	green: "background:#1DE9B6",
+	darkGrey: "background:#546E7A",
+	goldenPoppy: "background:#FFC400",
+	martini: "background:#BCAAA4",
+	violetRed: "background:#FF4081",
+	corn: "background:#FFEE58",
+};
+
 module.exports = {
 	goToCourses: async function () {
-		await eh.loadPage(courseListData.urlCourses, 30);
+		await eh.loadPage(urlCourses, 30);
 	},
 
 	importAndCreateCourseBtnsAreVisible: async function () {
-		expect(
-			await eh.isElementPresent(courseListData.importCourseBtn)
-		).to.equal(true);
-		expect(
-			await eh.isElementPresent(courseListData.createCourseBtn)
-		).to.equal(true);
+		expect(await eh.isElementPresent(importCourseBtn)).to.equal(true);
+		expect(await eh.isElementPresent(createCourseBtn)).to.equal(true);
 	},
 
 	getCourseNames: async function () {
-		const container = await driver.$(courseListData.courseContainer);
-		const courseTitleContainer = await container.$$(
-			courseListData.titleOfAnElement
-		);
+		const container = await driver.$(courseContainer);
+		const courseTitleContainer = await container.$$(titleOfAnElement);
 
-		let courseNames = await Promise.all(
+		const  courseNames = await Promise.all(
 			await courseTitleContainer.map(
 				async (element) => await element.getText()
 			)
@@ -35,77 +53,71 @@ module.exports = {
 	},
 
 	courseIsDisplayedCorrectly: async function (courseName) {
-		let activeCourses = await driver.$(courseListData.activeCourses);
-		let coursesOnThePage = await activeCourses.$$(
-			courseListData.titleOfCourse
-		);
-		let courseCount = await coursesOnThePage.length;
-		let courseTitleCard = coursesOnThePage[courseCount - 1];
-		let courseTitle = await courseTitleCard.getText();
+		const activeCoursesContainer = await driver.$(activeCourses);
+		const coursesOnThePage = await activeCoursesContainer.$$(titleOfCourse);
+		const courseCount = await coursesOnThePage.length;
+		const courseTitleCard = coursesOnThePage[courseCount - 1];
+		const courseTitle = await courseTitleCard.getText();
 		expect(courseTitle).to.equal(courseName);
 	},
 
 	isCourseOnList: async function (coursename) {
-		let allCourses = await this.getCourseNames();
+		const allCourses = await this.getCourseNames();
 		expect(allCourses).to.include(coursename);
 	},
 
 	isCorrectCourseColour: async function (colour) {
-		let activeCourses = await driver.$(courseListData.activeCourses);
-		let coursesOnThePage = await activeCourses.$$(
-			courseListData.container_of_element
-		);
-		let indexOfTheLastAddedCourse = await coursesOnThePage.length;
-		let container = await driver.$(
-			courseListData.container_of_element +
+		const activeCoursesContainer = await driver.$(activeCourses);
+		const coursesOnThePage = await activeCoursesContainer.$$(container_of_element);
+		const indexOfTheLastAddedCourse = await coursesOnThePage.length;
+		const container = await driver.$(
+			container_of_element +
 				":nth-child(" +
 				indexOfTheLastAddedCourse +
 				")"
 		);
-		let lastAddedCourse = await container.$(
-			courseListData.header_of_element
-		);
+		const lastAddedCourse = await container.$(header_of_element);
 		const styleArray = await lastAddedCourse.getHTML();
-		let regexp = /background:#[A-F, 0-9]{6}/;
-		let styleMatches = styleArray.match(regexp);
-		let style = styleMatches[0];
-		let colourNumber = this.getColourSelector(colour);
+		const regexp = /background:#[A-F, 0-9]{6}/;
+		const styleMatches = styleArray.match(regexp);
+		const style = styleMatches[0];
+		const colourNumber = this.getColourSelector(colour);
 		expect(style).to.equal(colourNumber);
 	},
 
 	clickCreateCourseBtn: async function () {
-		await wh.waitAndClick(courseListData.createCourseBtn);
+		await wh.waitAndClick(createCourseBtn);
 	},
 
 	getColourSelector: function (colourName) {
 		let colourSelector;
 		switch (colourName) {
 			case "grey":
-				colourSelector = courseListData.courseColour.grey;
+				colourSelector = courseColour.grey;
 				break;
 			case "metallicGold":
-				colourSelector = courseListData.courseColour.metallicGold;
+				colourSelector = courseColour.metallicGold;
 				break;
 			case "blue":
-				colourSelector = courseListData.courseColour.blue;
+				colourSelector = courseColour.blue;
 				break;
 			case "green":
-				colourSelector = courseListData.courseColour.green;
+				colourSelector = courseColour.green;
 				break;
 			case "darkGrey":
-				colourSelector = courseListData.courseColour.darkGrey;
+				colourSelector = courseColour.darkGrey;
 				break;
 			case "goldenPoppy":
-				colourSelector = courseListData.courseColour.goldenPoppy;
+				colourSelector = courseColour.goldenPoppy;
 				break;
 			case "martini":
-				colourSelector = courseListData.courseColour.martini;
+				colourSelector = courseColour.martini;
 				break;
 			case "violetRed":
-				colourSelector = courseListData.courseColour.violetRed;
+				colourSelector = courseColour.violetRed;
 				break;
 			case "corn":
-				colourSelector = courseListData.courseColour.corn;
+				colourSelector = courseColour.corn;
 				break;
 			default:
 				console.error(
