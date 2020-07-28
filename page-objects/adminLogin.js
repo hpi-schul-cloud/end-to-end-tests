@@ -11,19 +11,6 @@ let log = global.log;
 let image;
 
 module.exports = {
-	performLogin: async function(username, password) {
-		image = username;
-
-		let loginSel = await driver.$(shared.loginData.elem.usernameInput);
-		await loginSel.setValue(username);
-
-		let passwordSel = await driver.$(shared.loginData.elem.passwordInput);
-		await passwordSel.setValue(password);
-
-		let loginBtnSel = await driver.$(shared.loginData.elem.submitBtn);
-		await loginBtnSel.click();
-	},
-
 	goToDashboard: async function() {
 		await elementHelpers.loadPage(loginData.urlDashboard, 20);
 		await driver.pause(1000);
