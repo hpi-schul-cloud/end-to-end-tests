@@ -12,7 +12,7 @@ Given(/^teacher goes to the home page$/, function() {
 	return elementHelpers.loadPage(loginData.url, 20);
 });
 
-When(/^a teacher logs in his account using (.*) and (.*) in order to create a task$/, async function(username, password) {
+When(/^a teacher logs in his account using (.*) and (.*)$/, async function(username, password) {
 		await startPage.clickLoginBtn();	
 		await loginPage.performLogin(username, password);
 	}
@@ -57,5 +57,4 @@ Then(
 	async function(taskName) {
 		let tasks = await page.createTask.getTaskNames();
 		await expect(taskName).to.be.oneOf(tasks);
-	}
-);
+	});
