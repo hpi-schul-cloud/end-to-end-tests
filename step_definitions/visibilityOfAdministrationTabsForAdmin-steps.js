@@ -10,6 +10,7 @@ let page = { adminLogin };
 let administration = require('../page-objects/administration');
 const firstLogin = require('../shared_steps/firstLogin.js');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
+const DashboardPage = require('../page-objects/pages/DashboardPage');
 
 
   Given(/^The admin arrives on the Schul-Cloud page$/, function () {
@@ -31,5 +32,5 @@ const elementHelpers = require('../runtime/helpers/elementHelpers.js');
   });
 
   Then(/^Verify if all required tabs are visible in Administration area$/, function (administrationTextLabels) {
-    return administration.checkIfElementIsVisisble(administrationTextLabels, Admin.administrationsTabs);
+    return DashboardPage.checkIfTabsAreVisible(administrationTextLabels, Admin.administrationsTabs);
     });
