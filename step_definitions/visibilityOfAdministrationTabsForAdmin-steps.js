@@ -1,12 +1,9 @@
 'use strict';
 const loginPage = require('../page-objects/pages/loginPage');
 const startPage = require('../page-objects/pages/startPage');
-
-let adminLogin = require('../page-objects/adminLogin');
 let loginData = require('../shared-objects/loginData');
 const Admin = require('../shared-objects/administrationData');
 let shared = { loginData };
-let page = { adminLogin };
 let administration = require('../page-objects/administration');
 const firstLogin = require('../shared_steps/firstLogin.js');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
