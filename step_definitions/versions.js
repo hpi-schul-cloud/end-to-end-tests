@@ -1,7 +1,5 @@
 let urls = require('../shared-objects/versionsData');
-let performLogin = require('../page-objects/performLogin');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
-
 
 When(/^a user arrives on the client version page$/, function() {
 	return elementHelpers.loadPage(urls.client, 10);
