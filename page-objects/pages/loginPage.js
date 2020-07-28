@@ -25,10 +25,7 @@ module.exports = {
 				sectionThree: '[data-testid="name-section-3"]',
 			},
 			nextSectionBtn: '#nextSection',
-
 		}
-
-
 	},
 
 	performLogin: async function (username, password) {
@@ -36,10 +33,9 @@ module.exports = {
 		await loginSel.setValue(username);
 		let passwordSel = await driver.$(this.selectors.passwordInput);
 		await passwordSel.setValue(password);
-		let loginBtnSel = await driver.$('input[data-testid="submit-login"');
+		let loginBtnSel = await driver.$(this.selectors.loginBtn);
 		await loginBtnSel.click();
 		await driver.pause(1500);
-
 	},
 
 	loginResult: async function () {

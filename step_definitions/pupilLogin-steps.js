@@ -4,7 +4,6 @@ const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const loginPage = require('../page-objects/pages/loginPage');
 const startPage = require('../page-objects/pages/startPage');
 const loginData = require('../shared-objects/loginData');
-const performLogin = require('../page-objects/performLogin');
 const shared = ({loginData, performLogin});
 const firstLogin = require('../shared_steps/firstLogin.js');
 
