@@ -49,7 +49,7 @@ When(/^he goes to news page$/, function() {
 });
 Then(/^he cannot see the news which is not due yet$/, async function() {
 	let newsNames = await newsListPage.verifyWhetherVisible();
-	await expect(newsNames).not.to.include(name);
+	await expect(newsNames).not.to.include(laterNewsName);
 });
 // TEAM
 
