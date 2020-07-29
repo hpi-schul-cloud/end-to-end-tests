@@ -110,15 +110,6 @@ submitConsent: async function(e_mail) {
         }
     }
 },
-checkIfElementIsVisisble: async function (itemsToCompare, selector) {
-    let items = await driver.$$(selector);
-    let expectations = itemsToCompare.hashes();
-    for(let i = 0; i < items.length; i++){
-        let actualLabelText = await items[i].getText();
-        await items[i].waitForEnabled(DELAY_100_MILLISECOND);
-        expect(actualLabelText).to.equal(expectations[i].tabs);
-    }
-},
 newPupilLogsIn: async function() {
     await firstLogin.logout();
     await firstLogin.pupilLogin(eMAIL, oldPassword);
