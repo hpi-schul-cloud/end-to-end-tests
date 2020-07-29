@@ -10,9 +10,9 @@ Background:
 	Given teacher goes to courses page
 
 
-Scenario Outline:
-	When teacher creates a course <courseName> and adds student <studentName> to this course
-	Then teacher clicks the participants icon in the course <courseName> and sees the added student <studentName> there.
-Examples:
-	|courseName|studentName|
-	|Mathe     |Paula Meyer|
+#Scenario Outline:
+#	When teacher creates a course <courseName> and adds student <studentName> to this course
+#	Then teacher clicks the participants icon in the course <courseName> and sees the added student <studentName> there.
+#Examples:
+#	|courseName|studentName|
+#	|Mathe     |Paula Meyer|

@@ -17,15 +17,15 @@ Examples:
 | coursename     |  taskname     |
 | test hometask  |  task example |
 
-@createPrivateHomework
-Scenario Outline: create a private hometask has to be visible only for the teacher
-Given the teacher creates one course with <coursename> and student with <studentname>
-When teacher creates a private hometask in the course <coursename> with <taskname>
-When student with <username>, <password> of this course <coursename> goes to hometasks
-Then the student will not see this task with <taskname>
-Examples:
-| coursename            | studentname | taskname             | username                    | password     |
-| test private hometask | Paula Meyer | private task example | paula.meyer@schul-cloud.org | Schulcloud1! |
+# @createPrivateHomework
+# Scenario Outline: create a private hometask has to be visible only for the teacher
+# Given the teacher creates one course with <coursename> and student with <studentname>
+# When teacher creates a private hometask in the course <coursename> with <taskname>
+# When student with <username>, <password> of this course <coursename> goes to hometasks
+# Then the student will not see this task with <taskname>
+# Examples:
+# | coursename            | studentname | taskname             | username                    | password     |
+# | test private hometask | Paula Meyer | private task example | paula.meyer@schul-cloud.org | Schulcloud1! |
 
 #@submitTextHomework
 #Scenario Outline: pupil submits a homework and teacher evaluates it
@@ -40,3 +40,14 @@ Examples:
 #Examples:
 #| coursename                        | firstname   | lastname | taskname   | username                     | password     | studentname  |
 #| course with a task for submission | Paula       | Meyer    | task       | paula.meyer@schul-cloud.org  | Schulcloud1! | Paula Meyer  |
+
+@gradeHomeworkWithFile
+Scenario Outline: grade a homework submission by uploading a file
+Given the teacher creates one course with file feedback and student with Paula Meyer
+And the teacher has posed a homework
+And the student has submitted that homework
+When the teacher uploads file feedback
+Then both the teacher and student can see and download the feedback
+Examples:
+| coursename    | taskname      |
+| test hometask | file feedback |

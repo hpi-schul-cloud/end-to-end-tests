@@ -50,7 +50,7 @@ global.log = log;
 /**
  * This is the Global date functionality
  */
-global.date = require('./helpers').currentDate();
+global.date = require('./helpers/dateTimeHelpers').currentDate();
 
 /**
  * for all API test calls
@@ -131,6 +131,9 @@ global.DELAY_5_SECOND = 5; // 5 second delay
 global.DELAY_10_SECOND = 10; // 10 second delay
 global.DELAY_15_SECOND = 15; // 15 second delay
 global.DELAY_20_SECOND = 20; // 20 second delay
+
+global.SHORT_WAIT_MILLIS = 2000; // 2000 milliseconds delay
+global.LONG_WAIT_MILLIS = 10000; // 10000 milliseconds delay
 
 function consoleInfo() {
 	let args = [].slice.call(arguments),
@@ -240,12 +243,15 @@ this.World = World;
  */
 const { setDefaultTimeout } = require('cucumber');
 
+const dateTimeHelpers = require('./helpers/dateTimeHelpers.js');
+const emailHelpers = require('./helpers/emailHelpers.js');
+
 // Add timeout based on env var.
 const cucumberTimeout = process.env.CUCUMBER_TIMEOUT || 60000;
 setDefaultTimeout(cucumberTimeout);
 
 // start recording of the Test run time
-global.startDateTime = require('./helpers').getStartDateTime();
+global.startDateTime = dateTimeHelpers.getStartDateTime();
 
 /**
  * create the driver before scenario if it's not instantiated
@@ -282,7 +288,7 @@ AfterAll(async () => {
 	let driver = global.driver;
 	if (program.email) {
 		driver.pause(DELAY_3_SECOND).then(function() {
-			return helpers.klassiEmail();
+			return emailHelpers.klassiEmail();
 		});
 	}
 });
@@ -293,7 +299,7 @@ AfterAll(async () => {
 AfterAll(function(done) {
 	let driver = global.driver;
 	if (global.paths.reports && fs.existsSync(global.paths.reports)) {
-		global.endDateTime = helpers.getEndDateTime();
+		global.endDateTime = dateTimeHelpers.getEndDateTime();
 		let reportOptions = {
 			theme: 'bootstrap',
 			jsonFile: path.resolve(

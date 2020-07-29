@@ -1,19 +1,21 @@
 "use strict";
 
+const waitHelpers = require('../runtime/helpers/waitHelpers.js');
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const createTaskData = require("../shared-objects/createTaskData"),
 	shared = { createTaskData };
 
 module.exports = {
 	clickSidebarTaskButton: async function() {
-		await helpers.waitAndClick(shared.createTaskData.elem.sidebarTaskButton);
+		await waitHelpers.waitAndClick(shared.createTaskData.elem.sidebarTaskButton);
 	},
 
 	clickCreateTaskButton: async function() {
-		await helpers.waitAndClick(shared.createTaskData.elem.createTaskButton);
+		await waitHelpers.waitAndClick(shared.createTaskData.elem.createTaskButton);
 	},
 
 	clickSubmitTaskButton: async function() {
-		await helpers.waitAndClick(shared.createTaskData.elem.submitTaskButton);
+		await waitHelpers.waitAndClick(shared.createTaskData.elem.submitTaskButton);
 	},
 
 	putTaskName: async function(taskName) {
@@ -22,6 +24,7 @@ module.exports = {
 	},
 
 	putTaskBody: async function(taskBody) {
+		await driver.pause(global.SHORT_WAIT_MILLIS);
 		await driver.switchToFrame(0);
 		const body = await driver.$("body");
 		await body.setValue(taskBody);
@@ -29,7 +32,7 @@ module.exports = {
 	},
 
 	goToTasks: async function() {
-		await helpers.loadPage(createTaskData.elem.url, 10);
+		await elementHelpers.loadPage(createTaskData.elem.url, 10);
 		const selectorToBeLoaded = await driver.$(".col-xl-12");
 		await selectorToBeLoaded.waitForExist(3000);
 	},
