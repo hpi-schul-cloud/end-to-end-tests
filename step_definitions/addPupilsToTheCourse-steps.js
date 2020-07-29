@@ -15,9 +15,6 @@ Given(/^teacher is logged in successfully$/, async function() {
 	await loginPage.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
 });
 
-Given('teacher goes to courses page', function() {
-	return createCourse.goToCourses();
-});
 When(/^teacher creates a course (.*) and adds student (.*)to this course$/,async function(courseName, studentName) {
 		return createCourse.createCourseWithStudents(courseName, studentName);
 	});
