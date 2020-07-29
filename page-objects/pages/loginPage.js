@@ -77,7 +77,7 @@ module.exports = {
 	wrongLoginResult: async function () {
 		expect(await elementHelpers.getElementText(".notification-content")).to.equal(failureMessage);
 		let btn = await driver.$(this.selectors.loginBtn);
-		let btnValue = btn.getAttribute('value');
+		let btnValue = await btn.getAttribute('value');
 		await expect(btnValue).to.match(/^Bitte.*Sekunden warten$/);
 	},
 }
