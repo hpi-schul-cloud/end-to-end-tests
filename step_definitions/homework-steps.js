@@ -2,7 +2,7 @@
 const path = require('path');
 
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
-const startPage = require('../page-objects//pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
+const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const copyCourse = require('../page-objects/copyCourse');
 const createCourse = require('../page-objects/createCourse');
 const homework = require('../page-objects/homework');
@@ -107,10 +107,6 @@ When(
 		return homework.addBasicHometask(taskname);
 	}
 );
-
-When(/^the User logs in with (.*) (.*) and$/, function (username, password) {
-	return homework.studentLogsIn(username, password);
-});
 When(
 	/^the user goes to the course (.*) where the hometask (.*) must be submitted$/,
 	function (coursename, taskname) {

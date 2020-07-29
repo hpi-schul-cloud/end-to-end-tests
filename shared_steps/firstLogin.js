@@ -95,17 +95,9 @@ module.exports = {
 		return name;
 	},
 	logout: async function() {
-		// let icon = await driver.$('[data-testid="initials"]');
-		// await icon.click();
-		// let logOut = await driver.$('[data-testid="logout"]');
-		// await logOut.waitForDisplayed(3000);
-		// await logOut.click();
-		//let frontpageLoginBtn = await driver.$(Login.elem.frontpageLoginBtn);
-		//await frontpageLoginBtn.waitForDisplayed(3000);
 		await navigationTopPage.logout();
 	},
 	loginAsPupil: async function(name, pass) {
-		//await this.logout();
 		await navigationTopPage.logout();
 		await this.pupilLogin(name,pass);
 		await this.firstLoginPupilFullAge(name, pass);

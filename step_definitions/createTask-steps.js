@@ -4,7 +4,7 @@ const createTask = require("../page-objects/createTask");
 const loginData = require("../shared-objects/loginData");
 const firstLogin = require("../shared_steps/firstLogin.js");
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
-const startPage = require('../page-objects//pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
+const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 let page = { createTask };
 

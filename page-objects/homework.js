@@ -139,13 +139,6 @@ module.exports = {
 		await expect(taskName).to.equal(taskname);
 	},
 
-	// other user logs in to verify
-	studentLogsIn: async function (username, password) {
-		// await this.userLogsOut();
-		// await firstLogin.pupilLogin(username, password);
-		// await firstLogin.firstLoginPupilFullAge(username, password);
-		navigationTopPage.logout;
-	},
 	teacherLogsIn: async function () {
 		await this.userLogsOut();
 		let frontpageLoginBtn = await driver.$(startPage.selectors.frontpageLoginBtn);
@@ -258,13 +251,8 @@ module.exports = {
 	},
 
 	submitHomework: async function (taskName, student) {
-		// 	login as student
-		//await this.studentLogsIn(student.login, student.password);
-		// 	navigate to homework
 		await this.gotoTasks();
-
 		await waitHelpers.waitAndClick(`*=${taskName}`);
-
 		await this.switchToSubmissionTab();
 		await this.submitSolutionForTheHometask();
 	},

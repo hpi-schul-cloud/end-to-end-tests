@@ -1,6 +1,6 @@
 'use strict';
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
-const startPage = require('../page-objects//pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
+const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const TMSAddEditTeamPage = require('../page-objects/pages/teamsPages/TMSAddEditTeamPage');
 const newsAddEditNews = require('../page-objects/pages/NWSAddEditNewsPage');
 const newsListPage = require('../page-objects/pages/NWSNewsListPage');
