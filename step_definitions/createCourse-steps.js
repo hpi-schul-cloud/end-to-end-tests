@@ -1,31 +1,115 @@
-'use strict';
+const elementHelpers = require("../runtime/helpers/elementHelpers.js");
+const Login = require("../shared-objects/loginData");
+const loginPage = require("../page-objects/pages/loginPage");
+const startPage = require("../page-objects/pages/startPage");
+const addCourse = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
+const courseList = require("../page-objects/pages/coursePages/CRSSCourseListPage");
 
-const createCourse = require('../page-objects/createCourse');
-const teacherLogin = require('../page-objects/teacherLogin');
-const loginData = require('../shared-objects/loginData');
-const shared = { loginData };
-const Login = require('../shared-objects/loginData');
+Given(/^.*arrives on the Schul-Cloud Page$/, function () {
+	return elementHelpers.loadPage(Login.url, 20);
+});
 
-Given(/^The teacher arrives on the Schul-Cloud page$/, function() {
-	return helpers.loadPage(shared.loginData.url, 10);
+Given(/^.*with email (.*) and (.*) is logged in successfully$/, async function (
+	username,
+	password
+) {
+	await startPage.clickLoginBtn();
+	await loginPage.performLogin(username, password);
 });
-Given(/^the teacher is logged in successfully$/, function() {
-	return teacherLogin.performLogin(Login.defaultTeacherUsername, Login.defaultTeacherpassword);});
-When(/^the teacher goes to add-courses page$/, function() {
-return createCourse.goToAddCourses()
+
+Given(/^.*user logged in using the username (.*) and password (.*)$/, async function (
+	username,
+	password
+) {
+	await startPage.clickLoginBtn();
+	await loginPage.performLogin(username, password);
 });
-When(/^the teacher enters a (.*)$/, function(coursename) {
-	return createCourse.setCourseName(coursename);
+
+When(/^.*goes to courses page$/, function () {
+	return courseList.goToCourses();
 });
-Then(/^the teacher chooses a color of the course$/, function() {
-	return createCourse.setColour();
+Then(/^.*buttons: Import-course, Create-new-course are visible$/, function () {
+	return courseList.importAndCreateCourseBtnsAreVisible();
 });
-Then(/^the teacher clicks the create button$/, function() {
-	return createCourse.goToNextSectionCreateCourse();
+
+Then(
+	/^.*buttons: Create-new-course, Go-to-course-list-page are visible$/,
+	async function () {
+		await addCourse.finalButtonsAreVisible();
+	}
+);
+
+When(/^.*clicks Create-new-course button$/, function () {
+	return courseList.clickCreateCourseBtn();
 });
-Then(/^the teacher clicks to preview$/, function() {
-return createCourse.goToNextSectionCreateCourse();
+
+When(/^.*enters course name (.*)$/, function (courseName) {
+	return addCourse.setCourseName(courseName);
 });
-Then(/^the teacher sees the created course (.*)$/, async function(courseName) {
-	return createCourse.verify(courseName);
+When(/^.*chooses course colour (.*)$/, function (courseColour) {
+	return addCourse.setColour(courseColour);
+});
+When(/^.*clicks Create-button$/, function () {
+	return addCourse.goToNextSection();
+});
+When(/^.*clicks to preview$/, function () {
+	return addCourse.goToNextSection();
+});
+
+Then(/^.*course with name (.*) is visible on the list$/, async function (
+	courseName
+) {
+	return courseList.isCourseOnList(courseName);
+});
+
+Then(
+	/^.*course with name (.*) is displayed correctly on the list$/,
+	async function (courseName) {
+		await courseList.courseIsDisplayedCorrectly(courseName);
+	}
+);
+When(/^.*clicks Next-section button$/, async function () {
+	return addCourse.goToNextSection();
+});
+Then(/^.*the ([0-9]) section can not be opened$/, async function (
+	sectionNumber
+) {
+	await addCourse.sectionIsNotDisplayed(sectionNumber);
+});
+Then(
+	/^.*his name is entered by default in teachers' field$/,
+	async function () {
+		await addCourse.teachersNameisSetByDefault();
+	}
+);
+Then(/^.*course name has not been entered$/, async function () {
+	await addCourse.courseNameIsNotEntered();
+});
+
+Then(/^.*time span is already set$/, async function () {
+	await addCourse.timeSpanIsSet();
+});
+Then(/^.*supply teacher is not set$/, async function () {
+	await addCourse.noTeacherSubstituteIsSet();
+});
+
+Then(/^.* ([0-9]) section is opened$/, async function (sectionNumber) {
+	await addCourse.sectionIsDisplayed(sectionNumber);
+});
+Then(/^.*no class is set$/, async function () {
+	await addCourse.noClassIsSet();
+});
+Then(/^.*no student is set$/, async function () {
+	await addCourse.noStudentIsSet();
+});
+When(/^.*clicks Create-course-and-continue button'$/, async function () {
+	await addCourse.clickCreateCourseAndContinueBtn();
+});
+
+Then(/^.*clicks Go-to-course-list$/, async function () {
+	await addCourse.clickGoToCourseListBtn();
+});
+
+Then(/^.*color of the course is (\S*).*$/, async function (courseColour) {
+	await courseList.isCorrectCourseColour(courseColour);
 });

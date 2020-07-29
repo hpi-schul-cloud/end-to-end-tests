@@ -1,18 +1,20 @@
 "use strict";
 
-let createTask = require("../page-objects/createTask");
-let loginData = require("../shared-objects/loginData");
-let performLogin = require("../page-objects/performLogin");
+const createTask = require("../page-objects/createTask");
+const loginData = require("../shared-objects/loginData");
 const firstLogin = require("../shared_steps/firstLogin.js");
-
-let shared = { loginData, performLogin };
+const loginPage = require('../page-objects/pages/loginPage');
+const startPage = require('../page-objects/pages/startPage');
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 let page = { createTask };
 
-When(
-	/^a teacher logs in his account using (.*) and (.*) in order to create a task$/,
-	function(username, password) {
-		helpers.loadPage(loginData.url, 10);
-		return shared.performLogin.performLogin(username, password);
+Given(/^teacher goes to the home page$/, function() {
+	return elementHelpers.loadPage(loginData.url, 20);
+});
+
+When(/^a teacher logs in his account using (.*) and (.*)$/, async function(username, password) {
+		await startPage.clickLoginBtn();	
+		await loginPage.performLogin(username, password);
 	}
 );
 
@@ -55,5 +57,4 @@ Then(
 	async function(taskName) {
 		let tasks = await page.createTask.getTaskNames();
 		await expect(taskName).to.be.oneOf(tasks);
-	}
-);
+	});

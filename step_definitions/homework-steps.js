@@ -1,26 +1,28 @@
 'use strict';
-const teacherLogin = require('../page-objects/teacherLogin');
+const path = require('path');
+
+const loginPage = require('../page-objects/pages/loginPage');
+const startPage = require('../page-objects/pages/startPage');
 const copyCourse = require('../page-objects/copyCourse');
 const createCourse = require('../page-objects/createCourse');
 const homework = require('../page-objects/homework');
 const courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 
 /*BACKGROUND*/
 
 Given(/^the teacher starts on the login page$/, function() {
-	return helpers.loadPage(courseData.urlLogin, 20);
+	return elementHelpers.loadPage(Login.url, 20);
 });
 
-Given(/^the teacher is logged-in successfully$/, function() {
-	return teacherLogin.performLogin(
-		Login.defaultTeacherUsername,
-		Login.defaultTeacherpassword
-	);
+Given(/^the teacher is logged-in successfully$/, async function() {
+	await startPage.clickLoginBtn();
+	await loginPage.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
 });
 
 Given(/^the teacher goes to the course page as a next step$/, function() {
-	return helpers.loadPage(courseData.urlCourses, 20);
+	return elementHelpers.loadPage(courseData.urlCourses, 20);
 });
 
 /* CREATE A BASIC HOMEWORK */
@@ -118,3 +120,29 @@ When(
 Then(/^the students can upload a file as a solution$/, function() {
 	return homework.uploadAHomework();
 });
+
+(function () {
+	const courseName = 'file feedback';
+	const taskName = 'Art homework';
+	const file = {
+		path: path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt'),
+		name: 'upload.txt',
+	};
+	const student = { login: 'paula.meyer@schul-cloud.org', password: 'Schulcloud1!' };
+
+	Given(/^the teacher has posed a homework$/, function () {
+		return homework.addBasicHometask(courseName, taskName);
+	});
+
+	Given(/^the student has submitted that homework$/, function () {
+		return homework.submitHomework(taskName, student);
+	});
+
+	When(/^the teacher uploads file feedback$/, function () {
+		return homework.submitFileFeedback(taskName, file);
+	});
+
+	Then(/^both the teacher and student can see and download the feedback$/, function () {
+		return homework.testFileUploadSuccess(taskName, file, student);
+	});
+})();

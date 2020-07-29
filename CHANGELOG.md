@@ -8,7 +8,25 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-### Added
+## [23.6.0] - 2020-07-21
+
+### Fixed - 23.6.0
+- fixed the @createSimpleHomework, added one more step when creating a new course
+
+
+## [23.5.0] - 2020-06-21
+
+### Added in 23.5.0
+
+- Fix dependencies security vulnerabilities [SC-4534](https://github.com/schul-cloud/integration-tests/pull/78)
+- Add timestamps to filenames [NA](https://github.com/schul-cloud/integration-tests/pull/75)
+- Fix for failing test in @createSimpleHomework [NA](https://github.com/schul-cloud/integration-tests/pull/72)
+
+## [23.2.0] - 2020-06-29
+
+### Added in 23.2.0
+
+- Admin can create empty classes
 
 ## [23.0.0] - 2020-05-19
 
@@ -17,3 +35,4 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - copied in a basic mergify config to automerge PRs
 - added `npm ci` command to integration test ci setup to be able to execute new js seed script properly
 - This changelog has been added
+

@@ -1,27 +1,25 @@
 'use strict';
-const teacherLogin = require('../page-objects/teacherLogin');
+const loginPage = require('../page-objects/pages/loginPage');
 const createCourse = require('../page-objects/createCourse');
-
+const startPage = require('../page-objects/pages/startPage');
 const copyCourse = require('../page-objects/copyCourse');
 const courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
 const firstLogin = require('../shared_steps/firstLogin.js');
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 let coursesCount;
 
 
 //________Background_________
-
-Given(/^teacher goes to the home page$/, function() {
-	return helpers.loadPage(courseData.urlLogin, 20);
-});
-Given(/^teacher is successfully logged in/, function() {
-	return teacherLogin.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
+Given(/^the Teacher is successfully logged in/, async function() {
+	await startPage.clickLoginBtn();
+	await loginPage.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
 });
 Given(/^teacher has accepted the data protection agreement$/, function() {
 	return firstLogin.firstLoginTeacher();
 });
 Given(/^goes the course page$/, function() {
-	return helpers.loadPage(courseData.urlCourses, 20);
+	return elementHelpers.loadPage(courseData.urlCourses, 20);
 });
 
 // _________Copy__________
