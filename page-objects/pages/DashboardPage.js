@@ -1,7 +1,6 @@
 /*[url/dashboard]*/
 'use strict';
 
-const { expect } = require('chai');
 const loginData = require('../../shared-objects/loginData'),
 	imageCompare = require('../../runtime/imageCompare'),
 	shared = { loginData };
