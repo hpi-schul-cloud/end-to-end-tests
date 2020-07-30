@@ -6,10 +6,7 @@ const shared = { loginData };
 const firstLogin = require('../shared_steps/firstLogin.js');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const DashboardPage = require('../page-objects/pages/DashboardPage');
-
-Given(/^an admin arrives on the Schul-Cloud login homepage$/, function() {
-	return elementHelpers.loadPage(shared.loginData.url, 10);
-});
+const commonKGO = require('../shared_steps/commonKGO-steps.js');
 
 When(/^an admin puts in (.*) and (.*) and click the login-button$/, async function(username,password) {
 	await startPage.clickLoginBtn();

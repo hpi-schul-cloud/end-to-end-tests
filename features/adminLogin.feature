@@ -4,7 +4,7 @@ Feature: Logging in as an admin
 	I want to be able to login with an admin account
 
 	Background:
-		Given an admin arrives on the Schul-Cloud login homepage
+		Given admin arrives on the Schul-Cloud homepage
 
 	Scenario Outline: User inputs the username and password
 		When an admin puts in <username> and <password> and click the login-button

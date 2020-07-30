@@ -2,7 +2,7 @@
 Feature: users can edit their profiles
 
 	Background:
-		Given user arrives on the Schul-Cloud homepage
+		Given teacher arrives on the Schul-Cloud homepage
 
 	@teacherChangesPassword
 	Scenario Outline: teacher changes the passwort

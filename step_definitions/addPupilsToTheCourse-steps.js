@@ -6,10 +6,8 @@ const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPa
 const createCourse = require('../page-objects/createCourse');
 const Login = require('../shared-objects/loginData');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
+const commonKGO = require('../shared_steps/commonKGO-steps.js');
 
-Given(/^teacher arrives on the Schul-Cloud page$/, function() {
-	return elementHelpers.loadPage(Login.url, 10);
-});
 Given(/^teacher is logged in successfully$/, async function() {
 	// await startPage.clickLoginBtn();
 	await loginPage.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);

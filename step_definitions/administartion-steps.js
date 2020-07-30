@@ -14,11 +14,6 @@ const Admin = require('../shared-objects/administrationData');
 const firstLogin = require('../shared_steps/firstLogin.js');
 const commonKGO = require('../shared_steps/commonKGO-steps.js');
 
-
-Given(/^admin arrives on the Schul-Cloud login homepage$/, function () {
-	let url = loginData.url;
-	return elementHelpers.loadPage(url, 10);
-});
 Given(/^this admin logs in successfully$/, async function () {
 	await startPage.clickLoginBtn();
 	await loginPage.performLogin(loginData.defaultAdminUsername, loginData.defaultAdminPassword)

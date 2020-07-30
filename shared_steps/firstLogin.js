@@ -51,6 +51,8 @@ module.exports = {
 	firstLoginPupilFullAge: async function(pass) {
 		let nextBtn = "#nextSection";
 		await waitHelpers.waitAndClick(nextBtn);
+		await driver.pause(1000);
+		await waitHelpers.waitAndClick(nextBtn);
 		// if Data protection is needed
 		let section_three_name = await driver.$('.panels.mb-2 > section:nth-child(3) > h2');
 		if (await section_three_name.getText()== "Einwilligungserklärung") {
