@@ -33,7 +33,7 @@ module.exports = {
 			const containerWithTasks = await driver.$('.col-xl-12');
 			await containerWithTasks.waitForExist(2000);
 			let numOfElems = await containerWithTasks.$$('li');
-			for (var i=1; i<=numOfElems.length-1; i++) {
+			for (var i=0; i<numOfElems.length; i++) {
 					let nameOfTheTaskSelector = await driver.$('.col-xl-12 > li:nth-child('+i+') > .content > h2' );
 					let nameOfTheTask = await nameOfTheTaskSelector.getText();
 					if(await nameOfTheTask.includes(taskname)) {
