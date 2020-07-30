@@ -65,6 +65,9 @@ createNewPupil: async function(firstname, lastname, email) {
     let addBtn = await driver.$(Admin.addStudentBtn);
     await addBtn.click();
     await driver.pause(1000);
+    let schülerAnlegen = await driver.$(Admin.schülerAnlegen);
+    await schülerAnlegen.click();
+    await driver.pause(1000);
     let firstName= await driver.$(Admin.setFirstName);
     await firstName.setValue(firstname);
     let secondName = await driver.$(Admin.setLastName);
@@ -74,7 +77,7 @@ createNewPupil: async function(firstname, lastname, email) {
     await this.executeScript();
     let sendAMessageBox = await driver.$(Admin.sendALinkBox);
     await sendAMessageBox.click();
-    let addButton = await driver.$('body > div.modal.fade.add-modal.in > div > div > form > div.modal-footer > button.btn.btn-primary.btn-submit');
+    let addButton = await driver.$('button[data-testid=\'button_create-user_submit\']');
     await addButton.click();
 },
 executeScript: async function() {
@@ -84,13 +87,13 @@ executeScript: async function() {
 emailsOfThePupils: async function() {
     let names = await driver.$$(Admin.namesContainer + ' > tr');
     return Promise.all(names.map(async (nameContainer) => {
-        const emailContainer = await nameContainer.$("td:nth-child(3)");
+        const emailContainer = await nameContainer.$("td:nth-child(5)");
         return await emailContainer.getText();
     }))
 },
 verify: async function(email) {
     let emails = await this.emailsOfThePupils();
-    await expect(emails).to.contain(email);
+    await expect(email).to.contain(emails);
 },
 submitConsent: async function(e_mail) {
     let names = await driver.$$(Admin.namesContainer + ' > tr');

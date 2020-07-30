@@ -10,9 +10,9 @@ Feature: Administrate pupils, classes and teachers
 		When admin goes to administration
 		When an admin puts in <firstName> and <secondName> and <email> of the new pupil
 		Then the admin should see new pupil with email <email> among his pupils
-		Then the teacher can manually submit a consent <email>
-		Then new pupil can log in
-		Then new pupil accepts data protection policy and sets new password for the profile
+		# Then the teacher can manually submit a consent <email>
+		# Then new pupil can log in
+		# Then new pupil accepts data protection policy and sets new password for the profile
 
 		Examples:
 			|firstName|secondName|email|

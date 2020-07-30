@@ -5,7 +5,7 @@ let navItemStringStart2ndLevel = "/html/body/aside/nav/ul/li/ul/li/a";
 let stringContains = "[contains(@title,'XXX')]";
 let navItemStringDefault1stLevel = navItemStringStart1stLevel + stringContains;
 let navItemStringDefault2ndLevel = navItemStringStart2ndLevel + stringContains;
-
+///html/body/aside/nav/ul/li/ul/li/a[contains(@title,'Lehrer')]
 module.exports = {
     navItemsEnum: {
         LOGO: 'logo',
