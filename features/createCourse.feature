@@ -3,7 +3,7 @@ Feature: logging in as a teacher and create a new course
 I want to be able to create a new course on Schul-Cloud
 
 Background:
-	Given teacher arrives on the Schul-Cloud Page
+	Given teacher arrives on the Schul-Cloud homepage
 
 Scenario Outline: create first course. Teachers have 2 options: to import or to create new course and the teacher sees the created course in the list
 	Given teacher with email <username> and <password> is logged in successfully

@@ -9,11 +9,7 @@ let administration = require('../page-objects/administration');
 const firstLogin = require('../shared_steps/firstLogin.js');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const DashboardPage = require('../page-objects/pages/DashboardPage');
-
-
-  Given(/^The admin arrives on the Schul-Cloud page$/, function () {
-	  return elementHelpers.loadPage(shared.loginData.url, 10);
-  });
+const commonKGO = require('../shared_steps/commonKGO-steps.js');
 
   Given(/^The admin is logged in successfully$/, async function () {
     await startPage.clickLoginBtn();

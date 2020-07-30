@@ -9,13 +9,7 @@ let name = "news";
 let laterNewsName = "news should be published later";
 const elementHelpers = require('../runtime/helpers/elementHelpers');
 const firstLogin = require('../shared_steps/firstLogin.js');
-const commonKGO = require('../shared_steps/commonKGO-steps.js');
-
-
-
-Given(/^The teacher arrives on the Schul-Cloud page$/, function() {
-	return elementHelpers.loadPage(shared.loginData.url, 20);
-});  
+const commonKGO = require('../shared_steps/commonKGO-steps.js'); 
 
 Given(/^teacher is successfully logged-in$/, async function() {
 	await startPage.clickLoginBtn();

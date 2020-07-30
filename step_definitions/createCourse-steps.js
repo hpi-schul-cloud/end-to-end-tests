@@ -1,34 +1,11 @@
 const elementHelpers = require("../runtime/helpers/elementHelpers.js");
 const Login = require("../shared-objects/loginData");
-//const loginPage = require("../page-objects/pages/loginPage");
-//const startPage = require("../page-objects/pages/startPage");
 const addCourse = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
 const courseList = require("../page-objects/pages/coursePages/CRSSCourseListPage");
-
 const createCourse = require('../page-objects/createCourse');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
-
-Given(/^.*arrives on the Schul-Cloud Page$/, function () {
-	return elementHelpers.loadPage(Login.url, 20);
-});
-
-
-Given(/^.*with email (.*) and (.*) is logged in successfully$/, async function (
-	username,
-	password
-) {
-	await startPage.clickLoginBtn();
-	await loginPage.performLogin(username, password);
-});
-
-Given(/^.*user logged in using the username (.*) and password (.*)$/, async function (
-	username,
-	password
-) {
-	await startPage.clickLoginBtn();
-	await loginPage.performLogin(username, password);
-});
+const commonKGO = require('../shared_steps/commonKGO-steps.js');
 
 When(/^.*goes to courses page$/, function () {
 	return courseList.goToCourses();

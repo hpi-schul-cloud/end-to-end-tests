@@ -95,10 +95,10 @@ module.exports = {
 		return name;
 	},
 	logout: async function() {
-		await navigationTopPage.logout();
+		await navigationTopPage.performLogout();
 	},
 	loginAsPupil: async function(name, pass) {
-		await navigationTopPage.logout();
+		await navigationTopPage.performLogout();
 		await this.pupilLogin(name,pass);
 		await this.firstLoginPupilFullAge(name, pass);
 	}
