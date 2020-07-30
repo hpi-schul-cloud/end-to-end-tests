@@ -141,8 +141,7 @@ module.exports = {
 
 	teacherLogsIn: async function () {
 		await this.userLogsOut();
-		let frontpageLoginBtn = await driver.$(startPage.selectors.frontpageLoginBtn);
-		await frontpageLoginBtn.click();
+		await startPage.clickLoginBtn();
 		await loginPage.performLogin(Login.defaultTeacherUsername, Login.defaultTeacherpassword);
 	},
 	goToTasksOfTheCourse: async function (coursename) {

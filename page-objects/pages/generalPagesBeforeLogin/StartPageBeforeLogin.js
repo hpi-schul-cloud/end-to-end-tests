@@ -1,14 +1,10 @@
 'use strict';
 
+const frontpageLoginBtn = 'a[data-testid="login-btn"]';
+
 module.exports = {
-
-    selectors: {
-        frontpageLoginBtn: 'a[data-testid="login-btn"]',
-
-    },
-
     clickLoginBtn: async function () {
-        let frontpageLoginBtn = await driver.$(this.selectors.frontpageLoginBtn);
-        await frontpageLoginBtn.click();
+        let fpLoginBtn = await driver.$(frontpageLoginBtn);
+        await fpLoginBtn.click();
     }
 }
