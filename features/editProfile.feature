@@ -6,17 +6,15 @@ Feature: users can edit their profiles
 
 	@teacherChangesPassword
 	Scenario Outline: teacher changes the passwort
-		When go from start page to login page
-		And log in with <username> and <password>
+		When teacher logs in with email <username> and password <password>
 		And the teacher should accept the data protection
-		And go to user settings
-		And change passwort from <password> to <newPassword>
-		And log out
-		And go from start page to login page
-		And log in with <username> and <password>
+		And teacher goes to user settings
+		And teacher changes passwort from <password> to <newPassword>
+		And teacher logs out
+		And teacher logs in with email <username> and password <password>
 		Then the login must fail
-		And wait for next login
-		When log in with <username> and <newPassword>
+		When teacher waits for next login
+		And teacher is on LoginPage and logs in with <username> and <newPassword>
 		Then the login must be successful
 
 		Examples:

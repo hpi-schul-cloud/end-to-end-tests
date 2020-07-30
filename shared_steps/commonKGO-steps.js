@@ -7,23 +7,28 @@ const loginData = require('../shared-objects/loginData');
 const shared = { loginData };
 
 /*Login, Logout*/
-Given(/^user arrives on the Schul-Cloud homepage$/, function () {
+Given(/^.* arrives on the Schul-Cloud homepage$/, function () {
 	return elementHelpers.loadPage(shared.loginData.url, 10);
 });
 
-When(/^go from start page to login page$/, async function () {
+Given(/^.* logs in with email (.*) and password (.*)$/, async function (username, password) {
 	await startPage.clickLoginBtn();
-});
-
-When(/^log in with (.*) and (.*)$/, async function (username, password) {
 	await loginPage.performLogin(username, password);
 });
 
-Then(/^log out$/, async function () {
-	await navigationTopPage.logout();
+When(/^.* goes from start page to login page$/, async function () {
+	await startPage.clickLoginBtn();
 });
 
-When(/^wait for next login$/, async function () {
+When(/^.* is on LoginPage and logs in with (.*) and (.*)$/, async function (username, password) {
+	await loginPage.performLogin(username, password);
+});
+
+Then(/^.* logs out$/, async function () {
+	await navigationTopPage.performLogout();
+});
+
+When(/^.* waits for next login$/, async function () {
 	let waitTime = (parseInt(process.env.LOGIN_BLOCK_TIME) || 15) + 1;
 	await driver.pause(waitTime * 1000);
 });
@@ -36,12 +41,13 @@ Then(/^the login must be successful$/, function () {
 	return loginPage.loginResult();
 });
 
+
 /*NavigationTopPage*/
-When(/^go to initials$/, async function () {
+When(/^.* goes to initials$/, async function () {
 	await navigationTopPage.clickInitials();
 });
 
-When(/^go to user settings$/, async function () {
+When(/^.* goes to user settings$/, async function () {
 	await navigationTopPage.clickInitials();
 	await navigationTopPage.clickSettings();
 });
