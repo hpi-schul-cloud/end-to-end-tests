@@ -1,0 +1,1 @@
+/*[url/courses]/[courseId]/tools/add]*/

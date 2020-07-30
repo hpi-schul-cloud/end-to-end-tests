@@ -1,4 +1,5 @@
 'use strict';
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const { CLIENT } = require("../shared-objects/servers");
 let administration = require('../page-objects/administration');
 const firstLogin = require('../shared_steps/firstLogin.js');
@@ -31,15 +32,15 @@ module.exports = {
 	// URL HELPER
 	gotoNews: async function() {
 		let url = `${CLIENT.URL}/news/`;
-		await helpers.loadPage(url, 100);
+		await elementHelpers.loadPage(url, 100);
 	},
 	gotoNewNews: async function() {
 		let url = `${CLIENT.URL}/news/new`;
-		await helpers.loadPage(url, 100);
+		await elementHelpers.loadPage(url, 100);
 	},
 	gotoTeams: async function() {
 		let url = `${CLIENT.URL}/teams/`;
-		await helpers.loadPage(url, 100);
+		await elementHelpers.loadPage(url, 100);
 	},
 	// INPUT HELPER
 	setTitle: async function(title){

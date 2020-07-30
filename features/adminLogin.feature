@@ -10,6 +10,20 @@ Feature: Logging in as an admin
 		When an admin puts in <username> and <password> and click the login-button
 		Then the user is supposed to accept the data protection agreement
 		Then the admin-dashboard should have the admin initials
+		Then the admin-dashboard should have the correct school
+		Then the admin-dashboard should have the admin name and profession
+		Then the admin-dashboard should have the following tabs
+		| tabs				|
+		| ÜBERSICHT			|
+		| KURSE				|
+		| TEAMS				|
+		| AUFGABEN			|
+		| MEINE DATEIEN		|
+		| NEUIGKEITEN		|
+		| TERMINE			|
+		| LERN-STORE		|
+		| HELPDESK			|
+		| ADMINISTRATION	|
 
 		Examples:
 			|username|password|
