@@ -9,7 +9,6 @@ let newsName2 = "News for Team B";
 let length;
 const team = require('../../../shared-objects/teamsData');
 let index=[];
-const Admin = require('../../../shared-objects/administrationData');
 const ADMNSTRTNAdministerStudentsPage = require('../../../page-objects/pages/administrationPages/ADMNSTRTNAdministerStudentsPage');
 const newsListPage = require('../../../page-objects/pages/NWSNewsListPage');
 
@@ -93,16 +92,16 @@ createTeamNewsSTEPS: async function() {
     await this.createNews();
 },
 submitConsent: async function(e_mail) {
-    let names = await driver.$$(Admin.namesContainer + ' > tr');
+    let names = await driver.$$(ADMNSTRTNAdministerStudentsPage.selectorNamesContainer + ' > tr');
     length = names.length;
     for (var i = 1; i<= length; i++) {
-            let pupil = await driver.$(Admin.namesContainer + ' > tr:nth-child('+i+')');
-            let emailPromise =  await driver.$(Admin.namesContainer + ' > tr:nth-child('+i+') > td:nth-child(3)');
+            let pupil = await driver.$(ADMNSTRTNAdministerStudentsPage.selectorNamesContainer + ' > tr:nth-child('+i+')');
+            let emailPromise =  await driver.$(ADMNSTRTNAdministerStudentsPage.selectorNamesContainer + ' > tr:nth-child('+i+') > td:nth-child(3)');
             let email = await emailPromise.getText();
             if (email===e_mail){
-                    let boxConsent = await driver.$(Admin.namesContainer + ' > tr:nth-child('+i+') > td:nth-child(7) > a:nth-child(2) > i');
+                    let boxConsent = await driver.$(ADMNSTRTNAdministerStudentsPage.selectorNamesContainer + ' > tr:nth-child('+i+') > td:nth-child(7) > a:nth-child(2) > i');
                     await boxConsent.click();
-                    let submitBtn = await driver.$(Admin.consentSubmitBtn);
+                    let submitBtn = await driver.$(ADMNSTRTNAdministerStudentsPage.selectorConsentSubmitBtn);
                     let passwordField = await driver.$('#passwd');
                     let password_old = await passwordField.getValue();
                     oldPassword = password_old;

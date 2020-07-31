@@ -1,16 +1,11 @@
 'use strict';
 
-let addPupilToTheCourse = require('../page-objects/addPupilToTheCourse');
 let administration = require('../page-objects/administration');
-//let teacherLogin = require('../page-objects/teacherLogin');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js')
 const loginPage = require('../page-objects/pages/loginPage');
 const startPage = require('../page-objects/pages/startPage');
-const copyCourse = require('../page-objects/copyCourse');
 const loginData = require('../shared-objects/loginData');
-const courseData = require('../shared-objects/courseData');
-let shared = { loginData };
-const Admin = require('../shared-objects/administrationData');
+const ADMNSTRTNAdministrationOverviewPage = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministrationOverviewPage');
 
 
 Given(/^admin arrives on the Schul-Cloud login homepage$/, function() {
@@ -25,9 +20,7 @@ Given(/^this admin logs in successfully$/, async function() {
 });
 
 When(/^admin goes to administration$/, function() {
-	//return helpers.loadPage(loginData.urlAdministration, 20);
-
-	let url = Admin.urlAdministration;
+	let url = ADMNSTRTNAdministrationOverviewPage.urlAdministration;
     return elementHelpers.loadPage(url, 20);
 });
 
