@@ -46,7 +46,6 @@ Then(/^the login must be successful$/, function () {
 When(/^teacher creates a course (.*) and adds student (.*)to this course$/, async function (courseName, studentName) {
 	return createCourse.createCourseWithStudents(courseName, studentName);
 });
-feature/SC-5675-loginPageAndStartPageToNewStructure
 
 /*NavigationTopPage*/
 When(/^.* goes to initials$/, async function () {
