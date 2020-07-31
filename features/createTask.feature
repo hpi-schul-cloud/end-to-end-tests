@@ -2,7 +2,7 @@
 Feature: Creating a task as a teacher
 
 	Background:
-	Given The teacher arrives on the Schul-Cloud Page
+	Given teacher arrives on the Schul-Cloud homepage
 
 	Scenario Outline: The user logs in as a teacher and creates a simple task
 	When a teacher logs in his account using <username> and <password>
