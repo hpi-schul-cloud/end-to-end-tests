@@ -14,11 +14,6 @@ const Admin = require('../shared-objects/administrationData');
 const firstLogin = require('../shared_steps/firstLogin.js');
 const commonKGO = require('../shared_steps/commonKGO-steps.js');
 
-
-Given(/^admin arrives on the Schul-Cloud login homepage$/, function () {
-	let url = loginData.url;
-	return elementHelpers.loadPage(url, 10);
-});
 Given(/^this admin logs in successfully$/, async function () {
 	await startPage.clickLoginBtn();
 	await loginPage.performLogin(loginData.defaultAdminUsername, loginData.defaultAdminPassword)
@@ -37,7 +32,7 @@ When(/^an admin puts in (.*) and (.*) and (.*) of the new pupil$/, function (fir
 Then(/^the admin should see new pupil with email (.*) among his pupils$/, function (email) {
 	return administration.verify(email);
 });
-Then(/^the teacher can manually submit a consent (.*)$/, function (e_mail) {
+Then(/^.* manually submits a consent (.*)$/, function (e_mail) {
 	return administration.submitConsent(e_mail);
 });
 Then(/^new pupil can log in$/, function () {
@@ -45,4 +40,11 @@ Then(/^new pupil can log in$/, function () {
 });
 Then(/^new pupil accepts data protection policy and sets new password for the profile$/, function () {
 	return administration.pupilAcceptsDataProtection();
+});
+
+Then(/^save created password$/, function () {
+	//To do
+});
+Then(/^student logs in with (.*) and created password$/, function () {
+	//To do
 });

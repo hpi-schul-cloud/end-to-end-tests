@@ -5,10 +5,7 @@ const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPa
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 let loginData = require('../shared-objects/loginData');
 let shared = { loginData };
-
-Given(/^a user arrives on the Schul-Cloud login homepage$/, function() {
-	return elementHelpers.loadPage(shared.loginData.url, 10);
-});
+const commonKGO = require('../shared_steps/commonKGO-steps.js');
 
 When(/^a user puts in (.*) and the wrong (.*) and click the login-button$/,async function(username, password) {
 	await startPage.clickLoginBtn();

@@ -45,9 +45,8 @@ Feature: create different types of homework
     Scenario Outline: grade a homework submission by uploading a file
         Given the teacher creates one course with file feedback and student with Paula Meyer
         And the teacher has posed a homework
-        And log out
-        And go from start page to login page
-        And log in with <username> and <password>
+        And teacher logs out
+        And student logs in with email <username> and password <password>
         And the pupil should accept the data protection
         And the student has submitted that homework
         When the teacher uploads file feedback
