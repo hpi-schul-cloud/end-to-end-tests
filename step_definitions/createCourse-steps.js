@@ -1,10 +1,7 @@
 const elementHelpers = require("../runtime/helpers/elementHelpers.js");
 const Login = require("../shared-objects/loginData");
-//const loginPage = require("../page-objects/pages/loginPage");
-//const startPage = require("../page-objects/pages/startPage");
 const addCourse = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
 const courseList = require("../page-objects/pages/coursePages/CRSSCourseListPage");
-
 const createCourse = require('../page-objects/createCourse');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
