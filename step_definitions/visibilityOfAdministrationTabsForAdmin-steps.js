@@ -1,12 +1,13 @@
 'use strict';
-const loginPage = require('../page-objects/pages/loginPage');
-const startPage = require('../page-objects/pages/startPage');
+const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
+const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 let loginData = require('../shared-objects/loginData');
 let shared = { loginData };
 let administration = require('../page-objects/administration');
 const firstLogin = require('../shared_steps/firstLogin.js');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const DashboardPage = require('../page-objects/pages/DashboardPage');
+const commonKGO = require('../shared_steps/commonKGO-steps.js');
 const ADMNSTRTNAdministrationOverviewPage = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministrationOverviewPage');
 
 

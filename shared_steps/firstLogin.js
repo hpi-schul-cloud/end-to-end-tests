@@ -1,7 +1,8 @@
 'use strict';
 
 const Login = require('../shared-objects/loginData');
-const waitHelpers = require('../runtime/helpers/waitHelpers.js')
+const waitHelpers = require('../runtime/helpers/waitHelpers.js');
+const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
 var secondCharacter;
 
 module.exports = {
@@ -47,9 +48,10 @@ module.exports = {
 		await box2.waitForExist(2000);
 		await box2.click();
 	},
-	firstLoginPupilFullAge: async function(name, pass) {
+	firstLoginPupilFullAge: async function(pass) {
 		let nextBtn = "#nextSection";
 		await waitHelpers.waitAndClick(nextBtn);
+		await driver.pause(1000);
 		await waitHelpers.waitAndClick(nextBtn);
 		// if Data protection is needed
 		let section_three_name = await driver.$('.panels.mb-2 > section:nth-child(3) > h2');
@@ -94,16 +96,10 @@ module.exports = {
 		return name;
 	},
 	logout: async function() {
-		let icon = await driver.$('[data-testid="initials"]');
-		await icon.click();
-		let logOut = await driver.$('[data-testid="logout"]');
-		await logOut.waitForDisplayed(3000);
-		await logOut.click();
-		let frontpageLoginBtn = await driver.$(Login.elem.frontpageLoginBtn);
-		await frontpageLoginBtn.waitForDisplayed(3000);
+		await navigationTopPage.logout();
 	},
 	loginAsPupil: async function(name, pass) {
-		await this.logout();
+		await navigationTopPage.logout();
 		await this.pupilLogin(name,pass);
 		await this.firstLoginPupilFullAge(name, pass);
 	}

@@ -1,13 +1,11 @@
 const elementHelpers = require("../runtime/helpers/elementHelpers.js");
 const Login = require("../shared-objects/loginData");
-const loginPage = require("../page-objects/pages/loginPage");
-const startPage = require("../page-objects/pages/startPage");
 const addCourse = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
 const courseList = require("../page-objects/pages/coursePages/CRSSCourseListPage");
-
-Given(/^.*arrives on the Schul-Cloud Page$/, function () {
-	return elementHelpers.loadPage(Login.url, 20);
-});
+const createCourse = require('../page-objects/createCourse');
+const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
+const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
+const commonKGO = require('../shared_steps/commonKGO-steps.js');
 
 Given(/^.*with email (.*) and (.*) is logged in successfully$/, async function (
 	username,

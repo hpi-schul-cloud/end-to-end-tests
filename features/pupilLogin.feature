@@ -4,13 +4,13 @@ Feature: Logging in as an pupil
 	I want to be able to login with an pupil account
 
 	Background:
-		Given a pupil arrives on the Schul-Cloud login homepage
+		Given student arrives on the Schul-Cloud homepage
 
 	Scenario Outline: User inputs the username and password
-		When a pupil puts in <username> and <password> and clicks the login-button
-		Then pupil accepts data security, checks the email <username> and sets password <password> .
+		And student logs in with email <username> and password <password>
+		And the pupil should accept the data protection
 		Then a pupil should see the dashboard
 
 		Examples:
-			|username|password|
-			|paula.meyer@schul-cloud.org|Schulcloud1!|
+			| username                    | password     |
+			| paula.meyer@schul-cloud.org | Schulcloud1! |
