@@ -10,7 +10,7 @@ Scenario Outline: create first course. Teachers have 2 options: to import or to 
 	When teacher goes to courses page
 	Then teacher should see that buttons: Import-course, Create-new-course are visible
 	When teacher clicks Create-new-course button
-	When teacher enters course name <courseName>
+	When teacher enters course name <courseName> into new course form
 	When teacher chooses course colour <courseColour>
 	When teacher clicks Next-section button
 	When teacher clicks Next-section button
@@ -32,7 +32,7 @@ Scenario Outline: submit compulsory fields by creating the course
 	When teacher see that course name has not been entered 
 	When teacher clicks Next-section button
 	Then teacher should see that the 2 section can not be opened
-	When teacher enters course name <courseName>
+	When teacher enters course name <courseName> into new course form
 	When teacher chooses course colour <courseColour>
 	When teacher clicks Next-section button
 	Then teacher should see that 2 section is opened
