@@ -5,7 +5,7 @@ Feature: logging in as a teacher and create a new course and add pupils and clas
 I want to be able to add some pupils to a new course on Schul-Cloud
 
 Background:
-	Given teacher arrives on the Schul-Cloud page
+	Given teacher arrives on the Schul-Cloud homepage
 	Given teacher is logged in successfully
 	Given teacher goes to courses page
 
