@@ -4,16 +4,16 @@ const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
 const courseData = require('../../shared-objects/courseData');
 const Login = require('../../shared-objects/loginData');
 const firstLogin = require('../../shared_steps/firstLogin.js');
-const loginPage = require('../../page-objects/pages/loginPage.js');
+const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 
 module.exports = {
-	gotoTasksTab: async function() {
-	let hometasksTab = await driver.$('button[data-testid="hometasks"]');
-	await hometasksTab.click();
-	await driver.pause(1000);
+	gotoTasksTab: async function () {
+		let hometasksTab = await driver.$('button[data-testid="hometasks"]');
+		await hometasksTab.click();
+		await driver.pause(1000);
 	},
 
-	sortHometasks: async function() {
+	sortHometasks: async function () {
 		let sortBtn = await driver.$(
 			'#filter > div > div.md-chip.md-theme-default.md-deletable.md-clickable > div'
 		);
@@ -27,46 +27,45 @@ module.exports = {
 		await ok.click();
 		await driver.pause(1500);
 	},
-	returnTaskIndex: async function(taskname) {
-		let areThereAnyTasks= await this.areThereAnyTasks();
-		if (areThereAnyTasks==true) {
+	returnTaskIndex: async function (taskname) {
+		let areThereAnyTasks = await this.areThereAnyTasks();
+		if (areThereAnyTasks == true) {
 			const containerWithTasks = await driver.$('.col-xl-12');
 			await containerWithTasks.waitForExist(2000);
 			let numOfElems = await containerWithTasks.$$('li');
-			for (var i=0; i<numOfElems.length; i++) {
-					let nameOfTheTaskSelector = await driver.$('.col-xl-12 > li:nth-child('+(i+1)+') > .content > h2' );
-					let nameOfTheTask = await nameOfTheTaskSelector.getText();
-					if(await nameOfTheTask.includes(taskname)) {
-						return i;
-					}
+			for (var i = 0; i < numOfElems.length; i++) {
+				let nameOfTheTaskSelector = await driver.$('.col-xl-12 > li:nth-child(' + (i + 1) + ') > .content > h2');
+				let nameOfTheTask = await nameOfTheTaskSelector.getText();
+				if (await nameOfTheTask.includes(taskname)) {
+					return i;
+				}
 			}
-		}
-		return;
+		};
 	},
-	areThereAnyTasks: async function() {
+	areThereAnyTasks: async function () {
 		let elementWithTasks = await driver.$$('.col-xl-12');
 		return elementWithTasks.length > 0 ? true : false;
 	},
-	chooseTaskAmongAllTasks: async function(taskname) {
+	chooseTaskAmongAllTasks: async function (taskname) {
 		let taskindex = await this.returnTaskIndex(taskname);
-		if(taskindex!=false) {
-			let task = await driver.$('.col-xl-12 > li:nth-child('+taskindex+') > .content > h2');
+		if (taskindex != false) {
+			let task = await driver.$('.col-xl-12 > li:nth-child(' + taskindex + ') > .content > h2');
 			await task.click();
 			await driver.pause(1500);
 			let selectorToBeLoaded = await driver.$('#page-title');
 			await selectorToBeLoaded.waitForExist(2000);
 
 		} else {
-		console.log("No such task was found");
-		await driver.close();
+			console.log("No such task was found");
+			await driver.close();
 		}
 	},
 
-	gotoTasks: async function() {
+	gotoTasks: async function () {
 		await elementHelpers.loadPage(courseData.urlHomework, 20);
 	},
 
-	verify: async function(taskname) {
+	verify: async function (taskname) {
 		await this.gotoTasks();
 		await this.sortHometasks();
 		await this.chooseTaskAmongAllTasks(taskname);
@@ -78,34 +77,33 @@ module.exports = {
 	},
 
 	// other user logs in to verify
-	studentLogsIn: async function(username, password) {
+	studentLogsIn: async function (username, password) {
 		await this.userLogsOut();
-		await firstLogin.pupilLogin(username,password);
+		await firstLogin.pupilLogin(username, password);
 		await firstLogin.firstLoginPupilFullAge(username, password);
 	},
-	teacherLogsIn: async function() {
+	teacherLogsIn: async function () {
 		await this.userLogsOut();
-		await loginPage.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
+		await loginPage.performLogin(Login.defaultTeacherUsername, Login.defaultTeacherpassword);
 	},
 
-	privateTaskVerify: async function() {
+	privateTaskVerify: async function () {
 		let areThereAnyTasks = await this.areThereAnyTasks();
-		if (areThereAnyTasks==true) {
-		let taskNames = await Promise.all(
-			(await driver.$$('#homeworks > ol > div > li > a')).map(
-				async element => await element.getText()
-			));
-		await expect(taskNames).not.to.include(taskname);
-		return;
+		if (areThereAnyTasks == true) {
+			let taskNames = await Promise.all(
+				(await driver.$$('#homeworks > ol > div > li > a')).map(
+					async element => await element.getText()
+				));
+			await expect(taskNames).not.to.include(taskname);
 		}
 		await expect(areThereAnyTasks).to.be.false;
 	},
 
-	userLogsOut: async function() {
+	userLogsOut: async function () {
 		await elementHelpers.loadPage(courseData.urlLogout, 20);
 	},
-	
-	uploadAHomework: async function() {
+
+	uploadAHomework: async function () {
 		//making the upload-element visible to selenium
 		change_visibility = '$x("//*[@id="main-content"]/div/section[1]/div/div/div[1]/input").css("visibility,"visible");';
 		change_display = '$x("//*[@id="main-content"]/div/section[1]/div/div/div[1]/input").css("display,"block");';
@@ -117,3 +115,4 @@ module.exports = {
 		await driver.$x(courseData.uploadBtn).send_keys(filePath);
 	},
 };
+

@@ -3,6 +3,7 @@
 const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
 const { CLIENT } = require("../../shared-objects/servers");
 const Login = require('../../shared-objects/loginData');
+const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers');
 
 module.exports = {
 goToNewNews: async function() {
@@ -20,13 +21,14 @@ setContent: async function(content){
     await contentField.setValue(content);
 },
 setPublishDate: async function(date) {
-    let dateSelector = await driver.$('input.form-control');
+    let dateSelector = await driver.$('[data-testid="news_date"] input');
     await dateSelector.waitForExist(1000);
     await dateSelector.setValue(date);
-    //await driver.execute(`document.querySelector('[data-testid="news_date"] input').value = "${date}"`);
 },
 setPublishTime: async function(time) {
-    await driver.execute(`document.querySelector('[data-testid="news_time"] input').value = "${time}"`);
+    let timeSelector = await driver.$('[data-testid="news_time"] input');
+    await timeSelector.waitForExist(1000);
+    await timeSelector.setValue(time);
 },
 save: async function() {
     let add = await driver.$(Login.elem.submitNewsBtn);
@@ -58,7 +60,7 @@ performCreateNewsLater: async function(title) {
     await this.createNews({
         title: title,
         content: "Here are some announcements for my pupils",
-        date: "13.08.2020"
+        date: dateTimeHelpers.setDate(0,1,1,'.', false)
     });
 }
 }
