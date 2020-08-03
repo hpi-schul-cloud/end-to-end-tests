@@ -11,7 +11,7 @@ module.exports = {
 userFindsTheTask: async function(taskname) {
     let areThereAnyTasks = await driver.$$('#homeworks > ol > div > li');
     await expect(areThereAnyTasks.length).not.to.equal(0);
-    for (var i=1; i<=areThereAnyTasks.length; i++) {
+    for (var i=0; i<=areThereAnyTasks.length; i++) {
         let taskSelector = await driver.$('#homeworks > ol > div > li:nth-child('+i+') .h5.title');
         let tasknameOnPage = await taskSelector.getText();
         if(tasknameOnPage==taskname){
@@ -22,7 +22,7 @@ userFindsTheTask: async function(taskname) {
 },	
 switchToSubmissionTab: async function() {
     let submissionTab = "#submission-tab-link";
-    await helpewaitHelpersrs.waitAndClick(submissionTab);
+    await waitHelpers.waitAndClick(submissionTab);
 },
 submitSolutionForTheHometask: async function() {
     await driver.switchToFrame(0);
@@ -32,7 +32,7 @@ submitSolutionForTheHometask: async function() {
     await driver.switchToParentFrame();
     let container = await driver.$('#submission');
     let submitBtn = await container.$('button[type="submit"]');
-    await submitBtn.click();
+    await waitHelpers.waitAndClick(submitBtn);
     await driver.pause(1500);
 },
 
