@@ -351,10 +351,10 @@ After(async function(scenario) {
 		if (remoteService && remoteService.type !== 'browserstack') {
 			// Comment out to do nothing | leave browser open
 			await driver.deleteSession();
-			driver.pause(DELAY_3_SECOND);
 		} else if(!global.settings.keepOpenOnError){
 			await driver.deleteSession();
 		}
+		driver.pause(DELAY_3_SECOND);
 	}
 });
 
