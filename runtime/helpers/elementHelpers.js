@@ -176,4 +176,9 @@ module.exports = {
 			listOfElements.map(async (element) => await element.getValue())
 		);
 	},
+
+	fillInputField: async function(selector, text) {
+		let searchfield = await driver.$(selector);
+		await searchfield.setValue(text);
+	},
 };

@@ -6,7 +6,7 @@ const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPa
 const createCourse = require('../page-objects/createCourse');
 const Login = require('../shared-objects/loginData');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
-const commonKGO = require('../shared_steps/commonKGO-steps.js');
+const common = require('../shared_steps/common-steps.js');
 
 Given(/^teacher is logged in successfully$/, async function() {
 	// await startPage.clickLoginBtn();

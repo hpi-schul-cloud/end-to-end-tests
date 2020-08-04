@@ -27,28 +27,29 @@ module.exports = {
 		await ok.click();
 		await driver.pause(1500);
 	},
-	returnTaskIndex: async function (taskname) {
+	returnTaskChildIndex: async function (taskname) {
 		let areThereAnyTasks = await this.areThereAnyTasks();
-		if (areThereAnyTasks == true) {
+		if (areThereAnyTasks) {
 			const containerWithTasks = await driver.$('.col-xl-12');
-			await containerWithTasks.waitForExist(2000);
 			let numOfElems = await containerWithTasks.$$('li');
-			for (var i = 0; i < numOfElems.length; i++) {
-				let nameOfTheTaskSelector = await driver.$('.col-xl-12 > li:nth-child(' + (i + 1) + ') > .content > h2');
+			for (var i = 1; i < numOfElems.length; i++) {
+				let nameOfTheTaskSelector = await driver.$('.col-xl-12 > li:nth-child(' + i + ') > .content > h2');
 				let nameOfTheTask = await nameOfTheTaskSelector.getText();
 				if (await nameOfTheTask.includes(taskname)) {
-					return i;
+					return i ;
 				}
 			}
+		
 		};
+		return 0;
 	},
 	areThereAnyTasks: async function () {
 		let elementWithTasks = await driver.$$('.col-xl-12');
 		return elementWithTasks.length > 0 ? true : false;
 	},
 	chooseTaskAmongAllTasks: async function (taskname) {
-		let taskindex = await this.returnTaskIndex(taskname);
-		if (taskindex != false) {
+		let taskindex = await this.returnTaskChildIndex(taskname);
+		if (taskindex > 0 ) {
 			let task = await driver.$('.col-xl-12 > li:nth-child(' + taskindex + ') > .content > h2');
 			await task.click();
 			await driver.pause(1500);
@@ -57,7 +58,6 @@ module.exports = {
 
 		} else {
 			console.log("No such task was found");
-			await driver.close();
 		}
 	},
 
@@ -72,8 +72,8 @@ module.exports = {
 		let pageTitleSelector = await driver.$('#page-title');
 		let courseAndTaskName = await pageTitleSelector.getText();
 		let tasknameArray = await courseAndTaskName.split("- ");
-		let taskName = tasknameArray[1];
-		await expect(taskName).to.equal(taskname);
+		let foundtaskName = tasknameArray[1];
+		await expect(taskname).to.equal(foundtaskName);
 	},
 
 	// other user logs in to verify

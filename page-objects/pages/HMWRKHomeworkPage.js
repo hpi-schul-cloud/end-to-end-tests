@@ -52,7 +52,6 @@ module.exports = {
         await expect(submitted_by_name).to.contain(studentname);
     },
 
-
     teacherLogsInAndCanSeeTheTextSubmission: async function (coursename, taskname, studentname) {
         await this.teacherLogsIn();
         await firstLogin.firstLoginTeacher();
@@ -62,6 +61,7 @@ module.exports = {
         await this.userFindsTheTask(taskname);
         await this.hasTheStudentSubmittedTheTask(studentname);
     },
+    
     evaluateSubmission: async function () {
         let submittedTasks = await driver.$('.usersubmission');
         await submittedTasks.click();
