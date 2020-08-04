@@ -249,14 +249,6 @@ module.exports = {
             expect(err.message).to.be.equal(`no record found for id '${foreignStudentId}'`)
         }
     },
-
-    newPupilLogsIn: async function() {
-        await firstLogin.logout();
-        await firstLogin.pupilLogin(eMAIL, oldPassword);
-    },
-    pupilAcceptsDataProtection: async function() {
-        await firstLogin.firstLoginPupilFullAge(name, newPassword);
-    }
 }
 
 
