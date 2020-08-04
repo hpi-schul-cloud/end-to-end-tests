@@ -340,6 +340,7 @@ AfterAll(function(done) {
  */
 After(async function(scenario) {
 	let driver = global.driver;
+	driver.pause(DELAY_3_SECOND);
 	if (scenario.result.status === Status.FAILED) {
 		if (remoteService && remoteService.type === 'browserstack') {
 			await driver.deleteSession();
@@ -353,9 +354,9 @@ After(async function(scenario) {
 			await driver.deleteSession();
 		} else if(!global.settings.keepOpenOnError){
 			await driver.deleteSession();
-		}
-		driver.pause(DELAY_3_SECOND);
+		}	
 	}
+	driver.pause(DELAY_3_SECOND);
 });
 
 /**
