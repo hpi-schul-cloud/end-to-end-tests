@@ -1,18 +1,12 @@
 'use strict';
 
-let addPupilToTheCourse = require('../page-objects/addPupilToTheCourse');
 let administration = require('../page-objects/administration');
 //let teacherLogin = require('../page-objects/teacherLogin');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js')
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
-const copyCourse = require('../page-objects/copyCourse');
 const loginData = require('../shared-objects/loginData');
-const courseData = require('../shared-objects/courseData');
-let shared = { loginData };
 const Admin = require('../shared-objects/administrationData');
-const firstLogin = require('../shared_steps/firstLogin.js');
-const commonKGO = require('../shared_steps/commonKGO-steps.js');
 
 Given(/^this admin logs in successfully$/, async function () {
 	await startPage.clickLoginBtn();

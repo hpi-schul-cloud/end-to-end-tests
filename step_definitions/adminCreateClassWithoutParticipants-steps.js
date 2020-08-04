@@ -6,7 +6,7 @@ const administrationHelper = require("../page-objects/administration")
 const loginData = require('../shared-objects/loginData');
 const firstLogin = require('../shared_steps/firstLogin.js');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
-const commonKGO = require('../shared_steps/commonKGO-steps.js');
+const common = require('../shared_steps/common-steps.js');
 
 Given(/^admin is logged in successfully$/, async function () {
     const { defaultAdminUsername, defaultAdminPassword } = loginData

@@ -21,22 +21,22 @@ switchBranch(){
 
 fetch(){
 	# clone all required repositories and try to switch to branch with same name as current one
-	git clone https://github.com/schul-cloud/nuxt-client.git nuxt-client
+	git clone https://github.com/hpi-schul-cloud/nuxt-client.git nuxt-client
 	switchBranch "nuxt-client"
 
-	git clone https://github.com/schul-cloud/schulcloud-client.git schulcloud-client
+	git clone https://github.com/hpi-schul-cloud/schulcloud-client.git schulcloud-client
 	switchBranch "schulcloud-client"
 
-	git clone https://github.com/schul-cloud/schulcloud-server.git schulcloud-server
+	git clone https://github.com/hpi-schul-cloud/schulcloud-server.git schulcloud-server
 	switchBranch "schulcloud-server"
 
-	git clone https://github.com/schul-cloud/docker-compose.git docker-compose
+	git clone https://github.com/hpi-schul-cloud/docker-compose.git docker-compose
 	switchBranch "docker-compose"
 
-	git clone https://github.com/schul-cloud/integration-tests.git integration-tests
+	git clone https://github.com/hpi-schul-cloud/integration-tests.git integration-tests
 	switchBranch "integration-tests"
 
-	git clone https://github.com/schul-cloud/node-notification-service.git node-notification-service
+	git clone https://github.com/hpi-schul-cloud/node-notification-service.git node-notification-service
 	switchBranch "node-notification-service"
 }
 

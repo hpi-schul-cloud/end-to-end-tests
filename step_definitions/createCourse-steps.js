@@ -5,7 +5,6 @@ const courseList = require("../page-objects/pages/coursePages/CRSSCourseListPage
 const createCourse = require('../page-objects/createCourse');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
-const commonKGO = require('../shared_steps/commonKGO-steps.js');
 
 Given(/^.*with email (.*) and (.*) is logged in successfully$/, async function (
 	username,
@@ -41,7 +40,7 @@ When(/^.*clicks Create-new-course button$/, function () {
 	return courseList.clickCreateCourseBtn();
 });
 
-When(/^.*enters course name (.*)$/, function (courseName) {
+When(/^.*enters course name (.*) into new course form$/, function (courseName) {
 	return addCourse.setCourseName(courseName);
 });
 When(/^.*chooses course colour (.*)$/, function (courseColour) {
