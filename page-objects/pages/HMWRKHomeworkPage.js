@@ -7,6 +7,7 @@ const firstLogin = require('../shared_steps/firstLogin.js');
 const createCourse = require('../page-objects/createCourse');
 
 module.exports = {
+
     // student helpers
     userFindsTheTask: async function (taskname) {
         let areThereAnyTasks = await driver.$$('#homeworks > ol > div > li');
@@ -20,10 +21,12 @@ module.exports = {
             }
         }
     },
+
     switchToSubmissionTab: async function () {
         let submissionTab = "#submission-tab-link";
         await waitHelpers.waitAndClick(submissionTab);
     },
+
     submitSolutionForTheHometask: async function () {
         await driver.switchToFrame(0);
         let iframeBody = await driver.$('body');
@@ -48,6 +51,7 @@ module.exports = {
         let submitted_by_name = await submitted_by_box.getText();
         await expect(submitted_by_name).to.contain(studentname);
     },
+
 
     teacherLogsInAndCanSeeTheTextSubmission: async function (coursename, taskname, studentname) {
         await this.teacherLogsIn();
