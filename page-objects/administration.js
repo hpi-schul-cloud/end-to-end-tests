@@ -160,6 +160,20 @@ module.exports = {
         expect(singleStudent.status).to.equal(200)
         expect(singleStudent.data.firstName).to.equal(randomStudent.firstName)
     },
+
+    requestForeignStudent: async () =>{
+        const jwt = await getJwt()
+        const foreignStudentId = "59ae89b71f513506904e1cc9"
+
+        try {
+            await Api.getStudent(jwt, foreignStudentId)
+        }
+        catch (err) {
+            expect(err.code).to.be.equal(403)
+        }
+    },
+
+
     requestForeignStudentAndVerify: async () => {
         // fake user data can be found in schul-cloud-server repo
         // 'backup/setup/users.json'
@@ -234,6 +248,14 @@ module.exports = {
             expect(err.code).to.be.equal(404)
             expect(err.message).to.be.equal(`no record found for id '${foreignStudentId}'`)
         }
+    },
+
+    newPupilLogsIn: async function() {
+        await firstLogin.logout();
+        await firstLogin.pupilLogin(eMAIL, oldPassword);
+    },
+    pupilAcceptsDataProtection: async function() {
+        await firstLogin.firstLoginPupilFullAge(name, newPassword);
     }
 }
 

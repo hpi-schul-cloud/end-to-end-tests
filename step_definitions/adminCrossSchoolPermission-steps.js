@@ -23,8 +23,8 @@ Given(/^an admin are able to request information about students from own school$
 
 When(
     /^admin tries to request information about students from other school$/,
-    function () {
-
+    async function () {
+        await administration.requestForeignStudent()
     }
 );
 
