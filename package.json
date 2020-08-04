@@ -3,7 +3,7 @@
 	"version": "24.0.0",
 	"description": "A platform independent debuggable BDD Javascript testing framework. It's simple, easy to use and not dependant to any other tool or library, using Nodejs, webdriverio and cucumber-js",
 	"Author": {
-		"name": "HPI Teams, based on worked by Larry Goddard",
+		"name": "HPI Teams, based on worked by Larry Goddard"
 	},
 	"license": "Apache-2.0",
 	"keywords": [
