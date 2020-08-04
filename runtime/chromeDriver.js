@@ -29,7 +29,11 @@ module.exports = async function chromeDriver(options) {
 	const defaults = {
 		logLevel: 'error',
 		capabilities: {
-			browserName: 'chrome'
+			browserName: 'chrome',
+			chromeOptions: {
+				"args": ["disable-infobars",
+				"disable-dev-shm-usage"]
+			  },
 		}
 	};
 
@@ -43,7 +47,7 @@ module.exports = async function chromeDriver(options) {
 			autodetect: false
 		};
 	}
-
+	
 	const extendedOptions = Object.assign(defaults, options);
 	global.driver = await wdio.remote(extendedOptions);
 	await driver.setWindowSize(1920,1080);
