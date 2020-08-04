@@ -342,17 +342,17 @@ After(async function(scenario) {
 	let driver = global.driver;
 	if (scenario.result.status === Status.FAILED) {
 		if (remoteService && remoteService.type === 'browserstack') {
-			await driver.deleteSession();
+			await driver.reloadSession();
 		} else if(!global.settings.keepOpenOnError){
 			// Comment out to do nothing | leave browser open
-			await driver.deleteSession();
+			await driver.reloadSession();
 		}
 	} else {
 		if (remoteService && remoteService.type !== 'browserstack') {
 			// Comment out to do nothing | leave browser open
-			await driver.deleteSession();
+			await driver.reloadSession();
 		} else if(!global.settings.keepOpenOnError){
-			await driver.deleteSession();
+			await driver.reloadSession();
 		}
 	}
 });
