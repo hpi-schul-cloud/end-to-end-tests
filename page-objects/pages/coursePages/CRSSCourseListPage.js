@@ -4,13 +4,19 @@ const { CLIENT } = require("../../../shared-objects/servers")
 const eh = require("../../../runtime/helpers/elementHelpers");
 const wh = require("../../../runtime/helpers/waitHelpers");
 const { expect } = require("chai");
+const { getTextListFromListOfElements } = require("../../../runtime/helpers/elementHelpers");
 
-const titleOfAnElement = '[data-testid="title_of_an_element"]';
-const titleOfCourse = ".title";
 const urlCourses = `${CLIENT.URL}/courses`;
+const searchCourseFiled = '.input-group .search-field';
 
-const activeCourses = ".section-activeCourses";
-const courseContainer = '[data-testid="courses"]';
+const section = {
+	allCourses: '.section-courses',
+	activeCourses: '.section-activeCourses',
+	archievedCourses: '.section-archievedCourses',
+};
+
+const courseWrapper = '.sc-card-wrapper'
+const titleOfCourse = ".title";
 
 const importCourseBtn = '[data-testid="import-course-btn"]';
 const createCourseBtn = '[data-testid="create-course-btn"]';
@@ -40,20 +46,8 @@ module.exports = {
 		expect(await eh.isElementPresent(createCourseBtn)).to.equal(true);
 	},
 
-	getCourseNames: async function () {
-		const container = await driver.$(courseContainer);
-		const courseTitleContainer = await container.$$(titleOfAnElement);
-
-		const  courseNames = await Promise.all(
-			await courseTitleContainer.map(
-				async (element) => await element.getText()
-			)
-		);
-		return courseNames;
-	},
-
 	courseIsDisplayedCorrectly: async function (courseName) {
-		const activeCoursesContainer = await driver.$(activeCourses);
+		const activeCoursesContainer = await driver.$(section.activeCourses);
 		const coursesOnThePage = await activeCoursesContainer.$$(titleOfCourse);
 		const courseCount = await coursesOnThePage.length;
 		const courseTitleCard = coursesOnThePage[courseCount - 1];
@@ -62,12 +56,12 @@ module.exports = {
 	},
 
 	isCourseOnList: async function (coursename) {
-		const allCourses = await this.getCourseNames();
+		const allCourses = await this.getListOfCourseTitlesForSection(section.allCourses);
 		expect(allCourses).to.include(coursename);
 	},
 
 	isCorrectCourseColour: async function (colour) {
-		const activeCoursesContainer = await driver.$(activeCourses);
+		const activeCoursesContainer = await driver.$(section.activeCourses);
 		const coursesOnThePage = await activeCoursesContainer.$$(container_of_element);
 		const indexOfTheLastAddedCourse = await coursesOnThePage.length;
 		const container = await driver.$(
@@ -126,5 +120,80 @@ module.exports = {
 				break;
 		}
 		return colourSelector;
+	}, 
+
+	fillCourseNameIntoSearchInputField: async function(courseName) {
+		await eh.fillInputField(searchCourseFiled, courseName);
 	},
+	
+	countDisplayedCoursesForSection: async function(section) {
+		const elem = await this.getListOfCoursesForSection(section);
+		var numberOfDisplayedCourses = 0;
+		for (var i = 0; i < elem.length; i++) {
+			if ((await elem[i].isDisplayed()) == true) {
+				numberOfDisplayedCourses += 1;
+			}
+		}
+		return numberOfDisplayedCourses;
+	},
+
+	getListOfCoursesForSection: async function (section) {
+		const listOfCourses = await driver.$$(section + " " + courseWrapper);
+		return listOfCourses;
+	},
+
+	countCoursesWhichTitlesContainTextForSection: async function(text, section) {
+		let listOfCourseNames = await this.getListOfCourseTitlesForSection(section);
+		var re = new RegExp(text, 'gi');
+		const matchingNames = listOfCourseNames.filter(n => n.match(re));
+		return matchingNames.length;
+	},
+
+	getListOfCourseTitlesForSection: async function (section) {
+		const courseList = await this.getListOfCoursesForSection(section);
+		let courseTitleList = await Promise.all(
+			courseList.map(async (element) => (await element.$(titleOfCourse)).getText())
+		);
+		return courseTitleList;
+	},
+
+	//ALL COURSES
+	getListOfAllCourses: async function () {
+		return await this.getListOfCoursesForSection(section.allCourses);
+	},
+
+	countAllDisplayedCourses: async function () {
+		return await this.countDisplayedCoursesForSection(section.allCourses);
+	},
+
+	countAllCoursesWhichTitlesContainText: async function(text) {
+		return await this.countCoursesWhichTitlesContainTextForSection(text, section.allCourses);
+	},
+
+	//ACTIVE COURSES
+	getListOfActiveCourses: async function () {
+		return await this.getListOfCoursesForSection(section.activeCourses);
+	},
+
+	countActiveDisplayedCourses: async function () {
+		return await this.countDisplayedCoursesForSection(section.activeCourses);
+	},
+
+	countActiveCoursesWhichTitlesContainText: async function(text) {
+		return await this.countCoursesWhichTitlesContainTextForSection(text, section.activeCourses);
+	},
+
+	//ARCHIVED COURSES
+	getListOfArchivedCourses: async function () {
+		return await this.getListOfCoursesForSection(section.archievedCourses);
+	},
+
+	countArchivedDisplayedCourses: async function () {
+		return await this.countDisplayedCoursesForSection(section.archievedCourses);
+	},
+
+	countArchivedCoursesWhichTitlesContainText: async function(text) {
+		return await this.countCoursesWhichTitlesContainTextForSection(text, section.archievedCourses);
+	},
+	
 };
