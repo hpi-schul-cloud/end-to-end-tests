@@ -254,14 +254,13 @@ setDefaultTimeout(cucumberTimeout);
 global.startDateTime = dateTimeHelpers.getStartDateTime();
 
 /**
- * create the browser before scenario if it's not instantiated
+ * create the driver before scenario if it's not instantiated
  */
-Before(async function() {
-	let world=this;
-	global.cucumberThis=world;
-	global.browser = getDriverInstance();
-	return browser;
-  });
+Before(async () => {
+	global.driver = getDriverInstance();
+	global.browser = global.driver; // ensure standard WebDriver global also works
+	await driver;
+});
 
 /**
  * cleanup database before each scenario
