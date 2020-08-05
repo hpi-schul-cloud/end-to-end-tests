@@ -38,7 +38,7 @@ module.exports = async function chromeDriver(options) {
 					"window-size=1920,1080"]
 			}
 		},
-		//maxInstances: 2,
+		maxInstances: 1, //should make no diffenrece
 	};
 
 	// Add proxy based on env var.
