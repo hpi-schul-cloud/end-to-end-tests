@@ -30,7 +30,7 @@ module.exports = async function chromeDriver(options) {
 		logLevel: 'error',
 		capabilities: {
 			browserName: 'chrome'
-		}
+		} 
 	};
 
 	// Add proxy based on env var.
@@ -43,7 +43,7 @@ module.exports = async function chromeDriver(options) {
 			autodetect: false
 		};
 	}
-
+	
 	const extendedOptions = Object.assign(defaults, options);
 	global.driver = await wdio.remote(extendedOptions);
 	await driver.setWindowSize(1920,1080);

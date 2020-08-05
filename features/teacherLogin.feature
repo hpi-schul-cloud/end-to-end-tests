@@ -4,7 +4,7 @@ Feature: Logging in as a teacher
 	I want to be able to login with a teacher account
 
 	Background:
-		Given The teacher arrives on the Schul-Cloud homepage
+		Given teacher arrives on the Schul-Cloud homepage
 
 	Scenario Outline: User inputs the username and password
 		When the teacher puts in <username> and <password> and click the login-button

@@ -3,8 +3,8 @@
 const createTask = require("../page-objects/createTask");
 const loginData = require("../shared-objects/loginData");
 const firstLogin = require("../shared_steps/firstLogin.js");
-const loginPage = require('../page-objects/pages/loginPage');
-const startPage = require('../page-objects/pages/startPage');
+const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
+const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 let page = { createTask };
 
@@ -12,7 +12,7 @@ Given(/^teacher goes to the home page$/, function() {
 	return elementHelpers.loadPage(loginData.url, 20);
 });
 
-When(/^a teacher logs in his account using (.*) and (.*) in order to create a task$/, async function(username, password) {
+When(/^a teacher logs in his account using (.*) and (.*)$/, async function(username, password) {
 		await startPage.clickLoginBtn();	
 		await loginPage.performLogin(username, password);
 	}
@@ -57,5 +57,4 @@ Then(
 	async function(taskName) {
 		let tasks = await page.createTask.getTaskNames();
 		await expect(taskName).to.be.oneOf(tasks);
-	}
-);
+	});

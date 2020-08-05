@@ -79,7 +79,7 @@ module.exports = {
 		await expect(allCourses).to.include(coursename);
 	},
 
-	createCourseWithStudents: async function(coursename) {
+	createCourseWithStudents: async function(coursename, name) {
 		await this.goToAddCourses();
 		await this.setCourseName(coursename);
 		await this.goToNextSectionCreateCourse();
