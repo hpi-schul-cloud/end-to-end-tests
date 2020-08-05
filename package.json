@@ -1,6 +1,6 @@
 {
 	"name": "sc-integration-tests",
-	"version": "23.6.0",
+	"version": "24.0.0",
 	"description": "A platform independent debuggable BDD Javascript testing framework. It's simple, easy to use and not dependant to any other tool or library, using Nodejs, webdriverio and cucumber-js",
 	"Author": {
 		"name": "Larry Goddard",
@@ -27,7 +27,7 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/schul-cloud/integration-tests"
+		"url": "https://github.com/hpi-schul-cloud/integration-tests"
 	},
 	"engines": {
 		"node": ">= 10.15.0",
@@ -39,7 +39,7 @@
 		"test:dev": "node index.js -d -k",
 		"selenium": "npx selenium-standalone install && npx selenium-standalone start"
 	},
-	"homepage": "https://github.com/schul-cloud/integration-tests#readme",
+	"homepage": "https://github.com/hpi-schul-cloud/integration-tests#readme",
 	"dependencies": {
 		"axios": "^0.19.2",
 		"browserstack-local": "^1.3.7",

@@ -353,7 +353,7 @@ After(async function(scenario) {
 			await driver.deleteSession();
 		} else if(!global.settings.keepOpenOnError){
 			await driver.deleteSession();
-		}
+		}	
 	}
 });
 

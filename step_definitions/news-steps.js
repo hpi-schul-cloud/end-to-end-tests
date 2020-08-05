@@ -1,6 +1,6 @@
 'use strict';
-const loginPage = require('../page-objects/pages/loginPage');
-const startPage = require('../page-objects/pages/startPage');
+const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
+const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const TMSAddEditTeamPage = require('../page-objects/pages/teamsPages/TMSAddEditTeamPage');
 const newsAddEditNews = require('../page-objects/pages/NWSAddEditNewsPage');
 const newsListPage = require('../page-objects/pages/NWSNewsListPage');
@@ -9,12 +9,7 @@ let name = "news";
 let laterNewsName = "news should be published later";
 const elementHelpers = require('../runtime/helpers/elementHelpers');
 const firstLogin = require('../shared_steps/firstLogin.js');
-
-
-
-Given(/^The teacher arrives on the Schul-Cloud page$/, function() {
-	return elementHelpers.loadPage(shared.loginData.url, 20);
-});  
+const common = require('../shared_steps/common-steps.js');
 
 Given(/^teacher is successfully logged-in$/, async function() {
 	await startPage.clickLoginBtn();
@@ -26,7 +21,6 @@ When(/^teacher creats some news which has to be published immediately$/, functio
 });
 
 When(/^a user who has permissions to see the news logs in$/, async function() {
-
 	return firstLogin.loginAsPupil(Login.notEligiblePupilUsername, Login.notEligiblePupilPassword);
 });
 When(/^he goes to the news page$/, function() {
@@ -49,7 +43,7 @@ When(/^he goes to news page$/, function() {
 });
 Then(/^he cannot see the news which is not due yet$/, async function() {
 	let newsNames = await newsListPage.verifyWhetherVisible();
-	await expect(newsNames).not.to.include(name);
+	await expect(newsNames).not.to.include(laterNewsName);
 });
 // TEAM
 
@@ -62,4 +56,8 @@ Then(/^team member can see the news$/, function() {
 });
 Then(/^team non-members cannot see the news$/, function() {
 	return TMSAddEditTeamPage.canNonTeamMemberSeeTheNews();
+});
+
+Then(/^the pupil should accept the data protection$/, function() {
+	return firstLogin.firstLoginPupilFullAge(Login.notEligiblePupilPassword);
 });

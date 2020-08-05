@@ -29,8 +29,14 @@ module.exports = async function chromeDriver(options) {
 	const defaults = {
 		logLevel: 'error',
 		capabilities: {
-			browserName: 'chrome'
-		}
+			browserName: 'chrome',
+			"goog:chromeOptions":  {
+				"args": ["window-size=1920,1080", 
+					"disable-dev-shm-usage", 
+					"disable-infobars"]
+			}
+		},
+		//maxInstances: 2,
 	};
 
 	// Add proxy based on env var.
@@ -43,9 +49,10 @@ module.exports = async function chromeDriver(options) {
 			autodetect: false
 		};
 	}
-
+	
 	const extendedOptions = Object.assign(defaults, options);
 	global.driver = await wdio.remote(extendedOptions);
-	await driver.setWindowSize(1920,1080);
+	driver.options = extendedOptions.capabilities;
+	//await driver.setWindowSize(1920,1080); //this is done on init now
 	return driver;
 };

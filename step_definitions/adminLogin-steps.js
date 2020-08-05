@@ -1,15 +1,12 @@
 'use strict';
-const adminLogin = require('../page-objects/adminLogin');
-const loginPage = require('../page-objects/pages/loginPage');
-const startPage = require('../page-objects/pages/startPage');
+const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
+const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const loginData = require('../shared-objects/loginData');
 const shared = { loginData };
 const firstLogin = require('../shared_steps/firstLogin.js');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
-
-Given(/^an admin arrives on the Schul-Cloud login homepage$/, function() {
-	return elementHelpers.loadPage(shared.loginData.url, 10);
-});
+const DashboardPage = require('../page-objects/pages/DashboardPage');
+const common = require('../shared_steps/common-steps.js');
 
 When(/^an admin puts in (.*) and (.*) and click the login-button$/, async function(username,password) {
 	await startPage.clickLoginBtn();
@@ -33,18 +30,18 @@ Then(
 Then(
 	/^the admin-dashboard should have the correct school$/,
 	function() {
-		return adminLogin.loginSchool();
+		return DashboardPage.loginSchool();
 	}
 );
 
 Then(
 	/^the admin-dashboard should have the admin name and profession$/,
 	function() {
-		return adminLogin.loginFullUserInfo();
+		return DashboardPage.loginFullUserInfo();
 	}
 );
 
 Then(/^the admin-dashboard should have the following tabs$/, function (LoginTextLabels) {
-    return adminLogin.checkIfElementIsVisisble(LoginTextLabels, shared.loginData.elem.loginTabs);
+    return DashboardPage.checkIfTabsAreVisible(LoginTextLabels, shared.loginData.elem.loginTabs);
 	}
 );
