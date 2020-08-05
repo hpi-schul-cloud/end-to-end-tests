@@ -1,6 +1,5 @@
 @adminCrossSchoolPermission
-Feature:
-	I as an admin I should only have access to the students attached to my own school
+Feature: I as an admin I should only have access to the students attached to my own school
 
 	Background:
 		Given admin arrives on the Schul-Cloud homepage

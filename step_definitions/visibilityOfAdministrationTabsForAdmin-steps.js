@@ -18,7 +18,7 @@ const common = require('../shared_steps/common-steps.js');
 
   Then(/^The admin is supposed to accept the data protection agreement$/,
 	function() {
-		return firstLogin.firstLoginAdmin();
+		return firstLogin.firstLoginAdminOrTeacher();
 	});
 
   When(/^The admin goes to the Administration page$/, function () {

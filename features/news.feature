@@ -9,7 +9,7 @@ Feature: Different options for news. I would like to test whether users with dif
         When teacher creats some news which has to be published immediately
         And teacher logs out
         And student logs in with email <username> and password <password>
-        And the pupil should accept the data protection
+        And student with full age accepts student's data protection
         And he goes to the news page
         Then he can see the news
 
@@ -22,7 +22,7 @@ Feature: Different options for news. I would like to test whether users with dif
         When teacher creats some news which has to be published later
         And teacher logs out
         And student logs in with email <username> and password <password>
-        And the pupil should accept the data protection
+        And student with full age accepts student's data protection
         And he goes to news page
         Then he cannot see the news which is not due yet
 

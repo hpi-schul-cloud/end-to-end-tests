@@ -17,7 +17,7 @@ const common = require('../shared_steps/common-steps.js');
 
   Then(/^The Teacher should accept the data protection$/,
 	function() {
-		return firstLogin.firstLoginTeacher();
+		return firstLogin.firstLoginAdminOrTeacher();
 	});
 
   When(/^The Teacher goes to Verwaltung page$/, function () {

@@ -19,7 +19,7 @@ When(/^a teacher logs in his account using (.*) and (.*)$/, async function(usern
 );
 
 When(/^the teacher has accepted the data protection agreement$/, function() {
-	return firstLogin.firstLoginTeacher();
+	return firstLogin.firstLoginAdminOrTeacher();
 });
 
 Then(/^he should click the task-button in the dashboard-sidebar$/, function() {

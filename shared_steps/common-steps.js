@@ -5,6 +5,9 @@ const createCourse = require('../page-objects/createCourse');
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const loginData = require('../shared-objects/loginData');
+const shared = { loginData };
+const firstLogin = require('../shared_steps/firstLogin.js');
+
 
 /*Login, Logout*/
 Given(/^.*arrives on the Schul-Cloud homepage$/, function () {
@@ -59,4 +62,16 @@ When(/^.* goes to initials$/, async function () {
 When(/^.* goes to user settings$/, async function () {
 	await navigationTopPage.clickInitials();
 	await navigationTopPage.clickSettings();
+});
+
+
+
+
+/*first login*/
+Then(/^.* accepts data protection$/, function() {
+	return firstLogin.firstLoginAdminOrTeacher();
+});
+
+Then(/^student with full age accepts student\'s data protection$/, function() {
+	return firstLogin.firstLoginPupilFullAge(loginData.notEligiblePupilPassword);
 });

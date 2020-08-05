@@ -57,7 +57,3 @@ Then(/^team member can see the news$/, function() {
 Then(/^team non-members cannot see the news$/, function() {
 	return TMSAddEditTeamPage.canNonTeamMemberSeeTheNews();
 });
-
-Then(/^the pupil should accept the data protection$/, function() {
-	return firstLogin.firstLoginPupilFullAge(Login.notEligiblePupilPassword);
-});

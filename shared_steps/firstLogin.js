@@ -15,7 +15,7 @@ module.exports = {
 		await passwordBox.setValue(password);
 		await waitHelpers.waitAndClick(Login.elem.submitBtn);
 	},
-	firstLoginTeacher: async function() {
+	firstLoginAdminOrTeacher: async function() {
 		let nextBtn = await driver.$('#nextSection');
 		await nextBtn.click();
 		await driver.pause(1500);
@@ -29,6 +29,7 @@ module.exports = {
 		await start.click();
 		await driver.pause(1500);
 	},
+	/*now use: firstLoginAdminOrTeacher
 	firstLoginAdmin: async function() {
 		let nextBtn = await driver.$('#nextSection');
 		await nextBtn.click();
@@ -39,7 +40,7 @@ module.exports = {
 		let start = await driver.$('a[data-testid="btn_schul-cloud_erkunden"]');
 		await start.waitForDisplayed(15000);
 		await start.click();
-	},
+	},*/
 	dataProtection: async function() {
 	let box1 = await driver.$('input[name=\'privacyConsent\']');
 	await box1.waitForExist(2000);
