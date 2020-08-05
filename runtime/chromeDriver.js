@@ -31,10 +31,11 @@ module.exports = async function chromeDriver(options) {
 		capabilities: {
 			browserName: 'chrome',
 			"goog:chromeOptions":  {
-				"args": ["window-size=1920,1080", 
+				"args": [
 					"disable-dev-shm-usage", 
 					"browser-test",
-					"disable-infobars"]
+					"disable-infobars",
+					"window-size=1920,1080"]
 			}
 		},
 		//maxInstances: 2,
