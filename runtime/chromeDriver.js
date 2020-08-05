@@ -31,9 +31,9 @@ module.exports = async function chromeDriver(options) {
 		capabilities: {
 			browserName: 'chrome',
 			chromeOptions: {
-				"args": ["--disable-infobars",
-				"--disable-dev-shm-usage"]
-			  },
+				"args": ["disable-infobars",
+				"disable-dev-shm-usage"]
+			},
 		}
 	};
 
