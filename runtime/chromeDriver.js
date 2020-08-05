@@ -29,12 +29,8 @@ module.exports = async function chromeDriver(options) {
 	const defaults = {
 		logLevel: 'error',
 		capabilities: {
-			browserName: 'chrome',
-			chromeOptions: {
-				"args": ["disable-infobars",
-				"disable-dev-shm-usage"]
-			},
-		}
+			browserName: 'chrome'
+		} 
 	};
 
 	// Add proxy based on env var.
