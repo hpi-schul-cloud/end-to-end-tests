@@ -32,9 +32,6 @@ module.exports = async function chromeDriver(options) {
 			browserName: 'chrome',
 			"goog:chromeOptions":  {
 				"args": [
-					"disable-dev-shm-usage", 
-					"browser-test",
-					"disable-infobars",
 					"window-size=1920,1080"]
 			}
 		},
