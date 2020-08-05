@@ -9,12 +9,12 @@ const courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
 const copyCourse = require('../page-objects/copyCourse');
 const firstLogin = require('../shared_steps/firstLogin.js');
-const createCourse = require('../page-objects/createCourse');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
-const { courseNameDisplayedCorrectly } = require('../page-objects/createCourse');
 const { logout } = require('./pages/NavigationTopPage.js');
+const addCoursePage = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
+const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
 // TODO: choose course, SORT
 
 const click = async (selector) => (await driver.$(selector)).click();
@@ -22,7 +22,7 @@ const click = async (selector) => (await driver.$(selector)).click();
 module.exports = {
 	// add homework related functions (as a teacher)
 	clickCreateNewTaskInTheCourse: async function (coursename) {
-		await copyCourse.chooseCourse(coursename);
+		await courseListPage.clickOnActiveCourse(coursename);
 		let homeworktab = await driver.$('.tabs button[data-testid="hometasks"]');
 		await homeworktab.click();
 		await waitHelpers.waitAndClick(courseData.elem.addHomeworkBtn);
@@ -144,8 +144,8 @@ module.exports = {
 		await loginPage.performLogin(Login.defaultTeacherUsername, Login.defaultTeacherpassword);
 	},
 	goToTasksOfTheCourse: async function (coursename) {
-		await createCourse.goToCourses();
-		await copyCourse.chooseCourse(coursename);
+		await courseListPage.goToCourses();
+		await courseListPage.clickOnActiveCourse(coursename);
 		await this.gotoTasksTab();
 	},
 	studentLogsInAndGoesToTasksOfTheCourse: async function (username, password, coursename) {
@@ -216,8 +216,8 @@ module.exports = {
 	teacherLogsInAndCanSeeTheTextSubmission: async function (coursename, taskname, studentname) {
 		await this.teacherLogsIn();
 		await firstLogin.firstLoginTeacher();
-		await createCourse.goToCourses();
-		await copyCourse.chooseCourse(coursename);
+		await courseListPage.goToCourses();
+		await courseListPage.clickOnActiveCourse(coursename);
 		await this.gotoTasksTab();
 		await this.userFindsTheTask(taskname);
 		await this.hasTheStudentSubmittedTheTask(studentname);

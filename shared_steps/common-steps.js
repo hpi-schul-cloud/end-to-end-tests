@@ -15,7 +15,7 @@ Given(/^.*logs in with email (.*) and password (.*)$/, async function (username,
 	await loginPage.performLogin(username, password);
 });
 
-Given(/^user logs in as a default teacher$/, async function () {
+Given(/^user logs in as default teacher$/, async function () {
 	await startPage.clickLoginBtn();
 	await loginPage.performLogin(loginData.defaultTeacherUsername,loginData.defaultTeacherpassword);
 });

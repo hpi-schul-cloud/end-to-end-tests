@@ -89,3 +89,4 @@ webdriverio-cucumber-js.iml
 /browserstack/secrets/browserstack.json
 
 **settings.json
+.vscode/launch.json
