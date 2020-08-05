@@ -1,5 +1,6 @@
 @addStudent
 
+
 Feature: logging in as a teacher and create a new course and add pupils and classes to the course
 I want to be able to add some pupils to a new course on Schul-Cloud
 

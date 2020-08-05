@@ -1,9 +1,9 @@
 /*[url/courses]*/
 "use strict";
-const {CLIENT} = require("../../../shared-objects/servers");
+const { CLIENT } = require("../../../shared-objects/servers")
 const eh = require("../../../runtime/helpers/elementHelpers");
 const wh = require("../../../runtime/helpers/waitHelpers");
-const {expect} = require("chai");
+const { expect } = require("chai");
 
 const urlCourses = `${ CLIENT.URL }/courses`;
 const searchCourseFiled = ".input-group .search-field";
