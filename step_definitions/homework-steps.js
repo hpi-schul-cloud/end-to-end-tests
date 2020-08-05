@@ -6,7 +6,8 @@ const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPa
 const copyCourse = require('../page-objects/copyCourse');
 const createCourse = require('../page-objects/createCourse');
 const homework = require('../page-objects/homework');
-const HMWRKHomeworkListPage = require('../page-objects/pages/HMWRKHomeworkListPage');
+const hMWRKAddEditHomeworkPage = require('../page-objects/pages/HMWRKAddEditHomeworkPage.js');
+const hMWRKHomeworkListPage = require('../page-objects/pages/HMWRKHomeworkListPage');
 const courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
@@ -35,14 +36,14 @@ When(/^the teacher creates one course with (.*) and$/, function (coursename) {
 When(
 	/^teacher clicks "create a new home task" in the course (.*) with (.*)$/,
 	function (coursename, taskname) {
-		return homework.addBasicHometask(coursename, taskname);
+		return hMWRKAddEditHomeworkPage.addBasicHometask(coursename, taskname);
 	}
 );
 
 Then(/^the hometask with (.*) is to be found at the task pannel$/, function (
 	taskname
 ) {
-	return HMWRKHomeworkListPage.verify(taskname);
+	return hMWRKHomeworkListPage.verify(taskname);
 });
 
 /* PRIVATE */

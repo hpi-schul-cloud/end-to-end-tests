@@ -61,7 +61,7 @@ module.exports = {
         await this.userFindsTheTask(taskname);
         await this.hasTheStudentSubmittedTheTask(studentname);
     },
-    
+
     evaluateSubmission: async function () {
         let submittedTasks = await driver.$('.usersubmission');
         await submittedTasks.click();

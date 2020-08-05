@@ -1,8 +1,9 @@
 /*[url/homework/new] | [url/homework/[homeworkId]/edit]*/
 'use strict';
-const waitHelpers = require('../runtime/helpers/waitHelpers.js');
-const dateTimeHelpers = require('../runtime/helpers/dateTimeHelpers.js');
-const courseData = require('../shared-objects/courseData');
+const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
+const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers.js');
+const courseData = require('../../shared-objects/courseData');
+const cRSSCourseHomeworksPage = require("../pages/coursePages/CRSSCourseHomeworksPage.js");
 
 module.exports = {
     setPrivate: async function () {
@@ -29,4 +30,27 @@ module.exports = {
         let selectorToBeLoaded = await driver.$('#homeworks');
         await selectorToBeLoaded.waitForExist(2000);
     },
+    
+	setPrivate: async function () {
+		await waitHelpers.waitAndClick(courseData.elem.checkbox);
+	},
+	addBasicHometask: async function (coursename, taskname) {
+		await cRSSCourseHomeworksPage.clickCreateNewTaskInTheCourse(coursename);
+		let nameSelector = await driver.$(courseData.elem.homeworkName);
+		await nameSelector.setValue(taskname);
+		await waitHelpers.waitAndClick(courseData.elem.teamworkActivate);
+		await this.setAccomplishTime();
+		await this.setHometaskText();
+		await waitHelpers.waitAndClick(courseData.elem.submitAddHomeworkBtn);
+	},
+	addPrivateHometask: async function (coursename, taskname) {
+		await cRSSCourseHomeworksPage.clickCreateNewTaskInTheCourse(coursename);
+		let nameSelector = await driver.$(courseData.elem.homeworkName);
+		await nameSelector.setValue(taskname);
+		await waitHelpers.waitAndClick(courseData.elem.teamworkActivate);
+		await this.setAccomplishTime();
+		await this.setHometaskText();
+		await this.setPrivate();
+		await waitHelpers.waitAndClick(courseData.elem.submitAddHomeworkBtn);
+	},
 }
