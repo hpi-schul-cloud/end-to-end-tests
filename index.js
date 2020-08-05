@@ -265,6 +265,11 @@ if (program.tags) {
 process.argv.push('-S');
 
 /**
+ * Lets crash on unhandledRejection
+ */
+process.on('unhandledRejection', up => { throw up })
+
+/**
  * execute cucumber Cli
  */
 global.cucumber = cucumber;
