@@ -38,7 +38,7 @@ When(/^.*waits for next login$/, async function () {
 });
 
 Then(/^the login must fail$/, async function () {
-	await loginPage.wrongLoginResult();
+	return loginPage.wrongLoginResult();
 });
 
 Then(/^the login must be successful$/, function () {
