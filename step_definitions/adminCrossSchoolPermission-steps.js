@@ -6,17 +6,6 @@ const firstLogin = require('../shared_steps/firstLogin.js');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const administration = require("../page-objects/administration.js")
 
-
-
-
-
-Given(/^an admin is logged in$/, async function () {
-    await elementHelpers.loadPage(loginData.url, 10);
-    await startPage.clickLoginBtn();
-    await loginPage.performLogin('admin@schul-cloud.org', 'Schulcloud1!');
-    await firstLogin.firstLoginAdmin();
-});
-
 Given(/^an admin are able to request information about students from own school$/, async function () {
     await administration.getStudentsFromSameSchoolAndVerify()
 });
