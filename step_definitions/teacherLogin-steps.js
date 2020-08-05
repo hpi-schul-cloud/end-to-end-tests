@@ -5,7 +5,7 @@ const loginData = require('../shared-objects/loginData');
 const shared = { loginData };
 const firstLogin = require('../shared_steps/firstLogin.js');
 const elementHelpers = require('../runtime/helpers/elementHelpers');
-const commonKGO = require('../shared_steps/commonKGO-steps.js');
+const common = require('../shared_steps/common-steps.js');
 
 When(/^the teacher puts in (.*) and (.*) and click the login-button$/, async function(username,password) {
 	await startPage.clickLoginBtn();

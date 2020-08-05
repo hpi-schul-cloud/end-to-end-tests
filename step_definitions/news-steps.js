@@ -9,7 +9,7 @@ let name = "news";
 let laterNewsName = "news should be published later";
 const elementHelpers = require('../runtime/helpers/elementHelpers');
 const firstLogin = require('../shared_steps/firstLogin.js');
-const commonKGO = require('../shared_steps/commonKGO-steps.js'); 
+const common = require('../shared_steps/common-steps.js');
 
 Given(/^teacher is successfully logged-in$/, async function() {
 	await startPage.clickLoginBtn();
