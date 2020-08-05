@@ -1,17 +1,17 @@
-@wrongPasswordLogin
-Feature: Logging in with a wrong password
-	As an user on Schul-Cloud
-	I should not be able to login with a wrong password
+# @wrongPasswordLogin
+# Feature: Logging in with a wrong password
+# 	As an user on Schul-Cloud
+# 	I should not be able to login with a wrong password
 
-	Background:
-		Given admin arrives on the Schul-Cloud homepage
+# 	Background:
+# 		Given admin arrives on the Schul-Cloud homepage
 
-	Scenario Outline: User inputs a username and wrong password
-		When a user puts in <username> and the wrong <password> and click the login-button
-		Then the login must fail
-		# doesn't work
-		# Then the login-page should look like it looked before for <username>
+# 	Scenario Outline: User inputs a username and wrong password
+# 		When a user puts in <username> and the wrong <password> and click the login-button
+# 		Then the login must fail
+# 		# doesn't work
+# 		# Then the login-page should look like it looked before for <username>
 
-		Examples:
-			| username              | password                 |
-			| admin@schul-cloud.org | wrongPasswordPlaceholder |
+# 		Examples:
+# 			| username              | password                 |
+# 			| admin@schul-cloud.org | wrongPasswordPlaceholder |
