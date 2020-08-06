@@ -22,7 +22,7 @@ const click = async (selector) => (await driver.$(selector)).click();
 module.exports = {
 	// add homework related functions (as a teacher)
 	clickCreateNewTaskInTheCourse: async function (coursename) {
-		await courseListPage.clickOnActiveCourse(coursename);
+		await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 		let homeworktab = await driver.$('.tabs button[data-testid="hometasks"]');
 		await homeworktab.click();
 		await waitHelpers.waitAndClick(courseData.elem.addHomeworkBtn);
@@ -145,7 +145,7 @@ module.exports = {
 	},
 	goToTasksOfTheCourse: async function (coursename) {
 		await courseListPage.goToCourses();
-		await courseListPage.clickOnActiveCourse(coursename);
+		await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 		await this.gotoTasksTab();
 	},
 	studentLogsInAndGoesToTasksOfTheCourse: async function (username, password, coursename) {
@@ -217,7 +217,7 @@ module.exports = {
 		await this.teacherLogsIn();
 		await firstLogin.firstLoginTeacher();
 		await courseListPage.goToCourses();
-		await courseListPage.clickOnActiveCourse(coursename);
+		await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 		await this.gotoTasksTab();
 		await this.userFindsTheTask(taskname);
 		await this.hasTheStudentSubmittedTheTask(studentname);

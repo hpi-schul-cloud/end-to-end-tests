@@ -1,7 +1,6 @@
 "use strict";
 
 const courseData = require("../shared-objects/courseData");
-const createCourse = require("../page-objects/createCourse");
 const waitHelpers = require("../runtime/helpers/waitHelpers.js");
 const elementHelpers = require("../runtime/helpers/elementHelpers.js");
 const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
@@ -9,9 +8,8 @@ const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseList
 module.exports = {
 
 	copyCourse: async function(coursename) {
-		await courseListPage.clickOnActiveCourse(coursename);
+		await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.allCourses);
 		await this.cloneCourse();
-
 	},
 	
 	cloneCourse: async function () {
@@ -62,7 +60,7 @@ module.exports = {
 
 	verify: async function (coursename, topicname) {
 		await courseListPage.goToCourses();
-		await courseListPage.clickOnActiveCourse(coursename);
+		await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 		let topicNames = await Promise.all(
 			(await driver.$$("#topic-list > div > div > div")).map(
 				async (element) => await element.getText()
@@ -118,7 +116,7 @@ module.exports = {
 	},
 	editEtherpad: async function () {
 		await elementHelpers.loadPage(courseData.urlCourses, 20);
-		await courseListPage.clickOnActiveCourse(coursename);
+		await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 		await this.gotoTopics();
 		let etherpad = await driver.$("#topic-list > div > div > div > p");
 		await etherpad.click();
@@ -130,7 +128,7 @@ module.exports = {
 	verifyCopyWithStudents: async function (coursename) {
 		await courseListPage.goToCourses();
 		let copiedName = coursename + " - Kopie";
-		let courseHasIndex = courseListPage.getIndexOfActiveCourseWithName(copiedName);
+		let courseHasIndex = courseListPage.getIndexOfGivenCourseInSection(copiedName, courseListPage.section.activeCourses);
 		let areThereStudentsInCourseContainer  = await container.$('.sc-card-wrapper.col-xl-3.col-lg-4.col-md-6.col-sm-12:nth-child('+(courseHasIndex+1)+') .additionalInfo .btn-member');
 		let areThereStudentsInCourse = await areThereStudentsInCourseContainer.getText();
 		let number = parseInt(areThereStudentsInCourse);

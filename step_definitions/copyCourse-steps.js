@@ -46,7 +46,7 @@ Given(/^the teacher creates some with name (.*)$/, function(coursename) {
 	return addCoursePage.createCourse(coursename);
 });
 Given(/^the teacher chooses the created course with (.*) and$/, function(coursename) {
-	return courseListPage.clickOnActiveCourse(coursename);
+	return courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 });
 When(/^the teacher adds a Topic with name (.*)$/, function(topicname) {
 	return copyCourse.addTopic(topicname);
@@ -80,7 +80,7 @@ Given(/^the teacher creates a course with name (.*),$/, function(coursename) {
 	return addCoursePage.createCourse(coursename);
 });
 Given(/^the teacher chooses this course with (.*) and$/, function(coursename) {
-	return courseListPage.clickOnActiveCourse(coursename);
+	return courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 });
 Given(/^the teacher adds a topic with (.*)$/, function(topicname) {
 	return copyCourse.addTopic(topicname);

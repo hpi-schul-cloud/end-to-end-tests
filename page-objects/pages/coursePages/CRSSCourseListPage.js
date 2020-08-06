@@ -47,7 +47,7 @@ module.exports = {
     },
 
     courseIsDisplayedCorrectly: async function (courseName) {
-        const activeCoursesContainer = await driver.$(section.activeCourses);
+        const activeCoursesContainer = await driver.$(this.section.activeCourses);
         const coursesOnThePage = await activeCoursesContainer.$$(titleOfCourse);
         const courseCount = await coursesOnThePage.length;
         const courseTitleCard = coursesOnThePage[courseCount - 1];
@@ -56,12 +56,12 @@ module.exports = {
     },
 
     isCourseOnList: async function (coursename) {
-        const allCourses = await this.getListOfCourseTitlesInSection(section.allCourses);
+        const allCourses = await this.getListOfCourseTitlesInSection(this.section.allCourses);
         expect(allCourses).to.include(coursename);
     },
 
     isCorrectCourseColour: async function (colour) {
-        const activeCoursesContainer = await driver.$(section.activeCourses);
+        const activeCoursesContainer = await driver.$(this.section.activeCourses);
         const coursesOnThePage = await activeCoursesContainer.$$(container_of_element);
         const indexOfTheLastAddedCourse = await coursesOnThePage.length;
         const container = await driver.$(container_of_element + ":nth-child(" + indexOfTheLastAddedCourse + ")");
@@ -131,7 +131,6 @@ module.exports = {
         return eh.getTextListFromListOfElements(listOfMembers);
     },
 
-    // GENERAL
     areMembersOnTheListInCourseForSection: async function (courseName, members, section) {
         await this.clickPupilIconInCourseInSection(courseName, section);
         await driver.pause(1000);
@@ -198,55 +197,5 @@ module.exports = {
         let pupilIcon = await courseWrapper.$(memberBtn);
         await pupilIcon.click();
         await driver.pause(500);
-    },
-
-    // ALL COURSES
-    getListOfAllCourses: async function () {
-        return await this.getListOfCoursesInSection(section.allCourses);
-    },
-
-    countAllDisplayedCourses: async function () {
-        return await this.countDisplayedCoursesForSection(section.allCourses);
-    },
-
-    countAllCoursesWhichTitlesContainText: async function (text) {
-        return await this.countCoursesWhichTitlesContainTextInSection(text, section.allCourses);
-    },
-
-    // ACTIVE COURSES
-    areMembersOnTheListInActiveCourse: async function (courseName, members) {
-        await this.areMembersOnTheListInCourseForSection(courseName, members, section.activeCourses);
-    },
-
-    isCorrectNumberOfMembersInActiveCourse: async function (courseName, members) {
-        await this.isCorrectNumberOfMembersInCourseForSection(courseName, members, section.activeCourses);
-    },
-
-    clickPupilIconInActiveCourse: async function (courseName) {
-        await this.clickPupilIconInCourseInSection(courseName, section.activeCourses);
-    },
-
-    clickOnActiveCourse: async function (courseName) {
-        await element.clickOnCourseInSection(courseName, section.activeCourses);
-    },
-
-    getNumberOfMembersInGivenActiveCourse: async function (courseName) {
-        return await this.getNumberOfMembersInGivenCourseInSection(courseName, section.activeCourses);
-    },
-
-    getIndexOfActiveCourseWithName: async function (courseName) {
-        return await this.getIndexOfGivenCourseInSection(courseName, section.activeCourses);
-    },
-
-    getListOfActiveCourses: async function () {
-        return await this.getListOfCoursesInSection(section.activeCourses);
-    },
-
-    countActiveDisplayedCourses: async function () {
-        return await this.countDisplayedCoursesForSection(section.activeCourses);
-    },
-
-    countActiveCoursesWhichTitlesContainText: async function (text) {
-        return await this.countCoursesWhichTitlesContainTextInSection(text, section.activeCourses);
     }
 };
