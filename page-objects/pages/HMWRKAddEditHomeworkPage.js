@@ -31,9 +31,6 @@ module.exports = {
         await selectorToBeLoaded.waitForExist(2000);
     },
     
-	setPrivate: async function () {
-		await waitHelpers.waitAndClick(courseData.elem.checkbox);
-	},
 	addBasicHometask: async function (coursename, taskname) {
 		await cRSSCourseHomeworksPage.clickCreateNewTaskInTheCourse(coursename);
 		let nameSelector = await driver.$(courseData.elem.homeworkName);
