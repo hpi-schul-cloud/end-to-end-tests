@@ -8,6 +8,7 @@ const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseList
 module.exports = {
 
 	copyCourse: async function(coursename) {
+		await courseListPage.goToCourses();
 		await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.allCourses);
 		await this.cloneCourse();
 	},
