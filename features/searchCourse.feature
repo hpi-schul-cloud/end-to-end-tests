@@ -1,18 +1,17 @@
 @searchCourse
 Feature: teacher wants to search for a course
 
-
 Background: teacher is logged in and visits the course page
-Given teacher goes to the login page
-Given the teacher logs in
-Given the teacher goes to the courses page
+Given user arrives on the Schul-Cloud homepage
+And user logs in as a default teacher
+And teacher goes to courses page
 
 Scenario Outline:
-When the teacher tipps the name <name> of the course in the searchfield
-Then the list satisfies the search request <name>
+When teacher enters course name <coursename> into search field
+Then teacher should see that course list satisfies the search request <coursename>
 
 Examples:
-| name |
-| Biologie |
-| DoesNotExist |
-| Mathe |
+| coursename    |
+| Biologie      |
+| DoesNotExist  |
+| Mathe         |

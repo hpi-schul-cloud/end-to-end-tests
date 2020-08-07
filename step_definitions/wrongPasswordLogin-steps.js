@@ -1,16 +1,11 @@
 'use strict';
 
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
-const loginPage = require('../page-objects/pages/loginPage');
-const startPage = require('../page-objects/pages/startPage');
-let wrongPasswordLogin = require('../page-objects/wrongPasswordLogin');
+const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
+const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 let loginData = require('../shared-objects/loginData');
 let shared = { loginData };
-let page = { wrongPasswordLogin };
-
-Given(/^a user arrives on the Schul-Cloud login homepage$/, function() {
-	return elementHelpers.loadPage(shared.loginData.url, 10);
-});
+const common = require('../shared_steps/common-steps.js');
 
 When(/^a user puts in (.*) and the wrong (.*) and click the login-button$/,async function(username, password) {
 	await startPage.clickLoginBtn();
@@ -18,12 +13,12 @@ When(/^a user puts in (.*) and the wrong (.*) and click the login-button$/,async
 });
 
 Then(/^a user should see a notification$/, function() {
-	return page.wrongPasswordLogin.loginResult();
+	return loginPage.wrongLoginResult();
 });
 
 Then(/^the login-page should look like it looked before for (.*)$/, function(
 	username
 ) {
 	let filename = 'failed-login-page';
-	return page.wrongPasswordLogin.compareScreenshots(filename);
+	return loginData.compareScreenshots(filename);
 });

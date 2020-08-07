@@ -1,7 +1,7 @@
 'use strict';
-const loginPage = require('../page-objects/pages/loginPage');
+const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const createCourse = require('../page-objects/createCourse');
-const startPage = require('../page-objects/pages/startPage');
+const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const copyCourse = require('../page-objects/copyCourse');
 const courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
