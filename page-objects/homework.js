@@ -186,13 +186,11 @@ module.exports = {
 	},
 	submitSolutionForTheHometask: async function () {
 		await driver.pause(global.SHORT_WAIT_MILLIS);
-		await driver.switchToFrame(0);
-		let iframeBody = await driver.$('body');
-		let assignmentText = 'here is some text which I want to submit';
-		await iframeBody.setValue(assignmentText);
-		await driver.switchToParentFrame();
-		let container = await driver.$('#submission');
-		let submitBtn = await container.$('button[type="submit"]');
+		const textField = await driver.$('body');
+		const assignmentText = 'here is some text which I want to submit';
+		textField.setValue(assignmentText);
+		const container = await driver.$('#submission');
+		const submitBtn = await container.$('button[type="submit"]');
 		await submitBtn.click();
 		await driver.pause(1500);
 	},
