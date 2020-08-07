@@ -186,7 +186,7 @@ module.exports = {
 	},
 	submitSolutionForTheHometask: async function () {
 		await driver.pause(global.SHORT_WAIT_MILLIS);
-		const textField = await driver.$('body');
+		const textField = await driver.$('.ck-editor');
 		const assignmentText = 'here is some text which I want to submit';
 		textField.setValue(assignmentText);
 		const container = await driver.$('#submission');
@@ -225,11 +225,9 @@ module.exports = {
 		await evaluationTab.click();
 		let evaluation = await driver.$(courseData.elem.evaluationInProcent);
 		await evaluation.setValue(95);
-		await driver.switchToFrame(0);
-		let body = await driver.$('body');
+		let textField = await driver.$('.ck-editor');
 		let comment = 'sehr gut!';
-		await body.setValue(comment);
-		await driver.switchToParentFrame();
+		await textField.setValue(comment);
 	},
 
 	uploadAHomework: async function () {
