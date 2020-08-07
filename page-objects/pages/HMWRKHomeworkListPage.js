@@ -5,12 +5,13 @@ const courseData = require('../../shared-objects/courseData');
 const Login = require('../../shared-objects/loginData');
 const firstLogin = require('../../shared_steps/firstLogin.js');
 const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
+const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
+
+const createTaskButton = "a[href='/homework/new']";
 
 module.exports = {
-	gotoTasksTab: async function () {
-		let hometasksTab = await driver.$('button[data-testid="hometasks"]');
-		await hometasksTab.click();
-		await driver.pause(1000);
+	clickCreateTaskButton: async function() {
+		await waitHelpers.waitAndClick(createTaskButton);
 	},
 
 	sortHometasks: async function () {
