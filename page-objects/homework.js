@@ -51,11 +51,9 @@ module.exports = {
 	},
 	setHometaskText: async function () {
 		await driver.pause(global.SHORT_WAIT_MILLIS);
-		await driver.switchToFrame(0);
-		let body = await driver.$('body');
-		let message = 'Here is some TEXT!';
-		await body.setValue(message);
-		await driver.switchToParentFrame();
+		const editorContent = await driver.$('.ck-content');
+		const message = 'Here is some TEXT!';
+		await editorContent.setValue(message);
 	},
 	setAccomplishTime: async function () {
 		var begin = await dateTimeHelpers.dateToString();
@@ -188,14 +186,12 @@ module.exports = {
 	},
 	submitSolutionForTheHometask: async function () {
 		await driver.pause(global.SHORT_WAIT_MILLIS);
-		await driver.switchToFrame(0);
-		let iframeBody = await driver.$('body');
-		let assignmentText = 'here is some text which I want to submit';
-		await iframeBody.setValue(assignmentText);
-		await driver.switchToParentFrame();
-		let container = await driver.$('#submission');
-		let submitBtn = await container.$('button[type="submit"]');
-		await submitBtn.click();
+		const textField = await driver.$('.ck-content');
+		const assignmentText = 'here is some text which I want to submit';
+		textField.setValue(assignmentText);
+		const container = await driver.$('#submission');
+		const submitBtn = await container.$('button[type="submit"]');
+		await waitHelpers.waitAndClick('.ckeditor-submit')
 		await driver.pause(1500);
 	},
 
@@ -229,11 +225,10 @@ module.exports = {
 		await evaluationTab.click();
 		let evaluation = await driver.$(courseData.elem.evaluationInProcent);
 		await evaluation.setValue(95);
-		await driver.switchToFrame(0);
-		let body = await driver.$('body');
+		await driver.pause(global.SHORT_WAIT_MILLIS);
+		let textField = await driver.$('.ck-content');
 		let comment = 'sehr gut!';
-		await body.setValue(comment);
-		await driver.switchToParentFrame();
+		await textField.setValue(comment);
 	},
 
 	uploadAHomework: async function () {
