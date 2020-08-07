@@ -191,7 +191,7 @@ module.exports = {
 		textField.setValue(assignmentText);
 		const container = await driver.$('#submission');
 		const submitBtn = await container.$('button[type="submit"]');
-		await submitBtn.click();
+		await waitHelpers.waitAndClick('.ckeditor-submit')
 		await driver.pause(1500);
 	},
 
