@@ -225,6 +225,7 @@ module.exports = {
 		await evaluationTab.click();
 		let evaluation = await driver.$(courseData.elem.evaluationInProcent);
 		await evaluation.setValue(95);
+		await driver.pause(global.SHORT_WAIT_MILLIS);
 		let textField = await driver.$('.ck-content');
 		let comment = 'sehr gut!';
 		await textField.setValue(comment);
