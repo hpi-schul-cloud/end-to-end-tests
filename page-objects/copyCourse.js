@@ -79,15 +79,14 @@ module.exports = {
 		await nameSelector.setValue(topicname);
 		await driver.pause(500);
 	},
-	addText: async function (text) {
-		let textBtn = ".btn-group > button:nth-child(1)";
+
+	addText: async function(text) {
+		const textBtn = ".btn-group > button:nth-child(1)";
 		await waitHelpers.waitAndClick(textBtn);
-		let textField = await driver.$("body");
+		const textField = await driver.$('.ck-content');
 		await driver.pause(global.SHORT_WAIT_MILLIS);
-		await driver.switchToFrame(0);
 		await textField.setValue(text);
-		await driver.switchToParentFrame();
-		let submitBtn = "button.btn.btn-primary.btn-submit";
+		const submitBtn = "button.btn.btn-primary.btn-submit";
 		await waitHelpers.waitAndClick(submitBtn);
 	},
 
