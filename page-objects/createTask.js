@@ -25,10 +25,8 @@ module.exports = {
 
 	putTaskBody: async function(taskBody) {
 		await driver.pause(global.SHORT_WAIT_MILLIS);
-		await driver.switchToFrame(0);
-		const body = await driver.$("body");
-		await body.setValue(taskBody);
-		await driver.switchToParentFrame();
+		const editorContent = await driver.$(".ck-content");
+		await editorContent.setValue(taskBody);
 	},
 
 	goToTasks: async function() {

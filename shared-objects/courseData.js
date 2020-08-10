@@ -34,7 +34,6 @@ module.exports = {
 		// homework:
 		evaluationInProcent: 'input[data-testid=\'evaluation_procent\']',
 		topicsTab: 'button[data-testid=\'topics\']',
-		selectorWithMultipleChoiceStudents:'select[data-testid=\'pupils\']',
 		homeworkTab: 'button[data-testid="hometask"]',
 		addHomeworkBtn: '.col-sm-12.add-button>a',
 		homeworkName: '#homework-form > div:nth-child(1) > input',

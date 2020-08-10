@@ -1,6 +1,31 @@
 "use strict";
 
 module.exports = {
+
+	getSelectOptions: async function (selectSelector) {
+		const options = await driver.$$(selectSelector + ' > option');
+		return Promise.all(
+			options.map(async (opt) => {
+				return {
+					text: (await opt.getHTML(false)).trim(),
+					value: await opt.getAttribute("value"),
+				};
+			})
+		);
+	},
+
+	selectOptionByText: async function (selectSelector, text) {
+	const searchText = text.trim().split(" ")[0];
+	const container = await driver.$(selectSelector + '+ .chosen-container');
+	const searchInput = await container.$(".chosen-search-input");
+	await searchInput.click();
+	await searchInput.setValue(searchText);
+	const searchResult = await container.$(`.chosen-results .highlighted`);
+	await searchResult.click();
+	},
+
+	
+
 	/**
 	 * ========== All operational functions ==========
 	 */
@@ -26,7 +51,7 @@ module.exports = {
 			/**
 			 * now wait for the body element to be present
 			 */
-			return driver.waitUntil(driver.$("body"), timeout);
+			return driver.waitUntil(driver.$("body"), timeout, "timeout while opening " + url);
 		});
 	},
 
@@ -112,9 +137,9 @@ module.exports = {
 						elements[i].click();
 					}
 				} else {
-				/**
-				 * otherwise click all
-				 */
+					/**
+					 * otherwise click all
+					 */
 					elements[i].click();
 				}
 			}
@@ -175,5 +200,10 @@ module.exports = {
 		return await Promise.all(
 			listOfElements.map(async (element) => await element.getValue())
 		);
+	},
+
+	fillInputField: async function (selector, text) {
+		let searchfield = await driver.$(selector);
+		await searchfield.setValue(text);
 	},
 };

@@ -5,11 +5,24 @@ const ADMNSTRTNAdministrationOverviewPage = require('../page-objects/pages/admin
 const ADMNSTRTNAdministerClassesPage = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerClassesPage');
 const ADMNSTRTNAdministerStudentsPage = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerStudentsPage');
 
+const { Api } = require("../runtime/helpers/axiosHelper.js")
+
 var length;
 let oldPassword;
 let eMAIL;
 let name;
-let newPassword = "Schulcloud1!"
+let newPassword = "Schulcloud1!";
+const getJwt = async () => {
+    let cookie;
+    try {
+        cookie = await driver.getCookies(['jwt']);
+    } catch (e) {
+        console.error('error: ', e)
+        return
+    }
+    const jwt = cookie[0].value;
+    return jwt
+}
 
 module.exports = {
 goToAdministration: function() {
@@ -111,11 +124,120 @@ submitConsent: async function(e_mail) {
         }
     }
 },
-newPupilLogsIn: async function() {
-    await firstLogin.logout();
-    await firstLogin.pupilLogin(eMAIL, oldPassword);
-},
-pupilAcceptsDataProtection: async function() {
-    await firstLogin.firstLoginPupilFullAge(name, newPassword);
+    newPupilLogsIn: async function () {
+        await firstLogin.logout();
+        await firstLogin.pupilLogin(eMAIL, oldPassword);
+    },
+    pupilAcceptsDataProtection: async function () {
+        await firstLogin.firstLoginPupilFullAge(name, newPassword);
+    },
+    getStudentsFromSameSchoolAndVerify: async () => {
+        // fake user data can be found in schul-cloud-server repo
+        // 'backup/setup/users.json'
+        const studentsFromSameSchool = ["Marla", "Waldemar"]
+
+        const jwt = await getJwt()
+        const allStudents = await Api.getStudentsAsAdmin(jwt)
+
+        expect(allStudents.data.length).to.not.be.equal(0)
+        allStudents.data.forEach(student => {
+            expect(studentsFromSameSchool).to.include(student.firstName)
+        })
+
+        const randomStudent = allStudents.data[Math.floor(Math.random() * allStudents.data.length)]
+        const singleStudent = await Api.getStudent(jwt, randomStudent._id)
+        expect(singleStudent.status).to.equal(200)
+        expect(singleStudent.data.firstName).to.equal(randomStudent.firstName)
+    },
+
+    requestForeignStudent: async () =>{
+        const jwt = await getJwt()
+        const foreignStudentId = "59ae89b71f513506904e1cc9"
+
+        try {
+            await Api.getStudent(jwt, foreignStudentId)
+        }
+        catch (err) {
+            expect(err.code).to.be.equal(403)
+        }
+    },
+
+
+    requestForeignStudentAndVerify: async () => {
+        // fake user data can be found in schul-cloud-server repo
+        // 'backup/setup/users.json'
+
+        const adminSchoolId = "0000d186816abba584714c5f"
+        const jwt = await getJwt()
+        const foreignStudentId = "59ae89b71f513506904e1cc9"
+
+        // (GET) should fail to get student from foreign school 
+        try {
+            await Api.getStudent(jwt, foreignStudentId)
+        }
+        catch (err) {
+            expect(err.name).to.be.equal("Forbidden")
+            expect(err.code).to.be.equal(403)
+            expect(err.message).to.be.equal("Der angefragte Nutzer gehört nicht zur eigenen Schule!")
+        }
+
+        const newFakeUser = {
+            schoolId: '0000d186816abba584714c5f',
+            roles: ['student'],
+            firstName: 'Jarle',
+            lastName: 'Moe',
+            email: 'jarle@moe.com',
+            birthday: '',
+        }
+
+        // (POST) should succeed to create a new user to same school as admin
+        let newUser;
+        try {
+            newUser = await Api.createStudent(jwt, newFakeUser)
+        }
+        catch (err) {
+            console.error('Error: ', err)
+        }
+
+        let newlyCreatedUser;
+        try {
+            newlyCreatedUser = await Api.getStudent(jwt, newUser.data._id)
+        }
+        catch (err) {
+            console.error('Error: ', err)
+        }
+        expect(newlyCreatedUser.data.schoolId).to.be.equal(adminSchoolId)
+
+        // (PUT) should fail to replace a students information from foreign school
+        try {
+            await Api.replaceStudent(jwt, foreignStudentId, {})
+        }
+        catch (err) {
+            expect(err.name).to.be.equal("MethodNotAllowed")
+            expect(err.code).to.be.equal(405)
+            expect(err.message).to.be.equal("Provider \'rest\' can not call \'update\'. (disallow)")
+        }
+
+        // (PATCH) should fail to replace specified student information from foreign school
+        try {
+            await Api.editStudent(jwt, foreignStudentId, {})
+        }
+        catch (err) {
+            expect(err.name).to.be.equal("NotFound")
+            expect(err.code).to.be.equal(404)
+            expect(err.message).to.be.equal(`no record found for id '${foreignStudentId}'`)
+        }
+
+        // (DELETE) should fail to delete a student from foreign school
+        try {
+            await Api.deleteStudent(jwt, foreignStudentId, {})
+        }
+        catch (err) {
+            expect(err.name).to.be.equal("NotFound")
+            expect(err.code).to.be.equal(404)
+            expect(err.message).to.be.equal(`no record found for id '${foreignStudentId}'`)
+        }
+    },
 }
-}
+
+

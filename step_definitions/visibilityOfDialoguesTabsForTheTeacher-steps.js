@@ -7,7 +7,7 @@ const administration = require('../page-objects/administration');
 const firstLogin = require('../shared_steps/firstLogin.js');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const DashboardPage = require('../page-objects/pages/DashboardPage');
-const commonKGO = require('../shared_steps/commonKGO-steps.js');
+const common = require('../shared_steps/common-steps.js');
 const ADMNSTRTNAdministrationOverviewPage = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministrationOverviewPage');
 
 

@@ -9,12 +9,12 @@ const courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
 const copyCourse = require('../page-objects/copyCourse');
 const firstLogin = require('../shared_steps/firstLogin.js');
-const createCourse = require('../page-objects/createCourse');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
-const { courseNameDisplayedCorrectly } = require('../page-objects/createCourse');
 const { logout } = require('./pages/NavigationTopPage.js');
+const addCoursePage = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
+const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
 // TODO: choose course, SORT
 
 const click = async (selector) => (await driver.$(selector)).click();
@@ -22,7 +22,7 @@ const click = async (selector) => (await driver.$(selector)).click();
 module.exports = {
 	// add homework related functions (as a teacher)
 	clickCreateNewTaskInTheCourse: async function (coursename) {
-		await copyCourse.chooseCourse(coursename);
+		await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 		let homeworktab = await driver.$('.tabs button[data-testid="hometasks"]');
 		await homeworktab.click();
 		await waitHelpers.waitAndClick(courseData.elem.addHomeworkBtn);
@@ -51,11 +51,9 @@ module.exports = {
 	},
 	setHometaskText: async function () {
 		await driver.pause(global.SHORT_WAIT_MILLIS);
-		await driver.switchToFrame(0);
-		let body = await driver.$('body');
-		let message = 'Here is some TEXT!';
-		await body.setValue(message);
-		await driver.switchToParentFrame();
+		const editorContent = await driver.$('.ck-content');
+		const message = 'Here is some TEXT!';
+		await editorContent.setValue(message);
 	},
 	setAccomplishTime: async function () {
 		var begin = await dateTimeHelpers.dateToString();
@@ -144,8 +142,8 @@ module.exports = {
 		await loginPage.performLogin(Login.defaultTeacherUsername, Login.defaultTeacherpassword);
 	},
 	goToTasksOfTheCourse: async function (coursename) {
-		await createCourse.goToCourses();
-		await copyCourse.chooseCourse(coursename);
+		await courseListPage.goToCourses();
+		await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 		await this.gotoTasksTab();
 	},
 	studentLogsInAndGoesToTasksOfTheCourse: async function (username, password, coursename) {
@@ -188,14 +186,12 @@ module.exports = {
 	},
 	submitSolutionForTheHometask: async function () {
 		await driver.pause(global.SHORT_WAIT_MILLIS);
-		await driver.switchToFrame(0);
-		let iframeBody = await driver.$('body');
-		let assignmentText = 'here is some text which I want to submit';
-		await iframeBody.setValue(assignmentText);
-		await driver.switchToParentFrame();
-		let container = await driver.$('#submission');
-		let submitBtn = await container.$('button[type="submit"]');
-		await submitBtn.click();
+		const textField = await driver.$('.ck-content');
+		const assignmentText = 'here is some text which I want to submit';
+		textField.setValue(assignmentText);
+		const container = await driver.$('#submission');
+		const submitBtn = await container.$('button[type="submit"]');
+		await waitHelpers.waitAndClick('.ckeditor-submit')
 		await driver.pause(1500);
 	},
 
@@ -216,8 +212,8 @@ module.exports = {
 	teacherLogsInAndCanSeeTheTextSubmission: async function (coursename, taskname, studentname) {
 		await this.teacherLogsIn();
 		await firstLogin.firstLoginTeacher();
-		await createCourse.goToCourses();
-		await copyCourse.chooseCourse(coursename);
+		await courseListPage.goToCourses();
+		await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 		await this.gotoTasksTab();
 		await this.userFindsTheTask(taskname);
 		await this.hasTheStudentSubmittedTheTask(studentname);
@@ -229,11 +225,10 @@ module.exports = {
 		await evaluationTab.click();
 		let evaluation = await driver.$(courseData.elem.evaluationInProcent);
 		await evaluation.setValue(95);
-		await driver.switchToFrame(0);
-		let body = await driver.$('body');
+		await driver.pause(global.SHORT_WAIT_MILLIS);
+		let textField = await driver.$('.ck-content');
 		let comment = 'sehr gut!';
-		await body.setValue(comment);
-		await driver.switchToParentFrame();
+		await textField.setValue(comment);
 	},
 
 	uploadAHomework: async function () {
