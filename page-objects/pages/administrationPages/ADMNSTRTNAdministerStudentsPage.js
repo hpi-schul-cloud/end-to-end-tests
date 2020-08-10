@@ -2,10 +2,10 @@
 'use strict';
 const { CLIENT } = require("../../../shared-objects/servers");
 const elementHelpers = require('../../../runtime/helpers/elementHelpers.js');
-const urlAdministartionStudents= `${CLIENT.URL}/administartion/students`;
 const waitHelpers = require('../../../runtime/helpers/waitHelpers.js');
+const urlAdministartionStudents = `${CLIENT.URL}/administration/students`;
 
-selectors = {
+const selectors = {
 
     submitBtn: 'button[type=\'submit\']',
     addStudentBtn:'button[data-testid=\'btn_add_student\']',
@@ -21,25 +21,26 @@ selectors = {
 
 module.exports = {
 
-goToAdministrateStudents: function() {
-    return elementHelpers.loadPage(urlAdministartionStudents, 10);
+goToAdministrateStudents: async function() {
+    let url = urlAdministartionStudents;
+    return elementHelpers.loadPage(url, 20);
 },
 
 clickCreateNewPupil: async function() {
-    await waitHelpers.waitAndClick(addStudentBtn);
+    await waitHelpers.waitAndClick(selectors.addStudentBtn);
 },
 
 setFirstName: async function(firstName) {
-    await waitHelpers.waitAndSetValue(setFirstName, firstName)
+    await waitHelpers.waitAndSetValue(selectors.setFirstName, firstName)
 
 },
 
 setSecondName: async function(secondName) {
-    await waitHelpers.waitAndSetValue(setLastName, secondName);
+    await waitHelpers.waitAndSetValue(selectors.setLastName, secondName);
 },
 
 setEmail: async function(email) {
-    await waitHelpers.waitAndSetValue(setEmail, email);
+    await waitHelpers.waitAndSetValue(selectors.setEmail, email);
 },
 putBirthdayInfoAsScriptOnPage: async function() {
     await driver.pause(1500);
@@ -47,11 +48,11 @@ putBirthdayInfoAsScriptOnPage: async function() {
 },
 
 sendAMessageActivate: async function() {
-    await waitHelpers.waitAndClick(sendALinkBox);
+    await waitHelpers.waitAndClick(selectors.sendALinkBox);
 },
 
 clickApproveCreateNewStudent: async function() {
-    await waitHelpers.waitAndClick(submitBtn);
+    await waitHelpers.waitAndClick(selectors.submitBtn);
 
 },
 
@@ -66,14 +67,14 @@ createNewPupil: async function(firstname, secondName, email) {
 
 },
 emailsOfThePupils: async function () {
-    let names = await driver.$$(nameContainer + ' > tr');
+    let names = await driver.$$(selectors.nameContainer + ' > tr');
     return Promise.all(names.map(async (nameContainer) => {
-        const emailContainer = await nameContainer.$("td:nth-child(3)");
+        const emailContainer = await selectors.namesContainer.$("td:nth-child(3)");
         return await emailContainer.getText();
-    })),
+    }))
 },
 verifyStudentWasCreated: async function(email) {
     let emails = await this.emailsOfThePupils();
-        await expect(emails).to.contain(email);
+    await expect(emails).to.contain(email);
 },
 }

@@ -15,12 +15,12 @@ Given(/^this admin logs in successfully$/, async function () {
 
 When(/^admin goes to student administration$/, function () {
 
-	createStudent.goToAdministrateStudents();
+	return createStudent.goToAdministrateStudents();
 
 });
 
 When(/^an admin puts in (.*) and (.*) and (.*) of the new pupil$/, function (firstname, secondname, email) {
-	return createStudent.createStudent(firstname, secondname, email)
+	return createStudent.createNewPupil(firstname, secondname, email);
 });
 Then(/^the admin should see new pupil with email (.*) among his pupils$/, function (email) {
 	return createStudent.verifyStudentWasCreated(email);

@@ -14,7 +14,7 @@ When(/^an admin puts in (.*) and (.*) and click the login-button$/, async functi
 });
 
 Then(
-	/^the user is supposed to accept the data protection agreement$/,
+	/^the admin is supposed to accept the data protection agreement$/,
 	function() {
 		return firstLogin.firstLoginAdmin();
 	}
