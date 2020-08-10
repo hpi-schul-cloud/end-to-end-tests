@@ -5,7 +5,8 @@ const ADMNSTRTNAdministrationOverviewPage = require('../page-objects/pages/admin
 const ADMNSTRTNAdministerClassesPage = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerClassesPage');
 const ADMNSTRTNAdministerStudentsPage = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerStudentsPage');
 
-const { Api } = require("../runtime/helpers/axiosHelper.js")
+const { Api } = require("../runtime/helpers/axiosHelper.js");
+const { expect } = require('chai');
 
 var length;
 let oldPassword;
@@ -108,7 +109,7 @@ verify: async function(email) {
 },
 submitConsent: async function(e_mail) {
     let names = await driver.$$(ADMNSTRTNAdministerStudentsPage.selectorNamesContainer + ' > tr');
-    length = names.length; 
+    length = names.length;
     for (var i = 1; i<= length; i++) {
         let emailPromise =  await driver.$(ADMNSTRTNAdministerStudentsPage.selectorNamesContainer + ' > tr:nth-child('+i+') > td:nth-child(3)');
         let email = await emailPromise.getText();
@@ -154,12 +155,8 @@ submitConsent: async function(e_mail) {
         const jwt = await getJwt()
         const foreignStudentId = "59ae89b71f513506904e1cc9"
 
-        try {
-            await Api.getStudentAsAdmin(jwt, foreignStudentId)
-        }
-        catch (err) {
-            expect(err.code).to.be.equal(400)
-        }
+        const user = await Api.getStudentAsAdmin(jwt, foreignStudentId)
+        expect(user).to.equals({})
     },
 
 
@@ -172,14 +169,8 @@ submitConsent: async function(e_mail) {
         const foreignStudentId = "59ae89b71f513506904e1cc9"
 
         // (GET) should fail to get student from foreign school 
-        try {
-            await Api.getStudentAsAdmin(jwt, foreignStudentId)
-        }
-        catch (err) {
-            expect(err.name).to.be.equal("BadRequest")
-            expect(err.code).to.be.equal(400)
-            expect(typeof err.message).to.equal('string')
-        }
+        const user2 = await Api.getStudentAsAdmin(jwt, foreignStudentId)
+        expect(user2).to.equals({})
 
         const newFakeUser = {
             schoolId: '0000d186816abba584714c5f',
@@ -201,7 +192,7 @@ submitConsent: async function(e_mail) {
 
         let newlyCreatedUser;
         try {
-            newlyCreatedUser = await Api.getStudent(jwt, newUser.data._id)
+            newlyCreatedUser = await Api.getStudentAsAdmin(jwt, newUser.data._id)
         }
         catch (err) {
             console.error('Error: ', err)

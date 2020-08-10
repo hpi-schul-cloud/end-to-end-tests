@@ -9,7 +9,7 @@ Feature:
 		When admin logs in with email <adminsUsername> and password <password>
 		Then an admin are able to request information about students from own school
 		When admin tries to request information about students from other school
-		Then admin should be given a status 400 bad-request
+		Then admin should be given a empty object
 		Examples:
 			| adminsUsername        | password     |
 			| admin@schul-cloud.org | Schulcloud1! |
