@@ -17,7 +17,7 @@ When(
 );
 
 Then(
-    /^admin should be given a status 403 forbidden$/,
+    /^admin should be given a status 400 bad-request$/,
     async function () {
         await administration.requestForeignStudentAndVerify()
     }
