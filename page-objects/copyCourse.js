@@ -12,7 +12,7 @@ module.exports = {
 		await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.allCourses);
 		await this.cloneCourse();
 	},
-	
+
 	cloneCourse: async function () {
 		let settingsBtn = ".fa.fa-ellipsis-v.i-cog";
 		await waitHelpers.waitAndClick(settingsBtn);
@@ -103,10 +103,10 @@ module.exports = {
 	addEtherpad: async function (name, description) {
 		let etherpadBtn = ".btn-group > button:nth-child(4)";
 		await waitHelpers.waitAndClick(etherpadBtn);
-		let nameField = await driver.$(
-			"#content-blocks > div > div:nth-child(1) .form-control"
-		);
-		await nameField.setValue(name);
+		// let nameField = await driver.$(
+		// 	"#content-blocks > div > div:nth-child(1) .form-control"
+		// );
+		// await nameField.setValue(name);
 		let descriptionField = await driver.$(
 			"#content-blocks > div > div:nth-child(1) .form-control"
 		);
