@@ -30,16 +30,19 @@ clickCreateNewPupil: async function() {
 },
 
 setFirstName: async function(firstName) {
-    await waitHelpers.waitAndSetValue(selectors.setFirstName, firstName)
+    let setFirstNameSelector = await driver.$(selectors.setFirstName);
+    await setFirstNameSelector.setValue(firstName);
 
 },
 
 setSecondName: async function(secondName) {
-    await waitHelpers.waitAndSetValue(selectors.setLastName, secondName);
+    let setSecondNameSelector = await driver.$(selectors.setLastName);
+    await setSecondNameSelector.setValue(secondName);
 },
 
 setEmail: async function(email) {
-    await waitHelpers.waitAndSetValue(selectors.setEmail, email);
+    let setEmailSelecrtor = await driver.$(selectors.setEmail);
+    await setEmailSelecrtor.setValue(email);
 },
 putBirthdayInfoAsScriptOnPage: async function() {
     await driver.pause(1500);

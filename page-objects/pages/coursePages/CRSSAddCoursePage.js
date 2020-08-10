@@ -169,8 +169,11 @@ module.exports = {
 	},
 
 	setCourseName: async function (courseName) {
-		const courseNameContainer = await driver.$(courseNameInput);
-		await courseNameContainer.setValue(courseName);
+		//const courseNameContainer = await driver.$(courseNameInput);
+		//await courseNameContainer.setValue(courseName);
+		await driver
+        .$(courseNameInput)
+        .then(setValue(courseName))
 	},
 
 	setColour: async function (colourName) {
