@@ -156,7 +156,7 @@ submitConsent: async function(e_mail) {
         const foreignStudentId = "59ae89b71f513506904e1cc9"
 
         const user = await Api.getStudentAsAdmin(jwt, foreignStudentId)
-        expect(user).to.equals({})
+        expect(user.data).to.equals({})
     },
 
 
@@ -170,7 +170,7 @@ submitConsent: async function(e_mail) {
 
         // (GET) should fail to get student from foreign school 
         const user2 = await Api.getStudentAsAdmin(jwt, foreignStudentId)
-        expect(user2).to.equals({})
+        expect(user2.data).to.equals({})
 
         const newFakeUser = {
             schoolId: '0000d186816abba584714c5f',
