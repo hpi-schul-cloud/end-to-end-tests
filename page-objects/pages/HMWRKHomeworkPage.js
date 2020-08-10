@@ -5,6 +5,7 @@ const courseData = require('../shared-objects/courseData');
 const copyCourse = require('../page-objects/copyCourse');
 const firstLogin = require('../shared_steps/firstLogin.js');
 const createCourse = require('../page-objects/createCourse');
+const courseListPage = require('../page-objects/pages/coursePages/CRSSCourseListPage');
 
 module.exports = {
 
@@ -56,7 +57,7 @@ module.exports = {
         await this.teacherLogsIn();
         await firstLogin.firstLoginTeacher();
         await createCourse.goToCourses();
-        await copyCourse.chooseCourse(coursename);
+        await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
         await this.gotoTasksTab();
         await this.userFindsTheTask(taskname);
         await this.hasTheStudentSubmittedTheTask(studentname);
