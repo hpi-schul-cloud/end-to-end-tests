@@ -10,7 +10,7 @@
 
 	#Scenario Outline: Admin creates a pupil
 		#When admin logs in with email <adminsUsername> and password <password>
-		#Then admin goes to administration
+		#Then admin goes to student administration
 		#And an admin puts in <firstName> and <secondName> and <email> of the new pupil
 		#And the admin should see new pupil with email <email> among his pupils
 		#And admin manually submits a consent <email>

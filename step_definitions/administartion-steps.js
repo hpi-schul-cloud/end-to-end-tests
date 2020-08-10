@@ -1,6 +1,7 @@
 'use strict';
 
-let administration = require('../page-objects/administration');
+// delete: et administration = require('../page-objects/administration');
+const createStudent = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerStudentsPage.js')
 //let teacherLogin = require('../page-objects/teacherLogin');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js')
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
@@ -13,18 +14,17 @@ Given(/^this admin logs in successfully$/, async function () {
 	await loginPage.performLogin(loginData.defaultAdminUsername, loginData.defaultAdminPassword)
 });
 
-When(/^admin goes to administration$/, function () {
-	//return helpers.loadPage(loginData.urlAdministration, 20);
+When(/^admin goes to student administration$/, function () {
 
-	let url = Admin.urlAdministration;
-	return elementHelpers.loadPage(url, 20);
+	createStudent.goToAdministrateStudents();
+
 });
 
 When(/^an admin puts in (.*) and (.*) and (.*) of the new pupil$/, function (firstname, secondname, email) {
-	return administration.createNewPupil(firstname, secondname, email)
+	return createStudent.createStudent(firstname, secondname, email)
 });
 Then(/^the admin should see new pupil with email (.*) among his pupils$/, function (email) {
-	return administration.verify(email);
+	return createStudent.verifyStudentWasCreated(email);
 });
 Then(/^.* manually submits a consent (.*)$/, function (e_mail) {
 	return administration.submitConsent(e_mail);
