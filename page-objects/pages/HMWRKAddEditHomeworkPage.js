@@ -5,8 +5,10 @@ const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers.js');
 const courseData = require('../../shared-objects/courseData');
 const courseHomeworksPage = require("../pages/coursePages/CRSSCourseHomeworksPage.js");
 
-const taskNameField = "input[placeholder='Titel']";
-const submitTaskButton = ".btn-submit";
+const selectors = {
+    taskNameField: "input[placeholder='Titel']",
+    submitTaskButton: ".btn-submit",
+};
 
     module.exports = {
 
@@ -17,7 +19,7 @@ const submitTaskButton = ".btn-submit";
         },
 
         setHomeworkName: async function(taskName) {
-            const nameField = await driver.$(taskNameField);
+            const nameField = await driver.$(selectors.taskNameField);
             await nameField.setValue(taskName);
         },
 
@@ -48,7 +50,7 @@ const submitTaskButton = ".btn-submit";
         },
 
         clickSubmitTaskButton: async function() {
-            await waitHelpers.waitAndClick(submitTaskButton);
+            await waitHelpers.waitAndClick(selectors.submitTaskButton);
         },
 
         addBasicHometask: async function (coursename, taskname) {
