@@ -9,7 +9,6 @@ const selectors = {
 
     submitBtn: 'button[type=\'submit\']',
     addStudentBtn:'button[data-testid=\'btn_add_student\']',
-    setFirstName:'input[id=\'create_firstname\']',
     setFirstName:'input[data-testid=\'create_student_input_firstname\']',
     setLastName:'input[data-testid=\'create_student_input_lastname\']',
     setEmail:'input[data-testid=\'create_student_input_email\']',
