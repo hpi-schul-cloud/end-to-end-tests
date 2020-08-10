@@ -1,13 +1,12 @@
 'use strict';
 
-// delete: et administration = require('../page-objects/administration');
-const createStudent = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerStudentsPage.js')
-//let teacherLogin = require('../page-objects/teacherLogin');
-const elementHelpers = require('../runtime/helpers/elementHelpers.js')
+let administration = require('../page-objects/administration');
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
+const createStudent = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerStudentsPage.js');
+const ADMNSTRTNAdministrationOverviewPage = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministrationOverviewPage');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const loginData = require('../shared-objects/loginData');
-const Admin = require('../shared-objects/administrationData');
 
 Given(/^this admin logs in successfully$/, async function () {
 	await startPage.clickLoginBtn();

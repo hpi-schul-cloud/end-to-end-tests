@@ -1,7 +1,6 @@
 /*[url/administration/students]*/
 'use strict';
 const { CLIENT } = require("../../../shared-objects/servers");
-const Admin = require('../../../shared-objects/administrationData');
 const elementHelpers = require('../../../runtime/helpers/elementHelpers.js');
 const urlAdministartionStudents= `${CLIENT.URL}/administartion/students`;
 const waitHelpers = require('../../../runtime/helpers/waitHelpers.js');
@@ -18,9 +17,6 @@ selectors = {
     namesContainer: 'tbody[data-testid=\'students_names_container\']',
     consentSubmitBtn: 'button[data-testid=\'submit_consent\']',
     birthday_field: 'input[data-testid=\'create_birthday\']',
-   
-    
-
 }
 
 module.exports = {
