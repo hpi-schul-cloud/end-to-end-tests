@@ -145,7 +145,7 @@ submitConsent: async function(e_mail) {
         })
 
         const randomStudent = allStudents.data[Math.floor(Math.random() * allStudents.data.length)]
-        const singleStudent = await Api.getStudent(jwt, randomStudent._id)
+        const singleStudent = await Api.getStudentAsAdmin(jwt, randomStudent._id)
         expect(singleStudent.status).to.equal(200)
         expect(singleStudent.data.firstName).to.equal(randomStudent.firstName)
     },
@@ -155,10 +155,10 @@ submitConsent: async function(e_mail) {
         const foreignStudentId = "59ae89b71f513506904e1cc9"
 
         try {
-            await Api.getStudent(jwt, foreignStudentId)
+            await Api.getStudentAsAdmin(jwt, foreignStudentId)
         }
         catch (err) {
-            expect(err.code).to.be.equal(403)
+            expect(err.code).to.be.equal(400)
         }
     },
 
@@ -173,12 +173,12 @@ submitConsent: async function(e_mail) {
 
         // (GET) should fail to get student from foreign school 
         try {
-            await Api.getStudent(jwt, foreignStudentId)
+            await Api.getStudentAsAdmin(jwt, foreignStudentId)
         }
         catch (err) {
-            expect(err.name).to.be.equal("Forbidden")
-            expect(err.code).to.be.equal(403)
-            expect(err.message).to.be.equal("Der angefragte Nutzer gehört nicht zur eigenen Schule!")
+            expect(err.name).to.be.equal("BadRequest")
+            expect(err.code).to.be.equal(400)
+            expect(typeof err.message).to.equal('string')
         }
 
         const newFakeUser = {

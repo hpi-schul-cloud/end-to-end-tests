@@ -27,6 +27,12 @@ class Api {
             .then(res => res.data)
             .catch(errHandler)
     }
+    getStudentAsAdmin(jwt, id) {
+        return this.service(jwt)
+            .get(`/users/admin/students/${id}`)
+            .then(res => res)
+            .catch(errHandler)
+    }
     getStudent(jwt, id) {
         return this.service(jwt)
             .get(`/users/${id}`)
