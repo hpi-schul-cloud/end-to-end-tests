@@ -103,6 +103,8 @@ module.exports = {
 	addEtherpad: async function (name, description) {
 		let etherpadBtn = ".btn-group > button:nth-child(4)";
 		await waitHelpers.waitAndClick(etherpadBtn);
+		// probably etherpad name will be fixed in future, so I don't delete that part
+		
 		// let nameField = await driver.$(
 		// 	"#content-blocks > div > div:nth-child(1) .form-control"
 		// );
