@@ -54,8 +54,9 @@ sendAMessageActivate: async function() {
 },
 
 clickApproveCreateNewStudent: async function() {
-    await waitHelpers.waitAndClick(selectors.submitBtn);
-
+    let submitBtn = await driver.$(selectors.submitBtn);
+    await submitBtn.click();
+    await driver.pause(1200);
 },
 
 createNewPupil: async function(firstname, secondName, email) {
