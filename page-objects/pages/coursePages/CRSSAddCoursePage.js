@@ -4,6 +4,7 @@ const { CLIENT } = require("../../../shared-objects/servers");
 const eh = require("../../../runtime/helpers/elementHelpers");
 const wh = require("../../../runtime/helpers/waitHelpers");
 const axios = require("axios");
+const teams = require('../../../page-objects/createTeam');
 
 const urlCoursesAdd = `${CLIENT.URL}/courses/add`;
 
@@ -18,6 +19,9 @@ const section = {
 
 const chosenDefInput = ".chosen-search-input.default";
 const chosenInput = ".search-choice span";
+
+const multipleChoiceSelectForStudents = 'select[data-testid="pupils"]';
+
 
 //Course data section
 const courseNameInput = '[data-testid="coursename"]';
@@ -51,6 +55,10 @@ const createNewCourseBtn = '[data-testid="einen-weiteren-kurs-anlegen-btn"]';
 const goToCourseListBtn = '[data-testid="zur-uebersicht-btn"]';
 
 module.exports = {
+	goToAddCourses: async function() {
+		await eh.loadPage(urlCoursesAdd, 20)
+	},
+
 	goToNextSection: async function () {
 		await wh.waitAndClick(nextSectionBtn);
 	},
@@ -134,6 +142,23 @@ module.exports = {
 		const firstName = info.data.firstName;
 		const lastName = info.data.lastName;
 		return firstName + " " + lastName;
+	},
+
+	createCourse: async function(courseName) {
+		await this.goToAddCourses();
+		await this.setCourseName(courseName);
+		await this.goToNextSection();
+		await this.goToNextSection();
+		await this.clickGoToCourseListBtn();
+	},
+
+	createCourseWithStudents: async function(courseName, studentName) {
+		await this.goToAddCourses();
+		await this.setCourseName(courseName);
+		await this.goToNextSection();
+		await eh.selectOptionByText(multipleChoiceSelectForStudents ,studentName);
+		await this.goToNextSection();
+		await this.clickGoToCourseListBtn();
 	},
 
 	//Course data section

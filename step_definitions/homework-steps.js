@@ -4,13 +4,13 @@ const path = require('path');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const copyCourse = require('../page-objects/copyCourse');
-const createCourse = require('../page-objects/createCourse');
 const homework = require('../page-objects/homework');
 const hMWRKAddEditHomeworkPage = require('../page-objects/pages/HMWRKAddEditHomeworkPage.js');
 const hMWRKHomeworkListPage = require('../page-objects/pages/HMWRKHomeworkListPage');
 const courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
+const addCoursePage = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
 
 /*BACKGROUND*/
 
@@ -30,7 +30,7 @@ Given(/^the teacher goes to the course page as a next step$/, function () {
 /* CREATE A BASIC HOMEWORK */
 
 When(/^the teacher creates one course with (.*) and$/, function (coursename) {
-	return createCourse.createCourse(coursename);
+	return addCoursePage.createCourse(coursename);
 });
 
 When(
@@ -51,7 +51,7 @@ Then(/^the hometask with (.*) is to be found at the task pannel$/, function (
 Given(
 	/^the teacher creates one course with (.*) and student with (.*)$/,
 	function (coursename, studentname) {
-		return createCourse.createCourseWithStudents(coursename, studentname);
+		return addCoursePage.createCourseWithStudents(coursename, studentname);
 	}
 );
 
