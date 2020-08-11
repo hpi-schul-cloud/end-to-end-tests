@@ -217,9 +217,9 @@ submitConsent: async function(e_mail) {
             await Api.deleteStudent(jwt, foreignStudentId, {})
         }
         catch (err) {
-            // expect(err.name).to.be.equal("NotFound")
-            // expect(err.code).to.be.equal(404)
-            // expect(err.message).to.be.equal(`no record found for id '${foreignStudentId}'`)
+            expect(err.name).to.be.equal("NotFound")
+            expect(err.code).to.be.equal(404)
+            expect(err.message).to.be.equal(`no record found for id '${foreignStudentId}'`)
         }
     },
 }
