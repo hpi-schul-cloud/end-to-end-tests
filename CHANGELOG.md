@@ -8,6 +8,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## [24.0.0] - 2020-07-30
 
+## [23.6.0] - 2020-07-21
+
+### Fixed - 23.6.0
 ### Fixed - 24.0.0
 - fixed the @createSimpleHomework, added one more step when creating a new course
 

@@ -47,6 +47,36 @@ module.exports = {
     
             return yyyy + '-' + mm + '-' + dd ;
         },
+/**
+		* Converting String date into the Date format
+		*
+        * @param day : number +/- days that user passes in 
+        * @param month : number +/- months that user passes in
+        * @param year : number +/- years that user passes in
+        * @param delimiter : /, -, .
+        * @param isOrderYearMonthDay : "dd/MM/yyyy" or "yyyy/MM/dd", false/true
+		* @returns {string}
+		*
+		* Example use
+		*
+		* setDate(1, 0 , 1, '.', true);
+		* setDate(-10 ,5 , -1, '/', false)
+		*/
+        setDate: function (day, month, year, delimiter, isOrderYearMonthDay) {
+            let today = new Date();
+            today.setDate(today.getDate()+day);
+            today.setMonth((today.getMonth()+1)+month);// +1 January is 0!
+            today.setFullYear(today.getFullYear()+year);
+            let dd = today.getDate();
+            let months = today.getMonth();
+            let yyyy = today.getFullYear();
+
+            if(isOrderYearMonthDay){
+                return yyyy + delimiter + (months <= 9 ? '0'+ months : months) + delimiter + (dd <= 9 ? '0'+ dd : dd);
+            } else {
+                return (dd <= 9 ? '0'+ dd : dd)+ delimiter + (months <= 9 ? '0'+ months : months) + delimiter + yyyy;
+            }
+        },
     
         /**
             * Get current date and time dd/mm/yyy 00:00:00
@@ -137,7 +167,7 @@ module.exports = {
         let dd = today.getDate();
         let mm = today.getMonth() + 1; //January is 0!
         let yyyy = today.getFullYear();
-        let hours = "11";
+        let hours = "00";
         let minutes = "00";
 
         if (dd < 10) {

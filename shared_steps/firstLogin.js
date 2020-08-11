@@ -101,5 +101,10 @@ module.exports = {
 		await logOut.click();
 		let frontpageLoginBtn = await driver.$(Login.elem.frontpageLoginBtn);
 		await frontpageLoginBtn.waitForDisplayed(3000);
+	},
+	loginAsPupil: async function(name, pass) {
+		await this.logout();
+		await this.pupilLogin(name,pass);
+		await this.firstLoginPupilFullAge(name, pass);
 	}
 };
