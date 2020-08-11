@@ -22,7 +22,8 @@ module.exports = {
 
 goToAdministrateStudents: async function() {
     let url = urlAdministartionStudents;
-    return elementHelpers.loadPage(url, 20);
+    await elementHelpers.loadPage(url, 20);
+    await driver.pause(1500);
 },
 
 clickCreateNewPupil: async function() {
