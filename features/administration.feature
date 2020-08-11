@@ -19,6 +19,8 @@ Feature: Administrate pupils, classes and teachers
 		Then new pupil can log in
 		Then new pupil accepts data protection policy and sets new password for the profile
 
+
 		Examples:
 		| firstName | secondName | email                     | adminsUsername        | password     |
-	    | Georg     | Georgmann  | georgmann@schul-cloud.org | admin@schul-cloud.org | Schulcloud1! |
+	  | Georg     | Georgmann  | georgmann@schul-cloud.org | admin@schul-cloud.org | Schulcloud1! |
+
