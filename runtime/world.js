@@ -257,7 +257,7 @@ global.startDateTime = dateTimeHelpers.getStartDateTime();
 /**
  * create the driver before scenario if it's not instantiated
  */
-BeforeAll(async () => {
+Before(async () => {
 	global.driver = getDriverInstance();
 	global.browser = global.driver; // ensure standard WebDriver global also works
 	await driver;
