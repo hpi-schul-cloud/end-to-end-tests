@@ -7,7 +7,8 @@ const urlAdministartionStudents = `${CLIENT.URL}/administration/students`;
 
 const selectors = {
 
-    submitBtn: '.btn.btn-primary.btn-submit',
+    submitBtn1: '.btn.btn-primary.btn-submit',
+    submitBtn: '[data-testid=\'submit\']',
     addStudentBtn:'button[data-testid=\'btn_add_student\']',
     setFirstName:'input[data-testid=\'create_student_input_firstname\']',
     setLastName:'input[data-testid=\'create_student_input_lastname\']',
@@ -23,7 +24,7 @@ module.exports = {
 goToAdministrateStudents: async function() {
     let url = urlAdministartionStudents;
     await elementHelpers.loadPage(url, 20);
-    await driver.pause(1500);
+    
 },
 
 clickCreateNewPupil: async function() {
