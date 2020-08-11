@@ -7,7 +7,7 @@ const urlAdministartionStudents = `${CLIENT.URL}/administration/students`;
 
 const selectors = {
 
-    submitBtn: '.modal-footer > button[type=\'submit\']',
+    submitBtn: '.btn.btn-primary.btn-submit',
     addStudentBtn:'button[data-testid=\'btn_add_student\']',
     setFirstName:'input[data-testid=\'create_student_input_firstname\']',
     setLastName:'input[data-testid=\'create_student_input_lastname\']',
