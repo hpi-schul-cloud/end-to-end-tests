@@ -54,7 +54,7 @@ sendAMessageActivate: async function() {
 },
 
 clickApproveCreateNewStudent: async function() {
-    let submitBtn = await driver.$(selectors.submitBtn);
+    let submitBtn = await driver.$(selectors.addStudentBtn);
     await submitBtn.click();
     await driver.pause(1200);
 },
@@ -65,7 +65,7 @@ createNewPupil: async function(firstname, secondName, email) {
     await this.setSecondName(secondName);
     await this.setEmail(email);
     await this.putBirthdayInfoAsScriptOnPage();
-    await this.sendAMessageActivate();
+    //await this.sendAMessageActivate();
     await this.clickApproveCreateNewStudent();
 
 },
