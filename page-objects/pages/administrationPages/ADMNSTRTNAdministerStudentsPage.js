@@ -6,8 +6,6 @@ const waitHelpers = require('../../../runtime/helpers/waitHelpers.js');
 const urlAdministartionStudents = `${CLIENT.URL}/administration/students`;
 
 const selectors = {
-
-    submitBtn1: '.btn.btn-primary.btn-submit',
     submitBtn: '[data-testid=\'submit\']',
     addStudentBtn:'button[data-testid=\'btn_add_student\']',
     setFirstName:'input[data-testid=\'create_student_input_firstname\']',
