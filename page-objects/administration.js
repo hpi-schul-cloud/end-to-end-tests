@@ -72,6 +72,15 @@ verifyNewEmptyClassCreated: async function (className = '11c', numOfStudents = '
 
 },
 createNewPupil: async function(firstname, lastname, email) {
+    const waitSelect = (selector) => driver.waitUntil(() => driver.$(selector), 5000);
+
+    const waitSetValue = async (selector, value) =>
+        driver.waitUntil(async () => {
+            const element = await waitSelect(selector);
+            await element.setValue(value);
+            return (await element.getValue()) === value;
+        }, 5000);
+
     name=firstname;
     eMAIL = email;
     await this.goToAdministration();
@@ -79,13 +88,20 @@ createNewPupil: async function(firstname, lastname, email) {
     await administrateStudentsBtn.click();
     let addBtn = await driver.$(ADMNSTRTNAdministerStudentsPage.selectorAddStudentBtn);
     await addBtn.click();
-    await driver.pause(1000);
-    let firstName= await driver.$(ADMNSTRTNAdministerStudentsPage.selectorSetFirstName);
-    await firstName.setValue(firstname);
-    let secondName = await driver.$(ADMNSTRTNAdministerStudentsPage.selectorSetLastName);
-    await secondName.setValue(lastname);
-    let eMail = await driver.$(ADMNSTRTNAdministerStudentsPage.selectorSetEmail);
-    await eMail.setValue(email);
+    // await driver.pause(1000);
+    //let firstName= await driver.$(ADMNSTRTNAdministerStudentsPage.selectorSetFirstName);
+    await waitSetValue(ADMNSTRTNAdministerStudentsPage.selectorSetFirstName, firstname);
+    await waitSetValue(ADMNSTRTNAdministerStudentsPage.selectorSetLastName, lastname);
+    await waitSetValue(ADMNSTRTNAdministerStudentsPage.selectorSetEmail, email);
+    //await waitSetValue("#create_birthday", "13.08.1990");
+    //const firstName = await driver.waitUntil(() => driver.$(ADMNSTRTNAdministerStudentsPage.selectorSetFirstName), 5000);
+    //await firstName.isElementDisplayed();
+    //await firstName.setValue(firstname);
+    //await driver.waitUntil(async () => {firstName.setValue(firstname); return (await firstName.getValue()) === firstname}, 5000);
+    //let secondName = await driver.$(ADMNSTRTNAdministerStudentsPage.selectorSetLastName);
+    //await secondName.setValue(lastname);
+    //let eMail = await driver.$(ADMNSTRTNAdministerStudentsPage.selectorSetEmail);
+    //await eMail.setValue(email);
     await this.executeScript();
     let sendAMessageBox = await driver.$(ADMNSTRTNAdministerStudentsPage.selectorSendALinkBox);
     await sendAMessageBox.click();

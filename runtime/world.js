@@ -147,6 +147,7 @@ function consoleInfo() {
  */
 const {
 	Before,
+	BeforeAll,
 	After,
 	AfterAll,
 	Status,
@@ -256,7 +257,7 @@ global.startDateTime = dateTimeHelpers.getStartDateTime();
 /**
  * create the driver before scenario if it's not instantiated
  */
-Before(async () => {
+BeforeAll(async () => {
 	global.driver = getDriverInstance();
 	global.browser = global.driver; // ensure standard WebDriver global also works
 	await driver;
