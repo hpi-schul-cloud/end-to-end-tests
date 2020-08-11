@@ -76,9 +76,14 @@ createNewPupil: async function(firstname, lastname, email) {
 
     const waitSetValue = async (selector, value) =>
         driver.waitUntil(async () => {
-            const element = await waitSelect(selector);
-            await element.setValue(value);
-            return (await element.getValue()) === value;
+            try{
+                const element = await driver.$(selector);
+                await element.setValue(value);
+                return (await element.getValue()) === value;
+            } catch(err){
+                if(!err.message.contain('element not interactable'))
+                    throw err;
+            }
         }, 5000);
 
     name=firstname;
