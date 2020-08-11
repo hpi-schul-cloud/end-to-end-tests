@@ -26,7 +26,9 @@ goToAdministrateStudents: async function() {
 },
 
 clickCreateNewPupil: async function() {
-    await waitHelpers.waitAndClick(selectors.addStudentBtn);
+    let addStudentBtn = await driver.$(selectors.addStudentBtn);
+    await addStudentBtn.click();
+    await driver.pause(1500);
 },
 
 setFirstName: async function(firstName) {
