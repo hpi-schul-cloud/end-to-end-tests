@@ -5,7 +5,9 @@ const ADMNSTRTNAdministrationOverviewPage = require('../page-objects/pages/admin
 const ADMNSTRTNAdministerClassesPage = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerClassesPage');
 const ADMNSTRTNAdministerStudentsPage = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerStudentsPage');
 
-const { Api } = require("../runtime/helpers/axiosHelper.js")
+const { Api } = require("../runtime/helpers/axiosHelper.js");
+const { waitAndSetValue: waitSetValue } = require("../runtime/helpers/waitHelpers.js");
+const { expect } = require('chai');
 
 var length;
 let oldPassword;
@@ -71,6 +73,7 @@ verifyNewEmptyClassCreated: async function (className = '11c', numOfStudents = '
 
 },
 createNewPupil: async function(firstname, lastname, email) {
+
     name=firstname;
     eMAIL = email;
     await this.goToAdministration();
@@ -78,13 +81,9 @@ createNewPupil: async function(firstname, lastname, email) {
     await administrateStudentsBtn.click();
     let addBtn = await driver.$(ADMNSTRTNAdministerStudentsPage.selectorAddStudentBtn);
     await addBtn.click();
-    await driver.pause(1000);
-    let firstName= await driver.$(ADMNSTRTNAdministerStudentsPage.selectorSetFirstName);
-    await firstName.setValue(firstname);
-    let secondName = await driver.$(ADMNSTRTNAdministerStudentsPage.selectorSetLastName);
-    await secondName.setValue(lastname);
-    let eMail = await driver.$(ADMNSTRTNAdministerStudentsPage.selectorSetEmail);
-    await eMail.setValue(email);
+    await waitSetValue(ADMNSTRTNAdministerStudentsPage.selectorSetFirstName, firstname);
+    await waitSetValue(ADMNSTRTNAdministerStudentsPage.selectorSetLastName, lastname);
+    await waitSetValue(ADMNSTRTNAdministerStudentsPage.selectorSetEmail, email);
     await this.executeScript();
     let sendAMessageBox = await driver.$(ADMNSTRTNAdministerStudentsPage.selectorSendALinkBox);
     await sendAMessageBox.click();
@@ -108,7 +107,7 @@ verify: async function(email) {
 },
 submitConsent: async function(e_mail) {
     let names = await driver.$$(ADMNSTRTNAdministerStudentsPage.selectorNamesContainer + ' > tr');
-    length = names.length; 
+    length = names.length;
     for (var i = 1; i<= length; i++) {
         let emailPromise =  await driver.$(ADMNSTRTNAdministerStudentsPage.selectorNamesContainer + ' > tr:nth-child('+i+') > td:nth-child(3)');
         let email = await emailPromise.getText();
@@ -145,7 +144,7 @@ submitConsent: async function(e_mail) {
         })
 
         const randomStudent = allStudents.data[Math.floor(Math.random() * allStudents.data.length)]
-        const singleStudent = await Api.getStudent(jwt, randomStudent._id)
+        const singleStudent = await Api.getStudentAsAdmin(jwt, randomStudent._id)
         expect(singleStudent.status).to.equal(200)
         expect(singleStudent.data.firstName).to.equal(randomStudent.firstName)
     },
@@ -154,12 +153,8 @@ submitConsent: async function(e_mail) {
         const jwt = await getJwt()
         const foreignStudentId = "59ae89b71f513506904e1cc9"
 
-        try {
-            await Api.getStudent(jwt, foreignStudentId)
-        }
-        catch (err) {
-            expect(err.code).to.be.equal(403)
-        }
+        const user = await Api.getStudentAsAdmin(jwt, foreignStudentId)
+        expect(user.data).to.deep.equal({})
     },
 
 
@@ -172,14 +167,8 @@ submitConsent: async function(e_mail) {
         const foreignStudentId = "59ae89b71f513506904e1cc9"
 
         // (GET) should fail to get student from foreign school 
-        try {
-            await Api.getStudent(jwt, foreignStudentId)
-        }
-        catch (err) {
-            expect(err.name).to.be.equal("Forbidden")
-            expect(err.code).to.be.equal(403)
-            expect(err.message).to.be.equal("Der angefragte Nutzer gehört nicht zur eigenen Schule!")
-        }
+        const user2 = await Api.getStudentAsAdmin(jwt, foreignStudentId)
+        expect(user2.data).to.deep.equal({})
 
         const newFakeUser = {
             schoolId: '0000d186816abba584714c5f',
@@ -199,14 +188,7 @@ submitConsent: async function(e_mail) {
             console.error('Error: ', err)
         }
 
-        let newlyCreatedUser;
-        try {
-            newlyCreatedUser = await Api.getStudent(jwt, newUser.data._id)
-        }
-        catch (err) {
-            console.error('Error: ', err)
-        }
-        expect(newlyCreatedUser.data.schoolId).to.be.equal(adminSchoolId)
+        expect(newUser.data.schoolId).to.be.equal(adminSchoolId)
 
         // (PUT) should fail to replace a students information from foreign school
         try {
