@@ -21,3 +21,4 @@
 		#Examples:
 		#	| firstName | secondName | email                     | adminsUsername        | password     |
 	    #	| Georg     | Georgmann  | georgmann@schul-cloud.org | admin@schul-cloud.org | Schulcloud1! |
+
