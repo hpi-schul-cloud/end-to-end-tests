@@ -6,7 +6,7 @@ const waitHelpers = require('../../../runtime/helpers/waitHelpers.js');
 const urlAdministartionStudents = `${CLIENT.URL}/administration/students`;
 
 const selectors = {
-    submitBtn: '[data-testid=\'submit\']',
+    submitBtn: 'div.modal.fade.add-modal.in button.btn-submit',
     addStudentBtn:'button[data-testid=\'btn_add_student\']',
     setFirstName:'input[data-testid=\'create_student_input_firstname\']',
     setLastName:'input[data-testid=\'create_student_input_lastname\']',
