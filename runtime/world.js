@@ -147,7 +147,6 @@ function consoleInfo() {
  */
 const {
 	Before,
-	BeforeAll,
 	After,
 	AfterAll,
 	Status,
