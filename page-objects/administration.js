@@ -6,6 +6,7 @@ const ADMNSTRTNAdministerClassesPage = require('../page-objects/pages/administra
 const ADMNSTRTNAdministerStudentsPage = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerStudentsPage');
 
 const { Api } = require("../runtime/helpers/axiosHelper.js");
+const { waitAndSelectValue: waitSetValue } = require("../runtime/helpers/waitHelpers.js");
 const { expect } = require('chai');
 
 var length;
@@ -72,19 +73,6 @@ verifyNewEmptyClassCreated: async function (className = '11c', numOfStudents = '
 
 },
 createNewPupil: async function(firstname, lastname, email) {
-    const waitSelect = (selector) => driver.waitUntil(() => driver.$(selector), 5000);
-
-    const waitSetValue = async (selector, value) =>
-        driver.waitUntil(async () => {
-            try{
-                const element = await driver.$(selector);
-                await element.setValue(value);
-                return (await element.getValue()) === value;
-            } catch(err){
-                if(!err.message.contain('element not interactable'))
-                    throw err;
-            }
-        }, 5000);
 
     name=firstname;
     eMAIL = email;
