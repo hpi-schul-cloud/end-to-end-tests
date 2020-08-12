@@ -6,7 +6,7 @@ const ADMNSTRTNAdministerClassesPage = require('../page-objects/pages/administra
 const ADMNSTRTNAdministerStudentsPage = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerStudentsPage');
 
 const { Api } = require("../runtime/helpers/axiosHelper.js");
-const { waitAndSelectValue: waitSetValue } = require("../runtime/helpers/waitHelpers.js");
+const { waitAndSetValue: waitSetValue } = require("../runtime/helpers/waitHelpers.js");
 const { expect } = require('chai');
 
 var length;
