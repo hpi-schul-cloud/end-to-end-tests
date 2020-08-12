@@ -84,7 +84,7 @@ createNewPupil: async function(firstname, lastname, email) {
                 if(!err.message.contain('element not interactable'))
                     throw err;
             }
-        }, 20000);
+        }, 5000);
 
     name=firstname;
     eMAIL = email;
