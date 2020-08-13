@@ -6,6 +6,7 @@ module.exports = {
   urlAdministration: `${CLIENT.URL}/administration`,
 
   defaultTeacherUsername: 'klara.fall@schul-cloud.org',
+  defaultTeacherUsername2: 'lehrer@schul-cloud.org',
   defaultTeacherpassword: 'Schulcloud1!',
   eligiblePupilUsername: 'demo-schueler@schul-cloud.org',
   eligiblePupilPassword: 'schulcloud',
