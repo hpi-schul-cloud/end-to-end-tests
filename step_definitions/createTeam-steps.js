@@ -10,6 +10,8 @@ const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 let fullname1;
 let fullname2;
 let teamName;
+const student1 = 'Marla Mathe';
+const student2 = 'Waldemar Wunderlich';
 
 
 
@@ -19,7 +21,7 @@ Given(/^the teacher started on the login page and$/, function() {
 Given(/^teacher successfully logged in$/, async function() {
 
     await startPage.clickLoginBtn();
-    await loginPage.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
+    await loginPage.performLogin(Login.defaultTeacherUsername2,Login.defaultTeacherpassword);
   });
   When(/^teacher adds a new student with (.*), (.*), (.*)$/,  function(firstname1, lastname1, email1) {
     fullname1 = firstname1+" "+lastname1;
@@ -35,7 +37,7 @@ Given(/^teacher successfully logged in$/, async function() {
     return createTeam.createTeamAndGoToSettings(teamname);
   });
 When(/^teacher adds two students to this team$/, function() {
-  return createTeam.addTwoTeamMemebers('Paula Meyer', fullname2)
+  return createTeam.addTwoTeamMemebers(student1, student2)
 
   });
 
