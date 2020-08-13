@@ -63,7 +63,7 @@ module.exports = {
 	},
 	addTwoTeamMemebers: async function(teammember1, teammember2) {
 		await this.addTeamMembersSteps(teammember1);
-		await this.addTeamMembersSteps(teammember2);
+		// await this.addTeamMembersSteps(teammember2);
 		await this.submitAddTeammemberAfterAllMemebersWereAdded();
 		await driver.pause(1500);
 	},

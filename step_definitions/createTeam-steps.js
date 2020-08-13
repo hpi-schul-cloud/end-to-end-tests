@@ -35,7 +35,7 @@ Given(/^teacher successfully logged in$/, async function() {
     return createTeam.createTeamAndGoToSettings(teamname);
   });
 When(/^teacher adds two students to this team$/, function() {
-  return createTeam.addTwoTeamMemebers(fullname1, fullname2)
+  return createTeam.addTwoTeamMemebers('Paula Meyer', fullname2)
 
   });
 
