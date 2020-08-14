@@ -28,6 +28,13 @@ let oldPassword1;
 let oldPassword2;
 
 module.exports = {
+    // input fields
+    teamName: 'input[data-testid="team_name"]',
+    teamDescription: 'textarea[data-testid="description_team"]',
+
+    // submit button
+    createTeamBtn: 'button[data-testid="create_team_btn"]',
+
 gotoTeams: async function() {
 	let url = `${CLIENT.URL}/teams/`;
 	await elementHelpers.loadPage(url, 100);
@@ -81,13 +88,13 @@ createTeamNewsForTeamONE: async function() {
     gotoTeamNews: async function() {
         let newsTab = await driver.$('[data-tab="js-news"] > span');
         await newsTab.click();
-        let btn = await driver.$(team.submitBtn);
+        let btn = await driver.$(team.submitNwsBtn);
         await btn.click();
     },
 createTeamNewsSTEPS: async function() {
     let newsTab = await driver.$(team.newsTab);
     await newsTab.click();
-    let newsBtn = await driver.$(team.submitBtn);
+    let newsBtn = await driver.$(team.submitNwsBtn);
     await newsBtn.click();
     await this.createNews();
 },

@@ -1,21 +1,24 @@
 'use strict';
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
-const teamData = require('../shared-objects/teamsData');
+const TMSAddEditTeamPage = require('./pages/teamsPages/TMSAddEditTeamPage.js');
+const TMSTeamListPage = require('./pages/teamsPages/TMSTeamListPage.js');
+const TMSGeneralTeamPage = require('./pages/teamsPages/TMSGeneralTeamPage.js');
+const TMSTeamMembersPage = require('./pages/teamsPages/TMSTeamMembersPage.js');
 
 const multipleChoiceSelectForTeamMembers = '[data-testid="select_team_members_add"]';
 
 module.exports = {
 	goToTeams: async function() {
-		let url = teamData.url;
+		let url = TMSTeamListPage.url;
 		await elementHelpers.loadPage(url, 20);
 	},
 	addTeam: async function() {
-		let url = teamData.addTeamURL;
+		let url = TMSTeamListPage.addTeamURL;
 		await elementHelpers.loadPage(url, 20);
 		await driver.pause(2000);
 	},
 	setTeamName: async function(name) {
-		let nameField = await driver.$(teamData.teamName);
+		let nameField = await driver.$(TMSAddEditTeamPage.teamName);
 		await nameField.setValue(name);
 	},
 	confirmTeamCreate: async function() {
@@ -30,15 +33,15 @@ module.exports = {
 		await this.confirmTeamCreate();
 	},
 	clickSettings: async function() {
-		let settingsBtn = await driver.$(teamData.teamSettings);
+		let settingsBtn = await driver.$(TMSGeneralTeamPage.teamSettings);
 		await settingsBtn.click();
 	},
 	clickAdministrateTeammembers: async function() {
-		let administrateBtn = await driver.$(teamData.administrateTeamMembers);
+		let administrateBtn = await driver.$(TMSGeneralTeamPage.administrateTeamMembers);
 		await administrateBtn.click();
 	},
-	clickAddInternamMembers: async function() {
-		let addBtn =  await driver.$(teamData.addInternamMembers);
+	clickAddInternalMembers: async function() {
+		let addBtn =  await driver.$(TMSTeamMembersPage.addInternalMembers);
 		await addBtn.click();
 		await driver.pause(1500);
 	},
@@ -47,7 +50,7 @@ module.exports = {
 		await this.createTeamSteps(teamname);
 		await this.clickSettings();
 		await this.clickAdministrateTeammembers();
-		await this.clickAddInternamMembers();
+		await this.clickAddInternalMembers();
 
 	},
 
@@ -69,7 +72,7 @@ module.exports = {
 	},
 	// assertion helper in steps:
 	getTeamNames: async function() {
-		let teamsPage = teamData.url;
+		let teamsPage = TMSTeamListPage.url;
 		await elementHelpers.loadPage(teamsPage, 20);
 		let container = await driver.$('.row.tasks.card-deck-row');
 		let elements = await container.$$('div');
