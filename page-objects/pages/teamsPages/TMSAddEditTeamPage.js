@@ -7,7 +7,7 @@ const teams = require('../../../page-objects/createTeam');
 let newsName1 = "News for Team A";
 let newsName2 = "News for Team B";
 let length;
-const team = require('../../../shared-objects/teamsData');
+const teamNewsPage = require('../../../page-objects/pages/teamsPages/TMSTeamNewsPage');
 let index=[];
 const ADMNSTRTNAdministerStudentsPage = require('../../../page-objects/pages/administrationPages/ADMNSTRTNAdministerStudentsPage');
 const newsListPage = require('../../../page-objects/pages/NWSNewsListPage');
@@ -88,13 +88,13 @@ createTeamNewsForTeamONE: async function() {
     gotoTeamNews: async function() {
         let newsTab = await driver.$('[data-tab="js-news"] > span');
         await newsTab.click();
-        let btn = await driver.$(team.submitNwsBtn);
+        let btn = await driver.$(teamNewsPage.createNwsBtn);
         await btn.click();
     },
 createTeamNewsSTEPS: async function() {
-    let newsTab = await driver.$(team.newsTab);
+    let newsTab = await driver.$(teamNewsPage.newsTab);
     await newsTab.click();
-    let newsBtn = await driver.$(team.submitNwsBtn);
+    let newsBtn = await driver.$(teamNewsPage.createNwsBtn);
     await newsBtn.click();
     await this.createNews();
 },
