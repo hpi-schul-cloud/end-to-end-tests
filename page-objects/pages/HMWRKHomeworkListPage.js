@@ -7,11 +7,12 @@ const firstLogin = require('../../shared_steps/firstLogin.js');
 const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
 
-const createTaskButton = "a[href='/homework/new']";
-
+const selectors = {
+	createTaskButton: "a[href='/homework/new']",
+}
 module.exports = {
 	clickCreateTaskButton: async function() {
-		await waitHelpers.waitAndClick(createTaskButton);
+		await waitHelpers.waitAndClick(selectors.createTaskButton);
 	},
 
 	sortHometasks: async function () {
