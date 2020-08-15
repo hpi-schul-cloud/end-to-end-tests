@@ -7,7 +7,7 @@ const teams = require('../../../page-objects/createTeam');
 let newsName1 = "News for Team A";
 let newsName2 = "News for Team B";
 let length;
-const team = require('../../../shared-objects/teamsData');
+const teamNewsPage = require('../../../page-objects/pages/teamsPages/TMSTeamNewsPage');
 let index=[];
 const ADMNSTRTNAdministerStudentsPage = require('../../../page-objects/pages/administrationPages/ADMNSTRTNAdministerStudentsPage');
 const newsListPage = require('../../../page-objects/pages/NWSNewsListPage');
@@ -28,6 +28,13 @@ let oldPassword1;
 let oldPassword2;
 
 module.exports = {
+    // input fields
+    teamName: 'input[data-testid="team_name"]',
+    teamDescription: 'textarea[data-testid="description_team"]',
+
+    // submit button
+    createTeamBtn: 'button[data-testid="create_team_btn"]',
+
 gotoTeams: async function() {
 	let url = `${CLIENT.URL}/teams/`;
 	await elementHelpers.loadPage(url, 100);
@@ -81,13 +88,13 @@ createTeamNewsForTeamONE: async function() {
     gotoTeamNews: async function() {
         let newsTab = await driver.$('[data-tab="js-news"] > span');
         await newsTab.click();
-        let btn = await driver.$(team.submitBtn);
+        let btn = await driver.$(teamNewsPage.createNwsBtn);
         await btn.click();
     },
 createTeamNewsSTEPS: async function() {
-    let newsTab = await driver.$(team.newsTab);
+    let newsTab = await driver.$(teamNewsPage.newsTab);
     await newsTab.click();
-    let newsBtn = await driver.$(team.submitBtn);
+    let newsBtn = await driver.$(teamNewsPage.createNwsBtn);
     await newsBtn.click();
     await this.createNews();
 },
