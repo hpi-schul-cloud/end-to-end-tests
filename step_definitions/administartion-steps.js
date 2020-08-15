@@ -29,7 +29,7 @@ Then(/^.* manually submits a consent (.*)$/, async function (e_mail) {
 	await createStudent.asAdminSubmitConsentForAStudentAndGetDefaultPsswrd(e_mail);	
 });
 
-Then(/^new pupil can log in$/, async function () {
+Then(/^new pupil (.*) can log in$/, async function (email) {
 	let defaultPassword = createStudent.oldPassword;
 	await startPage.clickLoginBtn();
 	await loginPage.performLogin(email, defaultPassword)
