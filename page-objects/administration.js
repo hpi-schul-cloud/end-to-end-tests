@@ -101,7 +101,7 @@ submitConsent: async function(e_mail) {
         // fake user data can be found in schul-cloud-server repo
         // 'backup/setup/users.json'
 
-        const adminSchoolId = "0000d186816abba584714c5f"
+        const adminSchoolId = "5f2987e020834114b8efd6f8"
         const jwt = await getJwt()
         const foreignStudentId = "59ae89b71f513506904e1cc9"
 
@@ -110,7 +110,7 @@ submitConsent: async function(e_mail) {
         expect(user2.data).to.deep.equal({})
 
         const newFakeUser = {
-            schoolId: '0000d186816abba584714c5f',
+            schoolId: '5f2987e020834114b8efd6f8',
             roles: ['student'],
             firstName: 'Jarle',
             lastName: 'Moe',
