@@ -15,9 +15,15 @@ const selectors = {
     namesContainer: 'tbody[data-testid=\'students_names_container\']',
     consentSubmitBtn: 'button[data-testid=\'submit_consent\']',
     birthday_field: 'input[data-testid=\'create_birthday\']',
-}
+    defaultPasswordForStudentWhichAdminGets: '#passwd',
+};
+let oldPassword;
+
 
 module.exports = {
+
+oldPassword,
+
 
 goToAdministrateStudents: async function() {
     let url = urlAdministartionStudents;
@@ -74,12 +80,33 @@ createNewPupil: async function(firstname, secondName, email) {
 emailsOfThePupils: async function () {
     let names = await driver.$$(selectors.nameContainer + ' > tr');
     return Promise.all(names.map(async (nameContainer) => {
-        const emailContainer = await selectors.namesContainer.$("td:nth-child(3)");
+        const emailContainer = await nameContainer.$("td:nth-child(3)");
         return await emailContainer.getText();
     }))
 },
 verifyStudentWasCreated: async function(email) {
     let emails = await this.emailsOfThePupils();
     await expect(emails).to.contain(email);
+},
+asAdminSubmitConsentForAStudentAndGetDefaultPsswrd: async function(e_mail) {
+    let names = await driver.$$(ADMNSTRTNAdministerStudentsPage.selectorNamesContainer + ' > tr');
+    length = names.length;
+    for (var i = 1; i<= length; i++) {
+        let emailPromise =  await driver.$(ADMNSTRTNAdministerStudentsPage.selectorNamesContainer + ' > tr:nth-child('+i+') > td:nth-child(3)');
+        let email = await emailPromise.getText();
+        if (email===e_mail){
+            let boxConsent = await driver.$(ADMNSTRTNAdministerStudentsPage.selectorNamesContainer + ' > tr:nth-child('+i+') > td:nth-child(7) > a:nth-child(2) > i');
+            await boxConsent.click();
+            let submitBtn = await driver.$(ADMNSTRTNAdministerStudentsPage.selectorConsentSubmitBtn);
+            let passwordField = await driver.$('#passwd');
+            oldPassword = await passwordField.getValue();
+            await submitBtn.click();
+            break;
+        }
+        
+
+        
+
+    }
 },
 }

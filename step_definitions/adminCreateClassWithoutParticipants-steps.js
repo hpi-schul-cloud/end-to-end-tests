@@ -7,6 +7,8 @@ const loginData = require('../shared-objects/loginData');
 const firstLogin = require('../shared_steps/firstLogin.js');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const common = require('../shared_steps/common-steps.js');
+const createClass = require("../page-objects/pages/administrationPages/ADMNSTRTNAdministerClassesPage");
+
 
 Given(/^admin is logged in successfully$/, async function () {
     const { defaultAdminUsername, defaultAdminPassword } = loginData
@@ -18,9 +20,9 @@ Given(/^admin performs the first login steps$/, function () {
 });
 
 When(/^admin creates a class (.*)$/, function (className) {
-    return administrationHelper.createNewClass(className)
+    return createClass.createNewClass(className)
 });
 
 Then(/^admin should see the class (.*) with (.*) participants.$/, function (className, participants) {
-    return administrationHelper.verifyNewEmptyClassCreated(className, participants)
+    return createClass.verifyNewEmptyClassCreated(className, participants)
 });
