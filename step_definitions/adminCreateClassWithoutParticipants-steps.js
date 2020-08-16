@@ -15,7 +15,7 @@ Given(/^admin is logged in successfully$/, async function () {
     await  loginPage.performLogin(defaultAdminUsername, defaultAdminPassword)
 });
 Given(/^admin performs the first login steps$/, function () {
-    return firstLogin.firstLoginAdmin();
+    return common.firstLogin();
 });
 
 When(/^admin creates a class (.*)$/, function (className) {
