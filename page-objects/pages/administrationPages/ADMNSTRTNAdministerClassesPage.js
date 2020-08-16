@@ -17,7 +17,7 @@ module.exports = {
 
     createNewClass: async function (className = '11c') {
         // navigates to administration tools
-        await this.goToAdministration();
+        await ADMNSTRTNAdministrationOverviewPage.goToAdministration();
     
         // navigates to class administration
         const administrateClassesBtn = await driver.$(ADMNSTRTNAdministrationOverviewPage.administrateClassesBtn);

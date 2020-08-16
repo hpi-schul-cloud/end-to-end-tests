@@ -26,7 +26,7 @@ const ADMNSTRTNAdministrationOverviewPage = require('../page-objects/pages/admin
 	});
 
   When(/^The Teacher goes to Verwaltung page$/, function () {
-	return administration.goToAdministration();
+	return ADMNSTRTNAdministrationOverviewPage.goToAdministration()
   });
 
   Then(/^Verify if all required tabs are visible in Verwaltung area$/, function (administrationTextLabels) {

@@ -26,7 +26,7 @@ const ADMNSTRTNAdministrationOverviewPage = require('../page-objects/pages/admin
 	});
 
   When(/^The admin goes to the Administration page$/, function () {
-	return administration.goToAdministration();
+	return ADMNSTRTNAdministrationOverviewPage.goToAdministration();
   });
 
   Then(/^Verify if all required tabs are visible in Administration area$/, function (administrationTextLabels) {

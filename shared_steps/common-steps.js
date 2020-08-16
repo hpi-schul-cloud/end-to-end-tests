@@ -4,11 +4,10 @@ const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPa
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const loginData = require('../shared-objects/loginData');
+const administrationOverviewPage= require('../page-objects/pages/administrationPages/ADMNSTRTNAdministrationOverviewPage');
 
 /*Login, Logout*/
-Given(/^.*arrives on the Schul-Cloud homepage$/, function () {
-	return elementHelpers.loadPage(loginData.url, 10);
-});
+
 
 Given(/^.*logs in with email (.*) and password (.*)$/, async function (username, password) {
 	await startPage.clickLoginBtn();
@@ -55,3 +54,12 @@ When(/^.* goes to user settings$/, async function () {
 	await navigationTopPage.clickInitials();
 	await navigationTopPage.clickSettings();
 });
+/* go to different Pages*/ 
+Given(/^.*arrives on the Schul-Cloud homepage$/, function () {
+	return elementHelpers.loadPage(loginData.url, 10);
+});
+
+When(/^.* goes to the Administration page$/, async function () {
+	await administrationOverviewPage.goToAdministration();
+});
+
