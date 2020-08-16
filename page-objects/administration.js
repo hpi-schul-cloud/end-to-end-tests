@@ -1,19 +1,9 @@
 'use strict';
-const firstLogin = require('../shared_steps/firstLogin.js');
-const elementHelpers = require('../runtime/helpers/elementHelpers.js');
-const ADMNSTRTNAdministrationOverviewPage = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministrationOverviewPage');
-const ADMNSTRTNAdministerClassesPage = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerClassesPage');
-const ADMNSTRTNAdministerStudentsPage = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerStudentsPage');
 
 const { Api } = require("../runtime/helpers/axiosHelper.js");
 const { waitAndSetValue: waitSetValue } = require("../runtime/helpers/waitHelpers.js");
 const { expect } = require('chai');
 
-var length;
-let oldPassword;
-let eMAIL;
-let name;
-let newPassword = "Schulcloud1!";
 const getJwt = async () => {
     let cookie;
     try {
@@ -27,48 +17,6 @@ const getJwt = async () => {
 }
 
 module.exports = {
-goToAdministration: function() {
-    let url = ADMNSTRTNAdministrationOverviewPage.urlAdministration;
-    return elementHelpers.loadPage(url, 20);
-},
-
-
-emailsOfThePupils: async function() {
-    let names = await driver.$$(ADMNSTRTNAdministerStudentsPage.selectorNamesContainer + ' > tr');
-    return Promise.all(names.map(async (nameContainer) => {
-        const emailContainer = await nameContainer.$("td:nth-child(3)");
-        return await emailContainer.getText();
-    }))
-},
-verify: async function(email) {
-    let emails = await this.emailsOfThePupils();
-    await expect(emails).to.contain(email);
-},
-submitConsent: async function(e_mail) {
-    let names = await driver.$$(ADMNSTRTNAdministerStudentsPage.selectorNamesContainer + ' > tr');
-    length = names.length;
-    for (var i = 1; i<= length; i++) {
-        let emailPromise =  await driver.$(ADMNSTRTNAdministerStudentsPage.selectorNamesContainer + ' > tr:nth-child('+i+') > td:nth-child(3)');
-        let email = await emailPromise.getText();
-        if (email===e_mail){
-            let boxConsent = await driver.$(ADMNSTRTNAdministerStudentsPage.selectorNamesContainer + ' > tr:nth-child('+i+') > td:nth-child(7) > a:nth-child(2) > i');
-            await boxConsent.click();
-            let submitBtn = await driver.$(ADMNSTRTNAdministerStudentsPage.selectorConsentSubmitBtn);
-            let passwordField = await driver.$('#passwd');
-            let password_old = await passwordField.getValue();
-            oldPassword = password_old;
-            await submitBtn.click();
-            break;
-        }
-    }
-},
-    newPupilLogsIn: async function () {
-        await firstLogin.logout();
-        await firstLogin.pupilLogin(eMAIL, oldPassword);
-    },
-    pupilAcceptsDataProtection: async function () {
-        await firstLogin.firstLoginPupilFullAge(name, newPassword);
-    },
     getStudentsFromSameSchoolAndVerify: async () => {
         // fake user data can be found in schul-cloud-server repo
         // 'backup/setup/users.json'
@@ -101,7 +49,7 @@ submitConsent: async function(e_mail) {
         // fake user data can be found in schul-cloud-server repo
         // 'backup/setup/users.json'
 
-        const adminSchoolId = "5f2987e020834114b8efd6f8"
+        const adminSchoolId = "0000d186816abba584714c5f"
         const jwt = await getJwt()
         const foreignStudentId = "59ae89b71f513506904e1cc9"
 
@@ -110,7 +58,7 @@ submitConsent: async function(e_mail) {
         expect(user2.data).to.deep.equal({})
 
         const newFakeUser = {
-            schoolId: '5f2987e020834114b8efd6f8',
+            schoolId: '0000d186816abba584714c5f',
             roles: ['student'],
             firstName: 'Jarle',
             lastName: 'Moe',
