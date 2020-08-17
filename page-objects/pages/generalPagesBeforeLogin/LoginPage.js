@@ -7,6 +7,9 @@ const failureMessage = "Login fehlgeschlagen.";
 const usernameInput = 'section#loginarea input[data-testid="username"]';
 const passwordInput = 'section#loginarea input[data-testid="password"]';
 const loginBtn = 'input[data-testid="submit-login"]';
+const defaultLoginData = {
+
+},
 const firstLoginSel = {
 	dataProtection: {
 		box1: 'input[name="privacyConsent"]',
@@ -25,6 +28,7 @@ const firstLoginSel = {
 }
 
 module.exports = {
+	defaultLoginData,
 	performLogin: async function (username, password) {
 		let loginSel = await driver.$(usernameInput);
 		await loginSel.setValue(username);
