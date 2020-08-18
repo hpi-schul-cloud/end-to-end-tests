@@ -39,9 +39,8 @@ module.exports = {
 		},
 		
   loginFullUserInfo: async function() {
-		await firstLogin.getNameAndPosition();
-		let fullUserInfo = 'Thorsten Test (Administrator)';
-		expect(await elementHelpers.getElementText(navigationTopPage.selectors.initialsDDCurrentUser).to.equal(fullUserInfo));
+		let userName = await apiHelpers.getInitials();
+		expect(await elementHelpers.getElementText(navigationTopPage.selectors.initialsDDCurrentUser).to.equal(userName));
 	},
 	
   checkIfTabsAreVisible: async function (itemsToCompare, selector) {
