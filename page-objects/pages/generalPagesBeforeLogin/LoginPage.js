@@ -9,6 +9,7 @@ const failureMessage = "Login fehlgeschlagen.";
 const usernameInput = 'section#loginarea input[data-testid="username"]';
 const passwordInput = 'section#loginarea input[data-testid="password"]';
 const loginBtn = 'input[data-testid="submit-login"]';
+const schoolNameSelector = '.nav-item.school-data',
 
 const defaultLoginData = {
 	defaultTeacherUsername: 'klara.fall@schul-cloud.org',
@@ -43,7 +44,7 @@ const firstLoginSel = {
 }
 
 module.exports = {
-	defaultLoginData, loginTabs,
+	defaultLoginData, loginTabs, schoolNameSelector,
 	performLogin: async function (username, password) {
 		let loginSel = await driver.$(usernameInput);
 		await loginSel.setValue(username);
