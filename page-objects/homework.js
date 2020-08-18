@@ -256,7 +256,8 @@ module.exports = {
 		await this.teacherLogsIn();
 		// grade the submission
 		await this.gotoTasks();
-		await waitHelpers.waitAndClick(`[aria-label*="${taskName}"]`);
+		const linkToHomework = await driver.$(`[aria-label*="${taskName}"]`);
+		await linkToHomework.click();
 
 		await this.teacherShowGradeTabForFirstSubmission();
 
