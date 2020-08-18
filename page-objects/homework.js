@@ -245,7 +245,7 @@ module.exports = {
 
 	submitHomework: async function (taskName, student) {
 		await this.gotoTasks();
-		await waitHelpers.waitAndClick(`*=${taskName}`);
+		await waitHelpers.waitAndClick(`[aria-label*="${taskName}"] > span`);
 		await this.switchToSubmissionTab();
 		await this.submitSolutionForTheHometask();
 	},
@@ -256,7 +256,7 @@ module.exports = {
 		await this.teacherLogsIn();
 		// grade the submission
 		await this.gotoTasks();
-		await waitHelpers.waitAndClick(`*=${taskName}`);
+		await waitHelpers.waitAndClick(`[aria-label*="${taskName}"] > span`);
 
 		await this.teacherShowGradeTabForFirstSubmission();
 
@@ -294,7 +294,7 @@ module.exports = {
 		await this.userLogsOut();
 		await firstLogin.pupilLogin(student.login, student.password);
 		await this.gotoTasks();
-		await click(`*=${taskName}`);
+		await click(`[aria-label*="${taskName}"] > span`);
 		await click('a*=Bewertung');
 
 		await this.canSeeFile(file);

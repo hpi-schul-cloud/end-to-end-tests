@@ -41,7 +41,7 @@ module.exports = {
 					return i ;
 				}
 			}
-		
+
 		};
 		return 0;
 	},
@@ -52,7 +52,7 @@ module.exports = {
 	chooseTaskAmongAllTasks: async function (taskname) {
 		let taskindex = await this.returnTaskChildIndex(taskname);
 		if (taskindex > 0 ) {
-			let task = await driver.$('.col-xl-12 > li:nth-child(' + taskindex + ') > .content > h2');
+			let task = await driver.$('.col-xl-12 > li:nth-child(' + taskindex + ') > a > span.more');
 			await task.click();
 			await driver.pause(1500);
 			let selectorToBeLoaded = await driver.$('#page-title');
