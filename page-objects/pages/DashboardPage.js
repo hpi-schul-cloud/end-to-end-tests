@@ -1,22 +1,28 @@
 /*[url/dashboard]*/
 'use strict';
 
-const loginData = require('../../shared-objects/loginData'),
-	imageCompare = require('../../runtime/imageCompare'),
-	shared = { loginData };
+
+const imageCompare = require('../../runtime/imageCompare');
+const navigationTopPage = require('../../page-objects/pages/NavigationTopPage');
 const firstLogin = require('../../shared_steps/firstLogin.js');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 
+const dashboardUrl = `${CLIENT.URL}/dashboard`;
+const dashboardSelectors = {
+		dashboardTitle: 'Übersicht',
+    dashboardHeader: '#titlebar h1#page-title',
+};
 module.exports = {
+		dashboardSelectors, 
     goToDashboard: async function() {
-		await elementHelpers.loadPage(loginData.urlDashboard, 20);
+		await elementHelpers.loadPage(dashboardUrl, 20);
 		await driver.pause(1000);
 	},
 
 	loginResultDashboard: async function() {
 		await this.goToDashboard();
-		let title = shared.loginData.elem.dashboardTitle;
-		expect(await elementHelpers.getElementText(shared.loginData.elem.dashboardHeader)).to.equal(title);
+		let title = dashboardSelectors.dashboardTitle;
+		expect(await elementHelpers.getElementText(dashboardSelectors.dashboardHeader)).to.equal(title);
 	},
 	
 	loginInitials: async function() {
@@ -31,8 +37,8 @@ module.exports = {
     },
     loginFullUserInfo: async function() {
 		await firstLogin.getNameAndPosition();
-		let fullUserInfo = shared.loginData.elem.fullNameAdministrator;
-		expect(await elementHelpers.getElementText(shared.loginData.elem.fullUserInfo)).to.equal(fullUserInfo);
+		let fullUserInfo = 'Thorsten Test (Administrator)';
+		expect(await elementHelpers.getElementText(navigationTopPage.selectors.initialsDDCurrentUser).to.equal(fullUserInfo));
     },
     checkIfTabsAreVisible: async function (itemsToCompare, selector) {
         let items = await driver.$$(selector);

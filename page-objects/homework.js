@@ -6,7 +6,6 @@ const waitHelpers = require('../runtime/helpers/waitHelpers.js');
 const dateTimeHelpers = require('../runtime/helpers/dateTimeHelpers.js');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const courseData = require('../shared-objects/courseData');
-const Login = require('../shared-objects/loginData');
 const copyCourse = require('../page-objects/copyCourse');
 const firstLogin = require('../shared_steps/firstLogin.js');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
@@ -139,7 +138,7 @@ module.exports = {
 	teacherLogsIn: async function () {
 		await this.userLogsOut();
 		await startPage.clickLoginBtn();
-		await loginPage.performLogin(Login.defaultTeacherUsername, Login.defaultTeacherpassword);
+		await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.defaultLoginData.defaultTeacherpassword);
 	},
 	goToTasksOfTheCourse: async function (coursename) {
 		await courseListPage.goToCourses();

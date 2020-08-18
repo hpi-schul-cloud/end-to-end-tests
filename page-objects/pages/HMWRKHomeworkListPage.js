@@ -2,7 +2,6 @@
 'use strict';
 const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
 const courseData = require('../../shared-objects/courseData');
-const Login = require('../../shared-objects/loginData');
 const firstLogin = require('../../shared_steps/firstLogin.js');
 const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
@@ -86,7 +85,7 @@ module.exports = {
 	},
 	teacherLogsIn: async function () {
 		await this.userLogsOut();
-		await loginPage.performLogin(Login.defaultTeacherUsername, Login.defaultTeacherpassword);
+		await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.defaultLoginData.defaultTeacherpassword);
 	},
 
 	privateTaskVerify: async function () {

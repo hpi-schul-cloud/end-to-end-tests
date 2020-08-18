@@ -3,13 +3,27 @@
 const elementHelpers = require('../../../runtime/helpers/elementHelpers.js');
 const waitHelpers = require('../../../runtime/helpers/waitHelpers.js');
 const firstLogin = require('../../../shared_steps/firstLogin.js');
+
 const failureMessage = "Login fehlgeschlagen.";
 const usernameInput = 'section#loginarea input[data-testid="username"]';
 const passwordInput = 'section#loginarea input[data-testid="password"]';
 const loginBtn = 'input[data-testid="submit-login"]';
-const defaultLoginData = {
 
-},
+const defaultLoginData = {
+	defaultTeacherUsername: 'klara.fall@schul-cloud.org',
+	defaultTeacherUsername2: 'lehrer@schul-cloud.org',
+	defaultTeacherpassword: 'Schulcloud1!',
+	eligiblePupilUsername: 'demo-schueler@schul-cloud.org',
+	eligiblePupilPassword: 'schulcloud',
+	notEligiblePupilUsername: 'paula.meyer@schul-cloud.org',
+	notEligiblePupilPassword: 'Schulcloud1!',
+	defaultAdminUsername: 'admin@schul-cloud.org',
+	defaultAdminPassword: 'Schulcloud1!',
+
+};
+const loginTabs = {
+	loginTabs: 'ul.sidebar-list[title]',
+};
 const firstLoginSel = {
 	dataProtection: {
 		box1: 'input[name="privacyConsent"]',
@@ -28,7 +42,7 @@ const firstLoginSel = {
 }
 
 module.exports = {
-	defaultLoginData,
+	defaultLoginData, loginTabs,
 	performLogin: async function (username, password) {
 		let loginSel = await driver.$(usernameInput);
 		await loginSel.setValue(username);

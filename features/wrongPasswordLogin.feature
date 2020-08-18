@@ -9,8 +9,7 @@ Feature: Logging in with a wrong password
 	Scenario Outline: User inputs a username and wrong password
 		When a user puts in <username> and the wrong <password> and click the login-button
 		Then the login must fail
-		# doesn't work
-		# Then the login-page should look like it looked before for <username>
+
 
 		Examples:
 			| username              | password                 |

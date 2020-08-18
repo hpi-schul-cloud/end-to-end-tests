@@ -1,7 +1,7 @@
 "use strict";
 
 
-const loginData = require("../shared-objects/loginData");
+
 const firstLogin = require("../shared_steps/firstLogin.js");
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
@@ -11,9 +11,7 @@ const homeworkListPage = require('../page-objects/pages/HMWRKHomeworkListPage.js
 const addEditHomeworkPage = require('../page-objects/pages/HMWRKAddEditHomeworkPage.js');
 
 
-Given(/^teacher goes to the home page$/, function() {
-	return elementHelpers.loadPage(loginData.url, 20);
-});
+
 
 When(/^a teacher logs in his account using (.*) and (.*)$/, async function(username, password) {
 		await startPage.clickLoginBtn();	
