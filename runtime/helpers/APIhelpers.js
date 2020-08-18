@@ -3,7 +3,7 @@ let log = global.log;
 const fs = require('fs');
 const textFileHelpers = require('./textFileHelpers.js');
 const { SERVER } = require("../../shared-objects/servers");
-const axios = require("axios");
+const Axios = require("axios");
 
 module.exports = {
 /**
