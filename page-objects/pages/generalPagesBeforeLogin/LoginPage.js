@@ -3,6 +3,7 @@
 const elementHelpers = require('../../../runtime/helpers/elementHelpers.js');
 const waitHelpers = require('../../../runtime/helpers/waitHelpers.js');
 const firstLogin = require('../../../shared_steps/firstLogin.js');
+const apiHelpers = require('../../../runtime/helpers/APIhelpers');
 
 const failureMessage = "Login fehlgeschlagen.";
 const usernameInput = 'section#loginarea input[data-testid="username"]';
@@ -54,7 +55,7 @@ module.exports = {
 	},
 
 	loginResult: async function () {
-		let initials = await firstLogin.getInitials();
+		let initials = await apiHelpers.getInitials();
 		expect(await elementHelpers.getElementText('.avatar-circle')).to.equal(initials);
 	},
 

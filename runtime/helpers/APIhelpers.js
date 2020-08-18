@@ -2,6 +2,7 @@
 let log = global.log;
 const fs = require('fs');
 const textFileHelpers = require('./textFileHelpers.js');
+const { SERVER } = require("../shared-objects/servers");
 
 module.exports = {
 /**
@@ -58,5 +59,33 @@ module.exports = {
 				return res;
 			});
 	},
+	getUserInfo: async function(attribute) {
+		const cookie = await driver.getCookies(['jwt']);
+		const jwt = cookie[0].value;
+		const info = await Axios.request({
+			url:  `${SERVER.URL}/me`,
+			method: 'get',
+			headers: {
+			  Authorization: `${jwt}`
+			}
+		  });
+		  let object =info.data;
+		  return object[attribute];
+ 
+	  }, 
+	  getUserName: async function() {
+
+		return this.getUserInfo('fullName')
+	},
+
+	getSchoolName: async function() {
+
+		return this.getUserInfo('schoolName');
+	}, 
+	getInitials: async function() {
+
+		return  this.getUserInfo('avatarInitials');
+	}, 
+
 
 }
