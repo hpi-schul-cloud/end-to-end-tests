@@ -245,8 +245,7 @@ module.exports = {
 
 	submitHomework: async function (taskName, student) {
 		await this.gotoTasks();
-		const linkToHomework = await driver.$(`[aria-label*="${taskName}"]`);
-		await linkToHomework.click();
+		await waitHelpers.waitAndClick(`[aria-label*="${taskName}"] > span`);
 		await this.switchToSubmissionTab();
 		await this.submitSolutionForTheHometask();
 	},
@@ -257,8 +256,7 @@ module.exports = {
 		await this.teacherLogsIn();
 		// grade the submission
 		await this.gotoTasks();
-		const linkToHomework = await driver.$(`[aria-label*="${taskName}"]`);
-		await linkToHomework.click();
+		await waitHelpers.waitAndClick(`[aria-label*="${taskName}"] > span`);
 
 		await this.teacherShowGradeTabForFirstSubmission();
 
