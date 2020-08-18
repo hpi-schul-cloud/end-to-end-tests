@@ -245,7 +245,8 @@ module.exports = {
 
 	submitHomework: async function (taskName, student) {
 		await this.gotoTasks();
-		await waitHelpers.waitAndClick(`[aria-label*="${taskName}"]`);
+		const linkToHomework = await driver.$(`[aria-label*="${taskName}"]`);
+		await linkToHomework.click();
 		await this.switchToSubmissionTab();
 		await this.submitSolutionForTheHometask();
 	},
