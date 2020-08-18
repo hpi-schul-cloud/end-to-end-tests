@@ -28,7 +28,7 @@ module.exports = {
 	},
 	
 	loginInitials: async function() {
-		let initials = await firstLogin.getInitials();
+		let initials = await apiHelpers.getInitials();
 		expect(await elementHelpers.getElementText('.avatar-circle')).to.equal(initials);
 	},
 

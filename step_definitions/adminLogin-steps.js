@@ -35,7 +35,7 @@ Then(
 Then(
 	/^the admin-dashboard should have the admin name and profession$/,
 	function() {
-		return DashboardPage.loginFullUserInfo();
+		return DashboardPage.loginInitials();
 	}
 );
 
