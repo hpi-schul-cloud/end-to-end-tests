@@ -27,7 +27,7 @@ Given(/^.*logs in with email (.*) and password (.*)$/, async function (username,
 
 Given(/^user logs in as default teacher$/, async function () {
 	await startPage.clickLoginBtn();
-	await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.);
+	await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.defaultLoginData.defaultTeacherpassword);
 });
 
 When(/^.*goes from start page to login page$/, async function () {
