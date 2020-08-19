@@ -2,9 +2,7 @@
 
 
 const administrationHelper = require("../page-objects/administration");
-const addClass = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerClassesPage');
-const firstLogin = require('../shared_steps/firstLogin.js');
-const common = require('../shared_steps/common-steps.js');
+
 
 
 When(/^admin creates a class (.*)$/, function (className) {

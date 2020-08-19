@@ -19,11 +19,11 @@ Given(/^.*logs in with email (.*) and password (.*)$/, async function (username,
 	await loginPage.performLogin(username, password);
 });
 
-Given(/^.teacher is successfully logged in$/, async function () {
+Given(/^teacher is successfully logged in$/, async function () {
 	await startPage.clickLoginBtn();
 	await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.defaultLoginData.defaultTeacherpassword);
 });
-Given(/^.admin is successfully logged in$/, async function () {
+Given(/^admin is successfully logged in$/, async function () {
 	await startPage.clickLoginBtn();
 	await loginPage.performLogin(loginPage.defaultLoginData.defaultAdminUsername, loginPage.defaultLoginData.defaultAdminPassword);
 });
