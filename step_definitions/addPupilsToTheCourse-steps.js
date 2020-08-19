@@ -1,13 +1,15 @@
-'use strict';
+const addCoursePage = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
+const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
 
-const addPupilToTheCourse = require('../page-objects/addPupilToTheCourse');
-const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
-const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
-const createCourse = require('../page-objects/createCourse');
-const Login = require('../shared-objects/loginData');
-const elementHelpers = require('../runtime/helpers/elementHelpers.js');
-const common = require('../shared_steps/common-steps.js');
+When(/^.*creates a course (.*) and adds student (.*)to this course$/, async function (courseName, studentName) {
+    await addCoursePage.createCourseWithStudents(courseName, studentName);
+});
 
-Then(/^teacher clicks the participants icon in the course (.*) and sees the added student (.*) there.$/, async function(courseName, studentName) {
-	return addPupilToTheCourse.verify(courseName, studentName);
+Then(/^.*sees that participants icon in course with name (.*) has correct number of members (.*)$/, async function (courseName, studentName) {
+    await courseListPage.isCorrectNumberOfMembersInCourseForSection(courseName, [studentName], courseListPage.section.activeCourses);
+
+});
+
+Then(/^.*clicks the participants icon in the course (.*) and sees the added student (.*) there$/, async function (courseName, studentName) {
+    await courseListPage.areMembersOnTheListInCourseForSection(courseName, [studentName], courseListPage.section.activeCourses);
 });

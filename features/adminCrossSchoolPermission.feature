@@ -8,7 +8,7 @@ Feature: I as an admin I should only have access to the students attached to my 
 		When admin logs in with email <adminsUsername> and password <password>
 		Then an admin are able to request information about students from own school
 		When admin tries to request information about students from other school
-		Then admin should be given a status 403 forbidden
+		Then admin should be given a empty object
 		Examples:
 			| adminsUsername        | password     |
 			| admin@schul-cloud.org | Schulcloud1! |

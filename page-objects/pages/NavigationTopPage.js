@@ -22,7 +22,7 @@ module.exports = {
         await waitHelpers.waitAndClick(this.selectors.initialsDDLogout);
     },
     performLogout: async function () {
-        this.clickInitials();
-        this.clickLogout();
+        await this.clickInitials();
+        await this.clickLogout();
     }
 }

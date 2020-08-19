@@ -1,23 +1,20 @@
 'use strict';
 
 let administration = require('../page-objects/administration');
-//let teacherLogin = require('../page-objects/teacherLogin');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js')
+const ADMNSTRTNAdministrationOverviewPage = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministrationOverviewPage');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
-const loginData = require('../shared-objects/loginData');
-const Admin = require('../shared-objects/administrationData');
+
 
 Given(/^this admin logs in successfully$/, async function () {
 	await startPage.clickLoginBtn();
-	await loginPage.performLogin(loginData.defaultAdminUsername, loginData.defaultAdminPassword)
+	await loginPage.performLogin(loginPage.defaultLoginData.defaultAdminUsername, loginPage.defaultLoginData.defaultAdminPassword);
 });
 
-When(/^admin goes to administration$/, function () {
-	//return helpers.loadPage(loginData.urlAdministration, 20);
-
-	let url = Admin.urlAdministration;
-	return elementHelpers.loadPage(url, 20);
+When(/^admin goes to administration$/, function() {
+	let url = ADMNSTRTNAdministrationOverviewPage.urlAdministration;
+    return elementHelpers.loadPage(url, 20);
 });
 
 When(/^an admin puts in (.*) and (.*) and (.*) of the new pupil$/, function (firstname, secondname, email) {

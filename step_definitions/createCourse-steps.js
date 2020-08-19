@@ -1,16 +1,13 @@
-const elementHelpers = require("../runtime/helpers/elementHelpers.js");
-const Login = require("../shared-objects/loginData");
 const addCourse = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
-const courseList = require("../page-objects/pages/coursePages/CRSSCourseListPage");
-const createCourse = require('../page-objects/createCourse');
+const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 
 When(/^.*goes to courses page$/, function () {
-	return courseList.goToCourses();
+	return courseListPage.goToCourses();
 });
 Then(/^.*buttons: Import-course, Create-new-course are visible$/, function () {
-	return courseList.importAndCreateCourseBtnsAreVisible();
+	return courseListPage.importAndCreateCourseBtnsAreVisible();
 });
 
 Then(
@@ -21,7 +18,7 @@ Then(
 );
 
 When(/^.*clicks Create-new-course button$/, function () {
-	return courseList.clickCreateCourseBtn();
+	return courseListPage.clickCreateCourseBtn();
 });
 
 When(/^.*enters course name (.*) into new course form$/, function (courseName) {
@@ -40,13 +37,13 @@ When(/^.*clicks to preview$/, function () {
 Then(/^.*course with name (.*) is visible on the list$/, async function (
 	courseName
 ) {
-	return courseList.isCourseOnList(courseName);
+	return courseListPage.isCourseOnList(courseName);
 });
 
 Then(
 	/^.*course with name (.*) is displayed correctly on the list$/,
 	async function (courseName) {
-		await courseList.courseIsDisplayedCorrectly(courseName);
+		await courseListPage.courseIsDisplayedCorrectly(courseName);
 	}
 );
 When(/^.*clicks Next-section button$/, async function () {
@@ -92,5 +89,5 @@ Then(/^.*clicks Go-to-course-list$/, async function () {
 });
 
 Then(/^.*color of the course is (\S*).*$/, async function (courseColour) {
-	await courseList.isCorrectCourseColour(courseColour);
+	await courseListPage.isCorrectCourseColour(courseColour);
 });

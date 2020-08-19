@@ -1,17 +1,24 @@
 'use strict';
+const { CLIENT } = require('../shared-objects/servers');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const createCourse = require('../page-objects/createCourse');
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
-const loginData = require('../shared-objects/loginData');
-const shared = { loginData };
-const firstLogin = require('../shared_steps/firstLogin.js');
 
 
+const schulCloudURL= `${CLIENT.URL}`;
 /*Login, Logout*/
+Given(/^teacher goes to the home page$/, function() {
+	return elementHelpers.loadPage(schulCloudURL, 10);
+});
+
+Given(/^the teacher started on the login page and$/, function () {
+    return elementHelpers.loadPage(schulCloudURL, 10);
+});
+
 Given(/^.*arrives on the Schul-Cloud homepage$/, function () {
-	return elementHelpers.loadPage(loginData.url, 10);
+	return elementHelpers.loadPage(schulCloudURL, 10);
 });
 
 Given(/^.*logs in with email (.*) and password (.*)$/, async function (username, password) {
@@ -19,9 +26,9 @@ Given(/^.*logs in with email (.*) and password (.*)$/, async function (username,
 	await loginPage.performLogin(username, password);
 });
 
-Given(/^user logs in as a default teacher$/, async function () {
+Given(/^user logs in as default teacher$/, async function () {
 	await startPage.clickLoginBtn();
-	await loginPage.performLogin(loginData.defaultTeacherUsername,loginData.defaultTeacherpassword);
+	await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.defaultLoginData.defaultTeacherpassword);
 });
 
 When(/^.*goes from start page to login page$/, async function () {
@@ -42,7 +49,7 @@ When(/^.*waits for next login$/, async function () {
 });
 
 Then(/^the login must fail$/, async function () {
-	loginPage.wrongLoginResult();
+	return loginPage.wrongLoginResult();
 });
 
 Then(/^the login must be successful$/, function () {
