@@ -4,7 +4,6 @@
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 const { CLIENT } = require("../../../shared-objects/servers");
 const firstLogin = require('../../../shared_steps/firstLogin.js');
-const teams = require('../../../page-objects/createTeam');
 const TMSTeamListPage = require('../../../page-objects/pages/teamsPages/TMSTeamListPage.js');
 const TMSGeneralTeamPage = require('../../../page-objects/pages/teamsPages/TMSGeneralTeamPage.js');
 const TMSTeamMembersPage = require('../../../page-objects/pages/teamsPages/TMSTeamMembersPage.js');
