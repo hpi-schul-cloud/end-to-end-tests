@@ -9,7 +9,7 @@ let coursesCount;
 
 //________Background_________
 
-Given(/^goes the course page$/, function() {
+Given(/^goes to the course page$/, function() {
 	return elementHelpers.loadPage(courseData.urlCourses, 20);
 });
 
