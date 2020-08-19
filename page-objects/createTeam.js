@@ -1,14 +1,14 @@
-'use strict';
+/*'use strict';
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const TMSAddEditTeamPage = require('./pages/teamsPages/TMSAddEditTeamPage.js');
 const TMSTeamListPage = require('./pages/teamsPages/TMSTeamListPage.js');
 const TMSGeneralTeamPage = require('./pages/teamsPages/TMSGeneralTeamPage.js');
 const TMSTeamMembersPage = require('./pages/teamsPages/TMSTeamMembersPage.js');
 
-const multipleChoiceSelectForTeamMembers = '[data-testid="select_team_members_add"]';
+//const multipleChoiceSelectForTeamMembers = '[data-testid="select_team_members_add"]';
 
 module.exports = {
-	goToTeams: async function() {
+ 	goToTeams: async function() {
 		let url = TMSTeamListPage.url;
 		await elementHelpers.loadPage(url, 20);
 	},
@@ -20,7 +20,7 @@ module.exports = {
 	setTeamName: async function(name) {
 		let nameField = await driver.$(TMSAddEditTeamPage.teamName);
 		await nameField.setValue(name);
-	},
+	}, 
 	confirmTeamCreate: async function() {
 		let confirmBtnContainer = await driver.$('.section-course');
 		let confirmBtn = await confirmBtnContainer.$('button[type="submit"]');
@@ -81,4 +81,4 @@ module.exports = {
 		return teamNames;
 	},
 
-}
+}*/
