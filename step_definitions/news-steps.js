@@ -4,7 +4,6 @@ const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPa
 const TMSAddEditTeamPage = require('../page-objects/pages/teamsPages/TMSAddEditTeamPage');
 const newsAddEditNews = require('../page-objects/pages/NWSAddEditNewsPage');
 const newsListPage = require('../page-objects/pages/NWSNewsListPage');
-const Login = require('../shared-objects/loginData');
 let name = "news";
 let laterNewsName = "news should be published later";
 const elementHelpers = require('../runtime/helpers/elementHelpers');
@@ -13,7 +12,7 @@ const common = require('../shared_steps/common-steps.js');
 
 Given(/^teacher is successfully logged-in$/, async function() {
 	await startPage.clickLoginBtn();
-	await loginPage.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
+	await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.defaultLoginData.defaultTeacherpassword);
 });
 
 When(/^teacher creats some news which has to be published immediately$/, function() {
@@ -21,7 +20,7 @@ When(/^teacher creats some news which has to be published immediately$/, functio
 });
 
 When(/^a user who has permissions to see the news logs in$/, async function() {
-	return firstLogin.loginAsPupil(Login.notEligiblePupilUsername, Login.notEligiblePupilPassword);
+	return firstLogin.loginAsPupil(loginPage.defaultLoginData.notEligiblePupilUsername, loginPage.defaultLoginData.notEligiblePupilPassword);
 });
 When(/^he goes to the news page$/, function() {
 	return newsListPage.goToNews();
@@ -36,7 +35,7 @@ When(/^teacher creats some news which has to be published later$/, function() {
 });
 
 When(/^a pupil logs in$/, function() {
-	return firstLogin.loginAsPupil(Login.notEligiblePupilUsername, Login.notEligiblePupilPassword);
+	return firstLogin.loginAsPupil(loginPage.defaultLoginData.notEligiblePupilUsername, loginPage.defaultLoginData.notEligiblePupilPassword);
 });
 When(/^he goes to news page$/, function() {
 	return newsListPage.goToNews();
@@ -59,5 +58,5 @@ Then(/^team non-members cannot see the news$/, function() {
 });
 
 Then(/^the pupil should accept the data protection$/, function() {
-	return firstLogin.firstLoginPupilFullAge(Login.notEligiblePupilPassword);
+	return firstLogin.firstLoginPupilFullAge(loginPage.defaultLoginData.notEligiblePupilPassword);
 });
