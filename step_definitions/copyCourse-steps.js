@@ -1,12 +1,13 @@
 'use strict';
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
-const copyCourse = require('../page-objects/copyCourse');
 const courseData = require('../shared-objects/courseData');
 const firstLogin = require('../shared_steps/firstLogin.js');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const addCoursePage = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
 const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
+const generalCoursePage = require("../page-objects/pages/coursePages/CRSSGeneralCoursePage");
+const addEditTopicPage = require("../page-objects/pages/coursePages/CRSSAddEditTopicPage");
 let coursesCount;
 
 
@@ -29,14 +30,20 @@ Given(/^the teacher creates a course with name (.*) and$/, function(coursename) 
 });
 
 Given(/^the amount of courses is x$/, async function() {
-	coursesCount = await copyCourse.countCourses();
+	//coursesCount = await copyCourse.countCourses();
+	await courseListPage.goToCourses();
+	coursesCount = await courseListPage.countDisplayedCoursesForSection(courseListPage.section.activeCourses);
 });
 
-When(/^the teacher selects the course (.*) and clicks clone it$/, function(coursename) {
-	return copyCourse.copyCourse(coursename);
+When(/^the teacher selects the course (.*) and clicks clone it$/, async function(coursename) {
+	await courseListPage.goToCourses();
+	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.allCourses);
+	await generalCoursePage.cloneCourse();
 });
 Then(/^the amount of courses is implemented$/, async function() {
-	let coursesCountAfterCloning = await copyCourse.countCourses();
+	//let coursesCountAfterCloning = await copyCourse.countCourses();
+	await courseListPage.goToCourses();
+	let coursesCountAfterCloning = await await courseListPage.countDisplayedCoursesForSection(courseListPage.section.activeCourses);
 	await expect(coursesCount+1).to.equal(coursesCountAfterCloning);
 });
 
@@ -47,31 +54,46 @@ Given(/^the teacher creates some with name (.*)$/, function(coursename) {
 Given(/^the teacher chooses the created course with (.*) and$/, function(coursename) {
 	return courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 });
-When(/^the teacher adds a Topic with name (.*)$/, function(topicname) {
-	return copyCourse.addTopic(topicname);
+When(/^the teacher adds a Topic with name (.*)$/, async function(topicname) {
+	//return copyCourse.addTopic(topicname);
+	await generalCoursePage.clickOnButtonErstelleEinThema();
+	await addEditTopicPage.setTopic(topicname);
+
 });
-When(/^the teacher adds some Text (.*) to the course$/, function(text) {
-	return copyCourse.addText(text);
+When(/^the teacher adds some Text (.*) to the course$/, async function(text) {
+	await addEditTopicPage.addText(text);
+	await addEditTopicPage.clickCreateTopicButton();
 });
 
-When(/^the teacher clicks copy course (.*) with Text$/, function(coursename) {
-	return copyCourse.copyCourse(coursename);
+When(/^the teacher clicks copy course (.*) with Text$/, async function(coursename) {
+	await courseListPage.goToCourses();
+	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.allCourses);
+	await generalCoursePage.cloneCourse();
 });
 
-When(/^teacher sees the course (.*) was copied and the topic (.*) is still availiable$/,function(coursename, topicname) {
-		return copyCourse.verify(coursename, topicname);
+When(/^teacher sees the course (.*) was copied and the topic (.*) is still availiable$/, async function(coursename, topicname) {
+		//return copyCourse.verify(coursename, topicname);
+	await courseListPage.goToCourses();
+	await courseListPage.verifyCourseAndTopic(coursename, topicname);
 	});
 
 // _________With GeoGebra__________
 
-When(/^the teacher adds some GeoGebraArbeitsblatt with id (.*) to the course$/, function(geogebraID) {
-	return copyCourse.addGeoGebra(geogebraID);
+When(/^the teacher adds some GeoGebraArbeitsblatt with id (.*) to the course$/, async function(geogebraID) {
+	//return copyCourse.addGeoGebra(geogebraID);
+	await addEditTopicPage.addGeoGebra(geogebraID);
+	await addEditTopicPage.clickCreateTopicButton();
+
 });
-When(/^the teacher clicks copy course (.*) with GeoGebraArbeitsblatt$/, function(coursename) {
-	return copyCourse.copyCourse(coursename);
+When(/^the teacher clicks copy course (.*) with GeoGebraArbeitsblatt$/, async function(coursename) {
+	await courseListPage.goToCourses();
+	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.allCourses);
+	await generalCoursePage.cloneCourse();
 });
-Then(/^teacher sees the course (.*) copy and the GeoGebraArbeitsblatt (.*) is still availiable$/,function(coursename, topicname) {
-		return copyCourse.verify(coursename, topicname);
+Then(/^teacher sees the course (.*) copy and the GeoGebraArbeitsblatt (.*) is still availiable$/, async function(coursename, topicname) {
+		//return copyCourse.verify(coursename, topicname);
+		await courseListPage.goToCourses();
+		await courseListPage.verifyCourseAndTopic(coursename, topicname);
 	});
 
 // _________With Material__________
@@ -81,31 +103,43 @@ Given(/^the teacher creates a course with name (.*),$/, function(coursename) {
 Given(/^the teacher chooses this course with (.*) and$/, function(coursename) {
 	return courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 });
-Given(/^the teacher adds a topic with (.*)$/, function(topicname) {
-	return copyCourse.addTopic(topicname);
+Given(/^the teacher adds a topic with (.*)$/, async function(topicname) {
+	//return copyCourse.addTopic(topicname);
+	await generalCoursePage.clickOnButtonErstelleEinThema();
+	await addEditTopicPage.setTopic(topicname);
 });
 
 When(/^the teacher adds some Material  to the course$/, function() {
-	return copyCourse.addMaterial();
+	return addEditTopicPage.addMaterial();
 });
-When(/^the teacher clicks copy course (.*) with Material$/, function(coursename) {
-	return copyCourse.copyCourse(coursename);
+When(/^the teacher clicks copy course (.*) with Material$/, async function(coursename) {
+	await courseListPage.goToCourses();
+	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.allCourses);
+	await generalCoursePage.cloneCourse();
 });
-Then(/^teacher sees the course (.*) copy and the material (.*) is still availiable$/,function(coursename, topicname) {
-	return copyCourse.verify(coursename, topicname);
+Then(/^teacher sees the course (.*) copy and the material (.*) is still availiable$/, async function(coursename, topicname) {
+	//return copyCourse.verify(coursename, topicname);
+	await courseListPage.goToCourses();
+	await courseListPage.verifyCourseAndTopic(coursename, topicname);
 });
 
 
 
 // _________With Etherpad__________
-When(/^the teacher adds some Etherpad with (.*) and (.*) to the course$/, function(etherpadName, etherpadDescription) {
-	return copyCourse.addEtherpad(etherpadName, etherpadDescription);
+When(/^the teacher adds some Etherpad with (.*) and (.*) to the course$/, async function(etherpadName, etherpadDescription) {
+	//return copyCourse.addEtherpad(etherpadName, etherpadDescription);
+	await addEditTopicPage.addEtherpad(etherpadName, etherpadDescription);
+	await addEditTopicPage.clickCreateTopicButton();
 });
-When(/^the teacher clicks copy course (.*) with Etherpad$/, function(coursename) {
-	return copyCourse.copyCourse(coursename);
+When(/^the teacher clicks copy course (.*) with Etherpad$/, async function(coursename) {
+	await courseListPage.goToCourses();
+	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.allCourses);
+	await generalCoursePage.cloneCourse();
 });
-Then(/^teacher sees the course (.*) copy and the Etherpadd (.*) is still availiable$/, function(coursename, topicname) {
-	return copyCourse.verify(coursename, topicname);
+Then(/^teacher sees the course (.*) copy and the Etherpadd (.*) is still availiable$/, async function(coursename, topicname) {
+	//return copyCourse.verify(coursename, topicname);
+	await courseListPage.goToCourses();
+	await courseListPage.verifyCourseAndTopic(coursename, topicname);
 });
 
 
@@ -113,9 +147,13 @@ Then(/^teacher sees the course (.*) copy and the Etherpadd (.*) is still availia
 Given(/^the teacher creates a course with name (.*) and student (.*)$/, function(coursename, studentname) {
 	return addCoursePage.createCourseWithStudents(coursename, studentname);
 });
-When(/^the teacher copies the course (.*) with students$/, function(coursename) {
-	return copyCourse.copyCourse(coursename);
+When(/^the teacher copies the course (.*) with students$/, async function(coursename) {
+	await courseListPage.goToCourses();
+	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.allCourses);
+	await generalCoursePage.cloneCourse();
 });
-Then(/^the teacher should see the cloned course (.*) but without students$/, function(coursename) {
-		return copyCourse.verifyCopyWithStudents(coursename);
+Then(/^the teacher should see the cloned course (.*) but without students$/, async function(coursename) {
+		//return copyCourse.verifyCopyWithStudents(coursename);
+		await courseListPage.goToCourses();
+		await courseListPage.verifyCopyWithStudents(coursename);
 	});
