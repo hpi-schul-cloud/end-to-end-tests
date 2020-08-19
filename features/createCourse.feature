@@ -6,7 +6,8 @@ Background:
 	Given teacher arrives on the Schul-Cloud homepage
 
 Scenario Outline: create first course. Teachers have 2 options: to import or to create new course and the teacher sees the created course in the list
-	When teacher logs in with email <username> and password <password>
+	Given teacher logs in with email <username> and password <password>
+	Given teacher accepts data protection
 	When teacher goes to courses page
 	Then teacher should see that buttons: Import-course, Create-new-course are visible
 	When teacher clicks Create-new-course button

@@ -85,10 +85,22 @@ module.exports = {
 		await driver.pause(1500);
 
 	},
-	compareScreenshots: async function (filename) {
-		await imageCompare.saveScreenshot(`${filename}.png`);
-		await imageHelpers.compareImage(`${filename}.png`);
+
+	firstLoginAdminOrTeacher: async function() {
+		let nextBtn = await driver.$('#nextSection');
+		await nextBtn.click();
+		await driver.pause(1500);
+		await nextBtn.click();
+		await driver.pause(1500);
+		await this.dataProtection();
+		await nextBtn.click();
+		await driver.$('.form-submitted');
+		let start = await driver.$('a[data-testid="btn_schul-cloud_erkunden"]');
+		await start.waitForDisplayed(15000);
+		await start.click();
+		await driver.pause(1500);
 	},
+
 
 	wrongLoginResult: async function () {
 		expect(await elementHelpers.getElementText(".notification-content")).to.equal(failureMessage);

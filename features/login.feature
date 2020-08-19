@@ -32,7 +32,7 @@ Feature: Log in as an admin, as a teacher, as a student
     @teacherLogin
     Scenario Outline: teacher logs in
         As a teacher, I want to be able to login
-        When teacher logs in logs in with email <teacherUsername> and password <password>
+        When teacher logs in with email <teacherUsername> and password <password>
         Then teacher accepts data protection
         Then the teacher-dashboard should have an icon with the teacher's initials
 

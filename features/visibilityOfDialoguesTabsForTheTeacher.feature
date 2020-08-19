@@ -8,7 +8,7 @@ Background:
 	Given The Teacher is logged in successfully
 
 Scenario:
-    Then The Teacher should accept the data protection
+    Then teacher accepts data protection
     When The Teacher goes to Verwaltung page
     Then Verify if all required tabs are visible in Verwaltung area
     | tabs         |

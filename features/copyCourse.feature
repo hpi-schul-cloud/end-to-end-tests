@@ -3,7 +3,7 @@
 Feature: copy a created course with different data
 
 Background: teacher is logged in and has created a course
-Given teacher goes to the home page
+Given teacher arrives on the Schul-Cloud homepage
 Given the Teacher is successfully logged in
 Given goes the course page
 

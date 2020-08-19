@@ -3,7 +3,7 @@ Feature: a teacher can create a team
 
 Background: a teacher logged in and created a new pupil
 
-Given the teacher started on the login page and
+Given teacher arrives on the Schul-Cloud homepage
 Given teacher successfully logged in
 
 
