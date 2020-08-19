@@ -7,7 +7,6 @@ const dateTimeHelpers = require('../runtime/helpers/dateTimeHelpers.js');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
-const copyCourse = require('../page-objects/copyCourse');
 const firstLogin = require('../shared_steps/firstLogin.js');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage.js');
