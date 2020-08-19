@@ -76,19 +76,17 @@ const selectors = {
             await waitHelpers.waitAndClick(courseData.elem.submitAddHomeworkBtn);
 
         },
-    
+
         getTaskNames: async function() {
             await driver.pause(1000 * 10);
             const container = await driver.$(".col-xl-12");
             const tasksArray = await container.$$("li");
             const namesArray = [];
-            for (var i = 1; i <= tasksArray.length; i++) {
+            for (let i = 1; i <= tasksArray.length; i++) {
                 const task = await container.$(
-                    "li:nth-child(" + i + ") > a:nth-child(1)"
+                    "li:nth-child(" + i + ") h2"
                 );
-                const taskName = (await task.getAttribute("title"))
-                    .replace("Details der Aufgabe: '", "")
-                    .replace(/'$/gi, "");
+                const taskName = (await task.getText());
                 await namesArray.push(taskName);
             }
             return namesArray;

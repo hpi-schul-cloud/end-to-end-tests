@@ -5,11 +5,11 @@ const elementHelpers = require('../runtime/helpers/elementHelpers.js')
 const ADMNSTRTNAdministrationOverviewPage = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministrationOverviewPage');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
-const loginData = require('../shared-objects/loginData');
+
 
 Given(/^this admin logs in successfully$/, async function () {
 	await startPage.clickLoginBtn();
-	await loginPage.performLogin(loginData.defaultAdminUsername, loginData.defaultAdminPassword)
+	await loginPage.performLogin(loginPage.defaultLoginData.defaultAdminUsername, loginPage.defaultLoginData.defaultAdminPassword);
 });
 
 When(/^admin goes to administration$/, function() {

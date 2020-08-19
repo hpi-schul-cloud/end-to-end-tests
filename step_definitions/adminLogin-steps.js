@@ -1,8 +1,6 @@
 'use strict';
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
-const loginData = require('../shared-objects/loginData');
-const shared = { loginData };
 const firstLogin = require('../shared_steps/firstLogin.js');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const DashboardPage = require('../page-objects/pages/DashboardPage');
@@ -37,11 +35,11 @@ Then(
 Then(
 	/^the admin-dashboard should have the admin name and profession$/,
 	function() {
-		return DashboardPage.loginFullUserInfo();
+		return DashboardPage.loginInitials();
 	}
 );
 
 Then(/^the admin-dashboard should have the following tabs$/, function (LoginTextLabels) {
-    return DashboardPage.checkIfTabsAreVisible(LoginTextLabels, shared.loginData.elem.loginTabs);
+    return DashboardPage.checkIfTabsAreVisible(LoginTextLabels, loginPage.loginTabs.loginTabs);
 	}
 );

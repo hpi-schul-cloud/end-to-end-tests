@@ -4,7 +4,7 @@ Feature: create different types of homework
 
 
     Background: a teacher logs in and creates a course
-        Given the teacher starts on the login page
+        Given teacher goes to the home page
         Given the teacher is logged-in successfully
         Given the teacher goes to the course page as a next step
 

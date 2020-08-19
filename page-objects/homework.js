@@ -6,7 +6,6 @@ const waitHelpers = require('../runtime/helpers/waitHelpers.js');
 const dateTimeHelpers = require('../runtime/helpers/dateTimeHelpers.js');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const courseData = require('../shared-objects/courseData');
-const Login = require('../shared-objects/loginData');
 const firstLogin = require('../shared_steps/firstLogin.js');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage.js');
@@ -138,7 +137,7 @@ module.exports = {
 	teacherLogsIn: async function () {
 		await this.userLogsOut();
 		await startPage.clickLoginBtn();
-		await loginPage.performLogin(Login.defaultTeacherUsername, Login.defaultTeacherpassword);
+		await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.defaultLoginData.defaultTeacherpassword);
 	},
 	goToTasksOfTheCourse: async function (coursename) {
 		await courseListPage.goToCourses();
@@ -244,7 +243,7 @@ module.exports = {
 
 	submitHomework: async function (taskName, student) {
 		await this.gotoTasks();
-		await waitHelpers.waitAndClick(`*=${taskName}`);
+		await waitHelpers.waitAndClick(`[aria-label*="${taskName}"] > span`);
 		await this.switchToSubmissionTab();
 		await this.submitSolutionForTheHometask();
 	},
@@ -255,7 +254,7 @@ module.exports = {
 		await this.teacherLogsIn();
 		// grade the submission
 		await this.gotoTasks();
-		await waitHelpers.waitAndClick(`*=${taskName}`);
+		await waitHelpers.waitAndClick(`[aria-label*="${taskName}"] > span`);
 
 		await this.teacherShowGradeTabForFirstSubmission();
 
@@ -293,7 +292,7 @@ module.exports = {
 		await this.userLogsOut();
 		await firstLogin.pupilLogin(student.login, student.password);
 		await this.gotoTasks();
-		await click(`*=${taskName}`);
+		await click(`[aria-label*="${taskName}"] > span`);
 		await click('a*=Bewertung');
 
 		await this.canSeeFile(file);
