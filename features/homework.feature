@@ -49,10 +49,10 @@ Feature: create different types of homework
         And the teacher has posed a homework
         And teacher logs out
         And student logs in with email <username> and password <password>
-        And student with full age accepts student's data protection
+        And student with full age accepts student's data protection with password <newPasswordStudent>
         And the student has submitted that homework
         When the teacher uploads file feedback
         Then both the teacher and student can see and download the feedback
         Examples:
-            | username                    | password     |
-            | paula.meyer@schul-cloud.org | Schulcloud1! |
+            | username                    | password     | newPasswordStudent |
+            | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!      |

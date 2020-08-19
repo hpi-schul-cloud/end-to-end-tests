@@ -8,6 +8,6 @@ Then(/^.*sees that participants icon in course with name (.*) has correct number
 
 });
 
-Then(/^.*clicks the participants icon in the course (.*) and sees the added student (.*) there$/, async function (courseName, studentName) {
+Then(/^.*clicks the participants icon in the course (.*) and sees the added student (.*) there.$/, async function (courseName, studentName) {
     await courseListPage.areMembersOnTheListInCourseForSection(courseName, [studentName], courseListPage.section.activeCourses);
 });
