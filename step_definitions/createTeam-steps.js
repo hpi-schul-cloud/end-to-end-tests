@@ -6,6 +6,8 @@ const TMSAddEditTeamPage = require('../page-objects/pages/teamsPages/TMSAddEditT
 const TMSTeamListPage = require('../page-objects/pages/teamsPages/TMSTeamListPage.js');
 const TMSTeamMembersPage = require('../page-objects/pages/teamsPages/TMSTeamMembersPage.js');
 let teamName;
+let fullname1;
+let fullname2
 const student1 = 'Marla Mathe';
 const student2 = 'Waldemar Wunderlich';
 
