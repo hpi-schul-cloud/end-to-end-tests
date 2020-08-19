@@ -2,7 +2,6 @@
 'use strict';
 const waitHelpers = require('../runtime/helpers/waitHelpers.js');
 const courseData = require('../shared-objects/courseData');
-const copyCourse = require('../page-objects/copyCourse');
 const firstLogin = require('../shared_steps/firstLogin.js');
 const createCourse = require('../page-objects/createCourse');
 const courseListPage = require('../page-objects/pages/coursePages/CRSSCourseListPage');

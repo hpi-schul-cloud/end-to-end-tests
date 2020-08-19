@@ -197,5 +197,23 @@ module.exports = {
         let pupilIcon = await courseWrapper.$(memberBtn);
         await pupilIcon.click();
         await driver.pause(500);
-    }
+    },
+    verifyCourseAndTopic: async function (coursename, topicname) {
+		await this.clickOnCourseInSection(coursename, this.section.activeCourses);
+		let topicNames = await Promise.all(
+			(await driver.$$("#topic-list > div > div > div")).map(
+				async (element) => await element.getText()
+			)
+		);
+		await expect(topicNames).to.include(topicname);
+    },
+    verifyCopyWithStudents: async function (coursename) {
+		let copiedName = coursename + " - Kopie";
+		let courseHasIndex = await this.getIndexOfGivenCourseInSection(copiedName, this.section.activeCourses);
+		let areThereStudentsInCourseContainer  = await driver.$('.sc-card-wrapper.col-xl-3.col-lg-4.col-md-6.col-sm-12:nth-child('+(courseHasIndex+1)+') .additionalInfo .btn-member');
+		let areThereStudentsInCourse = await areThereStudentsInCourseContainer.getText();
+		let number = parseInt(areThereStudentsInCourse);
+		await expect(number).to.equal(0);
+
+	}
 };
