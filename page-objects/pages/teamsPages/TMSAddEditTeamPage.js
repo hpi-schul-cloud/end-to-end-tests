@@ -40,7 +40,7 @@ module.exports = {
     createTeamBtn: 'button[data-testid="create_team_btn"]',
 
     gotoTeams: async function () {
-        // @Todo Umbau auf einen Button oder Link innerhalb der Add/Edit Maske
+        // @Conversion to use a button or link within the Add/Edit mask
         let url = `${CLIENT.URL}/teams/`;
         return elementHelpers.loadPage(url, 100);
     },
