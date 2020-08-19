@@ -2,10 +2,15 @@
 'use strict';
 const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
 const { CLIENT } = require("../../shared-objects/servers");
-const Login = require('../../shared-objects/loginData');
 const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers');
 
+const selectors = {
+    timeNewsMustBePublished: 'input[data-testid="news_date_to_be_displayed"]',
+    submitNewsBtn: 'button[data-testid="btn_news_submit"]',
+};
+
 module.exports = {
+selectors,
 goToNewNews: async function() {
     let url = `${CLIENT.URL}/news/new`;
     await elementHelpers.loadPage(url, 100);
@@ -31,7 +36,7 @@ setPublishTime: async function(time) {
     await timeSelector.setValue(time);
 },
 save: async function() {
-    let add = await driver.$(Login.elem.submitNewsBtn);
+    let add = await driver.$(selectors.submitNewsBtn);
     await add.click();
 },
 createNews: async function({title, content, date, time}) {

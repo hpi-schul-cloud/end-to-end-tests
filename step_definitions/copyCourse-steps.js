@@ -3,7 +3,6 @@ const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPa
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const copyCourse = require('../page-objects/copyCourse');
 const courseData = require('../shared-objects/courseData');
-const Login = require('../shared-objects/loginData');
 const firstLogin = require('../shared_steps/firstLogin.js');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const addCoursePage = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
@@ -14,7 +13,7 @@ let coursesCount;
 //________Background_________
 Given(/^the Teacher is successfully logged in/, async function() {
 	await startPage.clickLoginBtn();
-	await loginPage.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
+	await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.defaultLoginData.defaultTeacherpassword);
 });
 Given(/^teacher has accepted the data protection agreement$/, function() {
 	return firstLogin.firstLoginTeacher();

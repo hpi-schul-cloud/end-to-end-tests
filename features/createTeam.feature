@@ -15,5 +15,5 @@ When teacher adds two students to this team
 Then this team should be displayed on the team page
 
 Examples:
-| teamname | firstname1 | lastname1 | email1 | firstname2 | lastname2 | email2 |
-| test team | Mia | Raupe | raupe@schul-cloud.org | Ronald | Müller | mueller@schul-cloud.org |
+| teamname  | firstname1 | lastname1 | email1                | firstname2 | lastname2 | email2                  |
+| test team | Mia        | Raupe     | raupe@schul-cloud.org | Ronald     | Müller    | mueller@schul-cloud.org |

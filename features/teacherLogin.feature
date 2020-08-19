@@ -12,5 +12,5 @@ Feature: Logging in as a teacher
 		Then the teacher-dashboard should have an icon with the teacher's initials
 
 		Examples:
-			|username|password|
+			|username                  |password    |
 			|klara.fall@schul-cloud.org|Schulcloud1!|
