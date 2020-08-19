@@ -2,9 +2,12 @@
 
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
-const createTeam = require('../page-objects/createTeam');
 const newPupil = require('../page-objects/administration');
-const elementHelpers = require('../runtime/helpers/elementHelpers.js');
+const TMSAddEditTeamPage = require('../page-objects/pages/teamsPages/TMSAddEditTeamPage.js');
+const TMSTeamListPage = require('../page-objects/pages/teamsPages/TMSTeamListPage.js');
+const TMSTeamMembersPage = require('../page-objects/pages/teamsPages/TMSTeamMembersPage.js');
+let fullname1;
+let fullname2;
 let teamName;
 const student1 = 'Marla Mathe';
 const student2 = 'Waldemar Wunderlich';
@@ -26,14 +29,13 @@ When(/^teacher adds one more student with (.*), (.*), (.*)$/, function (firstnam
 
 When(/^teacher creates a new team with (.*) and$/, function (teamname) {
     teamName = teamname;
-    return createTeam.createTeamAndGoToSettings(teamname);
+    return TMSAddEditTeamPage.createTeamAndGoToSettings(teamname);
 });
 When(/^teacher adds two students to this team$/, function () {
-    return createTeam.addTwoTeamMemebers(student1, student2)
-
+    return TMSTeamMembersPage.addTwoTeamMemebers(student1, student2)
 });
 
 Then(/^this team should be displayed on the team page$/, async function () {
-    let teamNames = await createTeam.getTeamNames();
+    let teamNames = await TMSTeamListPage.getTeamNames();
     await expect(teamNames).to.include(teamName);
 });
