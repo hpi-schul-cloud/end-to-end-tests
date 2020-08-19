@@ -6,8 +6,7 @@ The naming of the class should be the usual way (e.g. "11c")
 
 Background:
 	Given admin arrives on the Schul-Cloud homepage
-	Given admin is logged in successfully
-	Given admin performs the first login steps
+	
 
 Scenario Outline:
 

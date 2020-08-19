@@ -4,7 +4,7 @@ Feature: a teacher can create a team
 Background: a teacher logged in and created a new pupil
 
 Given teacher arrives on the Schul-Cloud homepage
-Given teacher successfully logged in
+Given teacher is successfully logged in
 
 
 Scenario Outline: create a team with two new members

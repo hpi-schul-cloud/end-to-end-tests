@@ -5,7 +5,8 @@ Feature: create different types of homework
 
     Background: a teacher logs in and creates a course
         Given arrives on the Schul-Cloud homepage
-        Given the teacher is logged-in successfully
+        Given teacher is successfully logged in
+        Given teacher accepts data protection
         Given the teacher goes to the course page as a next step
 
 

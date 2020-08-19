@@ -30,6 +30,9 @@ const firstLoginSel = {
 		box1: 'input[name="privacyConsent"]',
 		box2: 'input[name="termsOfUseConsent"]',
 	},
+	nextBtn: '#nextSection',
+	startUsageOfSchulcloudBtn: 'a[data-testid="btn_schul-cloud_erkunden"]',
+
 	setOwnPasswort: {
 		passwordSet: 'input[@data-testid="firstlogin_password"]',
 		passwordSet2: 'input[@data-testid="firstlogin_password_control"]',
@@ -87,18 +90,16 @@ module.exports = {
 	},
 
 	firstLoginAdminOrTeacher: async function() {
-		let nextBtn = await driver.$('#nextSection');
-		await nextBtn.click();
-		await driver.pause(1500);
-		await nextBtn.click();
-		await driver.pause(1500);
-		await this.dataProtection();
-		await nextBtn.click();
-		await driver.$('.form-submitted');
-		let start = await driver.$('a[data-testid="btn_schul-cloud_erkunden"]');
-		await start.waitForDisplayed(15000);
-		await start.click();
-		await driver.pause(1500);
+		await elementHelpers.waitAndClick(firstLoginSel.nextBtn);
+		await elementHelpers.waitAndClick(firstLoginSel.nextBtn);
+		await elementHelpers.waitAndClick(firstLoginSel.nextBtn);
+		await this.clickOnDataProtectionBoxes();
+		await elementHelpers.waitAndClick(firstLoginSel.nextBtn);
+		await elementHelpers.waitAndClick(firstLoginSel.startUsageOfSchulcloudBtn);
+	},
+	clickOnDataProtectionBoxes: async function() {
+		await elementHelpers.waitAndClick(firstLoginSel.dataProtection.box1);
+		await elementHelpers.waitAndClick(firstLoginSel.dataProtection.box2);
 	},
 
 

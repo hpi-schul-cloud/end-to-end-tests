@@ -1,8 +1,7 @@
 'use strict';
 const path = require('path');
 
-const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
-const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
+
 const copyCourse = require('../page-objects/copyCourse');
 const homework = require('../page-objects/homework');
 const hMWRKAddEditHomeworkPage = require('../page-objects/pages/HMWRKAddEditHomeworkPage.js');
@@ -13,10 +12,6 @@ const addCoursePage = require("../page-objects/pages/coursePages/CRSSAddCoursePa
 
 /*BACKGROUND*/
 
-Given(/^the teacher is logged-in successfully$/, async function () {
-	await startPage.clickLoginBtn();
-	await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.defaultLoginData.defaultTeacherpassword);
-});
 
 Given(/^the teacher goes to the course page as a next step$/, function () {
 	return elementHelpers.loadPage(courseData.urlCourses, 20);

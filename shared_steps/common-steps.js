@@ -9,13 +9,6 @@ const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 
 const schulCloudURL= `${CLIENT.URL}`;
 /*Login, Logout*/
-Given(/^teacher goes to the home page$/, function() {
-	return elementHelpers.loadPage(schulCloudURL, 10);
-});
-
-Given(/^the teacher started on the login page and$/, function () {
-    return elementHelpers.loadPage(schulCloudURL, 10);
-});
 
 Given(/^.*arrives on the Schul-Cloud homepage$/, function () {
 	return elementHelpers.loadPage(schulCloudURL, 10);
@@ -26,9 +19,13 @@ Given(/^.*logs in with email (.*) and password (.*)$/, async function (username,
 	await loginPage.performLogin(username, password);
 });
 
-Given(/^user logs in as default teacher$/, async function () {
+Given(/^.teacher is successfully logged in$/, async function () {
 	await startPage.clickLoginBtn();
 	await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.defaultLoginData.defaultTeacherpassword);
+});
+Given(/^.admin is successfully logged in$/, async function () {
+	await startPage.clickLoginBtn();
+	await loginPage.performLogin(loginPage.defaultLoginData.defaultAdminUsername, loginPage.defaultLoginData.defaultAdminPassword);
 });
 
 When(/^.*goes from start page to login page$/, async function () {
@@ -80,5 +77,5 @@ Then(/^.* accepts data protection$/, function() {
 });
 
 Then(/^student with full age accepts student\'s data protection$/, function() {
-	return loginPage.firstLoginPupilFullAge(loginData.notEligiblePupilPassword);
+	return loginPage.firstLoginPupilFullAge(loginPage.defaultLoginData.notEligiblePupilPassword);
 });
