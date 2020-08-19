@@ -6,7 +6,7 @@ module.exports = {
 	waitAndClick: async function (selector) {
 		try {
 			let elem = await driver.$(selector);
-			await elem.waitForDisplayed(LONG_WAIT_MILLIS);
+			await elem.waitForDisplayed(SHORT_WAIT_MILLIS);
 			await elem.waitForEnabled(SHORT_WAIT_MILLIS);
 			await elem.click();
 			await driver.pause(SHORT_WAIT_MILLIS);

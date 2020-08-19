@@ -69,13 +69,11 @@ When(/^.* goes to user settings$/, async function () {
 });
 
 
-
-
 /*first login*/
 Then(/^.* accepts data protection$/, function() {
 	return loginPage.firstLoginAdminOrTeacher();
 });
 
-Then(/^student with full age accepts student\'s data protection$/, function() {
-	return loginPage.firstLoginPupilFullAge(loginPage.defaultLoginData.notEligiblePupilPassword);
+Then(/^student with full age accepts student\'s data protection with password (.*)$/, function(newPassword) {
+	return loginPage.firstLoginStudent(newPassword);
 });

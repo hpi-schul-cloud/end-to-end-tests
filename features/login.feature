@@ -45,12 +45,12 @@ Feature: Log in as an admin, as a teacher, as a student
     Scenario Outline: student logs in
         As a student, I want to be able to login
         When student logs in with email <studentUsername> and password <password>
-        And student with full age accepts student's data protection
+        And student with full age accepts student's data protection with password <newStudentPassword>
         Then a pupil should see the dashboard
 
         Examples:
-            | studentUsername             | password     |
-            | paula.meyer@schul-cloud.org | Schulcloud1! |
+            | studentUsername             | password     | newStudentPassword     |
+            | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!          |
 
 
     @wrongPasswordAdminLogin
