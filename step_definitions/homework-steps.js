@@ -1,8 +1,5 @@
 'use strict';
 const path = require('path');
-
-
-const copyCourse = require('../page-objects/copyCourse');
 const homework = require('../page-objects/homework');
 const hMWRKAddEditHomeworkPage = require('../page-objects/pages/HMWRKAddEditHomeworkPage.js');
 const hMWRKHomeworkListPage = require('../page-objects/pages/HMWRKHomeworkListPage');
@@ -88,7 +85,7 @@ Then(
 Given(/^the Teacher creates one course with (.*) and pupil with:$/, function (
 	coursename
 ) {
-	return copyCourse.create(coursename);
+	//return copyCourse.create(coursename);
 });
 When(/^Teacher creates a homework for the course (.*)$/, function (coursename) {
 	return homework.clickCreateNewTaskInTheCourse(coursename);
