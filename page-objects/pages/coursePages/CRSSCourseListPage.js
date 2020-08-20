@@ -3,6 +3,9 @@
 const { CLIENT } = require("../../../shared-objects/servers")
 const eh = require("../../../runtime/helpers/elementHelpers");
 const wh = require("../../../runtime/helpers/waitHelpers");
+const courseData = require('../shared-objects/courseData');
+const firstLogin = require('../shared_steps/firstLogin.js');
+const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const { expect } = require("chai");
 
 const urlCourses = `${ CLIENT.URL }/courses`;
@@ -11,6 +14,7 @@ const searchCourseFiled = ".input-group .search-field";
 const courseWrapper = ".sc-card-wrapper";
 const titleOfCourse = ".title";
 const memberBtn = ".btn-member";
+const homeworktab = '.tabs button[data-testid="hometasks"]';
 
 const importCourseBtn = '[data-testid="import-course-btn"]';
 const createCourseBtn = '[data-testid="create-course-btn"]';
@@ -197,5 +201,34 @@ module.exports = {
         let pupilIcon = await courseWrapper.$(memberBtn);
         await pupilIcon.click();
         await driver.pause(500);
-    }
+    },
+    
+    goToTasksOfTheCourse: async function (coursename) {
+		await this.goToCourses();
+		await this.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
+		await this.gotoTasksTab();
+    },
+    
+	studentLogsInAndGoesToTasksOfTheCourse: async function (username, password, coursename) {
+		await this.userLogsOut();
+		await firstLogin.pupilLogin(username, password);
+		await firstLogin.firstLoginPupilFullAge(username, password);
+		await this.goToTasksOfTheCourse(coursename);
+    },
+    
+    userLogsOut: async function () {
+		await elementHelpers.loadPage(courseData.urlLogout, 20);
+    },
+    
+    uploadAHomework: async function () {
+		//making the upload-element visible to selenium
+		change_visibility =
+			'$x("//*[@id="main-content"]/div/section[1]/div/div/div[1]/input").css("visibility,"visible");';
+		change_display = '$x("//*[@id="main-content"]/div/section[1]/div/div/div[1]/input").css("display,"block");';
+		await driver.execute_script(change_visibility);
+		await driver.execute_script(change_display);
+
+		const filePath = path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt');
+		await driver.$x(courseData.uploadBtn).send_keys(filePath);
+	},
 };
