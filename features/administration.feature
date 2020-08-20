@@ -10,7 +10,8 @@ Feature: Administrate pupils, classes and teachers
 		Given admin arrives on the Schul-Cloud homepage
 
 	Scenario Outline: Admin creates a pupil
-		When admin logs in with email <adminsUsername> and password <password>
+
+		When admin logs in with email <adminsUsername> and password <adminsPassword>
 		When admin accepts data protection
 		When admin goes to administration
 		When admin goes to students administration

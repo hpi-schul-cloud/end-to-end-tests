@@ -1,17 +1,11 @@
 'use strict';
 
-let administration = require('../page-objects/administration');
-const elementHelpers = require('../runtime/helpers/elementHelpers.js')
+const administration = require('../page-objects/apiTest');
 const ADMNSTRTNAdministrationOverviewPage = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministrationOverviewPage');
 const studentAdministration = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerStudentsPage');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 let oldPassword; // the value will be overwritten from AdministerStudentsPage
-
-
-When(/^admin goes to administration$/, function() {
-	return ADMNSTRTNAdministrationOverviewPage.goToAdministrationPage();
-});
 
 When(/^admin goes to students administration$/, function() {
 	return ADMNSTRTNAdministrationOverviewPage.clickAdministrateStudents();
