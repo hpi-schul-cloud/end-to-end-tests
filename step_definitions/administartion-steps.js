@@ -15,7 +15,7 @@ When(/^an admin puts in (.*) and (.*) and (.*) of the new pupil$/, function (fir
 	return studentAdministration.createNewPupil(firstname, secondname, email)
 });
 Then(/^the admin should see new pupil with email (.*) among his pupils$/, function (email) {
-	return administration.verify(email);
+	return studentAdministration.verify(email);
 });
 Then(/^.* manually submits a consent (.*)$/, function (email) {
 	return administration.submitConsent(email);
