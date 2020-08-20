@@ -1,6 +1,6 @@
 #This feature caused errors for other tests and have been temporary ignored
 #Error: ERROR webdriver: Request failed due to invalid session id
-@createNewPupil
+@createNewStudent
 Feature: Administrate pupils, classes and teachers
 	As an admin on Schul-Cloud
 	I want to be able to administrate pupils, teachers and classes
@@ -21,7 +21,7 @@ Feature: Administrate pupils, classes and teachers
 		Then new pupil <studentEmail> can log in with default password
 		Then student with full age accepts student's data protection with password <newPasswordStudent>
 
-		#Examples:
-		#	| firstName | secondName | studentEmail                     | adminsUsername        | adminsPassword | newPasswordStudent |
-	    #	| Georg     | Georgmann  | georgmann@schul-cloud.org | admin@schul-cloud.org | Schulcloud1!   | Schulcloud1!!      |
+		Examples:
+			| firstName | secondName | studentEmail              | adminsUsername        | adminsPassword | newPasswordStudent |
+	    	| Georg     | Georgmann  | georgmann@schul-cloud.org | admin@schul-cloud.org | Schulcloud1!   | Schulcloud1!!      |
 

@@ -1,10 +1,8 @@
 /*[url/administration/students]*/
 'use strict';
 
-const elementHelpers = require('../../../runtime/helpers/elementHelpers.js');
-const waitHelpers= require('../../../runtime/helpers/waitHelpers');
-const ADMNSTRTNAdministrationOverviewPage = require('../../../page-objects/pages/administrationPages/ADMNSTRTNAdministrationOverviewPage');
 
+const waitHelpers= require('../../../runtime/helpers/waitHelpers');
 let oldPassword = require('../../../step_definitions/administartion-steps');
 
 module.exports = {
@@ -36,7 +34,7 @@ setStudentsBirthdayScript: async function() {
 
 
 emailsOfThePupils: async function() {
-    let names = await driver.$$(ADMNSTRTNAdministerStudentsPage.selectorNamesContainer + ' > tr');
+    let names = await driver.$$(selectorNamesContainer + ' > tr');
     return Promise.all(names.map(async (nameContainer) => {
         const emailContainer = await nameContainer.$("td:nth-child(3)");
         return await emailContainer.getText();
