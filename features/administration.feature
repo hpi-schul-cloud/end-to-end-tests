@@ -16,7 +16,7 @@ Feature: Administrate pupils, classes and teachers
 		When admin goes to administration
 		When admin goes to students administration
 		And an admin puts in <firstName> and <secondName> and <studentEmail> of the new pupil
-		And the admin should see new pupil with email <email> among his pupils
+		And the admin should see new pupil with email <studentEmail> among his pupils
 		And admin manually submits a consent <studentEmail>
 		And admin logs out
 		Then new pupil <studentEmail> can log in with default password
