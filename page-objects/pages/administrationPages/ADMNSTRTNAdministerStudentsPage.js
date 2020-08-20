@@ -13,7 +13,7 @@ const selectors = {
     selectorSendALinkBox: 'input[data-testid=\'create_student_input_send_link\']',
     selectorNamesContainer: 'tbody[data-testid=\'students_names_container\']',
     selectorConsentSubmitBtn: 'button[data-testid=\'submit_consent\']',
-    submitStudentCreateBtn: 'button.btn.btn-primary.btn-submit',
+    submitStudentCreateBtn: 'div.modal.fade.add-modal.in button.btn-submit',
 
 };
 module.exports = {
