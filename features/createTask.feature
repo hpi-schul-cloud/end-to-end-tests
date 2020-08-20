@@ -5,8 +5,8 @@ Feature: Creating a task as a teacher
 	Given teacher arrives on the Schul-Cloud homepage
 
 	Scenario Outline: The user logs in as a teacher and creates a simple task
-	When a teacher logs in his account using <username> and <password>
-	When the teacher has accepted the data protection agreement
+	Given teacher logs in with email <teacherEmail> and password <teacherPassword>
+	Given teacher accepts data protection
 	Then he should click the task-button in the dashboard-sidebar
 	Then he should click the create-task-button on the task page
 	Then he should put the taskname <taskname> into the name field
@@ -16,5 +16,5 @@ Feature: Creating a task as a teacher
 	Then he should see the created task with the name <taskname> on the task page
 
 	Examples:
-	| username                | password      | taskname                | taskBody |
-	| lehrer@schul-cloud.org  | Schulcloud1!  | IntegrationTestAufgabe  | MyBody |
+	| teacherEmail            | teacherPassword      | taskname                | taskBody |
+	| lehrer@schul-cloud.org  | Schulcloud1!         | IntegrationTestAufgabe  | MyBody   |

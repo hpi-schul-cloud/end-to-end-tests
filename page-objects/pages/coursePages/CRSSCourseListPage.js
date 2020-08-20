@@ -3,9 +3,9 @@
 const { CLIENT } = require("../../../shared-objects/servers")
 const eh = require("../../../runtime/helpers/elementHelpers");
 const wh = require("../../../runtime/helpers/waitHelpers");
-const courseData = require('../shared-objects/courseData');
-const firstLogin = require('../shared_steps/firstLogin.js');
-const elementHelpers = require('../runtime/helpers/elementHelpers.js');
+const courseData = require('../../../shared-objects/courseData');
+const firstLogin = require('../../../shared_steps/firstLogin.js');
+const elementHelpers = require('../../../runtime/helpers/elementHelpers.js');
 const { expect } = require("chai");
 
 const urlCourses = `${ CLIENT.URL }/courses`;
@@ -231,4 +231,22 @@ module.exports = {
 		const filePath = path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt');
 		await driver.$x(courseData.uploadBtn).send_keys(filePath);
 	},
+    verifyCourseAndTopic: async function (coursename, topicname) {
+		await this.clickOnCourseInSection(coursename, this.section.activeCourses);
+		let topicNames = await Promise.all(
+			(await driver.$$("#topic-list > div > div > div")).map(
+				async (element) => await element.getText()
+			)
+		);
+		await expect(topicNames).to.include(topicname);
+    },
+    verifyCopyWithStudents: async function (coursename) {
+		let copiedName = coursename + " - Kopie";
+		let courseHasIndex = await this.getIndexOfGivenCourseInSection(copiedName, this.section.activeCourses);
+		let areThereStudentsInCourseContainer  = await driver.$('.sc-card-wrapper.col-xl-3.col-lg-4.col-md-6.col-sm-12:nth-child('+(courseHasIndex+1)+') .additionalInfo .btn-member');
+		let areThereStudentsInCourse = await areThereStudentsInCourseContainer.getText();
+		let number = parseInt(areThereStudentsInCourse);
+		await expect(number).to.equal(0);
+
+	}
 };

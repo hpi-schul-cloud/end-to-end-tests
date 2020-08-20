@@ -1,21 +1,16 @@
 'use strict';
 
-const Login = require('../shared-objects/loginData');
+
 const waitHelpers = require('../runtime/helpers/waitHelpers.js');
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
+const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage');
 var secondCharacter;
 
 module.exports = {
 	pupilLogin: async function(name,password) {
-		let frontpageLoginBtn = await driver.$(Login.elem.frontpageLoginBtn);
-		await frontpageLoginBtn.click();
-		let usernameBox = await driver.$(Login.elem.usernameInput);
-		await usernameBox.setValue(name);
-		let passwordBox = await driver.$(Login.elem.passwordInput);
-		await passwordBox.setValue(password);
-		await waitHelpers.waitAndClick(Login.elem.submitBtn);
+		await loginPage.performLogin(name, password)
 	},
-	firstLoginTeacher: async function() {
+	firstLoginAdminOrTeacher: async function() {
 		let nextBtn = await driver.$('#nextSection');
 		await nextBtn.click();
 		await driver.pause(1500);
@@ -29,6 +24,7 @@ module.exports = {
 		await start.click();
 		await driver.pause(1500);
 	},
+	/*now use: firstLoginAdminOrTeacher
 	firstLoginAdmin: async function() {
 		let nextBtn = await driver.$('#nextSection');
 		await nextBtn.click();
@@ -39,7 +35,7 @@ module.exports = {
 		let start = await driver.$('a[data-testid="btn_schul-cloud_erkunden"]');
 		await start.waitForDisplayed(15000);
 		await start.click();
-	},
+	},*/
 	dataProtection: async function() {
 	let box1 = await driver.$('input[name=\'privacyConsent\']');
 	await box1.waitForExist(2000);
@@ -96,10 +92,10 @@ module.exports = {
 		return name;
 	},
 	logout: async function() {
-		await navigationTopPage.logout();
+		await navigationTopPage.performLogout();
 	},
 	loginAsPupil: async function(name, pass) {
-		await navigationTopPage.logout();
+		await navigationTopPage.performLogout();
 		await this.pupilLogin(name,pass);
 		await this.firstLoginPupilFullAge(name, pass);
 	}
