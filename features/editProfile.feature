@@ -6,8 +6,8 @@ Feature: users can edit their profiles
 
 	@teacherChangesPassword
 	Scenario Outline: teacher changes the passwort
-		When teacher logs in with email <username> and password <password>
-		And the teacher should accept the data protection
+		Given teacher logs in with email <username> and password <password>
+		Given teacher accepts data protection
 		And teacher goes to user settings
 		And teacher changes passwort from <password> to <newPassword>
 		And teacher logs out

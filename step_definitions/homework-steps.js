@@ -1,15 +1,9 @@
 'use strict';
 const path = require('path');
-
-const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
-const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
-const copyCourse = require('../page-objects/copyCourse');
-const homework = require('../page-objects/homework');
 const addEditHomeworkPage = require('../page-objects/pages/HMWRKAddEditHomeworkPage.js');
 const homeworkListPage = require('../page-objects/pages/HMWRKHomeworkListPage');
 const homeworkPage = require('../page-objects/pages/HMWRKHomeworkPage');
 const courseData = require('../shared-objects/courseData');
-const Login = require('../shared-objects/loginData');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const addCoursePage = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
 const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
@@ -17,14 +11,6 @@ const courseHomeworksPage = require("../page-objects/pages/coursePages/CRSSCours
 
 /*BACKGROUND*/
 
-Given(/^the teacher starts on the login page$/, function () {
-    return elementHelpers.loadPage(Login.url, 20);
-});
-
-Given(/^the teacher is logged-in successfully$/, async function () {
-    await startPage.clickLoginBtn();
-    await loginPage.performLogin(Login.defaultTeacherUsername, Login.defaultTeacherpassword);
-});
 
 Given(/^the teacher goes to the course page as a next step$/, function () {
     return elementHelpers.loadPage(courseData.urlCourses, 20);

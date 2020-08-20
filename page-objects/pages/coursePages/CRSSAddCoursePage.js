@@ -4,7 +4,6 @@ const { CLIENT } = require("../../../shared-objects/servers");
 const eh = require("../../../runtime/helpers/elementHelpers");
 const wh = require("../../../runtime/helpers/waitHelpers");
 const axios = require("axios");
-const teams = require('../../../page-objects/createTeam');
 
 const urlCoursesAdd = `${CLIENT.URL}/courses/add`;
 

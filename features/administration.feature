@@ -10,6 +10,7 @@
 
 	#Scenario Outline: Admin creates a pupil
 		#When admin logs in with email <adminsUsername> and password <password>
+		#When admin accepts data protection
 		#Then admin goes to administration
 		#And an admin puts in <firstName> and <secondName> and <email> of the new pupil
 		#And the admin should see new pupil with email <email> among his pupils
