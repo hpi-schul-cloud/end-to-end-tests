@@ -2,10 +2,10 @@
 'use strict';
 
 const elementHelpers = require('../../../runtime/helpers/elementHelpers.js');
+const waitHelpers= require('../../../runtime/helpers/waitHelpers');
 const ADMNSTRTNAdministrationOverviewPage = require('../../../page-objects/pages/administrationPages/ADMNSTRTNAdministrationOverviewPage');
 
-let eMAIL;
-let name;
+let oldPassword = require('../../../step_definitions/administartion-steps');
 
 module.exports = {
 
@@ -16,34 +16,51 @@ selectorSetEmail: 'input[data-testid=\'create_student_input_email\']',
 selectorSendALinkBox: 'input[data-testid=\'create_student_input_send_link\']',
 selectorNamesContainer: 'tbody[data-testid=\'students_names_container\']',
 selectorConsentSubmitBtn: 'button[data-testid=\'submit_consent\']',
+submitStudentCreateBtn: 'button.btn.btn-primary.btn-submit',
 
-goToAdministration: function() {
-    let url = ADMNSTRTNAdministrationOverviewPage.urlAdministration;
-    return elementHelpers.loadPage(url, 10);
-    },
+
 createNewPupil: async function(firstname, lastname, email) {
-    name=firstname;
-    eMAIL = email;
-    await this.goToAdministration();
-    let administrateStudentsBtn = await driver.$(ADMNSTRTNAdministrationOverviewPage.administrateStudentsBtn);
-    await administrateStudentsBtn.click();
-    let addBtn = await driver.$(selectorAddStudentBtn);
-    await addBtn.click();
-    await driver.pause(1000);
-    let firstName= await driver.$(selectorSetFirstName);
-    await firstName.setValue(firstname);
-    let secondName = await driver.$(selectorSetLastName);
-    await secondName.setValue(lastname);
-    let eMail = await driver.$(selectorSetEmail);
-    await eMail.setValue(email);
-    await this.executeScript();
-    let sendAMessageBox = await driver.$(selectorSendALinkBox);
-    await sendAMessageBox.click();
-    let addButton = await driver.$('body > div.modal.fade.add-modal.in > div > div > form > div.modal-footer > button.btn.btn-primary.btn-submit');
-    await addButton.click();
+    
+    await waitHelpers.waitAndClick(selectorAddStudentBtn);
+    await waitHelpers.waitAndSetValue(selectorSetFirstName, firstname);
+    await waitHelpers.waitAndSetValue(selectorSetLastName, lastname);
+    await waitHelpers.waitAndSetValue(selectorSetEmail, email);
+    await this.setStudentsBirthdayScript();
+    await waitHelpers.waitAndClick(selectorSendALinkBox);
+    await waitHelpers.waitAndClick(selectorAddBtn);
 },
-executeScript: async function() {
+setStudentsBirthdayScript: async function() {
     await driver.pause(1500);
     await driver.execute('document.querySelector("#create_birthday").value = "13.08.1990"')
-}
+},
+
+
+emailsOfThePupils: async function() {
+    let names = await driver.$$(ADMNSTRTNAdministerStudentsPage.selectorNamesContainer + ' > tr');
+    return Promise.all(names.map(async (nameContainer) => {
+        const emailContainer = await nameContainer.$("td:nth-child(3)");
+        return await emailContainer.getText();
+    }))
+},
+verify: async function(email) {
+    let emails = await this.emailsOfThePupils();
+    await expect(emails).to.contain(email);
+},
+submitConsent: async function(e_mail) {
+    let names = await driver.$$(selectorNamesContainer + ' > tr');
+    length = names.length;
+    for (var i = 1; i<= length; i++) {
+        let emailPromise =  await driver.$(selectorNamesContainer + ' > tr:nth-child('+i+') > td:nth-child(3)');
+        let email = await emailPromise.getText();
+        if (email===e_mail){
+            let boxConsent = await driver.$(selectorNamesContainer + ' > tr:nth-child('+i+') > td:nth-child(7) > a:nth-child(2) > i');
+            await boxConsent.click();
+            let submitBtn = await driver.$(selectorConsentSubmitBtn);
+            let passwordField = await driver.$('#passwd');
+            oldPassword.oldPassword = await passwordField.getValue();
+            await submitBtn.click();
+            break;
+        }
+    }
+},
 }

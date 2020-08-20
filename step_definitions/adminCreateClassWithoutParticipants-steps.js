@@ -1,14 +1,18 @@
 'use strict';
 
 
-const administrationHelper = require("../page-objects/administration");
+const administrationOverviewPage = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministrationOverviewPage');
+const administrationClasses= require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerClassesPage');
+const elementHelpers=require('../runtime/helpers/elementHelpers');
 
-
+Given(/^admin goes to administration$/, function (className) {
+    return administrationOverviewPage.goToAdministrationPage();
+});
 
 When(/^admin creates a class (.*)$/, function (className) {
-    return administrationHelper.createNewClass(className)
+    return administrationClasses.createNewClass(className)
 });
 
 Then(/^admin should see the class (.*) with (.*) participants.$/, function (className, participants) {
-    return administrationHelper.verifyNewEmptyClassCreated(className, participants)
+    return administrationClasses.verifyNewEmptyClassCreated(className, participants)
 });
