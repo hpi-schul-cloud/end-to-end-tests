@@ -5,7 +5,7 @@ const administrationOverviewPage = require('../page-objects/pages/administration
 const administrationClasses= require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerClassesPage');
 
 
-Given(/^admin goes to administration$/, function (className) {
+Given(/^admin goes to administration$/, function () {
     return administrationOverviewPage.goToAdministrationPage();
 });
 

@@ -1,5 +1,6 @@
 /*[url/administration/classes]*/
 const { CLIENT } = require("../../../shared-objects/servers");
+const waitHelpers= require('../../../runtime/helpers/waitHelpers');
 const ADMNSTRTNAdministrationOverviewPage = require('./ADMNSTRTNAdministrationOverviewPage');
 
 
@@ -17,26 +18,20 @@ module.exports = {
     createNewClass: async function (className = '11c') {
        
         // navigates to class administration
-        const administrateClassesBtn = await driver.$(ADMNSTRTNAdministrationOverviewPage.administrateClassesBtn);
-        await administrateClassesBtn.click();
-    
+        await waitHelpers.waitAndClick(ADMNSTRTNAdministrationOverviewPage.administrateClassesBtn);
+        
         const pageTitle = await driver.getTitle()
         expect(pageTitle.startsWith('Administration: Klassen')).to.equal(true)
     
-        const createClassBtn = await driver.$(ADMNSTRTNAdministerClassesPage.classCreateBtn);
-        await createClassBtn.click();
-    
+        await waitHelpers.waitAndClick(selectors.classCreateBtn);
+        
         const pageTitle2 = await driver.getTitle()
         expect(pageTitle2.startsWith('Erstelle eine neue Klasse')).to.equal(true)
     
-        const classCreationExtraOptions = await driver.$(ADMNSTRTNAdministerClassesPage.classCreationExtraOptions)
-        await classCreationExtraOptions.click()
+        await waitHelpers.waitAndClick(selectors.classCreationExtraOptions)
+        await waitHelpers.waitAndSetValue(selectors.classNameInputField, className)
+        await waitHelpers.waitAndClick(selectors.confirmClassCreate)
     
-        const classNameInputField = await driver.$(ADMNSTRTNAdministerClassesPage.classNameInputField)
-        await classNameInputField.setValue(className);
-    
-        const confirmButton = await driver.$(ADMNSTRTNAdministerClassesPage.confirmClassCreate)
-        await confirmButton.click()
     }, 
 
 
