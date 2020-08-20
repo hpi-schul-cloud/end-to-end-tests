@@ -6,12 +6,14 @@ The naming of the class should be the usual way (e.g. "11c")
 
 Background:
 	Given admin arrives on the Schul-Cloud homepage
-	Given admin is logged in successfully
-	Given admin performs the first login steps
+	
 
 Scenario Outline:
+
+	Given admin logs in with email <adminUsername> and password <adminPassword>
+	Given admin accepts data protection
 	When admin creates a class <courseName>
 	Then admin should see the class <sameCourse> with <participants> participants.
 Examples:
-	|courseName|sameCourse|participants |
-	|11c       |11c       |0            |
+	|adminUsername        | adminPassword | courseName| sameCourse| participants |
+	|admin@schul-cloud.org| Schulcloud1!  | 11c       | 11c       | 0            |

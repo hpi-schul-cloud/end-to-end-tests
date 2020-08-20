@@ -1,8 +1,6 @@
 'use strict';
-const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
-const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
+
 const courseData = require('../shared-objects/courseData');
-const firstLogin = require('../shared_steps/firstLogin.js');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const addCoursePage = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
 const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
@@ -12,14 +10,8 @@ let coursesCount;
 
 
 //________Background_________
-Given(/^the Teacher is successfully logged in/, async function() {
-	await startPage.clickLoginBtn();
-	await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.defaultLoginData.defaultTeacherpassword);
-});
-Given(/^teacher has accepted the data protection agreement$/, function() {
-	return firstLogin.firstLoginTeacher();
-});
-Given(/^goes the course page$/, function() {
+
+Given(/^goes to the course page$/, function() {
 	return elementHelpers.loadPage(courseData.urlCourses, 20);
 });
 

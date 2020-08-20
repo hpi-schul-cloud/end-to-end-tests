@@ -1,24 +1,10 @@
 'use strict';
-const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
-const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
+
 const administration = require('../page-objects/administration');
-const firstLogin = require('../shared_steps/firstLogin.js');
-const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const DashboardPage = require('../page-objects/pages/DashboardPage');
-const common = require('../shared_steps/common-steps.js');
 const ADMNSTRTNAdministrationOverviewPage = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministrationOverviewPage');
 
 
-
-  Given(/^The Teacher is logged in successfully$/, async function () {
-    await startPage.clickLoginBtn();
-	  await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.defaultLoginData.defaultTeacherpassword);
-  });
-
-  Then(/^The Teacher should accept the data protection$/,
-	function() {
-		return firstLogin.firstLoginTeacher();
-	});
 
   When(/^The Teacher goes to Verwaltung page$/, function () {
 	return administration.goToAdministration();

@@ -8,10 +8,7 @@ const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const courseData = require('../shared-objects/courseData');
 const firstLogin = require('../shared_steps/firstLogin.js');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
-const navigationTopPage = require('../page-objects/pages/NavigationTopPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
-const { logout } = require('./pages/NavigationTopPage.js');
-const addCoursePage = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
 const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
 // TODO: choose course, SORT
 

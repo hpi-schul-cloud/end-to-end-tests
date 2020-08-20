@@ -1,23 +1,17 @@
 'use strict';
 
-const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
-const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
+
 const newPupil = require('../page-objects/administration');
 const TMSAddEditTeamPage = require('../page-objects/pages/teamsPages/TMSAddEditTeamPage.js');
 const TMSTeamListPage = require('../page-objects/pages/teamsPages/TMSTeamListPage.js');
 const TMSTeamMembersPage = require('../page-objects/pages/teamsPages/TMSTeamMembersPage.js');
-let fullname1;
-let fullname2;
 let teamName;
+let fullname1;
+let fullname2
 const student1 = 'Marla Mathe';
 const student2 = 'Waldemar Wunderlich';
 
 
-Given(/^teacher successfully logged in$/, async function () {
-
-    await startPage.clickLoginBtn();
-    await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername2, loginPage.defaultLoginData.defaultTeacherpassword);
-});
 When(/^teacher adds a new student with (.*), (.*), (.*)$/, function (firstname1, lastname1, email1) {
     fullname1 = firstname1 + " " + lastname1;
     return newPupil.createNewPupil(firstname1, lastname1, email1);

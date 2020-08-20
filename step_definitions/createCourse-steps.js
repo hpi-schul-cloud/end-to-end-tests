@@ -1,23 +1,8 @@
+'use strict';
 const addCourse = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
 const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
-const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
-const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 
-Given(/^.*with email (.*) and (.*) is logged in successfully$/, async function (
-	username,
-	password
-) {
-	await startPage.clickLoginBtn();
-	await loginPage.performLogin(username, password);
-});
 
-Given(/^.*user logged in using the username (.*) and password (.*)$/, async function (
-	username,
-	password
-) {
-	await startPage.clickLoginBtn();
-	await loginPage.performLogin(username, password);
-});
 
 When(/^.*goes to courses page$/, function () {
 	return courseListPage.goToCourses();
