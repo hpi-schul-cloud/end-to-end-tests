@@ -18,7 +18,7 @@ module.exports = {
     createNewClass: async function (className = '11c') {
        
         // navigates to class administration
-        await waitHelpers.waitAndClick(ADMNSTRTNAdministrationOverviewPage.administrateClassesBtn);
+        await waitHelpers.waitAndClick(ADMNSTRTNAdministrationOverviewPage.selectors.administrateClassesBtn);
         
         const pageTitle = await driver.getTitle()
         expect(pageTitle.startsWith('Administration: Klassen')).to.equal(true)
