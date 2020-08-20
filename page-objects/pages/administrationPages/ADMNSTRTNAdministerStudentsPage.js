@@ -25,7 +25,7 @@ module.exports = {
         await waitHelpers.waitAndSetValue(selectors.selectorSetEmail, email);
         await this.setStudentsBirthdayScript();
         await waitHelpers.waitAndClick(selectors.selectorSendALinkBox);
-        await waitHelpers.waitAndClick(selectors.selectorAddBtn);
+        await waitHelpers.waitAndClick(selectors.submitStudentCreateBtn);
     },
     setStudentsBirthdayScript: async function() {
         await driver.pause(1500);
