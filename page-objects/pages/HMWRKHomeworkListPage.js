@@ -44,10 +44,7 @@ module.exports = {
 		};
 		return 0;
 	},
-	areThereAnyTasks: async function () {
-		let elementWithTasks = await driver.$$('.col-xl-12');
-		return elementWithTasks.length > 0 ? true : false;
-	},
+	
 	chooseTaskAmongAllTasks: async function (taskname) {
 		let taskindex = await this.returnTaskChildIndex(taskname);
 		if (taskindex > 0 ) {
@@ -86,18 +83,6 @@ module.exports = {
 	teacherLogsIn: async function () {
 		await this.userLogsOut();
 		await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.defaultLoginData.defaultTeacherpassword);
-	},
-
-	privateTaskVerify: async function () {
-		let areThereAnyTasks = await this.areThereAnyTasks();
-		if (areThereAnyTasks == true) {
-			let taskNames = await Promise.all(
-				(await driver.$$('#homeworks > ol > div > li > a')).map(
-					async element => await element.getText()
-				));
-			await expect(taskNames).not.to.include(taskname);
-		}
-		await expect(areThereAnyTasks).to.be.false;
 	},
 
 	userLogsOut: async function () {
