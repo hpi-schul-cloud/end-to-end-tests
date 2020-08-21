@@ -132,7 +132,7 @@ module.exports = {
 	},
 
 	teacherLogsIn: async function () {
-		await navigationTopPages.clickLogout();
+		await navigationTopPages.performLogout();
 		await startPage.clickLoginBtn();
 		await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.defaultLoginData.defaultTeacherpassword);
 	},
