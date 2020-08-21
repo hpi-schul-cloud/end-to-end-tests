@@ -3,14 +3,12 @@
 const TMSAddEditTeamPage = require('../page-objects/pages/teamsPages/TMSAddEditTeamPage');
 const newsAddEditNews = require('../page-objects/pages/NWSAddEditNewsPage');
 const newsListPage = require('../page-objects/pages/NWSNewsListPage');
-let name = "news";
-let laterNewsName = "news should be published later";
 const common = require('../shared_steps/common-steps.js');
 
 
 
 When(/^teacher creates some news which has to be published immediately$/, async function() {
-	await newsAddEditNews.performCreateNews(name);
+	await newsAddEditNews.createNews();
 });
 
 
@@ -19,16 +17,16 @@ When(/^he goes to the news page$/, function() {
 });
 Then(/^he can see the news$/, async function() {
 	let newsNames = await newsListPage.verifyWhetherVisible();
-	await expect(newsNames).to.include(name);
+	await expect(newsNames).to.include(newsAddEditNews.newsData.title);
 });
 
 When(/^teacher creates some news which has to be published later$/, function() {
-	return newsAddEditNews.performCreateNewsLater(laterNewsName);
+	return newsAddEditNews.performCreateNewsLater();
 });
 
 Then(/^he cannot see the news which is not due yet$/, async function() {
 	let newsNames = await newsListPage.verifyWhetherVisible();
-	await expect(newsNames).not.to.include(laterNewsName);
+	await expect(newsNames).not.to.include(newsAddEditNews.newsData.title);
 });
 // TEAM
 
