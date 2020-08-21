@@ -1,6 +1,5 @@
 'use strict';
 
-const administration = require('../page-objects/apiTest');
 const ADMNSTRTNAdministrationOverviewPage = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministrationOverviewPage');
 const studentAdministration = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerStudentsPage');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
@@ -18,7 +17,7 @@ Then(/^the admin should see new pupil with email (.*) among his pupils$/, functi
 	return studentAdministration.verify(email);
 });
 Then(/^.* manually submits a consent (.*)$/, function (email) {
-	return administration.submitConsent(email);
+	return studentAdministration.submitConsent(email);
 });
 Then(/^new pupil (.*) can log in with default password$/, async function (email) {
 	await startPage.clickLoginBtn();
