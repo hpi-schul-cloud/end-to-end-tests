@@ -56,7 +56,7 @@ module.exports = {
                 let passwordField = await driver.$('#passwd');
                 oldPassword.oldPassword = await passwordField.getValue();
                 await submitBtn.click();
-                return defaultPSWD;
+                return oldPassword.oldPassword;
             }
         } return oldPassword.oldPassword;
     },
