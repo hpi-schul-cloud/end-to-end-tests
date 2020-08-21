@@ -244,7 +244,6 @@ module.exports = {
 
 	submitFileFeedback: async function (taskName, file) {
 		// 	back to teacher
-		await navigationTopPages.clickLogout();
 		await this.teacherLogsIn();
 		// grade the submission
 		await this.gotoTasks();

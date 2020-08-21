@@ -10,6 +10,7 @@ const selectors = {
     submitNewsBtn: 'button[data-testid="btn_news_submit"]',
     titleField: 'input.h1',
     contentField: '.editor [contenteditable="true"]',
+    dateSelector: '[data-testid="news_date"] input',
 };
 
 module.exports = {
@@ -25,9 +26,7 @@ setContent: async function(content){
     await waitHelpers.waitAndSetValue(selectors.contentField, content);
 },
 setPublishDate: async function(date) {
-    let dateSelector = await driver.$('[data-testid="news_date"] input');
-    await dateSelector.waitForExist(1000);
-    await dateSelector.setValue(date);
+    await waitHelpers.waitAndSetValue(selectors.dateSelector,date)
 },
 setPublishTime: async function(time) {
     let timeSelector = await driver.$('[data-testid="news_time"] input');
