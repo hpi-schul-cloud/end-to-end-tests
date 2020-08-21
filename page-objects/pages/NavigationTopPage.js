@@ -47,10 +47,5 @@ module.exports = {
 		let initials = firstCharacter + secondCharacter;
 		return initials;
 	},
-	getNameAndPosition: async function() {
-		await waitHelpers.waitAndClick(selectors.userIcon);
-		let nameBox = await driver.$(selectors.userIcon)
-		let name = await nameBox.getText();
-		return name;
-	},
+
 }
