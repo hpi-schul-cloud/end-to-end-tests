@@ -3,7 +3,7 @@
 
 
 const waitHelpers= require('../../../runtime/helpers/waitHelpers');
-let oldPassword = require('../../../step_definitions/administartion-steps');
+let oldPassword;
 
 const selectors = {
     selectorAddStudentBtn:'button[data-testid=\'btn_add_student\']',
@@ -17,7 +17,7 @@ const selectors = {
 
 };
 module.exports = {
-    selectors,
+    selectors, oldPassword,
     createNewPupil: async function(firstname, lastname, email) {
         await waitHelpers.waitAndClick(selectors.selectorAddStudentBtn);
         await waitHelpers.waitAndSetValue(selectors.selectorSetFirstName, firstname);
@@ -54,10 +54,12 @@ module.exports = {
                 await boxConsent.click();
                 let submitBtn = await driver.$(selectors.selectorConsentSubmitBtn);
                 let passwordField = await driver.$('#passwd');
-                oldPassword.oldPassword = await passwordField.getValue();
+                let password_old = await passwordField.getValue();
+                oldPassword = password_old;
                 await submitBtn.click();
-                return oldPassword.oldPassword;
+                break;
+                
             }
-        } return oldPassword.oldPassword;
+        } 
     },
 }

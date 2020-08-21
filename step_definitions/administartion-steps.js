@@ -4,7 +4,7 @@ const ADMNSTRTNAdministrationOverviewPage = require('../page-objects/pages/admin
 const studentAdministration = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerStudentsPage');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
-let oldPassword; // the value will be overwritten from AdministerStudentsPage
+
 
 When(/^admin goes to students administration$/, function() {
 	return ADMNSTRTNAdministrationOverviewPage.clickAdministrateStudents();
@@ -21,8 +21,8 @@ Then(/^.* manually submits a consent (.*)$/, function (email) {
 });
 Then(/^new pupil (.*) can log in with default password$/, async function (email) {
 	await startPage.clickLoginBtn();
-	await loginPage.performLogin(email, oldPassword);
+	await loginPage.performLogin(email, studentAdministration.oldPassword);
 });
 
 
-module.exports = {oldPassword}
+
