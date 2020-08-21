@@ -1,6 +1,7 @@
 /*[url/administration/students]*/
 'use strict';
-
+const startPage = require('../generalPagesBeforeLogin/StartPageBeforeLogin');
+const loginPage= require('../generalPagesBeforeLogin/LoginPage');
 
 const waitHelpers= require('../../../runtime/helpers/waitHelpers');
 let oldPassword;
@@ -62,4 +63,8 @@ module.exports = {
             }
         } 
     },
+    studentLogsInWithDefaultPassword: async function(email) {
+        await startPage.clickLoginBtn();
+	    await loginPage.performLogin(email, oldPassword);
+    }
 }
