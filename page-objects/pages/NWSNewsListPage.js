@@ -7,7 +7,7 @@ module.exports = {
 	// URL HELPER
 	goToNews: async function() {
 		let url = `${CLIENT.URL}/news/`;
-		await elementHelpers.loadPage(url, 100);
+		await elementHelpers.loadPage(url, 10);
     },
     verifyWhetherVisible: async function() {
 		const elements = await driver.$$('span.title');
