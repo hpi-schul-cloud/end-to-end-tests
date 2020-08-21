@@ -1,7 +1,7 @@
 'use strict';
 
-const administration = require("../page-objects/administration.js")
-const common = require('../shared_steps/common-steps.js');
+const administration = require('../page-objects/apiTest');
+
 
 Given(/^an admin are able to request information about students from own school$/, async function () {
     await administration.getStudentsFromSameSchoolAndVerify()

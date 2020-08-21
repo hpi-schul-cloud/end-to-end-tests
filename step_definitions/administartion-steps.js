@@ -1,41 +1,26 @@
 'use strict';
 
-let administration = require('../page-objects/administration');
-const elementHelpers = require('../runtime/helpers/elementHelpers.js')
 const ADMNSTRTNAdministrationOverviewPage = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministrationOverviewPage');
-const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
-const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
+const studentAdministration = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerStudentsPage');
 
 
-Given(/^this admin logs in successfully$/, async function () {
-	await startPage.clickLoginBtn();
-	await loginPage.performLogin(loginPage.defaultLoginData.defaultAdminUsername, loginPage.defaultLoginData.defaultAdminPassword);
-});
 
-When(/^admin goes to administration$/, function() {
-	let url = ADMNSTRTNAdministrationOverviewPage.urlAdministration;
-    return elementHelpers.loadPage(url, 20);
+When(/^admin goes to students administration$/, function() {
+	return ADMNSTRTNAdministrationOverviewPage.clickAdministrateStudents();
 });
 
 When(/^an admin puts in (.*) and (.*) and (.*) of the new pupil$/, function (firstname, secondname, email) {
-	return administration.createNewPupil(firstname, secondname, email)
+	return studentAdministration.createNewPupil(firstname, secondname, email)
 });
 Then(/^the admin should see new pupil with email (.*) among his pupils$/, function (email) {
-	return administration.verify(email);
+	return studentAdministration.verify(email);
 });
-Then(/^.* manually submits a consent (.*)$/, function (e_mail) {
-	return administration.submitConsent(e_mail);
+Then(/^.* manually submits a consent (.*)$/, function (email) {
+	return studentAdministration.submitConsent(email);
 });
-Then(/^new pupil can log in$/, function () {
-	return administration.newPupilLogsIn();
-});
-Then(/^new pupil accepts data protection policy and sets new password for the profile$/, function () {
-	return administration.pupilAcceptsDataProtection();
+Then(/^new pupil (.*) can log in with default password$/, async function (email) {
+	await studentAdministration.studentLogsInWithDefaultPassword(email)
 });
 
-Then(/^save created password$/, function () {
-	//To do
-});
-Then(/^student logs in with (.*) and created password$/, function () {
-	//To do
-});
+
+
