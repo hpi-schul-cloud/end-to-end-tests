@@ -46,8 +46,7 @@ module.exports = {
     },
     submitConsent: async function(e_mail) {
         let names = await driver.$$(selectors.selectorNamesContainer + ' > tr');
-        length = names.length;
-        for (var i = 1; i<= length; i++) {
+        for (var i = 1; i<= names.length; i++) {
             let emailPromise =  await driver.$(selectors.selectorNamesContainer + ' > tr:nth-child('+i+') > td:nth-child(3)');
             let email = await emailPromise.getText();
             if (email===e_mail){
