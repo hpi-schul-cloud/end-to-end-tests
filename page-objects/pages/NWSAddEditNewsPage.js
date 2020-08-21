@@ -11,6 +11,7 @@ const selectors = {
     titleField: 'input.h1',
     contentField: '.editor [contenteditable="true"]',
     dateSelector: '[data-testid="news_date"] input',
+   
 };
 
 module.exports = {
@@ -34,23 +35,14 @@ setPublishTime: async function(time) {
     await timeSelector.setValue(time);
 },
 save: async function() {
-    let add = await driver.$(selectors.submitNewsBtn);
-    await add.click();
+    await waitHelpers.waitAndClick(submitNewsBtn);
 },
 createNews: async function({title, content, date, time}) {
     await this.goToNewNews();
-    if(title){
-        await this.setTitle(title)
-    }
-    if(content){
-        await this.setContent(content)
-    }
-    if(date){
-        await this.setPublishDate(date);
-    }
-    if(time){
-        await this.setPublishTime(time);
-    }
+    await this.setTitle(title)
+    await this.setContent(content)
+    await this.setPublishDate(date);
+    await this.setPublishTime(time);
     await this.save();
 },
 performCreateNews: async function(title) {
