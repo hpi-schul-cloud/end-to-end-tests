@@ -2,9 +2,7 @@
 'use strict';
 
 const { CLIENT } = require("../../shared-objects/servers");
-const imageCompare = require('../../runtime/imageCompare');
 const navigationTopPage = require('../../page-objects/pages/NavigationTopPage');
-const firstLogin = require('../../shared_steps/firstLogin.js');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const apiHelpers = require('../../runtime/helpers/APIhelpers');
 const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
