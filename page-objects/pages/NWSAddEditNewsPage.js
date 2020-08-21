@@ -3,10 +3,13 @@
 const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
 const { CLIENT } = require("../../shared-objects/servers");
 const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers');
+const waitHelpers = require('../../runtime/helpers/waitHelpers');
 
 const selectors = {
     timeNewsMustBePublished: 'input[data-testid="news_date_to_be_displayed"]',
     submitNewsBtn: 'button[data-testid="btn_news_submit"]',
+    titleField: 'input.h1',
+    contentField: '.editor [contenteditable="true"]',
 };
 
 module.exports = {
@@ -16,14 +19,10 @@ goToNewNews: async function() {
     await elementHelpers.loadPage(url, 100);
 },
 setTitle: async function(title){
-    let titleField = await driver.$('input.h1');
-    await titleField.waitForExist(1000);
-    await titleField.setValue(title);
+    await waitHelpers.waitAndSetValue(selectors.titleField, title)
 },
 setContent: async function(content){
-    let contentField = await driver.$('.editor [contenteditable="true"]');
-    await contentField.waitForExist(1000);
-    await contentField.setValue(content);
+    await waitHelpers.waitAndSetValue(selectors.contentField, content);
 },
 setPublishDate: async function(date) {
     let dateSelector = await driver.$('[data-testid="news_date"] input');
