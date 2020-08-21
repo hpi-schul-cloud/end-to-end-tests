@@ -9,6 +9,7 @@ const selectors = {
     timeNewsMustBePublished: 'input[data-testid="news_date_to_be_displayed"]',
     submitNewsBtn: 'button[data-testid="btn_news_submit"]',
     newsTitle: '[data-testid="news_title"]',
+    editorContent: '.ck-content',
 };
 
 module.exports = {
@@ -21,9 +22,7 @@ setTitle: async function(title){
     await waitHelpers.waitAndSetValue(selectors.newsTitle, title)
 },
 setContent: async function(content){
-    let contentField = await driver.$('.editor [contenteditable="true"]');
-    await contentField.waitForExist(2500);
-    await contentField.setValue(content);
+    await waitHelpers.waitAndSetValue(selectors.editorContent, content);
 },
 setPublishDate: async function(date) {
     await waitHelpers.waitAndSetValue(selectors.dateSelector,date)
