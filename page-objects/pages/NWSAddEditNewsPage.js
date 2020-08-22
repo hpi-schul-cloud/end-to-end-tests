@@ -3,52 +3,56 @@
 const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
 const { CLIENT } = require("../../shared-objects/servers");
 const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers');
-const waitHelpers = require('../../runtime/helpers/waitHelpers');
 
 const selectors = {
     timeNewsMustBePublished: 'input[data-testid="news_date_to_be_displayed"]',
     submitNewsBtn: 'button[data-testid="btn_news_submit"]',
-    newsTitle: '[data-testid="news_title"]',
-    editorContent: '.ck-content',
-    timeSel: '[data-testid="news_date_to_be_displayed"]',
-   
 };
-const newsData = {
-    title: "news",
-    content: "news content",
-    date: "20.02.2040 10:00"
-}
-
 
 module.exports = {
-selectors, newsData,
+selectors,
 goToNewNews: async function() {
     let url = `${CLIENT.URL}/news/new`;
-    await elementHelpers.loadPage(url, 10);
+    await elementHelpers.loadPage(url, 100);
 },
 setTitle: async function(title){
-    await waitHelpers.waitAndSetValue(selectors.newsTitle, title)
+    let titleField = await driver.$('input.h1');
+    await titleField.waitForExist(1000);
+    await titleField.setValue(title);
 },
 setContent: async function(content){
-    let contentSel = await driver.$(selectors.editorContent);
-    await contentSel.setValue(content);
-    await driver.pause(1500);
+    let contentField = await driver.$('.editor [contenteditable="true"]');
+    await contentField.waitForExist(1000);
+    await contentField.setValue(content);
 },
-setPublishDateAndTime: async function(date) {
-    await driver.execute(`document.querySelector("data-testid="news_date_to_be_displayed").value="${newsData.date}"`);
+setPublishDate: async function(date) {
+    let dateSelector = await driver.$('[data-testid="news_date"] input');
+    await dateSelector.waitForExist(1000);
+    await dateSelector.setValue(date);
 },
 setPublishTime: async function(time) {
-    let timeSelector = await driver.$(selectors.timeSel);
+    let timeSelector = await driver.$('[data-testid="news_time"] input');
     await timeSelector.waitForExist(1000);
     await timeSelector.setValue(time);
 },
 save: async function() {
-    await waitHelpers.waitAndClick(selectors.submitNewsBtn);
+    let add = await driver.$(selectors.submitNewsBtn);
+    await add.click();
 },
-createNews: async function() {
+createNews: async function({title, content, date, time}) {
     await this.goToNewNews();
-    await this.setTitle(newsData.title)
-    await this.setContent(newsData.content)
+    if(title){
+        await this.setTitle(title)
+    }
+    if(content){
+        await this.setContent(content)
+    }
+    if(date){
+        await this.setPublishDate(date);
+    }
+    if(time){
+        await this.setPublishTime(time);
+    }
     await this.save();
 },
 performCreateNews: async function(title) {
@@ -57,11 +61,11 @@ performCreateNews: async function(title) {
         content: "Here are some announcements for my pupils"
     });
 },
-performCreateNewsLater: async function() {
-    await this.goToNewNews();
-    await this.setTitle(newsData.title)
-    await this.setContent(newsData.content);
-    await this.setPublishDateAndTime();
-    await this.save();
+performCreateNewsLater: async function(title) {
+    await this.createNews({
+        title: title,
+        content: "Here are some announcements for my pupils",
+        date: dateTimeHelpers.setDate(0,1,1,'.', false)
+    });
 }
 }
