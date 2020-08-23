@@ -2,8 +2,9 @@
 'use strict';
 
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
+const loginPage = require('../generalPagesBeforeLogin/LoginPage');
+const navigationTopPage = require('../NavigationTopPage');
 const { CLIENT } = require("../../../shared-objects/servers");
-const firstLogin = require('../../../shared_steps/firstLogin.js');
 const TMSTeamListPage = require('../../../page-objects/pages/teamsPages/TMSTeamListPage.js');
 const TMSGeneralTeamPage = require('../../../page-objects/pages/teamsPages/TMSGeneralTeamPage.js');
 const TMSTeamMembersPage = require('../../../page-objects/pages/teamsPages/TMSTeamMembersPage.js');
@@ -147,9 +148,9 @@ module.exports = {
         let email = emailTWO;
         let name = email;
         let password = "Schulcloud1!";
-        await firstLogin.logout();
-        await firstLogin.pupilLogin(email, oldPassword2);
-        await firstLogin.firstLoginPupilFullAge(name, password);
+        await navigationTopPage.clickLogout()
+        await loginPage.performLogin(email, oldPassword2);
+        await loginPage.firstLoginStudent(name, password);
         await newsListPage.goToNews();
         await newsListPage.shouldBeVisible(newsName2)
     },

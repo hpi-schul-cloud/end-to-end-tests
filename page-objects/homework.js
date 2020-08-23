@@ -4,9 +4,9 @@ const path = require('path');
 
 const waitHelpers = require('../runtime/helpers/waitHelpers.js');
 const dateTimeHelpers = require('../runtime/helpers/dateTimeHelpers.js');
+const navigationTopPages = require('./pages/NavigationTopPage');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const courseData = require('../shared-objects/courseData');
-const firstLogin = require('../shared_steps/firstLogin.js');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
@@ -132,7 +132,7 @@ module.exports = {
 	},
 
 	teacherLogsIn: async function () {
-		await this.userLogsOut();
+		await navigationTopPages.performLogout();
 		await startPage.clickLoginBtn();
 		await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.defaultLoginData.defaultTeacherpassword);
 	},
@@ -142,9 +142,9 @@ module.exports = {
 		await this.gotoTasksTab();
 	},
 	studentLogsInAndGoesToTasksOfTheCourse: async function (username, password, coursename) {
-		await this.userLogsOut();
-		await firstLogin.pupilLogin(username, password);
-		await firstLogin.firstLoginPupilFullAge(username, password);
+		await navigationTopPages.clickLogout();
+		await startPage.performLogin(username, password);
+		await loginPage.firstLoginStudent(username, password);
 		await this.goToTasksOfTheCourse(coursename);
 	},
 	privateTaskVerify: async function () {
@@ -159,9 +159,6 @@ module.exports = {
 		await expect(areThereAnyTasks).to.be.false;
 	},
 
-	userLogsOut: async function () {
-		await elementHelpers.loadPage(courseData.urlLogout, 20);
-	},
 	// student helpers
 	userFindsTheTask: async function (taskname) {
 		let areThereAnyTasks = await driver.$$('#homeworks > ol > div > li');
@@ -206,7 +203,7 @@ module.exports = {
 
 	teacherLogsInAndCanSeeTheTextSubmission: async function (coursename, taskname, studentname) {
 		await this.teacherLogsIn();
-		await firstLogin.firstLoginTeacher();
+		await loginPage.firstLoginAdminOrTeacher();
 		await courseListPage.goToCourses();
 		await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 		await this.gotoTasksTab();
@@ -247,7 +244,6 @@ module.exports = {
 
 	submitFileFeedback: async function (taskName, file) {
 		// 	back to teacher
-		await this.userLogsOut();
 		await this.teacherLogsIn();
 		// grade the submission
 		await this.gotoTasks();
@@ -286,8 +282,8 @@ module.exports = {
 		await driver.switchToWindow(mainWindow);
 
 		// ensure the student sees the file
-		await this.userLogsOut();
-		await firstLogin.pupilLogin(student.login, student.password);
+		await navigationTopPages.clickLogout();
+		await loginPage.performLogin(student.login, student.password);
 		await this.gotoTasks();
 		await click(`[aria-label*="${taskName}"] > span`);
 		await click('a*=Bewertung');
