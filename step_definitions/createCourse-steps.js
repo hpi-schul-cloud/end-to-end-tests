@@ -1,13 +1,7 @@
-const elementHelpers = require("../runtime/helpers/elementHelpers.js");
-const Login = require("../shared-objects/loginData");
-const loginPage = require("../page-objects/pages/loginPage");
-const startPage = require("../page-objects/pages/startPage");
 const addCourse = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
-const courseList = require("../page-objects/pages/coursePages/CRSSCourseListPage");
-
-Given(/^.*arrives on the Schul-Cloud Page$/, function () {
-	return elementHelpers.loadPage(Login.url, 20);
-});
+const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
+const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
+const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 
 Given(/^.*with email (.*) and (.*) is logged in successfully$/, async function (
 	username,
@@ -26,10 +20,10 @@ Given(/^.*user logged in using the username (.*) and password (.*)$/, async func
 });
 
 When(/^.*goes to courses page$/, function () {
-	return courseList.goToCourses();
+	return courseListPage.goToCourses();
 });
 Then(/^.*buttons: Import-course, Create-new-course are visible$/, function () {
-	return courseList.importAndCreateCourseBtnsAreVisible();
+	return courseListPage.importAndCreateCourseBtnsAreVisible();
 });
 
 Then(
@@ -40,10 +34,10 @@ Then(
 );
 
 When(/^.*clicks Create-new-course button$/, function () {
-	return courseList.clickCreateCourseBtn();
+	return courseListPage.clickCreateCourseBtn();
 });
 
-When(/^.*enters course name (.*)$/, function (courseName) {
+When(/^.*enters course name (.*) into new course form$/, function (courseName) {
 	return addCourse.setCourseName(courseName);
 });
 When(/^.*chooses course colour (.*)$/, function (courseColour) {
@@ -59,13 +53,13 @@ When(/^.*clicks to preview$/, function () {
 Then(/^.*course with name (.*) is visible on the list$/, async function (
 	courseName
 ) {
-	return courseList.isCourseOnList(courseName);
+	return courseListPage.isCourseOnList(courseName);
 });
 
 Then(
 	/^.*course with name (.*) is displayed correctly on the list$/,
 	async function (courseName) {
-		await courseList.courseIsDisplayedCorrectly(courseName);
+		await courseListPage.courseIsDisplayedCorrectly(courseName);
 	}
 );
 When(/^.*clicks Next-section button$/, async function () {
@@ -111,5 +105,5 @@ Then(/^.*clicks Go-to-course-list$/, async function () {
 });
 
 Then(/^.*color of the course is (\S*).*$/, async function (courseColour) {
-	await courseList.isCorrectCourseColour(courseColour);
+	await courseListPage.isCorrectCourseColour(courseColour);
 });

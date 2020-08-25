@@ -1,15 +1,12 @@
 'use strict';
-const loginPage = require('../page-objects/pages/loginPage');
-const startPage = require('../page-objects/pages/startPage');
+const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
+const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const loginData = require('../shared-objects/loginData');
 const shared = { loginData };
 const firstLogin = require('../shared_steps/firstLogin.js');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const DashboardPage = require('../page-objects/pages/DashboardPage');
-
-Given(/^an admin arrives on the Schul-Cloud login homepage$/, function() {
-	return elementHelpers.loadPage(shared.loginData.url, 10);
-});
+const common = require('../shared_steps/common-steps.js');
 
 When(/^an admin puts in (.*) and (.*) and click the login-button$/, async function(username,password) {
 	await startPage.clickLoginBtn();

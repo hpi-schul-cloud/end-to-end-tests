@@ -21,8 +21,8 @@ module.exports = {
     clickLogout: async function () {
         await waitHelpers.waitAndClick(this.selectors.initialsDDLogout);
     },
-    logout: async function () {
-        this.clickInitials();
-        this.clickLogout();
+    performLogout: async function () {
+        await this.clickInitials();
+        await this.clickLogout();
     }
 }

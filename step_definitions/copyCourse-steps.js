@@ -1,12 +1,13 @@
 'use strict';
-const loginPage = require('../page-objects/pages/loginPage');
-const createCourse = require('../page-objects/createCourse');
-const startPage = require('../page-objects/pages/startPage');
+const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
+const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const copyCourse = require('../page-objects/copyCourse');
 const courseData = require('../shared-objects/courseData');
 const Login = require('../shared-objects/loginData');
 const firstLogin = require('../shared_steps/firstLogin.js');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
+const addCoursePage = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
+const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
 let coursesCount;
 
 
@@ -25,7 +26,7 @@ Given(/^goes the course page$/, function() {
 // _________Copy__________
 
 Given(/^the teacher creates a course with name (.*) and$/, function(coursename) {
-	return createCourse.createCourse(coursename);
+	return addCoursePage.createCourse(coursename);
 });
 
 Given(/^the amount of courses is x$/, async function() {
@@ -42,10 +43,10 @@ Then(/^the amount of courses is implemented$/, async function() {
 
 // _________With Text__________
 Given(/^the teacher creates some with name (.*)$/, function(coursename) {
-	return createCourse.createCourse(coursename);
+	return addCoursePage.createCourse(coursename);
 });
 Given(/^the teacher chooses the created course with (.*) and$/, function(coursename) {
-	return copyCourse.chooseCourse(coursename);
+	return courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 });
 When(/^the teacher adds a Topic with name (.*)$/, function(topicname) {
 	return copyCourse.addTopic(topicname);
@@ -76,10 +77,10 @@ Then(/^teacher sees the course (.*) copy and the GeoGebraArbeitsblatt (.*) is st
 
 // _________With Material__________
 Given(/^the teacher creates a course with name (.*),$/, function(coursename) {
-	return createCourse.createCourse(coursename);
+	return addCoursePage.createCourse(coursename);
 });
 Given(/^the teacher chooses this course with (.*) and$/, function(coursename) {
-	return copyCourse.chooseCourse(coursename);
+	return courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 });
 Given(/^the teacher adds a topic with (.*)$/, function(topicname) {
 	return copyCourse.addTopic(topicname);
@@ -111,7 +112,7 @@ Then(/^teacher sees the course (.*) copy and the Etherpadd (.*) is still availia
 
 // _________With pupils__________
 Given(/^the teacher creates a course with name (.*) and student (.*)$/, function(coursename, studentname) {
-	return createCourse.createCourseWithStudents(coursename, studentname);
+	return addCoursePage.createCourseWithStudents(coursename, studentname);
 });
 When(/^the teacher copies the course (.*) with students$/, function(coursename) {
 	return copyCourse.copyCourse(coursename);

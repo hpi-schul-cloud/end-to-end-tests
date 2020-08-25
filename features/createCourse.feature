@@ -3,14 +3,14 @@ Feature: logging in as a teacher and create a new course
 I want to be able to create a new course on Schul-Cloud
 
 Background:
-	Given teacher arrives on the Schul-Cloud Page
+	Given teacher arrives on the Schul-Cloud homepage
 
 Scenario Outline: create first course. Teachers have 2 options: to import or to create new course and the teacher sees the created course in the list
 	Given teacher with email <username> and <password> is logged in successfully
 	When teacher goes to courses page
 	Then teacher should see that buttons: Import-course, Create-new-course are visible
 	When teacher clicks Create-new-course button
-	When teacher enters course name <courseName>
+	When teacher enters course name <courseName> into new course form
 	When teacher chooses course colour <courseColour>
 	When teacher clicks Next-section button
 	When teacher clicks Next-section button
@@ -32,7 +32,7 @@ Scenario Outline: submit compulsory fields by creating the course
 	When teacher see that course name has not been entered 
 	When teacher clicks Next-section button
 	Then teacher should see that the 2 section can not be opened
-	When teacher enters course name <courseName>
+	When teacher enters course name <courseName> into new course form
 	When teacher chooses course colour <courseColour>
 	When teacher clicks Next-section button
 	Then teacher should see that 2 section is opened

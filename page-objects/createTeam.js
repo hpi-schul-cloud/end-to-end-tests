@@ -1,44 +1,24 @@
 'use strict';
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
-const teamData = require('../shared-objects/teamsData');
-const { expect } = require('chai');
-let numberOFmatches;
-let pupilNames;
+const TMSAddEditTeamPage = require('./pages/teamsPages/TMSAddEditTeamPage.js');
+const TMSTeamListPage = require('./pages/teamsPages/TMSTeamListPage.js');
+const TMSGeneralTeamPage = require('./pages/teamsPages/TMSGeneralTeamPage.js');
+const TMSTeamMembersPage = require('./pages/teamsPages/TMSTeamMembersPage.js');
 
-const chosenSearchableSelectHelper = (driver, selectSelector) => ({
-	getAvailableOptions: async () => {
-		const options = await driver.$$(`${selectSelector} > option`);
-		return Promise.all(options.map(async opt => {
-			return {
-				text: (await opt.getHTML(false)).trim(),
-				value: await opt.getAttribute("value")
-			}
-		}))
-	},
-	selectOptionByName: async (name) => {
-		// TODO search by full name (including spaces) => remove split()
-		const searchName = name.trim().split(" ")[0]
-		const container = await driver.$(`${selectSelector} + .chosen-container`);
-		const searchInput = await container.$(".chosen-search-input");
-		await searchInput.click();
-		await searchInput.setValue(searchName);
-		const searchResult = await container.$(`.chosen-results .active-result.highlighted`)
-		await searchResult.click();
-	}
-})
+const multipleChoiceSelectForTeamMembers = '[data-testid="select_team_members_add"]';
 
 module.exports = {
 	goToTeams: async function() {
-		let url = teamData.url;
+		let url = TMSTeamListPage.url;
 		await elementHelpers.loadPage(url, 20);
 	},
 	addTeam: async function() {
-		let url = teamData.addTeamURL;
+		let url = TMSTeamListPage.addTeamURL;
 		await elementHelpers.loadPage(url, 20);
 		await driver.pause(2000);
 	},
 	setTeamName: async function(name) {
-		let nameField = await driver.$(teamData.teamName);
+		let nameField = await driver.$(TMSAddEditTeamPage.teamName);
 		await nameField.setValue(name);
 	},
 	confirmTeamCreate: async function() {
@@ -53,15 +33,15 @@ module.exports = {
 		await this.confirmTeamCreate();
 	},
 	clickSettings: async function() {
-		let settingsBtn = await driver.$(teamData.teamSettings);
+		let settingsBtn = await driver.$(TMSGeneralTeamPage.teamSettings);
 		await settingsBtn.click();
 	},
 	clickAdministrateTeammembers: async function() {
-		let administrateBtn = await driver.$(teamData.administrateTeamMembers);
+		let administrateBtn = await driver.$(TMSGeneralTeamPage.administrateTeamMembers);
 		await administrateBtn.click();
 	},
-	clickAddInternamMembers: async function() {
-		let addBtn =  await driver.$(teamData.addInternamMembers);
+	clickAddInternalMembers: async function() {
+		let addBtn =  await driver.$(TMSTeamMembersPage.addInternalMembers);
 		await addBtn.click();
 		await driver.pause(1500);
 	},
@@ -70,23 +50,13 @@ module.exports = {
 		await this.createTeamSteps(teamname);
 		await this.clickSettings();
 		await this.clickAdministrateTeammembers();
-		await this.clickAddInternamMembers();
+		await this.clickAddInternalMembers();
 
 	},
-	chooseTeamMembersHelper: async function() {
-		const helper = chosenSearchableSelectHelper(driver, '[data-testid="select_team_members_add"]');
-		const options = await helper.getAvailableOptions();
-		numberOFmatches = options.length;
-		pupilNames = options.map(p => p.text);
-	},
-	addTeamMemberSTEPS: async function(fullname) {
-		const helper = chosenSearchableSelectHelper(driver, '[data-testid="select_team_members_add"]');
-		await helper.selectOptionByName(fullname);
-	},
+
 	// add members to the team: steps in browser
 	addTeamMembersSteps: async function(fullname) {
-		await this.chooseTeamMembersHelper();
-		await this.addTeamMemberSTEPS(fullname);
+		await elementHelpers.selectOptionByText(multipleChoiceSelectForTeamMembers, fullname);
 	},
 
 	submitAddTeammemberAfterAllMemebersWereAdded: async function() {
@@ -102,7 +72,7 @@ module.exports = {
 	},
 	// assertion helper in steps:
 	getTeamNames: async function() {
-		let teamsPage = teamData.url;
+		let teamsPage = TMSTeamListPage.url;
 		await elementHelpers.loadPage(teamsPage, 20);
 		let container = await driver.$('.row.tasks.card-deck-row');
 		let elements = await container.$$('div');

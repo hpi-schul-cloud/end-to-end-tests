@@ -10,7 +10,7 @@
 #     runs-on: ubuntu-latest
 #     steps:
 #       - name: execute tests
-#         run: curl "https://raw.githubusercontent.com/schul-cloud/integration-tests/develop/scripts/ci/fetch.github.sh" | bash
+#         run: curl "https://raw.githubusercontent.com/hpi-schul-cloud/integration-tests/develop/scripts/ci/fetch.github.sh" | bash
 #       - uses: actions/upload-artifact@v1
 #         if: always()
 #         with:
