@@ -12,8 +12,9 @@ Scenario Outline:
 
 	Given admin logs in with email <adminUsername> and password <adminPassword>
 	Given admin accepts data protection
-	When admin creates a class <courseName>
-	Then admin should see the class <sameCourse> with <participants> participants.
+	Given admin goes to administration
+	When admin creates a class <className>
+	Then admin should see the class <sameClass> with <participants> participants.
 Examples:
-	|adminUsername        | adminPassword | courseName| sameCourse| participants |
+	|adminUsername        | adminPassword | className| sameClass| participants |
 	|admin@schul-cloud.org| Schulcloud1!  | 11c       | 11c       | 0            |

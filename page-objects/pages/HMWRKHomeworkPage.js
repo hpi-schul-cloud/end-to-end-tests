@@ -2,7 +2,6 @@
 'use strict';
 const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
 const courseData = require('../../shared-objects/courseData');
-const firstLogin = require('../../shared_steps/firstLogin.js');
 const courseListPage = require('../../page-objects/pages/coursePages/CRSSCourseListPage');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const startPage = require('../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
@@ -56,7 +55,7 @@ module.exports = {
 
     teacherLogsInAndCanSeeTheTextSubmission: async function (coursename, taskname, studentname) {
         await this.teacherLogsIn();
-        await firstLogin.firstLoginTeacher();
+        await loginPage.firstLoginAdminOrTeacher();
         await courseListPage.goToCourses();
         await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
         await this.gotoTasksTab();
@@ -151,7 +150,7 @@ module.exports = {
 
         // ensure the student sees the file
         await this.userLogsOut();
-        await firstLogin.pupilLogin(student.login, student.password);
+        await loginPage.performLogin(student.login, student.password);
         await this.gotoTasks();
         await waitHelpers.waitAndClick(`*=${taskName}`);
         await waitHelpers.waitAndClick('a*=Bewertung');

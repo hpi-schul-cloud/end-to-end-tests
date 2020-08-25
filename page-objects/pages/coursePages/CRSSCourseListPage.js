@@ -4,7 +4,8 @@ const { CLIENT } = require("../../../shared-objects/servers")
 const eh = require("../../../runtime/helpers/elementHelpers");
 const wh = require("../../../runtime/helpers/waitHelpers");
 const courseData = require('../../../shared-objects/courseData');
-const firstLogin = require('../../../shared_steps/firstLogin.js');
+const startPage = require('../../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
+const loginPage = require('../../../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const elementHelpers = require('../../../runtime/helpers/elementHelpers.js');
 const { expect } = require("chai");
 
@@ -211,8 +212,8 @@ module.exports = {
     
 	studentLogsInAndGoesToTasksOfTheCourse: async function (username, password, coursename) {
 		await this.userLogsOut();
-		await firstLogin.pupilLogin(username, password);
-		await firstLogin.firstLoginPupilFullAge(username, password);
+		await startPage.performLogin(username, password);
+		await loginPage.firstLoginStudent(username, password);
 		await this.goToTasksOfTheCourse(coursename);
     },
     
