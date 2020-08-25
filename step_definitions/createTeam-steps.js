@@ -1,13 +1,11 @@
 'use strict';
 
 
-const newPupil = require('../page-objects/administration');
+const newPupil = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerStudentsPage');
 const TMSAddEditTeamPage = require('../page-objects/pages/teamsPages/TMSAddEditTeamPage.js');
 const TMSTeamListPage = require('../page-objects/pages/teamsPages/TMSTeamListPage.js');
 const TMSTeamMembersPage = require('../page-objects/pages/teamsPages/TMSTeamMembersPage.js');
 let teamName;
-let fullname1;
-let fullname2
 const student1 = 'Marla Mathe';
 const student2 = 'Waldemar Wunderlich';
 
@@ -17,7 +15,7 @@ When(/^teacher adds a new student with (.*), (.*), (.*)$/, function (firstname1,
     return newPupil.createNewPupil(firstname1, lastname1, email1);
 });
 When(/^teacher adds one more student with (.*), (.*), (.*)$/, function (firstname2, lastname2, email2) {
-    fullname2 = firstname2 + " " + lastname2;
+   
     return newPupil.createNewPupil(firstname2, lastname2, email2);
 });
 

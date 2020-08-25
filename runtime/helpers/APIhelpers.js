@@ -74,7 +74,7 @@ module.exports = {
 		  return object[attribute];
  
 	  }, 
-	  getUserName: async function() {
+	getUserName: async function() {
 
 		return this.getUserInfo('fullName')
 	},
