@@ -7,11 +7,16 @@ const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const startPage = require('../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 
+const selector = {
+    submissionTab: "#submission-tab-link",
+    areThereAnyTasks: '#homeworks > ol > div > li',
+};
+
 module.exports = {
 
     // student helpers
     userFindsTheTask: async function (taskname) {
-        let areThereAnyTasks = await driver.$$('#homeworks > ol > div > li');
+        let areThereAnyTasks = await driver.$$(selector.areThereAnyTasks);
         await expect(areThereAnyTasks.length).not.to.equal(0);
         for (var i = 0; i <= areThereAnyTasks.length; i++) {
             let taskSelector = await driver.$('#homeworks > ol > div > li:nth-child(' + i + ') .h5.title');
@@ -24,8 +29,7 @@ module.exports = {
     },
 
     switchToSubmissionTab: async function () {
-        let submissionTab = "#submission-tab-link";
-        await waitHelpers.waitAndClick(submissionTab);
+        await waitHelpers.waitAndClick(selector.submissionTab);
     },
 
     submitSolutionForTheHometask: async function () {
