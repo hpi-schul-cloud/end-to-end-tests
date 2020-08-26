@@ -33,16 +33,16 @@ module.exports = {
     },
 
     submitSolutionForTheHometask: async function () {
-        await driver.switchToFrame(0);
-        let iframeBody = await driver.$('body');
-        let assignmentText = 'here is some text which I want to submit';
-        await iframeBody.setValue(assignmentText);
-        await driver.switchToParentFrame();
-        let container = await driver.$('#submission');
-        let submitBtn = await container.$('button[type="submit"]');
-        await waitHelpers.waitAndClick(submitBtn);
-        await driver.pause(1500);
+        await driver.pause(global.SHORT_WAIT_MILLIS);
+		const textField = await driver.$('.ck-content');
+		const assignmentText = 'here is some text which I want to submit';
+		textField.setValue(assignmentText);
+		const container = await driver.$('#submission');
+		const submitBtn = await container.$('button[type="submit"]');
+		await waitHelpers.waitAndClick('.ckeditor-submit')
+		await driver.pause(1500);
     },
+
 
     studentEditsTextHomeworkAndSubmits: async function () {
         await this.switchToSubmissionTab();
