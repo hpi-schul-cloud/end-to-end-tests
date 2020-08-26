@@ -1,27 +1,28 @@
 /*[url/courses]*/
 "use strict";
-const { CLIENT } = require("../../../shared-objects/servers")
+const {CLIENT} = require("../../../shared-objects/servers")
 const eh = require("../../../runtime/helpers/elementHelpers");
 const wh = require("../../../runtime/helpers/waitHelpers");
 const courseData = require('../../../shared-objects/courseData');
 const startPage = require('../../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const loginPage = require('../../../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
-const elementHelpers = require('../../../runtime/helpers/elementHelpers.js');
-const { expect } = require("chai");
 
-const urlCourses = `${ CLIENT.URL }/courses`;
-const searchCourseFiled = ".input-group .search-field";
+const urlCourses = `${
+    CLIENT.URL
+}/courses`;
 
-const courseWrapper = ".sc-card-wrapper";
-const titleOfCourse = ".title";
-const memberBtn = ".btn-member";
-const homeworktab = '.tabs button[data-testid="hometasks"]';
 
-const importCourseBtn = '[data-testid="import-course-btn"]';
-const createCourseBtn = '[data-testid="create-course-btn"]';
-
-const container_of_element = '[data-testid="container_of_element"]';
-const header_of_element = '[data-testid="header-of-element"]';
+const selector = {
+    searchCourseFiled: ".input-group .search-field",
+    courseWrapper: ".sc-card-wrapper",
+    titleOfCourse: ".title",
+    memberBtn: ".btn-member",
+    homeworktab: '.tabs button[data-testid="hometasks"]',
+    importCourseBtn: '[data-testid="import-course-btn"]',
+    createCourseBtn: '[data-testid="create-course-btn"]',
+    container_of_element: '[data-testid="container_of_element"]',
+    header_of_element: '[data-testid="header-of-element"]',
+};
 
 const courseColour = {
     grey: "background:#ACACAC",
@@ -47,13 +48,13 @@ module.exports = {
     },
 
     importAndCreateCourseBtnsAreVisible: async function () {
-        expect(await eh.isElementPresent(importCourseBtn)).to.equal(true);
-        expect(await eh.isElementPresent(createCourseBtn)).to.equal(true);
+        expect(await eh.isElementPresent(selector.importCourseBtn)).to.equal(true);
+        expect(await eh.isElementPresent(selector.createCourseBtn)).to.equal(true);
     },
 
     courseIsDisplayedCorrectly: async function (courseName) {
         const activeCoursesContainer = await driver.$(this.section.activeCourses);
-        const coursesOnThePage = await activeCoursesContainer.$$(titleOfCourse);
+        const coursesOnThePage = await activeCoursesContainer.$$(selector.titleOfCourse);
         const courseCount = await coursesOnThePage.length;
         const courseTitleCard = coursesOnThePage[courseCount - 1];
         const courseTitle = await courseTitleCard.getText();
@@ -67,10 +68,10 @@ module.exports = {
 
     isCorrectCourseColour: async function (colour) {
         const activeCoursesContainer = await driver.$(this.section.activeCourses);
-        const coursesOnThePage = await activeCoursesContainer.$$(container_of_element);
+        const coursesOnThePage = await activeCoursesContainer.$$(selector.container_of_element);
         const indexOfTheLastAddedCourse = await coursesOnThePage.length;
-        const container = await driver.$(container_of_element + ":nth-child(" + indexOfTheLastAddedCourse + ")");
-        const lastAddedCourse = await container.$(header_of_element);
+        const container = await driver.$(selector.container_of_element + ":nth-child(" + indexOfTheLastAddedCourse + ")");
+        const lastAddedCourse = await container.$(selector.header_of_element);
         const styleArray = await lastAddedCourse.getHTML();
         const regexp = /background:#[A-F, 0-9]{6}/;
         const styleMatches = styleArray.match(regexp);
@@ -80,7 +81,7 @@ module.exports = {
     },
 
     clickCreateCourseBtn: async function () {
-        await wh.waitAndClick(createCourseBtn);
+        await wh.waitAndClick(selector.createCourseBtn);
     },
 
     getColourSelector: function (colourName) {
@@ -112,7 +113,7 @@ module.exports = {
     },
 
     fillCourseNameIntoSearchInputField: async function (courseName) {
-        await eh.fillInputField(searchCourseFiled, courseName);
+        await eh.fillInputField(selector.searchCourseFiled, courseName);
     },
 
     countDisplayedCoursesForSection: async function (section) {
@@ -150,7 +151,7 @@ module.exports = {
     },
 
     getListOfCoursesInSection: async function (section) {
-        const listOfCourses = await driver.$$(section + " " + courseWrapper);
+        const listOfCourses = await driver.$$(section + " " + selector.courseWrapper);
         return listOfCourses;
     },
 
@@ -190,7 +191,7 @@ module.exports = {
     getNumberOfMembersInGivenCourseInSection: async function (courseName, section) {
         const courseWrapper = await this.getWrapperOfCourseInSection(courseName, section);
         await driver.pause(1000);
-        const element = await courseWrapper.$(memberBtn);
+        const element = await courseWrapper.$(selector.memberBtn);
         let text = await element.getText();
         let number = parseInt(text);
         return number;
@@ -199,55 +200,51 @@ module.exports = {
     clickPupilIconInCourseInSection: async function (courseName, section) {
         const courseWrapper = await this.getWrapperOfCourseInSection(courseName, section);
         await driver.pause(1000);
-        let pupilIcon = await courseWrapper.$(memberBtn);
+        let pupilIcon = await courseWrapper.$(selector.memberBtn);
         await pupilIcon.click();
         await driver.pause(500);
     },
-    
-    goToTasksOfTheCourse: async function (coursename) {
-		await this.goToCourses();
-		await this.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
-		await this.gotoTasksTab();
-    },
-    
-	studentLogsInAndGoesToTasksOfTheCourse: async function (username, password, coursename) {
-		await this.userLogsOut();
-		await startPage.performLogin(username, password);
-		await loginPage.firstLoginStudent(username, password);
-		await this.goToTasksOfTheCourse(coursename);
-    },
-    
-    userLogsOut: async function () {
-		await elementHelpers.loadPage(courseData.urlLogout, 20);
-    },
-    
-    uploadAHomework: async function () {
-		//making the upload-element visible to selenium
-		change_visibility =
-			'$x("//*[@id="main-content"]/div/section[1]/div/div/div[1]/input").css("visibility,"visible");';
-		change_display = '$x("//*[@id="main-content"]/div/section[1]/div/div/div[1]/input").css("display,"block");';
-		await driver.execute_script(change_visibility);
-		await driver.execute_script(change_display);
 
-		const filePath = path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt');
-		await driver.$x(courseData.uploadBtn).send_keys(filePath);
-	},
+    goToTasksOfTheCourse: async function (coursename) {
+        await this.goToCourses();
+        await this.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
+        await this.gotoTasksTab();
+    },
+
+    studentLogsInAndGoesToTasksOfTheCourse: async function (username, password, coursename) {
+        await this.userLogsOut();
+        await startPage.performLogin(username, password);
+        await loginPage.firstLoginStudent(username, password);
+        await this.goToTasksOfTheCourse(coursename);
+    },
+
+    userLogsOut: async function () {
+        await eh.loadPage(courseData.urlLogout, 20);
+    },
+
+    uploadAHomework: async function () { // making the upload-element visible to selenium
+        change_visibility = '$x("//*[@id="main-content"]/div/section[1]/div/div/div[1]/input").css("visibility,"visible");';
+        change_display = '$x("//*[@id="main-content"]/div/section[1]/div/div/div[1]/input").css("display,"block");';
+        await driver.execute_script(change_visibility);
+        await driver.execute_script(change_display);
+
+        const filePath = path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt');
+        await driver.$x(courseData.uploadBtn).send_keys(filePath);
+    },
     verifyCourseAndTopic: async function (coursename, topicname) {
-		await this.clickOnCourseInSection(coursename, this.section.activeCourses);
-		let topicNames = await Promise.all(
-			(await driver.$$("#topic-list > div > div > div")).map(
-				async (element) => await element.getText()
-			)
-		);
-		await expect(topicNames).to.include(topicname);
+        await this.clickOnCourseInSection(coursename, this.section.activeCourses);
+        let topicNames = await Promise.all((await driver.$$("#topic-list > div > div > div")).map(async (element) => await element.getText()));
+        await expect(topicNames).to.include(topicname);
     },
     verifyCopyWithStudents: async function (coursename) {
-		let copiedName = coursename + " - Kopie";
-		let courseHasIndex = await this.getIndexOfGivenCourseInSection(copiedName, this.section.activeCourses);
-		let areThereStudentsInCourseContainer  = await driver.$('.sc-card-wrapper.col-xl-3.col-lg-4.col-md-6.col-sm-12:nth-child('+(courseHasIndex+1)+') .additionalInfo .btn-member');
-		let areThereStudentsInCourse = await areThereStudentsInCourseContainer.getText();
-		let number = parseInt(areThereStudentsInCourse);
-		await expect(number).to.equal(0);
+        let copiedName = coursename + " - Kopie";
+        let courseHasIndex = await this.getIndexOfGivenCourseInSection(copiedName, this.section.activeCourses);
+        let areThereStudentsInCourseContainer = await driver.$('.sc-card-wrapper.col-xl-3.col-lg-4.col-md-6.col-sm-12:nth-child(' + (
+            courseHasIndex + 1
+        ) + ') .additionalInfo .btn-member');
+        let areThereStudentsInCourse = await areThereStudentsInCourseContainer.getText();
+        let number = parseInt(areThereStudentsInCourse);
+        await expect(number).to.equal(0);
 
-	}
+    }
 };
