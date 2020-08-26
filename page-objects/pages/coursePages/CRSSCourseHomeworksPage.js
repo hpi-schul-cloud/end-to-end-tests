@@ -1,3 +1,4 @@
+/*[url/courses]/[courseId]/[activeTab=homeworks]]*/
 "use strict";
 const { CLIENT } = require("../../../shared-objects/servers")
 const waitHelpers = require('../../../runtime/helpers/waitHelpers.js');
@@ -9,9 +10,6 @@ const urlCoursHomeworkPage = `${CLIENT.URL}/?activeTab=homeworks`;
 const addHomeworkBtn = '.col-sm-12.add-button>a';
 
 module.exports = {
-	goToCourses: async function () {
-		await eh.loadPage(urlCourses, 30);
-    },
 
     clickCreateNewTaskInTheCourse: async function (coursename) {
 		await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
