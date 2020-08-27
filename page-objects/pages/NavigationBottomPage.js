@@ -57,7 +57,7 @@ module.exports = {
         await waitHelpers.waitAndClick(this.selectors.status);
     },
 
-    clickSicherheitHubFooterLink: async function(){
+    clickSicherheitFooterLink: async function(){
         await waitHelpers.waitAndClick(this.selectors.sicherheit);
     },
 }
