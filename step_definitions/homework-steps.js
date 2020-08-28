@@ -1,27 +1,14 @@
 'use strict';
 const path = require('path');
-
-const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
-const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
-const copyCourse = require('../page-objects/copyCourse');
 const homework = require('../page-objects/homework');
 const hMWRKAddEditHomeworkPage = require('../page-objects/pages/HMWRKAddEditHomeworkPage.js');
 const hMWRKHomeworkListPage = require('../page-objects/pages/HMWRKHomeworkListPage');
 const courseData = require('../shared-objects/courseData');
-const Login = require('../shared-objects/loginData');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const addCoursePage = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
 
 /*BACKGROUND*/
 
-Given(/^the teacher starts on the login page$/, function () {
-	return elementHelpers.loadPage(Login.url, 20);
-});
-
-Given(/^the teacher is logged-in successfully$/, async function () {
-	await startPage.clickLoginBtn();
-	await loginPage.performLogin(Login.defaultTeacherUsername, Login.defaultTeacherpassword);
-});
 
 Given(/^the teacher goes to the course page as a next step$/, function () {
 	return elementHelpers.loadPage(courseData.urlCourses, 20);
@@ -98,7 +85,7 @@ Then(
 Given(/^the Teacher creates one course with (.*) and pupil with:$/, function (
 	coursename
 ) {
-	return copyCourse.create(coursename);
+	//return copyCourse.create(coursename);
 });
 When(/^Teacher creates a homework for the course (.*)$/, function (coursename) {
 	return homework.clickCreateNewTaskInTheCourse(coursename);

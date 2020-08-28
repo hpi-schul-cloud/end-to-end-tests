@@ -4,8 +4,8 @@ Feature:checkLeftNavigation
 	@teacherclicksLeftMenuItems
 	Scenario Outline: The user logs in as a teacher and clicks the left menu items he should have access to
 		When teacher arrives on the Schul-Cloud homepage
-		When a teacher logs in his account using <username> and <password>
-		When the teacher has accepted the data protection agreement
+		When teacher logs in with email <username> and password <password>
+		When teacher accepts data protection
 		Then click left navigation item "logo"
 		Then click left navigation item "dashboard"
 		Then click left navigation item "courses"

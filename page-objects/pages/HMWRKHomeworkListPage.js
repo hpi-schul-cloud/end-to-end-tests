@@ -2,8 +2,6 @@
 'use strict';
 const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
 const courseData = require('../../shared-objects/courseData');
-const Login = require('../../shared-objects/loginData');
-const firstLogin = require('../../shared_steps/firstLogin.js');
 const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
 
@@ -41,7 +39,7 @@ module.exports = {
 					return i ;
 				}
 			}
-		
+
 		};
 		return 0;
 	},
@@ -52,7 +50,7 @@ module.exports = {
 	chooseTaskAmongAllTasks: async function (taskname) {
 		let taskindex = await this.returnTaskChildIndex(taskname);
 		if (taskindex > 0 ) {
-			let task = await driver.$('.col-xl-12 > li:nth-child(' + taskindex + ') > .content > h2');
+			let task = await driver.$('.col-xl-12 > li:nth-child(' + taskindex + ') > a > span.more');
 			await task.click();
 			await driver.pause(1500);
 			let selectorToBeLoaded = await driver.$('#page-title');
@@ -78,15 +76,9 @@ module.exports = {
 		await expect(taskname).to.equal(foundtaskName);
 	},
 
-	// other user logs in to verify
-	studentLogsIn: async function (username, password) {
-		await this.userLogsOut();
-		await firstLogin.pupilLogin(username, password);
-		await firstLogin.firstLoginPupilFullAge(username, password);
-	},
 	teacherLogsIn: async function () {
 		await this.userLogsOut();
-		await loginPage.performLogin(Login.defaultTeacherUsername, Login.defaultTeacherpassword);
+		await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.defaultLoginData.defaultTeacherpassword);
 	},
 
 	privateTaskVerify: async function () {
