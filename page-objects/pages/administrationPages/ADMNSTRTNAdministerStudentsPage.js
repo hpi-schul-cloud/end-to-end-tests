@@ -59,7 +59,6 @@ module.exports = {
                 oldPassword = password_old;
                 await submitBtn.click();
                 break;
-                
             }
         } 
     },
