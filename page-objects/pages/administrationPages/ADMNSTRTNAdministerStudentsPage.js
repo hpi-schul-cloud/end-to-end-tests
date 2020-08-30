@@ -33,7 +33,6 @@ module.exports = {
         await driver.execute('document.querySelector("#create_birthday").value = "13.08.1990"')
     },
 
-
     emailsOfThePupils: async function() {
         let names = await driver.$$(selectors.selectorNamesContainer + ' > tr');
         return Promise.all(names.map(async (nameContainer) => {
