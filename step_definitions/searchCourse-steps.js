@@ -1,14 +1,31 @@
-const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
-const { countDisplayedCoursesForSection } = require("../page-objects/pages/coursePages/CRSSCourseListPage");
+let teacherLogin = require('../page-objects/teacherLogin');
+let createCourse = require('../page-objects/createCourse');
 
+let searchCourse = require('../page-objects/searchCourse');
+let courseData = require('../shared-objects/courseData');
+const Login = require('../shared-objects/loginData');
+
+Given(/^teacher goes to the login page$/, function() {
+  return helpers.loadPage(courseData.urlLogin, 20);
+});
+Given(/^the teacher logs in/, function() {
+  return teacherLogin.performLogin(
+    Login.defaultTeacherUsername,
+    Login.defaultTeacherpassword
+  );
+});
+Given(/^the teacher goes to the courses page$/, function() {
+  let url = courseData.urlCourses;
+  return helpers.loadPage(url, 20);
+});
 When(
-	/^.*enters course name (.*) into search field$/,
-	async function(courseName) {
-		return courseListPage.fillCourseNameIntoSearchInputField(courseName);
-	}
+  /^the teacher tipps the name (.*) of the course in the searchfield$/,
+  async function(name) {
+    return searchCourse.searchOne(name);
+  }
 );
-Then(/^.*list satisfies the search request (.*)$/, async function(courseName) {
-	let a = await courseListPage.countCoursesWhichTitlesContainTextInSection(courseName, courseListPage.section.allCourses);
-	let b = await courseListPage.countDisplayedCoursesForSection(courseListPage.section.allCourses);
-	await expect(a).to.equal(b);
+Then(/^the list satisfies the search request (.*)$/, async function(name) {
+  let a = await searchCourse.amountToBeDisplayed(name);
+  let b = await searchCourse.isCorrectlyDisplayed();
+  await expect(a).to.equal(b);
 });

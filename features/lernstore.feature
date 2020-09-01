@@ -1,3 +1,3 @@
-# @lernstore
-# Feature: different actions in lernstore
-# Scenario:
+@lernstore
+Feature: different actions in lernstore
+Scenario:

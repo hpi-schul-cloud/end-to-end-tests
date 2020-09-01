@@ -1,94 +1,54 @@
 'use strict';
-const addCourse = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
-const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
 
+let createCourse = require('../page-objects/createCourse');
+let teacherLogin = require('../page-objects/teacherLogin');
+let TeacherLoginSteps = require('../step_definitions/teacherLogin-steps');
+let loginData = require('../shared-objects/loginData');
+let courseData = require('../shared-objects/courseData');
+let shared = { loginData };
+let page = { teacherLogin };
+var countBefore;
+const Login = require('../shared-objects/loginData');
 
-
-When(/^.*goes to courses page$/, function () {
-	return courseListPage.goToCourses();
-});
-Then(/^.*buttons: Import-course, Create-new-course are visible$/, function () {
-	return courseListPage.importAndCreateCourseBtnsAreVisible();
-});
-
-Then(
-	/^.*buttons: Create-new-course, Go-to-course-list-page are visible$/,
-	async function () {
-		await addCourse.finalButtonsAreVisible();
-	}
-);
-
-When(/^.*clicks Create-new-course button$/, function () {
-	return courseListPage.clickCreateCourseBtn();
+Given(/^The teacher arrives on the Schul-Cloud page$/, function() {
+  return helpers.loadPage(shared.loginData.url, 10);
 });
 
-When(/^.*enters course name (.*) into new course form$/, function (courseName) {
-	return addCourse.setCourseName(courseName);
-});
-When(/^.*chooses course colour (.*)$/, function (courseColour) {
-	return addCourse.setColour(courseColour);
-});
-When(/^.*clicks Create-button$/, function () {
-	return addCourse.goToNextSection();
-});
-When(/^.*clicks to preview$/, function () {
-	return addCourse.goToNextSection();
+Given(/^the teacher is logged in successfully$/, function() {
+  return teacherLogin.performLogin(
+    Login.defaultTeacherUsername,
+    Login.defaultTeacherpassword
+  );
 });
 
-Then(/^.*course with name (.*) is visible on the list$/, async function (
-	courseName
-) {
-	return courseListPage.isCourseOnList(courseName);
+When('the teacher goes to courses page', function() {
+  let url = courseData.urlCourses;
+  return helpers.loadPage(url, 20);
 });
 
-Then(
-	/^.*course with name (.*) is displayed correctly on the list$/,
-	async function (courseName) {
-		await courseListPage.courseIsDisplayedCorrectly(courseName);
-	}
-);
-When(/^.*clicks Next-section button$/, async function () {
-	return addCourse.goToNextSection();
-});
-Then(/^.*the ([0-9]) section can not be opened$/, async function (
-	sectionNumber
-) {
-	await addCourse.sectionIsNotDisplayed(sectionNumber);
-});
-Then(
-	/^.*his name is entered by default in teachers' field$/,
-	async function () {
-		await addCourse.teachersNameisSetByDefault();
-	}
-);
-Then(/^.*course name has not been entered$/, async function () {
-	await addCourse.courseNameIsNotEntered();
+Then(/^the teacher sees existing courses$/, async function() {
+  return createCourse.countBefore();
 });
 
-Then(/^.*time span is already set$/, async function () {
-	await addCourse.timeSpanIsSet();
-});
-Then(/^.*supply teacher is not set$/, async function () {
-	await addCourse.noTeacherSubstituteIsSet();
+Then(/^the teacher clicks the btn$/, function() {
+  return createCourse.clickAdd();
 });
 
-Then(/^.* ([0-9]) section is opened$/, async function (sectionNumber) {
-	await addCourse.sectionIsDisplayed(sectionNumber);
+Then(/^the teacher enters a (.*)$/, function(courseName) {
+  return createCourse.inputCourseName(courseName);
 });
-Then(/^.*no class is set$/, async function () {
-	await addCourse.noClassIsSet();
+Then(/^the teacher chooses a color of the course$/, function() {
+  return createCourse.chooseColor();
 });
-Then(/^.*no student is set$/, async function () {
-	await addCourse.noStudentIsSet();
+Then(/^the teacher clicks the create button$/, function() {
+  return createCourse.performCreateCourse();
+  
 });
-When(/^.*clicks Create-course-and-continue button'$/, async function () {
-	await addCourse.clickCreateCourseAndContinueBtn();
-});
-
-Then(/^.*clicks Go-to-course-list$/, async function () {
-	await addCourse.clickGoToCourseListBtn();
+Then(/^the teacher clicks to preview$/, function() {
+  let url = courseData.urlCourses;
+  return helpers.loadPage(url, 10);
 });
 
-Then(/^.*color of the course is (\S*).*$/, async function (courseColour) {
-	await courseListPage.isCorrectCourseColour(courseColour);
+Then(/^the teacher sees the created course$/, async function() {
+  return createCourse.verify();
 });

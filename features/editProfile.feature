@@ -1,22 +1,12 @@
 @editProfile
-Feature: users can edit their profiles
+Feature: users can edit there profile
 
-	Background:
-		Given teacher arrives on the Schul-Cloud homepage
+Background: user is successfully logged in
+Given the user goes to login page
+Given the user logs in
+Given the user goes to profile settings
 
-	@teacherChangesPassword
-	Scenario Outline: teacher changes the passwort
-		Given teacher logs in with email <username> and password <password>
-		Given teacher accepts data protection
-		And teacher goes to user settings
-		And teacher changes passwort from <password> to <newPassword>
-		And teacher logs out
-		And teacher logs in with email <username> and password <password>
-		Then the login must fail
-		When teacher waits for next login
-		And teacher is on LoginPage and logs in with <username> and <newPassword>
-		Then the login must be successful
-
-		Examples:
-			| username                   | password     | newPassword   |
-			| klara.fall@schul-cloud.org | Schulcloud1! | Schulcloud1!! |
+Scenario: user changes the passwort
+When user changes the passwort
+Then after logout user must not be able to login with an old password
+Then the user must be able to log in with a new legible password

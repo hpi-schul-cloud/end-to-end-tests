@@ -17,7 +17,9 @@ jobs:
       script:
         - echo $TRAVIS_BRANCH
         - echo $TRAVIS_TAG
-        - curl "https://raw.githubusercontent.com/hpi-schul-cloud/integration-tests/master/scripts/ci/fetch.travis.sh" | bash
+        - curl https://gist.githubusercontent.com/schul-cloud-bot/a849c38804174f99ca7818782bf03c00/raw/index.sh > integration-test.sh
+        - chmod 700 integration-test.sh
+        - bash integration-test.sh
       name: "test:integration"
       env:
         - IT_CLIENT_HOST=nuxtclient
@@ -26,8 +28,6 @@ jobs:
         clone: false
       services:
         - docker
-      before_install:
-        - echo -e "machine github.com\n  login $CI_USER_TOKEN" > ~/.netrc
       install:
         - echo "skipping install"
       before_cache:

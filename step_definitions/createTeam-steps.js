@@ -1,35 +1,42 @@
 'use strict';
 
-
-const newPupil = require('../page-objects/administration');
-const TMSAddEditTeamPage = require('../page-objects/pages/teamsPages/TMSAddEditTeamPage.js');
-const TMSTeamListPage = require('../page-objects/pages/teamsPages/TMSTeamListPage.js');
-const TMSTeamMembersPage = require('../page-objects/pages/teamsPages/TMSTeamMembersPage.js');
-let teamName;
+let loginData = require('../shared-objects/loginData');
+const createTeam = require('../page-objects/createTeam');
+let teacherLogin = require('../page-objects/teacherLogin');
+let newPupil = require('../page-objects/administration');
+const Login = require('../shared-objects/loginData');
 let fullname1;
-let fullname2
-const student1 = 'Marla Mathe';
-const student2 = 'Waldemar Wunderlich';
+let fullname2;
+let teamName;
 
 
-When(/^teacher adds a new student with (.*), (.*), (.*)$/, function (firstname1, lastname1, email1) {
-    fullname1 = firstname1 + " " + lastname1;
+
+Given(/^the teacher started on the login page and$/, function() {
+    let url = loginData.url;
+    return helpers.loadPage(url, 10);
+  });
+Given(/^teacher successfully logged in$/, function() {
+    return teacherLogin.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
+  });
+  When(/^teacher adds a new student with (.*), (.*), (.*)$/,  function(firstname1, lastname1, email1) {
+    fullname1 = firstname1+" "+lastname1;
     return newPupil.createNewPupil(firstname1, lastname1, email1);
-});
-When(/^teacher adds one more student with (.*), (.*), (.*)$/, function (firstname2, lastname2, email2) {
-    fullname2 = firstname2 + " " + lastname2;
+  });
+  When(/^teacher adds one more student with (.*), (.*), (.*)$/,  function(firstname2, lastname2, email2) {
+    fullname2 = firstname2+" "+lastname2;
     return newPupil.createNewPupil(firstname2, lastname2, email2);
-});
+  });
 
-When(/^teacher creates a new team with (.*) and$/, function (teamname) {
+  When(/^teacher creates a new team with (.*) and$/,  function(teamname) {
     teamName = teamname;
-    return TMSAddEditTeamPage.createTeamAndGoToSettings(teamname);
-});
-When(/^teacher adds two students to this team$/, function () {
-    return TMSTeamMembersPage.addTwoTeamMemebers(student1, student2)
-});
+    return createTeam.createTeamAndGoToSettings(teamname);
+  });
+When(/^teacher adds two students to this team$/, function() {
+  return createTeam.addTwoTeamMemebers(fullname1, fullname2)
 
-Then(/^this team should be displayed on the team page$/, async function () {
-    let teamNames = await TMSTeamListPage.getTeamNames();
+  });
+
+Then(/^this team should be displayed on the team page$/, async function() {
+    let teamNames = await createTeam.getTeamNames();
     await expect(teamNames).to.include(teamName);
-});
+  });
