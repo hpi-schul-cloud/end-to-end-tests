@@ -1,0 +1,1 @@
+/*[url/files/my/[folderId]]|[url/files/courses/[courseId]]|[url/files/[teamId]]|...*/

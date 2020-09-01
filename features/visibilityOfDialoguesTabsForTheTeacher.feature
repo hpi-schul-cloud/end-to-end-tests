@@ -4,11 +4,12 @@
 Feature:  logging in as a teacher without administrator's role
 I want to be able to perform normal teacher administration options (look at classes / add students to class)
 Background:
-	Given The Teacher arrives on the Schul-Cloud page
-	Given The Teacher is logged in successfully
+	Given teacher arrives on the Schul-Cloud homepage
+	Given teacher is successfully logged in
+    Given teacher accepts data protection
 
 Scenario:
-    Then The Teacher should accept the data protection
+
     When The Teacher goes to Verwaltung page
     Then Verify if all required tabs are visible in Verwaltung area
     | tabs         |

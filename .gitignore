@@ -35,6 +35,9 @@ out
 gen
 .DS_Store
 
+# VSCode project files
+.vscode
+
 shared-objects/emailData.json
 runtime/envConfig.json
 # Logs

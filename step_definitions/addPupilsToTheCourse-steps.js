@@ -1,25 +1,13 @@
 'use strict';
 
+const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
 
-const addPupilToTheCourse = require('../page-objects/addPupilToTheCourse');
-const teacherLogin = require('../page-objects/teacherLogin');
-const createCourse = require('../page-objects/createCourse');
-const Login = require('../shared-objects/loginData');
 
-Given(/^teacher arrives on the Schul-Cloud page$/, function() {
-	return helpers.loadPage(Login.url, 10);
-});
-Given(/^teacher is logged in successfully$/, function() {
-	return teacherLogin.performLogin(Login.defaultTeacherUsername,Login.defaultTeacherpassword);
+Then(/^.*sees that participants icon in course with name (.*) has correct number of members (.*)$/, async function (courseName, studentName) {
+    await courseListPage.isCorrectNumberOfMembersInCourseForSection(courseName, [studentName], courseListPage.section.activeCourses);
+
 });
 
-Given('teacher goes to courses page', function() {
-	return createCourse.goToCourses();
-});
-When(/^teacher creates a course (.*) and adds student (.*)to this course$/,async function(courseName, studentName) {
-		return createCourse.createCourseWithStudents(courseName, studentName);
-	});
-
-Then(/^teacher clicks the participants icon in the course (.*) and sees the added student (.*) there.$/, async function(courseName, studentName) {
-	return addPupilToTheCourse.verify(courseName, studentName);
+Then(/^.*clicks the participants icon in the course (.*) and sees the added student (.*) there.$/, async function (courseName, studentName) {
+    await courseListPage.areMembersOnTheListInCourseForSection(courseName, [studentName], courseListPage.section.activeCourses);
 });

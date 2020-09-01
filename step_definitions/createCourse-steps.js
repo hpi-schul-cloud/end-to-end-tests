@@ -1,97 +1,94 @@
 'use strict';
+const addCourse = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
+const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
 
-const createCourse = require('../page-objects/createCourse');
-const teacherLogin = require('../page-objects/teacherLogin');
-const loginData = require('../shared-objects/loginData');
-const shared = { loginData };
-const Login = require('../shared-objects/loginData');
 
-Given(/^The teacher arrives on the Schul-Cloud page$/, function() {
-	return helpers.loadPage(shared.loginData.url, 10);
+
+When(/^.*goes to courses page$/, function () {
+	return courseListPage.goToCourses();
 });
-Given(/^the teacher with email (.*) and (.*) is logged in successfully$/, function(email, password) {
-	return teacherLogin.performLogin(email, password);
-});
-When(/^the teacher goes to courses page$/, function() {
-return createCourse.goToCourses()
-});
-Then(/^the teacher should see 2 buttons: import-course and create-course$/, function() {
-	return createCourse.areSelectorsOnThePage();
+Then(/^.*buttons: Import-course, Create-new-course are visible$/, function () {
+	return courseListPage.importAndCreateCourseBtnsAreVisible();
 });
 
-When(/^teacher clicks create-a-course button$/, function() {
-	return createCourse.clickCreateCourseBtn();
+Then(
+	/^.*buttons: Create-new-course, Go-to-course-list-page are visible$/,
+	async function () {
+		await addCourse.finalButtonsAreVisible();
+	}
+);
+
+When(/^.*clicks Create-new-course button$/, function () {
+	return courseListPage.clickCreateCourseBtn();
 });
 
-When(/^the teacher enters a (.*)$/, function(coursename) {
-	return createCourse.setCourseName(coursename);
+When(/^.*enters course name (.*) into new course form$/, function (courseName) {
+	return addCourse.setCourseName(courseName);
 });
-When(/^the teacher chooses a color (.*) of the course$/, function(colour) {
-	return createCourse.setColour(colour);
+When(/^.*chooses course colour (.*)$/, function (courseColour) {
+	return addCourse.setColour(courseColour);
 });
-When(/^the teacher clicks the create button$/, function() {
-	return createCourse.goToNextSectionCreateCourse();
+When(/^.*clicks Create-button$/, function () {
+	return addCourse.goToNextSection();
 });
-When(/^the teacher clicks to preview$/, function() {
-return createCourse.goToNextSectionCreateCourse();
-});
-Then(/^the teacher sees the created course (.*)$/, async function(courseName) {
-	return createCourse.verify(courseName);
-});
-Then(/^the teacher sees the created course$/, async function(courseName) {
-	return createCourse.verify(courseName);
-});
-When(/^the teacher does not submit any course name and clicks weiter-button$/, async function() {
-	return createCourse.goToNextSectionCreateCourse();
-
-});
-Then(/^the teacher cannot go to section 2$/, async function() {
-	await expect(await createCourse.canProceedToStage(2)).to.equal(false);
-
-});
-Then(/^the name of the teacher who is creating is already filled in the teacher's field$/, async function() {
-	await createCourse.theTeachersNameisSetAutomatically();
-
-});
-Then(/^time span is  already set$/, async function() {
-	await createCourse.timeSpanIsSet();
-
-});
-Then(/^supply teacher is not set$/, async function() {
-	await createCourse.supplyTeacherIsNotSet();
-
+When(/^.*clicks to preview$/, function () {
+	return addCourse.goToNextSection();
 });
 
-Then(/^the second screen is shown$/, async function() {
-	await createCourse.nextScreenIsShown(2);
-
-});
-Then(/^no class is set$/, async function() {
-	await createCourse.noClassIsSet();
-
-});
-Then(/^no students are set$/, async function() {
-	await createCourse.noStudentsAreSet();
-
-});
-When(/^teacher clicks 'Kurs anlegen und Weiter'$/, async function() {
-	await createCourse.clickCreateCourseAndNextBtn();
+Then(/^.*course with name (.*) is visible on the list$/, async function (
+	courseName
+) {
+	return courseListPage.isCourseOnList(courseName);
 });
 
-Then(/^btns "Einen weiteren Kurs anlegen" and "Zur Kursübersicht" are visible$/, async function() {
-	await createCourse.btnsAreVisible();
+Then(
+	/^.*course with name (.*) is displayed correctly on the list$/,
+	async function (courseName) {
+		await courseListPage.courseIsDisplayedCorrectly(courseName);
+	}
+);
+When(/^.*clicks Next-section button$/, async function () {
+	return addCourse.goToNextSection();
 });
-Then(/^the third screen is shown$/, async function() {
-	await createCourse.nextScreenIsShown(3);
+Then(/^.*the ([0-9]) section can not be opened$/, async function (
+	sectionNumber
+) {
+	await addCourse.sectionIsNotDisplayed(sectionNumber);
+});
+Then(
+	/^.*his name is entered by default in teachers' field$/,
+	async function () {
+		await addCourse.teachersNameisSetByDefault();
+	}
+);
+Then(/^.*course name has not been entered$/, async function () {
+	await addCourse.courseNameIsNotEntered();
+});
 
+Then(/^.*time span is already set$/, async function () {
+	await addCourse.timeSpanIsSet();
 });
-Then(/^the teacher clicks zur-uebersicht-btn$/, async function() {
-	await createCourse.goToCoursePreview();
-});
-Then(/^the name (.*) is displayed correctly$/, async function(courseName) {
-	await createCourse.courseNameDisplayedCorrectly(courseName);
-});
-Then(/^the color of the course is the color (.*) that was selected during the creation process$/, async function(colour) {
-	await createCourse.verifyColour(colour);
+Then(/^.*supply teacher is not set$/, async function () {
+	await addCourse.noTeacherSubstituteIsSet();
 });
 
+Then(/^.* ([0-9]) section is opened$/, async function (sectionNumber) {
+	await addCourse.sectionIsDisplayed(sectionNumber);
+});
+Then(/^.*no class is set$/, async function () {
+	await addCourse.noClassIsSet();
+});
+Then(/^.*no student is set$/, async function () {
+	await addCourse.noStudentIsSet();
+});
+When(/^.*clicks Create-course-and-continue button'$/, async function () {
+	await addCourse.clickCreateCourseAndContinueBtn();
+});
+
+Then(/^.*clicks Go-to-course-list$/, async function () {
+	await addCourse.clickGoToCourseListBtn();
+});
+
+Then(/^.*color of the course is (\S*).*$/, async function (courseColour) {
+	await courseListPage.isCorrectCourseColour(courseColour);
+});

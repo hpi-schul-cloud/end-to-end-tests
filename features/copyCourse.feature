@@ -3,9 +3,9 @@
 Feature: copy a created course with different data
 
 Background: teacher is logged in and has created a course
-Given teacher goes to the home page
+Given teacher arrives on the Schul-Cloud homepage
 Given teacher is successfully logged in
-Given goes the course page
+Given goes to the course page
 
 @simpleCopyCourse
 Scenario Outline: teacher can copy an existing course
@@ -44,18 +44,18 @@ Examples:
 | coursename       | topicname | text                  | geogebraID |
 | sample course geo| geo topic | some sample text here | ucxngdjf   |
 
-#@copyCourseWithMaterial
+# @copyCourseWithMaterial
 
-#Scenario Outline: teacher can copy course with certain Material
-#Given the teacher creates a course with name <coursename>,
-#Given the teacher chooses this course with <coursename> and
-#Given the teacher adds a topic with <topicname>
-#When the teacher adds some Material  to the course
-#When the teacher clicks copy course <coursename> with Material
-#Then teacher sees the course <coursename> copy and the material <topicname> is still availiable
-#Examples:
-#| coursename             | topicname      | text                  |
-#| sample course material | material topic | some sample text here |
+# Scenario Outline: teacher can copy course with certain Material
+# Given the teacher creates a course with name <coursename>
+# Given the teacher chooses this course with <coursename> and
+# Given the teacher adds a topic with <topicname>
+# When the teacher adds some Material  to the course
+# When the teacher clicks copy course <coursename> with Material
+# Then teacher sees the course <coursename> copy and the material <topicname> is still availiable
+# Examples:
+# | coursename             | topicname      | text                  |
+# | sample course material | material topic | some sample text here |
 
 
 @copyCourseWithEtherpad
@@ -71,12 +71,12 @@ Examples:
 | coursename             | topicname      | etherpadName          | etherpadDescription          |
 | sample course etherpad | etherpad topic | etherpad name         | etherpad description here    |
 
-# @copyCourseWithStudents
-# Scenario Outline: teacher can copy course with students
-# Given the teacher creates a course with name <courseName> and student <studentname>
-# When the teacher copies the course <courseName> with students
-# Then the teacher should see the cloned course <courseName> but without students
+@copyCourseWithStudents
+Scenario Outline: teacher can copy course with students
+Given the teacher creates a course with name <courseName> and student <studentname>
+When the teacher copies the course <courseName> with students
+Then the teacher should see the cloned course <courseName> but without students
 
-# Examples:
-# | courseName                  | studentname                 |
-# | sample course with students | Paula Meyer                 |
+Examples:
+| courseName                  | studentname                 |
+| sample course with students | Paula Meyer                 |
