@@ -1,7 +1,41 @@
 'use strict';
+
+
 let log = global.log;
 
 module.exports = {
+
+	waitForElement: async function (selector, timeout) {
+		try{
+			await driver.waitUntil(() => driver.$(selector), timeout);
+			}
+		catch (error){
+			log.error(error.message);
+			throw error;
+		}
+	},
+
+	refreshPage: async function () {
+		try{
+			await driver.refresh();
+			}
+		catch (error){
+			log.error(error.message);
+			throw error;
+		}
+	},
+
+	waitUntilUrlContains: async function (url, timeout) {
+		try{
+			let urlPage = await driver.waitUntil(() => driver.getUrl(), timeout);
+			expect(urlPage).to.include(url);
+
+			}
+		catch (error){
+			log.error(error.message);
+			throw error;
+		}
+	},
 
 	waitAndClick: async function (selector) {
 		try {
