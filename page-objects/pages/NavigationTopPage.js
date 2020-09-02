@@ -49,6 +49,7 @@ module.exports = {
         await this.clickInitials();
         await this.clickLogout();
     },
+
     getNameAndPosition: async function() {
 		await this.clickInitials()
 		let nameBox = await driver.$(selectors.nameBox);

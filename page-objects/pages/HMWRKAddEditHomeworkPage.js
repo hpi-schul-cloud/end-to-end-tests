@@ -1,95 +1,92 @@
 /*[url/homework/new] | [url/homework/[homeworkId]/edit]*/
 'use strict';
-const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
+const wh = require('../../runtime/helpers/waitHelpers.js');
 const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers.js');
-const courseData = require('../../shared-objects/courseData');
-const courseHomeworksPage = require("../pages/coursePages/CRSSCourseHomeworksPage.js");
+const courseHomeworksPage = require("../pages/coursePages/CRSSCourseHomeworksPage");
 
-const selectors = {
-    taskNameField: "input[placeholder='Titel']",
-    submitTaskButton: ".btn-submit",
-};
+const uploadBtn = '//*[@id="main-content"]/div/section[1]/div/div/div[1]/input';
+const teamSubmissionsCheckbox = "#teamSubmissions";
+const privateHomeworkCheckbox = "[data-testid='private-checkbox']";
+const homeworkTitleInput = "input[placeholder='Titel']";
+const submitHomeworkBtn = ".btn-submit";
 
-    module.exports = {
+module.exports = {
+    clickPrivateHomeworkCheckbox: async function () {
+        await wh.waitAndClick(privateHomeworkCheckbox);
+    },
 
-        setPrivate: async function () {
+    clickTeamSubmissionsCheckbox: async function () {
+        await wh.waitAndClick(teamSubmissionsCheckbox);
+    },
 
-            await waitHelpers.waitAndClick(courseData.elem.checkbox);
+    setHomeworkName: async function (taskName) {
+        const nameField = await driver.$(homeworkTitleInput);
+        await nameField.setValue(taskName);
+    },
 
-        },
+    setHomeworkText: async function () {
+        await driver.pause(global.SHORT_WAIT_MILLIS);
+        const editorContent = await driver.$('.ck-content');
+        const message = 'Here is some TEXT!';
+        await editorContent.setValue(message);
+    },
 
-        setHomeworkName: async function(taskName) {
-            const nameField = await driver.$(selectors.taskNameField);
-            await nameField.setValue(taskName);
-        },
+    setAccomplishTime: async function () {
+        var begin = await dateTimeHelpers.dateToString();
+        var end = await dateTimeHelpers.randomDate();
 
-        setHometaskText: async function () {
+        await driver.execute(`document.querySelector("#availableDate").value="${begin}"`);
+        await driver.execute(`document.querySelector("#dueDate").value="${end}"`);
+    },
 
-            await driver.pause(global.SHORT_WAIT_MILLIS);
-            const editorContent = await driver.$('.ck-content');
-            const message = 'Here is some TEXT!';
-            await editorContent.setValue(message);
+    clickSubmitHomeworkBtn: async function () {
+        await wh.waitAndClick(submitHomeworkBtn);
+    },
 
-        },
-        setAccomplishTime: async function () {
+    addBasicHometask: async function (coursename, taskname) {
+        await courseHomeworksPage.clickAddNewTaskInCourse(coursename);
+        await this.setHomeworkName(taskname);
+        await this.clickTeamSubmissionsCheckbox();
+        await this.setAccomplishTime();
+        await this.setHomeworkText();
+        await this.clickSubmitHomeworkBtn();
+    },
 
-            var begin = await dateTimeHelpers.dateToString();
-            await driver.execute(`document.querySelector("#availableDate").value="${begin}"`);
-            var end = await dateTimeHelpers.randomDate();
-            await driver.execute(`document.querySelector("#dueDate").value="${end}"`);
+    addPrivateHometask: async function (coursename, taskname) {
+        await courseHomeworksPage.clickAddNewTaskInCourse(coursename);
+        await this.setHomeworkName(taskname);
+        await this.clickTeamSubmissionsCheckbox();
+        await this.setAccomplishTime();
+        await this.setHomeworkText();
+        await this.clickPrivateHomeworkCheckbox();
+        await this.clickSubmitHomeworkBtn();
+    },
 
-        },
-        clickAdd: async function () {
+    uploadHomework: async function () {
+		//making the upload-element visible to selenium
+		change_visibility = uploadBtn +'.css("visibility,"visible");';
+		change_display = uploadBtn +'.css("display,"block");';
+		await driver.execute_script(change_visibility);
+		await driver.execute_script(change_display);
 
-            let container = await driver.$('#homework-form');
-            let addBtn = await container.$('button[type="submit"]');
-            await addBtn.click();
-            let selectorToBeLoaded = await driver.$('#homeworks');
-            await selectorToBeLoaded.waitForExist(2000);
+		const path = require('path');
+		const filePath = path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt');
+		await driver.$x(uploadBtn).send_keys(filePath);
+	},
 
-        },
-
-        clickSubmitTaskButton: async function() {
-            await waitHelpers.waitAndClick(selectors.submitTaskButton);
-        },
-
-        addBasicHometask: async function (coursename, taskname) {
-
-            await courseHomeworksPage.clickCreateNewTaskInTheCourse(coursename);
-            let nameSelector = await driver.$(courseData.elem.homeworkName);
-            await nameSelector.setValue(taskname);
-            await waitHelpers.waitAndClick(courseData.elem.teamworkActivate);
-            await this.setAccomplishTime();
-            await this.setHometaskText();
-            await waitHelpers.waitAndClick(courseData.elem.submitAddHomeworkBtn);
-
-        },
-        addPrivateHometask: async function (coursename, taskname) {
-
-            await courseHomeworksPage.clickCreateNewTaskInTheCourse(coursename);
-            let nameSelector = await driver.$(courseData.elem.homeworkName);
-            await nameSelector.setValue(taskname);
-            await waitHelpers.waitAndClick(courseData.elem.teamworkActivate);
-            await this.setAccomplishTime();
-            await this.setHometaskText();
-            await this.setPrivate();
-            await waitHelpers.waitAndClick(courseData.elem.submitAddHomeworkBtn);
-
-        },
-
-        getTaskNames: async function() {
-            await driver.pause(1000 * 10);
-            const container = await driver.$(".col-xl-12");
-            const tasksArray = await container.$$("li");
-            const namesArray = [];
-            for (let i = 1; i <= tasksArray.length; i++) {
-                const task = await container.$(
-                    "li:nth-child(" + i + ") h2"
-                );
-                const taskName = (await task.getText());
-                await namesArray.push(taskName);
-            }
-            return namesArray;
+    getTaskNames: async function () {
+        await driver.pause(1000 * 10);
+        const container = await driver.$(".col-xl-12");
+        const tasksArray = await container.$$("li");
+        const namesArray = [];
+        for (let i = 1; i <= tasksArray.length; i++) {
+            const task = await container.$("li:nth-child(" + i + ") h2");
+            const taskName = (await task.getText());
+            namesArray.push(taskName);
         }
+        return namesArray;
 
     }
+
+
+}
