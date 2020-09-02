@@ -1,23 +1,53 @@
 /*[url/courses]/[courseId]]*/
 "use strict";
 
-const waitHelpers = require("../../../runtime/helpers/waitHelpers.js");
+const wh = require("../../../runtime/helpers/waitHelpers.js");
+const editCopyCoursePage = require("../../../page-objects/pages/coursePages/CRSSEditCopyCoursePage");
+
+const courseSettingsBtn = ".fa.fa-ellipsis-v.i-cog";
+
+const setting = {
+	editCourse: ".btn-course-edit",
+	createInvitation: ".btn-create-invitation",
+	createShareCourse: ".btn-create-share-course",
+	cloneCourse: ".fa-clone",
+};
+
+const tab = {
+	topics: "[data-tab='js-topics']",
+	homeworks: "[data-tab='js-homeworks']",
+	tools: "[data-tab='js-tools']",
+	groups: "[data-tab='js-groups']",
+};
 
 module.exports = {
+	openTopicsTab: async function () {
+		await wh.waitAndClick(tab.topics);
+	},
+
+	openHomeworksTab: async function () {
+		await wh.waitAndClick(tab.homeworks);
+	},
+
+	openToolsTab: async function () {
+		await wh.waitAndClick(tab.tools);
+	},
+
+	openGroupsTab: async function () {
+		await wh.waitAndClick(tab.groups);
+	},
+
+	clickThreePointSettingsIcon: async function () {
+		await wh.waitAndClick(courseSettingsBtn);
+	},
+
+	clickSettingsDropdownMenuBtn: async function(settingsBtnSelector) {
+		await wh.waitAndClick(settingsBtnSelector);
+	},
 	
 	cloneCourse: async function () {
-		let settingsBtn = ".fa.fa-ellipsis-v.i-cog";
-		await waitHelpers.waitAndClick(settingsBtn);
-		let copyCourseBtn = await driver.$(
-			"div.dropdown.dropdown-course.minimal-button.open > div > a:nth-child(4)"
-		);
-		await copyCourseBtn.click();
-		await driver.pause(1500);
-		let submitBtn = "button.btn.btn-primary.btn-submit";
-		await waitHelpers.waitAndClick(submitBtn);
-    },
-    clickOnButtonErstelleEinThema: async function () {
-		let addBtn = ".add-button > a";
-		await waitHelpers.waitAndClick(addBtn);
-	},
+		await this.clickThreePointSettingsIcon();
+		await this.clickSettingsDropdownMenuBtn(setting.cloneCourse);
+		await editCopyCoursePage.clickSubmitButton();
+    }
 }

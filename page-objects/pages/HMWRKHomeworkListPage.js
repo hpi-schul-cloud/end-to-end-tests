@@ -1,16 +1,20 @@
 /*[url/homework]*/
 'use strict';
-const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
-const courseData = require('../../shared-objects/courseData');
-const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
-const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
+const {CLIENT} = require("../../shared-objects/servers");
+const wh = require('../../runtime/helpers/waitHelpers');
+const eh = require('../../runtime/helpers/elementHelpers');
 
-const selectors = {
-	createTaskButton: "a[href='/homework/new']",
-}
+const urlHomework = `${CLIENT.URL}/homework`;
+const createTaskButton = "a[href='/homework/new']";
+ 
+
 module.exports = {
+	goToHomeworkListPage: async function () {
+		await eh.loadPage(urlHomework, 20);
+	},
+
 	clickCreateTaskButton: async function() {
-		await waitHelpers.waitAndClick(selectors.createTaskButton);
+		await wh.waitAndClick(createTaskButton);
 	},
 
 	sortHometasks: async function () {
@@ -58,12 +62,8 @@ module.exports = {
 		}
 	},
 
-	gotoTasks: async function () {
-		await elementHelpers.loadPage(courseData.urlHomework, 20);
-	},
-
 	verify: async function (taskname) {
-		await this.gotoTasks();
+		await this.goToHomeworkListPage();
 		await this.sortHometasks();
 		await this.chooseTaskAmongAllTasks(taskname);
 		let pageTitleSelector = await driver.$('#page-title');
@@ -71,27 +71,6 @@ module.exports = {
 		let tasknameArray = await courseAndTaskName.split("- ");
 		let foundtaskName = tasknameArray[1];
 		await expect(taskname).to.equal(foundtaskName);
-	},
-
-	teacherLogsIn: async function () {
-		await this.userLogsOut();
-		await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.defaultLoginData.defaultTeacherpassword);
-	},
-
-	userLogsOut: async function () {
-		await elementHelpers.loadPage(courseData.urlLogout, 20);
-	},
-
-	uploadAHomework: async function () {
-		//making the upload-element visible to selenium
-		change_visibility = '$x("//*[@id="main-content"]/div/section[1]/div/div/div[1]/input").css("visibility,"visible");';
-		change_display = '$x("//*[@id="main-content"]/div/section[1]/div/div/div[1]/input").css("display,"block");';
-		await driver.execute_script(change_visibility);
-		await driver.execute_script(change_display);
-
-		const path = require('path');
-		const filePath = path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt');
-		await driver.$x(courseData.uploadBtn).send_keys(filePath);
 	},
 
 	areThereAnyTasks: async function () {

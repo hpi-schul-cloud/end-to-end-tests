@@ -11,30 +11,39 @@ module.exports = {
         nameBox: '.dropdown-name',
         userIcon: '.btn-avatar > a',
         navItemHelp: 'li.nav-item.help-drodown',
-        initialsHelpButton: '.list-group-item.list-group-item-action:first-child',
-        initialsRequestOrProblemButton: '.list-group-item.list-group-item-action:nth-child(2) .link',
-        initialsAdminContactButton: '.list-group-item.list-group-item-action:nth-child(3) .link',
-        initialsTrainnigsButton: '.list-group-item.list-group-item-action:last-child .link',
-        QrIcon: '.fa.fa-qrcode',
+        navItemHelpHelpArea: '.list-group-item.list-group-item-action:first-child',
+        navItemHelpWishProblem: '.list-group-item.list-group-item-action:nth-child(2) .link',
+        navItemHelpContactAdmin: '.list-group-item.list-group-item-action:nth-child(3) .link',
+        navItemHelpTraining: '.list-group-item.list-group-item-action:last-child .link',
+        qrIcon: '.fa.fa-qrcode',
+        fullScreenMode: '.fa.fa-expand',
+        exclamationTriangle: '.fa.fa-exclamation-triangle',
+
 
     },
+    clickExclamationTriangle: async function () {
+        await waitHelpers.waitAndClick(this.selectors.exclamationTriangle);
+    },
+    clickFullScreenMode: async function () {
+        await waitHelpers.waitAndClick(this.selectors.fullScreenMode);
+    },
     clickNavItemQrIcon: async function () {
-        await waitHelpers.waitAndClick(this.selectors.QrIcon);
+        await waitHelpers.waitAndClick(this.selectors.qrIcon);
     },
     clickNavItemHelp: async function () {
         await waitHelpers.waitAndClick(this.selectors.navItemHelp);
     },
-    clickHelpButton: async function (){
-        await waitHelpers.waitAndClick(this.selectors.initialsHelpButton);
+    clickNavItemHelpHelpArea: async function (){
+        await waitHelpers.waitAndClick(this.selectors.navItemHelpHelpArea);
     },
-    initialsRequestOrProblemButton: async function (){
-        await waitHelpers.waitAndClick(this.selectors.initialsRequestOrProblemButton);
+    clickNavItemHelpWishProblem: async function (){
+        await waitHelpers.waitAndClick(this.selectors.navItemHelpWishProblem);
     },
-    initialsAdminContactButton: async function (){
-        await waitHelpers.waitAndClick(this.selectors.initialsAdminContactButton);
+    clickNavItemHelpContactAdmin: async function (){
+        await waitHelpers.waitAndClick(this.selectors.navItemHelpContactAdmin);
     },
-    initialsTrainnigsButton: async function (){
-        await waitHelpers.waitAndClick(this.selectors.initialsTrainnigsButton);
+    clickNavItemHelpTraining: async function (){
+        await waitHelpers.waitAndClick(this.selectors.navItemHelpTraining);
     },
     clickInitials: async function () {
         await waitHelpers.waitAndClick(this.selectors.initialsDiv);
@@ -49,6 +58,7 @@ module.exports = {
         await this.clickInitials();
         await this.clickLogout();
     },
+
     getNameAndPosition: async function() {
 		await this.clickInitials()
 		let nameBox = await driver.$(selectors.nameBox);

@@ -1,19 +1,11 @@
 'use strict';
 
-const courseData = require('../shared-objects/courseData');
-const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const addCoursePage = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
 const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
 const generalCoursePage = require("../page-objects/pages/coursePages/CRSSGeneralCoursePage");
+const courseTopicsPage = require("../page-objects/pages/coursePages/CRSSCourseTopicsPage");
 const addEditTopicPage = require("../page-objects/pages/coursePages/CRSSAddEditTopicPage");
 let coursesCount;
-
-
-//________Background_________
-
-Given(/^goes to the course page$/, function() {
-	return elementHelpers.loadPage(courseData.urlCourses, 20);
-});
 
 // _________Copy__________
 
@@ -48,7 +40,7 @@ Given(/^the teacher chooses the created course with (.*) and$/, function(coursen
 });
 When(/^the teacher adds a Topic with name (.*)$/, async function(topicname) {
 	//return copyCourse.addTopic(topicname);
-	await generalCoursePage.clickOnButtonErstelleEinThema();
+	await courseTopicsPage.clickAddNewTopicBtn();
 	await addEditTopicPage.setTopic(topicname);
 
 });
@@ -97,7 +89,7 @@ Given(/^the teacher chooses this course with (.*) and$/, function(coursename) {
 });
 Given(/^the teacher adds a topic with (.*)$/, async function(topicname) {
 	//return copyCourse.addTopic(topicname);
-	await generalCoursePage.clickOnButtonErstelleEinThema();
+	await courseTopicsPage.clickAddNewTopicBtn();
 	await addEditTopicPage.setTopic(topicname);
 });
 

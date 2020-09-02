@@ -1,18 +1,23 @@
 /*[url/homework/[homeworkId]]*/
 'use strict';
-const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
-const courseData = require('../../shared-objects/courseData');
+const {CLIENT} = require("../../shared-objects/servers");
+const waitHelpers = require('../../runtime/helpers/waitHelpers');
 const courseListPage = require('../../page-objects/pages/coursePages/CRSSCourseListPage');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
-const startPage = require('../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
-const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
+const startPage = require('../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin');
+const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage');
+const logoutPage = require('../../page-objects/pages/generalPagesBeforeLogin/LogoutPage');
 
 const selector = {
     submissionTab: "#submission-tab-link",
     areThereAnyTasks: '#homeworks > ol > div > li',
+    urlHomework: `${CLIENT.URL}/homework`,
 };
 
 module.exports = {
+    goToHomeworkListPage: async function () {
+        await elementHelpers.loadPage(selector.urlHomework, 20);
+    },
 
     // student helpers
     userFindsTheTask: async function (taskname) {
@@ -58,7 +63,8 @@ module.exports = {
     },
 
     teacherLogsInAndCanSeeTheTextSubmission: async function (coursename, taskname, studentname) {
-        await this.teacherLogsIn();
+        await startPage.clickLoginBtn();
+        await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.defaultLoginData.defaultTeacherpassword);
         await loginPage.firstLoginAdminOrTeacher();
         await courseListPage.goToCourses();
         await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
@@ -67,41 +73,14 @@ module.exports = {
         await this.hasTheStudentSubmittedTheTask(studentname);
     },
 
-    evaluateSubmission: async function () {
-        let submittedTasks = await driver.$('.usersubmission');
-        await submittedTasks.click();
-        let evaluationTab = await driver.$('#comment-tab-link');
-        await evaluationTab.click();
-        let evaluation = await driver.$(courseData.elem.evaluationInProcent);
-        await evaluation.setValue(95);
-        await driver.switchToFrame(0);
-        let body = await driver.$('body');
-        let comment = 'sehr gut!';
-        await body.setValue(comment);
-        await driver.switchToParentFrame();
-    },
-
     gotoTasksTab: async function () {
         let hometasksTab = await driver.$('button[data-testid="hometasks"]');
         await hometasksTab.click();
         await driver.pause(1000);
     },
-    teacherLogsIn: async function () {
-        await elementHelpers.loadPage(courseData.urlLogout, 20);
-        await startPage.clickLoginBtn();
-        await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.defaultLoginData.defaultTeacherpassword);
-    },
-
-    userLogsOut: async function () {
-        await elementHelpers.loadPage(courseData.urlLogout, 20);
-    },
-
-    gotoTasks: async function () {
-        await elementHelpers.loadPage(courseData.urlHomework, 20);
-    },
 
     submitHomework: async function (taskName, student) {
-        await this.gotoTasks();
+        await this.goToHomeworkListPage();
         await waitHelpers.waitAndClick(`[aria-label*="${taskName}"] > span`);
         await this.switchToSubmissionTab();
         await this.submitSolutionForTheHometask();
@@ -114,10 +93,10 @@ module.exports = {
     },
 
     submitFileFeedback: async function (taskName, file) { // back to teacher
-        await this.userLogsOut();
-        await this.teacherLogsIn();
-        // grade the submission
-        await this.gotoTasks();
+        await logoutPage.goToLogoutPage();
+        await startPage.clickLoginBtn();
+        await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.defaultLoginData.defaultTeacherpassword);
+        await this.goToHomeworkListPage();
         await waitHelpers.waitAndClick(`[aria-label*="${taskName}"] > span`);
 
         await this.teacherShowGradeTabForFirstSubmission();
@@ -153,9 +132,9 @@ module.exports = {
         await driver.switchToWindow(mainWindow);
 
         // ensure the student sees the file
-        await this.userLogsOut();
+        await logoutPage.goToLogoutPage();
         await loginPage.performLogin(student.login, student.password);
-        await this.gotoTasks();
+        await this.goToHomeworkListPage();
         await waitHelpers.waitAndClick(`*=${taskName}`);
         await waitHelpers.waitAndClick('a*=Bewertung');
 

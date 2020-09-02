@@ -5,7 +5,7 @@ Feature: copy a created course with different data
 Background: teacher is logged in and has created a course
 Given teacher arrives on the Schul-Cloud homepage
 Given teacher is successfully logged in
-Given goes to the course page
+Given teacher goes to courses page
 
 @simpleCopyCourse
 Scenario Outline: teacher can copy an existing course

@@ -3,18 +3,9 @@ const path = require('path');
 const addEditHomeworkPage = require('../page-objects/pages/HMWRKAddEditHomeworkPage.js');
 const homeworkListPage = require('../page-objects/pages/HMWRKHomeworkListPage');
 const homeworkPage = require('../page-objects/pages/HMWRKHomeworkPage');
-const courseData = require('../shared-objects/courseData');
-const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const addCoursePage = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
 const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
 const courseHomeworksPage = require("../page-objects/pages/coursePages/CRSSCourseHomeworksPage");
-
-/*BACKGROUND*/
-
-
-Given(/^the teacher goes to the course page as a next step$/, function () {
-    return elementHelpers.loadPage(courseData.urlCourses, 20);
-});
 
 /* CREATE A BASIC HOMEWORK */
 
@@ -63,16 +54,16 @@ Given(/^the Teacher creates one course with (.*) and pupil with:$/, function (co
     return copyCourse.create(coursename);
 });
 When(/^Teacher creates a homework for the course (.*)$/, function (coursename) {
-    return courseHomeworksPage.clickCreateNewTaskInTheCourse(coursename);
+	return courseHomeworksPage.clickAddNewTaskInCourse(coursename);
 });
 When(/^the teacher puts in data (.*) and some text description of the task$/, function (taskname) {
     return addEditHomeworkPage.addBasicHometask(taskname);
 });
 When(/^the user goes to the course (.*) where the hometask (.*) must be submitted$/, function (coursename, taskname) {
-    return courseListPage.uploadAHomework();
+    return addEditHomeworkPage.uploadHomework();
 });
 Then(/^the students can upload a file as a solution$/, function () {
-    return courseListPage.uploadAHomework();
+    return addEditHomeworkPage.uploadHomework();
 });
 
 (function () {
