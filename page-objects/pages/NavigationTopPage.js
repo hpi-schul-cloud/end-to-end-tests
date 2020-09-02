@@ -10,10 +10,31 @@ module.exports = {
         initialsDDLogout: 'a[data-testid="logout"]',
         nameBox: '.dropdown-name',
         userIcon: '.btn-avatar > a',
+        navItemHelp: 'li.nav-item.help-drodown',
+        initialsHelpButton: '.list-group-item.list-group-item-action:first-child',
+        initialsRequestOrProblemButton: '.list-group-item.list-group-item-action:nth-child(2) .link',
+        initialsAdminContactButton: '.list-group-item.list-group-item-action:nth-child(3) .link',
+        initialsTrainnigsButton: '.list-group-item.list-group-item-action:last-child .link',
+        QrIcon: '.fa.fa-qrcode',
 
+    },
+    clickNavItemQrIcon: async function () {
+        await waitHelpers.waitAndClick(this.selectors.QrIcon);
     },
     clickNavItemHelp: async function () {
         await waitHelpers.waitAndClick(this.selectors.navItemHelp);
+    },
+    clickHelpButton: async function (){
+        await waitHelpers.waitAndClick(this.selectors.initialsHelpButton);
+    },
+    initialsRequestOrProblemButton: async function (){
+        await waitHelpers.waitAndClick(this.selectors.initialsRequestOrProblemButton);
+    },
+    initialsAdminContactButton: async function (){
+        await waitHelpers.waitAndClick(this.selectors.initialsAdminContactButton);
+    },
+    initialsTrainnigsButton: async function (){
+        await waitHelpers.waitAndClick(this.selectors.initialsTrainnigsButton);
     },
     clickInitials: async function () {
         await waitHelpers.waitAndClick(this.selectors.initialsDiv);
