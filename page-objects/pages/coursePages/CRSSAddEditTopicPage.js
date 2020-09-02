@@ -1,10 +1,12 @@
 /*[url/courses]/[courseId]/topics/add] | [url/courses]/[courseId]/topics/edit]*/
 'use strict';
+const {CLIENT} = require("../../../shared-objects/servers");
 const waitHelpers = require("../../../runtime/helpers/waitHelpers.js");
 
 const selectors = {
     topicName: ".form-group > .form-control",
-    themaAnlegenButton: ".btn.btn-primary.btn-submit", 
+	themaAnlegenButton: ".btn.btn-primary.btn-submit", 
+	lernStoreUrl: `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`,
 };
 
 module.exports = {
@@ -42,7 +44,7 @@ module.exports = {
 		await waitHelpers.waitAndClick(addMaterialBtn);
 		// window switch
 		await driver.pause(9000);
-		//await driver.switchWindow(courseData.lernStoreUrl);
+		//await driver.switchWindow(selectors.lernStoreUrl);
 		let browsers = await driver.getWindowHandles();
 		let currentBrowserAfterClickAdd = await driver.switchWindow(
 			browsers[1]

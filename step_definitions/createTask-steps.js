@@ -22,13 +22,13 @@ Then(/^he should put the taskname (.*) into the name field$/, function(
 Then(/^he should put the taskBody (.*) into the body field$/, function(
 	taskBody
 ) {
-	return addEditHomeworkPage.setHometaskText(taskBody);
+	return addEditHomeworkPage.setHomeworkText(taskBody);
 });
 
 Then(
 	/^he should click the submit-task-button on the task-creation-form$/,
 	function() {
-		return addEditHomeworkPage.clickSubmitTaskButton();
+		return addEditHomeworkPage.clickSubmitHomeworkBtn();
 	}
 );
 Then(/^teacher goes to tasks page$/, function() {

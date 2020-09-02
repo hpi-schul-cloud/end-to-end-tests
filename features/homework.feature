@@ -7,7 +7,7 @@ Feature: create different types of homework
         Given arrives on the Schul-Cloud homepage
         Given teacher is successfully logged in
         Given teacher accepts data protection
-        Given the teacher goes to the course page as a next step
+        Given teacher goes to courses page
 
 
     @createSimpleHomework
