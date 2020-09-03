@@ -1,13 +1,20 @@
 @lernstore
 Feature: different actions in lernstore
 Background: a teacher logs in and creates a course
-Given the teacher starts on the login page
-Given the teacher is logged-in successfully
-Given the teacher goes to the course page as a next step
+Given teacher arrives on the Schul-Cloud homepage
+Given teacher is successfully logged in
+Given teacher goes to courses page
+
+
 
 @lernstoreAddMaterialFromContentDetailView
 Scenario Outline: teacher can add material to topic of course from content detail view
-When the teacher adds a Topic
+Given the teacher creates some with name <coursename>
+Given the teacher chooses the created course with <coursename> and
+When the teacher adds a Topic with name <topicName>
+When the teacher adds some Lerstore material with <lerstoreTopicName> to the course
+
+
 When teacher goes to content page
 When the teacher searches for content
 When teacher clicks on content-card
@@ -15,6 +22,9 @@ When teacher clicks on add content button
 When teacher selects course and topic
 When teacher goes to topic
 Then added material should be visible
+Examples:
+    | coursename          | topicName             | lerstoreTopicName |
+    | courseWithLernstore | Topic with Lernstore  | LernstoreTest     |
 
 @lernstoreAddMaterialFromContentCard
 Scenario Outline: teacher can add material to topic of course from content card

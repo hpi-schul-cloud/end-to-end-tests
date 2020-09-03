@@ -4,7 +4,14 @@ const waitHelpers = require("../../../runtime/helpers/waitHelpers.js");
 
 const selectors = {
     topicName: ".form-group > .form-control",
-    themaAnlegenButton: ".btn.btn-primary.btn-submit", 
+	themaAnlegenButton: ".btn.btn-primary.btn-submit", 
+	textBtn: ".btn-group > button:nth-child(1)",
+	geogebraBtn: ".btn-group > button:nth-child(2)",
+	lernstoreBtn: ".btn-group > button:nth-child(3)",
+	etherpadBtn: ".btn-group > button:nth-child(4)",
+	taskBtn: ".btn-group > button:nth-child(5)",
+	btnAttachLernstoreMaterial: "#content-blocks .btn-secondary.btn-add",
+
 };
 
 module.exports = {
@@ -32,7 +39,16 @@ module.exports = {
 	    let geoIDSelector = await idContainer.$(".form-control");
 	    await geoIDSelector.setValue(geogebraID);
 	    await driver.pause(500);
-    },
+	},
+	addLernstoreMaterial: async function(name) {
+		await waitHelpers.waitAndClick(selectors.lernstoreBtn);
+		let idContainer = await driver.$("#content-blocks");
+	    let lernstoreSelector = await idContainer.$(".form-control");
+		await lernstoreSelector.setValue(name);
+		await waitHelpers.waitAndClick(selectors.btnAttachLernstoreMaterial);
+
+
+	},
     
     addMaterial: async function () {
 		let materialBtn = ".btn-group > button:nth-child(3)";
@@ -54,10 +70,13 @@ module.exports = {
 		await driver.pause(1500);
     },
     addEtherpad: async function (name, description) {
+		console.log("btn!!");
+		
 		let etherpadBtn = ".btn-group > button:nth-child(4)";
+		
 		await waitHelpers.waitAndClick(etherpadBtn);
 		let nameField = await driver.$(
-			"#content-blocks > div > div:nth-child(1) .form-control"
+			"#content-blocks > div > div.form-group > div.btn-group"
 		);
 		await nameField.setValue(name);
 		let descriptionField = await driver.$(
