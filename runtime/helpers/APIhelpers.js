@@ -2,6 +2,7 @@
 let log = global.log;
 const fs = require('fs');
 const textFileHelpers = require('./textFileHelpers.js');
+const dateHelpers = require('./dateTimeHelpers');
 const { SERVER } = require("../../shared-objects/servers");
 const Axios = require("axios");
 
@@ -87,6 +88,39 @@ module.exports = {
 
 		return  this.getUserInfo('avatarInitials');
 	}, 
+	getLernstoreMaterialsAfterRequest: async function(request) {
+		const cookie = await driver.getCookies(['jwt']);
+		const jwt = cookie[0].value;
+		
+		const info = await Axios.request({
+			url:  `${SERVER.URL}`+"/edu-sharing?searchQuery="+`${request}`,
+			method: 'GET',
+			headers: {
+				Authorization: `${jwt}`
+			},
+		  });
+		
+		  let numberOfFoundMaterials = info.data.total;
+		  return numberOfFoundMaterials;
+	},
+	getTheFirstElementNamePerRESTRequest: async function(request) {
+		const cookie = await driver.getCookies(['jwt']);
+		const jwt = cookie[0].value;
+		const info = await Axios.request({
+			url:  `${SERVER.URL}`+"/edu-sharing?searchQuery="+`${request}`,
+			method: 'GET',
+			headers: {
+				Authorization: `${jwt}`
+			},
+		  });
+		
+		  let title = info.data.data[0].title;
+		
+		  return title;
+
+	},
+	
 
 
 }
+

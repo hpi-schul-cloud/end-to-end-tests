@@ -13,18 +13,17 @@ Given the teacher creates some with name <coursename>
 Given the teacher chooses the created course with <coursename> and
 When the teacher adds a Topic with name <topicName>
 When the teacher adds some Lerstore material with <lerstoreTopicName> to the course
-
-
-When teacher goes to content page
-When the teacher searches for content
-When teacher clicks on content-card
+Then the teacher must be redirected to content page
+When the teacher searches for content <content>
+Then the right number of materials <content> is displayed
+When teacher clicks on content-card after request <content>
 When teacher clicks on add content button
-When teacher selects course and topic
+When teacher selects course <coursename> and topic <topicName>
 When teacher goes to topic
 Then added material should be visible
 Examples:
-    | coursename          | topicName             | lerstoreTopicName |
-    | courseWithLernstore | Topic with Lernstore  | LernstoreTest     |
+    | coursename          | topicName             | lerstoreTopicName | content |
+    | courseWithLernstore | Topic with Lernstore  | LernstoreTest     | Mathe   |
 
 @lernstoreAddMaterialFromContentCard
 Scenario Outline: teacher can add material to topic of course from content card
