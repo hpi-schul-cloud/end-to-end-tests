@@ -5,10 +5,10 @@ const ADMNSTRTNAdministrationOverviewPage = require('../page-objects/pages/admin
 
 
 
-  When(/^The Teacher goes to Verwaltung page$/, function () {
-	return ADMNSTRTNAdministrationOverviewPage.goToAdministrationPage();
-  });
+When(/^The Teacher goes to Verwaltung page$/, function () {
+  return ADMNSTRTNAdministrationOverviewPage.goToAdministrationPage();
+});
 
-  Then(/^Verify if all required tabs are visible in Verwaltung area$/, function (administrationTextLabels) {
-    return DashboardPage.checkIfTabsAreVisible(administrationTextLabels, ADMNSTRTNAdministrationOverviewPage.selectors.administrationsTabs);
-    });
+Then(/^Verify if all required tabs are visible in Verwaltung area$/, function (administrationTextLabels) {
+  return DashboardPage.checkIfTabsAreVisible(administrationTextLabels, ADMNSTRTNAdministrationOverviewPage.administrationsTabs);
+});

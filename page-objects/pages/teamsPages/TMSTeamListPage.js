@@ -4,11 +4,11 @@
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 const { CLIENT } = require("../../../shared-objects/servers");
 
-module.exports = {
-	url: `${CLIENT.URL}/teams`,
-	addTeamURL: `${CLIENT.URL}/teams/add`,
-	teamsContainer: 'div[data-testid="courses"]',
+const url = `${CLIENT.URL}/teams`;
+const addTeamURL = `${CLIENT.URL}/teams/add`;
+const teamsContainer = 'div[data-testid="courses"]';
 
+module.exports = {
 	goToTeams: async function () {
 		return elementHelpers.loadPage(this.url, 20);
 	},

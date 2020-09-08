@@ -31,14 +31,14 @@ let oldPassword;
 let oldPassword1;
 let oldPassword2;
 
+// input fields
+const teamName = 'input[data-testid="team_name"]';
+const teamDescription = 'textarea[data-testid="description_team"]';
+
+// submit button
+const createTeamBtn = 'button[data-testid="create_team_btn"]';
+
 module.exports = {
-    // input fields
-    teamName: 'input[data-testid="team_name"]',
-    teamDescription: 'textarea[data-testid="description_team"]',
-
-    // submit button
-    createTeamBtn: 'button[data-testid="create_team_btn"]',
-
     gotoTeams: async function () {
         // @Conversion to use a button or link within the Add/Edit mask
         let url = `${CLIENT.URL}/teams/`;

@@ -8,46 +8,44 @@ const apiHelpers = require('../../runtime/helpers/APIhelpers');
 const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 
 const dashboardUrl = `${CLIENT.URL}/dashboard`;
-const dashboardSelectors = {
-		dashboardTitle: 'Übersicht',
-    dashboardHeader: '#titlebar h1#page-title',
-};
+const dashboardTitle = 'Übersicht';
+const dashboardHeader = '#titlebar h1#page-title';
+
 module.exports = {
-		dashboardSelectors, 
-    goToDashboard: async function() {
+	goToDashboard: async function () {
 		await elementHelpers.loadPage(dashboardUrl, 20);
 		await driver.pause(1000);
 	},
 
-	loginResultDashboard: async function() {
+	loginResultDashboard: async function () {
 		await this.goToDashboard();
-		let title = dashboardSelectors.dashboardTitle;
-		expect(await elementHelpers.getElementText(dashboardSelectors.dashboardHeader)).to.equal(title);
+		expect(await elementHelpers.getElementText(dashboardHeader)).to.equal(dashboardTitle);
 	},
-	
-	loginInitials: async function() {
+
+	loginInitials: async function () {
 		let initials = await apiHelpers.getInitials();
 		expect(await elementHelpers.getElementText('.avatar-circle')).to.equal(initials);
 	},
 
-	loginSchool: async function() {
+	loginSchool: async function () {
 		await this.goToDashboard();
 		let schoolNameProvidedByAPI = await apiHelpers.getSchoolName();
+		//TODO:loginPage.schoolNameSelector
 		expect(await elementHelpers.getElementText(loginPage.schoolNameSelector)).to.equal(schoolNameProvidedByAPI);
-		},
-		
-  loginFullUserInfo: async function() {
-		let userName = await apiHelpers.getInitials();
-		expect(await elementHelpers.getElementText(navigationTopPage.selectors.initialsDDCurrentUser).to.equal(userName));
 	},
-	
-  checkIfTabsAreVisible: async function (itemsToCompare, selector) {
-    let items = await driver.$$(selector);
-    let expectations = itemsToCompare.hashes();
-    for(let i = 0; i < items.length; i++){
-      let actualLabelText = await items[i].getText();
-      await items[i].waitForEnabled(DELAY_100_MILLISECOND);
-      expect(actualLabelText).to.equal(expectations[i].tabs);
-      }
-  },
+
+	loginFullUserInfo: async function () {
+		let userName = await apiHelpers.getInitials();
+		expect(await elementHelpers.getElementText(navigationTopPage.initialsDDCurrentUser).to.equal(userName));
+	},
+
+	checkIfTabsAreVisible: async function (itemsToCompare, selector) {
+		let items = await driver.$$(selector);
+		let expectations = itemsToCompare.hashes();
+		for (let i = 0; i < items.length; i++) {
+			let actualLabelText = await items[i].getText();
+			await items[i].waitForEnabled(DELAY_100_MILLISECOND);
+			expect(actualLabelText).to.equal(expectations[i].tabs);
+		}
+	},
 }

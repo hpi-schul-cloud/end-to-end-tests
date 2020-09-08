@@ -45,7 +45,7 @@ const firstLoginSel = {
 }
 
 module.exports = {
-	defaultLoginData, loginTabs, schoolNameSelector,
+	defaultLoginData,
 	performLogin: async function (username, password) {
 		let loginSel = await driver.$(usernameInput);
 		await loginSel.setValue(username);
@@ -78,7 +78,7 @@ module.exports = {
 		await waitHelpers.waitAndClick(firstLoginSel.startUsageOfSchulcloudBtn);
 	},
 
-	firstLoginAdminOrTeacher: async function() {
+	firstLoginAdminOrTeacher: async function () {
 		await waitHelpers.waitAndClick(firstLoginSel.nextBtn);
 		await waitHelpers.waitAndClick(firstLoginSel.nextBtn);
 		await waitHelpers.waitAndClick(firstLoginSel.nextBtn);
@@ -86,11 +86,11 @@ module.exports = {
 		await waitHelpers.waitAndClick(firstLoginSel.nextBtn);
 		await waitHelpers.waitAndClick(firstLoginSel.startUsageOfSchulcloudBtn);
 	},
-	clickOnDataProtectionBoxes: async function() {
+	clickOnDataProtectionBoxes: async function () {
 		await waitHelpers.waitAndClick(firstLoginSel.dataProtection.box1);
 		await waitHelpers.waitAndClick(firstLoginSel.dataProtection.box2);
 	},
-	setNewPasswordStudent: async function(newPassword) {
+	setNewPasswordStudent: async function (newPassword) {
 		let passwordSel1 = await driver.$(firstLoginSel.setOwnPasswort.passwordSet);
 		let passwordSel2 = await driver.$(firstLoginSel.setOwnPasswort.passwordSet2);
 		await passwordSel1.setValue(newPassword);

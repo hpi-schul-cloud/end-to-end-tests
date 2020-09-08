@@ -4,16 +4,16 @@
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 const { CLIENT } = require("../../../shared-objects/servers");
 const multipleChoiceSelectForTeamMembers = '[data-testid="select_team_members_add"]';
+// team members buttons
+const addInternalMembers = 'button[data-testid="internal_team_members"]';
+/*data testid needs to be created
+const addExternalMembers = 'button[data-testid="needs_to_be_created"]';*/
+
+// team members internal options
+const selectTeamMembers = 'select[data-testid="select_team_members_add"]';
+
 
 module.exports = {
-	// team members buttons
-	addInternalMembers: 'button[data-testid="internal_team_members"]',
-    /*data testid needs to be created
-    addExternalMembers: 'button[data-testid="needs_to_be_created"]',*/
-
-	// team members internal options
-	selectTeamMembers: 'select[data-testid="select_team_members_add"]',
-
 	clickAddInternalMembers: async function () {
 		let addBtn = await driver.$(this.addInternalMembers);
 		await addBtn.click();

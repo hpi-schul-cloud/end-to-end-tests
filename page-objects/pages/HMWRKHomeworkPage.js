@@ -1,6 +1,6 @@
 /*[url/homework/[homeworkId]]*/
 'use strict';
-const {CLIENT} = require("../../shared-objects/servers");
+const { CLIENT } = require("../../shared-objects/servers");
 const waitHelpers = require('../../runtime/helpers/waitHelpers');
 const courseListPage = require('../../page-objects/pages/coursePages/CRSSCourseListPage');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
@@ -8,20 +8,20 @@ const startPage = require('../../page-objects/pages/generalPagesBeforeLogin/Star
 const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage');
 const logoutPage = require('../../page-objects/pages/generalPagesBeforeLogin/LogoutPage');
 
-const selector = {
-    submissionTab: "#submission-tab-link",
-    areThereAnyTasks: '#homeworks > ol > div > li',
-    urlHomework: `${CLIENT.URL}/homework`,
-};
+
+const submissionTab = "#submission-tab-link";
+const areThereAnyTasks = '#homeworks > ol > div > li';
+const urlHomework = `${CLIENT.URL}/homework`;
+
 
 module.exports = {
     goToHomeworkListPage: async function () {
-        await elementHelpers.loadPage(selector.urlHomework, 20);
+        await elementHelpers.loadPage(urlHomework, 20);
     },
 
     // student helpers
     userFindsTheTask: async function (taskname) {
-        let areThereAnyTasks = await driver.$$(selector.areThereAnyTasks);
+        let areThereAnyTasks = await driver.$$(areThereAnyTasks);
         await expect(areThereAnyTasks.length).not.to.equal(0);
         for (var i = 0; i <= areThereAnyTasks.length; i++) {
             let taskSelector = await driver.$('#homeworks > ol > div > li:nth-child(' + i + ') .h5.title');
@@ -34,18 +34,18 @@ module.exports = {
     },
 
     switchToSubmissionTab: async function () {
-        await waitHelpers.waitAndClick(selector.submissionTab);
+        await waitHelpers.waitAndClick(submissionTab);
     },
 
     submitSolutionForTheHometask: async function () {
         await driver.pause(global.SHORT_WAIT_MILLIS);
-		const textField = await driver.$('.ck-content');
-		const assignmentText = 'here is some text which I want to submit';
-		textField.setValue(assignmentText);
-		const container = await driver.$('#submission');
-		const submitBtn = await container.$('button[type="submit"]');
-		await waitHelpers.waitAndClick('.ckeditor-submit')
-		await driver.pause(1500);
+        const textField = await driver.$('.ck-content');
+        const assignmentText = 'here is some text which I want to submit';
+        textField.setValue(assignmentText);
+        const container = await driver.$('#submission');
+        const submitBtn = await container.$('button[type="submit"]');
+        await waitHelpers.waitAndClick('.ckeditor-submit')
+        await driver.pause(1500);
     },
 
 
@@ -107,11 +107,11 @@ module.exports = {
         });
 
         const remoteFilePath = await driver.uploadFile(file.path);
-        await(await driver.$('input[type=file][class=dz-hidden-input]')).setValue(remoteFilePath);
+        await (await driver.$('input[type=file][class=dz-hidden-input]')).setValue(remoteFilePath);
         await driver.pause(3000);
 
         // The upload causes a page reload, which causes the current tab to change.
-        await(await driver.$('.tab-content.section-homeworksubmissions.active')).waitForDisplayed();
+        await (await driver.$('.tab-content.section-homeworksubmissions.active')).waitForDisplayed();
     },
 
     testFileUploadSuccess: async function (taskName, file, student) { // navigate to grade tab
@@ -125,7 +125,7 @@ module.exports = {
         const mainWindow = await driver.getWindowHandle();
         await waitHelpers.waitAndClick(`a*=${
             file.name
-        }`);
+            }`);
 
         await driver.pause(1000);
         const fileUrl = await this.getCurrentTabUrl();
@@ -143,7 +143,7 @@ module.exports = {
         // ensure the student can download the file
         await waitHelpers.waitAndClick(`a*=${
             file.name
-        }`);
+            }`);
         await driver.pause(1000);
         const studentFileUrl = await this.getCurrentTabUrl();
 
