@@ -2,7 +2,6 @@
 let log = global.log;
 const fs = require('fs');
 const textFileHelpers = require('./textFileHelpers.js');
-const dateHelpers = require('./dateTimeHelpers');
 const { SERVER } = require("../../shared-objects/servers");
 const Axios = require("axios");
 
