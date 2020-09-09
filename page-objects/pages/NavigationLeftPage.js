@@ -58,7 +58,7 @@ module.exports = {
         navItemAddons: navItemStringDefault1stLevel.replace('XXX', 'Add-ons'),
         navItemHelpDesk: navItemStringDefault1stLevel.replace('XXX', 'Helpdesk'),
         navItemAdministration: navItemStringDefault1stLevel.replace('XXX', 'Verwaltung'),
-        navItemAdministrationStudents: '[data-testid="Schüler"]',
+        navItemAdministrationStudents: navItemStringDefault2ndLevel.replace('XXX', 'Schüler'),
         navItemAdministrationTeachers: '[data-testid="Lehrer"]',
         navItemAdministrationCourses: '[data-testid="Kurse"]',
         navItemAdministrationClasses: '[data-testid="Klassen"]',
