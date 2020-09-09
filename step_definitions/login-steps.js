@@ -28,7 +28,7 @@ Then(
 
 Then(
 	/^the admin-dashboard should have the admin name and profession$/, function() {
-		return DashboardPage.loginInitials();
+		return DashboardPage.loginFullUserInfo();
 });
 
 Then(/^the admin-dashboard should have the following tabs$/, function (LoginTextLabels) {

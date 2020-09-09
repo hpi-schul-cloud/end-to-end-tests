@@ -16,14 +16,15 @@ Feature: Log in as an admin, as a teacher, as a student
             | tabs           |
             | ÜBERSICHT      |
             | KURSE          |
-            | TEAMS          |
+          # | TEAMS          |
             | AUFGABEN       |
             | MEINE DATEIEN  |
             | NEUIGKEITEN    |
             | TERMINE        |
-            | LERN-STORE     |
+          # | LERN-STORE     |
             | HELPDESK       |
-            | ADMINISTRATION |
+            | VERWALTUNG     |
+            | HILFEBEREICH   |
 
         Examples:
             | adminUsername         | password     |
