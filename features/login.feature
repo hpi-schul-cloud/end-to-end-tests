@@ -9,19 +9,19 @@ Feature: Log in as an admin, as a teacher, as a student
         As an admin, I want to be able to login
         When admin logs in with email <adminUsername> and password <password>
         Then admin accepts data protection
-        Then the admin-dashboard should have the admin initials
-        Then the admin-dashboard should have the correct school
-        Then the admin-dashboard should have the admin name and profession
-        Then the admin-dashboard should have the following tabs
+        Then user-dashboard should have the correct initials
+        Then user-dashboard should have the correct school
+        Then user-dashboard should have the correct name and profession
+        Then user-dashboard should have the following tabs
             | tabs           |
             | ÜBERSICHT      |
             | KURSE          |
-          # | TEAMS          |
+            | TEAMS          |
             | AUFGABEN       |
             | MEINE DATEIEN  |
             | NEUIGKEITEN    |
             | TERMINE        |
-          # | LERN-STORE     |
+            | LERN-STORE     |
             | HELPDESK       |
             | VERWALTUNG     |
             | HILFEBEREICH   |
@@ -47,7 +47,20 @@ Feature: Log in as an admin, as a teacher, as a student
         As a student, I want to be able to login
         When student logs in with email <studentUsername> and password <password>
         And student with full age accepts student's data protection with password <newStudentPassword>
-        Then a pupil should see the dashboard
+        Then user-dashboard should have the correct initials
+        Then user-dashboard should have the correct school
+        Then user-dashboard should have the correct name and profession
+        Then user-dashboard should have the following tabs
+            | tabs           |
+            | ÜBERSICHT      |
+            | KURSE          |
+            | TEAMS          |
+            | AUFGABEN       |
+            | MEINE DATEIEN  |
+            | NEUIGKEITEN    |
+            | TERMINE        |
+            | LERN-STORE     |
+            | HILFEBEREICH   |
 
         Examples:
             | studentUsername             | password     | newStudentPassword     |
