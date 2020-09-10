@@ -4,46 +4,40 @@ const startPage = require('../generalPagesBeforeLogin/StartPageBeforeLogin');
 const loginPage= require('../generalPagesBeforeLogin/LoginPage');
 
 const waitHelpers= require('../../../runtime/helpers/waitHelpers');
-const dateTimeHelpers= require('../../../runtime/helpers/dateTimeHelpers');
 let oldPassword;
 
 const selectors = {
-    //data test ids need to be created for the following three buttons
-    selectorFABBtn:'button.fab.primary.button.is-medium.is-none',
-    selectorAddStudentBtn:'a[aria-label="Schüler:in anlegen"]',
-    selectorImportStudentBtn:'a[aria-label="Schüler:innen importieren"]',
-    selectorSetFirstName: 'input[data-testid=\'input_create-user_firstname\']',
-    selectorSetLastName: 'input[data-testid=\'input_create-user_lastname\']',
-    selectorSetEmail: 'input[data-testid=\'input_create-user_email\']',
-    selectorSetBirthdate: 'input[data-testid=\'input_create-student_birthdate\']',
-    selectorSendALinkBox: 'label[data-testid=\'input_create-student_send-registration\']',
-    selectorNamesContainer: 'tbody[data-testid=\'table-data-body\']',
+    selectorAddStudentBtn:'button[data-testid=\'btn_add_student\']',
+    selectorSetFirstName: 'input[data-testid=\'create_student_input_firstname\']',
+    selectorSetLastName: 'input[data-testid=\'create_student_input_lastname\']',
+    selectorSetEmail: 'input[data-testid=\'create_student_input_email\']',
+    selectorSendALinkBox: 'input[data-testid=\'create_student_input_send_link\']',
+    selectorNamesContainer: 'tbody[data-testid=\'students_names_container\']',
     selectorConsentSubmitBtn: 'button[data-testid=\'submit_consent\']',
-    submitStudentCreateBtn: 'button[data-testid=\'button_create-user_submit\']',
+    submitStudentCreateBtn: 'div.modal.fade.add-modal.in button.btn-submit',
 
 };
 module.exports = {
     selectors, oldPassword,
     createNewPupil: async function(firstname, lastname, email) {
-        await waitHelpers.waitAndClick(selectors.selectorFABBtn);
         await waitHelpers.waitAndClick(selectors.selectorAddStudentBtn);
         await waitHelpers.waitAndSetValue(selectors.selectorSetFirstName, firstname);
         await waitHelpers.waitAndSetValue(selectors.selectorSetLastName, lastname);
         await waitHelpers.waitAndSetValue(selectors.selectorSetEmail, email);
-        let birthdate = await dateTimeHelpers.setDate(0,0,-15,'.',false);
-        await this.setStudentsBirthday(birthdate);
+        await this.setStudentsBirthdayScript();
         await waitHelpers.waitAndClick(selectors.selectorSendALinkBox);
         await waitHelpers.waitAndClick(selectors.submitStudentCreateBtn);
     },
-    setStudentsBirthday: async function(date) {
-        let dateSelector = await driver.$(selectors.selectorSetBirthdate);
-        await dateSelector.waitForExist(1000);
-        await dateSelector.setValue(date);
+    setStudentsBirthdayScript: async function() {
+        await driver.pause(1500);
+        await driver.execute('document.querySelector("#create_birthday").value = "13.08.1990"')
     },
+
+
     emailsOfThePupils: async function() {
         let names = await driver.$$(selectors.selectorNamesContainer + ' > tr');
         return Promise.all(names.map(async (nameContainer) => {
-            const emailContainer = await nameContainer.$("td:nth-child(5)");
+            const emailContainer = await nameContainer.$("td:nth-child(3)");
             return await emailContainer.getText();
         }))
     },
@@ -65,11 +59,12 @@ module.exports = {
                 oldPassword = password_old;
                 await submitBtn.click();
                 break;
+                
             }
-        }
+        } 
     },
     studentLogsInWithDefaultPassword: async function(email) {
         await startPage.clickLoginBtn();
-	    await loginPage.performLogin(email, this.oldPassword);
+	    await loginPage.performLogin(email, oldPassword);
     }
 }
