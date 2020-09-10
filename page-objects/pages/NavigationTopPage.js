@@ -7,7 +7,7 @@ module.exports = {
         initialsDiv: '[data-testid="initials"]',
         initialsDDCurrentUser: 'div.dropdown-name[data-testid="name-in-the-icon"]',
         initialsDDSettings: 'a[data-testid="settings"]',
-        initialsDDLogout: '[data-testid="logout"]',
+        initialsDDLogout: 'a[data-testid="logout"]',
         nameBox: '.dropdown-name',
         userIcon: '.btn-avatar > a',
 
