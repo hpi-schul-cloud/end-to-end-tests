@@ -1,7 +1,7 @@
 /*[url/courses]/[courseId]]*/
 "use strict";
 
-const wh = require("../../../runtime/helpers/waitHelpers.js");
+const waitHelpers = require("../../../runtime/helpers/waitHelpers.js");
 const editCopyCoursePage = require("../../../page-objects/pages/coursePages/CRSSEditCopyCoursePage");
 
 const courseSettingsBtn = ".fa.fa-ellipsis-v.i-cog";
@@ -22,27 +22,27 @@ const tab = {
 
 module.exports = {
 	openTopicsTab: async function () {
-		await wh.waitAndClick(tab.topics);
+		await waitHelpers.waitAndClick(tab.topics);
 	},
 
 	openHomeworksTab: async function () {
-		await wh.waitAndClick(tab.homeworks);
+		await waitHelpers.waitAndClick(tab.homeworks);
 	},
 
 	openToolsTab: async function () {
-		await wh.waitAndClick(tab.tools);
+		await waitHelpers.waitAndClick(tab.tools);
 	},
 
 	openGroupsTab: async function () {
-		await wh.waitAndClick(tab.groups);
+		await waitHelpers.waitAndClick(tab.groups);
 	},
 
 	clickThreePointSettingsIcon: async function () {
-		await wh.waitAndClick(courseSettingsBtn);
+		await waitHelpers.waitAndClick(courseSettingsBtn);
 	},
 
 	clickSettingsDropdownMenuBtn: async function(settingsBtnSelector) {
-		await wh.waitAndClick(settingsBtnSelector);
+		await waitHelpers.waitAndClick(settingsBtnSelector);
 	},
 	
 	cloneCourse: async function () {
