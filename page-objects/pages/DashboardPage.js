@@ -10,8 +10,15 @@ const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/Logi
 const dashboardUrl = `${CLIENT.URL}/dashboard`;
 const dashboardTitle = 'Übersicht';
 const dashboardHeader = '#titlebar h1#page-title';
+const loginTabs = {
+	loginTabs: 'ul.sidebar-list[title]',
+};
+const sidebarList = 'ul.sidebar-list[title]';
 
 module.exports = {
+	getElementList: async function () {
+
+	},
 	goToDashboard: async function () {
 		await elementHelpers.loadPage(dashboardUrl, 20);
 		await driver.pause(1000);
@@ -22,25 +29,12 @@ module.exports = {
 		expect(await elementHelpers.getElementText(dashboardHeader)).to.equal(dashboardTitle);
 	},
 
-	loginInitials: async function () {
-		let initials = await apiHelpers.getInitials();
-		expect(await elementHelpers.getElementText('.avatar-circle')).to.equal(initials);
-	},
-
-	loginSchool: async function () {
-		await this.goToDashboard();
-		let schoolNameProvidedByAPI = await apiHelpers.getSchoolName();
-		//TODO:loginPage.schoolNameSelector
-		expect(await elementHelpers.getElementText(loginPage.schoolNameSelector)).to.equal(schoolNameProvidedByAPI);
-	},
-
 	loginFullUserInfo: async function () {
 		let userName = await apiHelpers.getInitials();
 		expect(await elementHelpers.getElementText(navigationTopPage.initialsDDCurrentUser).to.equal(userName));
 	},
 
-	checkIfTabsAreVisible: async function (itemsToCompare, selector) {
-		let items = await driver.$$(selector);
+	checkIfTabsAreVisible: async function (itemsToCompare, items) {
 		let expectations = itemsToCompare.hashes();
 		for (let i = 0; i < items.length; i++) {
 			let actualLabelText = await items[i].getText();
@@ -48,4 +42,9 @@ module.exports = {
 			expect(actualLabelText).to.equal(expectations[i].tabs);
 		}
 	},
+
+	getTabItems: async function () {
+		let items = await driver.$$(sidebarList);
+		return items;
+	}
 }

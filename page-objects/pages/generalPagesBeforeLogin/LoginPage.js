@@ -8,7 +8,7 @@ const failureMessage = "Login fehlgeschlagen.";
 const usernameInput = 'section#loginarea input[data-testid="username"]';
 const passwordInput = 'section#loginarea input[data-testid="password"]';
 const loginBtn = 'input[data-testid="submit-login"]';
-const schoolNameSelector = '.nav-item.school-data';
+
 
 const defaultLoginData = {
 	defaultTeacherUsername: 'klara.fall@schul-cloud.org',
@@ -21,15 +21,14 @@ const defaultLoginData = {
 	defaultAdminUsername: 'admin@schul-cloud.org',
 	defaultAdminPassword: 'Schulcloud1!',
 };
-const loginTabs = {
+/*TODO: raus hier? const loginTabs = {
 	loginTabs: 'ul.sidebar-list[title]',
-};
+};*/
 const firstLoginSel = {
 	dataProtection: {
 		box1: 'input[name="privacyConsent"]',
 		box2: 'input[name="termsOfUseConsent"]',
 	},
-	nextBtn: '#nextSection',
 	startUsageOfSchulcloudBtn: 'a[data-testid="btn_schul-cloud_erkunden"]',
 
 	setOwnPasswort: {
@@ -56,19 +55,14 @@ module.exports = {
 		await driver.pause(1500);
 	},
 
-	loginResult: async function () {
-		let initials = await apiHelpers.getInitials();
-		expect(await elementHelpers.getElementText('.avatar-circle')).to.equal(initials);
-	},
-
 	/* First Login */
 
 	firstLoginStudent: async function (newPassword) {
-
-		await waitHelpers.waitAndClick(firstLoginSel.nextSectionBtn);
-		await waitHelpers.waitAndClick(firstLoginSel.nextSectionBtn);
+		this.clickNextSelection();
+		this.clickNextSelection();
 		// if Data protection is needed
 		let section_three_name = await driver.$('.panels.mb-2 > section:nth-child(3) > h2');
+		await driver.pause(global.SHORT_WAIT_MILLIS);
 		if (await section_three_name.getText() == "Einwilligungserklärung") {
 			await this.clickOnDataProtectionBoxes();
 			await waitHelpers.waitAndClick(firstLoginSel.nextSectionBtn);
@@ -79,14 +73,15 @@ module.exports = {
 	},
 
 	firstLoginAdminOrTeacher: async function () {
-		await waitHelpers.waitAndClick(firstLoginSel.nextBtn);
-		await waitHelpers.waitAndClick(firstLoginSel.nextBtn);
-		await waitHelpers.waitAndClick(firstLoginSel.nextBtn);
+		this.clickNextSelection();
+		this.clickNextSelection();
+		this.clickNextSelection();
 		await this.clickOnDataProtectionBoxes();
-		await waitHelpers.waitAndClick(firstLoginSel.nextBtn);
+		this.clickNextSelection();
 		await waitHelpers.waitAndClick(firstLoginSel.startUsageOfSchulcloudBtn);
 	},
 	clickOnDataProtectionBoxes: async function () {
+		await driver.pause(global.SHORT_WAIT_MILLIS);
 		await waitHelpers.waitAndClick(firstLoginSel.dataProtection.box1);
 		await waitHelpers.waitAndClick(firstLoginSel.dataProtection.box2);
 	},
@@ -104,4 +99,8 @@ module.exports = {
 		// let btnValue = btn.getAttribute('value');
 		// await expect(btnValue).to.match(/^Bitte.*Sekunden warten$/);
 	},
+
+	clickNextSelection: async function () {
+		await waitHelpers.waitAndClick(firstLoginSel.nextSectionBtn);
+	}
 }

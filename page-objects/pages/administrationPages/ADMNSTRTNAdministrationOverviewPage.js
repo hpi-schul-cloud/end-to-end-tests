@@ -23,6 +23,10 @@ module.exports = {
     clickAdministrateTeachers: async function () {
         await waitHelpers.waitAndClick(administrateTeachersBtn);
     },
+    getAdministrationTabs: async function () {
+        let items = await driver.$$(administrationsTabs);
+        return items;
+    }
 }
 
 

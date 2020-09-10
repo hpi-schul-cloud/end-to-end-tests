@@ -4,39 +4,26 @@ const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPa
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const DashboardPage = require('../page-objects/pages/DashboardPage');
 const common = require('../shared_steps/common-steps.js');
-
-
-Then(/^a pupil should see the dashboard$/, function () {
-	return loginPage.loginResult();
-});
-
-
-Then(/^the teacher-dashboard should have an icon with the teacher's initials$/,function() {
-		return loginPage.loginResult();
-});
-
+const NavigationTopPage = require('../page-objects/pages/NavigationTopPage.js');
 
 Then(
-	/^the admin-dashboard should have the admin initials$/, function() {
-		return loginPage.loginResult();
-});
+	/^the admin-dashboard should have the correct school$/, function () {
+		//return DashboardPage.loginSchool();
+		return NavigationTopPage.checkSchoolname();
+	});
 
 Then(
-	/^the admin-dashboard should have the correct school$/, function() {
-		return DashboardPage.loginSchool();
-});
-
-Then(
-	/^the admin-dashboard should have the admin name and profession$/, function() {
-		return DashboardPage.loginInitials();
-});
+	/^the admin-dashboard should have the admin name and profession$/, function () {
+		//return DashboardPage.loginInitials();
+		//TODO:	Was the same as checkInitials - new to implement:return NavigationTopPage.checkNameAndProfession();
+	});
 
 Then(/^the admin-dashboard should have the following tabs$/, function (LoginTextLabels) {
-    return DashboardPage.checkIfTabsAreVisible(LoginTextLabels, loginPage.loginTabs.loginTabs);
+	return DashboardPage.checkIfTabsAreVisible(LoginTextLabels, DashboardPage.getTabItems());
 });
 
 
-Then(/^a user should see a notification$/, function() {
+Then(/^a user should see a notification$/, function () {
 	return loginPage.wrongLoginResult();
 });
 
