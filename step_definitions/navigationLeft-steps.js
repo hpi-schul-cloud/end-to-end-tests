@@ -68,7 +68,5 @@ Then('click left navigation item {string}', function (string) {
             return leftNavigation.clickNavItemHelpContact();
         default:
             return Error("no such element found in 'click left navigation item {string}' " + navigationItem);
-
     }
-
 });

@@ -19,8 +19,8 @@ Feature: Administrate pupils, classes and teachers
 		And the admin should see new pupil with email <studentEmail> among his pupils
 		And admin manually submits a consent <studentEmail>
 		And admin logs out
-		Then new pupil <studentEmail> can log in with default password
-		Then student with full age accepts student's data protection with password <newPasswordStudent>
+		#Then new pupil <studentEmail> can log in with default password
+		#Then student with full age accepts student's data protection with password <newPasswordStudent>
 
 		Examples:
 			| firstName | secondName | studentEmail              | adminsUsername        | adminsPassword | newPasswordStudent |
