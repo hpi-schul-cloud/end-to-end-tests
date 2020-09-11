@@ -126,4 +126,5 @@ module.exports = {
     	await navigationLeftPage.clickNavItemTasks();
     	await navigationLeftPage.clickNavItemTasksPrivate();
 	}
+	
 };
