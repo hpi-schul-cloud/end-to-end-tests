@@ -1,6 +1,7 @@
 'use strict';
 const addCourse = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
 const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
+const elementHelpers = require('../runtime/helpers/elementHelpers');
 
 When(/^.*goes to courses page$/, function () {
 	return courseListPage.goToCourses();
@@ -89,4 +90,11 @@ Then(/^.*clicks Go-to-course-list$/, async function () {
 
 Then(/^.*color of the course is (\S*).*$/, async function (courseColour) {
 	await courseListPage.isCorrectCourseColour(courseColour);
+});
+
+Then(/^.*chooses Kurs with name (\S*)$/, async function (courseName) {
+	let element = courseListPage.getWrapperOfCourseInSection(courseName, courseListPage.section.activeCourses);
+	//await element.click();
+	//await elementHelpers.clickOnElement(element);
+	//await courseListPage.isCorrectCourseColour(courseColour);
 });

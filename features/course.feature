@@ -1,10 +1,10 @@
-@createCourse
+@course
 Feature: logging in as a teacher and create a new course
 I want to be able to create a new course on Schul-Cloud
 
 Background:
 	Given teacher arrives on the Schul-Cloud homepage
-
+@createCourse
 Scenario Outline: create first course. Teachers have 2 options: to import or to create new course and the teacher sees the created course in the list
 	Given teacher logs in with email <username> and password <password>
 	Given teacher accepts data protection
@@ -50,3 +50,20 @@ Examples:
 	|username                  |password    |courseName           |courseColour|
 	|klara.fall@schul-cloud.org|Schulcloud1!|Mathe@Sport&Music    |corn        |
 
+@editCourse
+Scenario Outline: logging in as a teacher I want to be able to edit a course on Schul-Cloud
+	Given teacher logs in with email <username> and password <password>
+	Given teacher accepts data protection
+	When teacher goes to courses page
+	Then teacher should see that course with name <courseName> is visible on the list
+	And teacher chooses Kurs with name <courseName>
+    # And click on Kurs bearbeiten
+    # And changes Name des Kurses
+    # And changes Beschreibung des Kurses
+    # And changes Farbe des Kurses
+    # And clicks on Änderungen speichern Button
+    # Then Kurs page is shown
+    # And check if change on Kurs is shown
+Examples:
+	|username                |password    |courseName    |courseColour|
+	|lehrer@schul-cloud.org  |Schulcloud1!|Mathe         |corn        |
