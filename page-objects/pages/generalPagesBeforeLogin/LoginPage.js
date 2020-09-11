@@ -21,9 +21,7 @@ const defaultLoginData = {
 	defaultAdminUsername: 'admin@schul-cloud.org',
 	defaultAdminPassword: 'Schulcloud1!',
 };
-/*TODO: raus hier? const loginTabs = {
-	loginTabs: 'ul.sidebar-list[title]',
-};*/
+
 const firstLoginSel = {
 	dataProtection: {
 		box1: 'input[name="privacyConsent"]',

@@ -14,21 +14,20 @@ const schoolNameSelector = '.nav-item.school-data';
 
 module.exports = {
     checkSchoolname: async function () {
-        //await this.goToDashboard();
         let schoolNameProvidedByAPI = await apiHelpers.getSchoolName();
-        //expect(await elementHelpers.getElementText(loginPage.schoolNameSelector)).to.equal(schoolNameProvidedByAPI);
         let schoolNameOnPage = await this.getSchoolNameDisplayed();
         return expect(schoolNameOnPage).to.equal(schoolNameProvidedByAPI);
     },
     checkInitials: async function () {
         let initialsProvidedByAPI = await apiHelpers.getInitials();
-        //expect(await elementHelpers.getElementText('.avatar-circle')).to.equal(initials);
         let intitialsOnPage = await this.getInitials();
         return expect(intitialsOnPage).to.equal(initialsProvidedByAPI);
     },
-    checkNameAndProfession: async function () {
-        //TODO:
-    },
+    //TODO:
+    /*
+   checkNameAndProfession: async function () {
+      
+   },*/
 
     clickNavItemHelp: async function () {
         await waitHelpers.waitAndClick(navItemHelp);

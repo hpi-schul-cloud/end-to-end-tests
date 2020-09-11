@@ -155,12 +155,4 @@ module.exports = {
     clickNavItemHelpContact: async function () {
         await waitHelpers.waitAndClick(navItemHelpContact);
     },
-    /*checkIfTabsAreVisible: async function (itemsToCompare, items) {
-        let expectations = itemsToCompare.hashes();
-        for (let i = 0; i < items.length; i++) {
-            let actualLabelText = await items[i].getText();
-            await items[i].waitForEnabled(DELAY_100_MILLISECOND);
-            expect(actualLabelText).to.equal(expectations[i].tabs);
-        }
-    },*/
 }
