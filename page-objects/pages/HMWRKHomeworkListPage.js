@@ -1,16 +1,20 @@
 /*[url/homework]*/
 'use strict';
-const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
-const courseData = require('../../shared-objects/courseData');
-const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
-const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
+const {CLIENT} = require("../../shared-objects/servers");
+const wh = require('../../runtime/helpers/waitHelpers');
+const eh = require('../../runtime/helpers/elementHelpers');
 
-const selectors = {
-	createTaskButton: "a[href='/homework/new']",
-}
+const urlHomework = `${CLIENT.URL}/homework`;
+const createTaskButton = "a[href='/homework/new']";
+ 
+
 module.exports = {
+	goToHomeworkListPage: async function () {
+		await eh.loadPage(urlHomework, 20);
+	},
+
 	clickCreateTaskButton: async function() {
-		await waitHelpers.waitAndClick(selectors.createTaskButton);
+		await wh.waitAndClick(createTaskButton);
 	},
 
 	sortHometasks: async function () {
@@ -43,10 +47,7 @@ module.exports = {
 		};
 		return 0;
 	},
-	areThereAnyTasks: async function () {
-		let elementWithTasks = await driver.$$('.col-xl-12');
-		return elementWithTasks.length > 0 ? true : false;
-	},
+	
 	chooseTaskAmongAllTasks: async function (taskname) {
 		let taskindex = await this.returnTaskChildIndex(taskname);
 		if (taskindex > 0 ) {
@@ -61,12 +62,8 @@ module.exports = {
 		}
 	},
 
-	gotoTasks: async function () {
-		await elementHelpers.loadPage(courseData.urlHomework, 20);
-	},
-
 	verify: async function (taskname) {
-		await this.gotoTasks();
+		await this.goToHomeworkListPage();
 		await this.sortHometasks();
 		await this.chooseTaskAmongAllTasks(taskname);
 		let pageTitleSelector = await driver.$('#page-title');
@@ -76,37 +73,34 @@ module.exports = {
 		await expect(taskname).to.equal(foundtaskName);
 	},
 
-	teacherLogsIn: async function () {
-		await this.userLogsOut();
-		await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.defaultLoginData.defaultTeacherpassword);
+	areThereAnyTasks: async function () {
+		let elementWithTasks = await driver.$$('.col-xl-12');
+		return elementWithTasks.length > 0 ? true : false;
 	},
 
 	privateTaskVerify: async function () {
 		let areThereAnyTasks = await this.areThereAnyTasks();
 		if (areThereAnyTasks == true) {
 			let taskNames = await Promise.all(
-				(await driver.$$('#homeworks > ol > div > li > a')).map(
-					async element => await element.getText()
-				));
+				(await driver.$$('#homeworks > ol > div > li > a')).map(async (element) => await element.getText()),
+			);
 			await expect(taskNames).not.to.include(taskname);
+			return;
 		}
 		await expect(areThereAnyTasks).to.be.false;
 	},
 
-	userLogsOut: async function () {
-		await elementHelpers.loadPage(courseData.urlLogout, 20);
-	},
-
-	uploadAHomework: async function () {
-		//making the upload-element visible to selenium
-		change_visibility = '$x("//*[@id="main-content"]/div/section[1]/div/div/div[1]/input").css("visibility,"visible");';
-		change_display = '$x("//*[@id="main-content"]/div/section[1]/div/div/div[1]/input").css("display,"block");';
-		await driver.execute_script(change_visibility);
-		await driver.execute_script(change_display);
-
-		const path = require('path');
-		const filePath = path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt');
-		await driver.$x(courseData.uploadBtn).send_keys(filePath);
+	userFindsTheTask: async function (taskname) {
+		let areThereAnyTasks = await driver.$$('#homeworks > ol > div > li');
+		await expect(areThereAnyTasks.length).not.to.equal(0);
+		for (var i = 1; i <= areThereAnyTasks.length; i++) {
+			let taskSelector = await driver.$('#homeworks > ol > div > li:nth-child(' + i + ') .h5.title');
+			let tasknameOnPage = await taskSelector.getText();
+			if (tasknameOnPage == taskname) {
+				await taskSelector.click();
+				await driver.pause(1000);
+			}
+		}
 	},
 };
 

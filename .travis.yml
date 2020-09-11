@@ -32,6 +32,8 @@ jobs:
         - echo "skipping install"
       before_cache:
         - mkdir -p node_modules
+      after_failure:
+        - cat /home/travis/.npm/_logs/*debug.log
 cache:
   directories:
     - "$HOME/.npm" # cache all packages installed with "npm ci"
