@@ -13,11 +13,11 @@ const administrateTeamMembers = 'a[data-testid="administrate_team_members"]';
 
 module.exports = {
   clickSettings: async function () {
-    let settingsBtn = await driver.$(this.teamSettings);
+    let settingsBtn = await driver.$(teamSettings);
     await settingsBtn.click();
   },
   clickAdministrateTeammembers: async function () {
-    let administrateBtn = await driver.$(this.administrateTeamMembers);
+    let administrateBtn = await driver.$(administrateTeamMembers);
     await administrateBtn.click();
   },
 }

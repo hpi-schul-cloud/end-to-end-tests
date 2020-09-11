@@ -36,7 +36,7 @@ Feature:checkLeftNavigation
 			| lehrer@schul-cloud.org | Schulcloud1! |
 
 
-@studentclicksLeftMenuItems
+@studentClicksLeftMenuItems
 	Scenario Outline: The user logs in as a student and clicks the left menu items he should have access to
 		When student arrives on the Schul-Cloud homepage
 		And student logs in with email <studentUsername> and password <password>

@@ -15,7 +15,7 @@ const selectTeamMembers = 'select[data-testid="select_team_members_add"]';
 
 module.exports = {
 	clickAddInternalMembers: async function () {
-		let addBtn = await driver.$(this.addInternalMembers);
+		let addBtn = await driver.$(addInternalMembers);
 		await addBtn.click();
 		await driver.pause(1500);
 	},

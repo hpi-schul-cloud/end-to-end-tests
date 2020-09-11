@@ -82,11 +82,11 @@ module.exports = {
     },
     // Set certain name in teamname field
     setTeamName: async function (name) {
-        let nameField = await driver.$(this.teamName);
+        let nameField = await driver.$(teamName);
         await nameField.setValue(name);
     },
     confirmTeamCreate: async function () {
-        let confirmBtn = await driver.$(this.createTeamBtn);
+        let confirmBtn = await driver.$(createTeamBtn);
         await confirmBtn.click();
     },
     createTeamNewsForTeam: async function (team_name) {
