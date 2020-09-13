@@ -28,6 +28,11 @@ Then(/^teacher clicks on content-card after request (.*)$/, async function (sear
     await lernstorePage.clickOnContentCard(searchRequest);
 
 });
+Then(/^the link of the material is correct$/, async function () {
+    await lernstorePage.clickAddContentBtn();
+
+});
+
 Then(/^teacher clicks on add content button$/, async function () {
     await lernstorePage.clickAddContentBtn();
 

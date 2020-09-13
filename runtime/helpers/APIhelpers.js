@@ -118,7 +118,9 @@ module.exports = {
 		  return title;
 
 	},
-	
+	urlReturnesStatus: async function(url) {
+
+	},
 
 
 }

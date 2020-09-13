@@ -15,9 +15,9 @@ const selectors = {
     numberOfContentOnGUI: ".content__total",
     firstElement: "div.content__container > div > section:nth-child(1)",
     titleOfMaterialWhenClicked: ".content-container > .title",
-    addContentBtn:  ".user-has-role.floating-buttons > div > button",
-    inputCourseNameWhenAddingMaterial: ".base-modal-wrapper",
-    inputTopicNameWhenAddingMaterial: ".content-modal__body > div:nth-child(2) .multiselect.input.mb-0",
+    addContentBtn:  "[data-testId=\"add-button\"]",
+    inputCourseNameWhenAddingMaterial: ".multiselect__option.multiselect__option--highlight",
+    inputTopicNameWhenAddingMaterial: ".multiselect__input:nth-child(2)",
 
 }
 module.exports= {
@@ -53,7 +53,12 @@ module.exports= {
         await waitHelpers.waitAndClick(selectors.addContentBtn);
     },
     addToCourse: async function(course) {
-        await waitHelpers.waitAndSetValue(selectors.inputCourseNameWhenAddingMaterial, course)
+        //await waitHelpers.waitAndSetValue(selectors.inputCourseNameWhenAddingMaterial, course)
+        let names = await driver.$$(selectors.inputCourseNameWhenAddingMaterial);
+        return Promise.all(names.map(async (elem) => {
+            const courseName = await driver.$(selectors.inputCourseNameWhenAddingMaterial > span)
+            return await courseName.getText();
+        }));
     },
     addToTopic: async function(topic) {
         await waitHelpers.waitAndSetValue(selectors.inputTopicNameWhenAddingMaterial, topic)
