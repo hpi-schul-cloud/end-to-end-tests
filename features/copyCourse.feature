@@ -44,20 +44,6 @@ Examples:
 | coursename       | topicname | text                  | geogebraID |
 | sample course geo| geo topic | some sample text here | ucxngdjf   |
 
-# @copyCourseWithMaterial
-
-# Scenario Outline: teacher can copy course with certain Material
-# Given the teacher creates a course with name <coursename>
-# Given the teacher chooses this course with <coursename> and
-# Given the teacher adds a topic with <topicname>
-# When the teacher adds some Material  to the course
-# When the teacher clicks copy course <coursename> with Material
-# Then teacher sees the course <coursename> copy and the material <topicname> is still availiable
-# Examples:
-# | coursename             | topicname      | text                  |
-# | sample course material | material topic | some sample text here |
-
-
 @copyCourseWithEtherpad
 
 Scenario Outline: teacher can copy course with certain Etherpad

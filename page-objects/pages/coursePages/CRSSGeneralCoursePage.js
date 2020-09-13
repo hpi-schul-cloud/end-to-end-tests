@@ -1,48 +1,48 @@
 /*[url/courses]/[courseId]]*/
 "use strict";
 
-const wh = require("../../../runtime/helpers/waitHelpers.js");
+const waitHelpers = require("../../../runtime/helpers/waitHelpers.js");
 const editCopyCoursePage = require("../../../page-objects/pages/coursePages/CRSSEditCopyCoursePage");
 
-const courseSettingsBtn = ".fa.fa-ellipsis-v.i-cog";
-
-const setting = {
-	editCourse: ".btn-course-edit",
-	createInvitation: ".btn-create-invitation",
-	createShareCourse: ".btn-create-share-course",
-	cloneCourse: ".fa-clone",
-};
-
-const tab = {
-	topics: "[data-tab='js-topics']",
-	homeworks: "[data-tab='js-homeworks']",
-	tools: "[data-tab='js-tools']",
-	groups: "[data-tab='js-groups']",
-};
+const selectors = {
+	courseSettingsBtn: ".fa.fa-ellipsis-v.i-cog",
+	setting:{
+		editCourse: ".btn-course-edit",
+		createInvitation: ".btn-create-invitation",
+		createShareCourse: ".btn-create-share-course",
+		cloneCourse: ".fa-clone",
+	},
+	tab: {
+		topics: "[data-tab='js-topics']",
+		homeworks: "[data-tab='js-homeworks']",
+		tools: "[data-tab='js-tools']",
+		groups: "[data-tab='js-groups']",
+	},
+}
 
 module.exports = {
 	openTopicsTab: async function () {
-		await wh.waitAndClick(tab.topics);
+		await waitHelpers.waitAndClick(selectors.tab.topics);
 	},
 
 	openHomeworksTab: async function () {
-		await wh.waitAndClick(tab.homeworks);
+		await waitHelpers.waitAndClick(selectors.tab.homeworks);
 	},
 
 	openToolsTab: async function () {
-		await wh.waitAndClick(tab.tools);
+		await waitHelpers.waitAndClick(selectors.tab.tools);
 	},
 
 	openGroupsTab: async function () {
-		await wh.waitAndClick(tab.groups);
+		await waitHelpers.waitAndClick(selectors.tab.groups);
 	},
 
 	clickThreePointSettingsIcon: async function () {
-		await wh.waitAndClick(courseSettingsBtn);
+		await waitHelpers.waitAndClick(selectors.courseSettingsBtn);
 	},
 
 	clickSettingsDropdownMenuBtn: async function(settingsBtnSelector) {
-		await wh.waitAndClick(settingsBtnSelector);
+		await waitHelpers.waitAndClick(settingsBtnSelector);
 	},
 	
 	cloneCourse: async function () {

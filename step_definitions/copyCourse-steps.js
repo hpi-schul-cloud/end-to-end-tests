@@ -80,35 +80,6 @@ Then(/^teacher sees the course (.*) copy and the GeoGebraArbeitsblatt (.*) is st
 		await courseListPage.verifyCourseAndTopic(coursename, topicname);
 	});
 
-// _________With Material__________
-Given(/^the teacher creates a course with name (.*),$/, function(coursename) {
-	return addCoursePage.createCourse(coursename);
-});
-Given(/^the teacher chooses this course with (.*) and$/, function(coursename) {
-	return courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
-});
-Given(/^the teacher adds a topic with (.*)$/, async function(topicname) {
-	//return copyCourse.addTopic(topicname);
-	await courseTopicsPage.clickAddNewTopicBtn();
-	await addEditTopicPage.setTopic(topicname);
-});
-
-When(/^the teacher adds some Material  to the course$/, function() {
-	return addEditTopicPage.addMaterial();
-});
-When(/^the teacher clicks copy course (.*) with Material$/, async function(coursename) {
-	await courseListPage.goToCourses();
-	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.allCourses);
-	await generalCoursePage.cloneCourse();
-});
-Then(/^teacher sees the course (.*) copy and the material (.*) is still availiable$/, async function(coursename, topicname) {
-	//return copyCourse.verify(coursename, topicname);
-	await courseListPage.goToCourses();
-	await courseListPage.verifyCourseAndTopic(coursename, topicname);
-});
-
-
-
 // _________With Etherpad__________
 When(/^the teacher adds some Etherpad with (.*) and (.*) to the course$/, async function(etherpadName, etherpadDescription) {
 	//return copyCourse.addEtherpad(etherpadName, etherpadDescription);
