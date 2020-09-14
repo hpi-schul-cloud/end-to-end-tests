@@ -6,7 +6,7 @@ const editCopyCoursePage = require("../../../page-objects/pages/coursePages/CRSS
 
 const selectors = {
 	courseSettingsBtn: ".fa.fa-ellipsis-v.i-cog",
-	setting:{
+	setting: {
 		editCourse: ".btn-course-edit",
 		createInvitation: ".btn-create-invitation",
 		createShareCourse: ".btn-create-share-course",
@@ -47,7 +47,7 @@ module.exports = {
 	
 	cloneCourse: async function () {
 		await this.clickThreePointSettingsIcon();
-		await this.clickSettingsDropdownMenuBtn(setting.cloneCourse);
+		await this.clickSettingsDropdownMenuBtn(selectors.setting.cloneCourse);
 		await editCopyCoursePage.clickSubmitButton();
     }
 }
