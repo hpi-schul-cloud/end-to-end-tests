@@ -22,7 +22,7 @@ const defaultLoginData = {
 	defaultAdminPassword: 'Schulcloud1!',
 };
 const loginTabs = {
-	loginTabs: 'ul.sidebar-list[title]',
+	loginTabs: '#sidebar a > span',
 };
 const firstLoginSel = {
 	dataProtection: {

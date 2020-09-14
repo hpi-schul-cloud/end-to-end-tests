@@ -37,13 +37,17 @@ module.exports = {
 		},
 		
   loginFullUserInfo: async function() {
-		let userName = await apiHelpers.getInitials();
-		expect(await elementHelpers.getElementText(navigationTopPage.selectors.initialsDDCurrentUser).to.equal(userName));
+		let userName = await apiHelpers.getUserName();
+		let userRole = await apiHelpers.getUserRole();
+		await navigationTopPage.clickInitials();
+		let fullNameAndRole = await await elementHelpers.getElementText(navigationTopPage.selectors.initialsDDCurrentUser);
+		expect(fullNameAndRole).to.include(userName, userRole);
 	},
 	
   checkIfTabsAreVisible: async function (itemsToCompare, selector) {
     let items = await driver.$$(selector);
-    let expectations = itemsToCompare.hashes();
+	let expectations = itemsToCompare.hashes();
+	expect(items.length).to.be.above(0);
     for(let i = 0; i < items.length; i++){
       let actualLabelText = await items[i].getText();
       await items[i].waitForEnabled(DELAY_100_MILLISECOND);
