@@ -86,7 +86,5 @@ module.exports = {
         }
         return namesArray;
 
-    }
-
-
+    },
 }
