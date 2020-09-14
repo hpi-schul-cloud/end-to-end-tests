@@ -2,7 +2,7 @@
 const waitHelpers = require("../../../runtime/helpers/waitHelpers.js");
 
 const selectors = {
-	submitBtn = "button.btn-submit",
+	submitBtn: "button.btn-submit",
 }
 
 module.exports = {

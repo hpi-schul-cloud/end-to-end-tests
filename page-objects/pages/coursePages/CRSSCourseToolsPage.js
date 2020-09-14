@@ -4,7 +4,7 @@ const courseListPage = require("../../../page-objects/pages/coursePages/CRSSCour
 const coursePage = require("../../../page-objects/pages/coursePages/CRSSGeneralCoursePage");
 
 const selectors = {
-	addNewToolBtn = "[data-section='js-tools'] .add-button a",
+	addNewToolBtn: "[data-section='js-tools'] .add-button a",
 }
 
 module.exports = {
