@@ -31,6 +31,14 @@ Then(/^the amount of courses is implemented$/, async function() {
 	await expect(coursesCount+1).to.equal(coursesCountAfterCloning);
 });
 
+Given(/^the teacher creates a course with name (.*),$/, function(coursename) {
+	return addCoursePage.createCourse(coursename);
+})
+
+Given(/^the teacher chooses this course with (.*) and$/, function(coursename) {
+	return courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
+});
+
 // _________With Text__________
 Given(/^the teacher creates some with name (.*)$/, function(coursename) {
 	return addCoursePage.createCourse(coursename);
