@@ -158,6 +158,21 @@ module.exports = {
         return index;
     },
 
+    getDescriptionCourse: async function (index) {
+        return await eh.getElementText(".section-activeCourses div:nth-child(" + index + ") > article > div.sc-card-body.ckcontent");
+    },
+
+    getCourseName: async function (index) {
+        return await eh.getElementText(".section-activeCourses div:nth-child(" + index + ") > article span.title");
+    },
+
+    getColorCourse: async function (index) {
+        let courseContainer = await driver.$(".section-activeCourses div:nth-child(" + index + ") > article > div.sc-card-header");
+        const css = await courseContainer.getCSSProperty("background-color");
+        let color = css.parsed.hex;
+        return color;
+    },
+
     getWrapperOfCourseInSection: async function (courseName, section) {
         var index = await this.getIndexOfGivenCourseInSection(courseName, section);
         const list = await this.getListOfCoursesInSection(section);

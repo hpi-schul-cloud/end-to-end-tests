@@ -49,5 +49,10 @@ module.exports = {
 		await this.clickThreePointSettingsIcon();
 		await this.clickSettingsDropdownMenuBtn(setting.cloneCourse);
 		await editCopyCoursePage.clickSubmitButton();
+	},
+	
+	clickEditCourse: async function () {
+		await this.clickThreePointSettingsIcon();
+		await this.clickSettingsDropdownMenuBtn(setting.editCourse);
     }
 }
