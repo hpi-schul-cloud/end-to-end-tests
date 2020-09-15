@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
+- OPS-1205 Handle German and English error message within login page test
+
 ## [24.3.0] - 2020-08-25
 
 ## [24.0.0] - 2020-07-30
