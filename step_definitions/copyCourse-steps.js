@@ -38,6 +38,12 @@ Given(/^the teacher creates a course with name (.*),$/, function(coursename) {
 Given(/^the teacher chooses this course with (.*) and$/, function(coursename) {
 	return courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 });
+Given(/^the teacher adds a topic with (.*)$/, async function(topicname) {
+	//return copyCourse.addTopic(topicname);
+	await courseTopicsPage.clickAddNewTopicBtn();
+	await addEditTopicPage.setTopic(topicname);
+});
+
 
 // _________With Text__________
 Given(/^the teacher creates some with name (.*)$/, function(coursename) {
@@ -59,7 +65,7 @@ When(/^the teacher adds some Text (.*) to the course$/, async function(text) {
 
 When(/^the teacher clicks copy course (.*) with Text$/, async function(coursename) {
 	await courseListPage.goToCourses();
-	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.allCourses);
+	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 	await generalCoursePage.cloneCourse();
 });
 

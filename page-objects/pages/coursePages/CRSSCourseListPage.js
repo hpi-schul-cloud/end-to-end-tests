@@ -1,6 +1,6 @@
 /*[url/courses]*/
 "use strict";
-const {CLIENT} = require("../../../shared-objects/servers")
+const {CLIENT} = require("../../../shared-objects/servers");
 const elementHelpers = require("../../../runtime/helpers/elementHelpers");
 const waitHelpers = require("../../../runtime/helpers/waitHelpers");
 const startPage = require('../../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin');

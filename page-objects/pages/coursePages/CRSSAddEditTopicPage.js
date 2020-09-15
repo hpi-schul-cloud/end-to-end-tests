@@ -30,7 +30,9 @@ module.exports = {
     },
     addText: async function(text) {
 	    await waitHelpers.waitAndClick(selectors.textBtn);
-	    await waitHelpers.waitAndSetValue(selectors.textField, text)
+	    const textField = await driver.$(selectors.textField);
+	    await driver.pause(global.SHORT_WAIT_MILLIS);
+	    await textField.setValue(text);
     },
     addGeoGebra: async function (geogebraID) {
 	    await waitHelpers.waitAndClick(selectors.geogebraBtn);
