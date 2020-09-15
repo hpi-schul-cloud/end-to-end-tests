@@ -85,7 +85,7 @@ When(/^the teacher adds some GeoGebraArbeitsblatt with id (.*) to the course$/, 
 });
 When(/^the teacher clicks copy course (.*) with GeoGebraArbeitsblatt$/, async function(coursename) {
 	await courseListPage.goToCourses();
-	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.allCourses);
+	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 	await generalCoursePage.cloneCourse();
 });
 Then(/^teacher sees the course (.*) copy and the GeoGebraArbeitsblatt (.*) is still availiable$/, async function(coursename, topicname) {
@@ -96,13 +96,13 @@ Then(/^teacher sees the course (.*) copy and the GeoGebraArbeitsblatt (.*) is st
 
 // _________With Etherpad__________
 When(/^the teacher adds some Etherpad with (.*) and (.*) to the course$/, async function(etherpadName, etherpadDescription) {
-	//return copyCourse.addEtherpad(etherpadName, etherpadDescription);
+
 	await addEditTopicPage.addEtherpad(etherpadName, etherpadDescription);
 	await addEditTopicPage.clickCreateTopicButton();
 });
 When(/^the teacher clicks copy course (.*) with Etherpad$/, async function(coursename) {
 	await courseListPage.goToCourses();
-	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.allCourses);
+	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 	await generalCoursePage.cloneCourse();
 });
 Then(/^teacher sees the course (.*) copy and the Etherpadd (.*) is still availiable$/, async function(coursename, topicname) {
