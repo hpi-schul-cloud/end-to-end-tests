@@ -5,18 +5,18 @@ const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
 module.exports = {
     selectors: {
         initialsDiv: '[data-testid="initials"]',
-        initialsDDCurrentUser: 'div.dropdown-name[data-testid="name-in-the-icon"]',
+        initialsDDCurrentUser: '[data-testid="name-in-the-icon"]',
         initialsDDSettings: 'a[data-testid="settings"]',
         initialsDDLogout: 'a[data-testid="logout"]',
         nameBox: '.dropdown-name',
         userIcon: '.btn-avatar > a',
-        navItemHelp: 'li.nav-item.help-drodown',
-        navItemHelpHelpArea: '.list-group-item.list-group-item-action:first-child',
-        navItemHelpWishProblem: '.list-group-item.list-group-item-action:nth-child(2) .link',
-        navItemHelpContactAdmin: '.list-group-item.list-group-item-action:nth-child(3) .link',
-        navItemHelpTraining: '.list-group-item.list-group-item-action:last-child .link',
+        navItemHelp: '[data-testid="help-area"]', 
+        navItemHelpQuestionCircle: '[data-testid="question-circle"]',
+        navItemHelpWishProblem: '[data-testid="submit-wish-or-problem]',
+        navItemHelpContactAdmin: '[data-testid="contact-admin"]',
+        navItemHelpTraining: '[data-testid="fortbildungen"]',
         qrIcon: '.fa.fa-qrcode',
-        fullScreenMode: '.fa.fa-expand',
+        fullScreenMode: '[data-testid="fullscreen-mode"]',
         exclamationTriangle: '.fa.fa-exclamation-triangle',
 
 
@@ -34,7 +34,7 @@ module.exports = {
         await waitHelpers.waitAndClick(this.selectors.navItemHelp);
     },
     clickNavItemHelpHelpArea: async function (){
-        await waitHelpers.waitAndClick(this.selectors.navItemHelpHelpArea);
+        await waitHelpers.waitAndClick(this.selectors.navItemHelpQuestionCircle);
     },
     clickNavItemHelpWishProblem: async function (){
         await waitHelpers.waitAndClick(this.selectors.navItemHelpWishProblem);
