@@ -9,11 +9,7 @@ const selectors = {
 	selectTeamMembers: 'select[data-testid="select_team_members_add"]',
 	containerBtn: '.modal.fade.add-member-modal.in', 
 	submitBtn: 'button[type="submit"]',
-
-
-
 }
-
 
 module.exports = {
 	clickAddInternalMembers: async function () {
