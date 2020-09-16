@@ -15,12 +15,12 @@ module.exports = {
 
 
 	goToTeams: async function () {
-		return elementHelpers.loadPage(this.url, 20);
+		return elementHelpers.loadPage(url, 20);
 	},
 	goToAddTeam: async function () {
 		//@Todo Conversion to Team list -> click on Button "Team anlegen"
 		await driver.pause(2000);
-		return elementHelpers.loadPage(this.addTeamURL, 20);
+		return elementHelpers.loadPage(addTeamURL, 20);
 	},
 	// assertion helper in steps:
 	getTeamNames: async function () {

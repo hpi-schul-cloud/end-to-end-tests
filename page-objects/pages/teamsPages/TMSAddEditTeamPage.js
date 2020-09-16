@@ -1,6 +1,6 @@
 /*[url/teams/[teamId]/edit]*/
 'use strict';
-
+const url = `${CLIENT.URL}/teams`;
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 const loginPage = require('../generalPagesBeforeLogin/LoginPage');
 const navigationTopPage = require('../NavigationTopPage');
@@ -44,7 +44,6 @@ const selectors = {
 module.exports = {
     gotoTeams: async function () {
         // @Conversion to use a button or link within the Add/Edit mask
-        let url = `${CLIENT.URL}/teams/`;
         return elementHelpers.loadPage(url, 100);
     },
     createTeam: async function (firstname, lastname, email, team_name, fullname) {
