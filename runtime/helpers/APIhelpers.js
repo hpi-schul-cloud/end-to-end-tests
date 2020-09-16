@@ -121,6 +121,16 @@ module.exports = {
 	urlReturnesStatus: async function(url) {
 
 	},
+	getUserRole: async function() {
+		try{
+		let userRole = await this.getUserInfo('roles');
+		return  (userRole[0]).displayName;
+		}
+		catch (error){
+			log.error("Can not find role: " + error.message);
+			throw error;
+		}
+	}, 
 
 
 }

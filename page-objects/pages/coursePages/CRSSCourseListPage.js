@@ -3,14 +3,11 @@
 const {CLIENT} = require("../../../shared-objects/servers")
 const eh = require("../../../runtime/helpers/elementHelpers");
 const wh = require("../../../runtime/helpers/waitHelpers");
-const courseData = require('../../../shared-objects/courseData');
-const startPage = require('../../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
-const loginPage = require('../../../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
+const startPage = require('../../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin');
+const loginPage = require('../../../page-objects/pages/generalPagesBeforeLogin/LoginPage');
+const logoutPage = require('../../../page-objects/pages/generalPagesBeforeLogin/LogoutPage');
 
-const urlCourses = `${
-    CLIENT.URL
-}/courses`;
-
+const urlCourses = `${CLIENT.URL}/courses`;
 
 const selector = {
     searchCourseFiled: ".input-group .search-field",
@@ -212,25 +209,12 @@ module.exports = {
     },
 
     studentLogsInAndGoesToTasksOfTheCourse: async function (username, password, coursename) {
-        await this.userLogsOut();
+        await logoutPage.goToLogoutPage();
         await startPage.performLogin(username, password);
         await loginPage.firstLoginStudent(username, password);
         await this.goToTasksOfTheCourse(coursename);
     },
 
-    userLogsOut: async function () {
-        await eh.loadPage(courseData.urlLogout, 20);
-    },
-
-    uploadAHomework: async function () { // making the upload-element visible to selenium
-        change_visibility = '$x("//*[@id="main-content"]/div/section[1]/div/div/div[1]/input").css("visibility,"visible");';
-        change_display = '$x("//*[@id="main-content"]/div/section[1]/div/div/div[1]/input").css("display,"block");';
-        await driver.execute_script(change_visibility);
-        await driver.execute_script(change_display);
-
-        const filePath = path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt');
-        await driver.$x(courseData.uploadBtn).send_keys(filePath);
-    },
     verifyCourseAndTopic: async function (coursename, topicname) {
         await this.clickOnCourseInSection(coursename, this.section.activeCourses);
         let topicNames = await Promise.all((await driver.$$("#topic-list > div > div > div")).map(async (element) => await element.getText()));

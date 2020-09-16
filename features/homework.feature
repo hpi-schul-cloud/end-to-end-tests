@@ -7,7 +7,7 @@ Feature: create different types of homework
         Given arrives on the Schul-Cloud homepage
         Given teacher is successfully logged in
         Given teacher accepts data protection
-        Given the teacher goes to the course page as a next step
+        Given teacher goes to courses page
 
 
     @createSimpleHomework
@@ -19,15 +19,16 @@ Feature: create different types of homework
             | coursename    | taskname     |
             | test hometask | task example |
 
-    # @createPrivateHomework
-    # Scenario Outline: create a private hometask has to be visible only for the teacher
-    # Given the teacher creates one course with <coursename> and student with <studentname>
-    # When teacher creates a private hometask in the course <coursename> with <taskname>
-    # When student with <username>, <password> of this course <coursename> goes to hometasks
-    # Then the student will not see this task with <taskname>
-    # Examples:
-    # | coursename            | studentname | taskname             | username                    | password     |
-    # | test private hometask | Paula Meyer | private task example | paula.meyer@schul-cloud.org | Schulcloud1! |
+    @createPrivateHomework
+    Scenario Outline: create a private hometask has to be visible only for the teacher
+    Given the teacher creates one course with <coursename> and student with <studentname>
+    When teacher creates a private hometask in the course <coursename> with <taskname>
+    When student logs in with email <username> and password <password>
+    And student with full age accepts student's data protection with password <newStudentPassword>
+    Then the student will not see this task with <taskname>
+    Examples:
+    | coursename            | studentname | taskname             | username                    | password     | newStudentPassword     |
+    | test private hometask | Paula Meyer | private task example | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!          |
 
     #@submitTextHomework
     #Scenario Outline: pupil submits a homework and teacher evaluates it

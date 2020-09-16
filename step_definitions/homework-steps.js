@@ -3,18 +3,11 @@ const path = require('path');
 const addEditHomeworkPage = require('../page-objects/pages/HMWRKAddEditHomeworkPage.js');
 const homeworkListPage = require('../page-objects/pages/HMWRKHomeworkListPage');
 const homeworkPage = require('../page-objects/pages/HMWRKHomeworkPage');
-const courseData = require('../shared-objects/courseData');
-const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const addCoursePage = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
 const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
 const courseHomeworksPage = require("../page-objects/pages/coursePages/CRSSCourseHomeworksPage");
-
-/*BACKGROUND*/
-
-
-Given(/^the teacher goes to the course page as a next step$/, function () {
-    return elementHelpers.loadPage(courseData.urlCourses, 20);
-});
+const logoutPage = require('../page-objects/pages/generalPagesBeforeLogin/LogoutPage.js');
+const navigationLeftPage = require('../page-objects/pages/NavigationLeftPage.js');
 
 /* CREATE A BASIC HOMEWORK */
 
@@ -36,19 +29,25 @@ Given(/^the teacher creates one course with (.*) and student with (.*)$/, functi
     return addCoursePage.createCourseWithStudents(coursename, studentname);
 });
 
-When(/^teacher creates a private hometask in the course (.*) with (.*)$/, function (coursename, taskname) {
-    return addEditHomeworkPage.addPrivateHometask(coursename, taskname);
+When(/^teacher creates a private hometask in the course (.*) with (.*)$/, async function (coursename, taskname) {
+    await addEditHomeworkPage.addPrivateHometask(coursename, taskname);
+    await homeworkListPage.goToPrivateHomeworkArea();
+    expect(await homeworkListPage.isTaskVisible(taskname)).to.be.true;
+    await logoutPage.goToLogoutPage();
 });
-When(/^student with (.*), (.*) of this course (.*) goes to hometasks$/, function (username, password, coursename) {
-    return courseListPage.studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename);
-});
-Then(/^the student will not see this task with (.*)$/, function (taskname) {
-    return homeworkListPage.privateTaskVerify(taskname);
+
+Then(/^the student will not see this task with (.*)$/, async function (taskname) {
+    await homeworkListPage.goToPrivateHomeworkArea();
+    expect(await homeworkListPage.isTaskVisible(taskname)).to.be.false;
 });
 
 /* SUBMISSION */
 When(/^the student finds (.*)$/, function (taskname) {
     return homeworkListPage.userFindsTheTask(taskname);
+});
+
+When(/^student with (.*), (.*) of this course (.*) goes to hometasks$/, function (username, password, coursename) {
+    return courseListPage.studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename);
 });
 
 When(/^the student edits a text hometask and submits it$/, function () {
@@ -63,16 +62,16 @@ Given(/^the Teacher creates one course with (.*) and pupil with:$/, function (co
     return copyCourse.create(coursename);
 });
 When(/^Teacher creates a homework for the course (.*)$/, function (coursename) {
-    return courseHomeworksPage.clickCreateNewTaskInTheCourse(coursename);
+	return courseHomeworksPage.clickAddNewTaskInCourse(coursename);
 });
 When(/^the teacher puts in data (.*) and some text description of the task$/, function (taskname) {
     return addEditHomeworkPage.addBasicHometask(taskname);
 });
 When(/^the user goes to the course (.*) where the hometask (.*) must be submitted$/, function (coursename, taskname) {
-    return courseListPage.uploadAHomework();
+    return addEditHomeworkPage.uploadHomework();
 });
 Then(/^the students can upload a file as a solution$/, function () {
-    return courseListPage.uploadAHomework();
+    return addEditHomeworkPage.uploadHomework();
 });
 
 (function () {

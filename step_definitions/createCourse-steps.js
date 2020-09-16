@@ -2,8 +2,6 @@
 const addCourse = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
 const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
 
-
-
 When(/^.*goes to courses page$/, function () {
 	return courseListPage.goToCourses();
 });
