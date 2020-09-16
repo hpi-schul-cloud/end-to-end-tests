@@ -10,7 +10,7 @@ const selectors = {
 		editCourse: ".btn-course-edit",
 		createInvitation: ".btn-create-invitation",
 		createShareCourse: ".btn-create-share-course",
-		cloneCourse: ".fa-clone",
+		cloneCourse: "fa-clone",
 	},
 	tab: {
 		topics: "[data-tab='js-topics']",
@@ -46,8 +46,11 @@ module.exports = {
 	},
 	
 	cloneCourse: async function () {
-		await this.clickThreePointSettingsIcon();
-		await waitHelpers.waitAndClick(selectors.setting.cloneCourse);
+		let settingsBtn = await driver.$(selectors.courseSettingsBtn);
+		await settingsBtn.click();
+		let cloneBtn= await driver.$(selectors.setting.cloneCourse);
+		await cloneBtn.click();
+		await driver.pause(1500);
 		await editCopyCoursePage.clickSubmitButton();
     }
 }
