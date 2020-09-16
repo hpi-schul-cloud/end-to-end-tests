@@ -133,6 +133,7 @@ global.DELAY_15_SECOND = 15; // 15 second delay
 global.DELAY_20_SECOND = 20; // 20 second delay
 
 global.SHORT_WAIT_MILLIS = 2000; // 2000 milliseconds delay
+global.MEDIUM_WAIT_MILLIS = 5000;
 global.LONG_WAIT_MILLIS = 10000; // 10000 milliseconds delay
 
 function consoleInfo() {
@@ -268,7 +269,7 @@ Before(async () => {
 Before(function() {
 	try {
 		console.log('\n\nResetting the DB...');
-		const output = execSync('npm run setup', { cwd: '../schulcloud-server', stdio: 'pipe' });
+		//const output = execSync('npm run setup', { cwd: '../schulcloud-server', stdio: 'pipe' });
 		console.log('Done.');
 } catch (err) {
 		console.error('Cannot reset the DB. Additional Info:')

@@ -1,5 +1,7 @@
 "use strict";
 
+const waitHelpers = require("./waitHelpers");
+
 module.exports = {
 
 	getSelectOptions: async function (selectSelector) {
@@ -25,48 +27,10 @@ module.exports = {
 	},
 
 	
-
-	/**
-	 * ========== All operational functions ==========
-	 */
-	/**
-	 * returns a promise that is called when the url has loaded and the body element is present
-	 * @param {string} url to load
-	 * @returns {Promise}
-	 * @example
-	 *      this.loadPage('http://www.google.co.uk');
-	 */
-	loadPage: function (url, seconds) {
-		/**
-		 * Wait function - measured in seconds for pauses during tests to give time for processes such as
-		 * a page loading or the user to see what the test is doing
-		 * @param seconds
-		 * @type {number}
-		 */
-		let timeout = seconds ? seconds * 1000 : DEFAULT_TIMEOUT;
-		/**
-		 * load the url and wait for it to complete
-		 */
-		return driver.url(url, function () {
-			/**
-			 * now wait for the body element to be present
-			 */
-			return driver.waitUntil(driver.$("body"), timeout, "timeout while opening " + url);
-		});
-	},
-
-	/**
-	 *Selectors should be found on the page, selector is given as a path
-	 * @param selector
-	 * @returns {Promise<void>}
-	 */
-	isSelectorOnThePage: async function (selector) {
-		const array = await driver.$$(selector);
-		if (array.length > 0) {
-			return 1;
-		} else {
-			return 0;
-		}
+	loadPage: async function (url, seconds=DELAY_20_SECOND) {
+		let timeout = seconds * 1000;
+		await driver.url(url);
+		await waitHelpers.waitForPageToLoading();
 	},
 
 	/**
@@ -189,6 +153,23 @@ module.exports = {
 		const array = await driver.$$(selector);
 		return array.length > 0;
 	},
+
+	isElementClickable: async function (selector) {
+        const element = await driver.$(selector);
+        try {
+            return await element.isClickable();
+        } catch (error) {
+			return false 
+        }
+	},
+	
+	isUrlContaining: async function (expectedUrl) {
+        try {
+            return await driver.getUrl().includes(url);
+        } catch (error) {
+            return false;
+        }
+    },
 
 	getTextListFromListOfElements: async function (listOfElements) {
 		return await Promise.all(
