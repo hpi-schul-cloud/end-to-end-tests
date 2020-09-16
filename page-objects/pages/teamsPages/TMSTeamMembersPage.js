@@ -3,7 +3,7 @@
 
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 const selectors = {
-	multipleChoiceSelectForTeamMembers = '[data-testid="select_team_members_add"]',
+	multipleChoiceSelectForTeamMembers: '[data-testid="select_team_members_add"]',
 	addInternalMembers: 'button[data-testid="internal_team_members"]',
 	//addExternalMembers: 'button[data-testid="needs_to_be_created"]',
 	selectTeamMembers: 'select[data-testid="select_team_members_add"]',
