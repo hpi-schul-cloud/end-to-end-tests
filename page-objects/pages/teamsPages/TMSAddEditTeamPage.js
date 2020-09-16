@@ -1,10 +1,10 @@
 /*[url/teams/[teamId]/edit]*/
 'use strict';
-const url = `${CLIENT.URL}/teams`;
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 const loginPage = require('../generalPagesBeforeLogin/LoginPage');
 const navigationTopPage = require('../NavigationTopPage');
 const { CLIENT } = require("../../../shared-objects/servers");
+const url = `${CLIENT.URL}/teams`;
 const TMSTeamListPage = require('../../../page-objects/pages/teamsPages/TMSTeamListPage.js');
 const TMSGeneralTeamPage = require('../../../page-objects/pages/teamsPages/TMSGeneralTeamPage.js');
 const TMSTeamMembersPage = require('../../../page-objects/pages/teamsPages/TMSTeamMembersPage.js');
