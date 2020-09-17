@@ -3,5 +3,5 @@
 
 const { CLIENT } = require("../../../shared-objects/servers");
 // team internal options
-constfilesTab = 'div[data-testid="team_files"]';
+const filesTab = 'div[data-testid="team_files"]';
 

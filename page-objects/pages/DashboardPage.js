@@ -10,15 +10,9 @@ const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/Logi
 const dashboardUrl = `${CLIENT.URL}/dashboard`;
 const dashboardTitle = 'Übersicht';
 const dashboardHeader = '#titlebar h1#page-title';
-const loginTabs = {
-	loginTabs: 'ul.sidebar-list[title]',
-};
 const sidebarList = 'ul.sidebar-list[title]';
 
 module.exports = {
-	getElementList: async function () {
-
-	},
 	goToDashboard: async function () {
 		await elementHelpers.loadPage(dashboardUrl, 20);
 		await driver.pause(1000);

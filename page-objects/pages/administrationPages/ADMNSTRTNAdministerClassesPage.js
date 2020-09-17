@@ -13,7 +13,6 @@ const confirmClassCreate = 'button[data-testId=\'confirmClassCreate\']';
 module.exports = {
     createNewClass: async function (className = '11c') {
         // navigates to class administration
-        //TODO - weg, wenn's klappt: await waitHelpers.waitAndClick(ADMNSTRTNAdministrationOverviewPage.administrateClassesBtn);
         await ADMNSTRTNAdministrationOverviewPage.clickAdministrateClasses();
 
         const pageTitle = await driver.getTitle()
