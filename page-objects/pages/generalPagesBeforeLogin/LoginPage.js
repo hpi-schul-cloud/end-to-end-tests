@@ -4,7 +4,7 @@ const elementHelpers = require('../../../runtime/helpers/elementHelpers.js');
 const waitHelpers = require('../../../runtime/helpers/waitHelpers.js');
 const apiHelpers = require('../../../runtime/helpers/APIhelpers');
 
-const failureMessage = "Login fehlgeschlagen.";
+const failureMessages = ["Login fehlgeschlagen.", "Login failed."];
 const usernameInput = 'section#loginarea input[data-testid="username"]';
 const passwordInput = 'section#loginarea input[data-testid="password"]';
 const loginBtn = 'input[data-testid="submit-login"]';
@@ -92,7 +92,7 @@ module.exports = {
 
 
 	wrongLoginResult: async function () {
-		expect(await elementHelpers.getElementText(".notification-content")).to.equal(failureMessage);
+		expect(await elementHelpers.getElementText(".notification-content")).to.be.oneOf(failureMessages);
 		// let btn = await driver.$(loginBtn);
 		// let btnValue = btn.getAttribute('value');
 		// await expect(btnValue).to.match(/^Bitte.*Sekunden warten$/);

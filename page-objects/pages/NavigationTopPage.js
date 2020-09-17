@@ -5,12 +5,21 @@ const elementHelpers = require('../../runtime/helpers/elementHelpers');
 
 const navItemHelp = "//*[@id='top-navbar']/ul/li/div/a[@title='Hilfe']";
 const initialsDiv = '[data-testid="initials"]';
-const initialsDDCurrentUser = 'div.dropdown-name[data-testid="name-in-the-icon"]';
+//old: const initialsDDCurrentUser = 'div.dropdown-name[data-testid="name-in-the-icon"]';
+const initialsDDCurrentUser = '[data-testid="name-in-the-icon"]';
 const initialsDDSettings = 'a[data-testid="settings"]';
 const initialsDDLogout = 'a[data-testid="logout"]';
 const nameBox = '.dropdown-name';
 const userIcon = '.btn-avatar > a';
 const schoolNameSelector = '.nav-item.school-data';
+const exclamationTriangle = '.fa.fa-exclamation-triangle';
+const fullScreenMode = '[data-testid="fullscreen-mode"]';
+const qrIcon = '.fa.fa-qrcode';
+const navItemHelp = '[data-testid="help-area"]';
+const navItemHelpQuestionCircle = '[data-testid="question-circle"]';
+const navItemHelpWishProblem = '[data-testid="submit-wish-or-problem]';
+const navItemHelpContactAdmin = '[data-testid="contact-admin"]';
+const navItemHelpTraining = '[data-testid="fortbildungen"]';
 
 module.exports = {
     checkSchoolname: async function () {
@@ -21,7 +30,17 @@ module.exports = {
     checkInitials: async function () {
         let initialsProvidedByAPI = await apiHelpers.getInitials();
         let intitialsOnPage = await this.getInitials();
-        return expect(intitialsOnPage).to.equal(initialsProvidedByAPI);
+        return expect(intitialsOnPage).to.equal(initialsProvidedByAPI)
+    },
+
+    clickExclamationTriangle: async function () {
+        await waitHelpers.waitAndClick(exclamationTriangle);
+    },
+    clickFullScreenMode: async function () {
+        await waitHelpers.waitAndClick(fullScreenMode);
+    },
+    clickNavItemQrIcon: async function () {
+        await waitHelpers.waitAndClick(qrIcon);
     },
     //TODO:
     /*
@@ -31,6 +50,18 @@ module.exports = {
 
     clickNavItemHelp: async function () {
         await waitHelpers.waitAndClick(navItemHelp);
+    },
+    clickNavItemHelpHelpArea: async function () {
+        await waitHelpers.waitAndClick(navItemHelpQuestionCircle);
+    },
+    clickNavItemHelpWishProblem: async function () {
+        await waitHelpers.waitAndClick(navItemHelpWishProblem);
+    },
+    clickNavItemHelpContactAdmin: async function () {
+        await waitHelpers.waitAndClick(navItemHelpContactAdmin);
+    },
+    clickNavItemHelpTraining: async function () {
+        await waitHelpers.waitAndClick(navItemHelpTraining);
     },
     clickInitials: async function () {
         await waitHelpers.waitAndClick(initialsDiv);
