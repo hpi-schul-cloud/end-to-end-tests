@@ -158,6 +158,36 @@ module.exports = {
         return index;
     },
 
+    getDescriptionCourse: async function (index) {
+        try {
+            return await eh.getElementText(".section-activeCourses div:nth-child(" + index + ") > article > div.sc-card-body.ckcontent");
+        } catch (error) {
+			log.error("Can not get value: " + error.message);
+			throw error;
+		}
+    },
+
+    getCourseName: async function (index) {
+        try {
+            return await eh.getElementText(".section-activeCourses div:nth-child(" + index + ") > article span.title");
+        } catch (error) {
+			log.error("Can not get value: " + error.message);
+			throw error;
+		}
+    },
+
+    getColorCourse: async function (index) {
+        try {
+            let courseContainer = await driver.$(".section-activeCourses div:nth-child(" + index + ") > article > div.sc-card-header");
+            const css = await courseContainer.getCSSProperty("background-color");
+            let color = css.parsed.hex;
+            return color;
+        } catch (error) {
+			log.error("Can not get value: " + error.message);
+			throw error;
+		}
+    },
+
     getWrapperOfCourseInSection: async function (courseName, section) {
         var index = await this.getIndexOfGivenCourseInSection(courseName, section);
         const list = await this.getListOfCoursesInSection(section);
