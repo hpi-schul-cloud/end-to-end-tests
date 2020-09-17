@@ -3,13 +3,17 @@
 
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 const { CLIENT } = require("../../../shared-objects/servers");
-const multipleChoiceSelectForTeamMembers = '[data-testid="select_team_members_add"]';
+
+const containerBtn = '.modal.fade.add-member-modal.in';
+const submitBtn = 'button[type="submit"]';
+
 // team members buttons
 const addInternalMembers = 'button[data-testid="internal_team_members"]';
 /*data testid needs to be created
 const addExternalMembers = 'button[data-testid="needs_to_be_created"]';*/
 
 // team members internal options
+const multipleChoiceSelectForTeamMembers = '[data-testid="select_team_members_add"]';
 const selectTeamMembers = 'select[data-testid="select_team_members_add"]';
 
 
@@ -30,8 +34,8 @@ module.exports = {
 		await driver.pause(1500);
 	},
 	submitAddTeammemberAfterAllMemebersWereAdded: async function () {
-		let containerBtn = await driver.$('.modal.fade.add-member-modal.in');
-		let submitBtn = await containerBtn.$('button[type="submit"]');
-		await submitBtn.click();
+		let containerBtnElement = await driver.$(containerBtn);
+		let submitBtnElement = await containerBtnElement.$(submitBtn);
+		await submitBtnElement.click();
 	},
 }

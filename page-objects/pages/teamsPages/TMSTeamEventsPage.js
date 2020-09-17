@@ -9,4 +9,3 @@ const eventsTab = 'div[data-testid="team_events"]';
 const nameTeamEvent = 'input[data-testid="team_event_name"]';
 const descriptionTeamEvent = 'input[data-testid="description_team_event"]';
 const locationTeamEvent = 'input[data-testid="team_event_location"]';
-
