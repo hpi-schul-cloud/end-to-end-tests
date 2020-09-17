@@ -15,9 +15,9 @@ const selectors = {
     numberOfContentOnGUI: ".content__total",
     firstElement: "div.content__container > div > section:nth-child(1)",
     titleOfMaterialWhenClicked: ".content-container > .title",
-    addContentBtn:  '[aria-lebel="Hinzufügen zu"]',
-    inputCourseNameWhenAddingMaterial: ".multiselect__option.multiselect__option--highlight",
-    inputTopicNameWhenAddingMaterial: ".multiselect__input:nth-child(2)",
+    addContentBtn:  '[aria-label="Hinzufügen zu"]',
+    inputCourseNameWhenAddingMaterial: ".multiselect__input",
+    inputTopicNameWhenAddingMaterial: ".multiselect__input",
 
 }
 module.exports= {
