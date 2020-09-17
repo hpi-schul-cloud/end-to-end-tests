@@ -41,13 +41,23 @@ module.exports = {
 		await waitHelpers.waitAndClick(courseSettingsBtn);
 	},
 
-	clickSettingsDropdownMenuBtn: async function(settingsBtnSelector) {
+	clickSettingsDropdownMenuBtn: async function (settingsBtnSelector) {
 		await waitHelpers.waitAndClick(settingsBtnSelector);
 	},
-	
+
 	cloneCourse: async function () {
 		await this.clickThreePointSettingsIcon();
 		await this.clickSettingsDropdownMenuBtn(setting.cloneCourse);
 		await editCopyCoursePage.clickSubmitButton();
-    }
-}
+	},
+
+	clickEditCourse: async function () {
+		try {
+			await this.clickThreePointSettingsIcon();
+			await this.clickSettingsDropdownMenuBtn(setting.editCourse);
+		} catch (error) {
+			log.error("Can not click on element: " + error.message);
+			throw error;
+		}
+	},
+};

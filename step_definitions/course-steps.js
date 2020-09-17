@@ -1,6 +1,9 @@
 'use strict';
 const addCourse = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
 const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
+const CRSSEditCopyCoursePage = require('../page-objects/pages/coursePages/CRSSEditCopyCoursePage');
+const CRSSGeneralCoursePage = require('../page-objects/pages/coursePages/CRSSGeneralCoursePage');
+
 
 When(/^.*goes to courses page$/, function () {
 	return courseListPage.goToCourses();
@@ -89,4 +92,37 @@ Then(/^.*clicks Go-to-course-list$/, async function () {
 
 Then(/^.*color of the course is (\S*).*$/, async function (courseColour) {
 	await courseListPage.isCorrectCourseColour(courseColour);
+});
+
+Then(/^.*chooses Kurs with name (\S*)$/, async function (courseName) {
+	await courseListPage.clickOnCourseInSection(courseName, courseListPage.section.activeCourses);
+});
+
+Then(/^.*clicks on Course edit$/, async function () {
+	await CRSSGeneralCoursePage.clickEditCourse();
+});
+
+Then(/^.*changes name of Course (\S*)$/, async function (changeName) {
+	await CRSSEditCopyCoursePage.setCourseName(changeName);
+});
+
+When(/^.*enters Course description (.*)$/, async function (description) {
+	await CRSSEditCopyCoursePage.setCourseDescription(description);
+});
+
+Then(/^.*clicks on save changes button$/, async function () {
+	await CRSSEditCopyCoursePage.clickSubmitButton();
+});
+
+Then(/^.*should see that course name (.*) with description correctly displayed (.*)$/, async function (courseName, description) {
+	let index = await courseListPage.getIndexOfGivenCourseInSection(courseName, courseListPage.section.activeCourses)+1;
+	let courseDescriptionAfterChanges = await courseListPage.getDescriptionCourse(index);
+	expect(description).to.equal(courseDescriptionAfterChanges);
+});
+
+Then(/^.*should see that course name (.*) with color correctly displayed (.*)$/, async function (courseName, colorCourse) {
+	let index = await courseListPage.getIndexOfGivenCourseInSection(courseName, courseListPage.section.activeCourses)+1;
+	let courseColorAfterChanges = await courseListPage.getColorCourse(index);
+	let colourNumber = courseListPage.getColourSelector(colorCourse);
+	expect(colourNumber.toLocaleLowerCase()).to.include(courseColorAfterChanges);
 });
