@@ -37,7 +37,8 @@ Then(/^teacher clicks on add content button$/, async function () {
     await lernstorePage.clickAddContentBtn();
 
 });
-Then(/^teacher selects course (.*) and topic (.*)$/, async function (course, topic) {
+Then(/^teacher selects course (.*) and topic (.*)$/, async function(course, topic) {
     await lernstorePage.clickAddContentBtn();
+    await lernstorePage.addToCourseAndTopic(course, topic);
 
 });

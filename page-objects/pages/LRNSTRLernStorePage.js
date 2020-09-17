@@ -15,9 +15,12 @@ const selectors = {
     numberOfContentOnGUI: ".content__total",
     firstElement: "div.content__container > div > section:nth-child(1)",
     titleOfMaterialWhenClicked: ".content-container > .title",
-    addContentBtn:  '[aria-label="Hinzufügen zu"]',
-    inputCourseNameWhenAddingMaterial: ".multiselect__input",
-    inputTopicNameWhenAddingMaterial: ".multiselect__input",
+    courseAndTitleContainer: '.wrapper.content-modal__body--select',
+    textField: '.multiselect__input',
+    selectorsNameOfCourses: {
+        selectorCourseTitles: "div.multiselect__content-wrapper > ul > li > span > span"
+    },
+    submitAddToCourseAndTopic: '[data-testid="modal_submit_btn"]',
 
 }
 module.exports= {
@@ -50,22 +53,51 @@ module.exports= {
         await expect(titleOnGUI).to.equal(titleOnAPIRequest);
     },
     clickAddContentBtn: async function() {
-        await waitHelpers.waitAndClick(selectors.addContentBtn);
+        const scriptToClickBtn= "document.querySelector('button.is-large.is-hero-cta.floating-button').click()"
+        await driver.execute(scriptToClickBtn);
+        await driver.pause(1500);
     },
+
     addToCourse: async function(course) {
-        //await waitHelpers.waitAndSetValue(selectors.inputCourseNameWhenAddingMaterial, course)
-        let names = await driver.$$(selectors.inputCourseNameWhenAddingMaterial);
-        return Promise.all(names.map(async (elem) => {
-            const courseName = await driver.$(selectors.inputCourseNameWhenAddingMaterial > span)
-            return await courseName.getText();
-        }));
+      
+       const courseIndex = await this.getIndexOfCourseInDropdown(course);
+       let obj = await driver.$('div.multiselect__content-wrapper > ul > li:nth-child('+courseIndex+') > span');
+      
+       await obj.click();
+
     },
+    getIndexOfCourseInDropdown: async function(course) {
+        try{
+            let clicable = await driver.$('div.core > div > div.multiselect__select');
+            await clicable.click();
+            const courseList = await Promise.all(( 
+                await driver.$$(selectors.selectorsNameOfCourses.selectorCourseTitles)).map(
+                    async (element) => await element.getText()
+                ));
+            for (var index=0; index<courseList.length; index++) {
+                if(courseList[index]==course)
+                return index+1;
+            }
+    }
+    catch(err) {
+        log.error(err.message);
+        throw err;
+    }
+    }, 
     addToTopic: async function(topic) {
-        await waitHelpers.waitAndSetValue(selectors.inputTopicNameWhenAddingMaterial, topic)
+        let clicable = await driver.$('div.input-line > div.core > div');
+        await clicable.click();
+   
+        const topicIndex = await this.addTopicHelper(topic);
+        let obj = await driver.$('div.multiselect__content-wrapper > ul > li:nth-child('+topicIndex+') > span');
+       
+        await obj.click();
+        
     },
     addToCourseAndTopic: async function(course, topic) {
         await this.addToCourse(course);
         await this.addToTopic(topic);
+        await waitHelpers.waitAndClick(selectors.submitAddToCourseAndTopic);
     },
 
     
