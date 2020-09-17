@@ -11,9 +11,6 @@ const selectors = {
 }
 
 module.exports = {
-
-
-
 	goToTeams: async function () {
 		return elementHelpers.loadPage(url, 20);
 	},
