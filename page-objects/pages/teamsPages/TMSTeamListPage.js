@@ -24,7 +24,7 @@ module.exports = {
 	},
 	// assertion helper in steps:
 	getTeamNames: async function () {
-		await elementHelpers.loadPage(this.url, 20);
+		await elementHelpers.loadPage(url, 20);
 		let container = await driver.$(selectors.namesContainer);
 		let elements = await container.$$('div');
 		const namePromises = elements.map(async element => await element.getText());
