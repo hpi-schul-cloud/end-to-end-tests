@@ -3,7 +3,7 @@ const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
 const apiHelpers = require('../../runtime/helpers/APIhelpers');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 
-const navItemHelp = "//*[@id='top-navbar']/ul/li/div/a[@title='Hilfe']";
+
 const initialsDiv = '[data-testid="initials"]';
 //old: const initialsDDCurrentUser = 'div.dropdown-name[data-testid="name-in-the-icon"]';
 const initialsDDCurrentUser = '[data-testid="name-in-the-icon"]';
@@ -15,6 +15,7 @@ const schoolNameSelector = '.nav-item.school-data';
 const exclamationTriangle = '.fa.fa-exclamation-triangle';
 const fullScreenMode = '[data-testid="fullscreen-mode"]';
 const qrIcon = '.fa.fa-qrcode';
+//const navItemHelp = "//*[@id='top-navbar']/ul/li/div/a[@title='Hilfe']";
 const navItemHelp = '[data-testid="help-area"]';
 const navItemHelpQuestionCircle = '[data-testid="question-circle"]';
 const navItemHelpWishProblem = '[data-testid="submit-wish-or-problem]';
