@@ -4,12 +4,12 @@ const sharedHelpers = require("./sharedHelpers");
 
 const elementIsPresentTimeout = 10000;
 const elementIsNotPresentTimeout = 10000;
-const elementIsClickableTimeout = 10000;
-const elementIsNotClickableTimeout = 10000;
-const elementIsVisibleTimeout = 10000;
-const elementIsNotVisibleTimeout = 10000;
-const elementIsEnabled = 10000;
-const elementIsDisabled = 10000;
+const elementIsClickableTimeout = 5000;
+const elementIsNotClickableTimeout = 5000;
+const elementIsVisibleTimeout = 5000;
+const elementIsNotVisibleTimeout = 5000;
+const elementIsEnabled = 5000;
+const elementIsDisabled = 5000;
 const elementContainsTextTimeout = 10000;
 const urlContainsTimeout = 10000;
 const pageLoadingTimeout = 30000;
@@ -151,10 +151,13 @@ async function waitUntilScriptResultIsTrue(script, timeoutMsg,  timeout = pageLo
 };
 
 async function waitAndClick(selectorOrElement) {
-	let  element = await sharedHelpers.getElement(selectorOrElement);
+	let  element = await waitUntilElementIsPresent(selectorOrElement);
 	await waitUntilElementIsClickable(element);
 	await element.click();
+	//Pause is temporary: should be removed in SC-6661
+	await driver.pause(1000);
 	await waitUntilPageLoads();
+	
 };
 
 async function waitAndSetValue(selectorOrElement, expectedValue, timeout = MEDIUM_WAIT_MILLIS) {

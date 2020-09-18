@@ -269,7 +269,7 @@ Before(async () => {
 Before(function() {
 	try {
 		console.log('\n\nResetting the DB...');
-		//const output = execSync('npm run setup', { cwd: '../schulcloud-server', stdio: 'pipe' });
+		const output = execSync('npm run setup', { cwd: '../schulcloud-server', stdio: 'pipe' });
 		console.log('Done.');
 } catch (err) {
 		console.error('Cannot reset the DB. Additional Info:')
