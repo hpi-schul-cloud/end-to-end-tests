@@ -161,7 +161,7 @@ module.exports = {
 
     getDescriptionCourse: async function (index) {
         try {
-            return await eh.getElementText(".section-activeCourses div:nth-child(" + index + ") > article > div.sc-card-body.ckcontent");
+            return await elementHelpers.getElementText(".section-activeCourses div:nth-child(" + index + ") > article > div.sc-card-body.ckcontent");
         } catch (error) {
 			log.error("Can not get value: " + error.message);
 			throw error;
@@ -170,7 +170,7 @@ module.exports = {
 
     getCourseName: async function (index) {
         try {
-            return await eh.getElementText(".section-activeCourses div:nth-child(" + index + ") > article span.title");
+            return await elementHelpers.getElementText(".section-activeCourses div:nth-child(" + index + ") > article span.title");
         } catch (error) {
 			log.error("Can not get value: " + error.message);
 			throw error;
