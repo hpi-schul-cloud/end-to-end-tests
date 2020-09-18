@@ -17,7 +17,6 @@ Then the teacher must be redirected to content page
 When the teacher searches for content <content>
 Then the right number of materials <content> is displayed
 When teacher clicks on content-card after request <content>
-#Then the link of the material is correct 
 When teacher clicks on add content button
 When teacher selects course <coursename> and topic <topicName>
 When teacher goes to topic
