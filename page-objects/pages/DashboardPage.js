@@ -40,7 +40,7 @@ module.exports = {
 		let userName = await apiHelpers.getUserName();
 		let userRole = await apiHelpers.getUserRole();
 		await navigationTopPage.clickInitials();
-		let fullNameAndRole = await await elementHelpers.getElementText(navigationTopPage.selectors.initialsDDCurrentUser);
+		let fullNameAndRole = await elementHelpers.getElementText(navigationTopPage.selectors.initialsDDCurrentUser);
 		expect(fullNameAndRole).to.include(userName, userRole);
 	},
 	
