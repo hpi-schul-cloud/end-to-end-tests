@@ -14,16 +14,16 @@ Then(
 });
 
 Then(
-	/^user-dashboard should have the correct school$/, function() {
+	/^dashboard should have the correct school$/, function() {
 		return DashboardPage.loginSchool();
 });
 
 Then(
-	/^user-dashboard should have the correct name and profession$/, function() {
+	/^dashboard should have the correct name and profession$/, function() {
 		return DashboardPage.loginFullUserInfo();
 });
 
-Then(/^user-dashboard should have the following tabs$/, function (LoginTextLabels) {
+Then(/^dashboard should have the following tabs$/, function (LoginTextLabels) {
     return DashboardPage.checkIfTabsAreVisible(LoginTextLabels, loginPage.loginTabs.loginTabs);
 });
 
