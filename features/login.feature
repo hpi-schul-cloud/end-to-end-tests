@@ -49,6 +49,7 @@ Feature: Log in as an admin, as a teacher, as a student
             | NEUIGKEITEN    |
             | TERMINE        |
             | LERN-STORE     |
+            | ADD-ONS        |
             | VERWALTUNG     |
             | HILFEBEREICH   |
 
