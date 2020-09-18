@@ -32,11 +32,6 @@ const selectors = {
 
     courseSelector: '[data-testid="courseSelector"]',
     topicSelector: '[data-testid="topicSelector"]',
-
-
-
-
-
 }
 module.exports= {
     selectors, 
@@ -82,20 +77,16 @@ module.exports= {
 
     },
     getIndexOfCourseOrTopicInDropdown: async function(container, elementToSearch) {
-        let selector = (container + ' ' +selectors.selectorsNameOfCourses.selectorCourseTitles);
-        try{
-            const courseList = await Promise.all( 
-                await driver.$$((selector)).map(
-                    async (element) => await element.getText()
-                )
-            );
-            for (var index=0; index<courseList.length; index++) {
-                if(courseList[index]==elementToSearch) 
-                return index+1;
-            }
-        } catch(err) {
-            log.error(err.message);
-            throw err;
+            const selector = `${container} ${selectors.selectorsNameOfCourses.selectorCourseTitles}`;
+            const courseList = await driver.$$((selector)).map((element) => element.getText());
+            try{
+                const result = await Promise.all(courseList);
+                const isTheSameName = (element) => element==elementToSearch;
+                return (await result.findIndex(isTheSameName));
+           }
+           catch (e){
+                  console.error(e)
+           }
         }
     }, 
     addToTopic: async function(topic) {
