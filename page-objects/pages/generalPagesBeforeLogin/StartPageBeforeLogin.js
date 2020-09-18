@@ -1,10 +1,10 @@
 'use strict';
 
-const frontpageLoginBtn = 'a[data-testid="login-btn"]';
+const waitHelpers = require("../../../runtime/helpers/waitHelpers");
+const frontpageLoginBtn = "a[data-testid='login-btn']";
 
 module.exports = {
     clickLoginBtn: async function () {
-        let fpLoginBtn = await driver.$(frontpageLoginBtn);
-        await fpLoginBtn.click();
+        await waitHelpers.waitAndClick(frontpageLoginBtn);
     }
 }

@@ -1,8 +1,8 @@
 /*[url/courses]*/
 "use strict";
 const { CLIENT } = require("../../../shared-objects/servers")
-const eh = require("../../../runtime/helpers/elementHelpers");
-const wh = require("../../../runtime/helpers/waitHelpers");
+const elementHelpers = require("../../../runtime/helpers/elementHelpers");
+const waitHelpers = require("../../../runtime/helpers/waitHelpers");
 const startPage = require('../../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin');
 const loginPage = require('../../../page-objects/pages/generalPagesBeforeLogin/LoginPage');
 const logoutPage = require('../../../page-objects/pages/generalPagesBeforeLogin/LogoutPage');
@@ -39,12 +39,13 @@ module.exports = {
     },
 
     goToCourses: async function () {
-        await eh.loadPage(urlCourses, 30);
+        await elementHelpers.loadPage(urlCourses, 30);
     },
 
     importAndCreateCourseBtnsAreVisible: async function () {
-        expect(await eh.isElementPresent(importCourseBtn)).to.equal(true);
-        expect(await eh.isElementPresent(createCourseBtn)).to.equal(true);
+        expect(await elementHelpers.isElementPresent(importCourseBtn)).to.equal(true);
+        expect(await elementHelpers.isElementPresent(createCourseBtn)).to.equal(true);
+
     },
 
     courseIsDisplayedCorrectly: async function (courseName) {
@@ -76,7 +77,7 @@ module.exports = {
     },
 
     clickCreateCourseBtn: async function () {
-        await wh.waitAndClick(createCourseBtn);
+        await waitHelpers.waitAndClick(createCourseBtn);
     },
 
     getColourSelector: function (colourName) {
@@ -108,7 +109,7 @@ module.exports = {
     },
 
     fillCourseNameIntoSearchInputField: async function (courseName) {
-        await eh.fillInputField(searchCourseFiled, courseName);
+        await elementHelpers.fillInputField(searchCourseFiled, courseName);
     },
 
     countDisplayedCoursesForSection: async function (section) {
@@ -129,7 +130,7 @@ module.exports = {
 
     getNamesOfMembers: async function () {
         const listOfMembers = await driver.$$("#member-modal-body > ol > li");
-        return eh.getTextListFromListOfElements(listOfMembers);
+        return elementHelpers.getTextListFromListOfElements(listOfMembers);
     },
 
     areMembersOnTheListInCourseForSection: async function (courseName, members, section) {
@@ -146,6 +147,7 @@ module.exports = {
     },
 
     getListOfCoursesInSection: async function (section) {
+        await waitHelpers.waitUntilElementIsPresent(section + " " + courseWrapper);
         const listOfCourses = await driver.$$(section + " " + courseWrapper);
         return listOfCourses;
     },
@@ -158,20 +160,20 @@ module.exports = {
 
     getDescriptionCourse: async function (index) {
         try {
-            return await eh.getElementText(".section-activeCourses div:nth-child(" + index + ") > article > div.sc-card-body.ckcontent");
+            return await elementHelpers.getElementText(".section-activeCourses div:nth-child(" + index + ") > article > div.sc-card-body.ckcontent");
         } catch (error) {
-			log.error("Can not get value: " + error.message);
-			throw error;
-		}
+            log.error("Can not get value: " + error.message);
+            throw error;
+        }
     },
 
     getCourseName: async function (index) {
         try {
-            return await eh.getElementText(".section-activeCourses div:nth-child(" + index + ") > article span.title");
+            return await elementHelpers.getElementText(".section-activeCourses div:nth-child(" + index + ") > article span.title");
         } catch (error) {
-			log.error("Can not get value: " + error.message);
-			throw error;
-		}
+            log.error("Can not get value: " + error.message);
+            throw error;
+        }
     },
 
     getColorCourse: async function (index) {
@@ -181,9 +183,9 @@ module.exports = {
             let color = css.parsed.hex;
             return color;
         } catch (error) {
-			log.error("Can not get value: " + error.message);
-			throw error;
-		}
+            log.error("Can not get value: " + error.message);
+            throw error;
+        }
     },
 
     getWrapperOfCourseInSection: async function (courseName, section) {
