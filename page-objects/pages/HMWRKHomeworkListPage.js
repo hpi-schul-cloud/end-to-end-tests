@@ -1,19 +1,19 @@
 /*[url/homework]*/
 "use strict";
 const { CLIENT } = require("../../shared-objects/servers");
-const wh = require("../../runtime/helpers/waitHelpers");
-const eh = require("../../runtime/helpers/elementHelpers");
+const waitHelpers = require("../../runtime/helpers/waitHelpers");
+const elementHelpers = require("../../runtime/helpers/elementHelpers");
 const navigationLeftPage = require('../../page-objects/pages/NavigationLeftPage.js');
 const urlHomework = `${CLIENT.URL}/homework`;
 const createTaskButton = "a[href='/homework/new']";
 
 module.exports = {
 	goToHomeworkListPage: async function () {
-		await eh.loadPage(urlHomework, 20);
+		await elementHelpers.loadPage(urlHomework, 20);
 	},
 
 	clickCreateTaskButton: async function () {
-		await wh.waitAndClick(createTaskButton);
+		await waitHelpers.waitAndClick(createTaskButton);
 	},
 
 	sortHometasks: async function () {
