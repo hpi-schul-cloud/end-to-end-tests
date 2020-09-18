@@ -1,5 +1,6 @@
 /*[url/content]*/
 'use strict';
+// timeout for search: 3 sec
 const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
 const apiHelpers = require('../../runtime/helpers/APIhelpers');
 const stringHelpers= require('../../runtime/helpers/stringHelpers');
@@ -15,12 +16,26 @@ const selectors = {
     numberOfContentOnGUI: ".content__total",
     firstElement: "div.content__container > div > section:nth-child(1)",
     titleOfMaterialWhenClicked: ".content-container > .title",
-    courseAndTitleContainer: '.wrapper.content-modal__body--select',
-    textField: '.multiselect__input',
+
+    courseAndTitleContainer: '.content-modal__body',
+
+    containerTopic: this.courseAndTitleContainer+'div:nth-child(2)',
+    clickableElementDropDown: '.multiselect__select',
+
     selectorsNameOfCourses: {
         selectorCourseTitles: "div.multiselect__content-wrapper > ul > li > span > span"
     },
+
     submitAddToCourseAndTopic: '[data-testid="modal_submit_btn"]',
+    selectorForMaterialLink: 'div.metadata > div:nth-child(2) > div.meta-text.text-wrap > a',
+
+
+    courseSelector: '[data-testid="courseSelector"]',
+    topicSelector: '[data-testid="topicSelector"]',
+
+
+
+
 
 }
 module.exports= {
@@ -59,38 +74,35 @@ module.exports= {
     },
 
     addToCourse: async function(course) {
-      
-       const courseIndex = await this.getIndexOfCourseInDropdown(course);
-       let obj = await driver.$('div.multiselect__content-wrapper > ul > li:nth-child('+courseIndex+') > span');
-      
-       await obj.click();
+        let clicable = await driver.$(selectors.courseSelector+'> div');
+        await clicable.click();
+        const courseIndex = await this.getIndexOfCourseOrTopicInDropdown(selectors.courseSelector, course);
+        let obj = await driver.$(selectors.courseSelector+' .multiselect__content-wrapper > ul > li:nth-child('+courseIndex+') > span');
+        await obj.click();
 
     },
-    getIndexOfCourseInDropdown: async function(course) {
+    getIndexOfCourseOrTopicInDropdown: async function(container, elementToSearch) {
+        let selector = (container + ' ' +selectors.selectorsNameOfCourses.selectorCourseTitles);
         try{
-            let clicable = await driver.$('div.core > div > div.multiselect__select');
-            await clicable.click();
-            const courseList = await Promise.all(( 
-                await driver.$$(selectors.selectorsNameOfCourses.selectorCourseTitles)).map(
+            const courseList = await Promise.all( 
+                await driver.$$((selector)).map(
                     async (element) => await element.getText()
-                ));
+                )
+            );
             for (var index=0; index<courseList.length; index++) {
-                if(courseList[index]==course)
+                if(courseList[index]==elementToSearch) 
                 return index+1;
             }
-    }
-    catch(err) {
-        log.error(err.message);
-        throw err;
-    }
+        } catch(err) {
+            log.error(err.message);
+            throw err;
+        }
     }, 
     addToTopic: async function(topic) {
-        let clicable = await driver.$('div.input-line > div.core > div');
+        let clicable = await driver.$(selectors.topicSelector+'> div');
         await clicable.click();
-   
-        const topicIndex = await this.addTopicHelper(topic);
-        let obj = await driver.$('div.multiselect__content-wrapper > ul > li:nth-child('+topicIndex+') > span');
-       
+        let indexOfTopic = await this.getIndexOfCourseOrTopicInDropdown(selectors.topicSelector, topic)
+        let obj = await driver.$(selectors.topicSelector +' .multiselect__content-wrapper > ul > li:nth-child('+indexOfTopic+') > span');
         await obj.click();
         
     },
