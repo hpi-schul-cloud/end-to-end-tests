@@ -11,7 +11,7 @@ Feature: Log in as an admin, as a teacher, as a student
         Then admin accepts data protection
         Then the login must be successful
         Then dashboard should have the correct school
-        #Then dashboard should have the admin name and profession # is not yet correctly implemented
+        Then dashboard should have the correct name and profession
         Then dashboard should have the following tabs
             | tabs           |
             | ÜBERSICHT      |
@@ -50,7 +50,7 @@ Feature: Log in as an admin, as a teacher, as a student
         And student with full age accepts student's data protection with password <newStudentPassword>
         Then the login must be successful
         Then dashboard should have the correct school
-        #Then dashboard should have the correct name and profession # is not yet correctly implemented
+        Then dashboard should have the correct name and profession
         Then dashboard should have the following tabs
             | tabs           |
             | ÜBERSICHT      |

@@ -24,8 +24,11 @@ module.exports = {
 	},
 
 	loginFullUserInfo: async function () {
-		let userName = await apiHelpers.getInitials();
-		expect(await elementHelpers.getElementText(navigationTopPage.initialsDDCurrentUser).to.equal(userName));
+		letuserName = awaitapiHelpers.getUserName();
+		letuserRole = awaitapiHelpers.getUserRole();
+		awaitnavigationTopPage.clickInitials();
+		letfullNameAndRole = awaitawaitelementHelpers.getElementText(navigationTopPage.selectors.initialsDDCurrentUser);
+		expect(fullNameAndRole).to.include(userName, userRole);
 	},
 
 	checkIfTabsAreVisible: async function (itemsToCompare, items) {

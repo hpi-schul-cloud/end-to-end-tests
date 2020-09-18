@@ -11,9 +11,8 @@ Then(
 	});
 
 Then(
-	/^dashboard should have the admin name and profession$/, function () {
-		//return DashboardPage.loginInitials();
-		//TODO:	Was the same as checkInitials - new to implement:return NavigationTopPage.checkNameAndProfession();
+	/^dashboard should have the correct name and profession$/, function () {
+		return DashboardPage.loginFullUserInfo();
 	});
 
 Then(/^dashboard should have the following tabs$/, function (LoginTextLabels) {
