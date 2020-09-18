@@ -61,7 +61,7 @@
 		"winston": "^3.2.1"
 	},
 	"devDependencies": {
-		"chromedriver": "^2.46",
+		"chromedriver": "^2.46.0",
 		"expect": "^1.20.2",
 		"geckodriver": "^1.19.1",
 		"glob": "^7.1.2",
