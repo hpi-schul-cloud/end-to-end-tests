@@ -23,7 +23,7 @@ const selectors = {
     clickableElementDropDown: '.multiselect__select',
 
     selectorsNameOfCourses: {
-        selectorCourseTitles: "div.multiselect__content-wrapper > ul > li > span > span"
+        selectorCourseTitles: "div.multiselect__content-wrapper > ul > li > span"
     },
 
     submitAddToCourseAndTopic: '[data-testid="modal_submit_btn"]',
@@ -77,18 +77,18 @@ module.exports= {
 
     },
     getIndexOfCourseOrTopicInDropdown: async function(container, elementToSearch) {
-            const selector = `${container} ${selectors.selectorsNameOfCourses.selectorCourseTitles}`;
-            const courseList = await driver.$$((selector)).map((element) => element.getText());
+        const selector = `${container} ${selectors.selectorsNameOfCourses.selectorCourseTitles}`;
+        const courseList = (await driver.$$(selector)).map((element) => element.getText());
             try{
                 const result = await Promise.all(courseList);
                 const isTheSameName = (element) => element==elementToSearch;
-                return (await result.findIndex(isTheSameName));
-           }
-           catch (e){
+                return (await result.findIndex(isTheSameName)+1);
+            }
+            catch (e){
                   console.error(e)
-           }
-        }
-    }, 
+            }
+    },
+ 
     addToTopic: async function(topic) {
         let clicable = await driver.$(selectors.topicSelector+'> div');
         await clicable.click();
