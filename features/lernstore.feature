@@ -19,7 +19,7 @@ Then the right number of materials <content> is displayed
 When teacher clicks on content-card after request <content>
 When teacher clicks on add content button
 When teacher selects course <coursename> and topic <topicName>
-When teacher goes to topic
+When teacher goes to topic <topicName> of course <coursename>
 Then added material should be visible
 Examples:
     | coursename          | topicName             | lerstoreTopicName | content |

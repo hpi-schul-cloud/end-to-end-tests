@@ -32,6 +32,7 @@ const selectors = {
 
     courseSelector: '[data-testid="courseSelector"]',
     topicSelector: '[data-testid="topicSelector"]',
+    submitBtnAfterMaterialWasAddedToCourseAndTopic: "div.footer-button > button"
 }
 module.exports= {
     selectors, 
@@ -68,12 +69,12 @@ module.exports= {
         await driver.pause(1500);
     },
 
-    addToCourse: async function(course) {
-        let clicable = await driver.$(selectors.courseSelector+'> div');
-        await clicable.click();
-        const courseIndex = await this.getIndexOfCourseOrTopicInDropdown(selectors.courseSelector, course);
-        let obj = await driver.$(selectors.courseSelector+' .multiselect__content-wrapper > ul > li:nth-child('+courseIndex+') > span');
-        await obj.click();
+    addToCourseOrTopic: async function(courseOrTopicName, courseOrTopicContainer) {
+        await waitHelpers.waitAndClick(courseOrTopicContainer+'> div')
+        const courseIndex = await this.getIndexOfCourseOrTopicInDropdown(courseOrTopicContainer, courseOrTopicName);
+        let dropDownElementCourseOrTopic = await driver.$(`${courseOrTopicContainer} .multiselect__content-wrapper > ul > li:nth-child(${courseIndex}) > span`);
+        await dropDownElementCourseOrTopic.click();
+       //await waitHelpers.waitAndClick(dropDownElementCourseOrTopic)
 
     },
     getIndexOfCourseOrTopicInDropdown: async function(container, elementToSearch) {
@@ -87,20 +88,13 @@ module.exports= {
             catch (e){
                   console.error(e)
             }
-    },
- 
-    addToTopic: async function(topic) {
-        let clicable = await driver.$(selectors.topicSelector+'> div');
-        await clicable.click();
-        let indexOfTopic = await this.getIndexOfCourseOrTopicInDropdown(selectors.topicSelector, topic)
-        let obj = await driver.$(selectors.topicSelector +' .multiselect__content-wrapper > ul > li:nth-child('+indexOfTopic+') > span');
-        await obj.click();
-        
-    },
+    },  
+    // params: courseName or TopicName, selector - container of topics or courses
     addToCourseAndTopic: async function(course, topic) {
-        await this.addToCourse(course);
-        await this.addToTopic(topic);
+        await this.addToCourseOrTopic(course, selectors.courseSelector);
+        await this.addToCourseOrTopic(topic,selectors.topicSelector);
         await waitHelpers.waitAndClick(selectors.submitAddToCourseAndTopic);
+        await waitHelpers.waitAndClick(selectors.submitBtnAfterMaterialWasAddedToCourseAndTopic)
     },
 
     

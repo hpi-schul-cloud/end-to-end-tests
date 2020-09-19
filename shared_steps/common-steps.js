@@ -4,7 +4,10 @@ const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPa
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const createCourse = require('../page-objects/pages/coursePages/CRSSAddCoursePage')
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
+const navigationLeftPanel = require('../page-objects/pages/NavigationLeftPage');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
+const courseListPage= require('../page-objects/pages/coursePages/CRSSCourseListPage');
+const courseTopicPage = require('../page-objects/pages/coursePages/CRSSCourseTopicsPage');
 
 
 const schulCloudURL= `${CLIENT.URL}`;
@@ -56,6 +59,14 @@ Then(/^the login must be successful$/, function () {
 /*Courses*/
 When(/^teacher creates a course (.*) and adds student (.*)to this course$/, async function (courseName, studentName) {
 	return createCourse.createCourseWithStudents(courseName, studentName);
+});
+
+/*Topics*/ 
+When(/^.* goes to topic (.*) of course (.*)$/, async function (topicName, courseName) {
+	await navigationLeftPanel.clickNavItemAdminCourses();
+	await courseListPage.clickOnCourseInSection(courseName, courseListPage.section.activeCourses);
+	await courseTopicPage.goToTopic(topicName);
+
 });
 
 /*NavigationTopPage*/
