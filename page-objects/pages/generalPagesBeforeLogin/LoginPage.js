@@ -27,15 +27,13 @@ const selectors = {
 			passwordSet2: 'input[data-testid="firstlogin_password_control"]',
 		},
 	},
-		sectionNames: {
-			sectionOne: '[data-testid="name-section-1"]',
-			sectionTwo: '[data-testid="name-section-2"]',
-			sectionThree: '[data-testid="name-section-3"]',
-			section_three_name: '.panels.mb-2 > section:nth-child(3) > h2',
-		},
-		nextSectionBtn: '#nextSection',
-		
+	sectionNames: {
+		sectionOne: '[data-testid="name-section-1"]',
+		sectionTwo: '[data-testid="name-section-2"]',
+		sectionThree: '[data-testid="name-section-3"]',
+		section_three_name: '.panels.mb-2 > section:nth-child(3) > h2',
 	},
+	nextSectionBtn: '#nextSection',
 	avatarCircle: '.avatar-circle',
 	notificationIfWrongLogin: '.notification-content',
 }
