@@ -94,7 +94,10 @@ module.exports= {
         await this.addToCourseOrTopic(course, selectors.courseSelector);
         await this.addToCourseOrTopic(topic,selectors.topicSelector);
         await waitHelpers.waitAndClick(selectors.submitAddToCourseAndTopic);
-        await waitHelpers.waitAndClick(selectors.submitBtnAfterMaterialWasAddedToCourseAndTopic)
+        await waitHelpers.waitAndClick(selectors.submitBtnAfterMaterialWasAddedToCourseAndTopic);
+        // return to main window
+        let handle = await driver.getWindowHandles();
+        await driver.switchToWindow(handle[0]);
     },
 
     
