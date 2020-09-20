@@ -24,7 +24,7 @@ Then(
 });
 
 Then(/^dashboard should have the following tabs$/, function (LoginTextLabels) {
-    return DashboardPage.checkIfTabsAreVisible(LoginTextLabels, loginPage.loginTabs.loginTabs);
+    return DashboardPage.checkIfTabsAreVisible(LoginTextLabels, loginPage.selectors.loginTabs.loginTabs);
 });
 
 
