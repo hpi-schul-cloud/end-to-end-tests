@@ -75,7 +75,7 @@ module.exports = {
 		let section_three_name = await driver.$(selectors.sectionNames.section_three_name);
 		if (await section_three_name.getText() == "Einwilligungserklärung") {
 			await this.clickOnDataProtectionBoxes();
-			await waitHelpers.waitAndClick(selectors.firstLoginSel.nextSectionBtn);
+			await waitHelpers.waitAndClick(selectors.nextSectionBtn);
 		};
 		await this.setNewPasswordStudent(newPassword);
 		await waitHelpers.waitAndClick(selectors.firstLoginSel.nextSectionBtn);
