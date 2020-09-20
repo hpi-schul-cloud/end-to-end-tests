@@ -24,7 +24,7 @@ module.exports = {
 	},
 
 	clickCreateTaskButton: async function () {
-		await waitHelpers.waitAndClick(selectors,createTaskButton);
+		await waitHelpers.waitAndClick(selectors.createTaskButton);
 	},
 
 	sortHometasks: async function () {
