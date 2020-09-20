@@ -10,7 +10,7 @@ const selectors = {
     classCreationExtraOptions: 'a[data-testid=\'classCreationExtraOptions\']',
     classNameInputField: 'input[data-testid=\'Klassenbezeichnung\']',
     confirmClassCreate: 'button[data-testId=\'confirmClassCreate\']',
-    studentNamesContainer = "tbody[data-testid=\'students_names_container\']", 
+    studentNamesContainer: "tbody[data-testid=\'students_names_container\']", 
 
 };
 module.exports = {
