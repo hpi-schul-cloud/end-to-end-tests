@@ -9,7 +9,7 @@ const selectors = {
 
 module.exports = {
 	clickAddNewTopicBtn: async function () {
-		await waitHelpers.waitAndClick(selectors.exportsaddNewTopicBtn);
+		await waitHelpers.waitAndClick(selectors.addNewTopicBtn);
 	},
 
 	clickAddNewTopicInCourse: async function (coursename) {
