@@ -1,10 +1,10 @@
 /*[url/teams/[teamId]/edit]*/
 'use strict';
-
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 const loginPage = require('../generalPagesBeforeLogin/LoginPage');
 const navigationTopPage = require('../NavigationTopPage');
 const { CLIENT } = require("../../../shared-objects/servers");
+const url = `${CLIENT.URL}/teams`;
 const TMSTeamListPage = require('../../../page-objects/pages/teamsPages/TMSTeamListPage.js');
 const TMSGeneralTeamPage = require('../../../page-objects/pages/teamsPages/TMSGeneralTeamPage.js');
 const TMSTeamMembersPage = require('../../../page-objects/pages/teamsPages/TMSTeamMembersPage.js');
@@ -31,17 +31,19 @@ let oldPassword;
 let oldPassword1;
 let oldPassword2;
 
-module.exports = {
+const selectors = {
+    newsTab: '[data-tab="js-news"] > span',
+    passwordField: '#passwd',
     // input fields
     teamName: 'input[data-testid="team_name"]',
     teamDescription: 'textarea[data-testid="description_team"]',
-
     // submit button
     createTeamBtn: 'button[data-testid="create_team_btn"]',
+}
 
+module.exports = {
     gotoTeams: async function () {
         // @Conversion to use a button or link within the Add/Edit mask
-        let url = `${CLIENT.URL}/teams/`;
         return elementHelpers.loadPage(url, 100);
     },
     createTeam: async function (firstname, lastname, email, team_name, fullname) {
@@ -82,11 +84,11 @@ module.exports = {
     },
     // Set certain name in teamname field
     setTeamName: async function (name) {
-        let nameField = await driver.$(this.teamName);
+        let nameField = await driver.$(selectors.teamName);
         await nameField.setValue(name);
     },
     confirmTeamCreate: async function () {
-        let confirmBtn = await driver.$(this.createTeamBtn);
+        let confirmBtn = await driver.$(selectors.createTeamBtn);
         await confirmBtn.click();
     },
     createTeamNewsForTeam: async function (team_name) {
@@ -113,7 +115,7 @@ module.exports = {
         await this.createNews(newsName2);
     },
     gotoTeamNews: async function () {
-        let newsTab = await driver.$('[data-tab="js-news"] > span');
+        let newsTab = await driver.$(selectors.newsTab);
         await newsTab.click();
         let btn = await driver.$(teamNewsPage.createNwsBtn);
         await btn.click();
@@ -136,7 +138,7 @@ module.exports = {
                 let boxConsent = await driver.$(ADMNSTRTNAdministerStudentsPage.selectorNamesContainer + ' > tr:nth-child(' + i + ') > td:nth-child(7) > a:nth-child(2) > i');
                 await boxConsent.click();
                 let submitBtn = await driver.$(ADMNSTRTNAdministerStudentsPage.selectorConsentSubmitBtn);
-                let passwordField = await driver.$('#passwd');
+                let passwordField = await driver.$(selectors.passwordField);
                 let password_old = await passwordField.getValue();
                 oldPassword = password_old;
                 await submitBtn.click();

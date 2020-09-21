@@ -1,14 +1,16 @@
 /*[url/courses]/[courseId]/[activeTab=homeworks]]*/
 "use strict";
-const wh = require('../../../runtime/helpers/waitHelpers.js');
+const waitHelpers = require('../../../runtime/helpers/waitHelpers.js');
 const courseListPage = require("../../../page-objects/pages/coursePages/CRSSCourseListPage");
 const coursePage = require("../../../page-objects/pages/coursePages/CRSSGeneralCoursePage");
 
-const addNewHomeworkBtn = "[data-section='js-homeworks'] .add-button a";
+const selectors = {
+	 addNewHomeworkBtn:"[data-section='js-homeworks'] .add-button a",
+}
 
 module.exports = {
 	clickAddNewTaskBtn: async function () {
-		await wh.waitAndClick(addNewHomeworkBtn);
+		await waitHelpers.waitAndClick(selectors.addNewHomeworkBtn);
 	},
 
 	clickAddNewTaskInCourse: async function (coursename) {

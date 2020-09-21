@@ -1,13 +1,15 @@
 "use strict";
-const wh = require('../../../runtime/helpers/waitHelpers.js');
+const waitHelpers = require('../../../runtime/helpers/waitHelpers.js');
 const courseListPage = require("../../../page-objects/pages/coursePages/CRSSCourseListPage");
 const coursePage = require("../../../page-objects/pages/coursePages/CRSSGeneralCoursePage");
 
-const addNewTopicBtn = "[data-section='js-topics'] .add-button a";
+const selectors = {
+	addNewTopicBtn: "[data-section='js-topics'] .add-button a",
+}
 
 module.exports = {
 	clickAddNewTopicBtn: async function () {
-		await wh.waitAndClick(addNewTopicBtn);
+		await waitHelpers.waitAndClick(selectors.addNewTopicBtn);
 	},
 
 	clickAddNewTopicInCourse: async function (coursename) {

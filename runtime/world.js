@@ -133,6 +133,7 @@ global.DELAY_15_SECOND = 15; // 15 second delay
 global.DELAY_20_SECOND = 20; // 20 second delay
 
 global.SHORT_WAIT_MILLIS = 2000; // 2000 milliseconds delay
+global.MEDIUM_WAIT_MILLIS = 5000;
 global.LONG_WAIT_MILLIS = 10000; // 10000 milliseconds delay
 
 function consoleInfo() {

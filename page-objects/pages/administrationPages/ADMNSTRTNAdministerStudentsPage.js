@@ -15,6 +15,7 @@ const selectors = {
     selectorNamesContainer: 'tbody[data-testid=\'students_names_container\']',
     selectorConsentSubmitBtn: 'button[data-testid=\'submit_consent\']',
     submitStudentCreateBtn: 'div.modal.fade.add-modal.in button.btn-submit',
+    passwordField: '#passwd',
 
 };
 module.exports = {
@@ -54,7 +55,7 @@ module.exports = {
                 let boxConsent = await driver.$(selectors.selectorNamesContainer + ' > tr:nth-child('+i+') > td:nth-child(7) > a:nth-child(2) > i');
                 await boxConsent.click();
                 let submitBtn = await driver.$(selectors.selectorConsentSubmitBtn);
-                let passwordField = await driver.$('#passwd');
+                let passwordField = await driver.$(selectors.passwordField);
                 let password_old = await passwordField.getValue();
                 oldPassword = password_old;
                 await submitBtn.click();

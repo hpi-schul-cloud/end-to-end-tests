@@ -5,15 +5,45 @@ const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
 module.exports = {
     selectors: {
         initialsDiv: '[data-testid="initials"]',
-        initialsDDCurrentUser: 'div.dropdown-name[data-testid="name-in-the-icon"]',
+        initialsDDCurrentUser: '[data-testid="name-in-the-icon"]',
         initialsDDSettings: 'a[data-testid="settings"]',
         initialsDDLogout: 'a[data-testid="logout"]',
         nameBox: '.dropdown-name',
         userIcon: '.btn-avatar > a',
+        navItemHelp: '[data-testid="help-area"]', 
+        navItemHelpQuestionCircle: '[data-testid="question-circle"]',
+        navItemHelpWishProblem: '[data-testid="submit-wish-or-problem]',
+        navItemHelpContactAdmin: '[data-testid="contact-admin"]',
+        navItemHelpTraining: '[data-testid="fortbildungen"]',
+        qrIcon: '.fa.fa-qrcode',
+        fullScreenMode: '[data-testid="fullscreen-mode"]',
+        exclamationTriangle: '.fa.fa-exclamation-triangle',
 
+
+    },
+    clickExclamationTriangle: async function () {
+        await waitHelpers.waitAndClick(this.selectors.exclamationTriangle);
+    },
+    clickFullScreenMode: async function () {
+        await waitHelpers.waitAndClick(this.selectors.fullScreenMode);
+    },
+    clickNavItemQrIcon: async function () {
+        await waitHelpers.waitAndClick(this.selectors.qrIcon);
     },
     clickNavItemHelp: async function () {
         await waitHelpers.waitAndClick(this.selectors.navItemHelp);
+    },
+    clickNavItemHelpHelpArea: async function (){
+        await waitHelpers.waitAndClick(this.selectors.navItemHelpQuestionCircle);
+    },
+    clickNavItemHelpWishProblem: async function (){
+        await waitHelpers.waitAndClick(this.selectors.navItemHelpWishProblem);
+    },
+    clickNavItemHelpContactAdmin: async function (){
+        await waitHelpers.waitAndClick(this.selectors.navItemHelpContactAdmin);
+    },
+    clickNavItemHelpTraining: async function (){
+        await waitHelpers.waitAndClick(this.selectors.navItemHelpTraining);
     },
     clickInitials: async function () {
         await waitHelpers.waitAndClick(this.selectors.initialsDiv);

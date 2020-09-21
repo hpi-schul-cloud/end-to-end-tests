@@ -1,8 +1,8 @@
 /*[url/courses]*/
 "use strict";
 const {CLIENT} = require("../../../shared-objects/servers")
-const eh = require("../../../runtime/helpers/elementHelpers");
-const wh = require("../../../runtime/helpers/waitHelpers");
+const elementHelpers = require("../../../runtime/helpers/elementHelpers");
+const waitHelpers = require("../../../runtime/helpers/waitHelpers");
 const startPage = require('../../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin');
 const loginPage = require('../../../page-objects/pages/generalPagesBeforeLogin/LoginPage');
 const logoutPage = require('../../../page-objects/pages/generalPagesBeforeLogin/LogoutPage');
@@ -19,6 +19,7 @@ const selector = {
     createCourseBtn: '[data-testid="create-course-btn"]',
     container_of_element: '[data-testid="container_of_element"]',
     header_of_element: '[data-testid="header-of-element"]',
+    listOfMembers: "#member-modal-body > ol > li",
 };
 
 const courseColour = {
@@ -41,12 +42,12 @@ module.exports = {
     },
 
     goToCourses: async function () {
-        await eh.loadPage(urlCourses, 30);
+        await elementHelpers.loadPage(urlCourses, 30);
     },
 
     importAndCreateCourseBtnsAreVisible: async function () {
-        expect(await eh.isElementPresent(selector.importCourseBtn)).to.equal(true);
-        expect(await eh.isElementPresent(selector.createCourseBtn)).to.equal(true);
+        expect(await elementHelpers.isElementPresent(selector.importCourseBtn)).to.equal(true);
+        expect(await elementHelpers.isElementPresent(selector.createCourseBtn)).to.equal(true);
     },
 
     courseIsDisplayedCorrectly: async function (courseName) {
@@ -78,7 +79,7 @@ module.exports = {
     },
 
     clickCreateCourseBtn: async function () {
-        await wh.waitAndClick(selector.createCourseBtn);
+        await waitHelpers.waitAndClick(selector.createCourseBtn);
     },
 
     getColourSelector: function (colourName) {
@@ -110,7 +111,7 @@ module.exports = {
     },
 
     fillCourseNameIntoSearchInputField: async function (courseName) {
-        await eh.fillInputField(selector.searchCourseFiled, courseName);
+        await elementHelpers.fillInputField(selector.searchCourseFiled, courseName);
     },
 
     countDisplayedCoursesForSection: async function (section) {
@@ -130,8 +131,8 @@ module.exports = {
     },
 
     getNamesOfMembers: async function () {
-        const listOfMembers = await driver.$$("#member-modal-body > ol > li");
-        return eh.getTextListFromListOfElements(listOfMembers);
+        const listOfMembers = await driver.$$(selector.listOfMembers);
+        return elementHelpers.getTextListFromListOfElements(listOfMembers);
     },
 
     areMembersOnTheListInCourseForSection: async function (courseName, members, section) {
@@ -148,6 +149,7 @@ module.exports = {
     },
 
     getListOfCoursesInSection: async function (section) {
+        await waitHelpers.waitUntilElementIsPresent(section + " " + selector.courseWrapper);
         const listOfCourses = await driver.$$(section + " " + selector.courseWrapper);
         return listOfCourses;
     },
@@ -156,6 +158,36 @@ module.exports = {
         const listOfCourseTitlesForSection = await this.getListOfCourseTitlesInSection(section);
         var index = listOfCourseTitlesForSection.indexOf(courseName);
         return index;
+    },
+
+    getDescriptionCourse: async function (index) {
+        try {
+            return await elementHelpers.getElementText(".section-activeCourses div:nth-child(" + index + ") > article > div.sc-card-body.ckcontent");
+        } catch (error) {
+			log.error("Can not get value: " + error.message);
+			throw error;
+		}
+    },
+
+    getCourseName: async function (index) {
+        try {
+            return await elementHelpers.getElementText(".section-activeCourses div:nth-child(" + index + ") > article span.title");
+        } catch (error) {
+			log.error("Can not get value: " + error.message);
+			throw error;
+		}
+    },
+
+    getColorCourse: async function (index) {
+        try {
+            let courseContainer = await driver.$(".section-activeCourses div:nth-child(" + index + ") > article > div.sc-card-header");
+            const css = await courseContainer.getCSSProperty("background-color");
+            let color = css.parsed.hex;
+            return color;
+        } catch (error) {
+			log.error("Can not get value: " + error.message);
+			throw error;
+		}
     },
 
     getWrapperOfCourseInSection: async function (courseName, section) {
