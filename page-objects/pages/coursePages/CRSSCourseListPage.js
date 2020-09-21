@@ -8,7 +8,6 @@ const loginPage = require('../../../page-objects/pages/generalPagesBeforeLogin/L
 const logoutPage = require('../../../page-objects/pages/generalPagesBeforeLogin/LogoutPage');
 
 const urlCourses = `${CLIENT.URL}/courses`;
-
 const searchCourseFiled = ".input-group .search-field";
 const courseWrapper = ".sc-card-wrapper";
 const titleOfCourse = ".title";
@@ -18,6 +17,8 @@ const importCourseBtn = '[data-testid="import-course-btn"]';
 const createCourseBtn = '[data-testid="create-course-btn"]';
 const container_of_element = '[data-testid="container_of_element"]';
 const header_of_element = '[data-testid="header-of-element"]';
+const listOfMembers = "#member-modal-body > ol > li";
+
 
 const courseColour = {
     grey: "background:#ACACAC",
@@ -129,7 +130,7 @@ module.exports = {
     },
 
     getNamesOfMembers: async function () {
-        const listOfMembers = await driver.$$("#member-modal-body > ol > li");
+        const listOfMembers = await driver.$$(listOfMembers);
         return elementHelpers.getTextListFromListOfElements(listOfMembers);
     },
 

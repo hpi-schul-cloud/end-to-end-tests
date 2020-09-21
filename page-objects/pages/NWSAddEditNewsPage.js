@@ -6,6 +6,11 @@ const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers');
 
 const timeNewsMustBePublished = 'input[data-testid="news_date_to_be_displayed"]';
 const submitNewsBtn = 'button[data-testid="btn_news_submit"]';
+const titleField = 'input.h1';
+const contentField = '.editor [contenteditable="true"]';
+const dateSelector = '[data-testid="news_date"] input';
+const timeSelector = '[data-testid="news_time"] input';
+
 
 module.exports = {
     goToNewNews: async function () {
@@ -13,22 +18,22 @@ module.exports = {
         await elementHelpers.loadPage(url, 100);
     },
     setTitle: async function (title) {
-        let titleField = await driver.$('input.h1');
+        let titleField = await driver.$(titleField);
         await titleField.waitForExist(1000);
         await titleField.setValue(title);
     },
     setContent: async function (content) {
-        let contentField = await driver.$('.editor [contenteditable="true"]');
+        let contentField = await driver.$(contentField);
         await contentField.waitForExist(1000);
         await contentField.setValue(content);
     },
     setPublishDate: async function (date) {
-        let dateSelector = await driver.$('[data-testid="news_date"] input');
+        let dateSelector = await driver.$(dateSelector);
         await dateSelector.waitForExist(1000);
         await dateSelector.setValue(date);
     },
     setPublishTime: async function (time) {
-        let timeSelector = await driver.$('[data-testid="news_time"] input');
+        let timeSelector = await driver.$(timeSelector);
         await timeSelector.waitForExist(1000);
         await timeSelector.setValue(time);
     },
@@ -41,28 +46,5 @@ module.exports = {
         if (title) {
             await this.setTitle(title)
         }
-        if (content) {
-            await this.setContent(content)
-        }
-        if (date) {
-            await this.setPublishDate(date);
-        }
-        if (time) {
-            await this.setPublishTime(time);
-        }
-        await this.save();
-    },
-    performCreateNews: async function (title) {
-        await this.createNews({
-            title: title,
-            content: "Here are some announcements for my pupils"
-        });
-    },
-    performCreateNewsLater: async function (title) {
-        await this.createNews({
-            title: title,
-            content: "Here are some announcements for my pupils",
-            date: dateTimeHelpers.setDate(0, 1, 1, '.', false)
-        });
     }
 }
