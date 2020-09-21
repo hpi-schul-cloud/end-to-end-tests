@@ -78,7 +78,7 @@ module.exports = {
 			await waitHelpers.waitAndClick(selectors.nextSectionBtn);
 		};
 		await this.setNewPasswordStudent(newPassword);
-		await waitHelpers.waitAndClick(selectors.firstLoginSel.nextSectionBtn);
+		await waitHelpers.waitAndClick(selectors.nextSectionBtn);
 		await waitHelpers.waitAndClick(selectors.firstLoginSel.startUsageOfSchulcloudBtn);
 	},
 	firstLoginAdminOrTeacher: async function() {
