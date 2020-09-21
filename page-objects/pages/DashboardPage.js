@@ -23,25 +23,10 @@ module.exports = {
 		expect(await elementHelpers.getElementText(dashboardHeader)).to.equal(dashboardTitle);
 	},
 
-	loginFullUserInfo: async function () {
-		letuserName = awaitapiHelpers.getUserName();
-		letuserRole = awaitapiHelpers.getUserRole();
-		awaitnavigationTopPage.clickInitials();
-		letfullNameAndRole = awaitawaitelementHelpers.getElementText(navigationTopPage.selectors.initialsDDCurrentUser);
-	},
-
 	loginSchool: async function () {
 		await this.goToDashboard();
 		let schoolNameProvidedByAPI = await apiHelpers.getSchoolName();
 		expect(await elementHelpers.getElementText(loginPage.schoolNameSelector)).to.equal(schoolNameProvidedByAPI);
-	},
-
-	loginFullUserInfo: async function () {
-		let userName = await apiHelpers.getUserName();
-		let userRole = await apiHelpers.getUserRole();
-		await navigationTopPage.clickInitials();
-		let fullNameAndRole = await elementHelpers.getElementText(navigationTopPage.selectors.initialsDDCurrentUser);
-		expect(fullNameAndRole).to.include(userName, userRole);
 	},
 
 	checkIfTabsAreVisible: async function (itemsToCompare, items) {

@@ -34,6 +34,14 @@ module.exports = {
         return expect(intitialsOnPage).to.equal(initialsProvidedByAPI)
     },
 
+    checkFullUserInfo: async function () {
+        let userName = await apiHelpers.getUserName();
+        let userRole = await apiHelpers.getUserRole();
+        await this.clickInitials();
+        let fullNameAndRole = await this.getNameAndPosition();
+        expect(fullNameAndRole).to.include(userName, userRole);
+    },
+
     clickExclamationTriangle: async function () {
         await waitHelpers.waitAndClick(exclamationTriangle);
     },
