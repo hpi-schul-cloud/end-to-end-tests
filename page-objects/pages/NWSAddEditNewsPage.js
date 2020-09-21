@@ -18,24 +18,24 @@ module.exports = {
         await elementHelpers.loadPage(url, 100);
     },
     setTitle: async function (title) {
-        let titleField = await driver.$(titleField);
-        await titleField.waitForExist(1000);
-        await titleField.setValue(title);
+        let titleFieldInput = await driver.$(titleField);
+        await titleFieldInput.waitForExist(1000);
+        await titleFieldInput.setValue(title);
     },
     setContent: async function (content) {
-        let contentField = await driver.$(contentField);
-        await contentField.waitForExist(1000);
-        await contentField.setValue(content);
+        let contentFieldInput = await driver.$(contentField);
+        await contentFieldInput.waitForExist(1000);
+        await contentFieldInput.setValue(content);
     },
     setPublishDate: async function (date) {
-        let dateSelector = await driver.$(dateSelector);
-        await dateSelector.waitForExist(1000);
-        await dateSelector.setValue(date);
+        let dateField = await driver.$(dateSelector);
+        await dateField.waitForExist(1000);
+        await dateField.setValue(date);
     },
     setPublishTime: async function (time) {
-        let timeSelector = await driver.$(timeSelector);
-        await timeSelector.waitForExist(1000);
-        await timeSelector.setValue(time);
+        let timeField = await driver.$(timeSelector);
+        await timeField.waitForExist(1000);
+        await timeField.setValue(time);
     },
     save: async function () {
         let add = await driver.$(submitNewsBtn);
