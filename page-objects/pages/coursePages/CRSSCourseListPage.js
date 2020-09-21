@@ -1,6 +1,6 @@
 /*[url/courses]*/
 "use strict";
-const {CLIENT} = require("../../../shared-objects/servers")
+const { CLIENT } = require("../../../shared-objects/servers")
 const elementHelpers = require("../../../runtime/helpers/elementHelpers");
 const waitHelpers = require("../../../runtime/helpers/waitHelpers");
 const startPage = require('../../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin');
@@ -8,19 +8,17 @@ const loginPage = require('../../../page-objects/pages/generalPagesBeforeLogin/L
 const logoutPage = require('../../../page-objects/pages/generalPagesBeforeLogin/LogoutPage');
 
 const urlCourses = `${CLIENT.URL}/courses`;
+const searchCourseFiled = ".input-group .search-field";
+const courseWrapper = ".sc-card-wrapper";
+const titleOfCourse = ".title";
+const memberBtn = ".btn-member";
+const homeworktab = '.tabs button[data-testid="hometasks"]';
+const importCourseBtn = '[data-testid="import-course-btn"]';
+const createCourseBtn = '[data-testid="create-course-btn"]';
+const container_of_element = '[data-testid="container_of_element"]';
+const header_of_element = '[data-testid="header-of-element"]';
+const listOfMembersSel = "#member-modal-body > ol > li";
 
-const selector = {
-    searchCourseFiled: ".input-group .search-field",
-    courseWrapper: ".sc-card-wrapper",
-    titleOfCourse: ".title",
-    memberBtn: ".btn-member",
-    homeworktab: '.tabs button[data-testid="hometasks"]',
-    importCourseBtn: '[data-testid="import-course-btn"]',
-    createCourseBtn: '[data-testid="create-course-btn"]',
-    container_of_element: '[data-testid="container_of_element"]',
-    header_of_element: '[data-testid="header-of-element"]',
-    listOfMembers: "#member-modal-body > ol > li",
-};
 
 const courseColour = {
     grey: "background:#ACACAC",
@@ -46,13 +44,14 @@ module.exports = {
     },
 
     importAndCreateCourseBtnsAreVisible: async function () {
-        expect(await elementHelpers.isElementPresent(selector.importCourseBtn)).to.equal(true);
-        expect(await elementHelpers.isElementPresent(selector.createCourseBtn)).to.equal(true);
+        expect(await elementHelpers.isElementPresent(importCourseBtn)).to.equal(true);
+        expect(await elementHelpers.isElementPresent(createCourseBtn)).to.equal(true);
+
     },
 
     courseIsDisplayedCorrectly: async function (courseName) {
         const activeCoursesContainer = await driver.$(this.section.activeCourses);
-        const coursesOnThePage = await activeCoursesContainer.$$(selector.titleOfCourse);
+        const coursesOnThePage = await activeCoursesContainer.$$(titleOfCourse);
         const courseCount = await coursesOnThePage.length;
         const courseTitleCard = coursesOnThePage[courseCount - 1];
         const courseTitle = await courseTitleCard.getText();
@@ -66,10 +65,10 @@ module.exports = {
 
     isCorrectCourseColour: async function (colour) {
         const activeCoursesContainer = await driver.$(this.section.activeCourses);
-        const coursesOnThePage = await activeCoursesContainer.$$(selector.container_of_element);
+        const coursesOnThePage = await activeCoursesContainer.$$(container_of_element);
         const indexOfTheLastAddedCourse = await coursesOnThePage.length;
-        const container = await driver.$(selector.container_of_element + ":nth-child(" + indexOfTheLastAddedCourse + ")");
-        const lastAddedCourse = await container.$(selector.header_of_element);
+        const container = await driver.$(container_of_element + ":nth-child(" + indexOfTheLastAddedCourse + ")");
+        const lastAddedCourse = await container.$(header_of_element);
         const styleArray = await lastAddedCourse.getHTML();
         const regexp = /background:#[A-F, 0-9]{6}/;
         const styleMatches = styleArray.match(regexp);
@@ -79,7 +78,7 @@ module.exports = {
     },
 
     clickCreateCourseBtn: async function () {
-        await waitHelpers.waitAndClick(selector.createCourseBtn);
+        await waitHelpers.waitAndClick(createCourseBtn);
     },
 
     getColourSelector: function (colourName) {
@@ -111,7 +110,7 @@ module.exports = {
     },
 
     fillCourseNameIntoSearchInputField: async function (courseName) {
-        await elementHelpers.fillInputField(selector.searchCourseFiled, courseName);
+        await elementHelpers.fillInputField(searchCourseFiled, courseName);
     },
 
     countDisplayedCoursesForSection: async function (section) {
@@ -131,7 +130,7 @@ module.exports = {
     },
 
     getNamesOfMembers: async function () {
-        const listOfMembers = await driver.$$(selector.listOfMembers);
+        const listOfMembers = await driver.$$(listOfMembersSel);
         return elementHelpers.getTextListFromListOfElements(listOfMembers);
     },
 
@@ -149,8 +148,8 @@ module.exports = {
     },
 
     getListOfCoursesInSection: async function (section) {
-        await waitHelpers.waitUntilElementIsPresent(section + " " + selector.courseWrapper);
-        const listOfCourses = await driver.$$(section + " " + selector.courseWrapper);
+        await waitHelpers.waitUntilElementIsPresent(section + " " + courseWrapper);
+        const listOfCourses = await driver.$$(section + " " + courseWrapper);
         return listOfCourses;
     },
 
@@ -164,18 +163,18 @@ module.exports = {
         try {
             return await elementHelpers.getElementText(".section-activeCourses div:nth-child(" + index + ") > article > div.sc-card-body.ckcontent");
         } catch (error) {
-			log.error("Can not get value: " + error.message);
-			throw error;
-		}
+            log.error("Can not get value: " + error.message);
+            throw error;
+        }
     },
 
     getCourseName: async function (index) {
         try {
             return await elementHelpers.getElementText(".section-activeCourses div:nth-child(" + index + ") > article span.title");
         } catch (error) {
-			log.error("Can not get value: " + error.message);
-			throw error;
-		}
+            log.error("Can not get value: " + error.message);
+            throw error;
+        }
     },
 
     getColorCourse: async function (index) {
@@ -185,9 +184,9 @@ module.exports = {
             let color = css.parsed.hex;
             return color;
         } catch (error) {
-			log.error("Can not get value: " + error.message);
-			throw error;
-		}
+            log.error("Can not get value: " + error.message);
+            throw error;
+        }
     },
 
     getWrapperOfCourseInSection: async function (courseName, section) {
@@ -199,7 +198,7 @@ module.exports = {
 
     getListOfCourseTitlesInSection: async function (section) {
         const courseList = await this.getListOfCoursesInSection(section);
-        let courseTitleList = await Promise.all(courseList.map(async (element) => (await element.$(selector.titleOfCourse)).getText()));
+        let courseTitleList = await Promise.all(courseList.map(async (element) => (await element.$(titleOfCourse)).getText()));
         return courseTitleList;
     },
 
@@ -220,7 +219,7 @@ module.exports = {
     getNumberOfMembersInGivenCourseInSection: async function (courseName, section) {
         const courseWrapper = await this.getWrapperOfCourseInSection(courseName, section);
         await driver.pause(1000);
-        const element = await courseWrapper.$(selector.memberBtn);
+        const element = await courseWrapper.$(memberBtn);
         let text = await element.getText();
         let number = parseInt(text);
         return number;
@@ -229,7 +228,7 @@ module.exports = {
     clickPupilIconInCourseInSection: async function (courseName, section) {
         const courseWrapper = await this.getWrapperOfCourseInSection(courseName, section);
         await driver.pause(1000);
-        let pupilIcon = await courseWrapper.$(selector.memberBtn);
+        let pupilIcon = await courseWrapper.$(memberBtn);
         await pupilIcon.click();
         await driver.pause(500);
     },
