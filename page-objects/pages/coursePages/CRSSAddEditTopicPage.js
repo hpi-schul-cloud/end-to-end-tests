@@ -6,11 +6,7 @@ const waitHelpers = require("../../../runtime/helpers/waitHelpers.js");
 const topicName = ".form-group > .form-control";
 const themaAnlegenButton = ".btn.btn-primary.btn-submit";
 const lernStoreUrl = `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`;
-
-const topicName = ".form-group > .form-control";
-const themaAnlegenButton = ".btn.btn-primary.btn-submit";
-const lernStoreUrl = `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`;
-const textField = '.ck-content',
+const textField = '.ck-content';
 const textBtn = ".btn-group > button:nth-child(1)";
 //geoGebra:
 const geogebraBtn = ".btn-group > button:nth-child(2)";
