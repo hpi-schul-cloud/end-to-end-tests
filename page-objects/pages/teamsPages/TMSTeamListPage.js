@@ -21,7 +21,6 @@ module.exports = {
 	// assertion helper in steps:
 	getTeamNames: async function () {
 		await elementHelpers.loadPage(url, 20);
-		let container = await driver.$('.row.tasks.card-deck-row');
 		let container = await driver.$(namesContainer);
 		let elements = await container.$$('div');
 		const namePromises = elements.map(async element => await element.getText());
