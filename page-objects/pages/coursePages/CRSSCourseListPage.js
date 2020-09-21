@@ -17,7 +17,7 @@ const importCourseBtn = '[data-testid="import-course-btn"]';
 const createCourseBtn = '[data-testid="create-course-btn"]';
 const container_of_element = '[data-testid="container_of_element"]';
 const header_of_element = '[data-testid="header-of-element"]';
-const listOfMembers = "#member-modal-body > ol > li";
+const listOfMembersSel = "#member-modal-body > ol > li";
 
 
 const courseColour = {
@@ -130,7 +130,7 @@ module.exports = {
     },
 
     getNamesOfMembers: async function () {
-        const listOfMembers = await driver.$$(listOfMembers);
+        const listOfMembers = await driver.$$(listOfMembersSel);
         return elementHelpers.getTextListFromListOfElements(listOfMembers);
     },
 

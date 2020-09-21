@@ -10,7 +10,8 @@ const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/Logi
 const dashboardUrl = `${CLIENT.URL}/dashboard`;
 const dashboardTitle = 'Übersicht';
 const dashboardHeader = '#titlebar h1#page-title';
-const sidebarList = 'ul.sidebar-list[title]';
+//const sidebarList = 'ul.sidebar-list[title]';
+const sidebarList = 'ul.sidebar-list a[title] span.link-name';
 
 module.exports = {
 	goToDashboard: async function () {
@@ -34,16 +35,16 @@ module.exports = {
 		expect(await elementHelpers.getElementText(loginPage.schoolNameSelector)).to.equal(schoolNameProvidedByAPI);
 	},
 
-	checkIfTabsAreVisible: async function (itemsToCompare, items) {
-		let expectations = itemsToCompare.hashes();
-		for (let i = 0; i < items.length; i++) {
+	checkIfMenuItemsAreVisible: async function (itemsToCompare, items) {
+		let expectations = await itemsToCompare.hashes();
+		for (let i = 0; i < expectations.length; i++) {
 			let actualLabelText = await items[i].getText();
 			await items[i].waitForEnabled(DELAY_100_MILLISECOND);
 			expect(actualLabelText).to.equal(expectations[i].tabs);
 		}
 	},
 
-	getTabItems: async function () {
+	getMenuItems: async function () {
 		let items = await driver.$$(sidebarList);
 		return items;
 	}

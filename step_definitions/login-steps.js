@@ -13,9 +13,9 @@ Then(/^dashboard should have the correct name and profession$/, function () {
 	return NavigationTopPage.checkFullUserInfo();
 });
 
-Then(/^dashboard should have the following tabs$/, function (LoginTextLabels) {
-	return DashboardPage.checkIfTabsAreVisible(LoginTextLabels, DashboardPage.getTabItems());
-	//return DashboardPage.checkIfTabsAreVisible(LoginTextLabels, loginPage.loginTabs.loginTabs);
+Then(/^dashboard should have the following tabs$/, async function (LoginTextLabels) {
+	let subitems = await DashboardPage.getMenuItems();
+	return DashboardPage.checkIfMenuItemsAreVisible(LoginTextLabels, subitems);
 });
 
 

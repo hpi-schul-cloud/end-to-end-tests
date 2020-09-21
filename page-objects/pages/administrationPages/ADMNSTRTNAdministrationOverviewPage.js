@@ -8,7 +8,8 @@ const urlAdministration = `${CLIENT.URL}/administration`;
 const administrateStudentsBtn = 'div[data-testid=\'administrate_students\']';
 const administrateTeachersBtn = 'div[data-testid=\'administrate_teachers\']';
 const administrateClassesBtn = 'div[data-testid=\'administrate_classes\']';
-const administrationsTabs = 'ul.subitems span';
+//const administrationsTabs = 'ul.subitems span';
+const administrationsSubItems = '//*[@id=\'sidebar\']/ul/li/ul//*/span';
 
 module.exports = {
     goToAdministrationPage: async function () {
@@ -24,7 +25,7 @@ module.exports = {
         await waitHelpers.waitAndClick(administrateTeachersBtn);
     },
     getAdministrationTabs: async function () {
-        let items = await driver.$$(administrationsTabs);
+        let items = await driver.$$(administrationsSubItems);
         return items;
     }
 }
