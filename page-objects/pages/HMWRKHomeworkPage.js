@@ -9,14 +9,14 @@ const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/Logi
 const logoutPage = require('../../page-objects/pages/generalPagesBeforeLogin/LogoutPage');
 
 const submissionTab = "#submission-tab-link";
-const areThereAnyTasks = '#homeworks > ol > div > li';
+const areThereAnyTasksSel = '#homeworks > ol > div > li';
 const urlHomework = `${CLIENT.URL}/homework`;
-const textField = '.ck-content';
+const textFieldSel = '.ck-content';
 const submitBtn = '.ckeditor-submit';
-const submitted_by_box = '#submissions .groupNames > span';
-const hometasksTab = 'button[data-testid="hometasks"]';
+const submitted_by_boxSel = '#submissions .groupNames > span';
+const hometasksTabSel = 'button[data-testid="hometasks"]';
 const activeSubmissions = '.tab-content.section-homeworksubmissions.active';
-const gradeFilesList0 = '.list-group-files';
+const gradeFilesListSel = '.list-group-files';
 
 
 module.exports = {
@@ -26,7 +26,7 @@ module.exports = {
 
     // student helpers
     userFindsTheTask: async function (taskname) {
-        let areThereAnyTasks = await driver.$$(areThereAnyTasks);
+        let areThereAnyTasks = await driver.$$(areThereAnyTasksSel);
         await expect(areThereAnyTasks.length).not.to.equal(0);
         for (var i = 0; i <= areThereAnyTasks.length; i++) {
             let taskSelector = await driver.$('#homeworks > ol > div > li:nth-child(' + i + ') .h5.title');
@@ -44,7 +44,7 @@ module.exports = {
 
     submitSolutionForTheHometask: async function () {
         await driver.pause(global.SHORT_WAIT_MILLIS);
-        const textField = await driver.$(textField);
+        const textField = await driver.$(textFieldSel);
         const assignmentText = 'here is some text which I want to submit';
         textField.setValue(assignmentText);
         await waitHelpers.waitAndClick(submitBtn)
@@ -60,7 +60,7 @@ module.exports = {
     hasTheStudentSubmittedTheTask: async function (studentname) {
         let submissionTab = "#submissions-tab-link";
         await waitHelpers.waitAndClick(submissionTab);
-        let submitted_by_box = await driver.$(submitted_by_box);
+        let submitted_by_box = await driver.$(submitted_by_boxSel);
         let submitted_by_name = await submitted_by_box.getText();
         await expect(submitted_by_name).to.contain(studentname);
     },
@@ -77,7 +77,7 @@ module.exports = {
     },
 
     gotoTasksTab: async function () {
-        let hometasksTab = await driver.$(hometasksTab);
+        let hometasksTab = await driver.$(hometasksTabSel);
         await hometasksTab.click();
         await driver.pause(1000);
     },
@@ -154,7 +154,7 @@ module.exports = {
     },
 
     canSeeFile: async function (file) {
-        const gradeFilesList = await driver.$(gradeFilesList);
+        const gradeFilesList = await driver.$(gradeFilesListSel);
         await gradeFilesList.waitForDisplayed();
         expect(await gradeFilesList.getText()).to.contain(file.name);
     },

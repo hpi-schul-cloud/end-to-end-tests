@@ -14,7 +14,7 @@ const idContainerSel = "#content-blocks";
 // material:
 const materialBtn = ".btn-group > button:nth-child(3)";
 const addMaterialBtn = ".btn.btn-secondary.btn-add";
-const materialContainer = ".div.ajaxcontent > div";
+const materialContainerSel = ".div.ajaxcontent > div";
 const btnContainerMaterial = ".fa.fa-plus-square";
 //etherpad:
 const etherpadBtn = ".btn-group > button:nth-child(4)";
@@ -57,7 +57,7 @@ module.exports = {
 		let currentBrowserAfterClickAdd = await driver.switchWindow(
 			browsers[1]
 		);
-		let materialContainer = await driver.$(materialContainer);
+		let materialContainer = await driver.$(materialContainerSel);
 
 		let btnContainer = await materialContainer.$(btnContainerMaterial);
 		await btnContainer.click();

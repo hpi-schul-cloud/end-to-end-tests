@@ -10,7 +10,8 @@ const common = require('../shared_steps/common-steps.js');
 
 
 When(/^teacher creates some news which has to be published immediately$/, function () {
-	return newsAddEditNews.performCreateNews(name);
+	//return newsAddEditNews.performCreateNews(name);
+	return newsAddEditNews.createNews(name);
 });
 
 Then(/^he can see the news$/, async function () {

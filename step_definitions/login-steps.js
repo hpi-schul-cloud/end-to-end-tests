@@ -18,7 +18,6 @@ Then(/^dashboard should have the following tabs$/, async function (LoginTextLabe
 	return DashboardPage.checkIfMenuItemsAreVisible(LoginTextLabels, subitems);
 });
 
-
 Then(/^a user should see a notification$/, function () {
 	return loginPage.wrongLoginResult();
 });

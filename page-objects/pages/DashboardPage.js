@@ -35,6 +35,15 @@ module.exports = {
 		expect(await elementHelpers.getElementText(loginPage.schoolNameSelector)).to.equal(schoolNameProvidedByAPI);
 	},
 
+	/*loginFullUserInfo: async function() {
+		  let userName = await apiHelpers.getUserName();
+		  let userRole = await apiHelpers.getUserRole();
+		  await navigationTopPage.clickInitials();
+		  let fullNameAndRole = await elementHelpers.getElementText(navigationTopPage.selectors.initialsDDCurrentUser);
+		  expect(fullNameAndRole).to.include(userName, userRole);
+  >>>>>>> develop
+	  },*/
+
 	checkIfMenuItemsAreVisible: async function (itemsToCompare, items) {
 		let expectations = await itemsToCompare.hashes();
 		for (let i = 0; i < expectations.length; i++) {
