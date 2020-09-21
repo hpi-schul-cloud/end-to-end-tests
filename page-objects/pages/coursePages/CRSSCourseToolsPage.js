@@ -3,11 +3,14 @@ const waitHelpers = require('../../../runtime/helpers/waitHelpers.js');
 const courseListPage = require("../../../page-objects/pages/coursePages/CRSSCourseListPage");
 const coursePage = require("../../../page-objects/pages/coursePages/CRSSGeneralCoursePage");
 
-const addNewToolBtn = "[data-section='js-tools'] .add-button a";
+const selectors = {
+	addNewToolBtn: "[data-section='js-tools'] .add-button a",
+}
+
 
 module.exports = {
 	clickAddNewToolBtn: async function () {
-		await waitHelpers.waitAndClick(addNewToolBtn);
+		await waitHelpers.waitAndClick(selectors.addNewToolBtn);
 	},
 
 	clickAddNewTopicInCourse: async function (coursename) {
