@@ -38,8 +38,6 @@ const teamDescription = 'textarea[data-testid="description_team"]';
 // submit button
 const createTeamBtn = 'button[data-testid="create_team_btn"]';
 
-//newsTab: '[data-tab="js-news"] > span',
-//passwordField: '#passwd',
 
 module.exports = {
     gotoTeams: async function () {
@@ -115,7 +113,7 @@ module.exports = {
         await this.createNews(newsName2);
     },
     gotoTeamNews: async function () {
-        let newsTab = await driver.$(selectors.newsTab);
+        let newsTab = await driver.$(teamNewsPage.newsTab);
         await newsTab.click();
         let btn = await driver.$(teamNewsPage.createNwsBtn);
         await btn.click();
@@ -138,7 +136,7 @@ module.exports = {
                 let boxConsent = await driver.$(ADMNSTRTNAdministerStudentsPage.selectorNamesContainer + ' > tr:nth-child(' + i + ') > td:nth-child(7) > a:nth-child(2) > i');
                 await boxConsent.click();
                 let submitBtn = await driver.$(ADMNSTRTNAdministerStudentsPage.selectorConsentSubmitBtn);
-                let passwordField = await driver.$(selectors.passwordField);
+                let passwordField = await driver.$(ADMNSTRTNAdministerStudentsPage.passwordFieldSel);
                 let password_old = await passwordField.getValue();
                 oldPassword = password_old;
                 await submitBtn.click();
