@@ -6,6 +6,7 @@ const loginPage = require('../generalPagesBeforeLogin/LoginPage');
 const waitHelpers = require('../../../runtime/helpers/waitHelpers');
 let oldPassword;
 
+const selectorAddStudentBtn = 'button[data-testid=\'btn_add_student\']';
 const selectorSetFirstName = 'input[data-testid=\'create_student_input_firstname\']';
 const selectorSetLastName = 'input[data-testid=\'create_student_input_lastname\']';
 const selectorSetEmail = 'input[data-testid=\'create_student_input_email\']';
