@@ -6,15 +6,15 @@ const { SERVER } = require("../../shared-objects/servers");
 const Axios = require("axios");
 
 module.exports = {
-/**
-	*  API call for GET, PUT, POST and DELETE functionality
-	* @param url
-	* @param method
-	* @param body
-	* @param fileName
-	* @param statusCode
-	* @type {{ GET: receive all info, POST: create, PUT: edit / update, DELETE: remove info }},
-	*/
+	/**
+		*  API call for GET, PUT, POST and DELETE functionality
+		* @param url
+		* @param method
+		* @param body
+		* @param fileName
+		* @param statusCode
+		* @type {{ GET: receive all info, POST: create, PUT: edit / update, DELETE: remove info }},
+		*/
 	apiCall: function (url, method, body, fileName, statusCode) {
 
 		let options = {
@@ -39,7 +39,7 @@ module.exports = {
 
 				if (method === 'DELETE' && fileName != null || method === 'PUT' && fileName != null) {
 					return fs.readFileSync(fileName, 'utf8', function (err) {
-						if (err){
+						if (err) {
 							log.error(err.message);
 						}
 					});
@@ -49,7 +49,7 @@ module.exports = {
 					let data = res.body.adminDoc;
 					let doc_Id = data.replace(/.*documents\/([^\/]+)\/properties.*/, '$1');
 					await textFileHelpers.writeTextFile(fileName, doc_Id, function (err) {
-						if (err){
+						if (err) {
 							log.error(err.message);
 						}
 					});
@@ -60,43 +60,43 @@ module.exports = {
 				return res;
 			});
 	},
-	getUserInfo: async function(attribute) {
+	getUserInfo: async function (attribute) {
 		const cookie = await driver.getCookies(['jwt']);
 		const jwt = cookie[0].value;
 		const info = await Axios.request({
-			url:  `${SERVER.URL}/me`,
+			url: `${SERVER.URL}/me`,
 			method: 'get',
 			headers: {
-			  Authorization: `${jwt}`
+				Authorization: `${jwt}`
 			}
-		  });
-		  let object =info.data;
-		  return object[attribute];
- 
-	  }, 
-	getUserName: async function() {
+		});
+		let object = info.data;
+		return object[attribute];
+
+	},
+	getUserName: async function () {
 
 		return this.getUserInfo('fullName')
 	},
 
-	getSchoolName: async function() {
+	getSchoolName: async function () {
 
 		return this.getUserInfo('schoolName');
-	}, 
-	getInitials: async function() {
+	},
+	getInitials: async function () {
 
-		return  this.getUserInfo('avatarInitials');
-	}, 
-	getUserRole: async function() {
-		try{
-		let userRole = await this.getUserInfo('roles');
-		return  (userRole[0]).displayName;
+		return this.getUserInfo('avatarInitials');
+	},
+	getUserRole: async function () {
+		try {
+			let userRole = await this.getUserInfo('roles');
+			return (userRole[0]).displayName;
 		}
-		catch (error){
+		catch (error) {
 			log.error("Can not find role: " + error.message);
 			throw error;
 		}
-	}, 
+	},
 
 
 }

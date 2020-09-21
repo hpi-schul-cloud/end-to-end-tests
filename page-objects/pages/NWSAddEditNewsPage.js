@@ -46,7 +46,28 @@ module.exports = {
         if (title) {
             await this.setTitle(title)
         }
+        if (content) {
+            await this.setContent(content)
+        }
+        if (date) {
+            await this.setPublishDate(date);
+        }
+        if (time) {
+            await this.setPublishTime(time);
+        }
+        await this.save();
+    },
+    performCreateNews: async function (title) {
+        await this.createNews({
+            title: title,
+            content: "Here are some announcements for my pupils"
+        });
+    },
+    performCreateNewsLater: async function (title) {
+        await this.createNews({
+            title: title,
+            content: "Here are some announcements for my pupils",
+            date: dateTimeHelpers.setDate(0, 1, 1, '.', false)
+        });
     }
-    //?performCreateNews:
-    //?performCreateNewsLater:
 }
