@@ -19,6 +19,7 @@ const selector = {
     createCourseBtn: '[data-testid="create-course-btn"]',
     container_of_element: '[data-testid="container_of_element"]',
     header_of_element: '[data-testid="header-of-element"]',
+    listOfMembers: "#member-modal-body > ol > li",
 };
 
 const courseColour = {
@@ -130,7 +131,7 @@ module.exports = {
     },
 
     getNamesOfMembers: async function () {
-        const listOfMembers = await driver.$$("#member-modal-body > ol > li");
+        const listOfMembers = await driver.$$(selector.listOfMembers);
         return elementHelpers.getTextListFromListOfElements(listOfMembers);
     },
 

@@ -8,12 +8,15 @@ const apiHelpers = require('../../runtime/helpers/APIhelpers');
 const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 
 const dashboardUrl = `${CLIENT.URL}/dashboard`;
-const dashboardSelectors = {
+const selectors = {
+	dashboardSelectors: {
 		dashboardTitle: 'Übersicht',
     dashboardHeader: '#titlebar h1#page-title',
-};
+	},
+}
+
 module.exports = {
-		dashboardSelectors, 
+		selectors,
     goToDashboard: async function() {
 		await elementHelpers.loadPage(dashboardUrl, 20);
 		await driver.pause(1000);
@@ -21,8 +24,8 @@ module.exports = {
 
 	loginResultDashboard: async function() {
 		await this.goToDashboard();
-		let title = dashboardSelectors.dashboardTitle;
-		expect(await elementHelpers.getElementText(dashboardSelectors.dashboardHeader)).to.equal(title);
+		let title = selectors.dashboardSelectors.dashboardTitle;
+		expect(await elementHelpers.getElementText(selectors.dashboardSelectors.dashboardHeader)).to.equal(title);
 	},
 	
 	loginInitials: async function() {
