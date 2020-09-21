@@ -3,12 +3,13 @@ const { CLIENT } = require("../../../shared-objects/servers");
 const waitHelpers = require('../../../runtime/helpers/waitHelpers');
 const ADMNSTRTNAdministrationOverviewPage = require('./ADMNSTRTNAdministrationOverviewPage');
 
-
 const urlKlassenVerwalten = `${CLIENT.URL}/administration/classes`;
 const classCreateBtn = 'a[data-testid=\'createClass\']';
 const classCreationExtraOptions = 'a[data-testid=\'classCreationExtraOptions\']';
 const classNameInputField = 'input[data-testid=\'Klassenbezeichnung\']';
 const confirmClassCreate = 'button[data-testId=\'confirmClassCreate\']';
+const studentNamesContainer = "tbody[data-testid=\'students_names_container\']";
+
 
 module.exports = {
     createNewClass: async function (className = '11c') {
@@ -31,7 +32,7 @@ module.exports = {
 
 
     verifyNewEmptyClassCreated: async function (className = '11c', numOfStudents = '0') {
-        const allClassesContainer = await driver.$('tbody[data-testid=\'students_names_container\']')
+        const allClassesContainer = await driver.$(studentNamesContainer)
         const allClassesContent = await allClassesContainer.getText()
         const contentArray = allClassesContent.split(" ")
         const currentYear = new Date().getFullYear().toString().substring(2) // 20
