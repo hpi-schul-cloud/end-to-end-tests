@@ -6,11 +6,11 @@ const waitHelpers = require("../../../runtime/helpers/waitHelpers.js");
 const topicName = ".form-group > .form-control";
 const themaAnlegenButton = ".btn.btn-primary.btn-submit";
 const lernStoreUrl = `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`;
-const textField = '.ck-content';
+const textFieldSel = '.ck-content';
 const textBtn = ".btn-group > button:nth-child(1)";
 //geoGebra:
 const geogebraBtn = ".btn-group > button:nth-child(2)";
-const idContainer = "#content-blocks";
+const idContainerSel = "#content-blocks";
 // material:
 const materialBtn = ".btn-group > button:nth-child(3)";
 const addMaterialBtn = ".btn.btn-secondary.btn-add";
@@ -32,7 +32,7 @@ module.exports = {
 	},
 	addText: async function (text) {
 		await waitHelpers.waitAndClick(textBtn);
-		const textField = await driver.$(textField);
+		const textField = await driver.$(textFieldSel);
 		await driver.pause(global.SHORT_WAIT_MILLIS);
 		await textField.setValue(text);
 	},
@@ -40,7 +40,7 @@ module.exports = {
 	addGeoGebra: async function (geogebraID) {
 		await waitHelpers.waitAndClick(geogebraBtn);
 		await driver.pause(100);
-		let idContainer = await driver.$(idContainer);
+		let idContainer = await driver.$(idContainerSel);
 		let geoIDSelector = await idContainer.$(".form-control");
 		await geoIDSelector.setValue(geogebraID);
 		await driver.pause(500);
