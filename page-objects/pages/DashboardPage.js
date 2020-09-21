@@ -36,7 +36,7 @@ module.exports = {
 	loginSchool: async function() {
 		await this.goToDashboard();
 		let schoolNameProvidedByAPI = await apiHelpers.getSchoolName();
-		expect(await elementHelpers.getElementText(loginPage.schoolNameSelector)).to.equal(schoolNameProvidedByAPI);
+		expect(await elementHelpers.getElementText(loginPage.selectors.schoolNameSelector)).to.equal(schoolNameProvidedByAPI);
 		},
 		
   loginFullUserInfo: async function() {

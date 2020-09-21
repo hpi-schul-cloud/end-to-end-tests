@@ -1,10 +1,13 @@
 'use strict';
 
 const waitHelpers = require("../../../runtime/helpers/waitHelpers");
-const frontpageLoginBtn = "a[data-testid='login-btn']";
+
+const selectors = {
+    frontpageLoginBtn: "a[data-testid='login-btn']",
+};
 
 module.exports = {
     clickLoginBtn: async function () {
-        await waitHelpers.waitAndClick(frontpageLoginBtn);
+        await waitHelpers.waitAndClick(selectors.frontpageLoginBtn);
     }
 }
