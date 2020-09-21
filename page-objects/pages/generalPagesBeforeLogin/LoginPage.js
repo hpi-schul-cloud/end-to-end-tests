@@ -69,8 +69,8 @@ module.exports = {
 	},
 	/* First Login */
 	firstLoginStudent: async function (newPassword) {
-		await waitHelpers.waitAndClick(selectors.firstLoginSel.nextSectionBtn);
-		await waitHelpers.waitAndClick(selectors.firstLoginSel.nextSectionBtn);
+		await waitHelpers.waitAndClick(selectors.nextSectionBtn);
+		await waitHelpers.waitAndClick(selectors.nextSectionBtn);
 		// if Data protection is needed
 		let section_three_name = await driver.$(selectors.sectionNames.section_three_name);
 		if (await section_three_name.getText() == "Einwilligungserklärung") {
