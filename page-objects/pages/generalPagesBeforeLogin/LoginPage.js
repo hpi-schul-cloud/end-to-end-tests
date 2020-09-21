@@ -11,9 +11,7 @@ const selectors = {
 	passwordInput: 'section#loginarea input[data-testid="password"]',
 	loginBtn: 'input[data-testid="submit-login"]',
 	schoolNameSelector: '.nav-item.school-data',
-	loginTabs: {
-		loginTabs: '#sidebar a > span',
-	},
+	loginTabs: '#sidebar a > span',
 	firstLoginSel: {
 		dataProtection: {
 			box1: 'input[name="privacyConsent"]',
