@@ -5,7 +5,6 @@ const waitHelpers = require('../../../runtime/helpers/waitHelpers.js');
 const apiHelpers = require('../../../runtime/helpers/APIhelpers');
 
 const failureMessages = ["Login fehlgeschlagen.", "Login failed."];
-
 const usernameInput = 'section#loginarea input[data-testid="username"]';
 const passwordInput = 'section#loginarea input[data-testid="password"]';
 const loginBtn = 'input[data-testid="submit-login"]';
