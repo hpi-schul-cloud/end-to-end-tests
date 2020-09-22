@@ -1,43 +1,38 @@
 /*[url/administration/classes]*/
 const { CLIENT } = require("../../../shared-objects/servers");
-const waitHelpers= require('../../../runtime/helpers/waitHelpers');
+const waitHelpers = require('../../../runtime/helpers/waitHelpers');
 const ADMNSTRTNAdministrationOverviewPage = require('./ADMNSTRTNAdministrationOverviewPage');
 
+const urlKlassenVerwalten = `${CLIENT.URL}/administration/classes`;
+const classCreateBtn = 'a[data-testid=\'createClass\']';
+const classCreationExtraOptions = 'a[data-testid=\'classCreationExtraOptions\']';
+const classNameInputField = 'input[data-testid=\'Klassenbezeichnung\']';
+const confirmClassCreate = 'button[data-testId=\'confirmClassCreate\']';
+const studentNamesContainer = "tbody[data-testid=\'students_names_container\']";
 
-const selectors = {
-    urlKlassenVerwalten: `${CLIENT.URL}/administration/classes`,
-    classCreateBtn: 'a[data-testid=\'createClass\']',
-    classCreationExtraOptions: 'a[data-testid=\'classCreationExtraOptions\']',
-    classNameInputField: 'input[data-testid=\'Klassenbezeichnung\']',
-    confirmClassCreate: 'button[data-testId=\'confirmClassCreate\']',
-    studentNamesContainer: "tbody[data-testid=\'students_names_container\']", 
 
-};
 module.exports = {
-    selectors,
-
     createNewClass: async function (className = '11c') {
-       
         // navigates to class administration
-        await waitHelpers.waitAndClick(ADMNSTRTNAdministrationOverviewPage.selectors.administrateClassesBtn);
-        
+        await ADMNSTRTNAdministrationOverviewPage.clickAdministrateClasses();
+
         const pageTitle = await driver.getTitle()
         expect(pageTitle.startsWith('Administration: Klassen')).to.equal(true)
-    
-        await waitHelpers.waitAndClick(selectors.classCreateBtn);
-        
+
+        await waitHelpers.waitAndClick(classCreateBtn);
+
         const pageTitle2 = await driver.getTitle()
         expect(pageTitle2.startsWith('Erstelle eine neue Klasse')).to.equal(true)
-    
-        await waitHelpers.waitAndClick(selectors.classCreationExtraOptions)
-        await waitHelpers.waitAndSetValue(selectors.classNameInputField, className)
-        await waitHelpers.waitAndClick(selectors.confirmClassCreate)
-    
-    }, 
+
+        await waitHelpers.waitAndClick(classCreationExtraOptions)
+        await waitHelpers.waitAndSetValue(classNameInputField, className)
+        await waitHelpers.waitAndClick(confirmClassCreate)
+
+    },
 
 
     verifyNewEmptyClassCreated: async function (className = '11c', numOfStudents = '0') {
-        const allClassesContainer = await driver.$(selectors.studentNamesContainer)
+        const allClassesContainer = await driver.$(studentNamesContainer)
         const allClassesContent = await allClassesContainer.getText()
         const contentArray = allClassesContent.split(" ")
         const currentYear = new Date().getFullYear().toString().substring(2) // 20
@@ -48,7 +43,7 @@ module.exports = {
         expect(contentArray[2]).to.equal(numOfStudents)
 
     },
-    
+
 
 }
-   
+

@@ -15,13 +15,13 @@ When(/^teacher adds a new student with (.*), (.*), (.*)$/, function (firstname1,
     return newPupil.createNewPupil(firstname1, lastname1, email1);
 });
 When(/^teacher adds one more student with (.*), (.*), (.*)$/, function (firstname2, lastname2, email2) {
-   
+
     return newPupil.createNewPupil(firstname2, lastname2, email2);
 });
 
 When(/^teacher creates a new team with (.*) and$/, function (teamname) {
     teamName = teamname;
-    return TMSAddEditTeamPage.createTeamAndGoToSettings(teamname);
+    return TMSAddEditTeamPage.createTeamAndGoToSettings(teamName);
 });
 When(/^teacher adds two students to this team$/, function () {
     return TMSTeamMembersPage.addTwoTeamMemebers(student1, student2)

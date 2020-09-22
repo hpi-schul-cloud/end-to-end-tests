@@ -5,7 +5,7 @@ const studentAdministration = require('../page-objects/pages/administrationPages
 
 
 
-When(/^admin goes to students administration$/, function() {
+When(/^admin goes to students administration$/, function () {
 	return ADMNSTRTNAdministrationOverviewPage.clickAdministrateStudents();
 });
 
@@ -21,6 +21,3 @@ Then(/^.* manually submits a consent (.*)$/, function (email) {
 Then(/^new pupil (.*) can log in with default password$/, async function (email) {
 	await studentAdministration.studentLogsInWithDefaultPassword(email)
 });
-
-
-
