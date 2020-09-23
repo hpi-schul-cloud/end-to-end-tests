@@ -205,7 +205,14 @@ module.exports = {
     getListOfCourseTitlesInSection: async function (section) {
         await waitHelpers.waitUntilPageLoads();
         const selector = section + " " + courseWrapper + " " + titleOfCourse;
-        await waitHelpers.waitUntilElementIsPresent(selector);
+        try {
+            await waitHelpers.waitUntilElementIsPresent(selector);
+        }
+        catch(err)
+        {
+            log.warning("getListOfCourseTitlesInSection found no courses in section: " + section);
+            return [];
+        }
         const listOfCourseTitleElements = await driver.$$(selector);
         let courseTitleList = await Promise.all(listOfCourseTitleElements.map(async (element) => (await element.getText())));
         return courseTitleList;
