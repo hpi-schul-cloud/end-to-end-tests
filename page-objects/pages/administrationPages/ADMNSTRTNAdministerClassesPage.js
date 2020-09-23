@@ -2,11 +2,11 @@
 const waitHelpers = require('../../../runtime/helpers/waitHelpers');
 const ADMNSTRTNAdministrationOverviewPage = require('./ADMNSTRTNAdministrationOverviewPage');
 
-const classCreateBtn = 'a[data-testid=\'createClass\']';
-const classCreationExtraOptions = 'a[data-testid=\'classCreationExtraOptions\']';
-const classNameInputField = 'input[data-testid=\'Klassenbezeichnung\']';
-const confirmClassCreate = 'button[data-testId=\'confirmClassCreate\']';
-const studentNamesContainer = "tbody[data-testid=\'students_names_container\']";
+const classCreateBtn = "a[data-testid='createClass']";
+const classCreationExtraOptions = "a[data-testid='classCreationExtraOptions']";
+const classNameInputField = "input[data-testid='Klassenbezeichnung']";
+const confirmClassCreate = "button[data-testId='confirmClassCreate']";
+const studentNamesContainer = "tbody[data-testid='students_names_container']";
 
 
 module.exports = {
