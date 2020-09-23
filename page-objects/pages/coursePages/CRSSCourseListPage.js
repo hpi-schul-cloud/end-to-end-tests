@@ -148,7 +148,8 @@ module.exports = {
     },
 
     getListOfCoursesInSection: async function (section) {
-        const listOfCourses = await waitHelpers.waitUntilElementIsPresent(section + " " + courseWrapper);
+        await waitHelpers.waitUntilElementIsPresent(section + " " + courseWrapper);
+        const listOfCourses = await driver.$$(section + " " + courseWrapper);
         return listOfCourses;
     },
 
