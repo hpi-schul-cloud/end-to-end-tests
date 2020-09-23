@@ -256,10 +256,8 @@ module.exports = {
     },
     verifyCopyWithStudents: async function (coursename) {
         let copiedName = coursename + " - Kopie";
-        let courseHasIndex = await this.getIndexOfGivenCourseInSection(copiedName, this.section.activeCourses);
-        let areThereStudentsInCourseContainer = await driver.$('.sc-card-wrapper.col-xl-3.col-lg-4.col-md-6.col-sm-12:nth-child(' + (
-            courseHasIndex + 1
-        ) + ') .additionalInfo .btn-member');
+        let courseHasIndex = (await this.getIndexOfGivenCourseInSection(copiedName, this.section.activeCourses)) + 1 ;
+        let areThereStudentsInCourseContainer = await driver.$(".sc-card-wrapper.col-xl-3.col-lg-4.col-md-6.col-sm-12:nth-child("+ courseHasIndex +") .additionalInfo .btn-member");
         let areThereStudentsInCourse = await areThereStudentsInCourseContainer.getText();
         let number = parseInt(areThereStudentsInCourse);
         await expect(number).to.equal(0);
