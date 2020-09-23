@@ -32,12 +32,14 @@ const courseColour = {
     corn: "background:#FFEE58"
 };
 
+const section = {
+    allCourses: ".section-courses",
+    activeCourses: ".section-activeCourses",
+    archievedCourses: ".section-archievedCourses"
+};
+
 module.exports = {
-    section: {
-        allCourses: ".section-courses",
-        activeCourses: ".section-activeCourses",
-        archievedCourses: ".section-archievedCourses"
-    },
+    section,
 
     goToCourses: async function () {
         await elementHelpers.loadPage(urlCourses, 30);

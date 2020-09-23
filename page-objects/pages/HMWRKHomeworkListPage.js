@@ -6,17 +6,15 @@ const elementHelpers = require("../../runtime/helpers/elementHelpers");
 const navigationLeftPage = require('../../page-objects/pages/NavigationLeftPage.js');
 const urlHomework = `${CLIENT.URL}/homework`;
 
-const selectors = {
-	createTaskButton:"a[href='/homework/new']",
-	//sortHometasks:
-	sortBtn: "#filter > div > div.md-chip.md-theme-default.md-deletable.md-clickable > div",
-	select: "#selection-picker > div > div",
-	lastedited: "body > div.md-select-menu.md-menu-content-bottom-start.md-menu-content-small.md-menu-content.md-theme-default > div > ul > li:nth-child(2) > button",
-	submitBtn: ".md-button.md-primary.md-theme-default > div > div",
-	pageTitleSelector: "#page-title",
-	elementWithTasks: ".col-xl-12",
-	tasksContainer: "#homeworks > ol > div > li",
-}
+const createTaskButton ="a[href='/homework/new']";
+const sortBtn = "#filter > div > div.md-chip.md-theme-default.md-deletable.md-clickable > div";
+const select = "#selection-picker > div > div";
+const lastedited = "body > div.md-select-menu.md-menu-content-bottom-start.md-menu-content-small.md-menu-content.md-theme-default > div > ul > li:nth-child(2) > button";
+const submitBtn = ".md-button.md-primary.md-theme-default > div > div";
+const pageTitleSelector = "#page-title";
+const taskElement = ".col-xl-12";
+const tasksContainer = "#homeworks > ol > div > li";
+
 
 module.exports = {
 	goToHomeworkListPage: async function () {
@@ -24,19 +22,14 @@ module.exports = {
 	},
 
 	clickCreateTaskButton: async function () {
-		await waitHelpers.waitAndClick(selectors.createTaskButton);
+		await waitHelpers.waitAndClick(createTaskButton);
 	},
 
 	sortHometasks: async function () {
-		let sortBtn = await driver.$(selectors.sortBtn);
-		await sortBtn.click();
-		let select = await driver.$(selectors.select);
-		await select.click();
-		let lastedited = await driver.$(selectors.lastedited);
-		await lastedited.click();
-		let submitBtn = await driver.$(selectors.submitBtn);
-		await submitBtn.click();
-		await driver.pause(1500);
+		await waitHelpers.waitAndClick(sortBtn)
+		await waitHelpers.waitAndClick(select);
+		await waitHelpers.waitAndClick(lastedited);
+		await waitHelpers.waitAndClick(submitBtn);
 	},
 	returnTaskChildIndex: async function (taskname) {
 		let areThereAnyTasks = await this.areThereAnyTasks();
@@ -64,7 +57,7 @@ module.exports = {
 			);
 			await task.click();
 			await driver.pause(1500);
-			let selectorToBeLoaded = await driver.$(selectors.pageTitleSelector);
+			let selectorToBeLoaded = await driver.$(pageTitleSelector);
 			await selectorToBeLoaded.waitForExist(2000);
 		} else {
 			console.log("No such task was found");
@@ -75,16 +68,16 @@ module.exports = {
 		await this.goToHomeworkListPage();
 		await this.sortHometasks();
 		await this.chooseTaskAmongAllTasks(taskname);
-		let pageTitleSelector = await driver.$(selectors.pageTitleSelector);
-		let courseAndTaskName = await pageTitleSelector.getText();
+		let pageTitle = await waitHelpers.waitUntilElementIsPresent(pageTitleSelector);
+		let courseAndTaskName = await pageTitle.getText();
 		let tasknameArray = await courseAndTaskName.split("- ");
 		let foundtaskName = tasknameArray[1];
 		await expect(taskname).to.equal(foundtaskName);
 	},
 
 	areThereAnyTasks: async function () {
-		let elementWithTasks = await driver.$$(selectors.elementWithTasks);
-		return elementWithTasks.length > 0 ? true : false;
+		let listOfTasks = await driver.$$(taskElement);
+		return listOfTasks.length > 0 ? true : false;
 	},
 
 	getAllTasks: async function () {
@@ -113,7 +106,7 @@ module.exports = {
 	},
 
 	userFindsTheTask: async function (taskname) {
-		let areThereAnyTasks = await driver.$$(selectors.tasksContainer);
+		let areThereAnyTasks = await driver.$$(tasksContainer);
 		await expect(areThereAnyTasks.length).not.to.equal(0);
 		for (var i = 1; i <= areThereAnyTasks.length; i++) {
 			let taskSelector = await driver.$(

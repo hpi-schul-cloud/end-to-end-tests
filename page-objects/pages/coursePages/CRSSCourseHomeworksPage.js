@@ -4,13 +4,11 @@ const waitHelpers = require('../../../runtime/helpers/waitHelpers.js');
 const courseListPage = require("../../../page-objects/pages/coursePages/CRSSCourseListPage");
 const coursePage = require("../../../page-objects/pages/coursePages/CRSSGeneralCoursePage");
 
-const selectors = {
-	 addNewHomeworkBtn:"[data-section='js-homeworks'] .add-button a",
-}
+const addNewHomeworkBtn ="[data-section='js-homeworks'] .add-button a";
 
 module.exports = {
 	clickAddNewTaskBtn: async function () {
-		await waitHelpers.waitAndClick(selectors.addNewHomeworkBtn);
+		await waitHelpers.waitAndClick(addNewHomeworkBtn);
 	},
 
 	clickAddNewTaskInCourse: async function (coursename) {

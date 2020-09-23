@@ -4,41 +4,41 @@
 const waitHelpers = require("../../../runtime/helpers/waitHelpers.js");
 const editCopyCoursePage = require("../../../page-objects/pages/coursePages/CRSSEditCopyCoursePage");
 
-const selectors = {
-	courseSettingsBtn: ".fa.fa-ellipsis-v.i-cog",
-	setting: {
-		editCourse: ".btn-course-edit",
-		createInvitation: ".btn-create-invitation",
-		createShareCourse: ".btn-create-share-course",
-		cloneCourse: ".fa-clone",
-	},
-	tab: {
-		topics: "[data-tab='js-topics']",
-		homeworks: "[data-tab='js-homeworks']",
-		tools: "[data-tab='js-tools']",
-		groups: "[data-tab='js-groups']",
-	},
+const courseSettingsBtn = ".fa.fa-ellipsis-v.i-cog";
 
-}
+const setting = {
+	editCourse: ".btn-course-edit",
+	createInvitation: ".btn-create-invitation",
+	createShareCourse: ".btn-create-share-course",
+	cloneCourse: ".fa-clone",
+};
+
+const tab = {
+	topics: "[data-tab='js-topics']",
+	homeworks: "[data-tab='js-homeworks']",
+	tools: "[data-tab='js-tools']",
+	groups: "[data-tab='js-groups']",
+};
+
 module.exports = {
 	openTopicsTab: async function () {
-		await waitHelpers.waitAndClick(selectors.tab.topics);
+		await waitHelpers.waitAndClick(tab.topics);
 	},
 
 	openHomeworksTab: async function () {
-		await waitHelpers.waitAndClick(selectors.tab.homeworks);
+		await waitHelpers.waitAndClick(tab.homeworks);
 	},
 
 	openToolsTab: async function () {
-		await waitHelpers.waitAndClick(selectors.tab.tools);
+		await waitHelpers.waitAndClick(tab.tools);
 	},
 
 	openGroupsTab: async function () {
-		await waitHelpers.waitAndClick(selectors.tab.groups);
+		await waitHelpers.waitAndClick(tab.groups);
 	},
 
 	clickThreePointSettingsIcon: async function () {
-		await waitHelpers.waitAndClick(selectors.courseSettingsBtn);
+		await waitHelpers.waitAndClick(courseSettingsBtn);
 	},
 
 	clickSettingsDropdownMenuBtn: async function (settingsBtnSelector) {
@@ -47,14 +47,14 @@ module.exports = {
 
 	cloneCourse: async function () {
 		await this.clickThreePointSettingsIcon();
-		await this.clickSettingsDropdownMenuBtn(selectors.setting.cloneCourse);
+		await this.clickSettingsDropdownMenuBtn(setting.cloneCourse);
 		await editCopyCoursePage.clickSubmitButton();
 	},
 
 	clickEditCourse: async function () {
 		try {
 			await this.clickThreePointSettingsIcon();
-			await this.clickSettingsDropdownMenuBtn(selectors.setting.editCourse);
+			await this.clickSettingsDropdownMenuBtn(setting.editCourse);
 		} catch (error) {
 			log.error("Can not click on element: " + error.message);
 			throw error;

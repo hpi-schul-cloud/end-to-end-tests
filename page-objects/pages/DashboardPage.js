@@ -5,7 +5,9 @@ const { CLIENT } = require("../../shared-objects/servers");
 const navigationTopPage = require('../../page-objects/pages/NavigationTopPage');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const apiHelpers = require('../../runtime/helpers/APIhelpers');
-const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
+const { getSchoolName } = require("../../runtime/helpers/APIhelpers");
+const { getSchoolNameDisplayed } = require("../../page-objects/pages/NavigationTopPage");
+const waitHelpers = require("../../runtime/helpers/waitHelpers");
 
 const dashboardUrl = `${CLIENT.URL}/dashboard`;
 const dashboardTitle = 'Übersicht';
@@ -32,10 +34,12 @@ module.exports = {
 	loginSchool: async function () {
 		await this.goToDashboard();
 		let schoolNameProvidedByAPI = await apiHelpers.getSchoolName();
-		expect(await elementHelpers.getElementText(loginPage.schoolNameSelector)).to.equal(schoolNameProvidedByAPI);
+		let schoolName = await navigationTopPage.getSchoolNameDisplayed();
+		expect(schoolName).to.equal(schoolNameProvidedByAPI);
 	},
 
 	checkIfMenuItemsAreVisible: async function (itemsToCompare, items) {
+		await waitHelpers.waitUntilPageLoads();
 		let expectations = await itemsToCompare.hashes();
 		expect(items.length).to.be.above(0);
 		for (let i = 0; i < expectations.length; i++) {

@@ -4,7 +4,6 @@ const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
 const { CLIENT } = require("../../shared-objects/servers");
 const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers');
 
-const timeNewsMustBePublished = 'input[data-testid="news_date_to_be_displayed"]';
 const submitNewsBtn = 'button[data-testid="btn_news_submit"]';
 const titleField = 'input.h1';
 const contentField = '.editor [contenteditable="true"]';
