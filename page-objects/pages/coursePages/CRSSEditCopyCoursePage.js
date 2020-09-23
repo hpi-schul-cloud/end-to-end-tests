@@ -5,11 +5,21 @@ const selectors = {
 	submitBtn: "button.btn-submit",
 	courseNameInput: "form > div:nth-child(3) > input",
 	courseDescriptionInput: "textarea",
+	deleteButton: "a.btn-delete-course",
+	deleteButtonConfirmation: ".modal-content button.btn-submit",
 }
 
 module.exports = {
 	clickSubmitButton: async function () {
 		await waitHelpers.waitAndClick(selectors.submitBtn);
+	},
+
+	clickDeleteButtonConfirmation: async function () {
+		await waitHelpers.waitAndClick(selectors.deleteButtonConfirmation);
+	},
+
+	clickDeleteButton: async function () {
+		await waitHelpers.waitAndClick(selectors.deleteButton);
 	},
 
 	setCourseName: async function (courseName) {

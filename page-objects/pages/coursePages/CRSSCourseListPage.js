@@ -18,6 +18,7 @@ const createCourseBtn = '[data-testid="create-course-btn"]';
 const container_of_element = '[data-testid="container_of_element"]';
 const header_of_element = '[data-testid="header-of-element"]';
 const listOfMembersSel = "#member-modal-body > ol > li";
+const headerOnPageCurse = "h2.text-center";
 
 
 const courseColour = {
@@ -59,8 +60,16 @@ module.exports = {
     },
 
     isCourseOnList: async function (coursename) {
-        const allCourses = await this.getListOfCourseTitlesInSection(this.section.allCourses);
-        expect(allCourses).to.include(coursename);
+        // if list of courses is empty
+        let isHeaderVisible = await elementHelpers.isElementPresent(headerOnPageCurse);
+        let isOnList = false; 
+		if (isHeaderVisible) {
+			return isOnList;
+		} else {
+            const allCourses = await this.getListOfCourseTitlesInSection(this.section.allCourses);
+            isOnList = allCourses.includes(coursename);
+            return isOnList;
+        }
     },
 
     isCorrectCourseColour: async function (colour) {

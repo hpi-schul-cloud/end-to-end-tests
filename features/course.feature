@@ -69,3 +69,19 @@ Scenario Outline: logging in as a teacher I want to be able to edit a course on 
 Examples:
 	|username                |password    |courseName    |courseColour| changeName | description |
 	|lehrer@schul-cloud.org  |Schulcloud1!|Mathe         |corn        | Biologie   | I LIKE BIO  |
+
+@deleteCourse
+Scenario Outline: logging in as a teacher I want to be able to edit a course on Schul-Cloud
+	Given teacher logs in with email <username> and password <password>
+	And teacher accepts data protection
+	And teacher goes to courses page
+	And teacher should see that course with name <courseName> is visible on the list
+	When teacher chooses Kurs with name <courseName>
+    And teacher clicks on Course edit
+	And teacher clicks on delete course button
+	And teacher clicks on delete course button confirmation
+	And teacher goes to courses page
+	Then teacher should not see that course with name <courseName> on list
+Examples:
+	|username                |password    |courseName    |courseColour|
+	|lehrer@schul-cloud.org  |Schulcloud1!|Mathe         |corn        |
