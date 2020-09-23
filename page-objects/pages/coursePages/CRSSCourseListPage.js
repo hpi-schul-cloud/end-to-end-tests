@@ -150,6 +150,7 @@ module.exports = {
     },
 
     getListOfCoursesInSection: async function (section) {
+        await waitHelpers.waitUntilPageLoads();
         await waitHelpers.waitUntilElementIsPresent(section + " " + courseWrapper);
         const listOfCourses = await driver.$$(section + " " + courseWrapper);
         return listOfCourses;
@@ -200,7 +201,7 @@ module.exports = {
 
     getListOfCourseTitlesInSection: async function (section) {
         const courseList = await this.getListOfCoursesInSection(section);
-        let courseTitleList = await Promise.all(courseList.map(async (element) => (await element.$(titleOfCourse)).getText()));
+        let courseTitleList = await Promise.all(courseList.map(async (element) => (await waitHelpers.waitUntilElementIsPresent(titleOfCourse)).getText()));
         return courseTitleList;
     },
 
