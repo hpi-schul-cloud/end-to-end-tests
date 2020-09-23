@@ -5,7 +5,7 @@ const elementHelpers = require('../../runtime/helpers/elementHelpers');
 
 const initialsDiv = '[data-testid="initials"]';
 const initialsDDSettings = 'a[data-testid="settings"]';
-const initialsDDLogout = 'button[data-testid="logout"]';
+const initialsDDLogout = 'a[data-testid="logout"]';
 const nameBox = '.dropdown-name';
 const schoolNameSelector = '.nav-item.school-data';
 const exclamationTriangle = '.fa.fa-exclamation-triangle';
