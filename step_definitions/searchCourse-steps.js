@@ -8,7 +8,7 @@ When(
 	}
 );
 Then(/^.*list satisfies the search request (.*)$/, async function(courseName) {
-	let a = await courseListPage.countCoursesWhichTitlesContainTextInSection(courseName, courseListPage.section.allCourses);
-	let b = await courseListPage.countDisplayedCoursesForSection(courseListPage.section.allCourses);
+	let a = await courseListPage.countCoursesWhichTitlesContainTextInSection(courseName, courseListPage.section.activeCourses);
+	let b = await courseListPage.countDisplayedCoursesForSection(courseListPage.section.activeCourses);
 	await expect(a).to.equal(b);
 });

@@ -61,8 +61,8 @@ module.exports = {
     },
 
     isCourseOnList: async function (coursename) {
-        const allCourses = await this.getListOfCourseTitlesInSection(this.section.allCourses);
-        expect(allCourses).to.include(coursename);
+        const allActiveCourses = await this.getListOfCourseTitlesInSection(this.section.activeCourses);
+        expect(allActiveCourses).to.include(coursename);
     },
 
     isCorrectCourseColour: async function (colour) {
@@ -194,14 +194,20 @@ module.exports = {
 
     getWrapperOfCourseInSection: async function (courseName, section) {
         var index = await this.getIndexOfGivenCourseInSection(courseName, section);
+        if(index == -1) 
+            throw "Can't find course: " + courseName + " in section: " + section;
+        
         const list = await this.getListOfCoursesInSection(section);
         const element = list[index];
         return element;
     },
 
     getListOfCourseTitlesInSection: async function (section) {
-        const courseList = await this.getListOfCoursesInSection(section);
-        let courseTitleList = await Promise.all(courseList.map(async (element) => (await waitHelpers.waitUntilElementIsPresent(titleOfCourse)).getText()));
+        await waitHelpers.waitUntilPageLoads();
+        const selector = section + " " + courseWrapper + " " + titleOfCourse;
+        await waitHelpers.waitUntilElementIsPresent(selector);
+        const listOfCourseTitleElements = await driver.$$(selector);
+        let courseTitleList = await Promise.all(listOfCourseTitleElements.map(async (element) => (await element.getText())));
         return courseTitleList;
     },
 
@@ -214,6 +220,9 @@ module.exports = {
 
     clickOnCourseInSection: async function (courseName, section) {
         const courseIndex = await this.getIndexOfGivenCourseInSection(courseName, section);
+        if(courseIndex == -1) 
+            throw "Can't find course: " + courseName + " in section: " + section;
+
         const courseList = await this.getListOfCoursesInSection(section);
         const element = courseList[courseIndex];
         await element.click();
