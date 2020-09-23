@@ -15,7 +15,6 @@ const pageTitleSelector = "#page-title";
 const taskElement = ".col-xl-12";
 const tasksContainer = "#homeworks > ol > div > li";
 
-
 module.exports = {
 	goToHomeworkListPage: async function () {
 		await elementHelpers.loadPage(urlHomework, 20);
@@ -105,24 +104,22 @@ module.exports = {
 		}
 	},
 
-	userFindsTheTask: async function (taskname) {
-		let areThereAnyTasks = await driver.$$(tasksContainer);
-		await expect(areThereAnyTasks.length).not.to.equal(0);
-		for (var i = 1; i <= areThereAnyTasks.length; i++) {
-			let taskSelector = await driver.$(
-				"#homeworks > ol > div > li:nth-child(" + i + ") .h5.title"
-			);
-			let tasknameOnPage = await taskSelector.getText();
-			if (tasknameOnPage == taskname) {
-				await taskSelector.click();
-				await driver.pause(1000);
-			}
-		}
-	},
+    userFindsTheTask: async function (taskname) {
+        let areThereAnyTasks = await driver.$$(tasksContainer);
+        await expect(areThereAnyTasks.length).not.to.equal(0);
+        for (var i = 0; i <= areThereAnyTasks.length; i++) {
+            let taskSelector = await driver.$('#homeworks > ol > div > li:nth-child(' + i + ') .h5.title');
+            let tasknameOnPage = await taskSelector.getText();
+            if (tasknameOnPage == taskname) {
+                await taskSelector.click();
+                await driver.pause(1000);
+            };
+        };
+    },
 
-	goToPrivateHomeworkArea: async function(){
+	goToPrivateHomeworkArea: async function() {
     	await navigationLeftPage.clickNavItemTasks();
     	await navigationLeftPage.clickNavItemTasksPrivate();
-	}
+	},
 	
 };

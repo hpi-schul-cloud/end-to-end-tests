@@ -5,8 +5,6 @@ const { CLIENT } = require("../../shared-objects/servers");
 const navigationTopPage = require('../../page-objects/pages/NavigationTopPage');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const apiHelpers = require('../../runtime/helpers/APIhelpers');
-const { getSchoolName } = require("../../runtime/helpers/APIhelpers");
-const { getSchoolNameDisplayed } = require("../../page-objects/pages/NavigationTopPage");
 const waitHelpers = require("../../runtime/helpers/waitHelpers");
 
 const dashboardUrl = `${CLIENT.URL}/dashboard`;
