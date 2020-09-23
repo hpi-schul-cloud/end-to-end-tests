@@ -118,8 +118,8 @@ module.exports = {
     },
 
 	goToPrivateHomeworkArea: async function() {
-    	await navigationLeftPage.clickNavItemTasks();
-    	await navigationLeftPage.clickNavItemTasksPrivate();
+		await navigationLeftPage.clickNavItemTasks();
+		await navigationLeftPage.clickNavItemTasksPrivate();
 	},
 	
 };
