@@ -84,7 +84,7 @@ module.exports = {
 
     getNameAndPosition: async function () {
         await this.clickInitials()
-        let nameBoxSel = await driver.$(nameBox);
+        const nameBoxSel = await waitHelpers.waitUntilElementIsPresent(nameBox)
         let name = await nameBoxSel.getText();
         return name;
     },
