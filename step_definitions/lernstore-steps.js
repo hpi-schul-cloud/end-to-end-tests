@@ -43,8 +43,9 @@ Then(/^teacher clicks on add content button$/, async function () {
 
 });
 
-Then(/^teacher should see added material (.*)$/, async function (contentName) {
-    await lernstorePage.verifyThatTheMaterialWasAttachedToTheTopic(contentName);
+Then(/^teacher should see added material$/, async function () {
+    let materials = (await lernstorePage.listOfAttachedMaterialsInTheTopic());
+    await expect(lernstorePage.title).to.be.oneOf(materials);
 
 });
 

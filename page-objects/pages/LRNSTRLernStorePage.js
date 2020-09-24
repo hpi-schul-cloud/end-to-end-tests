@@ -6,6 +6,9 @@ const apiHelpers = require('../../runtime/helpers/APIhelpers');
 const stringHelpers= require('../../runtime/helpers/stringHelpers');
 const {CLIENT} = require("../../shared-objects/servers");
 const url= `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`;
+let title;
+
+
 
 
 const selectors = {
@@ -32,10 +35,13 @@ const selectors = {
 
     courseSelector: '[data-testid="courseSelector"]',
     topicSelector: '[data-testid="topicSelector"]',
-    submitBtnAfterMaterialWasAddedToCourseAndTopic: "div.footer-button > button"
+    submitBtnAfterMaterialWasAddedToCourseAndTopic: "div.footer-button > button",
+    selectorWithTheNamesOfMaterialsInTopic: '.h4.card-title > a',
+ 
 }
 module.exports= {
-    selectors, 
+    title,
+ 
     switchToContentWindow: async function() {
         let handle = await driver.getWindowHandles();
         await driver.switchToWindow(handle[1]);
@@ -58,8 +64,13 @@ module.exports= {
     },
     clickOnContentCard: async function(request) {
         await waitHelpers.waitAndClick(selectors.firstElement);
+        await this.checkThatTheMaterialOnGUIAndAPIAreDisplayedCorrectly(request)
+        
+    },
+    checkThatTheMaterialOnGUIAndAPIAreDisplayedCorrectly: async function(request) {
         let titleOnGUISelector = await driver.$(selectors.titleOfMaterialWhenClicked);
         let titleOnGUI = await titleOnGUISelector.getText();
+        this.title = titleOnGUI;
         let titleOnAPIRequest = await apiHelpers.getTheFirstElementNamePerRESTRequest(request);
         await expect(titleOnGUI).to.equal(titleOnAPIRequest);
     },
@@ -101,6 +112,11 @@ module.exports= {
         let handle = await driver.getWindowHandles();
         await driver.switchToWindow(handle[0]);
     },
+    listOfAttachedMaterialsInTheTopic: async function() {
+        const listOfAttachedMaterialsInTheTopicPromise = (await driver.$$(selectors.selectorWithTheNamesOfMaterialsInTopic)).map((element) => element.getText());
+        const listOfAttachedMaterialsInTheTopic = await Promise.all(listOfAttachedMaterialsInTheTopicPromise);
+        return listOfAttachedMaterialsInTheTopic;
+    }
 
 
     

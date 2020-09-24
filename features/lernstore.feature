@@ -21,7 +21,7 @@ When teacher clicks add-btn
 When teacher selects course <coursename> and topic <topicName>
 When teacher clicks on add content button
 When teacher goes to topic <topicName> of course <coursename>
-Then teacher should see added material <content>
+Then teacher should see added material
 Examples:
     | coursename          | topicName             | lerstoreTopicName | content |
     | courseWithLernstore | Topic with Lernstore  | LernstoreTest     | Mathe   |
