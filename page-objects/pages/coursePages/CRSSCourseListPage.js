@@ -156,6 +156,7 @@ async function isCorrectNumberOfMembersInCourseForSection(courseName, members, s
 };
 
 async function getListOfCoursesInSection(section) {
+        await waitHelpers.waitUntilPageLoads();
         await waitHelpers.waitUntilElementIsPresent(section + " " + courseWrapper);
         const listOfCourses = await driver.$$(section + " " + courseWrapper);
         return listOfCourses;
