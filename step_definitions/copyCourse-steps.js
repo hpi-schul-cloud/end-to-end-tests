@@ -32,13 +32,13 @@ Then(/^the amount of courses is implemented$/, async function() {
 });
 
 // _________With Text__________
-Given(/^the teacher creates some with name (.*)$/, function(coursename) {
+Given(/^teacher creates some course with name (.*)$/, function(coursename) {
 	return addCoursePage.createCourse(coursename);
 });
-Given(/^the teacher chooses the created course with (.*) and$/, function(coursename) {
+Given(/^teacher chooses the created course with (.*) and$/, function(coursename) {
 	return courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 });
-When(/^the teacher adds a Topic with name (.*)$/, async function(topicname) {
+When(/^teacher adds a Topic with name (.*)$/, async function(topicname) {
 	//return copyCourse.addTopic(topicname);
 	await courseTopicsPage.clickAddNewTopicBtn();
 	await addEditTopicPage.setTopic(topicname);

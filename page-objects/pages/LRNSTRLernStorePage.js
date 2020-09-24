@@ -93,12 +93,17 @@ module.exports= {
     addToCourseAndTopic: async function(course, topic) {
         await this.addToCourseOrTopic(course, selectors.courseSelector);
         await this.addToCourseOrTopic(topic,selectors.topicSelector);
+    },
+    clickSubmitAddContentBtn: async function() {
         await waitHelpers.waitAndClick(selectors.submitAddToCourseAndTopic);
         await waitHelpers.waitAndClick(selectors.submitBtnAfterMaterialWasAddedToCourseAndTopic);
         // return to main window
         let handle = await driver.getWindowHandles();
         await driver.switchToWindow(handle[0]);
+        let url = await driver.getUrl();
+        await waitHelpers.waitUntilElementIsPresent('.content-wrapper');
     },
+
 
     
 
