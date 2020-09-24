@@ -199,14 +199,27 @@ async function getColorCourse(index) {
 
 async function getWrapperOfCourseInSection(courseName, section) {
         var index = await this.getIndexOfGivenCourseInSection(courseName, section);
+        if(index == -1) 
+            throw "Can't find course: " + courseName + " in section: " + section;
+        
         const list = await this.getListOfCoursesInSection(section);
         const element = list[index];
         return element;
 };
 
 async function getListOfCourseTitlesInSection(section) {
-        const courseList = await this.getListOfCoursesInSection(section);
-        let courseTitleList = await Promise.all(courseList.map(async (element) => (await element.$(titleOfCourse)).getText()));
+        await waitHelpers.waitUntilPageLoads();
+        const selector = section + " " + courseWrapper + " " + titleOfCourse;
+        try {
+            await waitHelpers.waitUntilElementIsPresent(selector);
+        }
+        catch(err)
+        {
+            log.warning("getListOfCourseTitlesInSection found no courses in section: " + section);
+            return [];
+        }
+        const listOfCourseTitleElements = await driver.$$(selector);
+        let courseTitleList = await Promise.all(listOfCourseTitleElements.map(async (element) => (await element.getText())));
         return courseTitleList;
 };
 
@@ -219,9 +232,12 @@ async function countCoursesWhichTitlesContainTextInSection(text, section) {
 
 async function clickOnCourseInSection(courseName, section) {
         const courseIndex = await this.getIndexOfGivenCourseInSection(courseName, section);
+        if(courseIndex == -1) 
+            throw "Can't find course: " + courseName + " in section: " + section;
+
         const courseList = await this.getListOfCoursesInSection(section);
         const element = courseList[courseIndex];
-        await element.click();
+        await waitHelpers.waitAndClick(element);
 };
 
 async function getNumberOfMembersInGivenCourseInSection(courseName, section) {
@@ -254,18 +270,16 @@ async function studentLogsInAndGoesToTasksOfTheCourse(username, password, course
         await this.goToTasksOfTheCourse(coursename);
 };
 
-async function verifyCourseAndTopic(coursename, topicname) {
-        await this.clickOnCourseInSection(coursename, section.activeCourses);
+async function verifyCourseAndTopic(coursename, topicname, section) {
+        await this.clickOnCourseInSection(coursename, section);
         let topicNames = await Promise.all((await driver.$$("#topic-list > div > div > div")).map(async (element) => await element.getText()));
         await expect(topicNames).to.include(topicname);
 };
 
 async function verifyCopyWithStudents(coursename) {
         let copiedName = coursename + " - Kopie";
-        let courseHasIndex = await this.getIndexOfGivenCourseInSection(copiedName, section.activeCourses);
-        let areThereStudentsInCourseContainer = await driver.$('.sc-card-wrapper.col-xl-3.col-lg-4.col-md-6.col-sm-12:nth-child(' + (
-            courseHasIndex + 1
-        ) + ') .additionalInfo .btn-member');
+        let courseHasIndex = (await this.getIndexOfGivenCourseInSection(copiedName, this.section.activeCourses)) + 1 ;
+        let areThereStudentsInCourseContainer = await driver.$(".sc-card-wrapper.col-xl-3.col-lg-4.col-md-6.col-sm-12:nth-child("+ courseHasIndex +") .additionalInfo .btn-member");
         let areThereStudentsInCourse = await areThereStudentsInCourseContainer.getText();
         let number = parseInt(areThereStudentsInCourse);
         await expect(number).to.equal(0);

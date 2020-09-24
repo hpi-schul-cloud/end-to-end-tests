@@ -4,25 +4,24 @@ const waitHalpers = require('../../runtime/helpers/waitHelpers.js');
 const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers.js');
 const courseHomeworksPage = require("../pages/coursePages/CRSSCourseHomeworksPage");
 
-const selectors = { 
-    uploadBtn: '//*[@id="main-content"]/div/section[1]/div/div/div[1]/input',
-    teamSubmissionsCheckbox: "#teamSubmissions",
-    privateHomeworkCheckbox: "[data-testid='private-checkbox']",
-    homeworkTitleInput: "input[placeholder='Titel']",
-    submitHomeworkBtn: ".btn-submit",
-}
+
+const uploadBtn = '//*[@id="main-content"]/div/section[1]/div/div/div[1]/input';
+const teamSubmissionsCheckbox = "#teamSubmissions";
+const privateHomeworkCheckbox = "[data-testid='private-checkbox']";
+const homeworkTitleInput = "input[placeholder='Titel']";
+const submitHomeworkBtn = ".btn-submit";
 
 module.exports = {
     clickPrivateHomeworkCheckbox: async function () {
-        await waitHalpers.waitAndClick(selectors.privateHomeworkCheckbox);
+        await waitHalpers.waitAndClick(privateHomeworkCheckbox);
     },
 
     clickTeamSubmissionsCheckbox: async function () {
-        await waitHalpers.waitAndClick(selectors.teamSubmissionsCheckbox);
+        await waitHalpers.waitAndClick(teamSubmissionsCheckbox);
     },
 
     setHomeworkName: async function (taskName) {
-        const nameField = await driver.$(selectors.homeworkTitleInput);
+        const nameField = await driver.$(homeworkTitleInput);
         await nameField.setValue(taskName);
     },
 
@@ -42,7 +41,7 @@ module.exports = {
     },
 
     clickSubmitHomeworkBtn: async function () {
-        await waitHalpers.waitAndClick(selectors.submitHomeworkBtn);
+        await waitHalpers.waitAndClick(submitHomeworkBtn);
     },
 
     addBasicHometask: async function (coursename, taskname) {
@@ -66,14 +65,14 @@ module.exports = {
 
     uploadHomework: async function () {
 		//making the upload-element visible to selenium
-		change_visibility = selectors.uploadBtn +'.css("visibility,"visible");';
-		change_display = selectors.uploadBtn +'.css("display,"block");';
+		change_visibility = uploadBtn +'.css("visibility,"visible");';
+		change_display = uploadBtn +'.css("display,"block");';
 		await driver.execute_script(change_visibility);
 		await driver.execute_script(change_display);
 
 		const path = require('path');
 		const filePath = path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt');
-		await driver.$x(selectors.uploadBtn).send_keys(filePath);
+		await driver.$x(uploadBtn).send_keys(filePath);
 	},
 
     getTaskNames: async function () {

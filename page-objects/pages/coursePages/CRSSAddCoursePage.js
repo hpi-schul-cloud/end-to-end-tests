@@ -8,33 +8,32 @@ const axios = require("axios");
 const urlCoursesAdd = `${CLIENT.URL}/courses/add`;
 
 //Sections
-const selectors = {
-	nextSectionBtn: "#nextSection",
-	section:{
+
+const nextSectionBtn = "#nextSection";
+const section = {
 		one: '[data-testid="section-1-area"]',
 		two: '[data-testid="section-2-area"]',
 		three: '[data-testid="section-3-area"]',
-	},
-	chosenDefInput: ".chosen-search-input.default",
-	chosenInput: ".search-choice span",
-	multipleChoiceSelectForStudents:'select[data-testid="pupils"]',
+};
+const chosenDefInput = ".chosen-search-input.default";
+const chosenInput = ".search-choice span";
+const multipleChoiceSelectForStudents ='select[data-testid="pupils"]';
 	//Course data section
-	courseNameInput:'[data-testid="coursename"]',
-	teacherContainer: '[data-testid="teachers_container"]',
-	teacherSubContainer:'[data-testid="courseSubstitute_container"]',
-	colourPicker: ".color-picker__item",
-	timeSpan:{
+const courseNameInput ='[data-testid="coursename"]';
+const teacherContainer = '[data-testid="teachers_container"]';
+const teacherSubContainer ='[data-testid="courseSubstitute_container"]';
+const colourPicker = ".color-picker__item";
+const timeSpan = {
 		start: '[data-testid="date_start"]',
 		end: "#untilDate",
-	},
-	//Participants section
-	classContainer: '[data-testid="class_container"]',
-	studentsContainer: '[data-testid="students_container"]',
-	//Final section
-	createNewCourseBtn:'[data-testid="einen-weiteren-kurs-anlegen-btn"]',
-	goToCourseListBtn: '[data-testid="zur-uebersicht-btn"]',
+};
+//Participants section
+const classContainer = '[data-testid="class_container"]';
+const studentsContainer = '[data-testid="students_container"]';
+//Final section
+const createNewCourseBtn ='[data-testid="einen-weiteren-kurs-anlegen-btn"]';
+const goToCourseListBtn = '[data-testid="zur-uebersicht-btn"]';
 
-}
 const courseColour = [
 	"grey",
 	"metallicGold",
@@ -46,24 +45,25 @@ const courseColour = [
 	"violetRed",
 	"corn",
 ];
+
 module.exports = {
 	goToAddCourses: async function() {
 		await elementHelpers.loadPage(urlCoursesAdd, 20)
 	},
 
 	goToNextSection: async function () {
-		await waitHelpers.waitAndClick(selectors.nextSectionBtn);
+		await waitHelpers.waitAndClick(nextSectionBtn);
 	},
 
 	getListOfSelected: async function (containerSelector) {
 		const container = await driver.$(containerSelector);
-		const listOfElements = await container.$$(selectors.chosenInput);
+		const listOfElements = await container.$$(chosenInput);
 		return await elementHelpers.getTextListFromListOfElements(listOfElements);
 	},
 
 	isDefaultValueInContainer: async function (containerSelector, defaultText) {
 		const container = await driver.$(containerSelector);
-		const listOfElements = await container.$$(selectors.chosenDefInput);
+		const listOfElements = await container.$$(chosenDefInput);
 		const valueList = await elementHelpers.getValueListFromListOfElements(listOfElements);
 		const isOnlyOneText = valueList.length == 1;
 		await expect(isOnlyOneText).is.equal(true);
@@ -104,13 +104,13 @@ module.exports = {
 		let selector;
 		switch (sectionNumber) {
 			case 1:
-				selector = selectors.section.one;
+				selector = section.one;
 				break;
 			case 2:
-				selector = selectors.section.two;
+				selector = section.two;
 				break;
 			case 3:
-				selector = selectors.section.three;
+				selector = section.three;
 				break;
 			default:
 				console.error(
@@ -148,20 +148,20 @@ module.exports = {
 		await this.goToAddCourses();
 		await this.setCourseName(courseName);
 		await this.goToNextSection();
-		await elementHelpers.selectOptionByText(selectors.multipleChoiceSelectForStudents ,studentName);
+		await elementHelpers.selectOptionByText(multipleChoiceSelectForStudents ,studentName);
 		await this.goToNextSection();
 		await this.clickGoToCourseListBtn();
 	},
 
 	//Course data section
 	courseNameIsNotEntered: async function () {
-		const courseNameContainer = await driver.$(selectors.courseNameInput);
+		const courseNameContainer = await driver.$(courseNameInput);
 		const placeholderText = await courseNameContainer.getAttribute("placeholder");
 		await expect(placeholderText).to.equal("z.B. Mathe 10a");
 	},
 
 	setCourseName: async function (courseName) {
-		const courseNameContainer = await driver.$(selectors.courseNameInput);
+		const courseNameContainer = await driver.$(courseNameInput);
 		await courseNameContainer.setValue(courseName);
 	},
 
@@ -170,7 +170,7 @@ module.exports = {
 		if (listOfColours.includes(colourName)) {
 			const childNumber = listOfColours.indexOf(colourName) + 1;
 			const colour = await driver.$(
-				selectors.colourPicker + `:nth-child(${childNumber})`
+				colourPicker + `:nth-child(${childNumber})`
 			);
 			await colour.click();
 		} else {
@@ -183,25 +183,25 @@ module.exports = {
 	teachersNameisSetByDefault: async function () {
 		const username = await this.getUserName();
 		const listOfTeachersNames = await this.getListOfSelected(
-			selectors.teacherContainer
+			teacherContainer
 		);
 		await expect(listOfTeachersNames).to.include(username);
 	},
 
 	noTeacherSubstituteIsSet: async function () {
 		await this.isDefaultValueInContainer(
-			selectors.teacherSubContainer,
+			teacherSubContainer,
 			"Lehrer:in auswählen"
 		);
 	},
 
 	// could be extended with verifying the date is correct
 	timeSpanIsSet: async function () {
-		const startValueSelector = await driver.$(selectors.timeSpan.start);
+		const startValueSelector = await driver.$(timeSpan.start);
 		const startValue = await startValueSelector.getValue();
 		await expect(startValue.length).not.to.equal(0);
 
-		const endsValueSelector = await driver.$(selectors.timeSpan.end);
+		const endsValueSelector = await driver.$(timeSpan.end);
 		const endsValue = await endsValueSelector.getValue();
 		await expect(endsValue.length).not.to.equal(0);
 	},
@@ -209,33 +209,33 @@ module.exports = {
 	//Participants section
 	noClassIsSet: async function () {
 		await this.isDefaultValueInContainer(
-			selectors.classContainer,
+			classContainer,
 			"Klasse(n) auswählen"
 		);
 	},
 
 	noStudentIsSet: async function () {
 		await this.isDefaultValueInContainer(
-			selectors.studentsContainer,
+			studentsContainer,
 			"Schüler:innen auswählen"
 		);
 	},
 
 	clickCreateCourseAndContinueBtn: async function () {
-		await waitHelpers.waitAndClick(selectors.nextSectionBtn);
+		await waitHelpers.waitAndClick(nextSectionBtn);
 	},
 
 	//Final section
 	clickGoToCourseListBtn: async function () {
-		await waitHelpers.waitAndClick(selectors.goToCourseListBtn);
+		await waitHelpers.waitAndClick(goToCourseListBtn);
 	},
 
 	finalButtonsAreVisible: async function () {
 		await expect(
-			await elementHelpers.isElementPresent(selectors.createNewCourseBtn)
+			await elementHelpers.isElementPresent(createNewCourseBtn)
 		).to.equal(true);
 		await expect(
-			await elementHelpers.isElementPresent(selectors.goToCourseListBtn)
+			await elementHelpers.isElementPresent(goToCourseListBtn)
 		).to.equal(true);
 	},
 };

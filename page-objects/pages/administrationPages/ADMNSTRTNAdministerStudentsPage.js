@@ -6,15 +6,15 @@ const loginPage = require('../generalPagesBeforeLogin/LoginPage');
 const waitHelpers = require('../../../runtime/helpers/waitHelpers');
 let oldPassword;
 
-const selectorAddStudentBtn = 'button[data-testid=\'btn_add_student\']';
-const selectorSetFirstName = 'input[data-testid=\'create_student_input_firstname\']';
-const selectorSetLastName = 'input[data-testid=\'create_student_input_lastname\']';
-const selectorSetEmail = 'input[data-testid=\'create_student_input_email\']';
-const selectorSendALinkBox = 'input[data-testid=\'create_student_input_send_link\']';
-const selectorNamesContainer = 'tbody[data-testid=\'students_names_container\']';
-const selectorConsentSubmitBtn = 'button[data-testid=\'submit_consent\']';
-const submitStudentCreateBtn = 'div.modal.fade.add-modal.in button.btn-submit';
-const passwordFieldSel = '#passwd';
+const selectorAddStudentBtn = "button[data-testid='btn_add_student']";
+const selectorSetFirstName = "input[data-testid='create_student_input_firstname']";
+const selectorSetLastName = "input[data-testid='create_student_input_lastname']";
+const selectorSetEmail = "input[data-testid='create_student_input_email']";
+const selectorSendALinkBox = "input[data-testid='create_student_input_send_link']";
+const selectorNamesContainer = "tbody[data-testid='students_names_container']";
+const selectorConsentSubmitBtn = "button[data-testid='submit_consent']";
+const submitStudentCreateBtn = "div.modal.fade.add-modal.in button.btn-submit";
+const passwordFieldSel = "#passwd";
 
 module.exports = {
     createNewPupil: async function (firstname, lastname, email) {
