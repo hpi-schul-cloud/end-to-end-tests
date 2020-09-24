@@ -32,12 +32,14 @@ const courseColour = {
     corn: "background:#FFEE58"
 };
 
+const section = {
+    allCourses: ".section-courses",
+    activeCourses: ".section-activeCourses",
+    archievedCourses: ".section-archievedCourses"
+};
+
 module.exports = {
-    section: {
-        allCourses: ".section-courses",
-        activeCourses: ".section-activeCourses",
-        archievedCourses: ".section-archievedCourses"
-    },
+    section,
 
     goToCourses: async function () {
         await elementHelpers.loadPage(urlCourses, 30);
@@ -59,8 +61,8 @@ module.exports = {
     },
 
     isCourseOnList: async function (coursename) {
-        const allCourses = await this.getListOfCourseTitlesInSection(this.section.allCourses);
-        expect(allCourses).to.include(coursename);
+        const allActiveCourses = await this.getListOfCourseTitlesInSection(this.section.activeCourses);
+        expect(allActiveCourses).to.include(coursename);
     },
 
     isCorrectCourseColour: async function (colour) {
@@ -148,6 +150,7 @@ module.exports = {
     },
 
     getListOfCoursesInSection: async function (section) {
+        await waitHelpers.waitUntilPageLoads();
         await waitHelpers.waitUntilElementIsPresent(section + " " + courseWrapper);
         const listOfCourses = await driver.$$(section + " " + courseWrapper);
         return listOfCourses;
@@ -191,14 +194,27 @@ module.exports = {
 
     getWrapperOfCourseInSection: async function (courseName, section) {
         var index = await this.getIndexOfGivenCourseInSection(courseName, section);
+        if(index == -1) 
+            throw "Can't find course: " + courseName + " in section: " + section;
+        
         const list = await this.getListOfCoursesInSection(section);
         const element = list[index];
         return element;
     },
 
     getListOfCourseTitlesInSection: async function (section) {
-        const courseList = await this.getListOfCoursesInSection(section);
-        let courseTitleList = await Promise.all(courseList.map(async (element) => (await element.$(titleOfCourse)).getText()));
+        await waitHelpers.waitUntilPageLoads();
+        const selector = section + " " + courseWrapper + " " + titleOfCourse;
+        try {
+            await waitHelpers.waitUntilElementIsPresent(selector);
+        }
+        catch(err)
+        {
+            log.warning("getListOfCourseTitlesInSection found no courses in section: " + section);
+            return [];
+        }
+        const listOfCourseTitleElements = await driver.$$(selector);
+        let courseTitleList = await Promise.all(listOfCourseTitleElements.map(async (element) => (await element.getText())));
         return courseTitleList;
     },
 
@@ -211,6 +227,9 @@ module.exports = {
 
     clickOnCourseInSection: async function (courseName, section) {
         const courseIndex = await this.getIndexOfGivenCourseInSection(courseName, section);
+        if(courseIndex == -1) 
+            throw "Can't find course: " + courseName + " in section: " + section;
+
         const courseList = await this.getListOfCoursesInSection(section);
         const element = courseList[courseIndex];
         await waitHelpers.waitAndClick(element);
@@ -246,17 +265,15 @@ module.exports = {
         await this.goToTasksOfTheCourse(coursename);
     },
 
-    verifyCourseAndTopic: async function (coursename, topicname) {
-        await this.clickOnCourseInSection(coursename, this.section.activeCourses);
+    verifyCourseAndTopic: async function (coursename, topicname, section) {
+        await this.clickOnCourseInSection(coursename, section);
         let topicNames = await Promise.all((await driver.$$("#topic-list > div > div > div")).map(async (element) => await element.getText()));
         await expect(topicNames).to.include(topicname);
     },
     verifyCopyWithStudents: async function (coursename) {
         let copiedName = coursename + " - Kopie";
-        let courseHasIndex = await this.getIndexOfGivenCourseInSection(copiedName, this.section.activeCourses);
-        let areThereStudentsInCourseContainer = await driver.$('.sc-card-wrapper.col-xl-3.col-lg-4.col-md-6.col-sm-12:nth-child(' + (
-            courseHasIndex + 1
-        ) + ') .additionalInfo .btn-member');
+        let courseHasIndex = (await this.getIndexOfGivenCourseInSection(copiedName, this.section.activeCourses)) + 1 ;
+        let areThereStudentsInCourseContainer = await driver.$(".sc-card-wrapper.col-xl-3.col-lg-4.col-md-6.col-sm-12:nth-child("+ courseHasIndex +") .additionalInfo .btn-member");
         let areThereStudentsInCourse = await areThereStudentsInCourseContainer.getText();
         let number = parseInt(areThereStudentsInCourse);
         await expect(number).to.equal(0);

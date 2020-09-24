@@ -4,7 +4,7 @@ const sharedHelpers = require("./sharedHelpers");
 
 const elementIsPresentTimeout = 10000;
 const elementIsNotPresentTimeout = 10000;
-const elementIsClickableTimeout = 5000;
+const elementIsClickableTimeout = 10000;
 const elementIsNotClickableTimeout = 5000;
 const elementIsVisibleTimeout = 5000;
 const elementIsNotVisibleTimeout = 5000;
