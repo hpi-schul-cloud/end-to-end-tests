@@ -100,8 +100,6 @@ module.exports= {
         // return to main window
         let handle = await driver.getWindowHandles();
         await driver.switchToWindow(handle[0]);
-        let url = await driver.getUrl();
-        await waitHelpers.waitUntilElementIsPresent('.content-wrapper');
     },
 
 
