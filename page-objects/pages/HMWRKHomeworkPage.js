@@ -9,7 +9,6 @@ const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/Logi
 const logoutPage = require('../../page-objects/pages/generalPagesBeforeLogin/LogoutPage');
 const HMWRKHomeworkListPage = require("./HMWRKHomeworkListPage");
 
-
 const submissionTab = "#submission-tab-link";
 
 const urlHomework = `${CLIENT.URL}/homework`;
