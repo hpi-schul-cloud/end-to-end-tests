@@ -213,7 +213,7 @@ module.exports = {
         const courseIndex = await this.getIndexOfGivenCourseInSection(courseName, section);
         const courseList = await this.getListOfCoursesInSection(section);
         const element = courseList[courseIndex];
-        await element.click();
+        await waitHelpers.waitAndClick(element);
     },
 
     getNumberOfMembersInGivenCourseInSection: async function (courseName, section) {
