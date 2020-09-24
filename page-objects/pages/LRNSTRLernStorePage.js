@@ -74,7 +74,7 @@ module.exports= {
             try{
                 const result = await Promise.all(courseList);
                 const isTheSameName = (element) => element==elementToSearch;
-                return (await result.findIndex(isTheSameName)+1);
+                return (result.findIndex(isTheSameName)+1);
             }
             catch (e){
                   console.error(e)
