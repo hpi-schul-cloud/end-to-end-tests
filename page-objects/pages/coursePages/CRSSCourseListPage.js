@@ -265,8 +265,8 @@ module.exports = {
         await this.goToTasksOfTheCourse(coursename);
     },
 
-    verifyCourseAndTopic: async function (coursename, topicname) {
-        await this.clickOnCourseInSection(coursename, this.section.activeCourses);
+    verifyCourseAndTopic: async function (coursename, topicname, section) {
+        await this.clickOnCourseInSection(coursename, section);
         let topicNames = await Promise.all((await driver.$$("#topic-list > div > div > div")).map(async (element) => await element.getText()));
         await expect(topicNames).to.include(topicname);
     },

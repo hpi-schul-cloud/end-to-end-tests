@@ -58,7 +58,7 @@ When(/^the teacher clicks copy course (.*) with Text$/, async function(coursenam
 When(/^teacher sees the course (.*) was copied and the topic (.*) is still availiable$/, async function(coursename, topicname) {
 		//return copyCourse.verify(coursename, topicname);
 	await courseListPage.goToCourses();
-	await courseListPage.verifyCourseAndTopic(coursename, topicname);
+	await courseListPage.verifyCourseAndTopic(coursename, topicname, courseListPage.section.activeCourses);
 	});
 
 // _________With GeoGebra__________
@@ -77,7 +77,7 @@ When(/^the teacher clicks copy course (.*) with GeoGebraArbeitsblatt$/, async fu
 Then(/^teacher sees the course (.*) copy and the GeoGebraArbeitsblatt (.*) is still availiable$/, async function(coursename, topicname) {
 		//return copyCourse.verify(coursename, topicname);
 		await courseListPage.goToCourses();
-		await courseListPage.verifyCourseAndTopic(coursename, topicname);
+		await courseListPage.verifyCourseAndTopic(coursename, topicname, courseListPage.section.activeCourses);
 	});
 
 // _________With Material__________
@@ -104,7 +104,7 @@ When(/^the teacher clicks copy course (.*) with Material$/, async function(cours
 Then(/^teacher sees the course (.*) copy and the material (.*) is still availiable$/, async function(coursename, topicname) {
 	//return copyCourse.verify(coursename, topicname);
 	await courseListPage.goToCourses();
-	await courseListPage.verifyCourseAndTopic(coursename, topicname);
+	await courseListPage.verifyCourseAndTopic(coursename, topicname, courseListPage.section.activeCourses);
 });
 
 
@@ -123,7 +123,7 @@ When(/^the teacher clicks copy course (.*) with Etherpad$/, async function(cours
 Then(/^teacher sees the course (.*) copy and the Etherpadd (.*) is still availiable$/, async function(coursename, topicname) {
 	//return copyCourse.verify(coursename, topicname);
 	await courseListPage.goToCourses();
-	await courseListPage.verifyCourseAndTopic(coursename, topicname);
+	await courseListPage.verifyCourseAndTopic(coursename, topicname, courseListPage.section.activeCourses);
 });
 
 

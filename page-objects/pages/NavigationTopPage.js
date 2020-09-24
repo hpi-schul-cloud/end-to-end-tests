@@ -5,7 +5,7 @@ const elementHelpers = require('../../runtime/helpers/elementHelpers');
 
 const initialsDiv = '[data-testid="initials"]';
 const initialsDDSettings = 'a[data-testid="settings"]';
-const initialsDDLogout = 'a[data-testid="logout"]';
+const initialsDDLogout = '[data-testid="logout"]';
 const nameBox = '.dropdown-name';
 const schoolNameSelector = '.nav-item.school-data';
 const exclamationTriangle = '.fa.fa-exclamation-triangle';
@@ -76,6 +76,7 @@ module.exports = {
     clickLogout: async function () {
         await waitHelpers.waitAndClick(initialsDDLogout);
     },
+
     performLogout: async function () {
         await this.clickInitials();
         await this.clickLogout();
