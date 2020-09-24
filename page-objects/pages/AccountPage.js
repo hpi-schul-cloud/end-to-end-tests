@@ -7,6 +7,8 @@ const newPasswordInpt = 'input[data-testid="settings_password_new"]';
 const repeatNewPasswordInp = 'input[data-testid="settings_password_control"]';
 const submitAccountDataBtn = '[data-testid="submit_new_password_btn"]';
 
+
+
 module.exports = {
     setNewPassword: async function (oldPAssword, newPassword) {
         let currentPassword = await driver.$(currentPasswordInp);
@@ -17,4 +19,6 @@ module.exports = {
         await passwordControlField.setValue(newPassword);
         await waitHelpers.waitAndClick(submitAccountDataBtn);
     }
+
+
 }

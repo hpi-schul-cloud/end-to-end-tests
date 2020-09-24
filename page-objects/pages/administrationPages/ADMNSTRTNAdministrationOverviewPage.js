@@ -10,23 +10,29 @@ const administrateTeachersBtn = "div[data-testid='administrate_teachers']";
 const administrateClassesBtn = "div[data-testid='administrate_classes']";
 const administrationsSubItems = "//*[@id='sidebar']/ul/li/ul//*/span";
 
+async function goToAdministrationPage() {
+    await elementHelpers.loadPage(urlAdministration, 10)
+};
+async function clickAdministrateStudents() {
+    await waitHelpers.waitAndClick(administrateStudentsBtn);
+};
+async function clickAdministrateClasses() {
+    await waitHelpers.waitAndClick(administrateClassesBtn);
+};
+async function clickAdministrateTeachers() {
+    await waitHelpers.waitAndClick(administrateTeachersBtn);
+};
+async function getListOfAdministrationTabs() {
+    let items = await driver.$$(administrationsSubItems);
+    return items;
+};
+
 module.exports = {
-    goToAdministrationPage: async function () {
-        await elementHelpers.loadPage(urlAdministration, 10)
-    },
-    clickAdministrateStudents: async function () {
-        await waitHelpers.waitAndClick(administrateStudentsBtn);
-    },
-    clickAdministrateClasses: async function () {
-        await waitHelpers.waitAndClick(administrateClassesBtn);
-    },
-    clickAdministrateTeachers: async function () {
-        await waitHelpers.waitAndClick(administrateTeachersBtn);
-    },
-    getListOfAdministrationTabs: async function () {
-        let items = await driver.$$(administrationsSubItems);
-        return items;
-    }
+    goToAdministrationPage,
+    clickAdministrateStudents,
+    clickAdministrateClasses,
+    clickAdministrateTeachers,
+    getListOfAdministrationTabs,
 }
 
 
