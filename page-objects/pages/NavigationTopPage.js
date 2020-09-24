@@ -7,7 +7,7 @@ const initialsDiv = '[data-testid="initials"]';
 //old: const initialsDDCurrentUser = 'div.dropdown-name[data-testid="name-in-the-icon"]';
 const initialsDDCurrentUser = '[data-testid="name-in-the-icon"]';
 const initialsDDSettings = 'a[data-testid="settings"]';
-const initialsDDLogout = 'a[data-testid="logout"]';
+const initialsDDLogout = '.data-testid="logout"';
 const nameBox = '.dropdown-name';
 const userIcon = '.btn-avatar > a';
 const schoolNameSelector = '.nav-item.school-data';
