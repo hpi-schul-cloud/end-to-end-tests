@@ -22,7 +22,7 @@ module.exports = {
 	helperReturnIndexOfTopicWithNameInTopicsList: async function(topicName) {
 		let topicNames = await Promise.all((await driver.$$(selectors.containerWithTopics+ "> div > div > div")).map(async (element) => await element.getText()));
         const isTheSameName = (element) => element==topicName;
-                return (await topicNames.findIndex(isTheSameName)+1);
+                return (topicNames.findIndex(isTheSameName)+1);
 	},
 	goToTopic: async function(topicName) {
 		let index = await this.helperReturnIndexOfTopicWithNameInTopicsList(topicName);
