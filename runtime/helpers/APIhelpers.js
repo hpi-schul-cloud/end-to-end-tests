@@ -97,10 +97,10 @@ module.exports = {
 			headers: {
 				Authorization: `${jwt}`
 			},
-		  });
+		});
 		
-		  let numberOfFoundMaterials = info.data.total;
-		  return numberOfFoundMaterials;
+		let numberOfFoundMaterials = info.data.total;
+		return numberOfFoundMaterials;
 	},
 	getTheFirstElementNamePerRESTRequest: async function(request) {
 		const cookie = await driver.getCookies(['jwt']);
