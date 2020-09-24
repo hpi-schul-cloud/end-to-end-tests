@@ -1,11 +1,10 @@
 /*[url/courses]/[courseId]/topics/add] | [url/courses]/[courseId]/topics/edit]*/
 'use strict';
-const { CLIENT } = require("../../../shared-objects/servers");
+
 const waitHelpers = require("../../../runtime/helpers/waitHelpers.js");
 
 const topicName = ".form-group > .form-control";
 const themaAnlegenButton = ".btn.btn-primary.btn-submit";
-const lernStoreUrl = `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`;
 const textFieldSel = '.ck-content';
 const textBtn = ".btn-group > button:nth-child(1)";
 //geoGebra:
@@ -20,6 +19,10 @@ const btnContainerMaterial = ".fa.fa-plus-square";
 const etherpadBtn = ".btn-group > button:nth-child(4)";
 const etherpadNameField = "#content-blocks > div > div:nth-child(1) .form-control";
 const etherpadDescriptionField = "div:nth-child(2) > textarea";
+//lernstore
+const btnAttachLernstoreMaterial = "#content-blocks .btn-secondary.btn-add";
+const lernstoreBtn = ".btn-group > button:nth-child(3)";
+const selectorIDContainer = "#content-blocks";
 
 module.exports = {
 	setTopic: async function (topicname) {
@@ -71,4 +74,11 @@ module.exports = {
 		let descriptionField = await driver.$(etherpadDescriptionField);
 		await descriptionField.setValue(description);
 	},
+	addLernstoreMaterial: async function(name) {
+		await waitHelpers.waitAndClick(lernstoreBtn);
+		let idContainer = await driver.$(selectorIDContainer);
+	    let lernstoreSelector = await idContainer.$(".form-control");
+		await lernstoreSelector.setValue(name);
+		await waitHelpers.waitAndClick(btnAttachLernstoreMaterial);
+	}
 }
