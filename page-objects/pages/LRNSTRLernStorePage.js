@@ -5,40 +5,22 @@ const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
 const apiHelpers = require('../../runtime/helpers/APIhelpers');
 const stringHelpers= require('../../runtime/helpers/stringHelpers');
 const {CLIENT} = require("../../shared-objects/servers");
-const url= `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`;
+const url = `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`;
 let title;
 
-
-
-
-const selectors = {
-    searchField: ".input-active.search__container > input",
-    searchIcon: ".search__container--icon",
-    contentContainer: ".content__container",
-    contentContainer2: ".grid",
-    numberOfContentOnGUI: ".content__total",
-    firstElement: "div.content__container > div > section:nth-child(1)",
-    titleOfMaterialWhenClicked: ".content-container > .title",
-
-    courseAndTitleContainer: '.content-modal__body',
-
-    containerTopic: this.courseAndTitleContainer+'div:nth-child(2)',
-    clickableElementDropDown: '.multiselect__select',
-
-    selectorsNameOfCourses: {
-        selectorCourseTitles: "div.multiselect__content-wrapper > ul > li > span"
-    },
-
-    submitAddToCourseAndTopic: '[data-testid="modal_submit_btn"]',
-    selectorForMaterialLink: 'div.metadata > div:nth-child(2) > div.meta-text.text-wrap > a',
-
-
-    courseSelector: '[data-testid="courseSelector"]',
-    topicSelector: '[data-testid="topicSelector"]',
-    submitBtnAfterMaterialWasAddedToCourseAndTopic: "div.footer-button > button",
-    selectorWithTheNamesOfMaterialsInTopic: '.h4.card-title > a',
+const selectorSearchField = ".input-active.search__container > input";
+const selectorSearchIcon =  ".search__container--icon";
+const selectorNumberOfContentOnGUI = ".content__total";
+const selectorFirstElement = "div.content__container > div > section:nth-child(1)";
+const selectorTitleOfMaterialWhenClicked = ".content-container > .title";
+const selectorCourseTitles = "div.multiselect__content-wrapper > ul > li > span";
+const selectorSubmitAddToCourseAndTopic = '[data-testid="modal_submit_btn"]';
+const selectorCourseSelector = '[data-testid="courseSelector"]';
+const selectorTopicSelector = '[data-testid="topicSelector"]';
+const selectorSubmitBtnAfterMaterialWasAddedToCourseAndTopic = "div.footer-button > button";
+const selectorWithTheNamesOfMaterialsInTopic = '.h4.card-title > a';
  
-}
+
 module.exports= {
     title,
  
@@ -51,24 +33,23 @@ module.exports= {
         await waitHelpers.waitUntilUrlContains(url);
     },
     insertSearchRequest: async function(content) {
-        await waitHelpers.waitAndSetValue(selectors.searchField, content);
-        await waitHelpers.waitAndClick(selectors.searchIcon);
+        await waitHelpers.waitAndSetValue(selectorSearchField, content);
+        await waitHelpers.waitAndClick(selectorSearchIcon);
     
     },
     rightNumberOfFoundContentDisplayed: async function(request) {
-        let selectorTotalNum = await driver.$(selectors.numberOfContentOnGUI);
+        let selectorTotalNum = await driver.$(selectorNumberOfContentOnGUI);
         let displayedString= await selectorTotalNum.getText();
         let displayedNum = await stringHelpers.cutStringAfterSymbol(displayedString, ' ');
         let apiResponse = await apiHelpers.getLernstoreMaterialsAfterRequest(request);
         await expect(`${apiResponse}`).to.equal(displayedNum);
     },
     clickOnContentCard: async function(request) {
-        await waitHelpers.waitAndClick(selectors.firstElement);
-        await this.checkThatTheMaterialOnGUIAndAPIAreDisplayedCorrectly(request)
-        
+        await waitHelpers.waitAndClick(selectorFirstElement);
+        await this.checkThatTheMaterialOnGUIAndAPIAreDisplayedCorrectly(request)  
     },
     checkThatTheMaterialOnGUIAndAPIAreDisplayedCorrectly: async function(request) {
-        let titleOnGUISelector = await driver.$(selectors.titleOfMaterialWhenClicked);
+        let titleOnGUISelector = await driver.$(selectorTitleOfMaterialWhenClicked);
         let titleOnGUI = await titleOnGUISelector.getText();
         this.title = titleOnGUI;
         let titleOnAPIRequest = await apiHelpers.getTheFirstElementNamePerRESTRequest(request);
@@ -79,7 +60,6 @@ module.exports= {
         await driver.execute(scriptToClickBtn);
         await driver.pause(1500);
     },
-
     addToCourseOrTopic: async function(courseOrTopicName, courseOrTopicContainer) {
         await waitHelpers.waitAndClick(courseOrTopicContainer+'> div')
         const courseIndex = await this.getIndexOfCourseOrTopicInDropdown(courseOrTopicContainer, courseOrTopicName);
@@ -89,7 +69,7 @@ module.exports= {
 
     },
     getIndexOfCourseOrTopicInDropdown: async function(container, elementToSearch) {
-        const selector = `${container} ${selectors.selectorsNameOfCourses.selectorCourseTitles}`;
+        const selector = `${container} ${selectorCourseTitles}`;
         const courseList = (await driver.$$(selector)).map((element) => element.getText());
             try{
                 const result = await Promise.all(courseList);
@@ -102,23 +82,19 @@ module.exports= {
     },  
     // params: courseName or TopicName, selector - container of topics or courses
     addToCourseAndTopic: async function(course, topic) {
-        await this.addToCourseOrTopic(course, selectors.courseSelector);
-        await this.addToCourseOrTopic(topic,selectors.topicSelector);
+        await this.addToCourseOrTopic(course, selectorCourseSelector);
+        await this.addToCourseOrTopic(topic, selectorTopicSelector);
     },
     clickSubmitAddContentBtn: async function() {
-        await waitHelpers.waitAndClick(selectors.submitAddToCourseAndTopic);
-        await waitHelpers.waitAndClick(selectors.submitBtnAfterMaterialWasAddedToCourseAndTopic);
+        await waitHelpers.waitAndClick(selectorSubmitAddToCourseAndTopic);
+        await waitHelpers.waitAndClick(selectorSubmitBtnAfterMaterialWasAddedToCourseAndTopic);
         // return to main window
         let handle = await driver.getWindowHandles();
         await driver.switchToWindow(handle[0]);
     },
     listOfAttachedMaterialsInTheTopic: async function() {
-        const listOfAttachedMaterialsInTheTopicPromise = (await driver.$$(selectors.selectorWithTheNamesOfMaterialsInTopic)).map((element) => element.getText());
+        const listOfAttachedMaterialsInTheTopicPromise = (await driver.$$(selectorWithTheNamesOfMaterialsInTopic)).map((element) => element.getText());
         const listOfAttachedMaterialsInTheTopic = await Promise.all(listOfAttachedMaterialsInTheTopicPromise);
         return listOfAttachedMaterialsInTheTopic;
     }
-
-
-    
-
 }
