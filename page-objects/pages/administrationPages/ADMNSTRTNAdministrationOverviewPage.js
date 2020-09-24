@@ -5,11 +5,10 @@ const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 const waitHelpers = require('../../../runtime/helpers/waitHelpers');
 
 const urlAdministration = `${CLIENT.URL}/administration`;
-const administrateStudentsBtn = 'div[data-testid=\'administrate_students\']';
-const administrateTeachersBtn = 'div[data-testid=\'administrate_teachers\']';
-const administrateClassesBtn = 'div[data-testid=\'administrate_classes\']';
-//const administrationsTabs = 'ul.subitems span';
-const administrationsSubItems = '//*[@id=\'sidebar\']/ul/li/ul//*/span';
+const administrateStudentsBtn = "div[data-testid='administrate_students']";
+const administrateTeachersBtn = "div[data-testid='administrate_teachers']";
+const administrateClassesBtn = "div[data-testid='administrate_classes']";
+const administrationsSubItems = "//*[@id='sidebar']/ul/li/ul//*/span";
 
 module.exports = {
     goToAdministrationPage: async function () {
@@ -24,7 +23,7 @@ module.exports = {
     clickAdministrateTeachers: async function () {
         await waitHelpers.waitAndClick(administrateTeachersBtn);
     },
-    getAdministrationTabs: async function () {
+    getListOfAdministrationTabs: async function () {
         let items = await driver.$$(administrationsSubItems);
         return items;
     }

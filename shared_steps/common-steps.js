@@ -21,11 +21,11 @@ Given(/^.*logs in with email (.*) and password (.*)$/, async function (username,
 
 Given(/^teacher is successfully logged in$/, async function () {
 	await startPage.clickLoginBtn();
-	await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.defaultLoginData.defaultTeacherpassword);
+	await loginPage.performLogin(loginPage.users.teachers.klaraFallUsername, loginPage.users.teachers.klaraFallPassword);
 });
 Given(/^admin is successfully logged in$/, async function () {
 	await startPage.clickLoginBtn();
-	await loginPage.performLogin(loginPage.defaultLoginData.defaultAdminUsername, loginPage.defaultLoginData.defaultAdminPassword);
+	await loginPage.performLogin(loginPage.users.admins.thorstenTestUsername, loginPage.users.admins.thorstenTestPassword);
 });
 
 When(/^.*goes from start page to login page$/, async function () {

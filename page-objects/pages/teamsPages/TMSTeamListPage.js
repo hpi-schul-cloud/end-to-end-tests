@@ -5,7 +5,6 @@ const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 const { CLIENT } = require("../../../shared-objects/servers");
 const url = `${CLIENT.URL}/teams`;
 const addTeamURL = `${CLIENT.URL}/teams/add`;
-const teamsContainer = 'div[data-testid="courses"]';
 const namesContainer = '.row.tasks.card-deck-row';
 
 
