@@ -11,23 +11,29 @@ const urlCoursesAdd = `${CLIENT.URL}/courses/add`;
 
 const nextSectionBtn = "#nextSection";
 const section = {
-	one: '[data-testid="section-1-area"]',
-	two: '[data-testid="section-2-area"]',
-	three: '[data-testid="section-3-area"]',
+		one: '[data-testid="section-1-area"]',
+		two: '[data-testid="section-2-area"]',
+		three: '[data-testid="section-3-area"]',
 };
-
 const chosenDefInput = ".chosen-search-input.default";
 const chosenInput = ".search-choice span";
-
-const multipleChoiceSelectForStudents = 'select[data-testid="pupils"]';
-
-
-//Course data section
-const courseNameInput = '[data-testid="coursename"]';
+const multipleChoiceSelectForStudents ='select[data-testid="pupils"]';
+	//Course data section
+const courseNameInput ='[data-testid="coursename"]';
 const teacherContainer = '[data-testid="teachers_container"]';
-const teacherSubContainer = '[data-testid="courseSubstitute_container"]';
-
+const teacherSubContainer ='[data-testid="courseSubstitute_container"]';
 const colourPicker = ".color-picker__item";
+const timeSpan = {
+		start: '[data-testid="date_start"]',
+		end: "#untilDate",
+};
+//Participants section
+const classContainer = '[data-testid="class_container"]';
+const studentsContainer = '[data-testid="students_container"]';
+//Final section
+const createNewCourseBtn ='[data-testid="einen-weiteren-kurs-anlegen-btn"]';
+const goToCourseListBtn = '[data-testid="zur-uebersicht-btn"]';
+
 const courseColour = [
 	"grey",
 	"metallicGold",
@@ -39,19 +45,6 @@ const courseColour = [
 	"violetRed",
 	"corn",
 ];
-
-const timeSpan = {
-	start: '[data-testid="date_start"]',
-	end: "#untilDate",
-};
-
-//Participants section
-const classContainer = '[data-testid="class_container"]';
-const studentsContainer = '[data-testid="students_container"]';
-
-//Final section
-const createNewCourseBtn = '[data-testid="einen-weiteren-kurs-anlegen-btn"]';
-const goToCourseListBtn = '[data-testid="zur-uebersicht-btn"]';
 
 module.exports = {
 	goToAddCourses: async function() {

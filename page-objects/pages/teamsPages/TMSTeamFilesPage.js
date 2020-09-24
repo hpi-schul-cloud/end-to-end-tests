@@ -1,8 +1,8 @@
 /*[url/teams/[teamId]files]*/
 'use strict';
 
-const selectors = {
-	// team internal options
-	filesTab: 'div[data-testid="team_files"]'
-},
+const { CLIENT } = require("../../../shared-objects/servers");
+// team internal options
+const filesTab = 'div[data-testid="team_files"]';
+
 

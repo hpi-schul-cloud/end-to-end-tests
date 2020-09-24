@@ -9,8 +9,7 @@ Background:
     Given teacher accepts data protection
 
 Scenario:
-
-    When The Teacher goes to Verwaltung page
+    When click left navigation item "administration"
     Then Verify if all required tabs are visible in Verwaltung area
     | tabs         |
     |SCHÜLER:INNEN | 
