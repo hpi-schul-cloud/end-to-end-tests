@@ -18,6 +18,7 @@ const createCourseBtn = '[data-testid="create-course-btn"]';
 const container_of_element = '[data-testid="container_of_element"]';
 const header_of_element = '[data-testid="header-of-element"]';
 const listOfMembersSel = "#member-modal-body > ol > li";
+const headerOnPageCurse = "h2.text-center";
 
 
 const courseColour = {
@@ -33,40 +34,45 @@ const courseColour = {
 };
 
 const section = {
-    allCourses: ".section-courses",
-    activeCourses: ".section-activeCourses",
-    archievedCourses: ".section-archievedCourses"
+        allCourses: ".section-courses",
+        activeCourses: ".section-activeCourses",
+        archievedCourses: ".section-archievedCourses"
 };
 
-module.exports = {
-    section,
-
-    goToCourses: async function () {
+async function goToCourses() {
         await elementHelpers.loadPage(urlCourses, 30);
-    },
+};
 
-    importAndCreateCourseBtnsAreVisible: async function () {
+async function importAndCreateCourseBtnsAreVisible() {
         expect(await elementHelpers.isElementPresent(importCourseBtn)).to.equal(true);
         expect(await elementHelpers.isElementPresent(createCourseBtn)).to.equal(true);
 
-    },
+};
 
-    courseIsDisplayedCorrectly: async function (courseName) {
-        const activeCoursesContainer = await driver.$(this.section.activeCourses);
+async function courseIsDisplayedCorrectly(courseName) {
+        const activeCoursesContainer = await driver.$(section.activeCourses);
         const coursesOnThePage = await activeCoursesContainer.$$(titleOfCourse);
         const courseCount = await coursesOnThePage.length;
         const courseTitleCard = coursesOnThePage[courseCount - 1];
         const courseTitle = await courseTitleCard.getText();
         expect(courseTitle).to.equal(courseName);
-    },
+};
 
-    isCourseOnList: async function (coursename) {
-        const allActiveCourses = await this.getListOfCourseTitlesInSection(this.section.activeCourses);
-        expect(allActiveCourses).to.include(coursename);
-    },
+async function isCourseOnList(coursename) {
+        // if list of courses is empty
+        let isHeaderVisible = await elementHelpers.isElementPresent(headerOnPageCurse);
+        let isOnList = false; 
+		if (isHeaderVisible) {
+			return isOnList;
+		} else {
+            const allCourses = await getListOfCourseTitlesInSection(section.allCourses);
+            isOnList = allCourses.includes(coursename);
+            return isOnList;
+        }
+};
 
-    isCorrectCourseColour: async function (colour) {
-        const activeCoursesContainer = await driver.$(this.section.activeCourses);
+async function isCorrectCourseColour(colour) {
+        const activeCoursesContainer = await driver.$(section.activeCourses);
         const coursesOnThePage = await activeCoursesContainer.$$(container_of_element);
         const indexOfTheLastAddedCourse = await coursesOnThePage.length;
         const container = await driver.$(container_of_element + ":nth-child(" + indexOfTheLastAddedCourse + ")");
@@ -75,15 +81,15 @@ module.exports = {
         const regexp = /background:#[A-F, 0-9]{6}/;
         const styleMatches = styleArray.match(regexp);
         const style = styleMatches[0];
-        const colourNumber = this.getColourSelector(colour);
+        const colourNumber = getColourSelector(colour);
         expect(style).to.equal(colourNumber);
-    },
+};
 
-    clickCreateCourseBtn: async function () {
+async function clickCreateCourseBtn() {
         await waitHelpers.waitAndClick(createCourseBtn);
-    },
+};
 
-    getColourSelector: function (colourName) {
+function getColourSelector(colourName) {
         let colourSelector;
         switch (colourName) {
             case "grey": colourSelector = courseColour.grey;
@@ -109,14 +115,14 @@ module.exports = {
                 break;
         }
         return colourSelector;
-    },
+};
 
-    fillCourseNameIntoSearchInputField: async function (courseName) {
+async function fillCourseNameIntoSearchInputField(courseName) {
         await elementHelpers.fillInputField(searchCourseFiled, courseName);
-    },
+};
 
-    countDisplayedCoursesForSection: async function (section) {
-        const elem = await this.getListOfCoursesInSection(section);
+async function countDisplayedCoursesForSection(section) {
+        const elem = await getListOfCoursesInSection(section);
         var numberOfDisplayedCourses = 0;
         for (var i = 0; i < elem.length; i++) {
             if ((await elem[i].isDisplayed()) == true) {
@@ -124,63 +130,63 @@ module.exports = {
             }
         }
         return numberOfDisplayedCourses;
-    },
+};
 
-    getCourseWrapper: async function (courseName) {
+async function getCourseWrapper(courseName) {
         const courseWrapper = await driver.$('//*[contains(@class,"sc-card-wrapper") and contains(.//span, "' + courseName + '")]');
         return courseWrapper;
-    },
+};
 
-    getNamesOfMembers: async function () {
+async function getNamesOfMembers() {
         const listOfMembers = await driver.$$(listOfMembersSel);
         return elementHelpers.getTextListFromListOfElements(listOfMembers);
-    },
+};
 
-    areMembersOnTheListInCourseForSection: async function (courseName, members, section) {
-        await this.clickPupilIconInCourseInSection(courseName, section);
+async function areMembersOnTheListInCourseForSection(courseName, members, section) {
+        await clickPupilIconInCourseInSection(courseName, section);
         await driver.pause(1000);
-        let names = await this.getNamesOfMembers();
+        let names = await getNamesOfMembers();
         expect(names).to.have.members(members);
-    },
+};
 
-    isCorrectNumberOfMembersInCourseForSection: async function (courseName, members, section) {
+async function isCorrectNumberOfMembersInCourseForSection(courseName, members, section) {
         const numberOfExpectedMembers = members.length;
-        const numberOfMembers = await this.getNumberOfMembersInGivenCourseInSection(courseName, section);
+        const numberOfMembers = await getNumberOfMembersInGivenCourseInSection(courseName, section);
         expect(numberOfMembers).to.equal(numberOfExpectedMembers);
-    },
+};
 
-    getListOfCoursesInSection: async function (section) {
+async function getListOfCoursesInSection(section) {
         await waitHelpers.waitUntilPageLoads();
         await waitHelpers.waitUntilElementIsPresent(section + " " + courseWrapper);
         const listOfCourses = await driver.$$(section + " " + courseWrapper);
         return listOfCourses;
-    },
+};
 
-    getIndexOfGivenCourseInSection: async function (courseName, section) {
-        const listOfCourseTitlesForSection = await this.getListOfCourseTitlesInSection(section);
+async function getIndexOfGivenCourseInSection(courseName, section) {
+        const listOfCourseTitlesForSection = await getListOfCourseTitlesInSection(section);
         var index = listOfCourseTitlesForSection.indexOf(courseName);
         return index;
-    },
+};
 
-    getDescriptionCourse: async function (index) {
+async function getDescriptionCourse(index) {
         try {
             return await elementHelpers.getElementText(".section-activeCourses div:nth-child(" + index + ") > article > div.sc-card-body.ckcontent");
         } catch (error) {
             log.error("Can not get value: " + error.message);
             throw error;
         }
-    },
+};
 
-    getCourseName: async function (index) {
+async function getCourseName(index) {
         try {
             return await elementHelpers.getElementText(".section-activeCourses div:nth-child(" + index + ") > article span.title");
         } catch (error) {
             log.error("Can not get value: " + error.message);
             throw error;
         }
-    },
+};
 
-    getColorCourse: async function (index) {
+async function getColorCourse(index) {
         try {
             let courseContainer = await driver.$(".section-activeCourses div:nth-child(" + index + ") > article > div.sc-card-header");
             const css = await courseContainer.getCSSProperty("background-color");
@@ -190,19 +196,19 @@ module.exports = {
             log.error("Can not get value: " + error.message);
             throw error;
         }
-    },
+};
 
-    getWrapperOfCourseInSection: async function (courseName, section) {
-        var index = await this.getIndexOfGivenCourseInSection(courseName, section);
+async function getWrapperOfCourseInSection(courseName, section) {
+        var index = await getIndexOfGivenCourseInSection(courseName, section);
         if(index == -1) 
             throw "Can't find course: " + courseName + " in section: " + section;
         
-        const list = await this.getListOfCoursesInSection(section);
+        const list = await getListOfCoursesInSection(section);
         const element = list[index];
         return element;
-    },
+};
 
-    getListOfCourseTitlesInSection: async function (section) {
+async function getListOfCourseTitlesInSection(section) {
         await waitHelpers.waitUntilPageLoads();
         const selector = section + " " + courseWrapper + " " + titleOfCourse;
         try {
@@ -216,67 +222,98 @@ module.exports = {
         const listOfCourseTitleElements = await driver.$$(selector);
         let courseTitleList = await Promise.all(listOfCourseTitleElements.map(async (element) => (await element.getText())));
         return courseTitleList;
-    },
+};
 
-    countCoursesWhichTitlesContainTextInSection: async function (text, section) {
-        let listOfCourseNames = await this.getListOfCourseTitlesInSection(section);
+async function countCoursesWhichTitlesContainTextInSection(text, section) {
+        let listOfCourseNames = await getListOfCourseTitlesInSection(section);
         var re = new RegExp(text, "gi");
         const matchingNames = listOfCourseNames.filter((n) => n.match(re));
         return matchingNames.length;
-    },
+};
 
-    clickOnCourseInSection: async function (courseName, section) {
-        const courseIndex = await this.getIndexOfGivenCourseInSection(courseName, section);
+async function clickOnCourseInSection(courseName, section) {
+        const courseIndex = await getIndexOfGivenCourseInSection(courseName, section);
         if(courseIndex == -1) 
             throw "Can't find course: " + courseName + " in section: " + section;
 
-        const courseList = await this.getListOfCoursesInSection(section);
+        const courseList = await getListOfCoursesInSection(section);
         const element = courseList[courseIndex];
         await waitHelpers.waitAndClick(element);
-    },
+};
 
-    getNumberOfMembersInGivenCourseInSection: async function (courseName, section) {
-        const courseWrapper = await this.getWrapperOfCourseInSection(courseName, section);
+async function getNumberOfMembersInGivenCourseInSection(courseName, section) {
+        const courseWrapper = await getWrapperOfCourseInSection(courseName, section);
         await driver.pause(1000);
         const element = await courseWrapper.$(memberBtn);
         let text = await element.getText();
         let number = parseInt(text);
         return number;
-    },
+};
 
-    clickPupilIconInCourseInSection: async function (courseName, section) {
-        const courseWrapper = await this.getWrapperOfCourseInSection(courseName, section);
+async function clickPupilIconInCourseInSection(courseName, section) {
+        const courseWrapper = await getWrapperOfCourseInSection(courseName, section);
         await driver.pause(1000);
         let pupilIcon = await courseWrapper.$(memberBtn);
         await pupilIcon.click();
         await driver.pause(500);
-    },
+};
 
-    goToTasksOfTheCourse: async function (coursename) {
-        await this.goToCourses();
-        await this.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
-        await this.gotoTasksTab();
-    },
+async function goToTasksOfTheCourse(coursename) {
+        await goToCourses();
+        await clickOnCourseInSection(coursename, section.activeCourses);
+        await gotoTasksTab();
+};
 
-    studentLogsInAndGoesToTasksOfTheCourse: async function (username, password, coursename) {
+async function studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename) {
         await logoutPage.goToLogoutPage();
         await startPage.performLogin(username, password);
         await loginPage.firstLoginStudent(username, password);
-        await this.goToTasksOfTheCourse(coursename);
-    },
+        await goToTasksOfTheCourse(coursename);
+};
 
-    verifyCourseAndTopic: async function (coursename, topicname, section) {
-        await this.clickOnCourseInSection(coursename, section);
+async function verifyCourseAndTopic(coursename, topicname, section) {
+        await clickOnCourseInSection(coursename, section);
         let topicNames = await Promise.all((await driver.$$("#topic-list > div > div > div")).map(async (element) => await element.getText()));
         await expect(topicNames).to.include(topicname);
-    },
-    verifyCopyWithStudents: async function (coursename) {
+};
+
+async function verifyCopyWithStudents(coursename) {
         let copiedName = coursename + " - Kopie";
-        let courseHasIndex = (await this.getIndexOfGivenCourseInSection(copiedName, this.section.activeCourses)) + 1 ;
+        let courseHasIndex = (await getIndexOfGivenCourseInSection(copiedName, section.activeCourses)) + 1 ;
         let areThereStudentsInCourseContainer = await driver.$(".sc-card-wrapper.col-xl-3.col-lg-4.col-md-6.col-sm-12:nth-child("+ courseHasIndex +") .additionalInfo .btn-member");
         let areThereStudentsInCourse = await areThereStudentsInCourseContainer.getText();
         let number = parseInt(areThereStudentsInCourse);
         await expect(number).to.equal(0);
 
-    }
+}
+    module.exports = {
+        section,
+        goToCourses,
+        importAndCreateCourseBtnsAreVisible,
+        courseIsDisplayedCorrectly,
+        isCourseOnList,
+        isCorrectCourseColour,
+        clickCreateCourseBtn,
+        getColourSelector,
+        fillCourseNameIntoSearchInputField,
+        countDisplayedCoursesForSection,
+        getCourseWrapper,
+        getNamesOfMembers,
+        areMembersOnTheListInCourseForSection,
+        isCorrectNumberOfMembersInCourseForSection,
+        getListOfCoursesInSection,
+        getIndexOfGivenCourseInSection,
+        getDescriptionCourse,
+        getCourseName,
+        getColorCourse,
+        getWrapperOfCourseInSection,
+        getListOfCourseTitlesInSection,
+        countCoursesWhichTitlesContainTextInSection,
+        clickOnCourseInSection,
+        getNumberOfMembersInGivenCourseInSection,
+        clickPupilIconInCourseInSection,
+        goToTasksOfTheCourse,
+        studentLogsInAndGoesToTasksOfTheCourse,
+        verifyCourseAndTopic,
+        verifyCopyWithStudents,
 };
