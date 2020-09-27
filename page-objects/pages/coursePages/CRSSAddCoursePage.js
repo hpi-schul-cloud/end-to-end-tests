@@ -4,8 +4,8 @@ const { CLIENT } = require("../../../shared-objects/servers");
 const elementHelpers = require("../../../runtime/helpers/elementHelpers");
 const waitHelpers = require("../../../runtime/helpers/waitHelpers");
 const axios = require("axios");
-
-const urlCoursesAdd = `${CLIENT.URL}/courses/add`;
+const courseListPage = require('./CRSSCourseListPage');
+const navigationLeftPage= require('../NavigationLeftPage');
 
 //Sections
 
@@ -48,7 +48,8 @@ const courseColour = [
 
 module.exports = {
 	goToAddCourses: async function() {
-		await elementHelpers.loadPage(urlCoursesAdd, 20)
+		await navigationLeftPage.clickNavItemCourses();
+		await courseListPage.clickCreateCourseBtn();
 	},
 
 	goToNextSection: async function () {
