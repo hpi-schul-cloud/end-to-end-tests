@@ -1,22 +1,19 @@
 /*[url/dashboard]*/
 'use strict';
 
-const { CLIENT } = require("../../shared-objects/servers");
 const navigationTopPage = require('../../page-objects/pages/NavigationTopPage');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const apiHelpers = require('../../runtime/helpers/APIhelpers');
 const waitHelpers = require("../../runtime/helpers/waitHelpers");
-
-const dashboardUrl = `${CLIENT.URL}/dashboard`;
 const dashboardTitle = 'Übersicht';
 const dashboardHeader = '#titlebar h1#page-title';
 //const sidebarList = 'ul.sidebar-list[title]';
 const sidebarList = 'ul.sidebar-list a[title] span.link-name';
+const dashboardOnLeftNavigationPanel = "[data-testid='startseite']";
 
 module.exports = {
 	goToDashboard: async function () {
-		await elementHelpers.loadPage(dashboardUrl, 20);
-		await driver.pause(1000);
+		await waitHelpers.waitAndClick(dashboardOnLeftNavigationPanel);
 	},
 
 	loginResultDashboard: async function () {
