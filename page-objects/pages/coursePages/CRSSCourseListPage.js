@@ -5,9 +5,8 @@ const elementHelpers = require("../../../runtime/helpers/elementHelpers");
 const waitHelpers = require("../../../runtime/helpers/waitHelpers");
 const startPage = require('../../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin');
 const loginPage = require('../../../page-objects/pages/generalPagesBeforeLogin/LoginPage');
-const logoutPage = require('../../../page-objects/pages/generalPagesBeforeLogin/LogoutPage');
+const navigationLeftPage = require('../NavigationLeftPage');
 
-const urlCourses = `${CLIENT.URL}/courses`;
 const searchCourseFiled = ".input-group .search-field";
 const courseWrapper = ".sc-card-wrapper";
 const titleOfCourse = ".title";
@@ -40,7 +39,7 @@ const section = {
 };
 
 async function goToCourses() {
-        await elementHelpers.loadPage(urlCourses, 30);
+        await navigationLeftPage.clickNavItemCourses();
 };
 
 async function importAndCreateCourseBtnsAreVisible() {
