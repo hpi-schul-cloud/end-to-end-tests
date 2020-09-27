@@ -5,7 +5,6 @@ const navigationLeftPage = require('./NavigationLeftPage')
 const selectorNewsElementInTheList = 'span.title';
 
 module.exports = {
-	// URL HELPER
 	goToNews: async function() {
 		await navigationLeftPage.clickNavItemNews();
     },
