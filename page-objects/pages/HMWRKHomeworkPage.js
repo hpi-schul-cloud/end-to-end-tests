@@ -1,18 +1,17 @@
 /*[url/homework/[homeworkId]]*/
 'use strict';
-const { CLIENT } = require("../../shared-objects/servers");
+
 const waitHelpers = require('../../runtime/helpers/waitHelpers');
 const courseListPage = require('../../page-objects/pages/coursePages/CRSSCourseListPage');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const startPage = require('../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin');
 const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage');
-const logoutPage = require('../../page-objects/pages/generalPagesBeforeLogin/LogoutPage');
 const HMWRKHomeworkListPage = require("./HMWRKHomeworkListPage");
 const navigationTopPage = require('../pages/NavigationTopPage');
 
 const submissionTab = "#submission-tab-link";
 
-const urlHomework = `${CLIENT.URL}/homework`;
+const homeworkOnLeftNavigationPanel = "[data-testid='Aufgaben']"
 const textFieldSel = '.ck-content';
 const submitBtn = '.ckeditor-submit';
 const submitted_by_boxSel = '#submissions .groupNames > span';
@@ -23,8 +22,7 @@ const gradeFilesListSel = '.list-group-files';
 
 module.exports = {
     goToHomeworkListPage: async function () {
-        await elementHelpers.loadPage(urlHomework, 20);
-    },
+        await waitHelpers.waitAndClick(homeworkOnLeftNavigationPanel);
 
     switchToSubmissionTab: async function () {
         await waitHelpers.waitAndClick(submissionTab);
