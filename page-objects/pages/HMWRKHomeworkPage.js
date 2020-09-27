@@ -8,6 +8,7 @@ const startPage = require('../../page-objects/pages/generalPagesBeforeLogin/Star
 const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage');
 const logoutPage = require('../../page-objects/pages/generalPagesBeforeLogin/LogoutPage');
 const HMWRKHomeworkListPage = require("./HMWRKHomeworkListPage");
+const navigationTopPage = require('../pages/NavigationTopPage');
 
 const submissionTab = "#submission-tab-link";
 
@@ -83,7 +84,7 @@ module.exports = {
     },
 
     submitFileFeedback: async function (taskName, file) { // back to teacher
-        await logoutPage.goToLogoutPage();
+        await navigationTopPage.performLogout();
         await startPage.clickLoginBtn();
         await loginPage.performLogin(loginPage.users.teachers.klaraFallUsername, loginPage.users.teachers.klaraFallPassword);
         await this.goToHomeworkListPage();
@@ -121,7 +122,7 @@ module.exports = {
         await driver.switchToWindow(mainWindow);
 
         // ensure the student sees the file
-        await logoutPage.goToLogoutPage();
+        await navigationTopPage.performLogout();
         await loginPage.performLogin(student.login, student.password);
         await this.goToHomeworkListPage();
         await waitHelpers.waitAndClick(`*=${taskName}`);

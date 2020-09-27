@@ -9,10 +9,11 @@ const administrateStudentsBtn = "div[data-testid='administrate_students']";
 const administrateTeachersBtn = "div[data-testid='administrate_teachers']";
 const administrateClassesBtn = "div[data-testid='administrate_classes']";
 const administrationsSubItems = "//*[@id='sidebar']/ul/li/ul//*/span";
+const administrationBtnOnLeftNavigationPanel = "[data-testid='Verwaltung']"
 
 module.exports = {
     goToAdministrationPage: async function () {
-        await elementHelpers.loadPage(urlAdministration, 10)
+        await waitHelpers.waitAndClick(administrationBtnOnLeftNavigationPanel);
     },
     clickAdministrateStudents: async function () {
         await waitHelpers.waitAndClick(administrateStudentsBtn);

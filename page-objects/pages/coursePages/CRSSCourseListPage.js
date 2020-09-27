@@ -1,13 +1,13 @@
 /*[url/courses]*/
 "use strict";
-const { CLIENT } = require("../../../shared-objects/servers")
+
 const elementHelpers = require("../../../runtime/helpers/elementHelpers");
 const waitHelpers = require("../../../runtime/helpers/waitHelpers");
 const startPage = require('../../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin');
 const loginPage = require('../../../page-objects/pages/generalPagesBeforeLogin/LoginPage');
-const logoutPage = require('../../../page-objects/pages/generalPagesBeforeLogin/LogoutPage');
+const navigationTopPage = require('../../../page-objects/pages/NavigationTopPage');
 
-const urlCourses = `${CLIENT.URL}/courses`;
+
 const searchCourseFiled = ".input-group .search-field";
 const courseWrapper = ".sc-card-wrapper";
 const titleOfCourse = ".title";
@@ -19,6 +19,7 @@ const container_of_element = '[data-testid="container_of_element"]';
 const header_of_element = '[data-testid="header-of-element"]';
 const listOfMembersSel = "#member-modal-body > ol > li";
 const headerOnPageCurse = "h2.text-center";
+const coursesBtnOnLeftNavigationPanel = "[data-testid='Kurse']"
 
 
 const courseColour = {
@@ -40,7 +41,7 @@ const section = {
 };
 
 async function goToCourses() {
-        await elementHelpers.loadPage(urlCourses, 30);
+        await waitHelpers.waitAndClick(coursesBtnOnLeftNavigationPanel);
 };
 
 async function importAndCreateCourseBtnsAreVisible() {
@@ -265,7 +266,7 @@ async function goToTasksOfTheCourse(coursename) {
 };
 
 async function studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename) {
-        await logoutPage.goToLogoutPage();
+        await navigationTopPage.performLogout();
         await startPage.performLogin(username, password);
         await loginPage.firstLoginStudent(username, password);
         await goToTasksOfTheCourse(coursename);
