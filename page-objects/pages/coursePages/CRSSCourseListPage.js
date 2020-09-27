@@ -1,6 +1,6 @@
 /*[url/courses]*/
 "use strict";
-const { CLIENT } = require("../../../shared-objects/servers")
+const navigationTopPage = require('../NavigationTopPage');
 const elementHelpers = require("../../../runtime/helpers/elementHelpers");
 const waitHelpers = require("../../../runtime/helpers/waitHelpers");
 const startPage = require('../../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin');
@@ -264,7 +264,7 @@ async function goToTasksOfTheCourse(coursename) {
 };
 
 async function studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename) {
-        await logoutPage.goToLogoutPage();
+        await navigationTopPage.performLogout();
         await startPage.performLogin(username, password);
         await loginPage.firstLoginStudent(username, password);
         await goToTasksOfTheCourse(coursename);
