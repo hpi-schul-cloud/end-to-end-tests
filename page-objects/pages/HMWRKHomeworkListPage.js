@@ -1,11 +1,11 @@
 /*[url/homework]*/
 "use strict"
-
+const { CLIENT } = require("../../shared-objects/servers")
 const waitHelpers = require("../../runtime/helpers/waitHelpers")
 const elementHelpers = require("../../runtime/helpers/elementHelpers")
 const navigationLeftPage = require("../../page-objects/pages/NavigationLeftPage.js")
+const urlHomework = `${CLIENT.URL}/homework`
 
-const homeworkBtnOnLeftNavigationPage = "[data-testid='Aufgaben']"
 const createTaskButton = "a[href='/homework/new']"
 const sortBtn = "#filter > div > div.md-chip.md-theme-default.md-deletable.md-clickable > div"
 const select = "#selection-picker > div > div"
@@ -18,7 +18,7 @@ const tasksContainer = "#homeworks > ol > div > li"
 
 module.exports = {
     goToHomeworkListPage: async function () {
-        await waitHelpers.waitAndClick(homeworkBtnOnLeftNavigationPage);
+        await elementHelpers.loadPage(urlHomework, 20)
     },
 
     clickCreateTaskButton: async function () {
