@@ -1,9 +1,8 @@
 /*[url/news/[newsId]/edit] | [url/news/[newsId]/new]*/
 'use strict';
-const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
-const { CLIENT } = require("../../shared-objects/servers");
-const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers');
 
+const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers');
+const newsListPage= require('./NWSNewsListPage');
 const submitNewsBtn = 'button[data-testid="btn_news_submit"]';
 const titleField = 'input.h1';
 const contentField = '.editor [contenteditable="true"]';
@@ -13,8 +12,8 @@ const timeSelector = '[data-testid="news_time"] input';
 
 module.exports = {
     goToNewNews: async function () {
-        let url = `${CLIENT.URL}/news/new`;
-        await elementHelpers.loadPage(url, 100);
+        await newsListPage.goToNews();
+        await newsListPage.clickCreateNewsBtn();
     },
     setTitle: async function (title) {
         let titleFieldInput = await driver.$(titleField);
