@@ -6,8 +6,8 @@ const homeworkPage = require('../page-objects/pages/HMWRKHomeworkPage');
 const addCoursePage = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
 const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
 const courseHomeworksPage = require("../page-objects/pages/coursePages/CRSSCourseHomeworksPage");
-const logoutPage = require('../page-objects/pages/generalPagesBeforeLogin/LogoutPage.js');
 const navigationLeftPage = require('../page-objects/pages/NavigationLeftPage.js');
+const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
 
 /* CREATE A BASIC HOMEWORK */
 
@@ -33,7 +33,7 @@ When(/^teacher creates a private hometask in the course (.*) with (.*)$/, async 
     await addEditHomeworkPage.addPrivateHometask(coursename, taskname);
     await homeworkListPage.goToPrivateHomeworkArea();
     expect(await homeworkListPage.isTaskVisible(taskname)).to.be.true;
-    await logoutPage.goToLogoutPage();
+    await navigationTopPage.performLogout();
 });
 
 Then(/^the student will not see this task with (.*)$/, async function (taskname) {
