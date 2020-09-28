@@ -1,6 +1,5 @@
 /*[url/courses]/add]*/
 "use strict";
-const { CLIENT } = require("../../../shared-objects/servers");
 const elementHelpers = require("../../../runtime/helpers/elementHelpers");
 const waitHelpers = require("../../../runtime/helpers/waitHelpers");
 const axios = require("axios");

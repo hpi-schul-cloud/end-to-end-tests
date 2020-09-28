@@ -1,10 +1,11 @@
 
 @copyCourse
 Feature: copy a created course with different data
-
 Background: teacher is logged in and has created a course
 Given teacher arrives on the Schul-Cloud homepage
-Given teacher is successfully logged in
+Given teacher logs in
+Given teacher accepts data protection
+Given the login must be successful
 Given teacher goes to courses page
 
 @simpleCopyCourse
