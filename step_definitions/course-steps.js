@@ -36,10 +36,9 @@ When(/^.*clicks to preview$/, function () {
 	return addCourse.goToNextSection();
 });
 
-Then(/^.*course with name (.*) is visible on the list$/, async function (
-	courseName
-) {
-	return courseListPage.isCourseOnList(courseName);
+Then(/^.*course with name (.*) is visible on the list$/, async function (courseName) {
+	let isCourseOnList = await courseListPage.isCourseOnList(courseName);
+	expect(isCourseOnList).to.be.true;
 });
 
 Then(
@@ -124,5 +123,18 @@ Then(/^.*should see that course name (.*) with color correctly displayed (.*)$/,
 	let index = await courseListPage.getIndexOfGivenCourseInSection(courseName, courseListPage.section.activeCourses)+1;
 	let courseColorAfterChanges = await courseListPage.getColorCourse(index);
 	let colourNumber = courseListPage.getColourSelector(colorCourse);
-	expect(colourNumber.toLocaleLowerCase()).to.include(courseColorAfterChanges);
+	expect(colourNumber.toLowerCase()).to.include(courseColorAfterChanges);
+});
+
+Then(/^.*clicks on delete course button$/, async function () {
+	await CRSSEditCopyCoursePage.clickDeleteButton();
+});
+
+Then(/^.*clicks on delete course button confirmation$/, async function () {
+	await CRSSEditCopyCoursePage.clickDeleteButtonConfirmation();
+});
+
+Then(/^.*course with name (.*) on list$/, async function (courseName) {
+	let isCourseOnList = await courseListPage.isCourseOnList(courseName);
+	expect(isCourseOnList).to.be.false;
 });

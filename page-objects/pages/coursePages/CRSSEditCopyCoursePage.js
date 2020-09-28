@@ -5,10 +5,20 @@ const elementHelpers = require("../../../runtime/helpers/elementHelpers");
 const submitBtn = "button.btn-submit";
 const courseNameInput = "form > div:nth-child(3) > input";
 const courseDescriptionInput = "textarea";
+const deleteButton = "a.btn-delete-course";
+const deleteButtonConfirmation = ".modal-content button.btn-submit";
 
 module.exports = {
 	clickSubmitButton: async function () {
 		await elementHelpers.click(submitBtn);
+	},
+
+	clickDeleteButtonConfirmation: async function () {
+		await waitHelpers.waitAndClick(deleteButtonConfirmation);
+	},
+
+	clickDeleteButton: async function () {
+		await waitHelpers.waitAndClick(deleteButton);
 	},
 
 	setCourseName: async function (courseName) {
