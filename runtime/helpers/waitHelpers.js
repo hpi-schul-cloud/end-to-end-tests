@@ -243,7 +243,7 @@ async function waitUntilPageTitleContains(expectedTitle, timeout = titleTimeout)
 		await driver.waitUntil(
 			async () => {
 				const actualPageTitle = await driver.getTitle();
-				return actualPageTitle.includes(expectedValue);
+				return actualPageTitle.includes(expectedTitle);
 			},
 			timeout,
 			msg
