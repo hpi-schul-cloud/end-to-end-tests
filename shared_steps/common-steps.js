@@ -9,7 +9,7 @@ const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 
 const schulCloudURL = `${CLIENT.URL}`;
 /*Login, Logout*/
-performLogin = async function(username, password) {
+const performLogin = async function(username, password) {
     await startPage.clickLoginBtn();
 	await loginPage.performLogin(username, password);
 };
@@ -19,18 +19,19 @@ Given(/^.* arrives on the Schul-Cloud homepage$/, function () {
 });
 
 Given(/^.* logs in with email (.*) and password (.*)$/, async function (username, password) {
-	await this.performLogin(username, password);
+	await performLogin(username, password);
 });
 
 Given(/^teacher logs in$/, async function () {
-	await this.performLogin(loginPage.users.teachers.klaraFallUsername, loginPage.users.teachers.klaraFallPassword);
+	await performLogin(loginPage.users.teachers.klaraFallUsername, loginPage.users.teachers.klaraFallPassword);
 });
 
 Given(/^admin logs in$/, async function () {
-	await this.performLogin(loginPage.users.admins.thorstenTestUsername, loginPage.users.admins.thorstenTestPassword);
+	await performLogin(loginPage.users.admins.thorstenTestUsername, loginPage.users.admins.thorstenTestPassword);
 });
+
 Given(/^student logs in$/, async function () {
-	await this.performLogin(loginPage.users.students.paulaMayerUsername, loginPage.users.students.paulaMayerPassword);
+	await performLogin(loginPage.users.students.paulaMayerUsername, loginPage.users.students.paulaMayerPassword);
 });
 
 When(/^.* goes from start page to login page$/, async function () {
