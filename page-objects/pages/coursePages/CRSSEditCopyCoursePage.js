@@ -1,5 +1,6 @@
 /*[url/courses]/[courseId]/edit] | [url/courses]/[courseId]/copy]*/
-const waitHelpers = require("../../../runtime/helpers/waitHelpers");
+
+const elementHelpers = require("../../../runtime/helpers/elementHelpers");
 
 const submitBtn = "button.btn-submit";
 const courseNameInput = "form > div:nth-child(3) > input";
@@ -7,7 +8,7 @@ const courseDescriptionInput = "textarea";
 
 module.exports = {
 	clickSubmitButton: async function () {
-		await waitHelpers.waitAndClick(submitBtn);
+		await elementHelpers.click(submitBtn);
 	},
 
 	setCourseName: async function (courseName) {

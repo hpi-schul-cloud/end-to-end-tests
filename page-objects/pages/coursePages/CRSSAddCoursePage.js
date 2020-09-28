@@ -2,7 +2,6 @@
 "use strict";
 const { CLIENT } = require("../../../shared-objects/servers");
 const elementHelpers = require("../../../runtime/helpers/elementHelpers");
-const waitHelpers = require("../../../runtime/helpers/waitHelpers");
 const axios = require("axios");
 
 const urlCoursesAdd = `${CLIENT.URL}/courses/add`;
@@ -52,7 +51,7 @@ module.exports = {
 	},
 
 	goToNextSection: async function () {
-		await waitHelpers.waitAndClick(nextSectionBtn);
+		await elementHelpers.click(nextSectionBtn);
 	},
 
 	getListOfSelected: async function (containerSelector) {
@@ -222,12 +221,12 @@ module.exports = {
 	},
 
 	clickCreateCourseAndContinueBtn: async function () {
-		await waitHelpers.waitAndClick(nextSectionBtn);
+		await elementHelpers.click(nextSectionBtn);
 	},
 
 	//Final section
 	clickGoToCourseListBtn: async function () {
-		await waitHelpers.waitAndClick(goToCourseListBtn);
+		await elementHelpers.click(goToCourseListBtn);
 	},
 
 	finalButtonsAreVisible: async function () {

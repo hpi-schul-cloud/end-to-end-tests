@@ -22,14 +22,14 @@ module.exports = {
     },
 
     clickCreateTaskButton: async function () {
-        await waitHelpers.waitAndClick(createTaskButton)
+        await elementHelpers.click(createTaskButton)
     },
 
     sortHometasks: async function () {
-        await waitHelpers.waitAndClick(sortBtn)
-        await waitHelpers.waitAndClick(select)
-        await waitHelpers.waitAndClick(lastedited)
-        await waitHelpers.waitAndClick(submitBtn)
+        await elementHelpers.click(sortBtn)
+        await elementHelpers.click(select)
+        await elementHelpers.click(lastedited)
+        await elementHelpers.click(submitBtn)
     },
     returnTaskChildIndex: async function (taskname) {
         let areThereAnyTasks = await this.areThereAnyTasks()

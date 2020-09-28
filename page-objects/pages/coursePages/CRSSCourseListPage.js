@@ -80,7 +80,7 @@ module.exports = {
     },
 
     clickCreateCourseBtn: async function () {
-        await waitHelpers.waitAndClick(createCourseBtn);
+        await elementHelpers.click(createCourseBtn);
     },
 
     getColourSelector: function (colourName) {
@@ -232,7 +232,7 @@ module.exports = {
 
         const courseList = await this.getListOfCoursesInSection(section);
         const element = courseList[courseIndex];
-        await waitHelpers.waitAndClick(element);
+        await elementHelpers.click(element);
     },
 
     getNumberOfMembersInGivenCourseInSection: async function (courseName, section) {
