@@ -1,4 +1,5 @@
 @lernstore
+#comment
 Feature: different actions in lernstore
 Background: a teacher logs in and creates a course
 Given teacher arrives on the Schul-Cloud homepage
