@@ -40,8 +40,6 @@ Then(/^.*course with name (.*) is visible on the list$/, async function (courseN
 	const section = courseListPage.section.activeCourses;
 	const msg = "Course with name: '" + courseName + "' should be visible on the list. Actual list of courses: '";
 	let isCourseOnList = await courseListPage.isCourseOnListInSection(courseName, section);
-	const allCourses = await courseListPage.getListOfCourseTitlesInSection(section);
-	console.log("List of courses:" + allCourses);
 	expect(isCourseOnList, msg + await courseListPage.getListOfCourseTitlesInSection(section) + "'").to.be.true;
 });
 
@@ -49,8 +47,6 @@ Then(/^.*course with name (.*) is not visible on the list$/, async function (cou
 	const section = courseListPage.section.activeCourses;
 	const msg = "Course with name: '" + courseName + "' should not be visible on the list. Actual list of courses: '";
 	let isCourseOnList = await courseListPage.isCourseOnListInSection(courseName, section);
-	const allCourses = await courseListPage.getListOfCourseTitlesInSection(section);
-	console.log("List of courses:" + allCourses);
 	expect(isCourseOnList, msg + await courseListPage.getListOfCourseTitlesInSection(section) + "'").to.be.false;
 });
 
