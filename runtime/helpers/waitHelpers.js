@@ -232,7 +232,6 @@ async function waitUntilElementAttributeContains(
 	} catch (error) {
 		throw error.message + '\n' + '"Actual attribute value: "' + actualAttributeValue + "'";
 	}
-	return element;
 }
 
 async function waitUntilPageTitleContains(expectedTitle, timeout = titleTimeout) {
@@ -251,7 +250,6 @@ async function waitUntilPageTitleContains(expectedTitle, timeout = titleTimeout)
 	} catch (error) {
 		throw error.message + '\n' + '"Actual page title: "' + actualPageTitle + "'";
 	}
-	return element;
 }
 
 async function waitUntilPageTitleEquals(expectedTitle, timeout = titleTimeout) {
@@ -270,7 +268,6 @@ async function waitUntilPageTitleEquals(expectedTitle, timeout = titleTimeout) {
 	} catch (error) {
 		throw error.message + '\n' + '"Actual page title: "' + actualPageTitle + "'";
 	}
-	return element;
 }
 
 module.exports = {

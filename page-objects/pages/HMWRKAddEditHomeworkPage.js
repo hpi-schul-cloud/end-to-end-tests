@@ -1,6 +1,5 @@
 /*[url/homework/new] | [url/homework/[homeworkId]/edit]*/
 'use strict';
-const waitHalpers = require('../../runtime/helpers/waitHelpers.js');
 const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers.js');
 const courseHomeworksPage = require("../pages/coursePages/CRSSCourseHomeworksPage");
 const elementHelpers = require('../../runtime/helpers/elementHelpers.js');

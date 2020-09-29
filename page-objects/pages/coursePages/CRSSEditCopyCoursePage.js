@@ -14,11 +14,11 @@ module.exports = {
 	},
 
 	clickDeleteButtonConfirmation: async function () {
-		await waitHelpers.waitAndClick(deleteButtonConfirmation);
+		await elementHelpers.click(deleteButtonConfirmation);
 	},
 
 	clickDeleteButton: async function () {
-		await waitHelpers.waitAndClick(deleteButton);
+		await elementHelpers.click(deleteButton);
 	},
 
 	setCourseName: async function (courseName) {
