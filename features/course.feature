@@ -81,7 +81,7 @@ Scenario Outline: logging in as a teacher I want to be able to edit a course on 
 	And teacher clicks on delete course button
 	And teacher clicks on delete course button confirmation
 	And teacher goes to courses page
-	Then teacher should not see that course with name <courseName> on list
+	Then teacher should see that course with name <courseName> is not visible on the list
 Examples:
 	|username                |password    |courseName    |courseColour|
 	|lehrer@schul-cloud.org  |Schulcloud1!|Mathe         |corn        |

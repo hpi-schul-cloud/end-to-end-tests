@@ -37,8 +37,10 @@ When(/^.*clicks to preview$/, function () {
 });
 
 Then(/^.*course with name (.*) is visible on the list$/, async function (courseName) {
-	let isCourseOnList = await courseListPage.isCourseOnListInSection(courseName, courseListPage.section.activeCourses);
-	expect(isCourseOnList).to.be.true;
+	const section = courseListPage.section.activeCourses;
+	const msg = "Course with name: '" + courseName + "' should be visible on the list. Actual list of courses: '";
+	let isCourseOnList = await courseListPage.isCourseOnListInSection(courseName, section);
+	expect(isCourseOnList, msg + await courseListPage.getListOfCourseTitlesInSection(section) + "'").to.be.true;
 });
 
 Then(
@@ -134,7 +136,9 @@ Then(/^.*clicks on delete course button confirmation$/, async function () {
 	await CRSSEditCopyCoursePage.clickDeleteButtonConfirmation();
 });
 
-Then(/^.*course with name (.*) on list$/, async function (courseName) {
-	let isCourseOnList = await courseListPage.isCourseOnListInSection(courseName, courseListPage.section.activeCourses);
-	expect(isCourseOnList).to.be.false;
+Then(/^.*course with name (.*) is not visible on the list$/, async function (courseName) {
+	const section = courseListPage.section.activeCourses;
+	const msg = "Course with name: '" + courseName + "' should not be visible on the list. Actual list of courses: '";
+	let isCourseOnList = await courseListPage.isCourseOnListInSection(courseName, section);
+	expect(isCourseOnList, msg + await courseListPage.getListOfCourseTitlesInSection(section) + "'").to.be.false;
 });
