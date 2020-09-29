@@ -37,7 +37,7 @@ When(/^.*clicks to preview$/, function () {
 });
 
 Then(/^.*course with name (.*) is visible on the list$/, async function (courseName) {
-	let isCourseOnList = await courseListPage.isCourseOnList(courseName);
+	let isCourseOnList = await courseListPage.isCourseOnListInSection(courseName, courseListPage.section.activeCourses);
 	expect(isCourseOnList).to.be.true;
 });
 
@@ -135,6 +135,6 @@ Then(/^.*clicks on delete course button confirmation$/, async function () {
 });
 
 Then(/^.*course with name (.*) on list$/, async function (courseName) {
-	let isCourseOnList = await courseListPage.isCourseOnList(courseName);
+	let isCourseOnList = await courseListPage.isCourseOnListInSection(courseName, courseListPage.section.activeCourses);
 	expect(isCourseOnList).to.be.false;
 });

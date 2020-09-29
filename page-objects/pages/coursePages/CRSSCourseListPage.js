@@ -58,8 +58,8 @@ async function courseIsDisplayedCorrectly(courseName) {
         expect(courseTitle).to.equal(courseName);
 };
 
-async function isCourseOnList(coursename) {
-     const allCourses = await getListOfCourseTitlesInSection(section.allCourses);
+async function isCourseOnListInSection(coursename, section) {
+     const allCourses = await getListOfCourseTitlesInSection(section);
      return allCourses.includes(coursename);   
 };
 
@@ -281,7 +281,7 @@ async function verifyCopyWithStudents(coursename) {
         goToCourses,
         importAndCreateCourseBtnsAreVisible,
         courseIsDisplayedCorrectly,
-        isCourseOnList,
+        isCourseOnListInSection,
         isCorrectCourseColour,
         clickCreateCourseBtn,
         getColourSelector,
