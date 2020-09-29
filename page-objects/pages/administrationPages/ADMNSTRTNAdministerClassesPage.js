@@ -36,7 +36,7 @@ async function verifyNewEmptyClassCreated(className = "11c", numOfStudents = "0"
 
 //Course creation page
 async function verifyTitleOfCreateClassPage() {
-    await waitHelpers.waitUntilPageTitleEquals(titleOfCreateNewClassPage)
+    await waitHelpers.waitUntilPageTitleContains(titleOfCreateNewClassPage)
 }
 
 async function clickMoreOptionsBtn() {
