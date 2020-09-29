@@ -59,16 +59,8 @@ async function courseIsDisplayedCorrectly(courseName) {
 };
 
 async function isCourseOnList(coursename) {
-        // if list of courses is empty
-        let isHeaderVisible = await elementHelpers.isElementPresent(headerOnPageCurse);
-        let isOnList = false; 
-		if (isHeaderVisible) {
-			return isOnList;
-		} else {
-            const allCourses = await getListOfCourseTitlesInSection(section.allCourses);
-            isOnList = allCourses.includes(coursename);
-            return isOnList;
-        }
+     const allCourses = await getListOfCourseTitlesInSection(section.allCourses);
+     return allCourses.includes(coursename);   
 };
 
 async function isCorrectCourseColour(colour) {
@@ -214,9 +206,7 @@ async function getListOfCourseTitlesInSection(section) {
         try {
             await waitHelpers.waitUntilElementIsPresent(selector);
         }
-        catch(err)
-        {
-            log.warning("getListOfCourseTitlesInSection found no courses in section: " + section);
+        catch(err) {
             return [];
         }
         const listOfCourseTitleElements = await driver.$$(selector);
