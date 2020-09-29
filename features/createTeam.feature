@@ -9,6 +9,7 @@ Given teacher arrives on the Schul-Cloud homepage
 Scenario Outline: create a team with two new members
 
 Given teacher logs in with email <teacherUsername> and password <teacherPassword>
+Given teacher accepts data protection
 When teacher creates a new team with <teamname> and
 When teacher adds two students to this team
 Then this team should be displayed on the team page
