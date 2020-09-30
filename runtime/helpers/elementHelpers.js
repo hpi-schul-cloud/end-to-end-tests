@@ -16,6 +16,16 @@ async function clickAndWait(selectorOrElement) {
     await waitHelpers.waitUntilPageLoads();
 }
 
+async function doubleClick(selectorOrElement) {
+    const element = await waitHelpers.waitUntilElementIsClickable(selectorOrElement);
+    await element.doubleClick();
+}
+
+async function doubleClickAndWait(selectorOrElement) {
+    await doubleClick(selectorOrElement);
+    await waitHelpers.waitUntilPageLoads();
+}
+
 async function getSelectOptions(selectSelector) {
     const options = await driver.$$(selectSelector + " > option");
     return Promise.all(
@@ -184,6 +194,8 @@ async function fillInputField(selector, text) {
 module.exports = {
     click,
     clickAndWait,
+    doubleClick,
+    doubleClickAndWait,
     getSelectOptions,
     selectOptionByText,
     loadPage,

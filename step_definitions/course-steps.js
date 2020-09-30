@@ -122,13 +122,13 @@ Then(/^.*clicks on save changes button$/, async function () {
 	await CRSSEditCopyCoursePage.clickSubmitButton();
 });
 
-Then(/^.*should see that course name (.*) with description correctly displayed (.*)$/, async function (courseName, description) {
+Then(/^.*course name (.*) with description correctly displayed (.*)$/, async function (courseName, description) {
 	let index = await courseListPage.getIndexOfGivenCourseInSection(courseName, courseListPage.section.activeCourses)+1;
 	let courseDescriptionAfterChanges = await courseListPage.getDescriptionCourse(index);
 	expect(description).to.equal(courseDescriptionAfterChanges);
 });
 
-Then(/^.*should see that course name (.*) with color correctly displayed (.*)$/, async function (courseName, colorCourse) {
+Then(/^.*course name (.*) with color correctly displayed (.*)$/, async function (courseName, colorCourse) {
 	let index = await courseListPage.getIndexOfGivenCourseInSection(courseName, courseListPage.section.activeCourses)+1;
 	let courseColorAfterChanges = await courseListPage.getColorCourse(index);
 	let colourNumber = courseListPage.getColourSelector(colorCourse);

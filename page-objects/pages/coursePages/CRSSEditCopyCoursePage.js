@@ -10,15 +10,16 @@ const deleteButtonConfirmation = ".modal-content button.btn-submit";
 
 module.exports = {
 	clickSubmitButton: async function () {
-		await elementHelpers.click(submitBtn);
+		await elementHelpers.clickAndWait(submitBtn);
 	},
 
 	clickDeleteButtonConfirmation: async function () {
-		await elementHelpers.click(deleteButtonConfirmation);
+		await elementHelpers.clickAndWait(deleteButtonConfirmation);
 	},
 
 	clickDeleteButton: async function () {
-		await elementHelpers.click(deleteButton);
+		await elementHelpers.clickAndWait(deleteButton);
+
 	},
 
 	setCourseName: async function (courseName) {
