@@ -71,90 +71,90 @@ const navItemHelpContact = navItemStringDefault2ndLevel.replace('XXX', 'Kontakt'
 module.exports = {
     navItemsEnum,
     clickNavItemLogo: async function () {
-        await elementHelpers.click(navItemLogo);
+        await elementHelpers.clickAndWait(navItemLogo);
     },
     clickNavItemDashboard: async function () {
-        await elementHelpers.click(navItemDashboard);
+        await elementHelpers.clickAndWait(navItemDashboard);
     },
     clickNavItemCourses: async function () {
-        await elementHelpers.click(navItemCourses);
+        await elementHelpers.clickAndWait(navItemCourses);
     },
     clickNavItemTasks: async function () {
-        await elementHelpers.click(navItemTasks);
+        await elementHelpers.clickAndWait(navItemTasks);
     },
     clickNavItemTasksAsked: async function () {
-        await elementHelpers.click(navItemTasksAsked);
+        await elementHelpers.clickAndWait(navItemTasksAsked);
     },
     clickNavItemTasksPrivate: async function () {
-        await elementHelpers.click(navItemTasksPrivate);
+        await elementHelpers.clickAndWait(navItemTasksPrivate);
     },
     clickNavItemTasksArchive: async function () {
-        await elementHelpers.click(navItemTasksArchive);
+        await elementHelpers.clickAndWait(navItemTasksArchive);
     },
     clickNavItemTeams: async function () {
-        await elementHelpers.click(navItemTeams);
+        await elementHelpers.clickAndWait(navItemTeams);
     },
     clickNavItemFiles: async function () {
-        await elementHelpers.click(navItemFiles);
+        await elementHelpers.clickAndWait(navItemFiles);
     },
     clickNavItemFilesMy: async function () {
-        await elementHelpers.click(navItemFilesMy);
+        await elementHelpers.clickAndWait(navItemFilesMy);
     },
     clickNavItemFilesCourses: async function () {
-        await elementHelpers.click(navItemFilesCourses);
+        await elementHelpers.clickAndWait(navItemFilesCourses);
     },
     clickNavItemFilesTeams: async function () {
-        await elementHelpers.click(navItemFilesTeams);
+        await elementHelpers.clickAndWait(navItemFilesTeams);
     },
     clickNavItemFilesShared: async function () {
-        await elementHelpers.click(navItemFilesShared);
+        await elementHelpers.clickAndWait(navItemFilesShared);
     },
     clickNavItemNews: async function () {
-        await elementHelpers.click(navItemNews);
+        await elementHelpers.clickAndWait(navItemNews);
     },
     clickNavItemCalendar: async function () {
-        await elementHelpers.click(navItemCalendar);
+        await elementHelpers.clickAndWait(navItemCalendar);
     },
     clickNavItemContent: async function () {
-        await elementHelpers.click(navItemLearnstore);
+        await elementHelpers.clickAndWait(navItemLearnstore);
     },
     clickNavItemAddons: async function () {
-        await elementHelpers.click(navItemAddons);
+        await elementHelpers.clickAndWait(navItemAddons);
     },
     clickNavItemAdministration: async function () {
-        await elementHelpers.click(navItemAdministration);
+        await elementHelpers.clickAndWait(navItemAdministration);
     },
     clickNavItemAdminStudents: async function () {
-        await elementHelpers.click(navItemAdministrationStudents);
+        await elementHelpers.clickAndWait(navItemAdministrationStudents);
     },
     clickNavItemAdminTeachers: async function () {
-        await elementHelpers.click(navItemAdministrationTeachers);
+        await elementHelpers.clickAndWait(navItemAdministrationTeachers);
     },
     clickNavItemAdminCourses: async function () {
-        await elementHelpers.click(navItemAdministrationCourses);
+        await elementHelpers.clickAndWait(navItemAdministrationCourses);
     },
     clickNavItemAdminClasses: async function () {
-        await elementHelpers.click(navItemAdministrationClasses);
+        await elementHelpers.clickAndWait(navItemAdministrationClasses);
     },
     clickNavItemAdminTeams: async function () {
-        await elementHelpers.click(navItemAdministrationTeams);
+        await elementHelpers.clickAndWait(navItemAdministrationTeams);
     },
     clickNavItemAdminSchool: async function () {
-        await elementHelpers.click(navItemAdministrationSchool);
+        await elementHelpers.clickAndWait(navItemAdministrationSchool);
     },
     clickNavItemHelpDesk: async function () {
-        await elementHelpers.click(navItemHelpDesk);
+        await elementHelpers.clickAndWait(navItemHelpDesk);
     },
     clickNavItemHelpArea: async function () {
-        await elementHelpers.click(navItemHelparea);
+        await elementHelpers.clickAndWait(navItemHelparea);
     },
     clickNavItemHelpArticles: async function () {
-        await elementHelpers.click(navItemHelparticles);
+        await elementHelpers.clickAndWait(navItemHelparticles);
     },
     clickNavItemHelpTrainings: async function () {
-        await elementHelpers.click(navItemHelpTrainings);
+        await elementHelpers.clickAndWait(navItemHelpTrainings);
     },
     clickNavItemHelpContact: async function () {
-        await elementHelpers.click(navItemHelpContact);
+        await elementHelpers.clickAndWait(navItemHelpContact);
     },
 }

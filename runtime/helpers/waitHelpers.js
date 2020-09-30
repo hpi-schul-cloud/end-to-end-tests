@@ -1,5 +1,6 @@
 'use strict';
 
+const { getElement } = require('./sharedHelpers');
 const sharedHelpers = require('./sharedHelpers');
 
 const elementIsPresentTimeout = 10000;
