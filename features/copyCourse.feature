@@ -19,17 +19,17 @@ Examples:
 | sample course to be cloned |
 
 
-@copyCourseWithText
-Scenario Outline: teacher can copy course with certain text
-Given the teacher creates some with name <coursename>
-Given the teacher chooses the created course with <coursename> and
-When the teacher adds a Topic with name <topicname>
-When the teacher adds some Text <text> to the course
-When the teacher clicks copy course <coursename> with Text
-Then teacher sees the course <coursename> was copied and the topic <topicname> is still availiable
-Examples:
-| coursename    | topicname         | text                  |
-| sample course | sample topic name | some sample text here |
+# @copyCourseWithText
+# Scenario Outline: teacher can copy course with certain text
+# Given the teacher creates some with name <coursename>
+# Given the teacher chooses the created course with <coursename> and
+# When the teacher adds a Topic with name <topicname>
+# When the teacher adds some Text <text> to the course
+# When the teacher clicks copy course <coursename> with Text
+# Then teacher sees the course <coursename> was copied and the topic <topicname> is still availiable
+# Examples:
+# | coursename    | topicname         | text                  |
+# | sample course | sample topic name | some sample text here |
 
 
 @copyCourseWithGeoGebra
