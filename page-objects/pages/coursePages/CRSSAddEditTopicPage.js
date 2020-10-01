@@ -3,18 +3,25 @@
 const {CLIENT} = require("../../../shared-objects/servers");
 const waitHelpers = require("../../../runtime/helpers/waitHelpers.js");
 
+
 const selectors = {
     topicName: ".form-group > .form-control",
 	themaAnlegenButton: ".btn.btn-primary.btn-submit", 
 	lernStoreUrl: `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`,
+	subtopicInputField: ".form-control"
 };
 
 module.exports = {
     setTopic: async function (topicname) {
-        let nameSelector = await driver.$(selectors.topicName);
-         await nameSelector.setValue(topicname);
-        await driver.pause(500);
-    },
+      let nameSelector = await driver.$(selectors.topicName);
+       await nameSelector.setValue(topicname);
+	   await driver.pause(500);
+		//await waitHelpers.waitAndSetValue(selectors.topicName, topicname);
+
+	},
+	setSubtopicName: async function (subtopicName) {
+		await waitHelpers.waitAndSetValue(selectors.subtopicInputField, subtopicName)
+	},
     clickCreateTopicButton: async function() {
         await waitHelpers.waitAndClick(selectors.themaAnlegenButton);
     },
