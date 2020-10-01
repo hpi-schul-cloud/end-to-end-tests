@@ -8,7 +8,7 @@ const selectors = {
     topicName: ".form-group > .form-control",
 	themaAnlegenButton: ".btn.btn-primary.btn-submit", 
 	lernStoreUrl: `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`,
-	subtopicInputField: ".form-control"
+	subtopicInputField: ".input-group .form-control"
 };
 
 module.exports = {
