@@ -1,5 +1,6 @@
 /*[url/courses]/[courseId]/edit] | [url/courses]/[courseId]/copy]*/
-const waitHelpers = require("../../../runtime/helpers/waitHelpers");
+
+const elementHelpers = require("../../../runtime/helpers/elementHelpers");
 
 const submitBtn = "button.btn-submit";
 const courseNameInput = "form > div:nth-child(3) > input";
@@ -9,15 +10,16 @@ const deleteButtonConfirmation = ".modal-content button.btn-submit";
 
 module.exports = {
 	clickSubmitButton: async function () {
-		await waitHelpers.waitAndClick(submitBtn);
+		await elementHelpers.clickAndWait(submitBtn);
 	},
 
 	clickDeleteButtonConfirmation: async function () {
-		await waitHelpers.waitAndClick(deleteButtonConfirmation);
+		await elementHelpers.clickAndWait(deleteButtonConfirmation);
 	},
 
 	clickDeleteButton: async function () {
-		await waitHelpers.waitAndClick(deleteButton);
+		await elementHelpers.clickAndWait(deleteButton);
+
 	},
 
 	setCourseName: async function (courseName) {

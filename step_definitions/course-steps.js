@@ -37,8 +37,17 @@ When(/^.*clicks to preview$/, function () {
 });
 
 Then(/^.*course with name (.*) is visible on the list$/, async function (courseName) {
-	let isCourseOnList = await courseListPage.isCourseOnList(courseName);
-	expect(isCourseOnList).to.be.true;
+	const section = courseListPage.section.activeCourses;
+	const msg = "Course with name: '" + courseName + "' should be visible on the list. Actual list of courses: '";
+	let isCourseOnList = await courseListPage.isCourseOnListInSection(courseName, section);
+	expect(isCourseOnList, msg + await courseListPage.getListOfCourseTitlesInSection(section) + "'").to.be.true;
+});
+
+Then(/^.*course with name (.*) is not visible on the list$/, async function (courseName) {
+	const section = courseListPage.section.activeCourses;
+	const msg = "Course with name: '" + courseName + "' should not be visible on the list. Actual list of courses: '";
+	let isCourseOnList = await courseListPage.isCourseOnListInSection(courseName, section);
+	expect(isCourseOnList, msg + await courseListPage.getListOfCourseTitlesInSection(section) + "'").to.be.false;
 });
 
 Then(
@@ -113,13 +122,13 @@ Then(/^.*clicks on save changes button$/, async function () {
 	await CRSSEditCopyCoursePage.clickSubmitButton();
 });
 
-Then(/^.*should see that course name (.*) with description correctly displayed (.*)$/, async function (courseName, description) {
+Then(/^.*course name (.*) with description correctly displayed (.*)$/, async function (courseName, description) {
 	let index = await courseListPage.getIndexOfGivenCourseInSection(courseName, courseListPage.section.activeCourses)+1;
 	let courseDescriptionAfterChanges = await courseListPage.getDescriptionCourse(index);
 	expect(description).to.equal(courseDescriptionAfterChanges);
 });
 
-Then(/^.*should see that course name (.*) with color correctly displayed (.*)$/, async function (courseName, colorCourse) {
+Then(/^.*course name (.*) with color correctly displayed (.*)$/, async function (courseName, colorCourse) {
 	let index = await courseListPage.getIndexOfGivenCourseInSection(courseName, courseListPage.section.activeCourses)+1;
 	let courseColorAfterChanges = await courseListPage.getColorCourse(index);
 	let colourNumber = courseListPage.getColourSelector(colorCourse);
@@ -134,7 +143,4 @@ Then(/^.*clicks on delete course button confirmation$/, async function () {
 	await CRSSEditCopyCoursePage.clickDeleteButtonConfirmation();
 });
 
-Then(/^.*course with name (.*) on list$/, async function (courseName) {
-	let isCourseOnList = await courseListPage.isCourseOnList(courseName);
-	expect(isCourseOnList).to.be.false;
-});
+
