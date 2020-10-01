@@ -69,7 +69,7 @@ module.exports = {
 		await expect(valueList).includes(defaultText);
 	},
 
-	sectionIsDisplayed: async function (sectionNumber) {
+	isSectionDisplayed: async function (sectionNumber) {
 		const sectionToCheck =
 			sectionNumber == 1 ? sectionNumber : sectionNumber - 1;
 		const selector = this.getSectionSelector(sectionToCheck);
@@ -84,7 +84,7 @@ module.exports = {
 		}
 	},
 
-	sectionIsNotDisplayed: async function (sectionNumber) {
+	isSectionNotDisplayed: async function (sectionNumber) {
 		const sectionToCheck =
 			sectionNumber == 1 ? sectionNumber : sectionNumber - 1;
 		const element = await driver.$(this.getSectionSelector(sectionToCheck));
@@ -179,7 +179,7 @@ module.exports = {
 		}
 	},
 
-	teachersNameisSetByDefault: async function () {
+	isTeachersNameSetByDefault: async function () {
 		const username = await this.getUserName();
 		const listOfTeachersNames = await this.getListOfSelected(
 			teacherContainer
@@ -187,7 +187,7 @@ module.exports = {
 		await expect(listOfTeachersNames).to.include(username);
 	},
 
-	noTeacherSubstituteIsSet: async function () {
+	isTeacherSubstituteSet: async function () {
 		await this.isDefaultValueInContainer(
 			teacherSubContainer,
 			"Lehrer:in auswählen"
@@ -195,7 +195,7 @@ module.exports = {
 	},
 
 	// could be extended with verifying the date is correct
-	timeSpanIsSet: async function () {
+	isTimeSpanSet: async function () {
 		const startValueSelector = await driver.$(timeSpan.start);
 		const startValue = await startValueSelector.getValue();
 		await expect(startValue.length).not.to.equal(0);
@@ -206,14 +206,14 @@ module.exports = {
 	},
 
 	//Participants section
-	noClassIsSet: async function () {
+	isClassSet: async function () {
 		await this.isDefaultValueInContainer(
 			classContainer,
 			"Klasse(n) auswählen"
 		);
 	},
 
-	noStudentIsSet: async function () {
+	isStudentSet: async function () {
 		await this.isDefaultValueInContainer(
 			studentsContainer,
 			"Schüler:innen auswählen"
@@ -229,7 +229,7 @@ module.exports = {
 		await elementHelpers.click(goToCourseListBtn);
 	},
 
-	finalButtonsAreVisible: async function () {
+	areFinalButtonsVisible: async function () {
 		await expect(
 			await elementHelpers.isElementPresent(createNewCourseBtn)
 		).to.equal(true);

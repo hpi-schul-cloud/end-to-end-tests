@@ -25,7 +25,7 @@ module.exports = {
         await elementHelpers.loadPage(urlHomework, 20);
     },
 
-    switchToSubmissionTab: async function () {
+    clickOnSubmissionTab: async function () {
         await elementHelpers.click(submissionTab);
     },
 
@@ -40,7 +40,7 @@ module.exports = {
 
 
     studentEditsTextHomeworkAndSubmits: async function () {
-        await this.switchToSubmissionTab();
+        await this.clickOnSubmissionTab();
         await this.submitSolutionForTheHometask();
     },
     // teacher helpers
@@ -59,7 +59,7 @@ module.exports = {
         await courseListPage.goToCourses();
         await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
         await this.gotoTasksTab();
-        await HMWRKHomeworkListPage.userFindsTheTask(taskname);
+        await HMWRKHomeworkListPage.getTaskFromList(taskname);
         await this.hasTheStudentSubmittedTheTask(studentname);
     },
 
@@ -72,7 +72,7 @@ module.exports = {
     submitHomework: async function (taskName, student) {
         await this.goToHomeworkListPage();
         await elementHelpers.click(`[aria-label*="${taskName}"] > span`);
-        await this.switchToSubmissionTab();
+        await this.clickOnSubmissionTab();
         await this.submitSolutionForTheHometask();
     },
 
@@ -111,7 +111,7 @@ module.exports = {
             console.warn('S3 is not available on CI. The files were never uploaded.');
             return;
         }
-        await this.canSeeFile(file);
+        await this.isFileVisible(file);
         const mainWindow = await driver.getWindowHandle();
         await elementHelpers.click(`a*=${file.name
             }`);
@@ -127,7 +127,7 @@ module.exports = {
         await elementHelpers.click(`*=${taskName}`);
         await elementHelpers.click('a*=Bewertung');
 
-        await this.canSeeFile(file);
+        await this.isFileVisible(file);
 
         // ensure the student can download the file
         await elementHelpers.click(`a*=${file.name
@@ -140,7 +140,7 @@ module.exports = {
         expect(studentFileUrl.pathname).to.equal(fileUrl.pathname);
     },
 
-    canSeeFile: async function (file) {
+    isFileVisible: async function (file) {
         const gradeFilesList = await waitHelpers.waitUntilElementIsPresent(gradeFilesListSel);
         await gradeFilesList.waitForDisplayed();
         expect(await gradeFilesList.getText()).to.contain(file.name);

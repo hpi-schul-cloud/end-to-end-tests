@@ -11,18 +11,18 @@ module.exports = {
 	goToNews: async function() {
 		await elementHelpers.loadPage(url, 100);
     },
-    verifyWhetherVisible: async function() {
+    getAllNews: async function() {
 		const listOfElements = await driver.$$(element);
 		const namePromises = listOfElements.map(async element => await element.getText());
 		const newsNames = await Promise.all(namePromises);
 		return newsNames;
 	},
-	shouldBeVisible: async function(name) {
-		let newsNames = await this.verifyWhetherVisible();
+	isNewsVisible: async function(name) {
+		let newsNames = await this.getAllNews();
 		await expect(newsNames).to.include(name);
 	},
-	shouldNotBeVisible: async function(name) {
-		let newsNames = await this.verifyWhetherVisible();
+	isNewsNotVisible: async function(name) {
+		let newsNames = await this.getAllNews();
 		await expect(newsNames).to.not.include(name);
 	}
 }

@@ -67,7 +67,7 @@ module.exports = {
 		await driver.pause(1500);
 	},
 
-	loginResult: async function () {
+	areInitialsCorrect: async function () {
 		let initials = await apiHelpers.getInitials();
 		expect(await elementHelpers.getElementText(avatarCircle)).to.equal(initials);
 	},
@@ -104,7 +104,7 @@ module.exports = {
 		await passwordSel1.setValue(newPassword);
 		await passwordSel2.setValue(newPassword);
 	},
-	wrongLoginResult: async function () {
+	isWrongLoginNotification: async function () {
 		expect(await elementHelpers.getElementText(notificationIfWrongLogin)).to.be.oneOf(failureMessages);
 		// let btn = await driver.$(loginBtn);
 		// let btnValue = btn.getAttribute('value');

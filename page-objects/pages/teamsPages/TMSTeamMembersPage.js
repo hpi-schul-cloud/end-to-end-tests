@@ -30,10 +30,10 @@ module.exports = {
 	addTwoTeamMemebers: async function (teammember1, teammember2) {
 		await this.addTeamMembersSteps(teammember1);
 		await this.addTeamMembersSteps(teammember2);
-		await this.submitAddTeammemberAfterAllMemebersWereAdded();
+		await this.submitAddTeamMemberAfterAllMemebersWereAdded();
 		await driver.pause(1500);
 	},
-	submitAddTeammemberAfterAllMemebersWereAdded: async function () {
+	submitAddTeamMemberAfterAllMemebersWereAdded: async function () {
 		let containerBtnElement = await driver.$(containerBtn);
 		let submitBtnElement = await containerBtnElement.$(submitBtn);
 		await submitBtnElement.click();

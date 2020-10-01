@@ -41,12 +41,12 @@ async function goToCourses() {
 	await elementHelpers.loadPage(urlCourses, 30);
 }
 
-async function importAndCreateCourseBtnsAreVisible() {
+async function areImportAndCreateCourseBtnsVisible() {
 	expect(await elementHelpers.isElementPresent(importCourseBtn)).to.equal(true);
 	expect(await elementHelpers.isElementPresent(createCourseBtn)).to.equal(true);
 }
 
-async function courseIsDisplayedCorrectly(courseName) {
+async function isCourseDisplayedCorrectly(courseName) {
 	const activeCoursesContainer = await driver.$(section.activeCourses);
 	const coursesOnThePage = await activeCoursesContainer.$$(titleOfCourse);
 	const courseCount = await coursesOnThePage.length;
@@ -115,11 +115,11 @@ function getColourSelector(colourName) {
 	return colourSelector;
 }
 
-async function fillCourseNameIntoSearchInputField(courseName) {
+async function setCourseNameIntoSearchInputField(courseName) {
 	await elementHelpers.fillInputField(searchCourseFiled, courseName);
 }
 
-async function countDisplayedCoursesForSection(section) {
+async function getNumberOfDisplayedCoursesForSection(section) {
 	const elem = await getListOfCoursesInSection(section);
 	var numberOfDisplayedCourses = 0;
 	for (var i = 0; i < elem.length; i++) {
@@ -226,7 +226,7 @@ async function getListOfCourseTitlesInSection(section) {
 	return courseTitleList;
 }
 
-async function countCoursesWhichTitlesContainTextInSection(text, section) {
+async function getNumberOfCoursesWhichTitlesContainTextInSection(text, section) {
 	let listOfCourseNames = await getListOfCourseTitlesInSection(section);
 	var re = new RegExp(text, 'gi');
 	const matchingNames = listOfCourseNames.filter((n) => n.match(re));
@@ -272,7 +272,7 @@ async function studentLogsInAndGoesToTasksOfTheCourse(username, password, course
 	await goToTasksOfTheCourse(coursename);
 }
 
-async function verifyCourseAndTopic(coursename, topicname, section) {
+async function isTopicInCourse(coursename, topicname, section) {
 	await clickOnCourseInSection(coursename, section);
 	let topicNames = await Promise.all(
 		(await driver.$$('#topic-list > div > div > div')).map(async (element) => await element.getText())
@@ -280,7 +280,7 @@ async function verifyCourseAndTopic(coursename, topicname, section) {
 	await expect(topicNames).to.include(topicname);
 }
 
-async function verifyCopyWithStudents(coursename) {
+async function areStudentsInCopiedCourse(coursename) {
 	let copiedName = coursename + ' - Kopie';
 	let courseHasIndex = (await getIndexOfGivenCourseInSection(copiedName, section.activeCourses)) + 1;
 	let areThereStudentsInCourseContainer = await driver.$(
@@ -295,14 +295,14 @@ async function verifyCopyWithStudents(coursename) {
 module.exports = {
 	section,
 	goToCourses,
-	importAndCreateCourseBtnsAreVisible,
-	courseIsDisplayedCorrectly,
+	areImportAndCreateCourseBtnsVisible,
+	isCourseDisplayedCorrectly,
 	isCourseOnListInSection,
 	isCorrectCourseColour,
 	clickCreateCourseBtn,
 	getColourSelector,
-	fillCourseNameIntoSearchInputField,
-	countDisplayedCoursesForSection,
+	setCourseNameIntoSearchInputField,
+	getNumberOfDisplayedCoursesForSection,
 	getCourseWrapper,
 	getNamesOfMembers,
 	areMembersOnTheListInCourseForSection,
@@ -314,12 +314,12 @@ module.exports = {
 	getColorCourse,
 	getWrapperOfCourseInSection,
 	getListOfCourseTitlesInSection,
-	countCoursesWhichTitlesContainTextInSection,
+	getNumberOfCoursesWhichTitlesContainTextInSection,
 	clickOnCourseInSection,
 	getNumberOfMembersInGivenCourseInSection,
 	clickPupilIconInCourseInSection,
 	goToTasksOfTheCourse,
 	studentLogsInAndGoesToTasksOfTheCourse,
-	verifyCourseAndTopic,
-	verifyCopyWithStudents,
+	isTopicInCourse,
+	areStudentsInCopiedCourse,
 };
