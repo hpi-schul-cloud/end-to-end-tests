@@ -9,13 +9,13 @@ When(/^.*goes to courses page$/, function () {
 	return courseListPage.goToCourses();
 });
 Then(/^.*buttons: Import-course, Create-new-course are visible$/, function () {
-	return courseListPage.importAndCreateCourseBtnsAreVisible();
+	return courseListPage.areImportAndCreateCourseBtnsVisible();
 });
 
 Then(
 	/^.*buttons: Create-new-course, Go-to-course-list-page are visible$/,
 	async function () {
-		await addCourse.finalButtonsAreVisible();
+		await addCourse.areFinalButtonsVisible();
 	}
 );
 
@@ -53,7 +53,7 @@ Then(/^.*course with name (.*) is not visible on the list$/, async function (cou
 Then(
 	/^.*course with name (.*) is displayed correctly on the list$/,
 	async function (courseName) {
-		await courseListPage.courseIsDisplayedCorrectly(courseName);
+		await courseListPage.isCourseDisplayedCorrectly(courseName);
 	}
 );
 When(/^.*clicks Next-section button$/, async function () {
@@ -62,33 +62,33 @@ When(/^.*clicks Next-section button$/, async function () {
 Then(/^.*the ([0-9]) section can not be opened$/, async function (
 	sectionNumber
 ) {
-	await addCourse.sectionIsNotDisplayed(sectionNumber);
+	await addCourse.isSectionNotDisplayed(sectionNumber);
 });
 Then(
 	/^.*his name is entered by default in teachers' field$/,
 	async function () {
-		await addCourse.teachersNameisSetByDefault();
+		await addCourse.isTeachersNameSetByDefault();
 	}
 );
 Then(/^.*course name has not been entered$/, async function () {
-	await addCourse.courseNameIsNotEntered();
+	await addCourse.isCourseNameNotEntered();
 });
 
 Then(/^.*time span is already set$/, async function () {
-	await addCourse.timeSpanIsSet();
+	await addCourse.isTimeSpanSet();
 });
 Then(/^.*supply teacher is not set$/, async function () {
-	await addCourse.noTeacherSubstituteIsSet();
+	await addCourse.isTeacherSubstituteNotSet();
 });
 
 Then(/^.* ([0-9]) section is opened$/, async function (sectionNumber) {
-	await addCourse.sectionIsDisplayed(sectionNumber);
+	await addCourse.isSectionDisplayed(sectionNumber);
 });
 Then(/^.*no class is set$/, async function () {
-	await addCourse.noClassIsSet();
+	await addCourse.isClassNotSet();
 });
 Then(/^.*no student is set$/, async function () {
-	await addCourse.noStudentIsSet();
+	await addCourse.isStudentNotSet();
 });
 When(/^.*clicks Create-course-and-continue button'$/, async function () {
 	await addCourse.clickCreateCourseAndContinueBtn();

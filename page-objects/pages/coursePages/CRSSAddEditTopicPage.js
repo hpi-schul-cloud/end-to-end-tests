@@ -21,32 +21,31 @@ const etherpadBtn = ".btn-group > button:nth-child(4)";
 const etherpadNameField = "#content-blocks > div > div:nth-child(1) .form-control";
 const etherpadDescriptionField = "div:nth-child(2) > textarea";
 
-module.exports = {
-	setTopic: async function (topicname) {
+async function	setTopic (topicname) {
 		let nameSelector = await driver.$(topicName);
 		await nameSelector.setValue(topicname);
 		await driver.pause(500);
-	},
-	clickCreateTopicButton: async function () {
+	}
+async function	clickCreateTopicButton () {
 		await elementHelpers.click(themaAnlegenButton);
-	},
-	addText: async function (text) {
+	}
+async function	addText (text) {
 		await elementHelpers.click(textBtn);
 		const textField = await driver.$(textFieldSel);
 		await driver.pause(global.SHORT_WAIT_MILLIS);
 		await textField.setValue(text);
-	},
+	}
 
-	addGeoGebra: async function (geogebraID) {
+async function	addGeoGebra (geogebraID) {
 		await elementHelpers.click(geogebraBtn);
 		await driver.pause(100);
 		let idContainer = await driver.$(idContainerSel);
 		let geoIDSelector = await idContainer.$(".form-control");
 		await geoIDSelector.setValue(geogebraID);
 		await driver.pause(500);
-	},
+	}
 
-	addMaterial: async function () {
+async function	addMaterial () {
 		await elementHelpers.click(materialBtn);
 		let currentBrowser = await driver.getWindowHandle();
 		await elementHelpers.click(addMaterialBtn);
@@ -62,13 +61,21 @@ module.exports = {
 		let btnContainer = await materialContainer.$(btnContainerMaterial);
 		await btnContainer.click();
 		await driver.pause(1500);
-	},
+	}
 
-	addEtherpad: async function (name, description) {
+async function	addEtherpad (name, description) {
 		await elementHelpers.click(etherpadBtn);
 		let nameField = await driver.$(etherpadNameField);
 		await nameField.setValue(name);
 		let descriptionField = await driver.$(etherpadDescriptionField);
 		await descriptionField.setValue(description);
-	},
+	}
+
+module.exports = {
+	setTopic,
+	clickCreateTopicButton,
+	addText,
+	addGeoGebra,
+	addMaterial,
+	addEtherpad
 }

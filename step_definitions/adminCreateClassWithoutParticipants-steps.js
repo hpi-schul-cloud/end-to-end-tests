@@ -14,5 +14,5 @@ When(/^admin creates a class (.*)$/, function (className) {
 });
 
 Then(/^admin should see the class (.*) with (.*) participants.$/, function (className, participants) {
-    return administrationClasses.verifyNewEmptyClassCreated(className, participants)
+    return administrationClasses.isNewEmptyClassCreated(className, participants)
 });

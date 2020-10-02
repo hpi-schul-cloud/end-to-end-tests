@@ -11,5 +11,5 @@ When(/^a user puts in (.*) and the wrong (.*) and click the login-button$/,async
 });
 
 Then(/^a user should see a notification$/, function() {
-	return loginPage.wrongLoginResult();
+	return loginPage.isWrongLoginNotification();
 });
