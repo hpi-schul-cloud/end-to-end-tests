@@ -24,8 +24,8 @@ Scenario Outline: teacher can copy course with certain text
 Given the teacher creates some course with name <coursename>
 Given the teacher chooses the created course with <coursename> and
 When the teacher adds a Topic with name <topicname>
-When the teacher inputs subtopic name <subtopic>
 When the teacher adds some Text <text> to the course
+When the teacher inputs subtopic name <subtopic>
 When the teacher clicks copy course <coursename> with Text
 Then teacher sees the course <coursename> was copied and the topic <topicname> is still availiable
 Examples:
