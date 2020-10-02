@@ -265,9 +265,16 @@ Before(async () => {
 
 /**
  * cleanup database before each scenario
+ * can use @noResetDB in feature file, if you don't need cleanup database before some scenarios
  */
-Before(function() {
+Before(function(scenario) {
 	try {
+		const {tags} = scenario.pickle;
+		const tagNames = tags.map((tag) => tag.name);
+		if(tagNames.indexOf('@noResetDB') != -1){
+			console.log('\n\nNo DB reset...');
+			return Promise.resolve();
+		}
 		console.log('\n\nResetting the DB...');
 		const output = execSync('npm run setup', { cwd: '../schulcloud-server', stdio: 'pipe' });
 		console.log('Done.');

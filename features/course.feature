@@ -21,7 +21,7 @@ Examples:
 	| username                  | password    | courseName| courseColour|
 	| klara.fall@schul-cloud.org| Schulcloud1!| Mathe     | corn        |
 
-@createCourseCorrectly
+@createCourseCorrectly 
 Scenario Outline: submit compulsory fields by creating the course 
 	When teacher logs in with email <username> and password <password>
 	And teacher goes to courses page
