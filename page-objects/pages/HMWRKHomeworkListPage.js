@@ -21,7 +21,9 @@ const taskBox = "h2.h6"
 
 module.exports = {
     goToHomeworkListPage: async function () {
-        await elementHelpers.loadPage(urlHomework, 20)
+        await elementHelpers.loadPage(urlHomework, 20);
+        //Temporary solution. Double-sent reqest in the application for filters
+        await waitHelpers.waitUntilAjaxIsFinished();
     },
 
     clickCreateTaskButton: async function () {
@@ -93,7 +95,6 @@ module.exports = {
     },
 
     isTaskVisible: async function (taskname) {
-        await waitHelpers.waitUntilPageLoads();
         const allTasks = await this.getAllTasks();
         const isTaskOnList = allTasks.some((element) => element.includes(taskname));
         return isTaskOnList;
