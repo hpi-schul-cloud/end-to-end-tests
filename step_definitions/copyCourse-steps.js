@@ -21,7 +21,7 @@ Given(/^the amount of courses is x$/, async function() {
 
 When(/^the teacher selects the course (.*) and clicks clone it$/, async function(coursename) {
 	await courseListPage.goToCourses();
-	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.allCourses);
+	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 	await generalCoursePage.cloneCourse();
 });
 Then(/^the amount of courses is implemented$/, async function() {
@@ -57,14 +57,14 @@ When(/^the teacher adds some Text (.*) to the course$/, async function(text) {
 
 When(/^the teacher clicks copy course (.*) with Text$/, async function(coursename) {
 	await courseListPage.goToCourses();
-	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.allCourses);
+	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 	await generalCoursePage.cloneCourse();
 });
 
 When(/^teacher sees the course (.*) was copied and the topic (.*) is still availiable$/, async function(coursename, topicname) {
 		//return copyCourse.verify(coursename, topicname);
 	await courseListPage.goToCourses();
-	await courseListPage.verifyCourseAndTopic(coursename, topicname);
+	await courseListPage.verifyCourseAndTopic(coursename, topicname, courseListPage.section.activeCourses);
 	});
 
 // _________With GeoGebra__________
@@ -78,14 +78,14 @@ When(/^the teacher adds some GeoGebraArbeitsblatt with id (.*) to the course$/, 
 
 When(/^the teacher clicks copy course (.*) with GeoGebraArbeitsblatt$/, async function(coursename) {
 	await courseListPage.goToCourses();
-	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.allCourses);
+	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 	await generalCoursePage.cloneCourse();
 });
 
 Then(/^teacher sees the course (.*) copy and the GeoGebraArbeitsblatt (.*) is still availiable$/, async function(coursename, topicname) {
 		//return copyCourse.verify(coursename, topicname);
 		await courseListPage.goToCourses();
-		await courseListPage.verifyCourseAndTopic(coursename, topicname);
+		await courseListPage.verifyCourseAndTopic(coursename, topicname, courseListPage.section.activeCourses);
 	});
 
 // _________With Material__________
@@ -107,14 +107,14 @@ When(/^the teacher adds some Material  to the course$/, function() {
 
 When(/^the teacher clicks copy course (.*) with Material$/, async function(coursename) {
 	await courseListPage.goToCourses();
-	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.allCourses);
+	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 	await generalCoursePage.cloneCourse();
 });
 
 Then(/^teacher sees the course (.*) copy and the material (.*) is still availiable$/, async function(coursename, topicname) {
 	//return copyCourse.verify(coursename, topicname);
 	await courseListPage.goToCourses();
-	await courseListPage.verifyCourseAndTopic(coursename, topicname);
+	await courseListPage.verifyCourseAndTopic(coursename, topicname, courseListPage.section.activeCourses);
 });
 
 
@@ -127,14 +127,14 @@ When(/^the teacher adds some Etherpad with (.*) and (.*) to the course$/, async 
 
 When(/^the teacher clicks copy course (.*) with Etherpad$/, async function(coursename) {
 	await courseListPage.goToCourses();
-	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.allCourses);
+	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 	await generalCoursePage.cloneCourse();
 });
 
 Then(/^teacher sees the course (.*) copy and the Etherpadd (.*) is still availiable$/, async function(coursename, topicname) {
 	//return copyCourse.verify(coursename, topicname);
 	await courseListPage.goToCourses();
-	await courseListPage.verifyCourseAndTopic(coursename, topicname);
+	await courseListPage.verifyCourseAndTopic(coursename, topicname, courseListPage.section.activeCourses);
 });
 
 // _________With pupils__________
@@ -144,7 +144,7 @@ Given(/^the teacher creates a course with name (.*) and student (.*)$/, function
 
 When(/^the teacher copies the course (.*) with students$/, async function(coursename) {
 	await courseListPage.goToCourses();
-	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.allCourses);
+	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 	await generalCoursePage.cloneCourse();
 });
 

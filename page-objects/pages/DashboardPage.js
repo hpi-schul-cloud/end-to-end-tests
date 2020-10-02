@@ -5,53 +5,50 @@ const { CLIENT } = require("../../shared-objects/servers");
 const navigationTopPage = require('../../page-objects/pages/NavigationTopPage');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const apiHelpers = require('../../runtime/helpers/APIhelpers');
-const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
+const waitHelpers = require("../../runtime/helpers/waitHelpers");
 
 const dashboardUrl = `${CLIENT.URL}/dashboard`;
-const dashboardSelectors = {
-		dashboardTitle: 'Übersicht',
-    dashboardHeader: '#titlebar h1#page-title',
-};
+const dashboardTitle = 'Übersicht';
+const dashboardHeader = '#titlebar h1#page-title';
+//const sidebarList = 'ul.sidebar-list[title]';
+const sidebarList = 'ul.sidebar-list a[title] span.link-name';
+
 module.exports = {
-		dashboardSelectors, 
-    goToDashboard: async function() {
+	goToDashboard: async function () {
 		await elementHelpers.loadPage(dashboardUrl, 20);
 		await driver.pause(1000);
 	},
 
-	loginResultDashboard: async function() {
+	loginResultDashboard: async function () {
 		await this.goToDashboard();
-		let title = dashboardSelectors.dashboardTitle;
-		expect(await elementHelpers.getElementText(dashboardSelectors.dashboardHeader)).to.equal(title);
+		expect(await elementHelpers.getElementText(dashboardHeader)).to.equal(dashboardTitle);
 	},
-	
-	loginInitials: async function() {
+
+	loginInitials: async function () {
 		let initials = await apiHelpers.getInitials();
 		expect(await elementHelpers.getElementText('.avatar-circle')).to.equal(initials);
 	},
 
-	loginSchool: async function() {
+	loginSchool: async function () {
 		await this.goToDashboard();
 		let schoolNameProvidedByAPI = await apiHelpers.getSchoolName();
-		expect(await elementHelpers.getElementText(loginPage.schoolNameSelector)).to.equal(schoolNameProvidedByAPI);
-		},
-		
-  loginFullUserInfo: async function() {
-		let userName = await apiHelpers.getUserName();
-		let userRole = await apiHelpers.getUserRole();
-		await navigationTopPage.clickInitials();
-		let fullNameAndRole = await await elementHelpers.getElementText(navigationTopPage.selectors.initialsDDCurrentUser);
-		expect(fullNameAndRole).to.include(userName, userRole);
+		let schoolName = await navigationTopPage.getSchoolNameDisplayed();
+		expect(schoolName).to.equal(schoolNameProvidedByAPI);
 	},
-	
-  checkIfTabsAreVisible: async function (itemsToCompare, selector) {
-    let items = await driver.$$(selector);
-	let expectations = itemsToCompare.hashes();
-	expect(items.length).to.be.above(0);
-    for(let i = 0; i < items.length; i++){
-      let actualLabelText = await items[i].getText();
-      await items[i].waitForEnabled(DELAY_100_MILLISECOND);
-      expect(actualLabelText).to.equal(expectations[i].tabs);
-      }
-  },
+
+	checkIfMenuItemsAreVisible: async function (itemsToCompare, items) {
+		await waitHelpers.waitUntilPageLoads();
+		let expectations = await itemsToCompare.hashes();
+		expect(items.length).to.be.above(0);
+		for (let i = 0; i < expectations.length; i++) {
+			let actualLabelText = await items[i].getText();
+			await items[i].waitForEnabled(DELAY_100_MILLISECOND);
+			expect(actualLabelText).to.equal(expectations[i].tabs);
+		}
+	},
+
+	getMenuItems: async function () {
+		let items = await driver.$$(sidebarList);
+		return items;
+	}
 }
