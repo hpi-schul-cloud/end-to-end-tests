@@ -29,7 +29,8 @@ module.exports = {
 		await driver.pause(500);
 	},
 	setSubtopicName: async function (subtopicName) {
-		await waitHelpers.waitAndSetValue(subtopicInputField, subtopicName)
+		let subtopicInputField = await driver.$(subtopicInputField);
+		await subtopicInputField.setText(subtopicName);
 	},
 	clickCreateTopicButton: async function () {
 		await waitHelpers.waitAndClick(themaAnlegenButton);
