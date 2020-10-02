@@ -9,7 +9,7 @@ When(/^.*goes to courses page$/, function () {
 	return courseListPage.goToCourses();
 });
 Then(/^.*buttons: Import-course, Create-new-course are visible$/, function () {
-	return courseListPage.importAndCreateCourseBtnsAreVisible();
+	return courseListPage.areImportAndCreateCourseBtnsVisible();
 });
 
 Then(
@@ -53,7 +53,7 @@ Then(/^.*course with name (.*) is not visible on the list$/, async function (cou
 Then(
 	/^.*course with name (.*) is displayed correctly on the list$/,
 	async function (courseName) {
-		await courseListPage.courseIsDisplayedCorrectly(courseName);
+		await courseListPage.isCourseDisplayedCorrectly(courseName);
 	}
 );
 When(/^.*clicks Next-section button$/, async function () {

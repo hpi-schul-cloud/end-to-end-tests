@@ -18,18 +18,18 @@ const navItemHelpContactAdmin = '[data-testid="contact-admin"]';
 const navItemHelpTraining = '[data-testid="fortbildungen"]';
 
 module.exports = {
-    checkSchoolname: async function () {
+    isSchoolNameCorrect: async function () {
         let schoolNameProvidedByAPI = await apiHelpers.getSchoolName();
         let schoolNameOnPage = await this.getSchoolNameDisplayed();
         return expect(schoolNameOnPage).to.equal(schoolNameProvidedByAPI);
     },
-    checkInitials: async function () {
+    areUserInitialsCorrect: async function () {
         let initialsProvidedByAPI = await apiHelpers.getInitials();
         let intitialsOnPage = await this.getInitials();
         return expect(intitialsOnPage).to.equal(initialsProvidedByAPI)
     },
 
-    checkFullUserInfo: async function () {
+    isUserNameAndRoleCorrect: async function () {
         let userName = await apiHelpers.getUserName();
         let userRole = await apiHelpers.getUserRole();
         await this.clickInitials();

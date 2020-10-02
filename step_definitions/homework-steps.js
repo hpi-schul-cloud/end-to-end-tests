@@ -20,7 +20,7 @@ When(/^teacher clicks "create a new home task" in the course (.*) with (.*)$/, f
 });
 
 Then(/^the hometask with (.*) is to be found at the task pannel$/, function (taskname) {
-    return homeworkListPage.verify(taskname);
+    return homeworkListPage.goToHomeworkListAndCheckTaskIfExist(taskname);
 });
 
 /* PRIVATE */
@@ -45,7 +45,7 @@ Then(/^the student will not see this task with (.*)$/, async function (taskname)
 
 /* SUBMISSION */
 When(/^the student finds (.*)$/, function (taskname) {
-    return homeworkListPage.userFindsTheTask(taskname);
+    return homeworkListPage.clickOnTaskFromList(taskname);
 });
 
 When(/^student with (.*), (.*) of this course (.*) goes to hometasks$/, function (username, password, coursename) {

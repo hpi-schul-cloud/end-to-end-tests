@@ -66,7 +66,7 @@ async function getStudentsEmailList() {
 		})
 	);
 }
-async function studentEmailIsOnTheList(email) {
+async function isStudentEmailOnTheList(email) {
 	let emails = await getStudentsEmailList();
 	await expect(emails).to.contain(email);
 }
@@ -94,7 +94,7 @@ async function studentLogsInWithDefaultPassword(email) {
 
 module.exports = {
 	createNewPupil,
-	studentEmailIsOnTheList,
+	isStudentEmailOnTheList,
 	submitConsent,
 	studentLogsInWithDefaultPassword,
 };

@@ -48,6 +48,7 @@ const courseColour = [
 	"corn",
 ];
 
+
 async function goToAddCourses() {
 	await elementHelpers.loadPage(urlCoursesAdd, 20)
 }
