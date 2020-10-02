@@ -71,24 +71,24 @@ Then(
 	}
 );
 Then(/^.*course name has not been entered$/, async function () {
-	await addCourse.courseNameIsNotEntered();
+	await addCourse.isCourseNameNotEntered();
 });
 
 Then(/^.*time span is already set$/, async function () {
 	await addCourse.isTimeSpanSet();
 });
 Then(/^.*supply teacher is not set$/, async function () {
-	await addCourse.isTeacherSubstituteSet();
+	await addCourse.isTeacherSubstituteNotSet();
 });
 
 Then(/^.* ([0-9]) section is opened$/, async function (sectionNumber) {
 	await addCourse.isSectionDisplayed(sectionNumber);
 });
 Then(/^.*no class is set$/, async function () {
-	await addCourse.isClassSet();
+	await addCourse.isClassNotSet();
 });
 Then(/^.*no student is set$/, async function () {
-	await addCourse.isStudentSet();
+	await addCourse.isStudentNotSet();
 });
 When(/^.*clicks Create-course-and-continue button'$/, async function () {
 	await addCourse.clickCreateCourseAndContinueBtn();

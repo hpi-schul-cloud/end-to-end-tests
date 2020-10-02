@@ -8,21 +8,21 @@ const courseDescriptionInput = "textarea";
 const deleteButton = "a.btn-delete-course";
 const deleteButtonConfirmation = ".modal-content button.btn-submit";
 
-module.exports = {
-	clickSubmitButton: async function () {
+
+async function	clickSubmitButton () {
 		await elementHelpers.clickAndWait(submitBtn);
-	},
+	}
 
-	clickDeleteButtonConfirmation: async function () {
+async function	clickDeleteButtonConfirmation () {
 		await elementHelpers.clickAndWait(deleteButtonConfirmation);
-	},
+	}
 
-	clickDeleteButton: async function () {
+async function	clickDeleteButton () {
 		await elementHelpers.clickAndWait(deleteButton);
 
-	},
+	}
 
-	setCourseName: async function (courseName) {
+async function	setCourseName (courseName) {
 		try {
 			const courseNameContainer = await driver.$(courseNameInput);
 			await courseNameContainer.clearValue();
@@ -31,9 +31,9 @@ module.exports = {
 			log.error("Can not set value: " + error.message);
 			throw error;
 		}
-	},
+	}
 
-	setCourseDescription: async function (courseDescription) {
+async function	setCourseDescription (courseDescription) {
 		try {
 			const courseNameContainer = await driver.$(courseDescriptionInput);
 			await courseNameContainer.clearValue();
@@ -42,5 +42,12 @@ module.exports = {
 			log.error("Can not set value: " + error.message);
 			throw error;
 		}
-	},
+	}
+
+module.exports = {
+	clickSubmitButton,
+	clickDeleteButtonConfirmation,
+	clickDeleteButton,
+	setCourseName,
+	setCourseDescription
 };

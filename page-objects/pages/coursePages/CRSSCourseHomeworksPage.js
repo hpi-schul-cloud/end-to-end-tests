@@ -6,14 +6,18 @@ const elementHelpers = require("../../../runtime/helpers/elementHelpers.js")
 
 const addNewHomeworkBtn = "[data-section='js-homeworks'] .add-button a"
 
-module.exports = {
-    clickAddNewTaskBtn: async function () {
-        await elementHelpers.click(addNewHomeworkBtn)
-    },
 
-    clickAddNewTaskInCourse: async function (coursename) {
+async function clickAddNewTaskBtn() {
+        await elementHelpers.click(addNewHomeworkBtn)
+    }
+
+async function clickAddNewTaskInCourse(coursename) {
         await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses)
         await coursePage.openHomeworksTab()
-        await this.clickAddNewTaskBtn()
-    },
+        await clickAddNewTaskBtn()
+    }
+
+module.exports = {
+    clickAddNewTaskBtn,
+    clickAddNewTaskInCourse,
 }

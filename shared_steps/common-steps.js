@@ -50,7 +50,7 @@ Then(/^the login must fail$/, async function () {
 });
 
 Then(/^the login must be successful$/, function () {
-	return navigationTopPage.areInitialsCorrect();
+	return navigationTopPage.areUserInitialsCorrect();
 });
 
 /*Courses*/

@@ -67,7 +67,7 @@ module.exports = {
 		await driver.pause(1500);
 	},
 
-	areInitialsCorrect: async function () {
+	areUserInitialsCorrect: async function () {
 		let initials = await apiHelpers.getInitials();
 		expect(await elementHelpers.getElementText(avatarCircle)).to.equal(initials);
 	},

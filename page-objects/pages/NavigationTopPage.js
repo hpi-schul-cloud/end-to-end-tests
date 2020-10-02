@@ -23,7 +23,7 @@ module.exports = {
         let schoolNameOnPage = await this.getSchoolNameDisplayed();
         return expect(schoolNameOnPage).to.equal(schoolNameProvidedByAPI);
     },
-    areInitialsCorrect: async function () {
+    areUserInitialsCorrect: async function () {
         let initialsProvidedByAPI = await apiHelpers.getInitials();
         let intitialsOnPage = await this.getInitials();
         return expect(intitialsOnPage).to.equal(initialsProvidedByAPI)

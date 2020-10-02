@@ -14,7 +14,7 @@ When(/^teacher creates some news which has to be published immediately$/, functi
 });
 
 Then(/^he can see the news$/, async function () {
-	let newsNames = await newsListPage.getAllNews();
+	let newsNames = await newsListPage.getListOfNewNames();
 	await expect(newsNames).to.include(name);
 });
 
@@ -23,7 +23,7 @@ When(/^teacher creates some news which has to be published later$/, function () 
 });
 
 Then(/^he cannot see the news which is not due yet$/, async function () {
-	let newsNames = await newsListPage.getAllNews();
+	let newsNames = await newsListPage.getListOfNewNames();
 	await expect(newsNames).not.to.include(laterNewsName);
 });
 // TEAM

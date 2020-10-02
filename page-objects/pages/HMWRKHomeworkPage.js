@@ -59,7 +59,7 @@ module.exports = {
         await courseListPage.goToCourses();
         await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
         await this.gotoTasksTab();
-        await HMWRKHomeworkListPage.getTaskFromList(taskname);
+        await HMWRKHomeworkListPage.clickOnTaskFromList(taskname);
         await this.hasTheStudentSubmittedTheTask(studentname);
     },
 

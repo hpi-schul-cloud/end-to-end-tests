@@ -119,7 +119,7 @@ async function setCourseNameIntoSearchInputField(courseName) {
 	await elementHelpers.fillInputField(searchCourseFiled, courseName);
 }
 
-async function getNumberOfDisplayedCoursesForSection(section) {
+async function getCountOfDisplayedCoursesForSection(section) {
 	const elem = await getListOfCoursesInSection(section);
 	var numberOfDisplayedCourses = 0;
 	for (var i = 0; i < elem.length; i++) {
@@ -226,7 +226,7 @@ async function getListOfCourseTitlesInSection(section) {
 	return courseTitleList;
 }
 
-async function getNumberOfCoursesWhichTitlesContainTextInSection(text, section) {
+async function getCountOfCoursesWhichTitlesContainTextForSection(text, section) {
 	let listOfCourseNames = await getListOfCourseTitlesInSection(section);
 	var re = new RegExp(text, 'gi');
 	const matchingNames = listOfCourseNames.filter((n) => n.match(re));
@@ -272,7 +272,7 @@ async function studentLogsInAndGoesToTasksOfTheCourse(username, password, course
 	await goToTasksOfTheCourse(coursename);
 }
 
-async function isTopicInCourse(coursename, topicname, section) {
+async function isTopicInCourseInSection(coursename, topicname, section) {
 	await clickOnCourseInSection(coursename, section);
 	let topicNames = await Promise.all(
 		(await driver.$$('#topic-list > div > div > div')).map(async (element) => await element.getText())
@@ -280,7 +280,7 @@ async function isTopicInCourse(coursename, topicname, section) {
 	await expect(topicNames).to.include(topicname);
 }
 
-async function areStudentsInCopiedCourse(coursename) {
+async function areNotAnyStudentsInCopiedCourse(coursename) {
 	let copiedName = coursename + ' - Kopie';
 	let courseHasIndex = (await getIndexOfGivenCourseInSection(copiedName, section.activeCourses)) + 1;
 	let areThereStudentsInCourseContainer = await driver.$(
@@ -302,7 +302,7 @@ module.exports = {
 	clickCreateCourseBtn,
 	getColourSelector,
 	setCourseNameIntoSearchInputField,
-	getNumberOfDisplayedCoursesForSection,
+	getCountOfDisplayedCoursesForSection,
 	getCourseWrapper,
 	getNamesOfMembers,
 	areMembersOnTheListInCourseForSection,
@@ -314,12 +314,12 @@ module.exports = {
 	getColorCourse,
 	getWrapperOfCourseInSection,
 	getListOfCourseTitlesInSection,
-	getNumberOfCoursesWhichTitlesContainTextInSection,
+	getCountOfCoursesWhichTitlesContainTextForSection,
 	clickOnCourseInSection,
 	getNumberOfMembersInGivenCourseInSection,
 	clickPupilIconInCourseInSection,
 	goToTasksOfTheCourse,
 	studentLogsInAndGoesToTasksOfTheCourse,
-	isTopicInCourse,
-	areStudentsInCopiedCourse,
+	isTopicInCourseInSection,
+	areNotAnyStudentsInCopiedCourse,
 };

@@ -45,7 +45,7 @@ Then(/^the student will not see this task with (.*)$/, async function (taskname)
 
 /* SUBMISSION */
 When(/^the student finds (.*)$/, function (taskname) {
-    return homeworkListPage.getTaskFromList(taskname);
+    return homeworkListPage.clickOnTaskFromList(taskname);
 });
 
 When(/^student with (.*), (.*) of this course (.*) goes to hometasks$/, function (username, password, coursename) {

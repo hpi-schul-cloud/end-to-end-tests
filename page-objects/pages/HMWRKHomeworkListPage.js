@@ -99,7 +99,7 @@ module.exports = {
         return isTaskOnList;
     },
 
-    getTaskFromList: async function (taskname) {
+    clickOnTaskFromList: async function (taskname) {
         let areThereAnyTasks = await driver.$$(tasksContainer)
         await expect(areThereAnyTasks.length).not.to.equal(0)
         for (var i = 1; i <= areThereAnyTasks.length; i++) {
