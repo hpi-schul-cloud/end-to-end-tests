@@ -1,6 +1,7 @@
 'use strict';
 
-const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
+const elementHelpers = require("../../runtime/helpers/elementHelpers");
+
 const impressum = '#footer li:nth-child(1) > a';
 const nutzungsordnungHPISchulCloud = '#footer li:nth-child(2) > a';
 const datenschutzerklarungHPISchulCloud = '#footer li:nth-child(3) > a';
@@ -15,46 +16,46 @@ const sicherheit = '#footer li:nth-child(11) > a';
 
 module.exports = {
     clickImpressumFooterLink: async function () {
-        await waitHelpers.waitAndClick(impressum);
+        await elementHelpers.click(impressum);
     },
 
     clickNutzungsordnungHPISchulCloudFooterLink: async function () {
-        await waitHelpers.waitAndClick(nutzungsordnungHPISchulCloud);
+        await elementHelpers.click(nutzungsordnungHPISchulCloud);
     },
 
     clickDatenschutzerklarungHPISchulCloudFooterLink: async function () {
-        await waitHelpers.waitAndClick(datenschutzerklarungHPISchulCloud);
+        await elementHelpers.click(datenschutzerklarungHPISchulCloud);
     },
 
     clickKontaktFooterLink: async function () {
-        await waitHelpers.waitAndClick(kontakt);
+        await elementHelpers.click(kontakt);
     },
 
     clickTeamFooterLink: async function () {
-        await waitHelpers.waitAndClick(team);
+        await elementHelpers.click(team);
     },
 
     clickUberDasProjektFooterLink: async function () {
-        await waitHelpers.waitAndClick(uberDasProjekt);
+        await elementHelpers.click(uberDasProjekt);
     },
 
     clickMitmachenFooterLink: async function () {
-        await waitHelpers.waitAndClick(mitmachen);
+        await elementHelpers.click(mitmachen);
     },
 
     clickPartnerFooterLink: async function () {
-        await waitHelpers.waitAndClick(partner);
+        await elementHelpers.click(partner);
     },
 
     clickGitHubFooterLink: async function () {
-        await waitHelpers.waitAndClick(gitHub);
+        await elementHelpers.click(gitHub);
     },
 
     clickStatusHubFooterLink: async function () {
-        await waitHelpers.waitAndClick(status);
+        await elementHelpers.click(status);
     },
 
     clickSicherheitFooterLink: async function () {
-        await waitHelpers.waitAndClick(sicherheit);
+        await elementHelpers.click(sicherheit);
     },
 }
