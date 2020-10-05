@@ -69,21 +69,21 @@ module.exports = {
     createTeamAndGoToSettings: async function (teamname) {
         await this.createTeamSteps(teamname);
         await TMSGeneralTeamPage.clickSettings();
-        await TMSGeneralTeamPage.clickAdministrateTeammembers();
+        await TMSGeneralTeamPage.clickAdministrateTeamMembers();
         await TMSTeamMembersPage.clickAddInternalMembers();
     },
     // Steps to create Team with a certain name
     createTeamSteps: async function (name) {
         await TMSTeamListPage.goToAddTeam();
         await this.setTeamName(name);
-        await this.confirmTeamCreate();
+        await this.clickOnCreateTeamButton();
     },
     // Set certain name in teamname field
     setTeamName: async function (name) {
         let nameField = await driver.$(teamName);
         await nameField.setValue(name);
     },
-    confirmTeamCreate: async function () {
+    clickOnCreateTeamButton: async function () {
         let confirmBtn = await driver.$(createTeamBtn);
         await confirmBtn.click();
     },
@@ -142,7 +142,7 @@ module.exports = {
             }
         }
     },
-    canTeamMemberSeeTheNews: async function () {
+    studentLogInAndCheckIfSeeNews: async function () {
         let email = emailTWO;
         let name = email;
         let password = "Schulcloud1!";
@@ -150,10 +150,10 @@ module.exports = {
         await loginPage.performLogin(email, oldPassword2);
         await loginPage.firstLoginStudent(name, password);
         await newsListPage.goToNews();
-        await newsListPage.shouldBeVisible(newsName2)
+        await newsListPage.isNewsVisible(newsName2)
     },
-    canNonTeamMemberSeeTheNews: async function () {
+    isNewsNotVisible: async function () {
         await newsListPage.goToNews();
-        await newsListPage.shouldNotBeVisible(newsName1)
+        await newsListPage.isNewsNotVisible(newsName1)
     },
 }

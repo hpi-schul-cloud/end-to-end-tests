@@ -8,23 +8,20 @@ const addNewsBtn = "[data-testid='create-news-btn']";
 module.exports = {
 
 	goToNews: async function() {
-		await navigationLeftPage.clickNavItemNews();
-	},
-	clickCreateNewsBtn: async function () {
-		await waitHelpers.waitAndClick(addNewsBtn);
-	},
-    verifyWhetherVisible: async function() {
-		const listOfElements = await driver.$$(selectorNewsElementInTheList);
+		await elementHelpers.loadPage(url, 100);
+    },
+    getListOfNewNames: async function() {
+		const listOfElements = await driver.$$(element);
 		const namePromises = listOfElements.map(async element => await element.getText());
 		const newsNames = await Promise.all(namePromises);
 		return newsNames;
 	},
-	shouldBeVisible: async function(name) {
-		let newsNames = await this.verifyWhetherVisible();
+	isNewsVisible: async function(name) {
+		let newsNames = await this.getListOfNewNames();
 		await expect(newsNames).to.include(name);
 	},
-	shouldNotBeVisible: async function(name) {
-		let newsNames = await this.verifyWhetherVisible();
+	isNewsNotVisible: async function(name) {
+		let newsNames = await this.getListOfNewNames();
 		await expect(newsNames).to.not.include(name);
 	}
 }

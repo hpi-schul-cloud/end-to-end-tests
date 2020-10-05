@@ -16,24 +16,24 @@ module.exports = {
 		await waitHelpers.waitAndClick(dashboardBtnOnNavigationLeftPanel);
 	},
 
-	loginResultDashboard: async function () {
+	isTitleOfDashboard: async function () {
 		await this.goToDashboard();
 		expect(await elementHelpers.getElementText(dashboardHeader)).to.equal(dashboardTitle);
 	},
 
-	loginInitials: async function () {
+	areUserInitialsCorrect: async function () {
 		let initials = await apiHelpers.getInitials();
 		expect(await elementHelpers.getElementText('.avatar-circle')).to.equal(initials);
 	},
 
-	loginSchool: async function () {
+	isSchoolNameCorrect: async function () {
 		await this.goToDashboard();
 		let schoolNameProvidedByAPI = await apiHelpers.getSchoolName();
 		let schoolName = await navigationTopPage.getSchoolNameDisplayed();
 		expect(schoolName).to.equal(schoolNameProvidedByAPI);
 	},
 
-	checkIfMenuItemsAreVisible: async function (itemsToCompare, items) {
+	areMenuItemsVisible: async function (itemsToCompare, items) {
 		await waitHelpers.waitUntilPageLoads();
 		let expectations = await itemsToCompare.hashes();
 		expect(items.length).to.be.above(0);

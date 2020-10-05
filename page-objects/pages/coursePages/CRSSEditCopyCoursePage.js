@@ -1,5 +1,6 @@
 /*[url/courses]/[courseId]/edit] | [url/courses]/[courseId]/copy]*/
-const waitHelpers = require("../../../runtime/helpers/waitHelpers");
+
+const elementHelpers = require("../../../runtime/helpers/elementHelpers");
 
 const submitBtn = "button.btn-submit";
 const courseNameInput = "form > div:nth-child(3) > input";
@@ -7,20 +8,21 @@ const courseDescriptionInput = "textarea";
 const deleteButton = "a.btn-delete-course";
 const deleteButtonConfirmation = ".modal-content button.btn-submit";
 
-module.exports = {
-	clickSubmitButton: async function () {
-		await waitHelpers.waitAndClick(submitBtn);
-	},
 
-	clickDeleteButtonConfirmation: async function () {
-		await waitHelpers.waitAndClick(deleteButtonConfirmation);
-	},
+async function	clickSubmitButton () {
+		await elementHelpers.clickAndWait(submitBtn);
+	}
 
-	clickDeleteButton: async function () {
-		await waitHelpers.waitAndClick(deleteButton);
-	},
+async function	clickDeleteButtonConfirmation () {
+		await elementHelpers.clickAndWait(deleteButtonConfirmation);
+	}
 
-	setCourseName: async function (courseName) {
+async function	clickDeleteButton () {
+		await elementHelpers.clickAndWait(deleteButton);
+
+	}
+
+async function	setCourseName (courseName) {
 		try {
 			const courseNameContainer = await driver.$(courseNameInput);
 			await courseNameContainer.clearValue();
@@ -29,9 +31,9 @@ module.exports = {
 			log.error("Can not set value: " + error.message);
 			throw error;
 		}
-	},
+	}
 
-	setCourseDescription: async function (courseDescription) {
+async function	setCourseDescription (courseDescription) {
 		try {
 			const courseNameContainer = await driver.$(courseDescriptionInput);
 			await courseNameContainer.clearValue();
@@ -40,5 +42,12 @@ module.exports = {
 			log.error("Can not set value: " + error.message);
 			throw error;
 		}
-	},
+	}
+
+module.exports = {
+	clickSubmitButton,
+	clickDeleteButtonConfirmation,
+	clickDeleteButton,
+	setCourseName,
+	setCourseDescription
 };

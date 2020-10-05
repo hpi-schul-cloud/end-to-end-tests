@@ -4,16 +4,16 @@ Feature: create different types of homework
 
 
     Background: a teacher logs in and creates a course
-        Given teacher arrives on the Schul-Cloud homepage
-        Given teacher logs in
-        Given teacher accepts data protection
-        Given teacher goes to courses page
+        Given arrives on the Schul-Cloud homepage
+        And teacher is successfully logged in
+        And teacher accepts data protection
+        And teacher goes to courses page
 
 
     @createSimpleHomework
     Scenario Outline: create a simple hometask
         When the teacher creates one course with <coursename> and
-        When teacher clicks "create a new home task" in the course <coursename> with <taskname>
+        And teacher clicks "create a new home task" in the course <coursename> with <taskname>
         Then the hometask with <taskname> is to be found at the task pannel
         Examples:
             | coursename    | taskname     |
@@ -23,7 +23,7 @@ Feature: create different types of homework
     Scenario Outline: create a private hometask has to be visible only for the teacher
     Given the teacher creates one course with <coursename> and student with <studentname>
     When teacher creates a private hometask in the course <coursename> with <taskname>
-    When student logs in with email <username> and password <password>
+    And student logs in with email <username> and password <password>
     And student with full age accepts student's data protection with password <newStudentPassword>
     Then the student will not see this task with <taskname>
     Examples:
@@ -47,12 +47,12 @@ Feature: create different types of homework
     @gradeHomeworkWithFile
     Scenario Outline: grade a homework submission by uploading a file
         Given the teacher creates one course with file feedback and student with Paula Meyer
-        And the teacher has posed a homework
+        When the teacher has posed a homework
         And teacher logs out
         And student logs in with email <username> and password <password>
         And student with full age accepts student's data protection with password <newPasswordStudent>
         And the student has submitted that homework
-        When the teacher uploads file feedback
+        And the teacher uploads file feedback
         Then both the teacher and student can see and download the feedback
         Examples:
             | username                    | password     | newPasswordStudent |

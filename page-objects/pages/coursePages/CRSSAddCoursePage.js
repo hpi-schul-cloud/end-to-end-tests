@@ -1,7 +1,6 @@
 /*[url/courses]/add]*/
 "use strict";
 const elementHelpers = require("../../../runtime/helpers/elementHelpers");
-const waitHelpers = require("../../../runtime/helpers/waitHelpers");
 const axios = require("axios");
 const courseListPage = require('./CRSSCourseListPage');
 const navigationLeftPage= require('../NavigationLeftPage');
@@ -45,32 +44,31 @@ const courseColour = [
 	"corn",
 ];
 
-module.exports = {
-	goToAddCourses: async function() {
-		await navigationLeftPage.clickNavItemCourses();
-		await courseListPage.clickCreateCourseBtn();
-	},
 
-	goToNextSection: async function () {
-		await waitHelpers.waitAndClick(nextSectionBtn);
-	},
+async function goToAddCourses() {
+		await elementHelpers.loadPage(urlCoursesAdd, 20)
+	}
 
-	getListOfSelected: async function (containerSelector) {
+async function goToNextSection () {
+		await elementHelpers.click(nextSectionBtn);
+	}
+
+async function getListOfSelected (containerSelector) {
 		const container = await driver.$(containerSelector);
 		const listOfElements = await container.$$(chosenInput);
 		return await elementHelpers.getTextListFromListOfElements(listOfElements);
-	},
+	}
 
-	isDefaultValueInContainer: async function (containerSelector, defaultText) {
+async function isDefaultMultiContainerValue (containerSelector, defaultText) {
 		const container = await driver.$(containerSelector);
 		const listOfElements = await container.$$(chosenDefInput);
 		const valueList = await elementHelpers.getValueListFromListOfElements(listOfElements);
 		const isOnlyOneText = valueList.length == 1;
 		await expect(isOnlyOneText).is.equal(true);
 		await expect(valueList).includes(defaultText);
-	},
+	}
 
-	sectionIsDisplayed: async function (sectionNumber) {
+async function isSectionDisplayed (sectionNumber) {
 		const sectionToCheck =
 			sectionNumber == 1 ? sectionNumber : sectionNumber - 1;
 		const selector = this.getSectionSelector(sectionToCheck);
@@ -83,9 +81,9 @@ module.exports = {
 		} else {
 			await expect(hasChildren).to.equal(true);
 		}
-	},
+	}
 
-	sectionIsNotDisplayed: async function (sectionNumber) {
+async function isSectionNotDisplayed (sectionNumber) {
 		const sectionToCheck =
 			sectionNumber == 1 ? sectionNumber : sectionNumber - 1;
 		const element = await driver.$(this.getSectionSelector(sectionToCheck));
@@ -98,9 +96,9 @@ module.exports = {
 		} else {
 			await expect(hasChildren).to.equal(false);
 		}
-	},
+	}
 
-	getSectionSelector: function (sectionNumber) {
+function getSectionSelector(sectionNumber) {
 		let selector;
 		switch (sectionNumber) {
 			case 1:
@@ -119,9 +117,9 @@ module.exports = {
 				break;
 		}
 		return selector;
-	},
+	}
 
-	getUserName: async function () {
+async function getUserName () {
 		const cookie = await driver.getCookies(["jwt"]);
 		const jwt = cookie[0].value;
 		const info = await axios.request({
@@ -134,38 +132,38 @@ module.exports = {
 		const firstName = info.data.firstName;
 		const lastName = info.data.lastName;
 		return firstName + " " + lastName;
-	},
+	}
 
-	createCourse: async function(courseName) {
+async function createCourse(courseName) {
 		await this.goToAddCourses();
 		await this.setCourseName(courseName);
 		await this.goToNextSection();
 		await this.goToNextSection();
 		await this.clickGoToCourseListBtn();
-	},
+	}
 
-	createCourseWithStudents: async function(courseName, studentName) {
+async function createCourseWithStudents(courseName, studentName) {
 		await this.goToAddCourses();
 		await this.setCourseName(courseName);
 		await this.goToNextSection();
 		await elementHelpers.selectOptionByText(multipleChoiceSelectForStudents ,studentName);
 		await this.goToNextSection();
 		await this.clickGoToCourseListBtn();
-	},
+	}
 
 	//Course data section
-	courseNameIsNotEntered: async function () {
+async function isCourseNameNotEntered () {
 		const courseNameContainer = await driver.$(courseNameInput);
 		const placeholderText = await courseNameContainer.getAttribute("placeholder");
 		await expect(placeholderText).to.equal("z.B. Mathe 10a");
-	},
+	}
 
-	setCourseName: async function (courseName) {
+async function setCourseName (courseName) {
 		const courseNameContainer = await driver.$(courseNameInput);
 		await courseNameContainer.setValue(courseName);
-	},
+	}
 
-	setColour: async function (colourName) {
+async function setColour (colourName) {
 		const listOfColours = courseColour;
 		if (listOfColours.includes(colourName)) {
 			const childNumber = listOfColours.indexOf(colourName) + 1;
@@ -178,25 +176,25 @@ module.exports = {
 				`you did not insert a valid color. Must be ${listOfColours},\n you inserted ${colourName}`
 			);
 		}
-	},
+	}
 
-	teachersNameisSetByDefault: async function () {
+async function isTeachersNameSetByDefault () {
 		const username = await this.getUserName();
 		const listOfTeachersNames = await this.getListOfSelected(
 			teacherContainer
 		);
 		await expect(listOfTeachersNames).to.include(username);
-	},
+	}
 
-	noTeacherSubstituteIsSet: async function () {
-		await this.isDefaultValueInContainer(
+async function isTeacherSubstituteNotSet () {
+		await this.isDefaultMultiContainerValue(
 			teacherSubContainer,
 			"Lehrer:in auswählen"
 		);
-	},
+	}
 
 	// could be extended with verifying the date is correct
-	timeSpanIsSet: async function () {
+async function isTimeSpanSet () {
 		const startValueSelector = await driver.$(timeSpan.start);
 		const startValue = await startValueSelector.getValue();
 		await expect(startValue.length).not.to.equal(0);
@@ -204,38 +202,61 @@ module.exports = {
 		const endsValueSelector = await driver.$(timeSpan.end);
 		const endsValue = await endsValueSelector.getValue();
 		await expect(endsValue.length).not.to.equal(0);
-	},
+	}
 
 	//Participants section
-	noClassIsSet: async function () {
-		await this.isDefaultValueInContainer(
+async function isClassNotSet () {
+		await this.isDefaultMultiContainerValue(
 			classContainer,
 			"Klasse(n) auswählen"
 		);
-	},
+	}
 
-	noStudentIsSet: async function () {
-		await this.isDefaultValueInContainer(
+async function isStudentNotSet () {
+		await this.isDefaultMultiContainerValue(
 			studentsContainer,
 			"Schüler:innen auswählen"
 		);
-	},
+	}
 
-	clickCreateCourseAndContinueBtn: async function () {
-		await waitHelpers.waitAndClick(nextSectionBtn);
-	},
+async function clickCreateCourseAndContinueBtn () {
+		await elementHelpers.click(nextSectionBtn);
+	}
 
 	//Final section
-	clickGoToCourseListBtn: async function () {
-		await waitHelpers.waitAndClick(goToCourseListBtn);
-	},
+async function clickGoToCourseListBtn () {
+		await elementHelpers.click(goToCourseListBtn);
+	}
 
-	finalButtonsAreVisible: async function () {
+async function areFinalButtonsVisible () {
 		await expect(
 			await elementHelpers.isElementPresent(createNewCourseBtn)
 		).to.equal(true);
 		await expect(
 			await elementHelpers.isElementPresent(goToCourseListBtn)
 		).to.equal(true);
-	},
+	}
+
+module.exports = {
+	goToAddCourses,
+	goToNextSection,
+	getListOfSelected,
+	isDefaultMultiContainerValue,
+	isSectionDisplayed,
+	isSectionNotDisplayed,
+	getSectionSelector,
+	getUserName,
+	createCourse,
+	createCourseWithStudents,
+	isCourseNameNotEntered,
+	setCourseName,
+	setColour,
+	isTeachersNameSetByDefault,
+	isTeacherSubstituteNotSet,
+	isTimeSpanSet,
+	isClassNotSet,
+	isStudentNotSet,
+	clickCreateCourseAndContinueBtn,
+	clickGoToCourseListBtn,
+	areFinalButtonsVisible
 };

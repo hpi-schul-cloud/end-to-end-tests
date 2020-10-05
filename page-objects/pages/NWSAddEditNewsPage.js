@@ -35,7 +35,7 @@ module.exports = {
         await timeField.waitForExist(1000);
         await timeField.setValue(time);
     },
-    save: async function () {
+    clickCreateNewsButton: async function () {
         let add = await driver.$(submitNewsBtn);
         await add.click();
     },
@@ -53,7 +53,7 @@ module.exports = {
         if (time) {
             await this.setPublishTime(time);
         }
-        await this.save();
+        await this.clickCreateNewsButton();
     },
     performCreateNews: async function (title) {
         await this.createNews({
