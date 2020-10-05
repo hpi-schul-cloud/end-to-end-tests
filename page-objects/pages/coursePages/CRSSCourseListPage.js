@@ -43,7 +43,8 @@ async function goToCourses() {
 
 async function importAndCreateCourseBtnsAreVisible() {
         expect(await elementHelpers.isElementPresent(importCourseBtn)).to.equal(true);
-        expect(await elementHelpers.isElementPresent(createCourseBtn)).to.equal(true);
+		expect(await elementHelpers.isElementPresent(createCourseBtn)).to.equal(true);
+}
 
 async function areImportAndCreateCourseBtnsVisible() {
 	expect(await elementHelpers.isElementPresent(importCourseBtn)).to.equal(true);
@@ -332,4 +333,4 @@ module.exports = {
 	studentLogsInAndGoesToTasksOfTheCourse,
 	isTopicInCourseInSection,
 	areNotAnyStudentsInCopiedCourse,
-};
+}
