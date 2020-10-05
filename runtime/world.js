@@ -265,13 +265,13 @@ Before(async () => {
 
 /**
  * cleanup database before each scenario
- * can use @noResetDB in feature file, if you don't need cleanup database before some scenarios
+ * can use @noDBReset in feature file, if you don't need cleanup database before some scenarios
  */
 Before(function(scenario) {
 	try {
 		const {tags} = scenario.pickle;
 		const tagNames = tags.map((tag) => tag.name);
-		if(tagNames.indexOf('@noResetDB') != -1){
+		if(tagNames.indexOf('@noDBReset') != -1){
 			console.log('\n\nNo DB reset...');
 			return Promise.resolve();
 		}
