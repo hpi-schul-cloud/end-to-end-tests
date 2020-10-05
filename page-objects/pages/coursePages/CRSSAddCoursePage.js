@@ -46,7 +46,8 @@ const courseColour = [
 
 
 async function goToAddCourses() {
-		await elementHelpers.loadPage(urlCoursesAdd, 20)
+		await navigationLeftPage.clickNavItemCourses();
+		await courseListPage.clickCreateCourseBtn()
 	}
 
 async function goToNextSection () {

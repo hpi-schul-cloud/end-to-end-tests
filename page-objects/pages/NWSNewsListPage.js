@@ -1,14 +1,13 @@
 /*[url/news]*/
 'use strict';
 const navigationLeftPage = require('./NavigationLeftPage')
-const waitHelpers = require('../../runtime/helpers/waitHelpers')
 const selectorNewsElementInTheList = 'span.title';
 const addNewsBtn = "[data-testid='create-news-btn']";
 
 module.exports = {
 
 	goToNews: async function() {
-		await elementHelpers.loadPage(url, 100);
+		await navigationLeftPage.clickNavItemNews();
     },
     getListOfNewNames: async function() {
 		const listOfElements = await driver.$$(element);
