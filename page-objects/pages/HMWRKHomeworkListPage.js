@@ -15,6 +15,9 @@ const submitBtn = ".md-button.md-primary.md-theme-default > div > div"
 const pageTitleSelector = "#page-title"
 const taskElement = ".col-xl-12"
 const tasksContainer = "#homeworks > ol > div > li"
+const homeworListSection = "section .homework"
+const taskBox = "h2.h6"
+
 
 module.exports = {
     goToHomeworkListPage: async function () {
@@ -22,16 +25,16 @@ module.exports = {
     },
 
     clickCreateTaskButton: async function () {
-        await waitHelpers.waitAndClick(createTaskButton)
+        await elementHelpers.click(createTaskButton)
     },
 
     sortHometasks: async function () {
-        await waitHelpers.waitAndClick(sortBtn)
-        await waitHelpers.waitAndClick(select)
-        await waitHelpers.waitAndClick(lastedited)
-        await waitHelpers.waitAndClick(submitBtn)
+        await elementHelpers.click(sortBtn)
+        await elementHelpers.click(select)
+        await elementHelpers.click(lastedited)
+        await elementHelpers.click(submitBtn)
     },
-    returnTaskChildIndex: async function (taskname) {
+    getTaskIndex: async function (taskname) {
         let areThereAnyTasks = await this.areThereAnyTasks()
         if (areThereAnyTasks) {
             const containerWithTasks = await driver.$(".col-xl-12")
@@ -47,8 +50,8 @@ module.exports = {
         return 0
     },
 
-    chooseTaskAmongAllTasks: async function (taskname) {
-        let taskindex = await this.returnTaskChildIndex(taskname)
+    clickOnTask: async function (taskname) {
+        let taskindex = await this.getTaskIndex(taskname)
         if (taskindex > 0) {
             let task = await driver.$(".col-xl-12 > li:nth-child(" + taskindex + ") > a > span.more")
             await task.click()
@@ -60,10 +63,10 @@ module.exports = {
         }
     },
 
-    verify: async function (taskname) {
+    goToHomeworkListAndCheckTaskIfExist: async function (taskname) {
         await this.goToHomeworkListPage()
         await this.sortHometasks()
-        await this.chooseTaskAmongAllTasks(taskname)
+        await this.clickOnTask(taskname)
         let pageTitle = await waitHelpers.waitUntilElementIsPresent(pageTitleSelector)
         let courseAndTaskName = await pageTitle.getText()
         let tasknameArray = await courseAndTaskName.split("- ")
@@ -77,27 +80,26 @@ module.exports = {
     },
 
     getAllTasks: async function () {
-        return await Promise.all((await driver.$$("h2.h6")).map(async (element) => await element.getText()))
+        await waitHelpers.waitUntilElementIsNotVisible(".loaded #MathJax_Message");
+	    const selector = taskBox;
+	    try {
+		    await waitHelpers.waitUntilElementIsPresent(selector);
+	    } catch (err) {
+		    return [];
+	    }
+	    const listOfTaskElements = await driver.$$(selector);
+	    let taskTitleList = await Promise.all(listOfTaskElements.map(async (element) => await element.getText()));
+	    return taskTitleList;
     },
 
     isTaskVisible: async function (taskname) {
-        let taskNames = await this.getAllTasks()
-        let isTaskVisible = false
-        if (taskNames.length > 0) {
-            for (let i = 0; i < taskNames.length; i++) {
-                if (taskNames[i].includes(taskname)) {
-                    isTaskVisible = true
-                    return isTaskVisible
-                } else {
-                    return isTaskVisible
-                }
-            }
-        } else {
-            return isTaskVisible
-        }
+        await waitHelpers.waitUntilPageLoads();
+        const allTasks = await this.getAllTasks();
+        const isTaskOnList = allTasks.some((element) => element.includes(taskname));
+        return isTaskOnList;
     },
 
-    userFindsTheTask: async function (taskname) {
+    clickOnTaskFromList: async function (taskname) {
         let areThereAnyTasks = await driver.$$(tasksContainer)
         await expect(areThereAnyTasks.length).not.to.equal(0)
         for (var i = 1; i <= areThereAnyTasks.length; i++) {

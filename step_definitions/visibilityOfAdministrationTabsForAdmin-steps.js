@@ -4,5 +4,5 @@ const ADMNSTRTNAdministrationOverviewPage = require('../page-objects/pages/admin
 
 Then(/^Verify if all required tabs are visible in Administration area$/, async function (administrationTextLabels) {
     let subItems = await ADMNSTRTNAdministrationOverviewPage.getListOfAdministrationTabs();
-    await DashboardPage.checkIfMenuItemsAreVisible(administrationTextLabels, subItems);
+    await DashboardPage.areMenuItemsVisible(administrationTextLabels, subItems);
 });

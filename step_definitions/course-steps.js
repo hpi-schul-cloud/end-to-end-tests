@@ -9,13 +9,13 @@ When(/^.*goes to courses page$/, function () {
 	return courseListPage.goToCourses();
 });
 Then(/^.*buttons: Import-course, Create-new-course are visible$/, function () {
-	return courseListPage.importAndCreateCourseBtnsAreVisible();
+	return courseListPage.areImportAndCreateCourseBtnsVisible();
 });
 
 Then(
 	/^.*buttons: Create-new-course, Go-to-course-list-page are visible$/,
 	async function () {
-		await addCourse.finalButtonsAreVisible();
+		await addCourse.areFinalButtonsVisible();
 	}
 );
 
@@ -37,14 +37,23 @@ When(/^.*clicks to preview$/, function () {
 });
 
 Then(/^.*course with name (.*) is visible on the list$/, async function (courseName) {
-	let isCourseOnList = await courseListPage.isCourseOnList(courseName);
-	expect(isCourseOnList).to.be.true;
+	const section = courseListPage.section.activeCourses;
+	const msg = "Course with name: '" + courseName + "' should be visible on the list. Actual list of courses: '";
+	let isCourseOnList = await courseListPage.isCourseOnListInSection(courseName, section);
+	expect(isCourseOnList, msg + await courseListPage.getListOfCourseTitlesInSection(section) + "'").to.be.true;
+});
+
+Then(/^.*course with name (.*) is not visible on the list$/, async function (courseName) {
+	const section = courseListPage.section.activeCourses;
+	const msg = "Course with name: '" + courseName + "' should not be visible on the list. Actual list of courses: '";
+	let isCourseOnList = await courseListPage.isCourseOnListInSection(courseName, section);
+	expect(isCourseOnList, msg + await courseListPage.getListOfCourseTitlesInSection(section) + "'").to.be.false;
 });
 
 Then(
 	/^.*course with name (.*) is displayed correctly on the list$/,
 	async function (courseName) {
-		await courseListPage.courseIsDisplayedCorrectly(courseName);
+		await courseListPage.isCourseDisplayedCorrectly(courseName);
 	}
 );
 When(/^.*clicks Next-section button$/, async function () {
@@ -53,33 +62,33 @@ When(/^.*clicks Next-section button$/, async function () {
 Then(/^.*the ([0-9]) section can not be opened$/, async function (
 	sectionNumber
 ) {
-	await addCourse.sectionIsNotDisplayed(sectionNumber);
+	await addCourse.isSectionNotDisplayed(sectionNumber);
 });
 Then(
 	/^.*his name is entered by default in teachers' field$/,
 	async function () {
-		await addCourse.teachersNameisSetByDefault();
+		await addCourse.isTeachersNameSetByDefault();
 	}
 );
 Then(/^.*course name has not been entered$/, async function () {
-	await addCourse.courseNameIsNotEntered();
+	await addCourse.isCourseNameNotEntered();
 });
 
 Then(/^.*time span is already set$/, async function () {
-	await addCourse.timeSpanIsSet();
+	await addCourse.isTimeSpanSet();
 });
 Then(/^.*supply teacher is not set$/, async function () {
-	await addCourse.noTeacherSubstituteIsSet();
+	await addCourse.isTeacherSubstituteNotSet();
 });
 
 Then(/^.* ([0-9]) section is opened$/, async function (sectionNumber) {
-	await addCourse.sectionIsDisplayed(sectionNumber);
+	await addCourse.isSectionDisplayed(sectionNumber);
 });
 Then(/^.*no class is set$/, async function () {
-	await addCourse.noClassIsSet();
+	await addCourse.isClassNotSet();
 });
 Then(/^.*no student is set$/, async function () {
-	await addCourse.noStudentIsSet();
+	await addCourse.isStudentNotSet();
 });
 When(/^.*clicks Create-course-and-continue button'$/, async function () {
 	await addCourse.clickCreateCourseAndContinueBtn();
@@ -113,13 +122,13 @@ Then(/^.*clicks on save changes button$/, async function () {
 	await CRSSEditCopyCoursePage.clickSubmitButton();
 });
 
-Then(/^.*should see that course name (.*) with description correctly displayed (.*)$/, async function (courseName, description) {
+Then(/^.*course name (.*) with description correctly displayed (.*)$/, async function (courseName, description) {
 	let index = await courseListPage.getIndexOfGivenCourseInSection(courseName, courseListPage.section.activeCourses)+1;
 	let courseDescriptionAfterChanges = await courseListPage.getDescriptionCourse(index);
 	expect(description).to.equal(courseDescriptionAfterChanges);
 });
 
-Then(/^.*should see that course name (.*) with color correctly displayed (.*)$/, async function (courseName, colorCourse) {
+Then(/^.*course name (.*) with color correctly displayed (.*)$/, async function (courseName, colorCourse) {
 	let index = await courseListPage.getIndexOfGivenCourseInSection(courseName, courseListPage.section.activeCourses)+1;
 	let courseColorAfterChanges = await courseListPage.getColorCourse(index);
 	let colourNumber = courseListPage.getColourSelector(colorCourse);
@@ -134,7 +143,4 @@ Then(/^.*clicks on delete course button confirmation$/, async function () {
 	await CRSSEditCopyCoursePage.clickDeleteButtonConfirmation();
 });
 
-Then(/^.*course with name (.*) on list$/, async function (courseName) {
-	let isCourseOnList = await courseListPage.isCourseOnList(courseName);
-	expect(isCourseOnList).to.be.false;
-});
+
