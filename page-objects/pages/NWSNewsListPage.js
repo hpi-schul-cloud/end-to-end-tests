@@ -3,6 +3,7 @@
 const navigationLeftPage = require('./NavigationLeftPage')
 const selectorNewsElementInTheList = 'span.title';
 const addNewsBtn = "[data-testid='create-news-btn']";
+const newsContainer = "[data-testid='container_of_element']"
 
 module.exports = {
 
@@ -10,7 +11,7 @@ module.exports = {
 		await navigationLeftPage.clickNavItemNews();
     },
     getListOfNewNames: async function() {
-		const listOfElements = await driver.$$(element);
+		const listOfElements = await driver.$$(selectorNewsElementInTheList);
 		const namePromises = listOfElements.map(async element => await element.getText());
 		const newsNames = await Promise.all(namePromises);
 		return newsNames;
