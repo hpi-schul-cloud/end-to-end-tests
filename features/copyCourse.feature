@@ -4,19 +4,21 @@ Feature: copy a created course with different data
 
 Background: teacher is logged in and has created a course
 Given teacher arrives on the Schul-Cloud homepage
-Given teacher is successfully logged in
-Given teacher goes to courses page
+And teacher is successfully logged in
+And teacher goes to courses page
 
 @simpleCopyCourse
 Scenario Outline: teacher can copy an existing course
-Given the teacher creates a course with name <coursename> and
-Given the amount of courses is x
+When the teacher creates a course with name <coursename> and
+And teacher enters course name <coursename> into search field
+Then amount of courses with name <coursename> is <countBeforeCloning>
 When the teacher selects the course <coursename> and clicks clone it
-Then the amount of courses is implemented
+And teacher enters course name <coursename> into search field
+Then amount of courses with name <coursename> is <countAfterCloning>
 
 Examples:
-| coursename |
-| sample course to be cloned |
+| coursename                 |countBeforeCloning|countAfterCloning|
+| sample course to be cloned |1                 |2                 |
 
 
 # @copyCourseWithText
@@ -75,8 +77,8 @@ Examples:
 Scenario Outline: teacher can copy course with students
 Given the teacher creates a course with name <courseName> and student <studentname>
 When the teacher copies the course <courseName> with students
-Then the teacher should see the cloned course <courseName> but without students
+Then the teacher should see the cloned course <clonedCourseName> but without students
 
 Examples:
-| courseName                  | studentname                 |
-| sample course with students | Paula Meyer                 |
+| courseName                  | clonedCourseName                    | studentname                 |
+| sample course with students | sample course with students - Kopie | Paula Meyer                 |
