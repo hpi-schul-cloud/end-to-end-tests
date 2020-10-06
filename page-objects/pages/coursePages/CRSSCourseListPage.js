@@ -337,5 +337,4 @@ module.exports = {
 	isCountOfCoursesWithNameOnList,
 	isCourseNotVisible,
 	isCourseVisible,
-	areNotAnyStudentsInCopiedCourse,
 };
