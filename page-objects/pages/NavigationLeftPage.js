@@ -1,6 +1,7 @@
 'use strict';
 
 const elementHelpers = require("../../runtime/helpers/elementHelpers");
+const waitHelpers = require("../../runtime/helpers/waitHelpers");
 
 const navItemsEnum = {
     LOGO: 'logo',
@@ -144,15 +145,19 @@ module.exports = {
     },
     clickNavItemTasks: async function () {
         await elementHelpers.clickAndWait(navItemTasks);
+        await waitHelpers.waitUntilAjaxIsFinished();
     },
     clickNavItemTasksAsked: async function () {
         await elementHelpers.clickAndWait(navItemTasksAsked);
+        await waitHelpers.waitUntilAjaxIsFinished();
     },
     clickNavItemTasksPrivate: async function () {
         await elementHelpers.clickAndWait(navItemTasksPrivate);
+        await waitHelpers.waitUntilAjaxIsFinished();
     },
     clickNavItemTasksArchive: async function () {
         await elementHelpers.clickAndWait(navItemTasksArchive);
+        await waitHelpers.waitUntilAjaxIsFinished();
     },
     clickNavItemTeams: async function () {
         await elementHelpers.clickAndWait(navItemTeams);
