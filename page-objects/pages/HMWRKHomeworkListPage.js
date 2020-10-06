@@ -93,7 +93,6 @@ module.exports = {
     },
 
     isTaskVisible: async function (taskname) {
-        await waitHelpers.waitUntilPageLoads();
         const allTasks = await this.getAllTasks();
         const isTaskOnList = allTasks.some((element) => element.includes(taskname));
         return isTaskOnList;

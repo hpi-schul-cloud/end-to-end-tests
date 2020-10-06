@@ -49,7 +49,7 @@ When(/^the student finds (.*)$/, function (taskname) {
 });
 
 When(/^student with (.*), (.*) of this course (.*) goes to hometasks$/, function (username, password, coursename) {
-    return courseListPage.studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename);
+    return courseListPage.studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename, courseListPage.section.activeCourses);
 });
 
 When(/^the student edits a text hometask and submits it$/, function () {
