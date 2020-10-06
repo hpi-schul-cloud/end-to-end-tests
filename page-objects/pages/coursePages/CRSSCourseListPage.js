@@ -22,6 +22,7 @@ const container_of_element = '[data-testid="container_of_element"]';
 const header_of_element = '[data-testid="header-of-element"]';
 const listOfMembersSel = '#member-modal-body > ol > li';
 const topicNameContainer = '#topic-list > div > div > div';
+const popupMembers = ".member-modal.in[role='dialog']"
 
 const courseColour = {
 	grey: 'background:#ACACAC',
@@ -119,6 +120,7 @@ async function getCountOfDisplayedCoursesForSection(section) {
 }
 
 async function getNamesOfMembers() {
+	await waitHelpers.waitUntilElementIsPresent(popupMembers);
 	await waitHelpers.waitUntilElementIsPresent(listOfMembersSel);
 	const listOfMembers = await driver.$$(listOfMembersSel);
 	return elementHelpers.getTextListFromListOfElements(listOfMembers);
@@ -127,8 +129,8 @@ async function getNamesOfMembers() {
 async function areMembersOnTheListInCourseForSection(courseName, members, section) {
 	await clickPupilIconInCourseInSection(courseName, section);
 	let names = await getNamesOfMembers();
-	const msg = "Course with name: '" + courseName + "' should not be visible on the list. \n";
-	const resultMsg = 'Actual list of courses: ' + names;
+	const msg = "Members: '" + names + "' should be visible on the list. \n";
+	const resultMsg = 'Actual list of members: ' + names;
 	expect(names, msg + resultMsg).to.have.members(members);
 }
 
