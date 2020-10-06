@@ -103,6 +103,7 @@ function getColourSelector(colourName) {
 }
 
 async function setCourseNameIntoSearchInputField(courseName) {
+	await goToCourses();
 	await waitHelpers.waitAndSetValue(searchCourseFiled, courseName);
 }
 
