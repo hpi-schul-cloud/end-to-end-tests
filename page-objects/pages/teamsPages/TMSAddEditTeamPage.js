@@ -31,15 +31,13 @@ let oldPassword;
 let oldPassword1;
 let oldPassword2;
 
-const selectors = {
-    newsTab: '[data-tab="js-news"] > span',
-    passwordField: '#passwd',
-    // input fields
-    teamName: 'input[data-testid="team_name"]',
-    teamDescription: 'textarea[data-testid="description_team"]',
-    // submit button
-    createTeamBtn: 'button[data-testid="create_team_btn"]',
-}
+// input fields
+const teamName = 'input[data-testid="team_name"]';
+const teamDescription = 'textarea[data-testid="description_team"]';
+
+// submit button
+const createTeamBtn = 'button[data-testid="create_team_btn"]';
+
 
 module.exports = {
     gotoTeams: async function () {
@@ -73,22 +71,22 @@ module.exports = {
     createTeamAndGoToSettings: async function (teamname) {
         await this.createTeamSteps(teamname);
         await TMSGeneralTeamPage.clickSettings();
-        await TMSGeneralTeamPage.clickAdministrateTeammembers();
+        await TMSGeneralTeamPage.clickAdministrateTeamMembers();
         await TMSTeamMembersPage.clickAddInternalMembers();
     },
     // Steps to create Team with a certain name
     createTeamSteps: async function (name) {
         await TMSTeamListPage.goToAddTeam();
         await this.setTeamName(name);
-        await this.confirmTeamCreate();
+        await this.clickOnCreateTeamButton();
     },
     // Set certain name in teamname field
     setTeamName: async function (name) {
-        let nameField = await driver.$(selectors.teamName);
+        let nameField = await driver.$(teamName);
         await nameField.setValue(name);
     },
-    confirmTeamCreate: async function () {
-        let confirmBtn = await driver.$(selectors.createTeamBtn);
+    clickOnCreateTeamButton: async function () {
+        let confirmBtn = await driver.$(createTeamBtn);
         await confirmBtn.click();
     },
     createTeamNewsForTeam: async function (team_name) {
@@ -115,7 +113,7 @@ module.exports = {
         await this.createNews(newsName2);
     },
     gotoTeamNews: async function () {
-        let newsTab = await driver.$(selectors.newsTab);
+        let newsTab = await driver.$(teamNewsPage.newsTab);
         await newsTab.click();
         let btn = await driver.$(teamNewsPage.createNwsBtn);
         await btn.click();
@@ -138,7 +136,7 @@ module.exports = {
                 let boxConsent = await driver.$(ADMNSTRTNAdministerStudentsPage.selectorNamesContainer + ' > tr:nth-child(' + i + ') > td:nth-child(7) > a:nth-child(2) > i');
                 await boxConsent.click();
                 let submitBtn = await driver.$(ADMNSTRTNAdministerStudentsPage.selectorConsentSubmitBtn);
-                let passwordField = await driver.$(selectors.passwordField);
+                let passwordField = await driver.$(ADMNSTRTNAdministerStudentsPage.passwordFieldSel);
                 let password_old = await passwordField.getValue();
                 oldPassword = password_old;
                 await submitBtn.click();
@@ -146,7 +144,7 @@ module.exports = {
             }
         }
     },
-    canTeamMemberSeeTheNews: async function () {
+    studentLogInAndCheckIfSeeNews: async function () {
         let email = emailTWO;
         let name = email;
         let password = "Schulcloud1!";
@@ -154,10 +152,10 @@ module.exports = {
         await loginPage.performLogin(email, oldPassword2);
         await loginPage.firstLoginStudent(name, password);
         await newsListPage.goToNews();
-        await newsListPage.shouldBeVisible(newsName2)
+        await newsListPage.isNewsVisible(newsName2)
     },
-    canNonTeamMemberSeeTheNews: async function () {
+    isNewsNotVisible: async function () {
         await newsListPage.goToNews();
-        await newsListPage.shouldNotBeVisible(newsName1)
+        await newsListPage.isNewsNotVisible(newsName1)
     },
 }

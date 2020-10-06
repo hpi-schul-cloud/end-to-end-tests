@@ -1,22 +1,20 @@
-'use strict';
+"use strict";
 
-const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
+const elementHelpers = require("../../runtime/helpers/elementHelpers.js");
+
+const currentPasswordInp = 'input[data-testid="settings_password_current"]';
+const newPasswordInpt = 'input[data-testid="settings_password_new"]';
+const repeatNewPasswordInp = 'input[data-testid="settings_password_control"]';
+const submitAccountDataBtn = '[data-testid="submit_new_password_btn"]';
 
 module.exports = {
-    selectors: {
-        currentPasswordInp: 'input[data-testid="settings_password_current"]',
-        newPasswordInpt: 'input[data-testid="settings_password_new"]',
-        repeatNewPasswordInp: 'input[data-testid="settings_password_control"]',
-        submitAccountDataBtn: '[data-testid="submit_new_password_btn"]',
-    },
-
     setNewPassword: async function (oldPAssword, newPassword) {
-        let currentPassword = await driver.$(this.selectors.currentPasswordInp);
+        let currentPassword = await driver.$(currentPasswordInp);
         await currentPassword.setValue(oldPAssword);
-        let passwordField = await driver.$(this.selectors.newPasswordInpt);
+        let passwordField = await driver.$(newPasswordInpt);
         await passwordField.setValue(newPassword);
-        let passwordControlField = await driver.$(this.selectors.repeatNewPasswordInp);
+        let passwordControlField = await driver.$(repeatNewPasswordInp);
         await passwordControlField.setValue(newPassword);
-        await waitHelpers.waitAndClick(this.selectors.submitAccountDataBtn);
-    }
-}
+        await elementHelpers.click(submitAccountDataBtn);
+    },
+};

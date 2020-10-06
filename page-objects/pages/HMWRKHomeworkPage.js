@@ -1,103 +1,93 @@
 /*[url/homework/[homeworkId]]*/
 'use strict';
-const {CLIENT} = require("../../shared-objects/servers");
+const { CLIENT } = require("../../shared-objects/servers");
 const waitHelpers = require('../../runtime/helpers/waitHelpers');
 const courseListPage = require('../../page-objects/pages/coursePages/CRSSCourseListPage');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const startPage = require('../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin');
 const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage');
 const logoutPage = require('../../page-objects/pages/generalPagesBeforeLogin/LogoutPage');
+const HMWRKHomeworkListPage = require("./HMWRKHomeworkListPage");
 
-const selector = {
-    submissionTab: "#submission-tab-link",
-    areThereAnyTasks: '#homeworks > ol > div > li',
-    urlHomework: `${CLIENT.URL}/homework`,
-};
+const submissionTab = "#submission-tab-link";
+
+const urlHomework = `${CLIENT.URL}/homework`;
+const textFieldSel = '.ck-content';
+const submitBtn = '.ckeditor-submit';
+const submitted_by_boxSel = '#submissions .groupNames > span';
+const hometasksTabSel = 'button[data-testid="hometasks"]';
+const activeSubmissions = '.tab-content.section-homeworksubmissions.active';
+const gradeFilesListSel = '.list-group-files';
+
 
 module.exports = {
     goToHomeworkListPage: async function () {
-        await elementHelpers.loadPage(selector.urlHomework, 20);
+        await elementHelpers.loadPage(urlHomework, 20);
     },
 
-    // student helpers
-    userFindsTheTask: async function (taskname) {
-        let areThereAnyTasks = await driver.$$(selector.areThereAnyTasks);
-        await expect(areThereAnyTasks.length).not.to.equal(0);
-        for (var i = 0; i <= areThereAnyTasks.length; i++) {
-            let taskSelector = await driver.$('#homeworks > ol > div > li:nth-child(' + i + ') .h5.title');
-            let tasknameOnPage = await taskSelector.getText();
-            if (tasknameOnPage == taskname) {
-                await taskSelector.click();
-                await driver.pause(1000);
-            }
-        }
-    },
-
-    switchToSubmissionTab: async function () {
-        await waitHelpers.waitAndClick(selector.submissionTab);
+    clickOnSubmissionTab: async function () {
+        await elementHelpers.click(submissionTab);
     },
 
     submitSolutionForTheHometask: async function () {
         await driver.pause(global.SHORT_WAIT_MILLIS);
-		const textField = await driver.$('.ck-content');
-		const assignmentText = 'here is some text which I want to submit';
-		textField.setValue(assignmentText);
-		const container = await driver.$('#submission');
-		const submitBtn = await container.$('button[type="submit"]');
-		await waitHelpers.waitAndClick('.ckeditor-submit')
-		await driver.pause(1500);
+        const textField = await driver.$(textFieldSel);
+        const assignmentText = 'here is some text which I want to submit';
+        textField.setValue(assignmentText);
+        await elementHelpers.click(submitBtn)
+        await driver.pause(1500);
     },
 
 
     studentEditsTextHomeworkAndSubmits: async function () {
-        await this.switchToSubmissionTab();
+        await this.clickOnSubmissionTab();
         await this.submitSolutionForTheHometask();
     },
     // teacher helpers
     hasTheStudentSubmittedTheTask: async function (studentname) {
         let submissionTab = "#submissions-tab-link";
-        await waitHelpers.waitAndClick(submissionTab);
-        let submitted_by_box = await driver.$('#submissions .groupNames > span');
+        await elementHelpers.click(submissionTab);
+        let submitted_by_box = await driver.$(submitted_by_boxSel);
         let submitted_by_name = await submitted_by_box.getText();
         await expect(submitted_by_name).to.contain(studentname);
     },
 
     teacherLogsInAndCanSeeTheTextSubmission: async function (coursename, taskname, studentname) {
         await startPage.clickLoginBtn();
-        await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.defaultLoginData.defaultTeacherpassword);
+        await loginPage.performLogin(loginPage.users.teachers.klaraFallUsername, loginPage.users.teachers.klaraFallPassword);
         await loginPage.firstLoginAdminOrTeacher();
         await courseListPage.goToCourses();
         await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
         await this.gotoTasksTab();
-        await this.userFindsTheTask(taskname);
+        await HMWRKHomeworkListPage.clickOnTaskFromList(taskname);
         await this.hasTheStudentSubmittedTheTask(studentname);
     },
 
     gotoTasksTab: async function () {
-        let hometasksTab = await driver.$('button[data-testid="hometasks"]');
+        let hometasksTab = await driver.$(hometasksTabSel);
         await hometasksTab.click();
         await driver.pause(1000);
     },
 
     submitHomework: async function (taskName, student) {
         await this.goToHomeworkListPage();
-        await waitHelpers.waitAndClick(`[aria-label*="${taskName}"] > span`);
-        await this.switchToSubmissionTab();
+        await elementHelpers.click(`[aria-label*="${taskName}"] > span`);
+        await this.clickOnSubmissionTab();
         await this.submitSolutionForTheHometask();
     },
 
     teacherShowGradeTabForFirstSubmission: async function () {
-        await waitHelpers.waitAndClick('#submissions-tab-link');
-        await waitHelpers.waitAndClick('tbody.usersubmission');
-        await waitHelpers.waitAndClick('a*=Bewertung');
+        await elementHelpers.click('#submissions-tab-link');
+        await elementHelpers.click('tbody.usersubmission');
+        await elementHelpers.click('a*=Bewertung');
     },
 
     submitFileFeedback: async function (taskName, file) { // back to teacher
         await logoutPage.goToLogoutPage();
         await startPage.clickLoginBtn();
-        await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.defaultLoginData.defaultTeacherpassword);
+        await loginPage.performLogin(loginPage.users.teachers.klaraFallUsername, loginPage.users.teachers.klaraFallPassword);
         await this.goToHomeworkListPage();
-        await waitHelpers.waitAndClick(`[aria-label*="${taskName}"] > span`);
+        await elementHelpers.click(`[aria-label*="${taskName}"] > span`);
 
         await this.teacherShowGradeTabForFirstSubmission();
 
@@ -107,11 +97,11 @@ module.exports = {
         });
 
         const remoteFilePath = await driver.uploadFile(file.path);
-        await(await driver.$('input[type=file][class=dz-hidden-input]')).setValue(remoteFilePath);
+        await (await driver.$('input[type=file][class=dz-hidden-input]')).setValue(remoteFilePath);
         await driver.pause(3000);
 
         // The upload causes a page reload, which causes the current tab to change.
-        await(await driver.$('.tab-content.section-homeworksubmissions.active')).waitForDisplayed();
+        await (await driver.$(activeSubmissions)).waitForDisplayed();
     },
 
     testFileUploadSuccess: async function (taskName, file, student) { // navigate to grade tab
@@ -121,11 +111,10 @@ module.exports = {
             console.warn('S3 is not available on CI. The files were never uploaded.');
             return;
         }
-        await this.canSeeFile(file);
+        await this.isFileVisible(file);
         const mainWindow = await driver.getWindowHandle();
-        await waitHelpers.waitAndClick(`a*=${
-            file.name
-        }`);
+        await elementHelpers.click(`a*=${file.name
+            }`);
 
         await driver.pause(1000);
         const fileUrl = await this.getCurrentTabUrl();
@@ -135,15 +124,14 @@ module.exports = {
         await logoutPage.goToLogoutPage();
         await loginPage.performLogin(student.login, student.password);
         await this.goToHomeworkListPage();
-        await waitHelpers.waitAndClick(`*=${taskName}`);
-        await waitHelpers.waitAndClick('a*=Bewertung');
+        await elementHelpers.click(`*=${taskName}`);
+        await elementHelpers.click('a*=Bewertung');
 
-        await this.canSeeFile(file);
+        await this.isFileVisible(file);
 
         // ensure the student can download the file
-        await waitHelpers.waitAndClick(`a*=${
-            file.name
-        }`);
+        await elementHelpers.click(`a*=${file.name
+            }`);
         await driver.pause(1000);
         const studentFileUrl = await this.getCurrentTabUrl();
 
@@ -152,8 +140,8 @@ module.exports = {
         expect(studentFileUrl.pathname).to.equal(fileUrl.pathname);
     },
 
-    canSeeFile: async function (file) {
-        const gradeFilesList = await driver.$('.list-group-files');
+    isFileVisible: async function (file) {
+        const gradeFilesList = await waitHelpers.waitUntilElementIsPresent(gradeFilesListSel);
         await gradeFilesList.waitForDisplayed();
         expect(await gradeFilesList.getText()).to.contain(file.name);
     },

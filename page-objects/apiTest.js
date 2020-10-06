@@ -17,7 +17,6 @@ const getJwt = async () => {
 }
 
 module.exports = {
-
     getStudentsFromSameSchoolAndVerify: async () => {
         // fake user data can be found in schul-cloud-server repo
         // 'backup/setup/users.json'
@@ -37,7 +36,7 @@ module.exports = {
         expect(singleStudent.data.firstName).to.equal(randomStudent.firstName)
     },
 
-    requestForeignStudent: async () =>{
+    requestForeignStudent: async () => {
         const jwt = await getJwt()
         const foreignStudentId = "59ae89b71f513506904e1cc9"
 

@@ -1,63 +1,61 @@
 'use strict';
 
-const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
+const elementHelpers = require("../../runtime/helpers/elementHelpers");
+
+const impressum = '#footer li:nth-child(1) > a';
+const nutzungsordnungHPISchulCloud = '#footer li:nth-child(2) > a';
+const datenschutzerklarungHPISchulCloud = '#footer li:nth-child(3) > a';
+const kontakt = '#footer li:nth-child(4) > a';
+const team = '#footer li:nth-child(5) > a';
+const uberDasProjekt = '#footer li:nth-child(6) > a';
+const mitmachen = '#footer li:nth-child(7) > a';
+const partner = '#footer li:nth-child(8) > a';
+const gitHub = '#footer li:nth-child(9) > a';
+const status = '#footer li:nth-child(10) > a';
+const sicherheit = '#footer li:nth-child(11) > a';
 
 module.exports = {
-    selectors: {
-        impressum: '#footer li:nth-child(1) > a',
-        nutzungsordnungHPISchulCloud: '#footer li:nth-child(2) > a',
-        datenschutzerklarungHPISchulCloud: '#footer li:nth-child(3) > a',
-        kontakt: '#footer li:nth-child(4) > a',
-        team: '#footer li:nth-child(5) > a',
-        uberDasProjekt: '#footer li:nth-child(6) > a',
-        mitmachen: '#footer li:nth-child(7) > a',
-        partner: '#footer li:nth-child(8) > a',
-        gitHub: '#footer li:nth-child(9) > a',
-        status: '#footer li:nth-child(10) > a',
-        sicherheit: '#footer li:nth-child(11) > a'
+    clickImpressumFooterLink: async function () {
+        await elementHelpers.click(impressum);
     },
 
-    clickImpressumFooterLink: async function(){
-        await waitHelpers.waitAndClick(this.selectors.impressum);
-    },
-    
-    clickNutzungsordnungHPISchulCloudFooterLink: async function(){
-        await waitHelpers.waitAndClick(this.selectors.nutzungsordnungHPISchulCloud);
+    clickNutzungsordnungHPISchulCloudFooterLink: async function () {
+        await elementHelpers.click(nutzungsordnungHPISchulCloud);
     },
 
-    clickDatenschutzerklarungHPISchulCloudFooterLink: async function(){
-        await waitHelpers.waitAndClick(this.selectors.datenschutzerklarungHPISchulCloud);
+    clickDatenschutzerklarungHPISchulCloudFooterLink: async function () {
+        await elementHelpers.click(datenschutzerklarungHPISchulCloud);
     },
 
-    clickKontaktFooterLink: async function(){
-        await waitHelpers.waitAndClick(this.selectors.kontakt);
+    clickKontaktFooterLink: async function () {
+        await elementHelpers.click(kontakt);
     },
 
-    clickTeamFooterLink: async function(){
-        await waitHelpers.waitAndClick(this.selectors.team);
+    clickTeamFooterLink: async function () {
+        await elementHelpers.click(team);
     },
 
-    clickUberDasProjektFooterLink: async function(){
-        await waitHelpers.waitAndClick(this.selectors.uberDasProjekt);
+    clickUberDasProjektFooterLink: async function () {
+        await elementHelpers.click(uberDasProjekt);
     },
 
-    clickMitmachenFooterLink: async function(){
-        await waitHelpers.waitAndClick(this.selectors.mitmachen);
+    clickMitmachenFooterLink: async function () {
+        await elementHelpers.click(mitmachen);
     },
 
-    clickPartnerFooterLink: async function(){
-        await waitHelpers.waitAndClick(this.selectors.partner);
+    clickPartnerFooterLink: async function () {
+        await elementHelpers.click(partner);
     },
 
-    clickGitHubFooterLink: async function(){
-        await waitHelpers.waitAndClick(this.selectors.gitHub);
+    clickGitHubFooterLink: async function () {
+        await elementHelpers.click(gitHub);
     },
 
-    clickStatusHubFooterLink: async function(){
-        await waitHelpers.waitAndClick(this.selectors.status);
+    clickStatusHubFooterLink: async function () {
+        await elementHelpers.click(status);
     },
 
-    clickSicherheitFooterLink: async function(){
-        await waitHelpers.waitAndClick(this.selectors.sicherheit);
+    clickSicherheitFooterLink: async function () {
+        await elementHelpers.click(sicherheit);
     },
 }

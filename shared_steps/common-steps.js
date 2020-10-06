@@ -7,7 +7,7 @@ const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 
 
-const schulCloudURL= `${CLIENT.URL}`;
+const schulCloudURL = `${CLIENT.URL}`;
 /*Login, Logout*/
 
 Given(/^.*arrives on the Schul-Cloud homepage$/, function () {
@@ -21,11 +21,11 @@ Given(/^.*logs in with email (.*) and password (.*)$/, async function (username,
 
 Given(/^teacher is successfully logged in$/, async function () {
 	await startPage.clickLoginBtn();
-	await loginPage.performLogin(loginPage.defaultLoginData.defaultTeacherUsername, loginPage.defaultLoginData.defaultTeacherpassword);
+	await loginPage.performLogin(loginPage.users.teachers.klaraFallUsername, loginPage.users.teachers.klaraFallPassword);
 });
 Given(/^admin is successfully logged in$/, async function () {
 	await startPage.clickLoginBtn();
-	await loginPage.performLogin(loginPage.defaultLoginData.defaultAdminUsername, loginPage.defaultLoginData.defaultAdminPassword);
+	await loginPage.performLogin(loginPage.users.admins.thorstenTestUsername, loginPage.users.admins.thorstenTestPassword);
 });
 
 When(/^.*goes from start page to login page$/, async function () {
@@ -46,11 +46,11 @@ When(/^.*waits for next login$/, async function () {
 });
 
 Then(/^the login must fail$/, async function () {
-	return loginPage.wrongLoginResult();
+	return loginPage.isWrongLoginNotification();
 });
 
 Then(/^the login must be successful$/, function () {
-	return loginPage.loginResult();
+	return navigationTopPage.areUserInitialsCorrect();
 });
 
 /*Courses*/
@@ -70,10 +70,10 @@ When(/^.* goes to user settings$/, async function () {
 
 
 /*first login*/
-Then(/^.* accepts data protection$/, function() {
+Then(/^.* accepts data protection$/, function () {
 	return loginPage.firstLoginAdminOrTeacher();
 });
 
-Then(/^student with full age accepts student\'s data protection with password (.*)$/, function(newPassword) {
+Then(/^student with full age accepts student\'s data protection with password (.*)$/, function (newPassword) {
 	return loginPage.firstLoginStudent(newPassword);
 });

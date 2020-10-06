@@ -11,7 +11,7 @@ Feature: Different options for news. I would like to test whether users with dif
         And teacher logs out
         And student logs in with email <studentUsername> and password <studentPassword>
         And student with full age accepts student's data protection with password <newStudentPassword>
-        And he goes to the news page
+        And click left navigation item "news"
         Then he can see the news
 
         Examples:
@@ -25,7 +25,7 @@ Feature: Different options for news. I would like to test whether users with dif
         And teacher logs out
         And student logs in with email <studentUsername> and password <studentPassword>
         And student with full age accepts student's data protection with password <newStudentPassword>
-        And he goes to the news page
+        And click left navigation item "news"
         Then he cannot see the news which is not due yet
 
         Examples:

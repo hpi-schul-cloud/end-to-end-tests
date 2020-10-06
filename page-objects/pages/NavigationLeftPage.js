@@ -1,10 +1,72 @@
 'use strict';
-const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
-let navItemStringStart1stLevel = "/html/body/aside/nav/ul/li/a";
-let navItemStringStart2ndLevel = "/html/body/aside/nav/ul/li/ul/li/a";
-let stringContains = "[contains(@title,'XXX')]";
-let navItemStringDefault1stLevel = navItemStringStart1stLevel + stringContains;
-let navItemStringDefault2ndLevel = navItemStringStart2ndLevel + stringContains;
+
+const elementHelpers = require("../../runtime/helpers/elementHelpers");
+
+const navItemsEnum = {
+    LOGO: 'logo',
+    DASHBOARD: 'dashboard',
+    COURSES: 'courses',
+    TEAMS: 'teams',
+    HOMEWORK: 'homework',
+    ASKEDHOMEWORK: 'asked homework',
+    PRIVATEHOMEWORK: 'private homework',
+    ARCHIVEDHOMEWORK: 'archived homework',
+    FILES: 'files',
+    MYFILES: 'my files',
+    COURSEFILES: 'course files',
+    TEAMFILES: 'team files',
+    SHAREDFILES: 'shared files',
+    NEWS: 'news',
+    CALENDAR: 'calendar',
+    ADDONS: 'addons',
+    CONTENT: 'content',
+    HELPDESK: 'helpdesk',
+    ADMINISTRATION: 'administration',
+    ADMINSTUDENTS: 'admStudents',
+    ADMINTEACHERS: 'admTeachers',
+    ADMINCLASSES: 'admClasses',
+    ADMINCOURSES: 'admCourses',
+    ADMINTEAMS: 'admTeams',
+    ADMINCSCHOOL: 'admSchool',
+    HELPAREA: 'helparea',
+    HELPARTICLE: 'helparticle',
+    TRAININGS: 'trainings',
+    CONTACT: 'contact'
+};
+const navItemStringStart1stLevel = "/html/body/aside/nav/ul/li/a";
+const navItemStringStart2ndLevel = "/html/body/aside/nav/ul/li/ul/li/a";
+const stringContains = "[contains(@title,'XXX')]";
+const navItemStringDefault1stLevel = navItemStringStart1stLevel + stringContains;
+const navItemStringDefault2ndLevel = navItemStringStart2ndLevel + stringContains;
+const navItemLogo = navItemStringStart1stLevel + "[contains(@class,'sc-branding')]";
+const navItemDashboard = navItemStringDefault1stLevel.replace('XXX', 'Übersicht');
+const navItemCourses = navItemStringDefault1stLevel.replace('XXX', 'Kurse');
+const navItemTasks = navItemStringDefault1stLevel.replace('XXX', 'Aufgaben');
+const navItemTasksAsked = navItemStringDefault2ndLevel.replace('XXX', 'Gestellte Aufgaben');
+const navItemTasksPrivate = navItemStringDefault2ndLevel.replace('XXX', 'Entwürfe');
+const navItemTasksArchive = navItemStringDefault2ndLevel.replace('XXX', 'Archiv');
+const navItemTeams = navItemStringDefault1stLevel.replace('XXX', 'Teams');
+const navItemFiles = navItemStringDefault1stLevel.replace('XXX', 'Meine Dateien');
+const navItemFilesMy = navItemStringDefault2ndLevel.replace('XXX', 'persönliche Dateien');
+const navItemFilesCourses = navItemStringDefault2ndLevel.replace('XXX', 'Kurs');
+const navItemFilesTeams = navItemStringDefault2ndLevel.replace('XXX', 'Teams');
+const navItemFilesShared = navItemStringDefault2ndLevel.replace('XXX', 'geteilte Dateien');
+const navItemNews = navItemStringDefault1stLevel.replace('XXX', 'Neuigkeiten');
+const navItemCalendar = navItemStringDefault1stLevel.replace('XXX', 'Termine');
+const navItemLearnstore = navItemStringDefault1stLevel.replace('XXX', 'Lern-Store');
+const navItemAddons = navItemStringDefault1stLevel.replace('XXX', 'Add-ons');
+const navItemHelpDesk = navItemStringDefault1stLevel.replace('XXX', 'Helpdesk');
+const navItemAdministration = navItemStringDefault1stLevel.replace('XXX', 'Verwaltung');
+const navItemAdministrationStudents = navItemStringDefault2ndLevel.replace('XXX', 'Schüler');
+const navItemAdministrationTeachers = navItemStringDefault2ndLevel.replace('XXX', 'Lehrer');
+const navItemAdministrationCourses = navItemStringDefault2ndLevel.replace('XXX', 'Kurse');
+const navItemAdministrationClasses = navItemStringDefault2ndLevel.replace('XXX', 'Klassen');
+const navItemAdministrationTeams = navItemStringDefault2ndLevel.replace('XXX', 'Teams');
+const navItemAdministrationSchool = navItemStringDefault2ndLevel.replace('XXX', 'Schule');
+const navItemHelparea = navItemStringDefault1stLevel.replace('XXX', 'Hilfebereich');
+const navItemHelparticles = navItemStringDefault2ndLevel.replace('XXX', 'Hilfeartikel');
+const navItemHelpTrainings = navItemStringDefault2ndLevel.replace('XXX', 'Fortbildungen');
+const navItemHelpContact = navItemStringDefault2ndLevel.replace('XXX', 'Kontakt');
 
 module.exports = {
     navItemsEnum: {
@@ -69,91 +131,93 @@ module.exports = {
         navItemHelpTrainings: navItemStringDefault2ndLevel.replace('XXX', 'Fortbildungen'),
         navItemHelpContact: navItemStringDefault2ndLevel.replace('XXX', 'Kontakt'),
     },
+
+    navItemsEnum,
     clickNavItemLogo: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemLogo);
+        await elementHelpers.clickAndWait(navItemLogo);
     },
     clickNavItemDashboard: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemDashboard);
+        await elementHelpers.clickAndWait(navItemDashboard);
     },
     clickNavItemCourses: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemCourses);
+        await elementHelpers.clickAndWait(navItemCourses);
     },
     clickNavItemTasks: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemTasks);
+        await elementHelpers.clickAndWait(navItemTasks);
     },
     clickNavItemTasksAsked: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemTasksAsked);
+        await elementHelpers.clickAndWait(navItemTasksAsked);
     },
     clickNavItemTasksPrivate: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemTasksPrivate);
+        await elementHelpers.clickAndWait(navItemTasksPrivate);
     },
     clickNavItemTasksArchive: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemTasksArchive);
+        await elementHelpers.clickAndWait(navItemTasksArchive);
     },
     clickNavItemTeams: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemTeams);
+        await elementHelpers.clickAndWait(navItemTeams);
     },
     clickNavItemFiles: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemFiles);
+        await elementHelpers.clickAndWait(navItemFiles);
     },
     clickNavItemFilesMy: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemFilesMy);
+        await elementHelpers.clickAndWait(navItemFilesMy);
     },
     clickNavItemFilesCourses: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemFilesCourses);
+        await elementHelpers.clickAndWait(navItemFilesCourses);
     },
     clickNavItemFilesTeams: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemFilesTeams);
+        await elementHelpers.clickAndWait(navItemFilesTeams);
     },
     clickNavItemFilesShared: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemFilesShared);
+        await elementHelpers.clickAndWait(navItemFilesShared);
     },
     clickNavItemNews: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemNews);
+        await elementHelpers.clickAndWait(navItemNews);
     },
     clickNavItemCalendar: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemCalendar);
+        await elementHelpers.clickAndWait(navItemCalendar);
     },
     clickNavItemContent: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemLearnstore);
+        await elementHelpers.clickAndWait(navItemLearnstore);
     },
     clickNavItemAddons: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemAddons);
+        await elementHelpers.clickAndWait(navItemAddons);
     },
     clickNavItemAdministration: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemAdministration);
+        await elementHelpers.clickAndWait(navItemAdministration);
     },
     clickNavItemAdminStudents: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemAdministrationStudents);
+        await elementHelpers.clickAndWait(navItemAdministrationStudents);
     },
     clickNavItemAdminTeachers: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemAdministrationTeachers);
+        await elementHelpers.clickAndWait(navItemAdministrationTeachers);
     },
     clickNavItemAdminCourses: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemAdministrationCourses);
+        await elementHelpers.clickAndWait(navItemAdministrationCourses);
     },
     clickNavItemAdminClasses: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemAdministrationClasses);
+        await elementHelpers.clickAndWait(navItemAdministrationClasses);
     },
     clickNavItemAdminTeams: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemAdministrationTeams);
+        await elementHelpers.clickAndWait(navItemAdministrationTeams);
     },
     clickNavItemAdminSchool: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemAdministrationSchool);
+        await elementHelpers.clickAndWait(navItemAdministrationSchool);
     },
     clickNavItemHelpDesk: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemHelpDesk);
+        await elementHelpers.clickAndWait(navItemHelpDesk);
     },
     clickNavItemHelpArea: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemHelparea);
+        await elementHelpers.clickAndWait(navItemHelparea);
     },
     clickNavItemHelpArticles: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemHelparticles);
+        await elementHelpers.clickAndWait(navItemHelparticles);
     },
     clickNavItemHelpTrainings: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemHelpTrainings);
+        await elementHelpers.clickAndWait(navItemHelpTrainings);
     },
     clickNavItemHelpContact: async function () {
-        await waitHelpers.waitAndClick(this.selectors.navItemHelpContact);
+        await elementHelpers.clickAndWait(navItemHelpContact);
     },
 }

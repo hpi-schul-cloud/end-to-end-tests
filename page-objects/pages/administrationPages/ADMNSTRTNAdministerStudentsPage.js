@@ -1,75 +1,109 @@
 /*[url/administration/students]*/
 'use strict';
 const startPage = require('../generalPagesBeforeLogin/StartPageBeforeLogin');
-const loginPage= require('../generalPagesBeforeLogin/LoginPage');
+const loginPage = require('../generalPagesBeforeLogin/LoginPage');
 
-const waitHelpers= require('../../../runtime/helpers/waitHelpers');
-const dateTimeHelpers= require('../../../runtime/helpers/dateTimeHelpers');
+const waitHelpers = require('../../../runtime/helpers/waitHelpers');
+const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 let oldPassword;
 
-const selectors = {
-    //data test ids need to be created for the following three buttons
-    selectorFABBtn:'button.fab.primary.button.is-medium.is-none',
-    selectorAddStudentBtn:'a[aria-label="Schüler:in anlegen"]',
-    selectorImportStudentBtn:'a[aria-label="Schüler:innen importieren"]',
-    selectorSetFirstName: 'input[data-testid=\'input_create-user_firstname\']',
-    selectorSetLastName: 'input[data-testid=\'input_create-user_lastname\']',
-    selectorSetEmail: 'input[data-testid=\'input_create-user_email\']',
-    selectorSetBirthdate: 'input[data-testid=\'input_create-student_birthdate\']',
-    selectorSendALinkBox: 'label[data-testid=\'input_create-student_send-registration\']',
-    selectorNamesContainer: 'tbody[data-testid=\'table-data-body\']',
-    selectorConsentSubmitBtn: 'button[data-testid=\'submit_consent\']',
-    submitStudentCreateBtn: 'button[data-testid=\'button_create-user_submit\']',
+const fabBtn = 'button.fab.primary.button.is-medium.is-none';
+const addStudentBtn = 'a[aria-label="Schüler:in anlegen"]';
+const importStudentBtn = 'a[aria-label="Schüler:innen importieren"]';
+const firstNameInput = "input[data-testid='input_create-user_firstname']";
+const lastNameInput = "input[data-testid='input_create-user_lastname']";
+const emailInput = "input[data-testid='input_create-user_email']";
+const birthdateInput = "input[data-testid='input_create-student_birthdate']";
+const sendRegistrationLinkCheckbox = "label[data-testid='input_create-student_send-registration']";
+//obsolete?
+const tableOfStudents = "tbody[data-testid='table-data-body']";
+const consentSubmitBtn = "button[data-testid='submit_consent']";
+const addStudentSubmitBtn = "button[data-testid='button_create-user_submit']";
+const passwordInput = '#passwd';
 
-};
-module.exports = {
-    selectors, oldPassword,
-    createNewPupil: async function(firstname, lastname, email) {
-        await waitHelpers.waitAndClick(selectors.selectorFABBtn);
-        await waitHelpers.waitAndClick(selectors.selectorAddStudentBtn);
-        await waitHelpers.waitAndSetValue(selectors.selectorSetFirstName, firstname);
-        await waitHelpers.waitAndSetValue(selectors.selectorSetLastName, lastname);
-        await waitHelpers.waitAndSetValue(selectors.selectorSetEmail, email);
-        let birthdate = await dateTimeHelpers.setDate(0,0,-15,'.',false);
-        await this.setStudentsBirthday(birthdate);
-        await waitHelpers.waitAndClick(selectors.selectorSendALinkBox);
-        await waitHelpers.waitAndClick(selectors.submitStudentCreateBtn);
-    },
-    setStudentsBirthday: async function(date) {
-        let dateSelector = await driver.$(selectors.selectorSetBirthdate);
-        await dateSelector.waitForExist(1000);
-        await dateSelector.setValue(date);
-    },
-    emailsOfThePupils: async function() {
-        let names = await driver.$$(selectors.selectorNamesContainer + ' > tr');
-        return Promise.all(names.map(async (nameContainer) => {
-            const emailContainer = await nameContainer.$("td:nth-child(5)");
-            return await emailContainer.getText();
-        }))
-    },
-    verify: async function(email) {
-        let emails = await this.emailsOfThePupils();
-        await expect(emails).to.contain(email);
-    },
-    submitConsent: async function(e_mail) {
-        let names = await driver.$$(selectors.selectorNamesContainer + ' > tr');
-        for (var i = 1; i<= names.length; i++) {
-            let emailPromise =  await driver.$(selectors.selectorNamesContainer + ' > tr:nth-child('+i+') > td:nth-child(3)');
-            let email = await emailPromise.getText();
-            if (email===e_mail){
-                let boxConsent = await driver.$(selectors.selectorNamesContainer + ' > tr:nth-child('+i+') > td:nth-child(7) > a:nth-child(2) > i');
-                await boxConsent.click();
-                let submitBtn = await driver.$(selectors.selectorConsentSubmitBtn);
-                let passwordField = await driver.$('#passwd');
-                let password_old = await passwordField.getValue();
-                oldPassword = password_old;
-                await submitBtn.click();
-                break;
-            }
-        }
-    },
-    studentLogsInWithDefaultPassword: async function(email) {
-        await startPage.clickLoginBtn();
-	    await loginPage.performLogin(email, this.oldPassword);
-    }
+//
+async function clickFABBtn() {
+	await elementHelpers.clickAndWait(fabBtn);
 }
+
+async function clickAddStudentBtn() {
+	await elementHelpers.clickAndWait(addStudentBtn);
+}
+
+async function setStudentFirstName(firstname) {
+	await waitHelpers.waitAndSetValue(firstNameInput, firstname);
+}
+
+async function setStudentLastName(lastname) {
+	await waitHelpers.waitAndSetValue(lastNameInput, lastname);
+}
+
+async function setStudentEmail(email) {
+	await waitHelpers.waitAndSetValue(emailInput, email);
+}
+
+async function clickOnSendRegistrationLinkCheckbox() {
+	await elementHelpers.click(sendRegistrationLinkCheckbox);
+}
+
+async function submitStudentAddition() {
+	await elementHelpers.clickAndWait(addStudentSubmitBtn);
+}
+
+async function createNewPupil(firstname, lastname, email) {
+    await clickFABBtn();
+	await clickAddStudentBtn();
+	await setStudentFirstName(firstname);
+	await setStudentLastName(lastname);
+	await setStudentEmail(email);
+	await setStudentsBirthday('13.08.1990');
+	await clickOnSendRegistrationLinkCheckbox();
+	await submitStudentAddition();
+}
+async function setStudentsBirthday(birthdayDate) {
+	await waitHelpers.waitUntilPageLoads();
+	await driver.execute('document.querySelector("#create_birthday").value = "' + birthdayDate + '"'); //date format dd.mm.yyyy
+}
+
+async function getStudentsEmailList() {
+	await waitHelpers.waitUntilElementIsPresent(tableOfStudents);
+	let names = await driver.$$(tableOfStudents + ' > tr');
+	return Promise.all(
+		names.map(async (nameContainer) => {
+			const emailContainer = await nameContainer.$('td:nth-child(3)');
+			return await emailContainer.getText();
+		})
+	);
+}
+async function isStudentEmailOnTheList(email) {
+	let emails = await getStudentsEmailList();
+	await expect(emails).to.contain(email);
+}
+async function submitConsent(e_mail) {
+    await waitHelpers.waitUntilElementIsPresent(tableOfStudents);
+	let names = await driver.$$(tableOfStudents + ' > tr');
+	for (var i = 1; i <= names.length; i++) {
+		let emailPromise = await driver.$(tableOfStudents + ' > tr:nth-child(' + i + ') > td:nth-child(3)');
+		let email = await emailPromise.getText();
+		if (email === e_mail) {
+			let boxConsent = tableOfStudents + ' > tr:nth-child(' + i + ') > td:nth-child(7) > a:nth-child(2) > i';
+			await elementHelpers.click(boxConsent);
+			let passwordField = await waitHelpers.waitUntilElementIsPresent(passwordInput);
+			let password_old = await passwordField.getValue();
+			oldPassword = password_old;
+			await elementHelpers.clickAndWait(consentSubmitBtn);
+			break;
+		}
+	}
+}
+async function studentLogsInWithDefaultPassword(email) {
+	await startPage.clickLoginBtn();
+	await loginPage.performLogin(email, oldPassword);
+}
+
+module.exports = {
+	createNewPupil,
+	isStudentEmailOnTheList,
+	submitConsent,
+	studentLogsInWithDefaultPassword,
+};

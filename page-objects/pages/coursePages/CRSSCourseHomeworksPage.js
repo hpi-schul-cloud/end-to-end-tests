@@ -1,19 +1,23 @@
 /*[url/courses]/[courseId]/[activeTab=homeworks]]*/
-"use strict";
-const waitHelpers = require('../../../runtime/helpers/waitHelpers.js');
-const courseListPage = require("../../../page-objects/pages/coursePages/CRSSCourseListPage");
-const coursePage = require("../../../page-objects/pages/coursePages/CRSSGeneralCoursePage");
+"use strict"
+const courseListPage = require("../../../page-objects/pages/coursePages/CRSSCourseListPage")
+const coursePage = require("../../../page-objects/pages/coursePages/CRSSGeneralCoursePage")
+const elementHelpers = require("../../../runtime/helpers/elementHelpers.js")
 
-const addNewHomeworkBtn = "[data-section='js-homeworks'] .add-button a";
+const addNewHomeworkBtn = "[data-section='js-homeworks'] .add-button a"
+
+
+async function clickAddNewTaskBtn() {
+        await elementHelpers.click(addNewHomeworkBtn)
+    }
+
+async function clickAddNewTaskInCourse(coursename) {
+        await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses)
+        await coursePage.openHomeworksTab()
+        await clickAddNewTaskBtn()
+    }
 
 module.exports = {
-	clickAddNewTaskBtn: async function () {
-		await waitHelpers.waitAndClick(addNewHomeworkBtn);
-	},
-
-	clickAddNewTaskInCourse: async function (coursename) {
-		await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
-		await coursePage.openHomeworksTab();
-		await this.clickAddNewTaskBtn();
-	}
+    clickAddNewTaskBtn,
+    clickAddNewTaskInCourse,
 }
