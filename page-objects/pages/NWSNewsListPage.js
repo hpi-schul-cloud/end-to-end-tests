@@ -2,8 +2,7 @@
 'use strict';
 const navigationLeftPage = require('./NavigationLeftPage')
 const selectorNewsElementInTheList = 'span.title';
-const addNewsBtn = "[data-testid='create-news-btn']";
-const newsContainer = "[data-testid='container_of_element']"
+
 
 module.exports = {
 
