@@ -129,11 +129,9 @@ async function clickHiddenElement(cssSelector, textToMatch) {
  * @param selector
  * @returns text
  */
-async function getElementText(selector) {
-    let elem = await driver.$(selector);
-    await elem.waitForExist(DELAY_10_SECOND);
-    let text = await elem.getText();
-    return text;
+async function getElementText(selectorOrElement) {
+    const element = await waitHelpers.waitUntilElementIsPresent(selectorOrElement);
+    return element.getText();
 }
 
 /**
@@ -179,16 +177,11 @@ async function isUrlContaining(expectedUrl) {
 }
 
 async function getTextListFromListOfElements(listOfElements) {
-    return await Promise.all(listOfElements.map(async (element) => await element.getText()));
+    return Promise.all(listOfElements.map(async (element) => await element.getText()));
 }
 
 async function getValueListFromListOfElements(listOfElements) {
-    return await Promise.all(listOfElements.map(async (element) => await element.getValue()));
-}
-
-async function fillInputField(selector, text) {
-    let searchfield = await driver.$(selector);
-    await searchfield.setValue(text);
+    return Promise.all(listOfElements.map(async (element) => await element.getValue()));
 }
 
 module.exports = {
@@ -211,5 +204,4 @@ module.exports = {
     isUrlContaining,
     getTextListFromListOfElements,
     getValueListFromListOfElements,
-    fillInputField,
 };
