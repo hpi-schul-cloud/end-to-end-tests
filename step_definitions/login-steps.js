@@ -6,18 +6,18 @@ const NavigationTopPage = require('../page-objects/pages/NavigationTopPage.js');
 
 Then(
 	/^dashboard should have the correct school$/, function () {
-		return NavigationTopPage.checkSchoolname();
+		return NavigationTopPage.isSchoolNameCorrect();
 	});
 
 Then(/^dashboard should have the correct name and profession$/, function () {
-	return NavigationTopPage.checkFullUserInfo();
+	return NavigationTopPage.isUserNameAndRoleCorrect();
 });
 
 Then(/^dashboard should have the following tabs$/, async function (LoginTextLabels) {
 	let subitems = await DashboardPage.getMenuItems();
-	return DashboardPage.checkIfMenuItemsAreVisible(LoginTextLabels, subitems);
+	return DashboardPage.areMenuItemsVisible(LoginTextLabels, subitems);
 });
 
 Then(/^a user should see a notification$/, function () {
-	return loginPage.wrongLoginResult();
+	return loginPage.isWrongLoginNotification();
 });

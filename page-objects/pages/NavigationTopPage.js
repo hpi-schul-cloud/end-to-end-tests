@@ -18,18 +18,18 @@ const navItemHelpContactAdmin = '[data-testid="contact-admin"]';
 const navItemHelpTraining = '[data-testid="fortbildungen"]';
 
 module.exports = {
-    checkSchoolname: async function () {
+    isSchoolNameCorrect: async function () {
         let schoolNameProvidedByAPI = await apiHelpers.getSchoolName();
         let schoolNameOnPage = await this.getSchoolNameDisplayed();
         return expect(schoolNameOnPage).to.equal(schoolNameProvidedByAPI);
     },
-    checkInitials: async function () {
+    areUserInitialsCorrect: async function () {
         let initialsProvidedByAPI = await apiHelpers.getInitials();
         let intitialsOnPage = await this.getInitials();
         return expect(intitialsOnPage).to.equal(initialsProvidedByAPI)
     },
 
-    checkFullUserInfo: async function () {
+    isUserNameAndRoleCorrect: async function () {
         let userName = await apiHelpers.getUserName();
         let userRole = await apiHelpers.getUserRole();
         await this.clickInitials();
@@ -38,13 +38,13 @@ module.exports = {
     },
 
     clickExclamationTriangle: async function () {
-        await waitHelpers.waitAndClick(exclamationTriangle);
+        await elementHelpers.click(exclamationTriangle);
     },
     clickFullScreenMode: async function () {
-        await waitHelpers.waitAndClick(fullScreenMode);
+        await elementHelpers.click(fullScreenMode);
     },
     clickNavItemQrIcon: async function () {
-        await waitHelpers.waitAndClick(qrIcon);
+        await elementHelpers.click(qrIcon);
     },
     //TODO:
     /*
@@ -53,28 +53,28 @@ module.exports = {
    },*/
 
     clickNavItemHelp: async function () {
-        await waitHelpers.waitAndClick(navItemHelp);
+        await elementHelpers.click(navItemHelp);
     },
     clickNavItemHelpHelpArea: async function () {
-        await waitHelpers.waitAndClick(navItemHelpQuestionCircle);
+        await elementHelpers.click(navItemHelpQuestionCircle);
     },
     clickNavItemHelpWishProblem: async function () {
-        await waitHelpers.waitAndClick(navItemHelpWishProblem);
+        await elementHelpers.click(navItemHelpWishProblem);
     },
     clickNavItemHelpContactAdmin: async function () {
-        await waitHelpers.waitAndClick(navItemHelpContactAdmin);
+        await elementHelpers.click(navItemHelpContactAdmin);
     },
     clickNavItemHelpTraining: async function () {
-        await waitHelpers.waitAndClick(navItemHelpTraining);
+        await elementHelpers.click(navItemHelpTraining);
     },
     clickInitials: async function () {
-        await waitHelpers.waitAndClick(initialsDiv);
+        await elementHelpers.click(initialsDiv);
     },
     clickSettings: async function () {
-        await waitHelpers.waitAndClick(initialsDDSettings);
+        await elementHelpers.click(initialsDDSettings);
     },
     clickLogout: async function () {
-        await waitHelpers.waitAndClick(initialsDDLogout);
+        await elementHelpers.click(initialsDDLogout);
     },
 
     performLogout: async function () {

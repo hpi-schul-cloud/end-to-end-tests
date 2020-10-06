@@ -1,7 +1,7 @@
 /*[url/courses]/[courseId]/topics/add] | [url/courses]/[courseId]/topics/edit]*/
 'use strict';
-
-const waitHelpers = require("../../../runtime/helpers/waitHelpers.js");
+const { CLIENT } = require("../../../shared-objects/servers");
+const elementHelpers = require("../../../runtime/helpers/elementHelpers");
 
 const topicName = ".form-group > .form-control";
 const themaAnlegenButton = ".btn.btn-primary.btn-submit";
@@ -24,35 +24,34 @@ const btnAttachLernstoreMaterial = "#content-blocks .btn-secondary.btn-add";
 const lernstoreBtn = ".btn-group > button:nth-child(3)";
 const selectorIDContainer = "#content-blocks";
 
-module.exports = {
-	setTopic: async function (topicname) {
+async function	setTopic (topicname) {
 		let nameSelector = await driver.$(topicName);
 		await nameSelector.setValue(topicname);
 		await driver.pause(500);
-	},
-	clickCreateTopicButton: async function () {
-		await waitHelpers.waitAndClick(themaAnlegenButton);
-	},
-	addText: async function (text) {
-		await waitHelpers.waitAndClick(textBtn);
+	}
+async function	clickCreateTopicButton () {
+		await elementHelpers.click(themaAnlegenButton);
+	}
+async function	addText (text) {
+		await elementHelpers.click(textBtn);
 		const textField = await driver.$(textFieldSel);
 		await driver.pause(global.SHORT_WAIT_MILLIS);
 		await textField.setValue(text);
-	},
+	}
 
-	addGeoGebra: async function (geogebraID) {
-		await waitHelpers.waitAndClick(geogebraBtn);
+async function	addGeoGebra (geogebraID) {
+		await elementHelpers.click(geogebraBtn);
 		await driver.pause(100);
 		let idContainer = await driver.$(idContainerSel);
 		let geoIDSelector = await idContainer.$(".form-control");
 		await geoIDSelector.setValue(geogebraID);
 		await driver.pause(500);
-	},
+	}
 
-	addMaterial: async function () {
-		await waitHelpers.waitAndClick(materialBtn);
+async function	addMaterial () {
+		await elementHelpers.click(materialBtn);
 		let currentBrowser = await driver.getWindowHandle();
-		await waitHelpers.waitAndClick(addMaterialBtn);
+		await elementHelpers.click(addMaterialBtn);
 		// window switch
 		await driver.pause(9000);
 		//await driver.switchWindow(lernStoreUrl);
@@ -65,20 +64,28 @@ module.exports = {
 		let btnContainer = await materialContainer.$(btnContainerMaterial);
 		await btnContainer.click();
 		await driver.pause(1500);
-	},
+	}
 
-	addEtherpad: async function (name, description) {
-		await waitHelpers.waitAndClick(etherpadBtn);
+async function	addEtherpad (name, description) {
+		await elementHelpers.click(etherpadBtn);
 		let nameField = await driver.$(etherpadNameField);
 		await nameField.setValue(name);
 		let descriptionField = await driver.$(etherpadDescriptionField);
 		await descriptionField.setValue(description);
-	},
-	addLernstoreMaterial: async function(name) {
+	}
+async function addLernstoreMaterial(name) {
 		await waitHelpers.waitAndClick(lernstoreBtn);
 		let idContainer = await driver.$(selectorIDContainer);
 	    let lernstoreSelector = await idContainer.$(".form-control");
 		await lernstoreSelector.setValue(name);
 		await waitHelpers.waitAndClick(btnAttachLernstoreMaterial);
 	}
+	
+module.exports = {
+	setTopic,
+	clickCreateTopicButton,
+	addText,
+	addGeoGebra,
+	addMaterial,
+	addEtherpad
 }

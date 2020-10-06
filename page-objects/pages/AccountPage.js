@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
+const elementHelpers = require("../../runtime/helpers/elementHelpers.js");
 
 const currentPasswordInp = 'input[data-testid="settings_password_current"]';
 const newPasswordInpt = 'input[data-testid="settings_password_new"]';
@@ -15,6 +15,6 @@ module.exports = {
         await passwordField.setValue(newPassword);
         let passwordControlField = await driver.$(repeatNewPasswordInp);
         await passwordControlField.setValue(newPassword);
-        await waitHelpers.waitAndClick(submitAccountDataBtn);
-    }
-}
+        await elementHelpers.click(submitAccountDataBtn);
+    },
+};

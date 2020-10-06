@@ -49,11 +49,11 @@ When(/^.*waits for next login$/, async function () {
 });
 
 Then(/^the login must fail$/, async function () {
-	return loginPage.wrongLoginResult();
+	return loginPage.isWrongLoginNotification();
 });
 
 Then(/^the login must be successful$/, function () {
-	return navigationTopPage.checkInitials();
+	return navigationTopPage.areUserInitialsCorrect();
 });
 
 /*Courses*/
