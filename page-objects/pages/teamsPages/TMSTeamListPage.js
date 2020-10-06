@@ -3,6 +3,7 @@
 
 
 const waitHelpers= require('../../../runtime/helpers/waitHelpers');
+const elementHelpers= require('../../../runtime/helpers/elementHelpers');
 const navigationLeftPage = require('../NavigationLeftPage');
 const namesContainer = '.row.tasks.card-deck-row';
 const addTeamBtn = "[data-testid='add-team-btn']";
@@ -15,7 +16,7 @@ module.exports = {
 	goToAddTeam: async function () {
 		//@Todo Conversion to Team list -> click on Button "Team anlegen"
 		await this.goToTeams();
-		await waitHelpers.waitAndClick(addTeamBtn);
+		await elementHelpers.clickAndWait(addTeamBtn);
 
 
 	},

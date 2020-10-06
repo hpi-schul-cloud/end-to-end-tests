@@ -2,6 +2,7 @@
 'use strict';
 
 const waitHelpers = require('../../runtime/helpers/waitHelpers');
+const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const courseListPage = require('../../page-objects/pages/coursePages/CRSSCourseListPage');
 const navigationTopPage = require('../pages/NavigationTopPage');
 const startPage = require('../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin');
@@ -20,7 +21,7 @@ const gradeFilesListSel = '.list-group-files';
 
 module.exports = {
     goToHomeworkListPage: async function () {
-        await waitHelpers.waitAndClick(homeworkOnLeftNavigationPanel);
+        await elementHelpers.clickAndWait(homeworkOnLeftNavigationPanel);
     },
 
     clickOnSubmissionTab: async function () {

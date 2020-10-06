@@ -13,7 +13,7 @@ const sidebarList = 'ul.sidebar-list a[title] span.link-name';
 
 module.exports = {
 	goToDashboard: async function () {
-		await waitHelpers.waitAndClick(dashboardBtnOnNavigationLeftPanel);
+		await elementHelpers.clickAndWait(dashboardBtnOnNavigationLeftPanel);
 	},
 
 	isTitleOfDashboard: async function () {
