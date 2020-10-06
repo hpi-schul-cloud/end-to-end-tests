@@ -14,13 +14,13 @@ const section = {
 		two: '[data-testid="section-2-area"]',
 		three: '[data-testid="section-3-area"]',
 };
+const chosenDefInput = ".chosen-search-input.default";
+const chosenInput = ".search-choice span";
 const multipleChoiceSelectForStudents ='select[data-testid="pupils"]';
 	//Course data section
 const courseNameInput ='[data-testid="coursename"]';
-const teacherContainer = 'select[data-testid="teachersearch"]';
-const teacherList = '[data-testid="teacher"]'
+const teacherContainer = '[data-testid="teachers_container"]';
 const teacherSubContainer ='[data-testid="courseSubstitute_container"]';
-const subTeachersList = '[data-testid="substituent"] option'
 const colourPicker = ".color-picker__item";
 const timeSpan = {
 		start: '[data-testid="date_start"]',
@@ -28,9 +28,7 @@ const timeSpan = {
 };
 //Participants section
 const classContainer = '[data-testid="class_container"]';
-const classList = '[data-testid="classes"] option'
 const studentsContainer = '[data-testid="students_container"]';
-const studentsList = '[data-testid="pupils"] option'
 //Final section
 const createNewCourseBtn ='[data-testid="einen-weiteren-kurs-anlegen-btn"]';
 const goToCourseListBtn = '[data-testid="zur-uebersicht-btn"]';
@@ -56,29 +54,29 @@ async function goToNextSection () {
 		await elementHelpers.click(nextSectionBtn);
 	}
 
-async function getListOfSelected (containerSelector, list) {
+async function getListOfSelected (containerSelector) {
 		const container = await driver.$(containerSelector);
-		const listOfElements = await container.$$(list);
+		const listOfElements = await container.$$(chosenInput);
 		return await elementHelpers.getTextListFromListOfElements(listOfElements);
 	}
 
-async function noElementIsSelected (containerSelector, list) {
+async function isDefaultMultiContainerValue (containerSelector, defaultText) {
 		const container = await driver.$(containerSelector);
-		const listOfElements = await container.$$(list);
-		listOfElements.forEach( (el) => {
-			const selectedOption = el.getAttribute('selected');
-			expect(selectedOption).is.not.true;
-		});
+		const listOfElements = await container.$$(chosenDefInput);
+		const valueList = await elementHelpers.getValueListFromListOfElements(listOfElements);
+		const isOnlyOneText = valueList.length == 1;
+		await expect(isOnlyOneText).is.equal(true);
+		await expect(valueList).includes(defaultText);
 	}
 
 async function isSectionDisplayed (sectionNumber) {
 		const sectionToCheck =
-			sectionNumber === 1 ? sectionNumber : sectionNumber - 1;
+			sectionNumber == 1 ? sectionNumber : sectionNumber - 1;
 		const selector = this.getSectionSelector(sectionToCheck);
 		const element = await driver.$(selector);
 		const hasChildren = (await element.$$(".//*")).length > 0;
 
-		if (sectionNumber === 1) {
+		if (sectionNumber == 1) {
 			await expect(await elementHelpers.isElementPresent(selector)).to.equal(true);
 			await expect(hasChildren).to.equal(false);
 		} else {
@@ -88,11 +86,11 @@ async function isSectionDisplayed (sectionNumber) {
 
 async function isSectionNotDisplayed (sectionNumber) {
 		const sectionToCheck =
-			sectionNumber === 1 ? sectionNumber : sectionNumber - 1;
+			sectionNumber == 1 ? sectionNumber : sectionNumber - 1;
 		const element = await driver.$(this.getSectionSelector(sectionToCheck));
-		const hasChildren = (element.$$(".//*").length) > 0;
+		const hasChildren = (await element.$$(".//*").length) > 0;
 
-		if (sectionNumber === 1) {
+		if (sectionNumber == 1) {
 			await expect(await elementHelpers.isElementPresent(sectionToCheck)).to.equal(
 				false
 			);
@@ -184,15 +182,15 @@ async function setColour (colourName) {
 async function isTeachersNameSetByDefault () {
 		const username = await this.getUserName();
 		const listOfTeachersNames = await this.getListOfSelected(
-			teacherContainer, teacherList
+			teacherContainer
 		);
-		await expect(listOfTeachersNames.toString()).to.include(username);
+		await expect(listOfTeachersNames).to.include(username);
 	}
 
 async function isTeacherSubstituteNotSet () {
-		await this.noElementIsSelected(
+		await this.isDefaultMultiContainerValue(
 			teacherSubContainer,
-			subTeachersList
+			"Lehrer:in auswählen"
 		);
 	}
 
@@ -209,16 +207,16 @@ async function isTimeSpanSet () {
 
 	//Participants section
 async function isClassNotSet () {
-		await this.noElementIsSelected(
+		await this.isDefaultMultiContainerValue(
 			classContainer,
-			classList
+			"Klasse(n) auswählen"
 		);
 	}
 
 async function isStudentNotSet () {
-		await this.noElementIsSelected(
+		await this.isDefaultMultiContainerValue(
 			studentsContainer,
-			studentsList
+			"Schüler:innen auswählen"
 		);
 	}
 
@@ -244,7 +242,7 @@ module.exports = {
 	goToAddCourses,
 	goToNextSection,
 	getListOfSelected,
-	noElementIsSelected,
+	isDefaultMultiContainerValue,
 	isSectionDisplayed,
 	isSectionNotDisplayed,
 	getSectionSelector,
