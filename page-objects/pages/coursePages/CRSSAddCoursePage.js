@@ -5,6 +5,7 @@ const elementHelpers = require("../../../runtime/helpers/elementHelpers");
 const axios = require("axios");
 const waitHelpers = require("../../../runtime/helpers/waitHelpers");
 const { waitUntilElementIsPresent } = require("../../../runtime/helpers/waitHelpers");
+const APIhelpers = require("../../../runtime/helpers/APIhelpers");
 
 const urlCoursesAdd = `${CLIENT.URL}/courses/add`;
 
@@ -78,8 +79,8 @@ async function isDefaultInputValue (containerSelector, defaultText) {
 }
 
 async function isSectionDisplayed (sectionNumber) {
-	const sectionToCheck =
-		sectionNumber == 1 ? sectionNumber : sectionNumber - 1;
+	await waitHelpers.waitUntilPageLoads();
+	const sectionToCheck = sectionNumber == 1 ? sectionNumber : sectionNumber - 1;
 	const selector = getSectionSelector(sectionToCheck);
 	const element = await waitHelpers.waitUntilElementIsPresent(selector);
 	const hasChildren = (await element.$$(".//*")).length > 0;
@@ -94,8 +95,7 @@ async function isSectionDisplayed (sectionNumber) {
 
 async function isSectionNotDisplayed (sectionNumber) {
 	await waitHelpers.waitUntilPageLoads();
-	const sectionToCheck =
-		sectionNumber == 1 ? sectionNumber : sectionNumber - 1;
+	const sectionToCheck = sectionNumber == 1 ? sectionNumber : sectionNumber - 1;
 	const element = await driver.$(getSectionSelector(sectionToCheck));
 	const hasChildren = (await element.$$(".//*").length) > 0;
 
@@ -123,21 +123,6 @@ function getSectionSelector(sectionNumber) {
 			break;
 	}
 	return selector;
-}
-
-async function getUserName () {
-	const cookie = await driver.getCookies(["jwt"]);
-	const jwt = cookie[0].value;
-	const info = await axios.request({
-		url: "http://localhost:3030/me",
-		method: "get",
-		headers: {
-			Authorization: `${jwt}`,
-		},
-	});
-	const firstName = info.data.firstName;
-	const lastName = info.data.lastName;
-	return firstName + " " + lastName;
 }
 
 async function createCourse(courseName) {
@@ -184,7 +169,7 @@ async function setColour (colourName) {
 }
 
 async function isTeachersNameSetByDefault () {
-	const username = await getUserName();
+	const username = await APIhelpers.getUserName();
 	const listOfTeachersNames = await getListOfSelected(teacherContainer);
 	await expect(listOfTeachersNames).to.include(username);
 }
@@ -234,23 +219,19 @@ async function areFinalButtonsVisible () {
 module.exports = {
 	goToAddCourses,
 	goToNextSection,
-	getListOfSelected,
-	isDefaultMultiContainerValue,
+	clickCreateCourseAndContinueBtn,
+	clickGoToCourseListBtn,
 	isSectionDisplayed,
 	isSectionNotDisplayed,
-	getSectionSelector,
-	getUserName,
-	createCourse,
-	createCourseWithStudents,
 	isCourseNameNotEntered,
-	setCourseName,
-	setColour,
 	isTeachersNameSetByDefault,
 	isTeacherSubstituteNotSet,
 	isTimeSpanSet,
 	isClassNotSet,
 	isStudentNotSet,
-	clickCreateCourseAndContinueBtn,
-	clickGoToCourseListBtn,
 	areFinalButtonsVisible,
+	setCourseName,
+	setColour,
+	createCourse,
+	createCourseWithStudents,
 };

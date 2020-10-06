@@ -6,7 +6,7 @@ const elementHelpers = require('../../../runtime/helpers/elementHelpers.js');
 const addNewGroupBtn = '[data-section="js-groups"] .add-button a';
 
 async function clickAddNewGroupBtn () {
-	await elementHelpers.click(addNewGroupBtn);
+	await elementHelpers.clickAndWait(addNewGroupBtn);
 }
 
 async function clickAddNewGroupInCourse (coursename) {

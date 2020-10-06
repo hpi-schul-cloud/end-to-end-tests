@@ -33,7 +33,7 @@ async function openToolsTab () {
 }
 
 async function openGroupsTab () {
-	await elementHelpers.click(tab.groups);
+	await elementHelpers.clickAndWait(tab.groups);
 }
 
 async function clickThreePointSettingsIcon () {

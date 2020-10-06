@@ -8,7 +8,7 @@ const addNewHomeworkBtn = "[data-section='js-homeworks'] .add-button a"
 
 
 async function clickAddNewTaskBtn() {
-    await elementHelpers.click(addNewHomeworkBtn)
+    await elementHelpers.clickAndWait(addNewHomeworkBtn)
 }
 
 async function clickAddNewTaskInCourse(coursename) {

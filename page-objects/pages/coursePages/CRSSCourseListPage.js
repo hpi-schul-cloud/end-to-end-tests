@@ -12,12 +12,16 @@ const searchCourseFiled = '.input-group .search-field';
 const courseWrapper = '.sc-card-wrapper';
 const titleOfCourse = '.title';
 const memberBtn = '.btn-member';
+const courseDescription = '.ckcontent';
+const courseHeader = '.sc-card-header';
+
 const importCourseBtn = '[data-testid="import-course-btn"]';
 const createCourseBtn = '[data-testid="create-course-btn"]';
 const createYourFirstCourseBtn = 'a.btn-primary.btn-add:not([data-testid="create-course-btn"])';
 const container_of_element = '[data-testid="container_of_element"]';
 const header_of_element = '[data-testid="header-of-element"]';
 const listOfMembersSel = '#member-modal-body > ol > li';
+const topicNameContainer = '#topic-list > div > div > div';
 
 const courseColour = {
 	grey: 'background:#ACACAC',
@@ -42,17 +46,14 @@ async function goToCourses() {
 }
 
 async function areImportAndCreateCourseBtnsVisible() {
-	expect(await elementHelpers.isElementPresent(importCourseBtn)).to.equal(true);
-	expect(await elementHelpers.isElementPresent(createCourseBtn)).to.equal(true);
+	await waitHelpers.waitUntilElementIsPresent(importCourseBtn);
+	await waitHelpers.waitUntilElementIsPresent(createCourseBtn);
 }
 
-async function isCourseDisplayedCorrectly(courseName) {
-	const activeCoursesContainer = await driver.$(section.activeCourses);
-	const coursesOnThePage = await activeCoursesContainer.$$(titleOfCourse);
-	const courseCount = await coursesOnThePage.length;
-	const courseTitleCard = coursesOnThePage[courseCount - 1];
-	const courseTitle = await courseTitleCard.getText();
-	expect(courseTitle).to.equal(courseName);
+async function isCourseDisplayedCorrectlyInSection(courseName, section) {
+	const listOfCourseTitlesForSection = await getListOfCourseTitlesInSection(section);
+	const msg = "Course with name: '" + courseName + "' is not last on the list: " + listOfCourseTitlesForSection;
+	expect(listOfCourseTitlesForSection[listOfCourseTitlesForSection.length - 1], msg).to.equal(courseName);
 }
 
 async function isCourseOnListInSection(coursename, section) {
@@ -60,22 +61,8 @@ async function isCourseOnListInSection(coursename, section) {
 	return allCourses.includes(coursename);
 }
 
-async function isCorrectCourseColour(colour) {
-	const activeCoursesContainer = await driver.$(section.activeCourses);
-	const coursesOnThePage = await activeCoursesContainer.$$(container_of_element);
-	const indexOfTheLastAddedCourse = await coursesOnThePage.length;
-	const container = await driver.$(container_of_element + ':nth-child(' + indexOfTheLastAddedCourse + ')');
-	const lastAddedCourse = await container.$(header_of_element);
-	const styleArray = await lastAddedCourse.getHTML();
-	const regexp = /background:#[A-F, 0-9]{6}/;
-	const styleMatches = styleArray.match(regexp);
-	const style = styleMatches[0];
-	const colourNumber = getColourSelector(colour);
-	expect(style).to.equal(colourNumber);
-}
-
 async function clickCreateCourseBtn() {
-	await elementHelpers.click(createCourseBtn);
+	await elementHelpers.clickAndWait(createCourseBtn);
 }
 
 function getColourSelector(colourName) {
@@ -116,7 +103,7 @@ function getColourSelector(colourName) {
 }
 
 async function setCourseNameIntoSearchInputField(courseName) {
-	await elementHelpers.fillInputField(searchCourseFiled, courseName);
+	await waitHelpers.waitAndSetValue(searchCourseFiled, courseName);
 }
 
 async function getCountOfDisplayedCoursesForSection(section) {
@@ -130,36 +117,37 @@ async function getCountOfDisplayedCoursesForSection(section) {
 	return numberOfDisplayedCourses;
 }
 
-async function getCourseWrapper(courseName) {
-	const courseWrapper = await driver.$(
-		'//*[contains(@class,"sc-card-wrapper") and contains(.//span, "' + courseName + '")]'
-	);
-	return courseWrapper;
-}
-
 async function getNamesOfMembers() {
+	await waitHelpers.waitUntilElementIsPresent(listOfMembersSel);
 	const listOfMembers = await driver.$$(listOfMembersSel);
 	return elementHelpers.getTextListFromListOfElements(listOfMembers);
 }
 
 async function areMembersOnTheListInCourseForSection(courseName, members, section) {
 	await clickPupilIconInCourseInSection(courseName, section);
-	await driver.pause(1000);
 	let names = await getNamesOfMembers();
-	expect(names).to.have.members(members);
+	const msg = "Course with name: '" + courseName + "' should not be visible on the list. \n";
+	const resultMsg = 'Actual list of courses: ' + names;
+	expect(names, msg + resultMsg).to.have.members(members);
 }
 
-async function isCorrectNumberOfMembersInCourseForSection(courseName, members, section) {
-	const numberOfExpectedMembers = members.length;
-	const numberOfMembers = await getNumberOfMembersInGivenCourseInSection(courseName, section);
-	expect(numberOfMembers).to.equal(numberOfExpectedMembers);
+async function isCorrectNumberOfMembersInCourseForSection(courseName, membersList, section) {
+	const expectedCourseMembersCount = membersList.length;
+	const actualCourseMembersCount = await getCountOfMemebersInGivenCourseInSection(courseName, section);
+	const msg = 'Course with name: ' + courseName + ' has wrong members count (Members icon). \n';
+	const resultMsg = 'Expected: ' + expectedCourseMembersCount + ', Actual: ' + actualCourseMembersCount;
+	expect(actualCourseMembersCount, msg + resultMsg).to.equal(expectedCourseMembersCount);
 }
 
 async function getListOfCoursesInSection(section) {
 	await waitHelpers.waitUntilPageLoads();
-	await waitHelpers.waitUntilElementIsPresent(section + ' ' + courseWrapper);
-	const listOfCourses = await driver.$$(section + ' ' + courseWrapper);
-	return listOfCourses;
+	const selector = section + ' ' + courseWrapper;
+	try {
+		await waitHelpers.waitUntilElementIsPresent(selector);
+	} catch (err) {
+		return [];
+	}
+	return driver.$$(selector);
 }
 
 async function getIndexOfGivenCourseInSection(courseName, section) {
@@ -168,40 +156,19 @@ async function getIndexOfGivenCourseInSection(courseName, section) {
 	return index;
 }
 
-async function getDescriptionCourse(index) {
-	try {
-		return await elementHelpers.getElementText(
-			'.section-activeCourses div:nth-child(' + index + ') > article > div.sc-card-body.ckcontent'
-		);
-	} catch (error) {
-		log.error('Can not get value: ' + error.message);
-		throw error;
-	}
-}
-
-async function getCourseName(index) {
-	try {
-		return await elementHelpers.getElementText(
-			'.section-activeCourses div:nth-child(' + index + ') > article span.title'
-		);
-	} catch (error) {
-		log.error('Can not get value: ' + error.message);
-		throw error;
-	}
-}
-
-async function getColorCourse(index) {
-	try {
-		let courseContainer = await driver.$(
-			'.section-activeCourses div:nth-child(' + index + ') > article > div.sc-card-header'
-		);
-		const css = await courseContainer.getCSSProperty('background-color');
-		let color = css.parsed.hex;
-		return color;
-	} catch (error) {
-		log.error('Can not get value: ' + error.message);
-		throw error;
-	}
+async function getCourseWithNameInSection(courseName, section) {
+	let index = await getIndexOfGivenCourseInSection(courseName, section);
+	const list = await getListOfCoursesInSection(section);
+	const element = list[index];
+	const headerContainer = await element.$(courseHeader);
+	const descriptionContainer = await element.$(courseDescription);
+	const membersContainer = await element.$(memberBtn);
+	return {
+		courseName: await headerContainer.getText(),
+		courseDescription: await descriptionContainer.getText(),
+		courseColour: (await headerContainer.getCSSProperty('background-color')).parsed.hex.toUpperCase(),
+		courseMembersCount: await membersContainer.getText(),
+	};
 }
 
 async function getWrapperOfCourseInSection(courseName, section) {
@@ -222,7 +189,7 @@ async function getListOfCourseTitlesInSection(section) {
 		return [];
 	}
 	const listOfCourseTitleElements = await driver.$$(selector);
-	let courseTitleList = await Promise.all(listOfCourseTitleElements.map(async (element) => await element.getText()));
+	let courseTitleList = await elementHelpers.getTextListFromListOfElements(listOfCourseTitleElements);
 	return courseTitleList;
 }
 
@@ -236,90 +203,125 @@ async function getCountOfCoursesWhichTitlesContainTextForSection(text, section) 
 async function clickOnCourseInSection(courseName, section) {
 	const courseIndex = await getIndexOfGivenCourseInSection(courseName, section);
 	if (courseIndex == -1) throw "Can't find course: " + courseName + ' in section: ' + section;
-
 	const courseList = await getListOfCoursesInSection(section);
 	const element = courseList[courseIndex];
-	await elementHelpers.click(element);
+	await elementHelpers.clickAndWait(element);
 }
 
-async function getNumberOfMembersInGivenCourseInSection(courseName, section) {
-	const courseWrapper = await getWrapperOfCourseInSection(courseName, section);
-	await driver.pause(1000);
-	const element = await courseWrapper.$(memberBtn);
-	let text = await element.getText();
-	let number = parseInt(text);
-	return number;
+async function getCountOfMemebersInGivenCourseInSection(courseName, section) {
+	const course = await getCourseWithNameInSection(courseName, section);
+	const actualCountOfCourseMembers = parseInt(course.courseMembersCount);
+	return actualCountOfCourseMembers;
 }
 
 async function clickPupilIconInCourseInSection(courseName, section) {
 	const courseWrapper = await getWrapperOfCourseInSection(courseName, section);
-	await driver.pause(1000);
 	let pupilIcon = await courseWrapper.$(memberBtn);
-	await pupilIcon.click();
-	await driver.pause(500);
+	await elementHelpers.clickAndWait(pupilIcon);
 }
 
-async function goToTasksOfTheCourse(coursename) {
+async function goToTasksOfTheCourse(coursename, section) {
 	await goToCourses();
-	await clickOnCourseInSection(coursename, section.activeCourses);
+	await clickOnCourseInSection(coursename, section);
 	await gotoTasksTab();
 }
 
-async function studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename) {
+async function studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename, section) {
 	await logoutPage.goToLogoutPage();
 	await startPage.performLogin(username, password);
 	await loginPage.firstLoginStudent(username, password);
-	await goToTasksOfTheCourse(coursename);
+	await goToTasksOfTheCourse(coursename, section);
 }
 
-async function isTopicInCourseInSection(coursename, topicname, section) {
-	await clickOnCourseInSection(coursename, section);
-	let topicNames = await Promise.all(
-		(await driver.$$('#topic-list > div > div > div')).map(async (element) => await element.getText())
-	);
-	await expect(topicNames).to.include(topicname);
+async function isTopicInCourseInSection(courseName, topicName, section) {
+	await clickOnCourseInSection(courseName, section);
+	await waitHelpers.waitUntilElementIsPresent(topicNameContainer);
+	const listOfTopics = await driver.$$(topicNameContainer);
+	const listOfTopicNames = await elementHelpers.getTextListFromListOfElements(listOfTopics);
+	const msg = "Topic with name: '" + courseName + "' is not visible on list \n";
+	const resultMsg = 'Expected: ' + topicName + ', Actual: ' + listOfTopicNames;
+	expect(listOfTopicNames, msg + resultMsg).to.include(topicName);
 }
 
-async function areNotAnyStudentsInCopiedCourse(coursename) {
-	let copiedName = coursename + ' - Kopie';
-	let courseHasIndex = (await getIndexOfGivenCourseInSection(copiedName, section.activeCourses)) + 1;
-	let areThereStudentsInCourseContainer = await driver.$(
-		'.sc-card-wrapper.col-xl-3.col-lg-4.col-md-6.col-sm-12:nth-child(' +
-			courseHasIndex +
-			') .additionalInfo .btn-member'
-	);
-	let areThereStudentsInCourse = await areThereStudentsInCourseContainer.getText();
-	let number = parseInt(areThereStudentsInCourse);
-	await expect(number).to.equal(0);
+async function isCountOfCourseMemebrs(courseName, expectedCountOfCourseMembers, section) {
+	const actualCountOfCourseMembers = await getCountOfMemebersInGivenCourseInSection(courseName, section);
+	const msg = 'Course with name: ' + courseName + ' has wrong members count. \n';
+	const resultMsg = 'Expected: ' + expectedCountOfCourseMembers + ', Actual: ' + actualCountOfCourseMembers;
+	expect(actualCountOfCourseMembers, msg + resultMsg).to.equal(expectedCountOfCourseMembers);
 }
+
+async function isCourseDescription(courseName, expectedDescription, section) {
+	const course = await getCourseWithNameInSection(courseName, section);
+	const actualDescription = course.courseDescription;
+	const msg = 'Course with name: ' + courseName + ' has wrong description. \n';
+	const resultMsg = 'Expected: ' + expectedDescription + ', Actual: ' + actualDescription;
+	expect(actualDescription, msg + resultMsg).to.equal(expectedDescription);
+}
+
+async function isCourseColour(courseName, expectedColour, section) {
+	const course = await getCourseWithNameInSection(courseName, section);
+	const actualColourNumber = course.courseColour;
+	const expectedColourNumber = getColourSelector(expectedColour);
+	const msg = 'Course with name: ' + courseName + ' has wrong colour. \n';
+	const resultMsg = 'Expected: ' + expectedColour + ', Actual: ' + actualColourNumber;
+	expect(expectedColourNumber, msg + resultMsg).to.include(actualColourNumber);
+}
+
+async function isCorrectNumberOfDisplayedResults(courseName, section) {
+	let a = await getCountOfCoursesWhichTitlesContainTextForSection(courseName, section);
+	let b = await getCountOfDisplayedCoursesForSection(section);
+	expect(a).to.equal(b);
+}
+
+async function isCountOfCoursesWithNameOnList(courseName, expectedCount, section) {
+	let actualCount = await getCountOfCoursesWhichTitlesContainTextForSection(courseName, section);
+	const msg = 'Incorrect courses count with name: ' + courseName + '\n';
+	const resultMsg = 'Expected: ' + expectedCount + ', Actual: ' + actualCount;
+	expect(parseInt(expectedCount), msg + resultMsg).to.equal(actualCount);
+}
+
+async function isCountOfDisplayedCoursesForSection(expectedCount, section) {
+	let actualCount = await getCountOfDisplayedCoursesForSection(section);
+	const msg = 'Incorrect course count on list \n';
+	const resultMsg = 'Expected: ' + expectedCount + ', Actual: ' + actualCount;
+	expect(parseInt(expectedCount), msg + resultMsg).to.equal(actualCount);
+}
+
+async function isCourseVisible(courseName, section) {
+	const msg = "Course with name: '" + courseName + "' should be visible on the list. \n";
+	const resultMsg = 'Actual list of courses: ' + (await getListOfCourseTitlesInSection(section));
+	const isCourseOnList = await isCourseOnListInSection(courseName, section);
+	expect(isCourseOnList, msg + resultMsg).to.be.true;
+}
+
+async function isCourseNotVisible(courseName, section) {
+	const msg = "Course with name: '" + courseName + "' should not be visible on the list. \n";
+	const resultMsg = 'Actual list of courses: ' + (await getListOfCourseTitlesInSection(section));
+	const isCourseOnList = await isCourseOnListInSection(courseName, section);
+	expect(isCourseOnList, msg + resultMsg).to.be.false;
+}
+
 module.exports = {
 	section,
 	goToCourses,
-	areImportAndCreateCourseBtnsVisible,
-	isCourseDisplayedCorrectly,
-	isCourseOnListInSection,
-	isCorrectCourseColour,
-	clickCreateCourseBtn,
-	getColourSelector,
-	setCourseNameIntoSearchInputField,
-	getCountOfDisplayedCoursesForSection,
-	getCourseWrapper,
-	getNamesOfMembers,
-	areMembersOnTheListInCourseForSection,
-	isCorrectNumberOfMembersInCourseForSection,
-	getListOfCoursesInSection,
-	getIndexOfGivenCourseInSection,
-	getDescriptionCourse,
-	getCourseName,
-	getColorCourse,
-	getWrapperOfCourseInSection,
-	getListOfCourseTitlesInSection,
-	getCountOfCoursesWhichTitlesContainTextForSection,
-	clickOnCourseInSection,
-	getNumberOfMembersInGivenCourseInSection,
-	clickPupilIconInCourseInSection,
 	goToTasksOfTheCourse,
 	studentLogsInAndGoesToTasksOfTheCourse,
+	clickCreateCourseBtn,
+	clickOnCourseInSection,
+	clickPupilIconInCourseInSection,
+	setCourseNameIntoSearchInputField,
+	areImportAndCreateCourseBtnsVisible,
+	areMembersOnTheListInCourseForSection,
+	isCorrectNumberOfMembersInCourseForSection,
+	isCourseDisplayedCorrectlyInSection,
+	isCourseOnListInSection,
+	isCourseColour,
+	isCourseDescription,
 	isTopicInCourseInSection,
-	areNotAnyStudentsInCopiedCourse,
+	isCountOfCourseMemebrs,
+	isCorrectNumberOfDisplayedResults,
+	isCountOfDisplayedCoursesForSection,
+	isCountOfCoursesWithNameOnList,
+	isCourseNotVisible,
+	isCourseVisible,
 };

@@ -12,7 +12,7 @@ async function clickSubmitButton () {
 	await elementHelpers.clickAndWait(submitBtn);
 }
 
-async function clickDeleteButtonConfirmation () {
+async function clickConfirmDeleteButton () {
 	await elementHelpers.clickAndWait(deleteButtonConfirmation);
 }
 
@@ -45,7 +45,7 @@ async function setCourseDescription (courseDescription) {
 
 module.exports = {
 	clickSubmitButton,
-	clickDeleteButtonConfirmation,
+	clickConfirmDeleteButton,
 	clickDeleteButton,
 	setCourseName,
 	setCourseDescription,

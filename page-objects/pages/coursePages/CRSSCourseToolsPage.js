@@ -6,7 +6,7 @@ const elementHelpers = require('../../../runtime/helpers/elementHelpers.js');
 const addNewToolBtn = "[data-section='js-tools'] .add-button a";
 
 async function clickAddNewToolBtn () {
-	await elementHelpers.click(addNewToolBtn);
+	await elementHelpers.clickAndWait(addNewToolBtn);
 }
 
 async function clickAddNewTopicInCourse (coursename) {
