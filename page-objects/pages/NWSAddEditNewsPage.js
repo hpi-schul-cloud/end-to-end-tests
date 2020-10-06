@@ -13,7 +13,7 @@ const timeSelector = '[data-testid="news_time"] input';
 module.exports = {
     goToNewNews: async function () {
         await newsListPage.goToNews();
-        await newsListPage.clickCreateNewsBtn();
+        await  this.clickCreateNewsButton();
     },
     setTitle: async function (title) {
         let titleFieldInput = await driver.$(titleField);
