@@ -73,12 +73,12 @@ async function	addEtherpad (name, description) {
 		let descriptionField = await driver.$(etherpadDescriptionField);
 		await descriptionField.setValue(description);
 	}
-async function addLernstoreMaterial(name) {
-		await waitHelpers.waitAndClick(lernstoreBtn);
+async function addLernstoreMaterial (name) {
+		await elementHelpers.click(lernstoreBtn);
 		let idContainer = await driver.$(selectorIDContainer);
 	    let lernstoreSelector = await idContainer.$(".form-control");
 		await lernstoreSelector.setValue(name);
-		await waitHelpers.waitAndClick(btnAttachLernstoreMaterial);
+		await elementHelpers.click(btnAttachLernstoreMaterial);
 	}
 	
 module.exports = {
@@ -87,5 +87,6 @@ module.exports = {
 	addText,
 	addGeoGebra,
 	addMaterial,
-	addEtherpad
+	addEtherpad,
+	addLernstoreMaterial,
 }

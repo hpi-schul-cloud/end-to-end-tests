@@ -5,7 +5,7 @@ const lernstorePage=require("../page-objects/pages/LRNSTRLernStorePage");
 
 
 When(/^teacher adds some Lerstore material with (.*) to the course$/, async function (lerstoreTopicName) {
-    await addEditTopicPage.addLernstoreMaterial(lerstoreTopicName);
+    await addEditTopicPage.addLernstoreMaterial(lerstoreTopicName)
     await addEditTopicPage.clickCreateTopicButton();
     await lernstorePage.switchToContentWindow();
 

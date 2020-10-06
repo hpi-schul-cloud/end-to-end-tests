@@ -2,6 +2,7 @@
 'use strict';
 // timeout for search: 3 sec
 const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
+const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
 const apiHelpers = require('../../runtime/helpers/APIhelpers');
 const stringHelpers= require('../../runtime/helpers/stringHelpers');
 const {CLIENT} = require("../../shared-objects/servers");
@@ -34,7 +35,7 @@ module.exports= {
     },
     insertSearchRequest: async function(content) {
         await waitHelpers.waitAndSetValue(selectorSearchField, content);
-        await waitHelpers.waitAndClick(selectorSearchIcon);
+        await elementHelpers.click(selectorSearchIcon);
     
     },
     rightNumberOfFoundContentDisplayed: async function(request) {
