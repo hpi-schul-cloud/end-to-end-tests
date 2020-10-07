@@ -59,13 +59,13 @@ async function goToNextSection () {
 }
 
 async function getListOfSelected (containerSelector) {
-	const container = await waitHelpers.waitUntilElementIsPresent(containerSelector);
+	const container = await waitHelpers.waitUntilElementIsVisible(containerSelector);
 	const listOfElements = await container.$$(chosenInput);
 	return await elementHelpers.getTextListFromListOfElements(listOfElements);
 }
 
 async function isDefaultMultiContainerValue (containerSelector, defaultText) {
-	const container = await waitHelpers.waitUntilElementIsPresent(containerSelector);
+	const container = await waitHelpers.waitUntilElementIsVisible(containerSelector);
 	const listOfElements = await container.$$(chosenDefInput);
 	const valueList = await elementHelpers.getValueListFromListOfElements(listOfElements);
 	const isOnlyOneText = valueList.length == 1;
@@ -74,7 +74,7 @@ async function isDefaultMultiContainerValue (containerSelector, defaultText) {
 }
 
 async function isDefaultInputValue (containerSelector, defaultText) {
-	const container = await waitHelpers.waitUntilElementIsPresent(containerSelector);
+	await waitHelpers.waitUntilElementIsVisible(containerSelector);
 	await waitHelpers.waitUntilElementAttributeEquals(containerSelector, "placeholder", defaultText)
 }
 

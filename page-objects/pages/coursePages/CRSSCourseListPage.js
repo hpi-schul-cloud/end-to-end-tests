@@ -47,8 +47,8 @@ async function goToCourses() {
 }
 
 async function areImportAndCreateCourseBtnsVisible() {
-	await waitHelpers.waitUntilElementIsPresent(importCourseBtn);
-	await waitHelpers.waitUntilElementIsPresent(createCourseBtn);
+	await waitHelpers.waitUntilElementIsVisible(importCourseBtn);
+	await waitHelpers.waitUntilElementIsVisible(createCourseBtn);
 }
 
 async function isCourseDisplayedCorrectlyInSection(courseName, section) {
@@ -120,8 +120,8 @@ async function getCountOfDisplayedCoursesForSection(section) {
 }
 
 async function getNamesOfMembers() {
-	await waitHelpers.waitUntilElementIsPresent(popupMembers);
-	await waitHelpers.waitUntilElementIsPresent(listOfMembersSel);
+	await waitHelpers.waitUntilElementIsVisible(popupMembers);
+	await waitHelpers.waitUntilElementIsVisible(listOfMembersSel);
 	const listOfMembers = await driver.$$(listOfMembersSel);
 	return elementHelpers.getTextListFromListOfElements(listOfMembers);
 }
@@ -146,7 +146,7 @@ async function getListOfCoursesInSection(section) {
 	await waitHelpers.waitUntilPageLoads();
 	const selector = section + ' ' + courseWrapper;
 	try {
-		await waitHelpers.waitUntilElementIsPresent(selector);
+		await waitHelpers.waitUntilElementIsVisible(selector);
 	} catch (err) {
 		return [];
 	}
@@ -187,7 +187,7 @@ async function getListOfCourseTitlesInSection(section) {
 	await waitHelpers.waitUntilPageLoads();
 	const selector = section + ' ' + courseWrapper + ' ' + titleOfCourse;
 	try {
-		await waitHelpers.waitUntilElementIsPresent(selector);
+		await waitHelpers.waitUntilElementIsVisible(selector);
 	} catch (err) {
 		return [];
 	}
@@ -238,7 +238,7 @@ async function studentLogsInAndGoesToTasksOfTheCourse(username, password, course
 
 async function isTopicInCourseInSection(courseName, topicName, section) {
 	await clickOnCourseInSection(courseName, section);
-	await waitHelpers.waitUntilElementIsPresent(topicNameContainer);
+	await waitHelpers.waitUntilElementIsVisible(topicNameContainer);
 	const listOfTopics = await driver.$$(topicNameContainer);
 	const listOfTopicNames = await elementHelpers.getTextListFromListOfElements(listOfTopics);
 	const msg = "Topic with name: '" + courseName + "' is not visible on list \n";
