@@ -5,18 +5,17 @@ const elementHelpers = require('../../../runtime/helpers/elementHelpers.js');
 
 const addNewGroupBtn = '[data-section="js-groups"] .add-button a';
 
+async function clickAddNewGroupBtn () {
+	await elementHelpers.clickAndWait(addNewGroupBtn);
+}
 
-async function	clickAddNewGroupBtn () {
-		await elementHelpers.click(addNewGroupBtn);
-	}
-
-async function	clickAddNewGroupInCourse (coursename) {
-		await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
-		await coursePage.openGroupsTab();
-		await clickAddNewGroupBtn();
-	}
+async function clickAddNewGroupInCourse (coursename) {
+	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
+	await coursePage.openGroupsTab();
+	await clickAddNewGroupBtn();
+}
 
 module.exports = {
 	clickAddNewGroupBtn,
-	clickAddNewGroupInCourse
+	clickAddNewGroupInCourse,
 }
