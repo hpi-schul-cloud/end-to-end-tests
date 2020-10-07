@@ -6,7 +6,7 @@ const waitHelpers = require("./waitHelpers");
 async function click(selectorOrElement) {
     const element = await waitHelpers.waitUntilElementIsClickable(selectorOrElement);
     await element.click();
-    //waitUntilPageLoads(); is temporary: 
+    //waitUntilPageLoads(); is temporary:
     await waitHelpers.waitUntilPageLoads();
 }
 
@@ -39,14 +39,10 @@ async function getSelectOptions(selectSelector) {
 }
 //TO DO class name
 async function selectOptionByText(selectSelector, text) {
-    const searchText = text.trim().split(" ")[0];
-    const container = await driver.$(selectSelector + "+ .chosen-container");
-    const searchInput = await container.$(".chosen-search-input");
-    await searchInput.click();
-    await searchInput.setValue(searchText);
-    const searchResult = await container.$(`.chosen-results .highlighted`);
-    await searchResult.click();
-}
+const searchText = text.trim().split(" ")[0];
+const searchResult = await driver.$(`option*=${searchText}`);
+await searchResult.click();
+};
 
 async function loadPage(url, seconds = DELAY_20_SECOND) {
     let timeout = seconds * 1000;
