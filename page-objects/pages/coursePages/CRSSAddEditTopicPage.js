@@ -65,6 +65,14 @@ async function addEtherpad (name, description) {
 	await waitHelpers.waitAndSetValue(etherpadDescriptionField, description);
 }
 
+async function addLernstoreMaterial (name) {
+	await elementHelpers.click(lernstoreBtn);
+	let idContainer = await driver.$(selectorIDContainer);
+	let lernstoreSelector = await idContainer.$(".form-control");
+	await lernstoreSelector.setValue(name);
+	await waitHelpers.waitAndClick(btnAttachLernstoreMaterial);
+	await elementHelpers.click(btnAttachLernstoreMaterial);
+
 module.exports = {
 	setTopic,
 	clickCreateTopicButton,
