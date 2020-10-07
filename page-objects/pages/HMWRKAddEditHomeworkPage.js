@@ -19,7 +19,7 @@ module.exports = {
         await elementHelpers.click(teamSubmissionsCheckbox);
     },
 
-    setHomeworkName: async function (taskName) {
+    setTaskName: async function (taskName) {
         const nameField = await driver.$(homeworkTitleInput);
         await nameField.setValue(taskName);
     },
@@ -45,7 +45,7 @@ module.exports = {
 
     addBasicHometask: async function (coursename, taskname) {
         await courseHomeworksPage.clickAddNewTaskInCourse(coursename);
-        await this.setHomeworkName(taskname);
+        await this.setTaskName(taskname);
         await this.clickTeamSubmissionsCheckbox();
         await this.setAccomplishTime();
         await this.setHomeworkText();
@@ -54,7 +54,7 @@ module.exports = {
 
     addPrivateHometask: async function (coursename, taskname) {
         await courseHomeworksPage.clickAddNewTaskInCourse(coursename);
-        await this.setHomeworkName(taskname);
+        await this.setTaskName(taskname);
         await this.clickTeamSubmissionsCheckbox();
         await this.setAccomplishTime();
         await this.setHomeworkText();

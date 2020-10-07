@@ -9,20 +9,28 @@ const courseHomeworksPage = require("../page-objects/pages/coursePages/CRSSCours
 const navigationLeftPage = require('../page-objects/pages/NavigationLeftPage.js');
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
 /* Given */
-Given(/^.* teacher creates one course with name {string}$/, function (coursename) {
-    return addCoursePage.createCourse(coursename);
+Given('teacher creates one course with name {string}', function (string) {
+    return addCoursePage.createCourse(string);
 });
-/*  @createTaskForStudents */
+/*  @createTaskForStudents */    
 
-When(/^.* creates one course with name (.*)$/, function (coursename) {
-    return addCoursePage.createCourse(coursename);
-});
-Then('click left navigation item {string}', function (string) {
-
-When(/^.* clicks "create a new home task" in the course (.*) with (.*)$/, function (coursename, taskname) {
-    return addEditHomeworkPage.addBasicHometask(coursename, taskname);
+When('teacher clicks create-a-new-task-button in the course {string}', function (string) {
+    return courseHomeworksPage.clickAddNewTaskInCourse(string);
 });
 
+When(/^.* pastes name (.*) of the task$/, function (taskname) {
+    return addEditHomeworkPage.setTaskName(taskname);
+});
+When(/^.* clicks on "enable group submission" checkbox$/, function () {
+    return addEditHomeworkPage.clickTeamSubmissionsCheckbox();
+});
+When(/^.* sets accomplish time for the task$/, function () {
+    return addEditHomeworkPage.setAccomplishTime();
+});
+
+When(/^.* pastes text (.*) of the task$/, function (taskText) {
+    return addEditHomeworkPage.setHomeworkText(taskText)
+});
 Then(/^the hometask with (.*) is to be found at the task pannel$/, function (taskname) {
     return taskListPage.goToHomeworkListAndCheckTaskIfExist(taskname);
 });
@@ -93,19 +101,19 @@ Then(/^the students can upload a file as a solution$/, function () {
     };
 })
 
-    Given(/^the teacher has posed a task$/, function () {
-        return addEditHomeworkPage.addBasicHometask(courseName, taskName);
-    });
+Given(/^the teacher has posed a task$/, function () {
+    return addEditHomeworkPage.addBasicHometask(courseName, taskName);
+ });
 
-    Given(/^the student has submitted that task$/, function () {
-        return taskPage.submitHomework(taskName, student);
-    });
-
-    When(/^the teacher uploads file feedback$/, function () {
-        return taskPage.submitFileFeedback(taskName, file);
-    });
-
-    Then(/^both the teacher and student can see and download the feedback$/, function () {
-        return taskPage.testFileUploadSuccess(taskName, file, student);
-    });
+Given(/^the student has submitted that task$/, function () {
+    return taskPage.submitHomework(taskName, student);
 });
+
+When(/^the teacher uploads file feedback$/, function () {
+    return taskPage.submitFileFeedback(taskName, file);
+});
+
+Then(/^both the teacher and student can see and download the feedback$/, function () {
+    return taskPage.testFileUploadSuccess(taskName, file, student);
+});
+
