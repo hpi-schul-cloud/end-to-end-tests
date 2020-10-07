@@ -23,7 +23,7 @@ async function clickCreateClassBtn() {
 }
 
 async function isNewEmptyClassCreated(className = "11c", numOfStudents = "0") {
-    const allClassesContainer = await waitHelpers.waitUntilElementIsPresent(classListTable)
+    const allClassesContainer = await waitHelpers.waitUntilElementIsVisible(classListTable)
     const allClassesContent = await allClassesContainer.getText()
     const contentArray = allClassesContent.split(" ")
     const currentYear = new Date().getFullYear().toString().substring(2) // 20

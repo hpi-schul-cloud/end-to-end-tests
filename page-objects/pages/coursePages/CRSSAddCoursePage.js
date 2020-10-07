@@ -77,7 +77,7 @@ async function noElementIsSelected (containerSelector, list) {
 
 
 async function isDefaultInputValue (containerSelector, defaultText) {
-	const container = await waitHelpers.waitUntilElementIsPresent(containerSelector);
+	await waitHelpers.waitUntilElementIsVisible(containerSelector);
 	await waitHelpers.waitUntilElementAttributeEquals(containerSelector, "placeholder", defaultText)
 }
 

@@ -68,7 +68,7 @@ async function setStudentsBirthday(date) {
 }
 
 async function getStudentsEmailList() {
-	await waitHelpers.waitUntilElementIsPresent(tableOfStudents);
+	await waitHelpers.waitUntilElementIsVisible(tableOfStudents);
 	let names = await driver.$$(tableOfStudents + ' > tr');
 	return Promise.all(
 		names.map(async (nameContainer) => {
@@ -82,7 +82,7 @@ async function isStudentEmailOnTheList(email) {
 	await expect(emails).to.contain(email);
 }
 async function submitConsent(e_mail) {
-    await waitHelpers.waitUntilElementIsPresent(tableOfStudents);
+    await waitHelpers.waitUntilElementIsVisible(tableOfStudents);
 	let names = await driver.$$(tableOfStudents + ' > tr');
 	for (var i = 1; i <= names.length; i++) {
 		let emailPromise = await driver.$(tableOfStudents + ' > tr:nth-child(' + i + ') > td:nth-child(3)');

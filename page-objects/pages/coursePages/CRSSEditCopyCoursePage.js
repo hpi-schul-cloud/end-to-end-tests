@@ -1,6 +1,7 @@
 /*[url/courses]/[courseId]/edit] | [url/courses]/[courseId]/copy]*/
 
 const elementHelpers = require("../../../runtime/helpers/elementHelpers");
+const waitHelpers = require("../../../runtime/helpers/waitHelpers");
 
 const submitBtn = "button.btn-submit";
 const courseNameInput = "form > div:nth-child(3) > input";
@@ -23,7 +24,7 @@ async function clickDeleteButton () {
 
 async function setCourseName (courseName) {
 	try {
-		const courseNameContainer = await driver.$(courseNameInput);
+		const courseNameContainer = await waitHelpers.waitUntilElementIsPresent(courseNameInput);
 		await courseNameContainer.clearValue();
 		await courseNameContainer.setValue(courseName);
 	} catch (error) {
@@ -34,7 +35,7 @@ async function setCourseName (courseName) {
 
 async function setCourseDescription (courseDescription) {
 	try {
-		const courseNameContainer = await driver.$(courseDescriptionInput);
+		const courseNameContainer = await waitHelpers.waitUntilElementIsPresent(courseDescriptionInput);
 		await courseNameContainer.clearValue();
 		await courseNameContainer.setValue(courseDescription);
 	} catch (error) {
