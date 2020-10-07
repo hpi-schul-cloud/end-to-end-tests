@@ -5,7 +5,7 @@ const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseList
 const generalCoursePage = require("../page-objects/pages/coursePages/CRSSGeneralCoursePage");
 const courseTopicsPage = require("../page-objects/pages/coursePages/CRSSCourseTopicsPage");
 const addEditTopicPage = require("../page-objects/pages/coursePages/CRSSAddEditTopicPage");
-let coursesCount;
+
 
 // _________Copy__________
 
