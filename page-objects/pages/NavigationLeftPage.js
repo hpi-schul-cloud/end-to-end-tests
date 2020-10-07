@@ -59,80 +59,17 @@ const navItemAddons = navItemStringDefault1stLevel.replace('XXX', 'Add-ons');
 const navItemHelpDesk = navItemStringDefault1stLevel.replace('XXX', 'Helpdesk');
 const navItemAdministration = navItemStringDefault1stLevel.replace('XXX', 'Verwaltung');
 const navItemAdministrationStudents = navItemStringDefault2ndLevel.replace('XXX', 'Schüler');
-const navItemAdministrationTeachers = navItemStringDefault2ndLevel.replace('XXX', 'Lehrer');
-const navItemAdministrationCourses = navItemStringDefault2ndLevel.replace('XXX', 'Kurse');
-const navItemAdministrationClasses = navItemStringDefault2ndLevel.replace('XXX', 'Klassen');
-const navItemAdministrationTeams = navItemStringDefault2ndLevel.replace('XXX', 'Teams');
-const navItemAdministrationSchool = navItemStringDefault2ndLevel.replace('XXX', 'Schule');
+const navItemAdministrationTeachers = '[data-testid="global.sidebar.teacher"]';
+const navItemAdministrationCourses = '[data-testid="global.sidebar.courses"]';
+const navItemAdministrationClasses = '[data-testid="global.sidebar.classes"]';
+const navItemAdministrationTeams = '[data-testid="global.sidebar.teams"]';
+const navItemAdministrationSchool = '[data-testid="global.sidebar.school"]';
 const navItemHelparea = navItemStringDefault1stLevel.replace('XXX', 'Hilfebereich');
 const navItemHelparticles = navItemStringDefault2ndLevel.replace('XXX', 'Hilfeartikel');
 const navItemHelpTrainings = navItemStringDefault2ndLevel.replace('XXX', 'Fortbildungen');
 const navItemHelpContact = navItemStringDefault2ndLevel.replace('XXX', 'Kontakt');
 
 module.exports = {
-    navItemsEnum: {
-        LOGO: 'logo',
-        DASHBOARD: 'dashboard',
-        COURSES: 'courses',
-        TEAMS: 'teams',
-        HOMEWORK: 'homework',
-		ASKEDHOMEWORK: 'asked homework',
-		PRIVATEHOMEWORK: 'private homework',
-		ARCHIVEDHOMEWORK: 'archived homework',
-		FILES: 'files',
-		MYFILES: 'my files',
-		COURSEFILES: 'course files',
-		TEAMFILES: 'team files',
-		SHAREDFILES: 'shared files',
-		NEWS: 'news',
-		CALENDAR: 'calendar',
-		ADDONS: 'addons',
-		CONTENT: 'content',
-		HELPDESK: 'helpdesk',
-		ADMINISTRATION: 'administration',
-		ADMINSTUDENTS: 'admStudents',
-		ADMINTEACHERS: 'admTeachers',
-        ADMINCLASSES: 'admClasses',
-        ADMINCOURSES: 'admCourses',
-		ADMINTEAMS: 'admTeams',
-		ADMINCSCHOOL: 'admSchool',
-		HELPAREA: 'helparea',
-        HELPARTICLE: 'helparticle',
-        TRAININGS: 'trainings',
-		CONTACT: 'contact'
-    },
-    selectors: {
-        navItemLogo: navItemStringStart1stLevel + "[contains(@class,'sc-branding')]",
-        navItemDashboard: navItemStringDefault1stLevel.replace('XXX', 'Übersicht'),
-        navItemCourses: navItemStringDefault1stLevel.replace('XXX', 'Kurse'),
-        navItemTasks: navItemStringDefault1stLevel.replace('XXX', 'Aufgaben'),
-        navItemTasksAsked: navItemStringDefault2ndLevel.replace('XXX', 'Gestellte Aufgaben'),
-        navItemTasksPrivate: navItemStringDefault2ndLevel.replace('XXX', 'Entwürfe'),
-        navItemTasksArchive: navItemStringDefault2ndLevel.replace('XXX', 'Archiv'),
-        navItemTeams: navItemStringDefault1stLevel.replace('XXX', 'Teams'),
-        navItemFiles: navItemStringDefault1stLevel.replace('XXX', 'Meine Dateien'),
-        navItemFilesMy: navItemStringDefault2ndLevel.replace('XXX', 'persönliche Dateien'),
-        navItemFilesCourses: navItemStringDefault2ndLevel.replace('XXX', 'Kurs'),
-        navItemFilesTeams: navItemStringDefault2ndLevel.replace('XXX', 'Teams'),
-        navItemFilesShared: navItemStringDefault2ndLevel.replace('XXX', 'geteilte Dateien'),
-        navItemNews: navItemStringDefault1stLevel.replace('XXX', 'Neuigkeiten'),
-        navItemCalendar: navItemStringDefault1stLevel.replace('XXX', 'Termine'),
-        navItemLearnstore: navItemStringDefault1stLevel.replace('XXX', 'Lern-Store'),
-        navItemAddons: navItemStringDefault1stLevel.replace('XXX', 'Add-ons'),
-        navItemHelpDesk: navItemStringDefault1stLevel.replace('XXX', 'Helpdesk'),
-        navItemAdministration: navItemStringDefault1stLevel.replace('XXX', 'Verwaltung'),
-        navItemAdministrationStudents: navItemStringDefault2ndLevel.replace('XXX', 'Schüler'),
-        navItemAdministrationTeachers: '[data-testid="Lehrer"]',
-        navItemAdministrationCourses: '[data-testid="Kurse"]',
-        navItemAdministrationClasses: '[data-testid="Klassen"]',
-        navItemAdministrationTeams: '[data-testid="Teams"]',
-        navItemAdministrationSchool: '[data-testid="Schule"]',
-        navItemHelparea: navItemStringDefault1stLevel.replace('XXX', 'Hilfebereich'),
-        navItemHelparticles: navItemStringDefault2ndLevel.replace('XXX', 'Hilfeartikel'),
-        navItemHelpTrainings: navItemStringDefault2ndLevel.replace('XXX', 'Fortbildungen'),
-        navItemHelpContact: navItemStringDefault2ndLevel.replace('XXX', 'Kontakt'),
-    },
-
     navItemsEnum,
     clickNavItemLogo: async function () {
         await elementHelpers.clickAndWait(navItemLogo);
