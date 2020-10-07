@@ -42,6 +42,17 @@ fetch(){
 
 install(){
 	cd docker-compose
+
+  # add -e on mac, use ; as alternative separator
+  sed -i "s;ES_DOMAIN=.*;ES_DOMAIN=${ES_DOMAIN};" docker-compose.integration-test.yml
+  sed -i "s/ES_USER=.*/ES_USER=${ES_USER}/" docker-compose.integration-test.yml
+  sed -i "s/ES_PASSWORD=.*/ES_PASSWORD=${ES_PASSWORD}/" docker-compose.integration-test.yml
+  sed -i "s/ES_GRANT_TYPE=.*/ES_GRANT_TYPE=${ES_GRANT_TYPE}/" docker-compose.integration-test.yml
+  sed -i "s/ES_OAUTH_SECRET=.*/ES_OAUTH_SECRET=${ES_OAUTH_SECRET}/" docker-compose.integration-test.yml
+  sed -i "s/ES_CLIENT_ID=.*/ES_CLIENT_ID=${ES_CLIENT_ID}/" docker-compose.integration-test.yml
+  sed -i "s/ES_MERLIN_USERNAME=.*/ES_MERLIN_USERNAME=${ES_MERLIN_USERNAME}/" docker-compose.integration-test.yml
+  sed -i "s/ES_MERLIN_PW=.*/ES_MERLIN_PW=${ES_MERLIN_PW}/" docker-compose.integration-test.yml
+
 	docker-compose -f docker-compose.integration-test.yml build --parallel
 	docker-compose -f docker-compose.integration-test.yml up -d
 	cd ..
