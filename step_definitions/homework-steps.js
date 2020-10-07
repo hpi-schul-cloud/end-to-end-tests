@@ -6,8 +6,8 @@ const homeworkPage = require('../page-objects/pages/HMWRKHomeworkPage');
 const addCoursePage = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
 const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
 const courseHomeworksPage = require("../page-objects/pages/coursePages/CRSSCourseHomeworksPage");
-const logoutPage = require('../page-objects/pages/generalPagesBeforeLogin/LogoutPage.js');
 const navigationLeftPage = require('../page-objects/pages/NavigationLeftPage.js');
+const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
 
 /* CREATE A BASIC HOMEWORK */
 
@@ -20,7 +20,7 @@ When(/^teacher clicks "create a new home task" in the course (.*) with (.*)$/, f
 });
 
 Then(/^the hometask with (.*) is to be found at the task pannel$/, function (taskname) {
-    return homeworkListPage.verify(taskname);
+    return homeworkListPage.goToHomeworkListAndCheckTaskIfExist(taskname);
 });
 
 /* PRIVATE */
@@ -34,7 +34,7 @@ When(/^teacher creates a private hometask in the course (.*) with (.*)$/, async 
     await homeworkListPage.goToPrivateHomeworkArea();
     const msg = 'Task with name: "' + taskname + '" should be visible on the list.' + '\n' + 'Actual list of tasks: ';
     expect(await homeworkListPage.isTaskVisible(taskname), msg + await homeworkListPage.getAllTasks() + "'").to.equal(true);
-    await logoutPage.goToLogoutPage();
+    await navigationTopPage.performLogout();
 });
 
 Then(/^the student will not see this task with (.*)$/, async function (taskname) {
@@ -45,11 +45,11 @@ Then(/^the student will not see this task with (.*)$/, async function (taskname)
 
 /* SUBMISSION */
 When(/^the student finds (.*)$/, function (taskname) {
-    return homeworkListPage.userFindsTheTask(taskname);
+    return homeworkListPage.clickOnTaskFromList(taskname);
 });
 
 When(/^student with (.*), (.*) of this course (.*) goes to hometasks$/, function (username, password, coursename) {
-    return courseListPage.studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename);
+    return courseListPage.studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename, courseListPage.section.activeCourses);
 });
 
 When(/^the student edits a text hometask and submits it$/, function () {

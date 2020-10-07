@@ -1,17 +1,16 @@
 /*[url/homework/[homeworkId]]*/
 'use strict';
-const { CLIENT } = require("../../shared-objects/servers");
+
 const waitHelpers = require('../../runtime/helpers/waitHelpers');
-const courseListPage = require('../../page-objects/pages/coursePages/CRSSCourseListPage');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
+const courseListPage = require('../../page-objects/pages/coursePages/CRSSCourseListPage');
+const navigationTopPage = require('../pages/NavigationTopPage');
 const startPage = require('../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin');
 const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage');
-const logoutPage = require('../../page-objects/pages/generalPagesBeforeLogin/LogoutPage');
 const HMWRKHomeworkListPage = require("./HMWRKHomeworkListPage");
 
 const submissionTab = "#submission-tab-link";
-
-const urlHomework = `${CLIENT.URL}/homework`;
+const homeworkOnLeftNavigationPanel = "[data-testid='Aufgaben']"
 const textFieldSel = '.ck-content';
 const submitBtn = '.ckeditor-submit';
 const submitted_by_boxSel = '#submissions .groupNames > span';
@@ -22,13 +21,12 @@ const gradeFilesListSel = '.list-group-files';
 
 module.exports = {
     goToHomeworkListPage: async function () {
-        await elementHelpers.loadPage(urlHomework, 20);
+        await elementHelpers.clickAndWait(homeworkOnLeftNavigationPanel);
     },
 
-    switchToSubmissionTab: async function () {
+    clickOnSubmissionTab: async function () {
         await elementHelpers.click(submissionTab);
     },
-
     submitSolutionForTheHometask: async function () {
         await driver.pause(global.SHORT_WAIT_MILLIS);
         const textField = await driver.$(textFieldSel);
@@ -37,10 +35,8 @@ module.exports = {
         await elementHelpers.click(submitBtn)
         await driver.pause(1500);
     },
-
-
     studentEditsTextHomeworkAndSubmits: async function () {
-        await this.switchToSubmissionTab();
+        await this.clickOnSubmissionTab();
         await this.submitSolutionForTheHometask();
     },
     // teacher helpers
@@ -59,7 +55,7 @@ module.exports = {
         await courseListPage.goToCourses();
         await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
         await this.gotoTasksTab();
-        await HMWRKHomeworkListPage.userFindsTheTask(taskname);
+        await HMWRKHomeworkListPage.clickOnTaskFromList(taskname);
         await this.hasTheStudentSubmittedTheTask(studentname);
     },
 
@@ -72,7 +68,7 @@ module.exports = {
     submitHomework: async function (taskName, student) {
         await this.goToHomeworkListPage();
         await elementHelpers.click(`[aria-label*="${taskName}"] > span`);
-        await this.switchToSubmissionTab();
+        await this.clickOnSubmissionTab();
         await this.submitSolutionForTheHometask();
     },
 
@@ -83,7 +79,7 @@ module.exports = {
     },
 
     submitFileFeedback: async function (taskName, file) { // back to teacher
-        await logoutPage.goToLogoutPage();
+        await navigationTopPage.performLogout();
         await startPage.clickLoginBtn();
         await loginPage.performLogin(loginPage.users.teachers.klaraFallUsername, loginPage.users.teachers.klaraFallPassword);
         await this.goToHomeworkListPage();
@@ -111,7 +107,7 @@ module.exports = {
             console.warn('S3 is not available on CI. The files were never uploaded.');
             return;
         }
-        await this.canSeeFile(file);
+        await this.isFileVisible(file);
         const mainWindow = await driver.getWindowHandle();
         await elementHelpers.click(`a*=${file.name
             }`);
@@ -121,13 +117,13 @@ module.exports = {
         await driver.switchToWindow(mainWindow);
 
         // ensure the student sees the file
-        await logoutPage.goToLogoutPage();
+        await navigationTopPage.performLogout();
         await loginPage.performLogin(student.login, student.password);
         await this.goToHomeworkListPage();
         await elementHelpers.click(`*=${taskName}`);
         await elementHelpers.click('a*=Bewertung');
 
-        await this.canSeeFile(file);
+        await this.isFileVisible(file);
 
         // ensure the student can download the file
         await elementHelpers.click(`a*=${file.name
@@ -140,7 +136,7 @@ module.exports = {
         expect(studentFileUrl.pathname).to.equal(fileUrl.pathname);
     },
 
-    canSeeFile: async function (file) {
+    isFileVisible: async function (file) {
         const gradeFilesList = await waitHelpers.waitUntilElementIsPresent(gradeFilesListSel);
         await gradeFilesList.waitForDisplayed();
         expect(await gradeFilesList.getText()).to.contain(file.name);

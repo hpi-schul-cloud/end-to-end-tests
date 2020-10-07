@@ -5,14 +5,17 @@ const elementHelpers = require('../../../runtime/helpers/elementHelpers.js');
 
 const addNewToolBtn = "[data-section='js-tools'] .add-button a";
 
-module.exports = {
-	clickAddNewToolBtn: async function () {
-		await elementHelpers.click(addNewToolBtn);
-	},
+async function clickAddNewToolBtn () {
+	await elementHelpers.clickAndWait(addNewToolBtn);
+}
 
-	clickAddNewTopicInCourse: async function (coursename) {
-		await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
-		await coursePage.openToolsTab();
-		await this.clickAddNewToolBtn();
-	}
+async function clickAddNewTopicInCourse (coursename) {
+	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
+	await coursePage.openToolsTab();
+	await clickAddNewToolBtn();
+}
+
+module.exports = {
+	clickAddNewToolBtn,
+	clickAddNewTopicInCourse,
 }

@@ -1,12 +1,12 @@
 'use strict';
 
 
-const administrationOverviewPage = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministrationOverviewPage');
+const navigationLeftPanel = require('../page-objects/pages/NavigationLeftPage')
 const administrationClasses= require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerClassesPage');
 
 
 Given(/^admin goes to administration$/, function () {
-    return administrationOverviewPage.goToAdministrationPage();
+    return navigationLeftPanel.clickNavItemAdministration();
 });
 
 When(/^admin creates a class (.*)$/, function (className) {
@@ -14,5 +14,5 @@ When(/^admin creates a class (.*)$/, function (className) {
 });
 
 Then(/^admin should see the class (.*) with (.*) participants.$/, function (className, participants) {
-    return administrationClasses.verifyNewEmptyClassCreated(className, participants)
+    return administrationClasses.isNewEmptyClassCreated(className, participants)
 });

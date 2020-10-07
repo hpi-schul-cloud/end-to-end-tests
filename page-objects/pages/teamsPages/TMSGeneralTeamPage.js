@@ -16,7 +16,7 @@ module.exports = {
     let settingsBtn = await driver.$(teamSettings);
     await settingsBtn.click();
   },
-  clickAdministrateTeammembers: async function () {
+  clickAdministrateTeamMembers: async function () {
     let administrateBtn = await driver.$(administrateTeamMembers);
     await administrateBtn.click();
   },

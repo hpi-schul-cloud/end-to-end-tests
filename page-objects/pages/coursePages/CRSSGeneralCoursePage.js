@@ -7,10 +7,10 @@ const elementHelpers = require("../../../runtime/helpers/elementHelpers");
 const courseSettingsBtn = ".fa.fa-ellipsis-v.i-cog";
 
 const setting = {
-	editCourse: ".btn-course-edit",
-	createInvitation: ".btn-create-invitation",
-	createShareCourse: ".btn-create-share-course",
-	cloneCourse: ".fa-clone",
+	editCourse: '.btn-course-edit',
+	createInvitation: '.btn-create-invitation',
+	createShareCourse: '.btn-create-share-course',
+	cloneCourse: '.fa-clone',
 };
 
 const tab = {
@@ -20,44 +20,53 @@ const tab = {
 	groups: "[data-tab='js-groups']",
 };
 
+async function openTopicsTab() {
+	await elementHelpers.click(tab.topics);
+}
+
+async function openHomeworksTab () {
+	await elementHelpers.click(tab.homeworks);
+}
+
+async function openToolsTab () {
+	await elementHelpers.click(tab.tools);
+}
+
+async function openGroupsTab () {
+	await elementHelpers.clickAndWait(tab.groups);
+}
+
+async function clickThreePointSettingsIcon () {
+	await elementHelpers.click(courseSettingsBtn);
+}
+
+async function clickSettingsDropdownMenuBtn (settingsBtnSelector) {
+	await elementHelpers.click(settingsBtnSelector);
+}
+
+async function cloneCourse () {
+	await clickThreePointSettingsIcon();
+	await clickSettingsDropdownMenuBtn(setting.cloneCourse);
+	await editCopyCoursePage.clickSubmitButton();
+}
+
+async function clickEditCourse () {
+	try {
+		await clickThreePointSettingsIcon();
+		await clickSettingsDropdownMenuBtn(setting.editCourse);
+	} catch (error) {
+		log.error("Can not click on element: " + error.message);
+		throw error;
+	}
+}
+
 module.exports = {
-	openTopicsTab: async function () {
-		await elementHelpers.click(tab.topics);
-	},
-
-	openHomeworksTab: async function () {
-		await elementHelpers.click(tab.homeworks);
-	},
-
-	openToolsTab: async function () {
-		await elementHelpers.click(tab.tools);
-	},
-
-	openGroupsTab: async function () {
-		await elementHelpers.click(tab.groups);
-	},
-
-	clickThreePointSettingsIcon: async function () {
-		await elementHelpers.click(courseSettingsBtn);
-	},
-
-	clickSettingsDropdownMenuBtn: async function (settingsBtnSelector) {
-		await elementHelpers.click(settingsBtnSelector);
-	},
-
-	cloneCourse: async function () {
-		await this.clickThreePointSettingsIcon();
-		await this.clickSettingsDropdownMenuBtn(setting.cloneCourse);
-		await editCopyCoursePage.clickSubmitButton();
-	},
-
-	clickEditCourse: async function () {
-		try {
-			await this.clickThreePointSettingsIcon();
-			await this.clickSettingsDropdownMenuBtn(setting.editCourse);
-		} catch (error) {
-			log.error("Can not click on element: " + error.message);
-			throw error;
-		}
-	},
+	openTopicsTab,
+	openHomeworksTab,
+	openToolsTab,
+	openGroupsTab,
+	clickThreePointSettingsIcon,
+	clickSettingsDropdownMenuBtn,
+	cloneCourse,
+	clickEditCourse,
 };
