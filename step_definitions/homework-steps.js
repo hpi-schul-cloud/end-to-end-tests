@@ -11,11 +11,11 @@ const navigationLeftPage = require('../page-objects/pages/NavigationLeftPage.js'
 
 /* CREATE A BASIC HOMEWORK */
 
-When(/^the teacher creates one course with (.*) and$/, function (coursename) {
+When(/^.* creates one course with (.*) and$/, function (coursename) {
     return addCoursePage.createCourse(coursename);
 });
 
-When(/^teacher clicks "create a new home task" in the course (.*) with (.*)$/, function (coursename, taskname) {
+When(/^.* clicks "create a new home task" in the course (.*) with (.*)$/, function (coursename, taskname) {
     return addEditHomeworkPage.addBasicHometask(coursename, taskname);
 });
 

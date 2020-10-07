@@ -21,10 +21,12 @@ Feature: create different types of homework
 
     @createPrivateHomework
     Scenario Outline: create a private hometask has to be visible only for the teacher
-    Given the teacher creates one course with <coursename> and student with <studentname>
-    When teacher creates a private hometask in the course <coursename> with <taskname>
+    Given the teacher creates one course with <coursename> 
+    When the teacher adds student with <studentname>
+    When teacher creates a private hometask in the course <coursename> with the name <taskname>
     And student logs in with email <username> and password <password>
     And student with full age accepts student's data protection with password <newStudentPassword>
+    And the student goes to the tasks section
     Then the student will not see this task with <taskname>
     Examples:
     | coursename            | studentname | taskname             | username                    | password     | newStudentPassword     |
