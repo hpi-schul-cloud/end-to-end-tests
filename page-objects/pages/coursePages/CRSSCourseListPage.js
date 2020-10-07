@@ -240,12 +240,6 @@ async function studentLogsInAndGoesToTasksOfTheCourse(username, password, course
         await goToTasksOfTheCourse(coursename);
 };
 
-async function verifyCourseAndTopic(coursename, topicname, section) {
-        await clickOnCourseInSection(coursename, section);
-        let topicNames = await Promise.all((await driver.$$("#topic-list > div > div > div")).map(async (element) => await element.getText()));
-        await expect(topicNames).to.include(topicname);
-};
-
 async function isTopicInCourseInSection(courseName, topicName, section) {
 	await clickOnCourseInSection(courseName, section);
 	await waitHelpers.waitUntilElementIsPresent(topicNameContainer);
