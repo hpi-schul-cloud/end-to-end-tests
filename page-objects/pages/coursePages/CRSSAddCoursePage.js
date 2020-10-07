@@ -1,14 +1,12 @@
 /*[url/courses]/add]*/
 "use strict";
-const { CLIENT } = require("../../../shared-objects/servers");
 const elementHelpers = require("../../../runtime/helpers/elementHelpers");
 const axios = require("axios");
+const courseListPage = require('./CRSSCourseListPage');
+const navigationLeftPage= require('../NavigationLeftPage');
 const waitHelpers = require("../../../runtime/helpers/waitHelpers");
 const { waitUntilElementIsPresent } = require("../../../runtime/helpers/waitHelpers");
 const APIhelpers = require("../../../runtime/helpers/APIhelpers");
-
-const urlCoursesAdd = `${CLIENT.URL}/courses/add`;
-
 //Sections
 
 const nextSectionBtn = "#nextSection";
@@ -53,8 +51,9 @@ const courseColour = [
 
 
 async function goToAddCourses() {
-	await elementHelpers.loadPage(urlCoursesAdd, 20)
-}
+		await navigationLeftPage.clickNavItemCourses();
+		await courseListPage.clickCreateCourseBtn()
+	}
 
 async function goToNextSection () {
 	await elementHelpers.clickAndWait(nextSectionBtn);

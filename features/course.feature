@@ -23,7 +23,8 @@ Examples:
 
 @createCourseCorrectly
 Scenario Outline: submit compulsory fields by creating the course 
-	When teacher logs in with email <username> and password <password>
+	Given teacher logs in with email <username> and password <password>
+	Given teacher accepts data protection
 	And teacher goes to courses page
 	Then teacher should see that buttons: Import-course, Create-new-course are visible
 	When teacher clicks Create-new-course button

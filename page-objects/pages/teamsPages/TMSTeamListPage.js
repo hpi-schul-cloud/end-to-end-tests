@@ -1,25 +1,28 @@
 /*[url/teams]*/
 'use strict';
 
-const elementHelpers = require('../../../runtime/helpers/elementHelpers');
-const { CLIENT } = require("../../../shared-objects/servers");
-const url = `${CLIENT.URL}/teams`;
-const addTeamURL = `${CLIENT.URL}/teams/add`;
+
+const waitHelpers= require('../../../runtime/helpers/waitHelpers');
+const elementHelpers= require('../../../runtime/helpers/elementHelpers');
+const navigationLeftPage = require('../NavigationLeftPage');
 const namesContainer = '.row.tasks.card-deck-row';
+const addTeamBtn = "[data-testid='add-team-btn']";
 
 
 module.exports = {
 	goToTeams: async function () {
-		return elementHelpers.loadPage(url, 20);
+		return navigationLeftPage.clickNavItemTeams();
 	},
 	goToAddTeam: async function () {
 		//@Todo Conversion to Team list -> click on Button "Team anlegen"
-		await driver.pause(2000);
-		return elementHelpers.loadPage(addTeamURL, 20);
+		await this.goToTeams();
+		await elementHelpers.clickAndWait(addTeamBtn);
+
+
 	},
 	// assertion helper in steps:
 	getTeamNames: async function () {
-		await elementHelpers.loadPage(url, 20);
+		await this.goToTeams();
 		let container = await driver.$(namesContainer);
 		let elements = await container.$$('div');
 		const namePromises = elements.map(async element => await element.getText());
