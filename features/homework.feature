@@ -1,6 +1,6 @@
-@homework
+@task
 
-Feature: create different types of homework
+Feature: create different types of task
 
 
     Background: a teacher logs in and creates a course
@@ -8,22 +8,24 @@ Feature: create different types of homework
         And teacher logs in
         And teacher accepts data protection
         And teacher goes to courses page
+        And teacher creates one course with name "new course with a task"
 
 
-    @createSimpleHomework
+    @createTaskForStudents
     Scenario Outline: create a simple hometask
-        When teacher creates one course with name <coursename>
-        And teacher clicks "create a new home task" in the course <coursename> 
-        And teacher enters <taskname> of the task
-         
+        And teacher clicks "create a new home task" in the course "new course with a task"
+        And teacher pastes <taskname> of the task
+        And teacher clicks on "enable group submission" checkbox
+        And teacher sets accomplish time for the task
+        And teacher pastes text <taskText> of the task
+        And teacher clicks "submit task" button
         Then the hometask with <taskname> is to be found at the task pannel
         Examples:
-            | coursename    | taskname     |
-            | test hometask | task example |
+            | coursename    | taskname     | taskText                          |
+            | test hometask | task example | here is some task for my students |
 
-    @createPrivateHomework
+    @createPrivateTask
     Scenario Outline: create a private hometask has to be visible only for the teacher
-    Given the teacher creates one course with <coursename> 
     When the teacher adds student with <studentname>
     When teacher creates a private hometask in the course <coursename> with the name <taskname>
     And student logs in with email <username> and password <password>
@@ -35,7 +37,7 @@ Feature: create different types of homework
     | test private hometask | Paula Meyer | private task example | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!          |
 
     #@submitTextHomework
-    #Scenario Outline: pupil submits a homework and teacher evaluates it
+    #Scenario Outline: pupil submits a task and teacher evaluates it
     #Given the teacher creates one course with <coursename> and student with <studentname>
     #Given teacher clicks "create a new home task" in the course <coursename> with <taskname>
     #When student with <username>, <password> of this course <coursename> goes to hometasks
@@ -49,13 +51,13 @@ Feature: create different types of homework
     #| course with a task for submission | Paula       | Meyer    | task       | paula.meyer@schul-cloud.org  | Schulcloud1! | Paula Meyer  |
 
     @gradeHomeworkWithFile
-    Scenario Outline: grade a homework submission by uploading a file
+    Scenario Outline: grade a task submission by uploading a file
         Given the teacher creates one course with file feedback and student with Paula Meyer
-        When the teacher has posed a homework
+        When the teacher has posed a task
         And teacher logs out
         And student logs in with email <username> and password <password>
         And student with full age accepts student's data protection with password <newPasswordStudent>
-        And the student has submitted that homework
+        And the student has submitted that task
         And the teacher uploads file feedback
         Then both the teacher and student can see and download the feedback
         Examples:
