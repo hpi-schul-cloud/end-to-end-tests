@@ -1,18 +1,13 @@
 /*[url/administration]*/
 "use strict"
-const { CLIENT } = require("../../../shared-objects/servers")
+
 const elementHelpers = require("../../../runtime/helpers/elementHelpers")
 const waitHelpers = require("../../../runtime/helpers/waitHelpers")
-
-const urlAdministration = `${CLIENT.URL}/administration`
+const navigationLeftPanel = require("../NavigationLeftPage");
 const administrateStudentsBtn = "div[data-testid='administrate_students']"
 const administrateTeachersBtn = "div[data-testid='administrate_teachers']"
 const administrateClassesBtn = "div[data-testid='administrate_classes']"
 const administrationsSubItems = "//*[@id='sidebar']/ul/li/ul//*/span"
-
-async function goToAdministrationPage() {
-    await elementHelpers.loadPage(urlAdministration, 10)
-}
 
 async function clickAdministrateStudents() {
     await elementHelpers.clickAndWait(administrateStudentsBtn)
@@ -33,7 +28,6 @@ async function getListOfAdministrationTabs() {
 }
 
 module.exports = {
-    goToAdministrationPage,
     clickAdministrateStudents,
     clickAdministrateClasses,
     clickAdministrateTeachers,

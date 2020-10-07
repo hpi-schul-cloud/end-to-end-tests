@@ -4,7 +4,7 @@ Feature: logging in as an administrator
 I want to be able to perform administration options (e.g. options related to the school)
 Background:
 	Given admin arrives on the Schul-Cloud homepage
-	Given admin is successfully logged in
+	Given admin logs in
     Given admin accepts data protection
 
 Scenario:

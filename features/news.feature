@@ -7,6 +7,7 @@ Feature: Different options for news. I would like to test whether users with dif
     @newsIsVisible
     Scenario Outline: User can see the news
         Given teacher logs in with email <teacherEmail> and password <teacherPassword>
+        Given teacher accepts data protection
         When teacher creates some news which has to be published immediately
         And teacher logs out
         And student logs in with email <studentUsername> and password <studentPassword>
@@ -21,6 +22,7 @@ Feature: Different options for news. I would like to test whether users with dif
     @newsIsNotVisible
     Scenario Outline: User  cannot see the news if the news is not due yet
         Given teacher logs in with email <teacherEmail> and password <teacherPassword>
+        Given teacher accepts data protection
         When teacher creates some news which has to be published later
         And teacher logs out
         And student logs in with email <studentUsername> and password <studentPassword>
