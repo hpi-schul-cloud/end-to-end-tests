@@ -14,7 +14,7 @@ const importStudentBtn = 'a[aria-label="Schüler:innen importieren"]';
 const firstNameInput = "input[data-testid='input_create-user_firstname']";
 const lastNameInput = "input[data-testid='input_create-user_lastname']";
 const emailInput = "input[data-testid='input_create-user_email']";
-const birthdateInput = "input[data-testid='input_create-student_birthdate']";
+const birthdateInput = 'input[data-testid="input_create-student_birthdate"]';
 const sendRegistrationLinkCheckbox = "label[data-testid='input_create-student_send-registration']";
 const tableOfStudents = "tbody[data-testid='table-data-body']";
 const consentSubmitBtn = "button[data-testid='submit_consent']";
@@ -52,25 +52,19 @@ async function submitStudentAddition() {
 
 async function createNewPupil(firstname, lastname, email) {
     await clickFABBtn();
-	await clickAddStudentBtn();
-	await setStudentFirstName(firstname);
-	await setStudentLastName(lastname);
-	await setStudentEmail(email);
-	let birthdate = await dateTimeHelpers.setDate(0,0,-15,'.', false);
+    await clickAddStudentBtn();
+    await setStudentFirstName(firstname);
+    await setStudentLastName(lastname);
+    await setStudentEmail(email);
+    let birthdate = dateTimeHelpers.setDate(0,0,-15,'.', false);
     await setStudentsBirthday(birthdate);
-	await clickOnSendRegistrationLinkCheckbox();
-	await submitStudentAddition();
+    await clickOnSendRegistrationLinkCheckbox();
+    await submitStudentAddition();
 }
 
 async function setStudentsBirthday(date) {
-	let dateSelector = await driver.$(birthdateInput);
-    await dateSelector.waitForExist(1000);
-    await dateSelector.setValue(date);
-}
-
-async function setStudentBirthday(birthdayDate) {
-	await waitHelpers.waitUntilPageLoads();
-	await driver.execute('document.querySelector("#create_birthday").value = "' + birthdayDate + '"'); //date format dd.mm.yyyy
+    let dateField = await driver.$(birthdateInput);
+    await dateField.setValue(date);
 }
 
 async function getStudentsEmailList() {
