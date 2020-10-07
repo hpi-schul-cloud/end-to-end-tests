@@ -4,6 +4,7 @@ const startPage = require('../generalPagesBeforeLogin/StartPageBeforeLogin');
 const loginPage = require('../generalPagesBeforeLogin/LoginPage');
 
 const waitHelpers = require('../../../runtime/helpers/waitHelpers');
+const dateTimeHelpers= require('../../../runtime/helpers/dateTimeHelpers');
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 let oldPassword;
 
@@ -15,7 +16,6 @@ const lastNameInput = "input[data-testid='input_create-user_lastname']";
 const emailInput = "input[data-testid='input_create-user_email']";
 const birthdateInput = "input[data-testid='input_create-student_birthdate']";
 const sendRegistrationLinkCheckbox = "label[data-testid='input_create-student_send-registration']";
-//obsolete?
 const tableOfStudents = "tbody[data-testid='table-data-body']";
 const consentSubmitBtn = "button[data-testid='submit_consent']";
 const addStudentSubmitBtn = "button[data-testid='button_create-user_submit']";
@@ -56,11 +56,19 @@ async function createNewPupil(firstname, lastname, email) {
 	await setStudentFirstName(firstname);
 	await setStudentLastName(lastname);
 	await setStudentEmail(email);
-	await setStudentsBirthday('13.08.1990');
+	let birthdate = await dateTimeHelpers.setDate(0,0,-15,'.', false);
+    await setStudentsBirthday(birthdate);
 	await clickOnSendRegistrationLinkCheckbox();
 	await submitStudentAddition();
 }
-async function setStudentsBirthday(birthdayDate) {
+
+async function setStudentsBirthday(date) {
+	let dateSelector = await driver.$(birthdateInput);
+    await dateSelector.waitForExist(1000);
+    await dateSelector.setValue(date);
+}
+
+async function setStudentBirthday(birthdayDate) {
 	await waitHelpers.waitUntilPageLoads();
 	await driver.execute('document.querySelector("#create_birthday").value = "' + birthdayDate + '"'); //date format dd.mm.yyyy
 }
@@ -70,7 +78,7 @@ async function getStudentsEmailList() {
 	let names = await driver.$$(tableOfStudents + ' > tr');
 	return Promise.all(
 		names.map(async (nameContainer) => {
-			const emailContainer = await nameContainer.$('td:nth-child(3)');
+			const emailContainer = await nameContainer.$('td:nth-child(5)');
 			return await emailContainer.getText();
 		})
 	);
