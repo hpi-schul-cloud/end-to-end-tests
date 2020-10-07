@@ -11,7 +11,7 @@ const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
 
 /* CREATE A BASIC HOMEWORK */
 
-When(/^.* creates one course with (.*) and$/, function (coursename) {
+When(/^.* creates one course with name (.*)$/, function (coursename) {
     return addCoursePage.createCourse(coursename);
 });
 

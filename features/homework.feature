@@ -12,8 +12,10 @@ Feature: create different types of homework
 
     @createSimpleHomework
     Scenario Outline: create a simple hometask
-        When the teacher creates one course with <coursename> and
-        And teacher clicks "create a new home task" in the course <coursename> with <taskname>
+        When teacher creates one course with name <coursename>
+        And teacher clicks "create a new home task" in the course <coursename> 
+        And teacher enters <taskname> of the task
+         
         Then the hometask with <taskname> is to be found at the task pannel
         Examples:
             | coursename    | taskname     |
