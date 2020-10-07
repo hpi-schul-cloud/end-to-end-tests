@@ -105,13 +105,11 @@ module.exports = {
 		await passwordSel2.setValue(newPassword);
 	},
 	isWrongLoginNotification: async function () {
-		expect(await elementHelpers.getElementText(notificationIfWrongLogin)).to.be.oneOf(failureMessages);
-		// let btn = await driver.$(loginBtn);
-		// let btnValue = btn.getAttribute('value');
-		// await expect(btnValue).to.match(/^Bitte.*Sekunden warten$/);
+		const actualLoginNotification = await elementHelpers.getElementText(notificationIfWrongLogin);
+		expect(actualLoginNotification).to.be.oneOf(failureMessages);
 	},
 
 	clickNextSelection: async function () {
-		await elementHelpers.click(nextSectionBtn);
+		await elementHelpers.clickAndWait(nextSectionBtn);
 	},
 };

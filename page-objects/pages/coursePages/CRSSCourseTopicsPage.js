@@ -9,17 +9,7 @@ const containerWithTopics = "#topic-list";
 const nameOfTopic = ".topic-label.ml-1";
 
 
-async function clickAddNewTopicBtn() {
-	await elementHelpers.click(addNewTopicBtn);
-};
-
-async function clickAddNewTopicInCourse(coursename) {
-	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
-	await coursePage.openTopicsTab();
-	await this.clickAddNewTopicBtn();
-};
-
-async function helperReturnIndexOfTopicWithNameInTopicsList(topicName) {
+async function getIndexOfTopicWithNameInTopicsList(topicName) {
 	let topicNames = await Promise.all((await driver.$$(containerWithTopics+ "> div > div > div")).map(async (element) => await element.getText()));
     const isTheSameName = (element) => element==topicName;
     return (topicNames.findIndex(isTheSameName)+1);
@@ -29,8 +19,18 @@ async function goToTopic(topicName) {
 	await waitHelpers.waitAndClick(containerWithTopics+ ">div:nth-child("+index+")");
 	
 };
+async function clickAddNewTopicBtn () {
+	await elementHelpers.clickAndWait(addNewTopicBtn);
+}
 
+async function clickAddNewTopicInCourse (coursename) {
+	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
+	await coursePage.openTopicsTab();
+	await clickAddNewTopicBtn();
+}
 module.exports = {
 	clickAddNewTopicBtn,
-	clickAddNewTopicInCourse
+	clickAddNewTopicInCourse,
+	getIndexOfTopicWithNameInTopicsList,
+	goToTopic
 }
