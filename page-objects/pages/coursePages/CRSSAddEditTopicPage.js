@@ -72,6 +72,7 @@ async function addLernstoreMaterial (name) {
 	await lernstoreSelector.setValue(name);
 	await waitHelpers.waitAndClick(btnAttachLernstoreMaterial);
 	await elementHelpers.click(btnAttachLernstoreMaterial);
+}
 
 module.exports = {
 	setTopic,
