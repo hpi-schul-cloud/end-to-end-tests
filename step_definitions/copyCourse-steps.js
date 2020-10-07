@@ -24,7 +24,7 @@ When(/^.* selects the course (.*) and clicks clone it$/, async function(coursena
 });
 
 // _________With Text__________
-Given(/^.* creates some with name (.*)$/, function(coursename) {
+Given(/^.* creates a course with name (.*)$/, function(coursename) {
 	return addCoursePage.createCourse(coursename);
 });
 Given(/^.* chooses the created course with (.*) and$/, function(coursename) {

@@ -23,7 +23,7 @@ Examples:
 
 @copyCourseWithText
 Scenario Outline: teacher can copy course with certain text
-Given the teacher creates some course with name <coursename>
+Given the teacher creates a course with name <coursename>
 Given the teacher chooses the created course with <coursename> and
 When the teacher adds a Topic with name <topicname>
 When the teacher adds some Text <text> to the course
@@ -37,7 +37,7 @@ Examples:
 
 @copyCourseWithGeoGebra
 Scenario Outline: teacher can copy course with certain GeoGebra
-Given the teacher creates some course with name <coursename>
+Given the teacher creates a course with name <coursename>
 Given the teacher chooses the created course with <coursename> and
 When the teacher adds a Topic with name <topicname>
 When the teacher adds some GeoGebraArbeitsblatt with id <geogebraID> to the course
