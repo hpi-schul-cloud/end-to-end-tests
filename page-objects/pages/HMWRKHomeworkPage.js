@@ -1,17 +1,16 @@
 /*[url/homework/[homeworkId]]*/
 'use strict';
-const { CLIENT } = require("../../shared-objects/servers");
+
 const waitHelpers = require('../../runtime/helpers/waitHelpers');
-const courseListPage = require('../../page-objects/pages/coursePages/CRSSCourseListPage');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
+const courseListPage = require('../../page-objects/pages/coursePages/CRSSCourseListPage');
+const navigationTopPage = require('../pages/NavigationTopPage');
 const startPage = require('../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin');
 const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage');
-const logoutPage = require('../../page-objects/pages/generalPagesBeforeLogin/LogoutPage');
 const HMWRKHomeworkListPage = require("./HMWRKHomeworkListPage");
 
 const submissionTab = "#submission-tab-link";
-
-const urlHomework = `${CLIENT.URL}/homework`;
+const homeworkOnLeftNavigationPanel = "[data-testid='Aufgaben']"
 const textFieldSel = '.ck-content';
 const submitBtn = '.ckeditor-submit';
 const submitted_by_boxSel = '#submissions .groupNames > span';
@@ -22,13 +21,12 @@ const gradeFilesListSel = '.list-group-files';
 
 module.exports = {
     goToHomeworkListPage: async function () {
-        await elementHelpers.loadPage(urlHomework, 20);
+        await elementHelpers.clickAndWait(homeworkOnLeftNavigationPanel);
     },
 
     clickOnSubmissionTab: async function () {
         await elementHelpers.click(submissionTab);
     },
-
     submitSolutionForTheHometask: async function () {
         await driver.pause(global.SHORT_WAIT_MILLIS);
         const textField = await driver.$(textFieldSel);
@@ -37,8 +35,6 @@ module.exports = {
         await elementHelpers.click(submitBtn)
         await driver.pause(1500);
     },
-
-
     studentEditsTextHomeworkAndSubmits: async function () {
         await this.clickOnSubmissionTab();
         await this.submitSolutionForTheHometask();
@@ -83,7 +79,7 @@ module.exports = {
     },
 
     submitFileFeedback: async function (taskName, file) { // back to teacher
-        await logoutPage.goToLogoutPage();
+        await navigationTopPage.performLogout();
         await startPage.clickLoginBtn();
         await loginPage.performLogin(loginPage.users.teachers.klaraFallUsername, loginPage.users.teachers.klaraFallPassword);
         await this.goToHomeworkListPage();
@@ -121,7 +117,7 @@ module.exports = {
         await driver.switchToWindow(mainWindow);
 
         // ensure the student sees the file
-        await logoutPage.goToLogoutPage();
+        await navigationTopPage.performLogout();
         await loginPage.performLogin(student.login, student.password);
         await this.goToHomeworkListPage();
         await elementHelpers.click(`*=${taskName}`);
