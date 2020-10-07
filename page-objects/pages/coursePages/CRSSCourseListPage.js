@@ -1,20 +1,19 @@
 /*[url/courses]*/
-'use strict';
-const { CLIENT } = require('../../../shared-objects/servers');
-const elementHelpers = require('../../../runtime/helpers/elementHelpers');
-const waitHelpers = require('../../../runtime/helpers/waitHelpers');
+"use strict";
+const navigationTopPage = require('../NavigationTopPage');
+const elementHelpers = require("../../../runtime/helpers/elementHelpers");
+const waitHelpers = require("../../../runtime/helpers/waitHelpers");
 const startPage = require('../../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin');
 const loginPage = require('../../../page-objects/pages/generalPagesBeforeLogin/LoginPage');
-const logoutPage = require('../../../page-objects/pages/generalPagesBeforeLogin/LogoutPage');
+const navigationLeftPage = require('../NavigationLeftPage');
 
-const urlCourses = `${CLIENT.URL}/courses`;
-const searchCourseFiled = '.input-group .search-field';
-const courseWrapper = '.sc-card-wrapper';
-const titleOfCourse = '.title';
-const memberBtn = '.btn-member';
 const courseDescription = '.ckcontent';
 const courseHeader = '.sc-card-header';
-
+const searchCourseFiled = ".input-group .search-field";
+const courseWrapper = ".sc-card-wrapper";
+const titleOfCourse = ".title";
+const memberBtn = ".btn-member";
+const homeworktab = '.tabs button[data-testid="hometasks"]';
 const importCourseBtn = '[data-testid="import-course-btn"]';
 const createCourseBtn = '[data-testid="create-course-btn"]';
 const createYourFirstCourseBtn = 'a.btn-primary.btn-add:not([data-testid="create-course-btn"])';
@@ -43,7 +42,12 @@ const section = {
 };
 
 async function goToCourses() {
-	await elementHelpers.loadPage(urlCourses, 30);
+        await navigationLeftPage.clickNavItemCourses();
+};
+
+async function importAndCreateCourseBtnsAreVisible() {
+        expect(await elementHelpers.isElementPresent(importCourseBtn)).to.equal(true);
+		expect(await elementHelpers.isElementPresent(createCourseBtn)).to.equal(true);
 }
 
 async function areImportAndCreateCourseBtnsVisible() {
@@ -229,12 +233,12 @@ async function goToTasksOfTheCourse(coursename, section) {
 	await gotoTasksTab();
 }
 
-async function studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename, section) {
-	await logoutPage.goToLogoutPage();
-	await startPage.performLogin(username, password);
-	await loginPage.firstLoginStudent(username, password);
-	await goToTasksOfTheCourse(coursename, section);
-}
+async function studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename) {
+        await navigationTopPage.performLogout();
+        await startPage.performLogin(username, password);
+        await loginPage.firstLoginStudent(username, password);
+        await goToTasksOfTheCourse(coursename);
+};
 
 async function isTopicInCourseInSection(courseName, topicName, section) {
 	await clickOnCourseInSection(courseName, section);

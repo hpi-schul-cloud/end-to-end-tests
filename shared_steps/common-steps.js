@@ -9,38 +9,44 @@ const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 
 const schulCloudURL = `${CLIENT.URL}`;
 /*Login, Logout*/
+const performLogin = async function(username, password) {
+    await startPage.clickLoginBtn();
+	await loginPage.performLogin(username, password);
+};
 
-Given(/^.*arrives on the Schul-Cloud homepage$/, function () {
+Given(/^.* arrives on the Schul-Cloud homepage$/, function () {
 	return elementHelpers.loadPage(schulCloudURL, 10);
 });
 
-Given(/^.*logs in with email (.*) and password (.*)$/, async function (username, password) {
+Given(/^.* logs in with email (.*) and password (.*)$/, async function (username, password) {
+	await performLogin(username, password);
+});
+
+Given(/^teacher logs in$/, async function () {
+	await performLogin(loginPage.users.teachers.klaraFallUsername, loginPage.users.teachers.klaraFallPassword);
+});
+
+Given(/^admin logs in$/, async function () {
+	await performLogin(loginPage.users.admins.thorstenTestUsername, loginPage.users.admins.thorstenTestPassword);
+});
+
+Given(/^student logs in$/, async function () {
+	await performLogin(loginPage.users.students.paulaMayerUsername, loginPage.users.students.paulaMayerPassword);
+});
+
+When(/^.* goes from start page to login page$/, async function () {
 	await startPage.clickLoginBtn();
+});
+
+When(/^.* is on LoginPage and logs in with (.*) and (.*)$/, async function (username, password) {
 	await loginPage.performLogin(username, password);
 });
 
-Given(/^teacher is successfully logged in$/, async function () {
-	await startPage.clickLoginBtn();
-	await loginPage.performLogin(loginPage.users.teachers.klaraFallUsername, loginPage.users.teachers.klaraFallPassword);
-});
-Given(/^admin is successfully logged in$/, async function () {
-	await startPage.clickLoginBtn();
-	await loginPage.performLogin(loginPage.users.admins.thorstenTestUsername, loginPage.users.admins.thorstenTestPassword);
-});
-
-When(/^.*goes from start page to login page$/, async function () {
-	await startPage.clickLoginBtn();
-});
-
-When(/^.*is on LoginPage and logs in with (.*) and (.*)$/, async function (username, password) {
-	await loginPage.performLogin(username, password);
-});
-
-Then(/^.*logs out$/, async function () {
+Then(/^.* logs out$/, async function () {
 	await navigationTopPage.performLogout();
 });
 
-When(/^.*waits for next login$/, async function () {
+When(/^.* waits for next login$/, async function () {
 	let waitTime = (parseInt(process.env.LOGIN_BLOCK_TIME) || 15) + 1;
 	await driver.pause(waitTime * 1000);
 });

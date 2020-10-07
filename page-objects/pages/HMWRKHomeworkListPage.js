@@ -1,10 +1,10 @@
 /*[url/homework]*/
 "use strict"
-const { CLIENT } = require("../../shared-objects/servers")
+
 const waitHelpers = require("../../runtime/helpers/waitHelpers")
-const elementHelpers = require("../../runtime/helpers/elementHelpers")
 const navigationLeftPage = require("../../page-objects/pages/NavigationLeftPage.js")
-const urlHomework = `${CLIENT.URL}/homework`
+const elementHelpers=require('../../runtime/helpers/elementHelpers');
+
 
 const createTaskButton = "a[href='/homework/new']"
 const sortBtn = "#filter > div > div.md-chip.md-theme-default.md-deletable.md-clickable > div"
@@ -21,9 +21,7 @@ const taskBox = "h2.h6"
 
 module.exports = {
     goToHomeworkListPage: async function () {
-        await elementHelpers.loadPage(urlHomework, 20);
-        //Temporary solution. Double-sent reqest in the application for filters
-        await waitHelpers.waitUntilAjaxIsFinished();
+        await navigationLeftPage.clickNavItemTasks();
     },
 
     clickCreateTaskButton: async function () {
