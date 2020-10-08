@@ -158,7 +158,7 @@ async function waitUntilScriptResultIsTrue(script, timeoutMsg, timeout = pageLoa
 	);
 }
 
-async function waitAndSetValue(selectorOrElement, expectedValue, timeout = MEDIUM_WAIT_MILLIS) {
+async function waitAndSetValue(selectorOrElement, expectedValue, timeout = setValueTimeout) {
 	const element =  await waitUntilElementIsEnabled(selectorOrElement);
 	const msg =
 		'Could not set value: ' + expectedValue + ' for element: "' + element.selector + '" within time: ' + timeout;
