@@ -39,13 +39,10 @@ async function getSelectOptions(selectSelector) {
 }
 
 async function selectOptionByText(selectSelector, text) {
-    await waitHelpers.waitUntilElementIsVisible(selectSelector);
-    const listOfOptions = await driver.$$(selectSelector + " option");
-    const listOfOptionsTexts = await getTextListFromListOfElements(listOfOptions)
-    const optionIndex =  listOfOptionsTexts.indexOf(text.trim());
-    const element = listOfOptions[optionIndex];
-    await element.click();
-    };
+    const element = await waitHelpers.waitUntilElementIsVisible(selectSelector);
+    await driver.keys("Control");
+    await element.selectByVisibleText(text.trim());
+};
 
 async function loadPage(url, seconds = DELAY_20_SECOND) {
     let timeout = seconds * 1000;
