@@ -10,24 +10,29 @@ const student1 = 'Marla Mathe';
 const student2 = 'Waldemar Wunderlich';
 
 
-When(/^teacher adds a new student with (.*), (.*), (.*)$/, function (firstname1, lastname1, email1) {
+When(/^.*adds a new student with (.*), (.*), (.*)$/, function (firstname1, lastname1, email1) {
     fullname1 = firstname1 + " " + lastname1;
     return newPupil.createNewPupil(firstname1, lastname1, email1);
 });
-When(/^teacher adds one more student with (.*), (.*), (.*)$/, function (firstname2, lastname2, email2) {
+When(/^.*adds one more student with (.*), (.*), (.*)$/, function (firstname2, lastname2, email2) {
 
     return newPupil.createNewPupil(firstname2, lastname2, email2);
 });
 
-When(/^teacher creates a new team with (.*) and$/, function (teamname) {
+When(/^.*creates a new team with (.*) and$/, function (teamname) {
     teamName = teamname;
     return TMSAddEditTeamPage.createTeamAndGoToSettings(teamName);
 });
-When(/^teacher adds two students to this team$/, function () {
-    return TMSTeamMembersPage.addTwoTeamMemebers(student1, student2)
+When(/^.*adds a student to team with lastname (.*) and firstname (.*)$/, async function (lastname, firstname) {
+    await TMSTeamMembersPage.addTeamMember(lastname, firstname);
 });
 
-Then(/^this team should be displayed on the team page$/, async function () {
+When(/^.*clicks submit add team member button$/, async function () {
+	await TMSTeamMembersPage.clickSubmitAddTeamMember();
+	await driver.pause(1500);
+});
+
+Then(/^.*team should be displayed on the team page$/, async function () {
     let teamNames = await TMSTeamListPage.getTeamNames();
     await expect(teamNames).to.include(teamName);
 });

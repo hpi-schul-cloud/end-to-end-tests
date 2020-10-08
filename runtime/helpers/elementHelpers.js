@@ -37,12 +37,15 @@ async function getSelectOptions(selectSelector) {
         })
     );
 }
-//TO DO class name
+
 async function selectOptionByText(selectSelector, text) {
-const searchText = text.trim().split(" ")[0];
-const searchResult = await driver.$(`option*=${searchText}`);
-await searchResult.click();
-};
+    await waitHelpers.waitUntilElementIsVisible(selectSelector);
+    const listOfOptions = await driver.$$(selectSelector + " option");
+    const listOfOptionsTexts = await getTextListFromListOfElements(listOfOptions)
+    const optionIndex =  listOfOptionsTexts.indexOf(text.trim());
+    const element = listOfOptions[optionIndex];
+    await element.click();
+    };
 
 async function loadPage(url, seconds = DELAY_20_SECOND) {
     let timeout = seconds * 1000;
@@ -173,7 +176,7 @@ async function isUrlContaining(expectedUrl) {
 }
 
 async function getTextListFromListOfElements(listOfElements) {
-    return Promise.all(listOfElements.map(async (element) => await element.getText()));
+    return Promise.all(listOfElements.map(async (element) => (await element.getText()).trim()));
 }
 
 async function getValueListFromListOfElements(listOfElements) {
