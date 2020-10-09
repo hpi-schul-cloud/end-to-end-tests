@@ -24,15 +24,10 @@ module.exports = {
 		await driver.pause(1500);
 	},
 	// add members to the team: steps in browser
-	addTeamMembersSteps: async function (fullname) {
-		return elementHelpers.selectOptionByText(multipleChoiceSelectForTeamMembers, fullname);
+	addTeamMember: async function (lastname, firstname) {
+		await elementHelpers.selectOptionByText(multipleChoiceSelectForTeamMembers, lastname +", " + firstname);
 	},
-	addTwoTeamMemebers: async function (teammember1, teammember2) {
-		await this.addTeamMembersSteps(teammember1);
-		await this.addTeamMembersSteps(teammember2);
-		await this.clickSubmitAddTeamMember();
-		await driver.pause(1500);
-	},
+	
 	clickSubmitAddTeamMember: async function () {
 		let containerBtnElement = await driver.$(containerBtn);
 		let submitBtnElement = await containerBtnElement.$(submitBtn);

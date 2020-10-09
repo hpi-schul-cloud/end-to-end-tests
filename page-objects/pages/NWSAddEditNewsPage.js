@@ -1,10 +1,10 @@
 /*[url/news/[newsId]/edit] | [url/news/[newsId]/new]*/
 'use strict';
-const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
-const { CLIENT } = require("../../shared-objects/servers");
+const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers');
-
-const submitNewsBtn = 'button[data-testid="btn_news_submit"]';
+const newsListPage= require('./NWSNewsListPage');
+const submitNewsBtn = '[data-testid="btn_news_submit"]';
+const addNewsBtn = "[data-testid='create-news-btn']";
 const titleField = 'input.h1';
 const contentField = '.editor [contenteditable="true"]';
 const dateSelector = '[data-testid="news_date"] input';
@@ -13,8 +13,8 @@ const timeSelector = '[data-testid="news_time"] input';
 
 module.exports = {
     goToNewNews: async function () {
-        let url = `${CLIENT.URL}/news/new`;
-        await elementHelpers.loadPage(url, 100);
+        await newsListPage.goToNews();
+        await  this.clickCreateNewsButton();
     },
     setTitle: async function (title) {
         let titleFieldInput = await driver.$(titleField);
@@ -37,7 +37,7 @@ module.exports = {
         await timeField.setValue(time);
     },
     clickCreateNewsButton: async function () {
-        let add = await driver.$(submitNewsBtn);
+        let add = await driver.$(addNewsBtn);
         await add.click();
     },
     createNews: async function ({ title, content, date, time }) {
@@ -54,7 +54,7 @@ module.exports = {
         if (time) {
             await this.setPublishTime(time);
         }
-        await this.clickCreateNewsButton();
+        await elementHelpers.click(submitNewsBtn);
     },
     performCreateNews: async function (title) {
         await this.createNews({

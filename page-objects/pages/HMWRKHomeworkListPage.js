@@ -1,10 +1,10 @@
 /*[url/homework]*/
 "use strict"
-const { CLIENT } = require("../../shared-objects/servers")
+
 const waitHelpers = require("../../runtime/helpers/waitHelpers")
-const elementHelpers = require("../../runtime/helpers/elementHelpers")
 const navigationLeftPage = require("../../page-objects/pages/NavigationLeftPage.js")
-const urlHomework = `${CLIENT.URL}/homework`
+const elementHelpers=require('../../runtime/helpers/elementHelpers');
+
 
 const createTaskButton = "a[href='/homework/new']"
 const editTaskButton = "a[href='/homework/59d1f63ce0a06325e8b5288b/edit']"
@@ -27,7 +27,7 @@ module.exports = {
     },
 
     goToHomeworkListPage: async function () {
-        await elementHelpers.loadPage(urlHomework, 20)
+        await navigationLeftPage.clickNavItemTasks();
     },
 
     clickCreateTaskButton: async function () {
@@ -100,7 +100,6 @@ module.exports = {
 
 
     isTaskVisible: async function (taskname) {
-        await waitHelpers.waitUntilPageLoads();
         const allTasks = await this.getAllTasks();
         const isTaskOnList = allTasks.some((element) => element.includes(taskname));
         return isTaskOnList;

@@ -1,11 +1,12 @@
 /*[url/courses]/add]*/
 "use strict";
-const { CLIENT } = require("../../../shared-objects/servers");
 const elementHelpers = require("../../../runtime/helpers/elementHelpers");
 const axios = require("axios");
-
-const urlCoursesAdd = `${CLIENT.URL}/courses/add`;
-
+const courseListPage = require('./CRSSCourseListPage');
+const navigationLeftPage= require('../NavigationLeftPage');
+const waitHelpers = require("../../../runtime/helpers/waitHelpers");
+const { waitUntilElementIsPresent } = require("../../../runtime/helpers/waitHelpers");
+const APIhelpers = require("../../../runtime/helpers/APIhelpers");
 //Sections
 
 const nextSectionBtn = "#nextSection";
@@ -15,7 +16,8 @@ const section = {
 		three: '[data-testid="section-3-area"]',
 };
 const multipleChoiceSelectForStudents ='select[data-testid="pupils"]';
-	//Course data section
+//Course data section
+const courseDefaultInputValue = "z.B. Mathe 10a";
 const courseNameInput ='[data-testid="coursename"]';
 const teacherContainer = 'select[data-testid="teachersearch"]';
 const teacherList = '[data-testid="teacher"]'
@@ -49,21 +51,22 @@ const courseColour = [
 
 
 async function goToAddCourses() {
-		await elementHelpers.loadPage(urlCoursesAdd, 20)
+		await navigationLeftPage.clickNavItemCourses();
+		await courseListPage.clickCreateCourseBtn()
 	}
 
 async function goToNextSection () {
-		await elementHelpers.click(nextSectionBtn);
-	}
+	await elementHelpers.clickAndWait(nextSectionBtn);
+}
 
 async function getListOfSelected (containerSelector, list) {
-		const container = await driver.$(containerSelector);
+	const container = await waitHelpers.waitUntilElementIsPresent(containerSelector);
 		const listOfElements = await container.$$(list);
 		return await elementHelpers.getTextListFromListOfElements(listOfElements);
 	}
 
 async function noElementIsSelected (containerSelector, list) {
-		const container = await driver.$(containerSelector);
+	const container = await waitHelpers.waitUntilElementIsPresent(containerSelector);
 		const listOfElements = await container.$$(list);
 		listOfElements.forEach( (el) => {
 			const selectedOption = el.getAttribute('selected');
@@ -71,143 +74,129 @@ async function noElementIsSelected (containerSelector, list) {
 		});
 	}
 
-async function isSectionDisplayed (sectionNumber) {
-		const sectionToCheck =
-			sectionNumber === 1 ? sectionNumber : sectionNumber - 1;
-		const selector = this.getSectionSelector(sectionToCheck);
-		const element = await driver.$(selector);
-		const hasChildren = (await element.$$(".//*")).length > 0;
 
-		if (sectionNumber === 1) {
-			await expect(await elementHelpers.isElementPresent(selector)).to.equal(true);
-			await expect(hasChildren).to.equal(false);
-		} else {
-			await expect(hasChildren).to.equal(true);
-		}
+
+async function isDefaultInputValue (containerSelector, defaultText) {
+	await waitHelpers.waitUntilElementIsVisible(containerSelector);
+	await waitHelpers.waitUntilElementAttributeEquals(containerSelector, "placeholder", defaultText)
+}
+
+async function isSectionDisplayed (sectionNumber) {
+	await waitHelpers.waitUntilPageLoads();
+	const sectionToCheck = sectionNumber === 1 ? sectionNumber : sectionNumber - 1;
+	const selector = getSectionSelector(sectionToCheck);
+	const element = await waitHelpers.waitUntilElementIsPresent(selector);
+	const hasChildren = (await element.$$(".//*")).length > 0;
+
+	if (sectionNumber === 1) {
+		await expect(await elementHelpers.isElementPresent(selector)).to.equal(true);
+		await expect(hasChildren).to.equal(false);
+	} else {
+		await expect(hasChildren).to.equal(true);
 	}
+}
 
 async function isSectionNotDisplayed (sectionNumber) {
-		const sectionToCheck =
-			sectionNumber === 1 ? sectionNumber : sectionNumber - 1;
-		const element = await driver.$(this.getSectionSelector(sectionToCheck));
-		const hasChildren = (element.$$(".//*").length) > 0;
-
-		if (sectionNumber === 1) {
-			await expect(await elementHelpers.isElementPresent(sectionToCheck)).to.equal(
-				false
-			);
-		} else {
-			await expect(hasChildren).to.equal(false);
-		}
+	await waitHelpers.waitUntilPageLoads();
+	const sectionToCheck = sectionNumber === 1 ? sectionNumber : sectionNumber - 1;
+	const element = await driver.$(getSectionSelector(sectionToCheck));
+	const hasChildren = (await element.$$(".//*").length) > 0;
+	if (sectionNumber == 1) {
+		await expect(await elementHelpers.isElementPresent(sectionToCheck)).to.equal(false);
+	} else {
+		await expect(hasChildren).to.equal(false);
 	}
+}
 
 function getSectionSelector(sectionNumber) {
-		let selector;
-		switch (sectionNumber) {
-			case 1:
-				selector = section.one;
-				break;
-			case 2:
-				selector = section.two;
-				break;
-			case 3:
-				selector = section.three;
-				break;
-			default:
-				console.error(
-					`This section: ${sectionNumber} does not exist on the list of possible choices`
-				);
-				break;
-		}
-		return selector;
+	let selector;
+	switch (sectionNumber) {
+		case 1:
+			selector = section.one;
+			break;
+		case 2:
+			selector = section.two;
+			break;
+		case 3:
+			selector = section.three;
+			break;
+		default:
+			console.error(`This section: ${sectionNumber} does not exist on the list of possible choices`);
+			break;
 	}
-
-async function getUserName () {
-		const cookie = await driver.getCookies(["jwt"]);
-		const jwt = cookie[0].value;
-		const info = await axios.request({
-			url: "http://localhost:3030/me",
-			method: "get",
-			headers: {
-				Authorization: `${jwt}`,
-			},
-		});
-		const firstName = info.data.firstName;
-		const lastName = info.data.lastName;
-		return firstName + " " + lastName;
-	}
+	return selector;
+}
 
 async function createCourse(courseName) {
-		await this.goToAddCourses();
-		await this.setCourseName(courseName);
-		await this.goToNextSection();
-		await this.goToNextSection();
-		await this.clickGoToCourseListBtn();
-	}
+	await goToAddCourses();
+	await setCourseName(courseName);
+	await goToNextSection();
+	await goToNextSection();
+	await clickGoToCourseListBtn();
+}
 
 async function createCourseWithStudents(courseName, studentName) {
-		await this.goToAddCourses();
-		await this.setCourseName(courseName);
-		await this.goToNextSection();
-		await elementHelpers.selectOptionByText(multipleChoiceSelectForStudents ,studentName);
-		await this.goToNextSection();
-		await this.clickGoToCourseListBtn();
-	}
+	await goToAddCourses();
+	await setCourseName(courseName);
+	await goToNextSection();
+	await selectStudent(studentName);
+	await goToNextSection();
+	await clickGoToCourseListBtn();
+}
 
-	//Course data section
+//Course data section
 async function isCourseNameNotEntered () {
-		const courseNameContainer = await driver.$(courseNameInput);
-		const placeholderText = await courseNameContainer.getAttribute("placeholder");
-		await expect(placeholderText).to.equal("z.B. Mathe 10a");
-	}
+	await isDefaultInputValue(courseNameInput, courseDefaultInputValue);
+}
 
 async function setCourseName (courseName) {
-		const courseNameContainer = await driver.$(courseNameInput);
-		await courseNameContainer.setValue(courseName);
+	await waitHelpers.waitAndSetValue(courseNameInput, courseName);
+}
+
+async function getColourElement(colourName) {
+	const listOfColours = courseColour;
+	if (listOfColours.includes(colourName)) {
+		const childNumber = listOfColours.indexOf(colourName) + 1;
+		const colourElement = await waitUntilElementIsPresent(colourPicker + `:nth-child(${childNumber})`);
+		return colourElement;
+	} else {
+		console.warn(
+			`you did not insert a valid color. Must be ${listOfColours},\n you inserted ${colourName}`);
 	}
+}
 
 async function setColour (colourName) {
-		const listOfColours = courseColour;
-		if (listOfColours.includes(colourName)) {
-			const childNumber = listOfColours.indexOf(colourName) + 1;
-			const colour = await driver.$(
-				colourPicker + `:nth-child(${childNumber})`
-			);
-			await colour.click();
-		} else {
-			console.warn(
-				`you did not insert a valid color. Must be ${listOfColours},\n you inserted ${colourName}`
-			);
-		}
-	}
+	const element = await getColourElement(colourName);
+	await elementHelpers.click(element);
+}
 
 async function isTeachersNameSetByDefault () {
-		const username = await this.getUserName();
-		const listOfTeachersNames = await this.getListOfSelected(
+		const username = await APIhelpers.getUserName();
+		const listOfTeachersNames = await getListOfSelected(
 			teacherContainer, teacherList
 		);
 		await expect(listOfTeachersNames.toString()).to.include(username);
 	}
 
 async function isTeacherSubstituteNotSet () {
-		await this.noElementIsSelected(
+		await noElementIsSelected(
 			teacherSubContainer,
 			subTeachersList
 		);
 	}
 
-	// could be extended with verifying the date is correct
+// could be extended with verifying the date is correct
 async function isTimeSpanSet () {
-		const startValueSelector = await driver.$(timeSpan.start);
-		const startValue = await startValueSelector.getValue();
-		await expect(startValue.length).not.to.equal(0);
+	const startValueSelector = await waitHelpers.waitUntilElementIsPresent(timeSpan.start);
+	const startValue = await startValueSelector.getValue();
+	await expect(startValue.length).not.to.equal(0);
 
-		const endsValueSelector = await driver.$(timeSpan.end);
-		const endsValue = await endsValueSelector.getValue();
-		await expect(endsValue.length).not.to.equal(0);
-	}
+	const endsValueSelector = await waitHelpers.waitUntilElementIsPresent(timeSpan.end);
+	const endsValue = await endsValueSelector.getValue();
+	await expect(endsValue.length).not.to.equal(0);
+}
 
-	//Participants section
+//Participants section
 async function isClassNotSet () {
 		await this.noElementIsSelected(
 			classContainer,
@@ -222,44 +211,42 @@ async function isStudentNotSet () {
 		);
 	}
 
-async function clickCreateCourseAndContinueBtn () {
-		await elementHelpers.click(nextSectionBtn);
-	}
+async function selectStudent(studentName) {
+	await elementHelpers.selectOptionByText(multipleChoiceSelectForStudents, studentName);
+}
 
-	//Final section
+async function clickCreateCourseAndContinueBtn () {
+	await elementHelpers.clickAndWait(nextSectionBtn);
+}
+
+//Final section
 async function clickGoToCourseListBtn () {
-		await elementHelpers.click(goToCourseListBtn);
-	}
+	await elementHelpers.clickAndWait(goToCourseListBtn);
+}
 
 async function areFinalButtonsVisible () {
-		await expect(
-			await elementHelpers.isElementPresent(createNewCourseBtn)
-		).to.equal(true);
-		await expect(
-			await elementHelpers.isElementPresent(goToCourseListBtn)
-		).to.equal(true);
-	}
+	await waitHelpers.waitUntilElementIsPresent(createNewCourseBtn);
+	await waitHelpers.waitUntilElementIsPresent(goToCourseListBtn)
+}
 
 module.exports = {
 	goToAddCourses,
 	goToNextSection,
 	getListOfSelected,
 	noElementIsSelected,
+	clickCreateCourseAndContinueBtn,
+	clickGoToCourseListBtn,
 	isSectionDisplayed,
 	isSectionNotDisplayed,
-	getSectionSelector,
-	getUserName,
-	createCourse,
-	createCourseWithStudents,
 	isCourseNameNotEntered,
-	setCourseName,
-	setColour,
 	isTeachersNameSetByDefault,
 	isTeacherSubstituteNotSet,
 	isTimeSpanSet,
 	isClassNotSet,
 	isStudentNotSet,
-	clickCreateCourseAndContinueBtn,
-	clickGoToCourseListBtn,
-	areFinalButtonsVisible
+	areFinalButtonsVisible,
+	setCourseName,
+	setColour,
+	createCourse,
+	createCourseWithStudents,
 };

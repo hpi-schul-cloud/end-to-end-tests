@@ -1,10 +1,10 @@
 /*[url/teams/[teamId]/edit]*/
 'use strict';
-const elementHelpers = require('../../../runtime/helpers/elementHelpers');
+
 const loginPage = require('../generalPagesBeforeLogin/LoginPage');
 const navigationTopPage = require('../NavigationTopPage');
-const { CLIENT } = require("../../../shared-objects/servers");
-const url = `${CLIENT.URL}/teams`;
+const navigationLeftPage = require('../NavigationLeftPage');
+
 const TMSTeamListPage = require('../../../page-objects/pages/teamsPages/TMSTeamListPage.js');
 const TMSGeneralTeamPage = require('../../../page-objects/pages/teamsPages/TMSGeneralTeamPage.js');
 const TMSTeamMembersPage = require('../../../page-objects/pages/teamsPages/TMSTeamMembersPage.js');
@@ -28,7 +28,6 @@ let emailTWO = "bteam@schul-cloud.org";
 let team_name_one = "A-team";
 let team_name_two = "B-team";
 let oldPassword;
-let oldPassword1;
 let oldPassword2;
 
 // input fields
@@ -41,8 +40,7 @@ const createTeamBtn = 'button[data-testid="create_team_btn"]';
 
 module.exports = {
     gotoTeams: async function () {
-        // @Conversion to use a button or link within the Add/Edit mask
-        return elementHelpers.loadPage(url, 100);
+        return navigationLeftPage.clickNavItemTeams();
     },
     createTeam: async function (firstname, lastname, email, team_name, fullname) {
         await ADMNSTRTNAdministerStudentsPage.createNewPupil(firstname, lastname, email);

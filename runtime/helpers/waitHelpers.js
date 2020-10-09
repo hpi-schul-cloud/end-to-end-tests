@@ -14,7 +14,9 @@ const elementIsDisabled = 5000;
 const elementContainsTextTimeout = 10000;
 const urlContainsTimeout = 10000;
 const pageLoadingTimeout = 30000;
+const ajaxTimeout = 7000;
 const setValueTimeout = 7000;
+const atributeTimeout = 7000;
 const titleTimeout = 30000;
 const shortInterval = 50;
 const mediumInterval = 100;
@@ -133,6 +135,12 @@ async function waitUntilUrlNotContains(notExpectedUrlText, timeout = urlContains
 	}
 }
 
+async function waitUntilAjaxIsFinished(timeout = ajaxTimeout) {
+	const timeoutMsg = 'Ajax is not finished';
+	await waitUntilScriptResultIsTrue(() => jQuery.active == 0, timeoutMsg, timeout);
+	await waitUntilScriptResultIsTrue(() => jQuery.active == 0, timeoutMsg, timeout);
+}
+
 async function waitUntilPageLoads(timeout = pageLoadingTimeout) {
 	const timeoutMsg = 'Page is not loaded';
 	await waitUntilScriptResultIsTrue(() => document.readyState.includes('complete'), timeoutMsg, timeout);
@@ -150,9 +158,8 @@ async function waitUntilScriptResultIsTrue(script, timeoutMsg, timeout = pageLoa
 	);
 }
 
-async function waitAndSetValue(selectorOrElement, expectedValue, timeout = MEDIUM_WAIT_MILLIS) {
-	let element = await sharedHelpers.getElement(selectorOrElement);
-	await waitUntilElementIsEnabled(element);
+async function waitAndSetValue(selectorOrElement, expectedValue, timeout = setValueTimeout) {
+	const element =  await waitUntilElementIsEnabled(selectorOrElement);
 	const msg =
 		'Could not set value: ' + expectedValue + ' for element: "' + element.selector + '" within time: ' + timeout;
 	let actualValue = '';
@@ -176,7 +183,7 @@ async function waitUntilElementAttributeEquals(
 	selectorOrElement,
 	attributeName,
 	expectedValue,
-	timeout = setValueTimeout
+	timeout = atributeTimeout
 ) {
 	const element = await waitUntilElementIsPresent(selectorOrElement);
 	let msg =
@@ -208,7 +215,7 @@ async function waitUntilElementAttributeContains(
 	selectorOrElement,
 	attributeName,
 	expectedValue,
-	timeout = setValueTimeout
+	timeout = atributeTimeout
 ) {
 	const element = await waitUntilElementIsPresent(selectorOrElement);
 	let msg =
@@ -283,6 +290,7 @@ module.exports = {
 	waitUntilElementContainsText,
 	waitUntilUrlContains,
 	waitUntilUrlNotContains,
+	waitUntilAjaxIsFinished,
 	waitUntilPageLoads,
 	waitAndSetValue,
 	waitUntilElementAttributeEquals,

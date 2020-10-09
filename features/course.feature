@@ -23,7 +23,8 @@ Examples:
 
 @createCourseCorrectly
 Scenario Outline: submit compulsory fields by creating the course 
-	When teacher logs in with email <username> and password <password>
+	Given teacher logs in with email <username> and password <password>
+	Given teacher accepts data protection
 	And teacher goes to courses page
 	Then teacher should see that buttons: Import-course, Create-new-course are visible
 	When teacher clicks Create-new-course button
@@ -45,7 +46,7 @@ Scenario Outline: submit compulsory fields by creating the course
 	When teacher clicks Go-to-course-list
 	Then teacher should see that course with name <courseName> is visible on the list
 	And teacher should see that course with name <courseName> is displayed correctly on the list
-	And teacher should see that color of the course is <courseColour> that was selected during the creation process	
+	And teacher should see that color of the course <courseName> is <courseColour> that was selected during the creation process	
 Examples:
 	|username                  |password    |courseName           |courseColour|
 	|klara.fall@schul-cloud.org|Schulcloud1!|Mathe@Sport&Music    |corn        |

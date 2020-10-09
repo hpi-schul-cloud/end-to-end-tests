@@ -4,7 +4,7 @@ const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseList
 
 
 Then(/^.*sees that participants icon in course with name (.*) has correct number of members (.*)$/, async function (courseName, studentName) {
-    await courseListPage.isCorrectNumberOfMembersInCourseForSection(courseName, [studentName], courseListPage.section.activeCourses);
+    await courseListPage.isCountOfMembersInCourseForSection(courseName, [studentName], courseListPage.section.activeCourses);
 
 });
 
