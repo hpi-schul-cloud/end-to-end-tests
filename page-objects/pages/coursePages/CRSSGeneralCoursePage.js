@@ -21,15 +21,15 @@ const tab = {
 };
 
 async function openTopicsTab() {
-	await elementHelpers.click(tab.topics);
+	await elementHelpers.clickAndWait(tab.topics);
 }
 
 async function openHomeworksTab () {
-	await elementHelpers.click(tab.homeworks);
+	await elementHelpers.clickAndWait(tab.homeworks);
 }
 
 async function openToolsTab () {
-	await elementHelpers.click(tab.tools);
+	await elementHelpers.clickAndWait(tab.tools);
 }
 
 async function openGroupsTab () {
@@ -37,11 +37,11 @@ async function openGroupsTab () {
 }
 
 async function clickThreePointSettingsIcon () {
-	await elementHelpers.click(courseSettingsBtn);
+	await elementHelpers.clickAndWait(courseSettingsBtn);
 }
 
 async function clickSettingsDropdownMenuBtn (settingsBtnSelector) {
-	await elementHelpers.click(settingsBtnSelector);
+	await elementHelpers.clickAndWait(settingsBtnSelector);
 }
 
 async function cloneCourse () {
