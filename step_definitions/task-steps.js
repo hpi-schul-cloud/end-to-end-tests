@@ -14,8 +14,8 @@ Given('teacher creates one course with name {string}', function (string) {
 });
 /*  @createTaskForStudents */    
 
-When('teacher clicks create-a-new-task-button in the course {string}', function (string) {
-    return courseHomeworksPage.clickAddNewTaskInCourse(string);
+When(/^.* clicks create-a-new-task-button in the course (.*)$/, function (coursename) {
+    return courseHomeworksPage.clickAddNewTaskInCourse(coursename);
 });
 
 When(/^.* pastes name (.*) of the task$/, function (taskname) {
@@ -31,11 +31,17 @@ When(/^.* sets accomplish time for the task$/, function () {
 When(/^.* pastes text (.*) of the task$/, function (taskText) {
     return addEditHomeworkPage.setHomeworkText(taskText)
 });
+When(/^.* clicks submit-task-button$/, function () {
+    return addEditHomeworkPage.clickSubmitHomeworkBtn();
+});
 Then(/^the hometask with (.*) is to be found at the task pannel$/, function (taskname) {
     return taskListPage.goToHomeworkListAndCheckTaskIfExist(taskname);
 });
 
 /* PRIVATE */
+When(/^.* clicks edit-the-course-button in the course "new course with a task"$/, function (coursename) {
+    return copyCourse.create(coursename);
+});
 
 Given(/^the teacher creates one course with (.*) and student with (.*)$/, function (coursename, studentname) {
     return addCoursePage.createCourseWithStudents(coursename, studentname);
@@ -72,6 +78,7 @@ Then(/^the teacher can see the submission in course (.*) of task (.*) done by st
 });
 
 /* File task submission*/
+
 Given(/^the Teacher creates one course with (.*) and pupil with:$/, function (coursename) {
     return copyCourse.create(coursename);
 });

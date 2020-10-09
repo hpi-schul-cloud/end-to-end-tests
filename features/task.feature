@@ -13,12 +13,12 @@ Feature: create different types of task
 
     @createTaskForStudents
     Scenario Outline: create a simple hometask
-        And teacher clicks create-a-new-task-button in the course "new course with a task"
+        And teacher clicks create-a-new-task-button in the course new course with a task
         And teacher pastes name <taskname> of the task
         And teacher clicks on "enable group submission" checkbox
         And teacher sets accomplish time for the task
         And teacher pastes text <taskText> of the task
-        And teacher clicks "submit task" button
+        And teacher clicks submit-task-button
         Then the hometask with <taskname> is to be found at the task pannel
         Examples:
             | coursename    | taskname     | taskText                          |
@@ -26,15 +26,18 @@ Feature: create different types of task
 
     @createPrivateTask
     Scenario Outline: create a private hometask has to be visible only for the teacher
-    When the teacher adds student with <studentname>
-    When teacher creates a private hometask in the course <coursename> with the name <taskname>
-    And student logs in with email <username> and password <password>
-    And student with full age accepts student's data protection with password <newStudentPassword>
-    And the student goes to the tasks section
-    Then the student will not see this task with <taskname>
-    Examples:
-    | coursename            | studentname | taskname             | username                    | password     | newStudentPassword     |
-    | test private hometask | Paula Meyer | private task example | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!          |
+        When teacher goes to courses page
+        And teacher clicks edit-the-course-button in the course "new course with a task"
+        And teacher adds a student with name <studentname> to the course 
+        When teacher creates a private hometask in the course "new course with a task" with the name <taskname>
+        And teacher logs out 
+        And student logs in with email <username> and password <password>
+        And student with full age accepts student's data protection with password <newStudentPassword>
+        And the student goes to the tasks section
+        Then the student will not see this task with <taskname>
+        Examples:
+        | coursename            | studentname | taskname             | username                    | password     | newStudentPassword     |
+        | test private hometask | Paula Meyer | private task example | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!          |
 
     #@submitTextHomework
     #Scenario Outline: pupil submits a task and teacher evaluates it
