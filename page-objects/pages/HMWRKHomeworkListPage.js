@@ -7,6 +7,7 @@ const navigationLeftPage = require("../../page-objects/pages/NavigationLeftPage.
 const urlHomework = `${CLIENT.URL}/homework`
 
 const createTaskButton = "a[href='/homework/new']"
+const editTaskButton = "a[href='/homework/59d1f63ce0a06325e8b5288b/edit']"
 const sortBtn = "#filter > div > div.md-chip.md-theme-default.md-deletable.md-clickable > div"
 const select = "#selection-picker > div > div"
 const lastedited =
@@ -17,9 +18,14 @@ const taskElement = ".col-xl-12"
 const tasksContainer = "#homeworks > ol > div > li"
 const homeworListSection = "section .homework"
 const taskBox = "h2.h6"
+const taskDescription = ".ckcontent text-muted p"
 
 
 module.exports = {
+    clickEditTaskButton: async function(){
+        await elementHelpers.click(editTaskButton)
+    },
+
     goToHomeworkListPage: async function () {
         await elementHelpers.loadPage(urlHomework, 20)
     },
@@ -92,6 +98,7 @@ module.exports = {
 	    return taskTitleList;
     },
 
+
     isTaskVisible: async function (taskname) {
         await waitHelpers.waitUntilPageLoads();
         const allTasks = await this.getAllTasks();
@@ -110,6 +117,19 @@ module.exports = {
                 await driver.pause(1000)
             }
         }
+    },
+    
+    getDescription: async function(){
+        await driver.pause(1000 * 3);
+        const container = await driver.$(".col-xl-12");
+        const tasksArray = await container.$$("li");
+        const descriptionArray = [];
+        for (let i = 1; i <= tasksArray.length; i++) {
+            const task = await container.$("li:nth-child(" + i + ") p");
+            const description = (await task.getText());
+            descriptionArray.push(description);
+        }
+        return descriptionArray;
     },
 
     goToPrivateHomeworkArea: async function () {
