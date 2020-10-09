@@ -5,17 +5,19 @@ const taskListPage = require('../page-objects/pages/HMWRKHomeworkListPage');
 const taskPage = require('../page-objects/pages/HMWRKHomeworkPage');
 const addCoursePage = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
 const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
+const generalCoursePage = require('../page-objects/pages/coursePages/CRSSGeneralCoursePage');
 const courseHomeworksPage = require("../page-objects/pages/coursePages/CRSSCourseHomeworksPage");
 const navigationLeftPage = require('../page-objects/pages/NavigationLeftPage.js');
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
 /* Given */
-Given('teacher creates one course with name {string}', function (string) {
+Given('teacher creates one course with name {string}', async function (string) {
     return addCoursePage.createCourse(string);
 });
+
 /*  @createTaskForStudents */    
 
-When(/^.* clicks create-a-new-task-button in the course (.*)$/, function (coursename) {
-    return courseHomeworksPage.clickAddNewTaskInCourse(coursename);
+When('teacher clicks create-a-new-task-button in the course {string}', function (string) {
+    return courseHomeworksPage.clickAddNewTaskInCourse(string);
 });
 
 When(/^.* pastes name (.*) of the task$/, function (taskname) {
@@ -38,13 +40,15 @@ Then(/^the hometask with (.*) is to be found at the task pannel$/, function (tas
     return taskListPage.goToHomeworkListAndCheckTaskIfExist(taskname);
 });
 
-/* PRIVATE */
-When(/^.* clicks edit-the-course-button in the course "new course with a task"$/, function (coursename) {
-    return copyCourse.create(coursename);
+/* createPrivateTask */
+
+When(/^.* clicks edit-the-course-button in the course (.*)$/, async function (coursename) {
+    await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
+    await  generalCoursePage.clickEditCourse();
 });
 
-Given(/^the teacher creates one course with (.*) and student with (.*)$/, function (coursename, studentname) {
-    return addCoursePage.createCourseWithStudents(coursename, studentname);
+Given(/^.* adds a student with name (.*) to the course$/, function (studentname) {
+    return addCoursePage.selectStudent(studentname);
 });
 
 When(/^teacher creates a private hometask in the course (.*) with (.*)$/, async function (coursename, taskname) {

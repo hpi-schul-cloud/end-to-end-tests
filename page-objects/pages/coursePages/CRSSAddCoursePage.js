@@ -233,4 +233,5 @@ module.exports = {
 	setColour,
 	createCourse,
 	createCourseWithStudents,
+	selectStudent,
 };
