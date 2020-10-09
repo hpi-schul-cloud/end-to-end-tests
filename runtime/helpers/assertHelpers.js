@@ -1,38 +1,21 @@
 'use strict';
 
+const waitHelpers = require("./waitHelpers");
+
+async function expectToIncludeText(selector, expectedText, errorMsg) {
+	const element = await waitHelpers.waitUntilElementIsNotPresent(selector);
+	let actual = (await element.getText()).trim();
+	const msg = errorMsg + '\n Actual: [' + actual + '], Expected: [' + expected + '] \n ';
+	expect(actual, msg).to.include(expectedText);
+}
+
+async function expectToIncludeUrl(expected) {
+	let actual = await driver.getUrl();
+	const msg = 'Actual url: [' + actual + '], Expected url: [' + expected + '] \n ';
+	expect(actual).to.include(expected);
+}
+
 module.exports = {
-
-    /**
-	*
-	* @param selector
-	* @param expectedText
-	*/
-	expectToIncludeText: async function (selector, expectedText) {
-		let actual = await driver.getText(selector);
-		expect(actual).to.include(expectedText);
-		return this;
-	},
-
-	/**
-	*
-	* @param expected
-	*/
-	assertUrl: async function (expected) {
-		let actual = await driver.getUrl();
-		assert.equal(actual, expected);
-    },
-    
-	/**
-		* This will assert 'equal' text being returned
-		* @param selector
-		* @param expectedText
-        */
-        
-	assertText: async function (selector, expected) {
-		await driver.waitForEnabled(selector, DELAY_5_SECOND);
-		let actual = await driver.getText(selector);
-		actual = actual.trim();
-		assert.equal(actual, expected);
-		return this;
-	},
+	expectToIncludeText,
+	expectToIncludeUrl,
 }

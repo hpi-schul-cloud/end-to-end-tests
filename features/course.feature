@@ -12,6 +12,7 @@ Scenario Outline: create first course. Teachers have 2 options: to import or to 
 	Then teacher should see that buttons: Import-course, Create-new-course are visible
 	When teacher clicks Create-new-course button
 	When teacher enters course name <courseName> into new course form
+	And teacher chooses himself as a Course teacher
 	When teacher chooses course colour <courseColour>
 	When teacher clicks Next-section button
 	When teacher clicks Next-section button
@@ -28,13 +29,14 @@ Scenario Outline: submit compulsory fields by creating the course
 	And teacher goes to courses page
 	Then teacher should see that buttons: Import-course, Create-new-course are visible
 	When teacher clicks Create-new-course button
-	Then teacher should see that his name is entered by default in teachers' field
+	#Then teacher should see that his name is entered by default in teachers' field (to be restored after SC-7152)
 	And teacher should see that time span is already set
 	And teacher should see that supply teacher is not set 
 	When teacher see that course name has not been entered 
 	And teacher clicks Next-section button
 	Then teacher should see that the 2 section can not be opened
 	When teacher enters course name <courseName> into new course form
+	And teacher chooses himself as a Course teacher
 	And teacher chooses course colour <courseColour>
 	And teacher clicks Next-section button
 	Then teacher should see that 2 section is opened
