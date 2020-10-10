@@ -25,7 +25,7 @@ Examples:
 # Scenario Outline: teacher can copy course with certain text
 # Given the teacher creates some with name <coursename>
 # Given the teacher chooses the created course with <coursename> and
-# When the teacher adds a Topic with name <topicname>
+# When the teacher adds a new Topic with name <topicname>
 # When the teacher adds some Text <text> to the course
 # When the teacher clicks copy course <coursename> with Text
 # Then teacher sees the course <coursename> was copied and the topic <topicname> is still availiable
@@ -38,7 +38,7 @@ Examples:
 Scenario Outline: teacher can copy course with certain GeoGebra
 Given the teacher creates some with name <coursename>
 Given the teacher chooses the created course with <coursename> and
-When the teacher adds a Topic with name <topicname>
+When the teacher adds a new Topic with name <topicname>
 When the teacher adds some GeoGebraArbeitsblatt with id <geogebraID> to the course
 When the teacher clicks copy course <coursename> with GeoGebraArbeitsblatt
 Then teacher sees the course <coursename> copy and the GeoGebraArbeitsblatt <topicname> is still availiable
