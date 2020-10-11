@@ -11,8 +11,7 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 		When teacher goes to courses page
 		And teacher chooses course with name <courseName>
 		And the teacher adds a new Topic with name <topicname>
-		Then teacher goes to courses page
-		And teacher should see that created topic with name <topicTitle> is shown
+		Then teacher should see that created topic with name <topicname> is shown
 		Examples:
 			| courseName | topicname |
 			| Mathe      | Division  |

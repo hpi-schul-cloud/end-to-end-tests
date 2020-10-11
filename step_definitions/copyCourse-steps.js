@@ -30,7 +30,7 @@ Given(/^.* creates some with name (.*)$/, function(coursename) {
 Given(/^.* chooses the created course with (.*) and$/, function(coursename) {
 	return courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 });
-When(/^.*adds a new Topic with name (.*)$/, async function(topicname) {
+When(/^.*adds a Topic with name (.*)$/, async function(topicname) {
 	//return copyCourse.addTopic(topicname);
 	await courseTopicsPage.clickAddNewTopicBtn();
 	await addEditTopicPage.setTopic(topicname);
