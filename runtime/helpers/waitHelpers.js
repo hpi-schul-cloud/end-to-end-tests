@@ -6,7 +6,7 @@ const sharedHelpers = require('./sharedHelpers');
 const elementIsPresentTimeout = 10000;
 const elementIsNotPresentTimeout = 10000;
 const elementIsClickableTimeout = 10000;
-const elementIsNotClickableTimeout = 5000;
+const elementIsNotClickableTimeout = 7000;
 const elementIsVisibleTimeout = 5000;
 const elementIsNotVisibleTimeout = 5000;
 const elementIsEnabled = 5000;
@@ -23,14 +23,14 @@ const mediumInterval = 100;
 
 async function waitUntilElementIsPresent(selectorOrElement, timeout = elementIsPresentTimeout) {
 	let element = await sharedHelpers.getElement(selectorOrElement);
-	let msg = 'Element is not present: "' + element.selector + '"  within time: ' + timeout;
+	let msg = 'Element is not present: [' + element.selector + ']  within time: ' + timeout;
 	await element.waitForExist(timeout, false, msg);
 	return element;
 }
 
 async function waitUntilElementIsNotPresent(selectorOrElement, timeout = elementIsNotPresentTimeout) {
 	let element = await sharedHelpers.getElement(selectorOrElement);
-	let msg = 'Element should not be present: "' + element.selector + '"  within time: ' + timeout;
+	let msg = 'Element should not be present: [' + element.selector + '"  within time: ' + timeout;
 	await element.waitForExist(timeout, true, msg);
 }
 

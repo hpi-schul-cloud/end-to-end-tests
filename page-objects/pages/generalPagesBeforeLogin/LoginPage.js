@@ -46,6 +46,7 @@ const firstLoginSel = {
 		box1: 'input[name="privacyConsent"]',
 		box2: 'input[name="termsOfUseConsent"]',
 	},
+	
 	startUsageOfSchulcloudBtn: 'a[data-testid="btn_schul-cloud_erkunden"]',
 
 	setOwnPasswort: {
