@@ -14,8 +14,8 @@ const homeworkTitleInput = "input[placeholder='Titel']";
 const submitHomeworkBtn = ".btn-submit";
 const courseSelect = '#coursePicker';
 const courseOption = '.active-result:nth-child(1)';
-//const activatePublicSubmissionsDialog = '.modal.fade.dontShowAgainAlert-modal.in'
-//const activatePublicSubmissionsButton = 'button[type="submit"]';
+const activatePublicSubmissionsDialog = '.modal.fade.dontShowAgainAlert-modal.in'
+const activatePublicSubmissionsButton = 'button[type="submit"]';
 
 module.exports = {
     clickEditButton: async function(){
@@ -27,8 +27,19 @@ module.exports = {
     },
 
     clickPublicSubmissionsCheckbox: async function (){
-        await elementHelpers.click(publicSubmissionsCheckbox)
+        if(publicSubmissionsCheckbox.checked){
+            await elementHelpers.click(publicSubmissionsCheckbox)
+        } else {
+            await elementHelpers.click(publicSubmissionsCheckbox)
 
+            let dialogContainerElement = await driver.$(activatePublicSubmissionsDialog);
+            let submitBtnElement = await dialogContainerElement.$(activatePublicSubmissionsButton);
+
+            if(dialogContainerElement != null){
+                await submitBtnElement.click();
+
+            }
+        }
     },
 
     clickTeamSubmissionsCheckbox: async function () {
