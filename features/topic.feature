@@ -17,14 +17,15 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 			| Mathe      | Division  |
 
 	@editTopic
-	Scenario Outline: I edit a topic
+	Scenario : I edit a topic
 		When teacher goes to courses page
 		And teacher chooses course with name <courseName>
 		And teacher chooses topic with name <topicname>
 		And teacher clicks on edit a topic
-		When teacher changes title of topic <changeName>
-		And teacher should add text
+#		When teacher changes title of topic <changeName>
+#		And teacher should add text
 
-		Examples:
-			| courseName | topicname | changeName |
-			| Mathe      | Division  |            |
+#		Examples:
+#			| courseName | topicname | changeName |
+#			| Mathe      | Division  |            |
+

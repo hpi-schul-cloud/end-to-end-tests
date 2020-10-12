@@ -9,6 +9,8 @@ const createTopicBtn = ".btn.btn-primary.btn-submit";
 const lernStoreUrl = `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`;
 const textFieldSel = '.ck-content';
 const textBtn = ".btn-group > button:nth-child(1)";
+const topicName = "p.topic-label";
+const editTopicButton = "a[title='Edit topic']";
 //geoGebra:
 const geogebraBtn = ".btn-group > button:nth-child(2)";
 const titleInput = "input[placeholder='Titel des Abschnitts']";
@@ -24,7 +26,7 @@ const etherpadNameField = "#content-blocks > div > div:nth-child(1) .form-contro
 const etherpadDescriptionField = "div:nth-child(2) > textarea";
 
 async function setTopic(topicname) {
-	await waitHelpers.waitAndSetValue(topicNameInput, topicname);
+	await waitHelpers.waitAndSettValue(topicNameInput, topicname);
 }
 
 async function clickCreateTopicButton() {
@@ -61,9 +63,16 @@ async function addEtherpad(name, description) {
 	await waitHelpers.waitAndSetValue(etherpadDescriptionField, description);
 }
 
-async function isTopicCreated(topicName) {
-	expect(elementHelpers.getElementText('p.topic-label')).to.equal(topicName)
+async function isTopicCreated(name) {
+	expect(await elementHelpers.getElementText(topicName)).to.equal(name)
 }
+
+async function clickEditTopicButton() {
+	await elementHelpers.clickAndWait(editTopicButton);
+}
+// async function findTopic(name) {
+// 	await elementHelpers.clickAndWait(editTopicButton);
+// }
 
 module.exports = {
 	setTopic,
@@ -73,4 +82,5 @@ module.exports = {
 	addMaterial,
 	addEtherpad,
 	isTopicCreated,
+	clickEditTopicButton,
 }

@@ -16,7 +16,7 @@ When(/^.* chooses topic with name (.*)$/, function () {
 	dssd
 });
 Then(/^.* clicks on edit a topic$/, function () {
-	xzz
+	return addEditTopicPage.clickEditTopicButton()
 });
 Then(/^.* changes name of topic (.*)$/, function () {
 
