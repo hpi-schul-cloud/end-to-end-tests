@@ -1,31 +1,32 @@
 /*[url/administration]*/
+'use strict';
 const { CLIENT } = require('../../../shared-objects/servers');
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 const waitHelpers = require('../../../runtime/helpers/waitHelpers');
-const urlAdministration = `${CLIENT.URL}/administration`;
 
-const selectors = {
-    administrateStudentsBtn: 'div[data-testid=\'administrate_students\']',
-    administrateTeachersBtn: 'div[data-testid=\'administrate_teachers\']',
-    administrateClassesBtn:'div[data-testid=\'administrate_classes\']',
-    administrationsTabs: 'ul.subitems span',
-};
+const urlAdministration = `${CLIENT.URL}/administration`;
+const administrateStudentsBtn = "div[data-testid='administrate_students']";
+const administrateTeachersBtn = "div[data-testid='administrate_teachers']";
+const administrateClassesBtn = "div[data-testid='administrate_classes']";
+const administrationsSubItems = "//*[@id='sidebar']/ul/li/ul//*/span";
 
 module.exports = {
-    selectors,
-
-    goToAdministrationPage: async function() {
+    goToAdministrationPage: async function () {
         await elementHelpers.loadPage(urlAdministration, 10)
     },
-    clickAdministrateStudents: async function() {
-        await waitHelpers.waitAndClick(selectors.administrateStudentsBtn);
+    clickAdministrateStudents: async function () {
+        await waitHelpers.waitAndClick(administrateStudentsBtn);
     },
-    clickAdministrateClasses: async function() {
-        await waitHelpers.waitAndClick(selectors.administrateClassesBtn);
+    clickAdministrateClasses: async function () {
+        await waitHelpers.waitAndClick(administrateClassesBtn);
     },
-    clickAdministrateTeachers: async function() {
-        await waitHelpers.waitAndClick(selectors.administrateTeachersBtn);
+    clickAdministrateTeachers: async function () {
+        await waitHelpers.waitAndClick(administrateTeachersBtn);
     },
+    getListOfAdministrationTabs: async function () {
+        let items = await driver.$$(administrationsSubItems);
+        return items;
+    }
 }
 
 

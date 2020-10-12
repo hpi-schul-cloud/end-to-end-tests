@@ -36,7 +36,8 @@ gen
 .DS_Store
 
 # VSCode project files
-.vscode
+.vscode/*
+.idea
 
 shared-objects/emailData.json
 runtime/envConfig.json

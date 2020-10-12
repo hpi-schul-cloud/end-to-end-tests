@@ -1,8 +1,9 @@
 /*[url/homework/new] | [url/homework/[homeworkId]/edit]*/
 'use strict';
-const wh = require('../../runtime/helpers/waitHelpers.js');
+const waitHalpers = require('../../runtime/helpers/waitHelpers.js');
 const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers.js');
 const courseHomeworksPage = require("../pages/coursePages/CRSSCourseHomeworksPage");
+
 
 const uploadBtn = '//*[@id="main-content"]/div/section[1]/div/div/div[1]/input';
 const teamSubmissionsCheckbox = "#teamSubmissions";
@@ -12,11 +13,11 @@ const submitHomeworkBtn = ".btn-submit";
 
 module.exports = {
     clickPrivateHomeworkCheckbox: async function () {
-        await wh.waitAndClick(privateHomeworkCheckbox);
+        await waitHalpers.waitAndClick(privateHomeworkCheckbox);
     },
 
     clickTeamSubmissionsCheckbox: async function () {
-        await wh.waitAndClick(teamSubmissionsCheckbox);
+        await waitHalpers.waitAndClick(teamSubmissionsCheckbox);
     },
 
     setHomeworkName: async function (taskName) {
@@ -40,7 +41,7 @@ module.exports = {
     },
 
     clickSubmitHomeworkBtn: async function () {
-        await wh.waitAndClick(submitHomeworkBtn);
+        await waitHalpers.waitAndClick(submitHomeworkBtn);
     },
 
     addBasicHometask: async function (coursename, taskname) {

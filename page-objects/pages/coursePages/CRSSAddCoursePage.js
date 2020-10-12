@@ -1,8 +1,8 @@
 /*[url/courses]/add]*/
 "use strict";
 const { CLIENT } = require("../../../shared-objects/servers");
-const eh = require("../../../runtime/helpers/elementHelpers");
-const wh = require("../../../runtime/helpers/waitHelpers");
+const elementHelpers = require("../../../runtime/helpers/elementHelpers");
+const waitHelpers = require("../../../runtime/helpers/waitHelpers");
 const axios = require("axios");
 
 const urlCoursesAdd = `${CLIENT.URL}/courses/add`;
@@ -11,23 +11,29 @@ const urlCoursesAdd = `${CLIENT.URL}/courses/add`;
 
 const nextSectionBtn = "#nextSection";
 const section = {
-	one: '[data-testid="section-1-area"]',
-	two: '[data-testid="section-2-area"]',
-	three: '[data-testid="section-3-area"]',
+		one: '[data-testid="section-1-area"]',
+		two: '[data-testid="section-2-area"]',
+		three: '[data-testid="section-3-area"]',
 };
-
 const chosenDefInput = ".chosen-search-input.default";
 const chosenInput = ".search-choice span";
-
-const multipleChoiceSelectForStudents = 'select[data-testid="pupils"]';
-
-
-//Course data section
-const courseNameInput = '[data-testid="coursename"]';
+const multipleChoiceSelectForStudents ='select[data-testid="pupils"]';
+	//Course data section
+const courseNameInput ='[data-testid="coursename"]';
 const teacherContainer = '[data-testid="teachers_container"]';
-const teacherSubContainer = '[data-testid="courseSubstitute_container"]';
-
+const teacherSubContainer ='[data-testid="courseSubstitute_container"]';
 const colourPicker = ".color-picker__item";
+const timeSpan = {
+		start: '[data-testid="date_start"]',
+		end: "#untilDate",
+};
+//Participants section
+const classContainer = '[data-testid="class_container"]';
+const studentsContainer = '[data-testid="students_container"]';
+//Final section
+const createNewCourseBtn ='[data-testid="einen-weiteren-kurs-anlegen-btn"]';
+const goToCourseListBtn = '[data-testid="zur-uebersicht-btn"]';
+
 const courseColour = [
 	"grey",
 	"metallicGold",
@@ -40,38 +46,25 @@ const courseColour = [
 	"corn",
 ];
 
-const timeSpan = {
-	start: '[data-testid="date_start"]',
-	end: "#untilDate",
-};
-
-//Participants section
-const classContainer = '[data-testid="class_container"]';
-const studentsContainer = '[data-testid="students_container"]';
-
-//Final section
-const createNewCourseBtn = '[data-testid="einen-weiteren-kurs-anlegen-btn"]';
-const goToCourseListBtn = '[data-testid="zur-uebersicht-btn"]';
-
 module.exports = {
 	goToAddCourses: async function() {
-		await eh.loadPage(urlCoursesAdd, 20)
+		await elementHelpers.loadPage(urlCoursesAdd, 20)
 	},
 
 	goToNextSection: async function () {
-		await wh.waitAndClick(nextSectionBtn);
+		await waitHelpers.waitAndClick(nextSectionBtn);
 	},
 
 	getListOfSelected: async function (containerSelector) {
 		const container = await driver.$(containerSelector);
 		const listOfElements = await container.$$(chosenInput);
-		return await eh.getTextListFromListOfElements(listOfElements);
+		return await elementHelpers.getTextListFromListOfElements(listOfElements);
 	},
 
 	isDefaultValueInContainer: async function (containerSelector, defaultText) {
 		const container = await driver.$(containerSelector);
 		const listOfElements = await container.$$(chosenDefInput);
-		const valueList = await eh.getValueListFromListOfElements(listOfElements);
+		const valueList = await elementHelpers.getValueListFromListOfElements(listOfElements);
 		const isOnlyOneText = valueList.length == 1;
 		await expect(isOnlyOneText).is.equal(true);
 		await expect(valueList).includes(defaultText);
@@ -85,7 +78,7 @@ module.exports = {
 		const hasChildren = (await element.$$(".//*")).length > 0;
 
 		if (sectionNumber == 1) {
-			await expect(await eh.isElementPresent(selector)).to.equal(true);
+			await expect(await elementHelpers.isElementPresent(selector)).to.equal(true);
 			await expect(hasChildren).to.equal(false);
 		} else {
 			await expect(hasChildren).to.equal(true);
@@ -99,7 +92,7 @@ module.exports = {
 		const hasChildren = (await element.$$(".//*").length) > 0;
 
 		if (sectionNumber == 1) {
-			await expect(await eh.isElementPresent(sectionToCheck)).to.equal(
+			await expect(await elementHelpers.isElementPresent(sectionToCheck)).to.equal(
 				false
 			);
 		} else {
@@ -155,7 +148,7 @@ module.exports = {
 		await this.goToAddCourses();
 		await this.setCourseName(courseName);
 		await this.goToNextSection();
-		await eh.selectOptionByText(multipleChoiceSelectForStudents ,studentName);
+		await elementHelpers.selectOptionByText(multipleChoiceSelectForStudents ,studentName);
 		await this.goToNextSection();
 		await this.clickGoToCourseListBtn();
 	},
@@ -229,20 +222,20 @@ module.exports = {
 	},
 
 	clickCreateCourseAndContinueBtn: async function () {
-		await wh.waitAndClick(nextSectionBtn);
+		await waitHelpers.waitAndClick(nextSectionBtn);
 	},
 
 	//Final section
 	clickGoToCourseListBtn: async function () {
-		await wh.waitAndClick(goToCourseListBtn);
+		await waitHelpers.waitAndClick(goToCourseListBtn);
 	},
 
 	finalButtonsAreVisible: async function () {
 		await expect(
-			await eh.isElementPresent(createNewCourseBtn)
+			await elementHelpers.isElementPresent(createNewCourseBtn)
 		).to.equal(true);
 		await expect(
-			await eh.isElementPresent(goToCourseListBtn)
+			await elementHelpers.isElementPresent(goToCourseListBtn)
 		).to.equal(true);
 	},
 };

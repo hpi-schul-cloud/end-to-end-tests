@@ -4,10 +4,8 @@ const leftNavigation = require('../page-objects/pages/NavigationLeftPage.js');
 const leftMenuItems = leftNavigation.navItemsEnum;
 
 Then('click left navigation item {string}', function (string) {
-
     let navigationItem = string;
     switch (navigationItem) {
-
         case leftMenuItems.LOGO:
             return leftNavigation.clickNavItemLogo();
         case leftMenuItems.DASHBOARD:
@@ -70,5 +68,5 @@ Then('click left navigation item {string}', function (string) {
             return Error("no such element found in 'click left navigation item {string}' " + navigationItem);
 
     }
-
 });
+

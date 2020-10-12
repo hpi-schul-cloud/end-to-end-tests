@@ -1,6 +1,6 @@
 {
 	"name": "sc-integration-tests",
-	"version": "25.0.1",
+	"version": "25.1.0",
 	"description": "A platform independent debuggable BDD Javascript testing framework. It's simple, easy to use and not dependant to any other tool or library, using Nodejs, webdriverio and cucumber-js",
 	"Author": {
 		"name": "Larry Goddard",
@@ -67,6 +67,6 @@
 		"glob": "^7.1.2",
 		"reuse-cucumber-scenarios": "^1.1.7",
 		"util-arity": "^1.1.0",
-		"webdriverio": "^5.7.5"
+		"webdriverio": "^5.22.5"
 	}
 }
