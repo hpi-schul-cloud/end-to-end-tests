@@ -180,9 +180,10 @@ async function getCourseWithNameInSection(courseName, section) {
 
 async function getWrapperOfCourseInSection(courseName, section) {
 	var index = await getIndexOfGivenCourseInSection(courseName, section);
-	if (index == -1) throw "Can't find course: " + courseName + ' in section: ' + section;
-
 	const list = await getListOfCoursesInSection(section);
+	const errorMsg = "Can't find course: " + courseName + ' in section: ' + section + "\n"; 
+	const resultMsg = "Actual list of courses: [" + list + "]"
+	if (index == -1) throw errorMsg + resultMsg;
 	const element = list[index];
 	return element;
 }
@@ -209,7 +210,9 @@ async function getCountOfCoursesWhichTitlesContainTextForSection(text, section) 
 
 async function clickOnCourseInSection(courseName, section) {
 	const courseIndex = await getIndexOfGivenCourseInSection(courseName, section);
-	if (courseIndex == -1) throw "Can't find course: " + courseName + ' in section: ' + section;
+	if (courseIndex == -1) {
+		throw "Can't find course: " + courseName + ' in section: ' + section;
+	}
 	const courseList = await getListOfCoursesInSection(section);
 	const element = courseList[courseIndex];
 	await elementHelpers.clickAndWait(element);
