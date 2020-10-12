@@ -7,7 +7,7 @@ const elementHelpers=require('../../runtime/helpers/elementHelpers');
 
 
 const createTaskButton = "a[href='/homework/new']"
-const editTaskButton = "a[href='/homework/59d1f63ce0a06325e8b5288b/edit']"
+const editTaskButton = ".btn-edit"
 const sortBtn = "#filter > div > div.md-chip.md-theme-default.md-deletable.md-clickable > div"
 const select = "#selection-picker > div > div"
 const lastedited =

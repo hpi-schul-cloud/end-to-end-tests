@@ -7,7 +7,7 @@ Feature: Editing a task as a teacher and save or discard
 
     Scenario Outline: The user logs in as a teacher and edits an existing task
     When teacher arrives on the Schul-Cloud homepage
-    Given logs in with email <teacherUsername> and password <teacherPassword>
+    Given teacher logs in with email <teacherUsername> and password <teacherPassword>
 	Given teacher accepts data protection
 	Then he should click the task-button in the dashboard-sidebar
     Then he should click the edit-task-button

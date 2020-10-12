@@ -4,7 +4,6 @@ const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers.js');
 const courseHomeworksPage = require("../pages/coursePages/CRSSCourseHomeworksPage");
 const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
 const waitHelpers = require('../../runtime/helpers/waitHelpers');
-
 const { getElement } = require('../../runtime/helpers/sharedHelpers.js');
 
 const uploadBtn = '//*[@id="main-content"]/div/section[1]/div/div/div[1]/input';
@@ -13,11 +12,10 @@ const privateHomeworkCheckbox = "[data-testid='private-checkbox']";
 const publicSubmissionsCheckbox = "#publicSubmissionsCheckbox";
 const homeworkTitleInput = "input[placeholder='Titel']";
 const submitHomeworkBtn = ".btn-submit";
-const courseDropdown = '#coursePicker_chosen';
 const courseSelect = '#coursePicker';
 const courseOption = '.active-result:nth-child(1)';
-const activatePublicSubmissionsDialog = '.modal.fade.dontShowAgainAlert-modal.in'
-const activatePublicSubmissionsButton = 'button[type="submit"]';
+//const activatePublicSubmissionsDialog = '.modal.fade.dontShowAgainAlert-modal.in'
+//const activatePublicSubmissionsButton = 'button[type="submit"]';
 
 module.exports = {
     clickEditButton: async function(){
@@ -29,16 +27,8 @@ module.exports = {
     },
 
     clickPublicSubmissionsCheckbox: async function (){
-        if(publicSubmissionsCheckbox.checked == true){
-            await elementHelpers.click(publicSubmissionsCheckbox)
-        } else {
-            await elementHelpers.click(publicSubmissionsCheckbox)
+        await elementHelpers.click(publicSubmissionsCheckbox)
 
-            let dialogContainerElement = await driver.$(activatePublicSubmissionsDialog);
-            let submitBtnElement = await dialogContainerElement.$(activatePublicSubmissionsButton);
-
-            await submitBtnElement.click();
-        }
     },
 
     clickTeamSubmissionsCheckbox: async function () {
@@ -46,9 +36,11 @@ module.exports = {
     },
 
     selectCourse: async function(){
-       await elementHelpers.click(courseDropdown);
-      // await elementHelpers.selectOptionByText(courseSelect, course);
-      await elementHelpers.click(courseOption);
+    
+       let dropdown = await driver.$(courseSelect);
+       
+       await dropdown.selectByIndex(0);
+      
     },
 
     setHomeworkName: async function (taskName) {
