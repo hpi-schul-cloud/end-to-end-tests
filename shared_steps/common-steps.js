@@ -1,5 +1,5 @@
 'use strict';
-const { CLIENT } = require('../shared-objects/servers');
+const {CLIENT} = require('../shared-objects/servers');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const createCourse = require('../page-objects/pages/coursePages/CRSSAddCoursePage')
@@ -9,8 +9,8 @@ const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 
 const schulCloudURL = `${CLIENT.URL}`;
 /*Login, Logout*/
-const performLogin = async function(username, password) {
-    await startPage.clickLoginBtn();
+const performLogin = async function (username, password) {
+	await startPage.clickLoginBtn();
 	await loginPage.performLogin(username, password);
 };
 

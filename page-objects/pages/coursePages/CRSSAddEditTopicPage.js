@@ -1,6 +1,6 @@
 /*[url/courses]/[courseId]/topics/add] | [url/courses]/[courseId]/topics/edit]*/
 'use strict';
-const { CLIENT } = require("../../../shared-objects/servers");
+const {CLIENT} = require("../../../shared-objects/servers");
 const elementHelpers = require("../../../runtime/helpers/elementHelpers");
 const waitHelpers = require("../../../runtime/helpers/waitHelpers");
 
@@ -9,6 +9,7 @@ const createTopicBtn = ".btn.btn-primary.btn-submit";
 const lernStoreUrl = `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`;
 const textFieldSel = '.ck-content';
 const textBtn = ".btn-group > button:nth-child(1)";
+const topicName = "p.topic-label";
 //geoGebra:
 const geogebraBtn = ".btn-group > button:nth-child(2)";
 const titleInput = "input[placeholder='Titel des Abschnitts']";
@@ -23,26 +24,26 @@ const etherpadBtn = ".btn-group > button:nth-child(4)";
 const etherpadNameField = "#content-blocks > div > div:nth-child(1) .form-control";
 const etherpadDescriptionField = "div:nth-child(2) > textarea";
 
-async function setTopic (topicname) {
+async function setTopic(topicname) {
 	await waitHelpers.waitAndSetValue(topicNameInput, topicname);
 }
 
-async function clickCreateTopicButton () {
+async function clickCreateTopicButton() {
 	await elementHelpers.clickAndWait(createTopicBtn);
 }
 
-async function addText (text) {
+async function addText(text) {
 	await elementHelpers.clickAndWait(textBtn);
 	await waitHelpers.waitAndSetValue(textFieldSel, text);
 }
 
-async function addGeoGebra (geoGebraTitle, geogebraID) {
+async function addGeoGebra(geoGebraTitle, geogebraID) {
 	await elementHelpers.clickAndWait(geogebraBtn);
 	await waitHelpers.waitAndSetValue(titleInput, geoGebraTitle);
 	await waitHelpers.waitAndSetValue(geoGebraIdInput, geogebraID);
 }
 
-async function addMaterial () {
+async function addMaterial() {
 	await elementHelpers.clickAndWait(materialBtn);
 	await elementHelpers.click(addMaterialBtn);
 	// window switch
@@ -55,10 +56,14 @@ async function addMaterial () {
 	await btnContainer.clickAndWait();
 }
 
-async function addEtherpad (name, description) {
+async function addEtherpad(name, description) {
 	await elementHelpers.clickAndWait(etherpadBtn);
 	await waitHelpers.waitAndSetValue(etherpadNameField, name);
 	await waitHelpers.waitAndSetValue(etherpadDescriptionField, description);
+}
+
+async function isTopicCreated(name) {
+	expect(await elementHelpers.getElementText(topicName)).to.equal(name)
 }
 
 module.exports = {
@@ -68,4 +73,5 @@ module.exports = {
 	addGeoGebra,
 	addMaterial,
 	addEtherpad,
+	isTopicCreated,
 }
