@@ -15,7 +15,7 @@ const performLogin = async function(username, password) {
 };
 
 Given(/^.* arrives on the Schul-Cloud homepage$/, function () {
-	return elementHelpers.loadPage(schulCloudURL, 10);
+	return elementHelpers.loadPage(schulCloudURL);
 });
 
 Given(/^.* logs in with email (.*) and password (.*)$/, async function (username, password) {
