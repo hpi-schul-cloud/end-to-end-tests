@@ -27,7 +27,12 @@ module.exports = {
     },
 
     clickPublicSubmissionsCheckbox: async function (){
-        if(publicSubmissionsCheckbox.checked){
+
+
+        const checkbox= await driver.$("[name='publicSubmissions']");
+        const checkboxChecked = await checkbox.isSelected();
+
+        if(checkboxChecked){
             await elementHelpers.click(publicSubmissionsCheckbox)
         } else {
             await elementHelpers.click(publicSubmissionsCheckbox)
