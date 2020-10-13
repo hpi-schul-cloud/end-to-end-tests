@@ -27,9 +27,10 @@ Feature: create different types of task
     @createPrivateTask
     Scenario Outline: create a private hometask has to be visible only for the teacher
         When teacher goes to courses page
-        And teacher clicks edit-the-course-button in the course "new course with a task"
-        And teacher adds a student with name <studentname> to the course 
+        #And teacher clicks edit-the-course-button in the course "new course with a task"
+        #And teacher adds a student with name <studentname> to the course 
         When teacher creates a private hometask in the course "new course with a task" with the name <taskname>
+        Then the task <taskname> should be visible for the teacher
         And teacher logs out 
         And student logs in with email <username> and password <password>
         And student with full age accepts student's data protection with password <newStudentPassword>

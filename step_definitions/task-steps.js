@@ -42,8 +42,8 @@ Then(/^the hometask with (.*) is to be found at the task pannel$/, function (tas
 
 /* createPrivateTask */
 
-When(/^.* clicks edit-the-course-button in the course (.*)$/, async function (coursename) {
-    await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
+When('teacher clicks edit-the-course-button in the course {string}', async function (string) {
+    await courseListPage.clickOnCourseInSection(string, courseListPage.section.activeCourses);
     await  generalCoursePage.clickEditCourse();
 });
 
@@ -51,12 +51,13 @@ Given(/^.* adds a student with name (.*) to the course$/, function (studentname)
     return addCoursePage.selectStudent(studentname);
 });
 
-When(/^teacher creates a private hometask in the course (.*) with (.*)$/, async function (coursename, taskname) {
-    await addEditHomeworkPage.addPrivateHometask(coursename, taskname);
+When('teacher creates a private hometask in the course {string} with (.*)', async function (string, string2) {
+    await addEditHomeworkPage.addPrivateHometask(string, string2);
+});
+Then(/^the task (.*) should be visible for .*$/,async  function (taskname) {
     await taskListPage.goToPrivateHomeworkArea();
     const msg = 'Task with name: "' + taskname + '" should be visible on the list.' + '\n' + 'Actual list of tasks: ';
     expect(await taskListPage.isTaskVisible(taskname), msg + await taskListPage.getAllTasks() + "'").to.equal(true);
-    await navigationTopPage.performLogout();
 });
 
 Then(/^the student will not see this task with (.*)$/, async function (taskname) {
