@@ -26,16 +26,4 @@ Then(/^he cannot see the news which is not due yet$/, async function () {
 	let newsNames = await newsListPage.getListOfNewNames();
 	await expect(newsNames).not.to.include(laterNewsName);
 });
-// TEAM
-
-When(/^teacher creates two teams team and news for these teams$/, function () {
-	return TMSAddEditTeamPage.createTwoTeams();
-});
-
-Then(/^team member can see the news$/, function () {
-	return TMSAddEditTeamPage.studentLogInAndCheckIfSeeNews();
-});
-Then(/^team non-members cannot see the news$/, function () {
-	return TMSAddEditTeamPage.isNewsNotVisible();
-});
 

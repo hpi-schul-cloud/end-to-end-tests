@@ -10,9 +10,9 @@ Scenario Outline: create a team with two new members
 
 Given teacher logs in with email <teacherUsername> and password <teacherPassword>
 And teacher accepts data protection
-When teacher creates a new team with <teamname> and
-And teacher adds a student to team with lastname <lastname1> and firstname <firstname1>
-And teacher adds a student to team with lastname <lastname2> and firstname <firstname2>
+When teacher creates a new team with name <teamname>
+And teacher adds a student to team with lastname: <lastname1> and firstname: <firstname1>
+And teacher adds a student to team with lastname: <lastname2> and firstname: <firstname2>
 And teacher clicks submit add team member button
 Then this team should be displayed on the team page
 
