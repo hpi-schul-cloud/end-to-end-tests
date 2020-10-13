@@ -1,7 +1,6 @@
 /*[url/courses]/add]*/
 "use strict";
 const elementHelpers = require("../../../runtime/helpers/elementHelpers");
-const axios = require("axios");
 const courseListPage = require('./CRSSCourseListPage');
 const navigationLeftPage= require('../NavigationLeftPage');
 const waitHelpers = require("../../../runtime/helpers/waitHelpers");
@@ -18,21 +17,17 @@ const section = {
 const multipleChoiceSelectForStudents ='select[data-testid="pupils"]';
 //Course data section
 const courseDefaultInputValue = "z.B. Mathe 10a";
-const courseNameInput ='[data-testid="coursename"]';
-const teacherContainer = 'select[data-testid="teachersearch"]';
-const teacherList = '[data-testid="teacher"]'
-const teacherSubContainer ='[data-testid="courseSubstitute_container"]';
-const subTeachersList = '[data-testid="substituent"] option'
+const courseNameInput ='#nameOfTheCourse';
+const teacherSelect = '#courseTeacher';
+const teacherSubSelect ='#courseSubstitute';
 const colourPicker = ".color-picker__item";
 const timeSpan = {
 		start: '[data-testid="date_start"]',
 		end: "#untilDate",
 };
 //Participants section
-const classContainer = '[data-testid="class_container"]';
-const classList = '[data-testid="classes"] option'
-const studentsContainer = '[data-testid="students_container"]';
-const studentsList = '[data-testid="pupils"] option'
+const classSelect = '#addClassesToCourse';
+const studentSelect = '#addStudentsToCourse';
 //Final section
 const createNewCourseBtn ='[data-testid="einen-weiteren-kurs-anlegen-btn"]';
 const goToCourseListBtn = '[data-testid="zur-uebersicht-btn"]';
@@ -58,22 +53,6 @@ async function goToAddCourses() {
 async function goToNextSection () {
 	await elementHelpers.clickAndWait(nextSectionBtn);
 }
-
-async function getListOfSelected (containerSelector, list) {
-	const container = await waitHelpers.waitUntilElementIsPresent(containerSelector);
-		const listOfElements = await container.$$(list);
-		return await elementHelpers.getTextListFromListOfElements(listOfElements);
-	}
-
-async function noElementIsSelected (containerSelector, list) {
-	const container = await waitHelpers.waitUntilElementIsPresent(containerSelector);
-		const listOfElements = await container.$$(list);
-		listOfElements.forEach( (el) => {
-			const selectedOption = el.getAttribute('selected');
-			expect(selectedOption).is.not.true;
-		});
-	}
-
 
 
 async function isDefaultInputValue (containerSelector, defaultText) {
@@ -130,6 +109,7 @@ function getSectionSelector(sectionNumber) {
 async function createCourse(courseName) {
 	await goToAddCourses();
 	await setCourseName(courseName);
+	await setCurrentUserAsTeacher();
 	await goToNextSection();
 	await goToNextSection();
 	await clickGoToCourseListBtn();
@@ -138,11 +118,14 @@ async function createCourse(courseName) {
 async function createCourseWithStudents(courseName, studentName) {
 	await goToAddCourses();
 	await setCourseName(courseName);
+	await setCurrentUserAsTeacher();
 	await goToNextSection();
-	await selectStudent(studentName);
+	await setStudent(studentName);
 	await goToNextSection();
 	await clickGoToCourseListBtn();
 }
+
+
 
 //Course data section
 async function isCourseNameNotEntered () {
@@ -151,6 +134,15 @@ async function isCourseNameNotEntered () {
 
 async function setCourseName (courseName) {
 	await waitHelpers.waitAndSetValue(courseNameInput, courseName);
+}
+
+async function setTeacher (teacherFullname) {
+	await elementHelpers.selectOptionByText(teacherSelect, teacherFullname);
+}
+
+async function setCurrentUserAsTeacher () {
+	const userFullname = await APIhelpers.getUserName();
+	await setTeacher(userFullname);
 }
 
 async function getColourElement(colourName) {
@@ -170,19 +162,15 @@ async function setColour (colourName) {
 	await elementHelpers.click(element);
 }
 
-async function isTeachersNameSetByDefault () {
+async function isTeachersNameSetByDefault() {
 		const username = await APIhelpers.getUserName();
-		const listOfTeachersNames = await getListOfSelected(
-			teacherContainer, teacherList
-		);
-		await expect(listOfTeachersNames.toString()).to.include(username);
+		const isSelected = await elementHelpers.isOptionSelected(teacherSelect, username);
+		await expect(isSelected).to.be.true;
 	}
 
 async function isTeacherSubstituteNotSet () {
-		await noElementIsSelected(
-			teacherSubContainer,
-			subTeachersList
-		);
+		const list = await elementHelpers.getListOfSelectedOption(teacherSubSelect);
+		expect(list.length).to.equal(0);
 	}
 
 // could be extended with verifying the date is correct
@@ -198,21 +186,17 @@ async function isTimeSpanSet () {
 
 //Participants section
 async function isClassNotSet () {
-		await this.noElementIsSelected(
-			classContainer,
-			classList
-		);
+	const list = await elementHelpers.getListOfSelectedOption(classSelect);
+	expect(list.length).to.equal(0);
 	}
 
 async function isStudentNotSet () {
-		await this.noElementIsSelected(
-			studentsContainer,
-			studentsList
-		);
+	const list = await elementHelpers.getListOfSelectedOption(studentSelect);
+	expect(list.length).to.equal(0);
 	}
 
-async function selectStudent(studentName) {
-	await elementHelpers.selectOptionByText(multipleChoiceSelectForStudents, studentName);
+async function setStudent(studentName) {
+	await elementHelpers.selectOptionByText(studentSelect, studentName);
 }
 
 async function clickCreateCourseAndContinueBtn () {
@@ -232,8 +216,6 @@ async function areFinalButtonsVisible () {
 module.exports = {
 	goToAddCourses,
 	goToNextSection,
-	getListOfSelected,
-	noElementIsSelected,
 	clickCreateCourseAndContinueBtn,
 	clickGoToCourseListBtn,
 	isSectionDisplayed,
@@ -246,6 +228,8 @@ module.exports = {
 	isStudentNotSet,
 	areFinalButtonsVisible,
 	setCourseName,
+	setTeacher,
+	setCurrentUserAsTeacher,
 	setColour,
 	createCourse,
 	createCourseWithStudents,
