@@ -15,6 +15,7 @@ const teamNewsPage = require('../../../page-objects/pages/teamsPages/TMSTeamNews
 let index = [];
 const ADMNSTRTNAdministerStudentsPage = require('../../../page-objects/pages/administrationPages/ADMNSTRTNAdministerStudentsPage');
 const newsListPage = require('../../../page-objects/pages/NWSNewsListPage');
+const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 
 // User Data:
 let firstnameONE = "Team A";
@@ -33,6 +34,7 @@ let oldPassword2;
 // input fields
 const teamName = 'input[data-testid="team_name"]';
 const teamDescription = 'textarea[data-testid="description_team"]';
+const orangeColor = "span[data-color='rgb(255, 173, 66)']";
 
 // submit button
 const createTeamBtn = 'button[data-testid="create_team_btn"]';
@@ -76,6 +78,7 @@ module.exports = {
     createTeamSteps: async function (name) {
         await TMSTeamListPage.goToAddTeam();
         await this.setTeamName(name);
+        await this.selectColor();
         await this.clickOnCreateTeamButton();
     },
     // Set certain name in teamname field
@@ -122,6 +125,11 @@ module.exports = {
         let newsBtn = await driver.$(teamNewsPage.createNwsBtn);
         await newsBtn.click();
         await this.createNews();
+    },
+    selectColor: async function (){
+        let colorSelect = await driver.$('.sp-dd');
+        await elementHelpers.click(colorSelect);
+        await elementHelpers.click(orangeColor)
     },
     submitConsent: async function (e_mail) {
         let names = await driver.$$(ADMNSTRTNAdministerStudentsPage.selectorNamesContainer + ' > tr');
