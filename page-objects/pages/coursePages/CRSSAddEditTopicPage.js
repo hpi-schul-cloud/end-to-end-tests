@@ -26,7 +26,7 @@ const etherpadNameField = "#content-blocks > div > div:nth-child(1) .form-contro
 const etherpadDescriptionField = "div:nth-child(2) > textarea";
 
 async function setTopic(topicname) {
-	await waitHelpers.waitAndSettValue(topicNameInput, topicname);
+	await waitHelpers.waitAndSetValue(topicNameInput, topicname);
 }
 
 async function clickCreateTopicButton() {
@@ -70,8 +70,20 @@ async function isTopicCreated(name) {
 async function clickEditTopicButton() {
 	await elementHelpers.clickAndWait(editTopicButton);
 }
-async function findTopicWithName(name) {
-	await elementHelpers.clickAndWait(editTopicButton);
+
+async function findAndClickOnTopicWithName(name) {
+	await waitHelpers.waitUntilPageLoads();
+	const selector = '.card-header .topic-label';
+	try {
+		await waitHelpers.waitUntilElementIsVisible(selector);
+	} catch (err) {
+		return [];
+	}
+
+}
+
+async function getIndexOfTopic(topicName) {
+
 }
 
 module.exports = {
@@ -83,4 +95,5 @@ module.exports = {
 	addEtherpad,
 	isTopicCreated,
 	clickEditTopicButton,
+	findAndClickOnTopicWithName,
 }

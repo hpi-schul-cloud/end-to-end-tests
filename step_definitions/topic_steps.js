@@ -12,8 +12,8 @@ When(/^.*adds a new Topic with name (.*)$/, async function (topicname) {
 Then(/^.* should see that created topic with name (.*) is shown$/, function (topicName) {
 	return addEditTopicPage.isTopicCreated(topicName)
 });
-When(/^.* chooses topic with name (.*)$/, function () {
-	dssd
+When(/^.* chooses topic with name (.*)$/, function (name) {
+	return addEditTopicPage.findAndClickOnTopicWithName(name)
 });
 Then(/^.* clicks on edit a topic$/, function () {
 	return addEditTopicPage.clickEditTopicButton()
