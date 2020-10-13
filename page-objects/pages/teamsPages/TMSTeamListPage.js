@@ -1,32 +1,44 @@
 /*[url/teams]*/
 'use strict';
 
-
-const waitHelpers= require('../../../runtime/helpers/waitHelpers');
 const elementHelpers= require('../../../runtime/helpers/elementHelpers');
+const waitHelpers = require('../../../runtime/helpers/waitHelpers');
 const navigationLeftPage = require('../NavigationLeftPage');
-const namesContainer = '.row.tasks.card-deck-row';
+const teamNameContainer = '.tasks .title';
 const addTeamBtn = "[data-testid='add-team-btn']";
 
+async function goToTeams() {
+	return navigationLeftPage.clickNavItemTeams();
+}
+
+async function goToAddTeam() {
+	await goToTeams();
+	await elementHelpers.clickAndWait(addTeamBtn);
+}
+
+async function getListOfTeamNames() {
+	await waitHelpers.waitUntilAjaxIsFinished();
+	await goToTeams();
+	const selector = teamNameContainer;
+	try {
+		await waitHelpers.waitUntilElementIsVisible(selector);
+	} catch (err) {
+		return [];
+	}
+	const listOfTitleElements = await driver.$$(selector);
+	const titleList = await elementHelpers.getTextListFromListOfElements(listOfTitleElements);
+	return titleList;
+}
+
+async function isTeamOnList(teamName) {
+	const listOfTeamNames = await getListOfTeamNames();
+	const msg = "Team with name: '" + teamName + "' is not visible on the list \n";
+	const resultMsg = 'Expected: ' + teamName + ', Actual: ' + listOfTeamNames;
+	expect(listOfTeamNames, msg + resultMsg).to.include(teamName);
+}
 
 module.exports = {
-	goToTeams: async function () {
-		return navigationLeftPage.clickNavItemTeams();
-	},
-	goToAddTeam: async function () {
-		//@Todo Conversion to Team list -> click on Button "Team anlegen"
-		await this.goToTeams();
-		await elementHelpers.clickAndWait(addTeamBtn);
-
-
-	},
-	// assertion helper in steps:
-	getTeamNames: async function () {
-		await this.goToTeams();
-		let container = await driver.$(namesContainer);
-		let elements = await container.$$('div');
-		const namePromises = elements.map(async element => await element.getText());
-		const teamNames = await Promise.all(namePromises);
-		return teamNames;
-	},
+	goToTeams,
+	goToAddTeam,
+	isTeamOnList,
 }

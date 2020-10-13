@@ -33,10 +33,3 @@ Feature: Different options for news. I would like to test whether users with dif
         Examples:
             | teacherEmail                | teacherPassword | studentUsername                | studentPassword | newStudentPassword  |
             | klara.fall@schul-cloud.org  | Schulcloud1!    | paula.meyer@schul-cloud.org    | Schulcloud1!    | Schulcloud1!!       |
-
-
-# @teamnews
-# Scenario: teacher creates team news and this news can only be visible for team members
-# When teacher creates two teams team and news for these teams
-# Then team member can see the news
-# Then team non-members cannot see the news
