@@ -70,9 +70,9 @@ async function isTopicCreated(name) {
 async function clickEditTopicButton() {
 	await elementHelpers.clickAndWait(editTopicButton);
 }
-// async function findTopic(name) {
-// 	await elementHelpers.clickAndWait(editTopicButton);
-// }
+async function findTopicWithName(name) {
+	await elementHelpers.clickAndWait(editTopicButton);
+}
 
 module.exports = {
 	setTopic,
