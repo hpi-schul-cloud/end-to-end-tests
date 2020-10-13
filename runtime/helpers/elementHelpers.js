@@ -1,6 +1,5 @@
 'use strict';
 
-const { expect } = require('chai');
 const waitHelpers = require('./waitHelpers');
 
 const LOAD_PAGE_TIMEOUT = 10000;
