@@ -1,5 +1,3 @@
-var {When} = require('cucumber');
-var {Then} = require('cucumber');
 const addEditTopicPage = require("../page-objects/pages/coursePages/CRSSAddEditTopicPage");
 const courseTopicsPage = require("../page-objects/pages/coursePages/CRSSCourseTopicsPage");
 
