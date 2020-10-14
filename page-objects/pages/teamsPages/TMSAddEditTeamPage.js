@@ -1,13 +1,10 @@
 /*[url/teams/[teamId]/edit]*/
 'use strict';
 
-const loginPage = require('../generalPagesBeforeLogin/LoginPage');
-const navigationTopPage = require('../NavigationTopPage');
-const navigationLeftPage = require('../NavigationLeftPage');
-
 const TMSTeamListPage = require('../../../page-objects/pages/teamsPages/TMSTeamListPage.js');
 const TMSGeneralTeamPage = require('../../../page-objects/pages/teamsPages/TMSGeneralTeamPage.js');
 const TMSTeamMembersPage = require('../../../page-objects/pages/teamsPages/TMSTeamMembersPage.js');
+<<<<<<< HEAD
 let newsName1 = "News for Team A";
 let newsName2 = "News for Team B";
 let length;
@@ -30,16 +27,26 @@ let team_name_one = "A-team";
 let team_name_two = "B-team";
 let oldPassword;
 let oldPassword2;
+=======
+const waitHelpers = require('../../../runtime/helpers/waitHelpers.js');
+const elementHelpers = require('../../../runtime/helpers/elementHelpers.js');
+>>>>>>> develop
 
-// input fields
 const teamName = 'input[data-testid="team_name"]';
+<<<<<<< HEAD
 const teamDescription = 'textarea[data-testid="description_team"]';
 const orangeColor = "span[data-color='rgb(255, 173, 66)']";
 
 // submit button
+=======
+>>>>>>> develop
 const createTeamBtn = 'button[data-testid="create_team_btn"]';
 
+async function setTeamName(name) {
+	await waitHelpers.waitAndSetValue(teamName, name);
+}
 
+<<<<<<< HEAD
 module.exports = {
     gotoTeams: async function () {
         return navigationLeftPage.clickNavItemTeams();
@@ -164,4 +171,26 @@ module.exports = {
         await newsListPage.goToNews();
         await newsListPage.isNewsNotVisible(newsName1)
     },
+=======
+async function clickCreateTeamSubmitButton() {
+	await elementHelpers.clickAndWait(createTeamBtn);
+>>>>>>> develop
 }
+
+async function createTeamWithName(teamname) {
+	await TMSTeamListPage.goToAddTeam();
+	await setTeamName(teamname);
+	await clickCreateTeamSubmitButton();
+}
+
+async function createTeamAndGoToInternalMembersAdministration(teamname) {
+	await createTeamWithName(teamname);
+	await TMSGeneralTeamPage.clickSettings();
+	await TMSGeneralTeamPage.clickAdministrateTeamMembers();
+	await TMSTeamMembersPage.clickAddInternalAttendeesBtn();
+}
+
+module.exports = {
+	createTeamWithName,
+	createTeamAndGoToInternalMembersAdministration,
+};
