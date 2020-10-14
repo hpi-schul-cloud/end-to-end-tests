@@ -5,7 +5,7 @@ const elementHelpers = require("../../../runtime/helpers/elementHelpers");
 const waitHelpers = require("../../../runtime/helpers/waitHelpers");
 
 const topicNameInput = ".form-group > .form-control";
-const createTopicBtn = ".btn.btn-primary.btn-submit";
+const saveTopicBtn = ".btn.btn-primary.btn-submit";
 const lernStoreUrl = `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`;
 const textFieldSel = '.ck-content';
 const textBtn = ".btn-group > button:nth-child(1)";
@@ -29,8 +29,8 @@ async function setTopic(topicname) {
 	await waitHelpers.waitAndSetValue(topicNameInput, topicname);
 }
 
-async function clickCreateTopicButton() {
-	await elementHelpers.clickAndWait(createTopicBtn);
+async function clickSaveTopicButton() {
+	await elementHelpers.clickAndWait(saveTopicBtn);
 }
 
 async function addText(text) {
@@ -71,15 +71,32 @@ async function clickEditTopicButton() {
 	await elementHelpers.clickAndWait(editTopicButton);
 }
 
-async function findAndClickOnTopicWithName(name) {
+async function clickOnTopicWithName(name) {
+	const courseIndex = await getIndexOfGivenTopic(name);
+	if (courseIndex == -1) throw "Can't find course: " + name;
+	const courseList = await getListOfTopic(name);
+	let elem = courseList[courseIndex]
+	// const element = courseList[courseIndex];
+	await elementHelpers.clickAndWait(elem);
+}
+
+async function getIndexOfGivenTopic(courseName, section) {
+	const listOfCourseTitlesForSection = await getListOfTopic(section);
+	var index = listOfCourseTitlesForSection.indexOf(courseName);
+	return index;
+}
+
+async function getListOfTopic(section) {
 	await waitHelpers.waitUntilPageLoads();
-	const selector = '.card-header .topic-label';
+	const selector = "#topic-list .card-header .topic-label";
 	try {
 		await waitHelpers.waitUntilElementIsVisible(selector);
 	} catch (err) {
 		return [];
 	}
-
+	const listOfCourseTitleElements = await driver.$$(selector);
+	let courseTitleList = await elementHelpers.getTextListFromListOfElements(listOfCourseTitleElements);
+	return courseTitleList;
 }
 
 async function getIndexOfTopic(topicName) {
@@ -88,12 +105,12 @@ async function getIndexOfTopic(topicName) {
 
 module.exports = {
 	setTopic,
-	clickCreateTopicButton,
+	clickSaveTopicButton,
 	addText,
 	addGeoGebra,
 	addMaterial,
 	addEtherpad,
 	isTopicCreated,
 	clickEditTopicButton,
-	findAndClickOnTopicWithName,
+	clickOnTopicWithName,
 }

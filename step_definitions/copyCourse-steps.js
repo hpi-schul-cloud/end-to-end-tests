@@ -38,7 +38,7 @@ When(/^.*adds a Topic with name (.*)$/, async function(topicname) {
 });
 When(/^.* adds some Text (.*) to the course$/, async function(text) {
 	await addEditTopicPage.addText(text);
-	await addEditTopicPage.clickCreateTopicButton();
+	await addEditTopicPage.clickSaveTopicButton();
 });
 
 When(/^.* clicks copy course (.*) with Text$/, async function(coursename) {
@@ -58,7 +58,7 @@ When(/^.* sees the course (.*) was copied and the topic (.*) is still availiable
 When(/^.* adds some GeoGebraArbeitsblatt with id (.*) to the course$/, async function(geogebraID) {
 	//return copyCourse.addGeoGebra(geogebraID);
 	await addEditTopicPage.addGeoGebra("GeoGebra", geogebraID);
-	await addEditTopicPage.clickCreateTopicButton();
+	await addEditTopicPage.clickSaveTopicButton();
 
 });
 When(/^.* clicks copy course (.*) with GeoGebraArbeitsblatt$/, async function(coursename) {
@@ -105,7 +105,7 @@ Then(/^.* sees the course (.*) copy and the material (.*) is still availiable$/,
 When(/^.* adds some Etherpad with (.*) and (.*) to the course$/, async function(etherpadName, etherpadDescription) {
 	//return copyCourse.addEtherpad(etherpadName, etherpadDescription);
 	await addEditTopicPage.addEtherpad(etherpadName, etherpadDescription);
-	await addEditTopicPage.clickCreateTopicButton();
+	await addEditTopicPage.clickSaveTopicButton();
 });
 When(/^.* clicks copy course (.*) with Etherpad$/, async function(coursename) {
 	await courseListPage.goToCourses();
