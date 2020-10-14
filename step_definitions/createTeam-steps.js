@@ -4,6 +4,7 @@ const TMSAddEditTeamPage = require('../page-objects/pages/teamsPages/TMSAddEditT
 const TMSTeamListPage = require('../page-objects/pages/teamsPages/TMSTeamListPage.js');
 const TMSTeamMembersPage = require('../page-objects/pages/teamsPages/TMSTeamMembersPage.js');
 let teamName;
+const members = ['Cord Carl', 'Marla Mathe', 'Waldemar Wunderlich'];
 
 When(/^.*creates a new team with name (.*) and color orange$/, function (teamname) {
 	teamName = teamname;
@@ -22,18 +23,20 @@ Then(/^.*team should be displayed on the team page$/, async function () {
 });
 
 Then(/^.*team should be displayed with the correct color$/, async function () {
-	let colorIsOrange = await TMSTeamListPage.getTeamColor();
-	await expect(colorIsOrange).to.be.true;
+	await TMSTeamListPage.isTeamColour(teamName, '#ffad42', TMSTeamListPage.section.teamSection);
 });
 
 Then(/^the correct number of students in the team should be displayed$/, async function () {
-	let numberIsCorrect = await TMSTeamListPage.getTeamMemberIcon(teamName);
-	await expect(numberIsCorrect).to.be.true;
+	await TMSTeamListPage.isTeamMemberNumber(teamName, '3', TMSTeamListPage.section.teamSection);
 });
 
 Then(
 	/^by clicking the students icon the popup opens and shows all team members with surname and lastname$/,
 	async function () {
-		await TMSTeamListPage.openMemberIcon();
+		await TMSTeamListPage.areMembersOnTheListInTeamForSection(
+			'test team',
+			['Cord Carl', 'Marla Mathe', 'Waldemar Wunderlich'],
+			TMSTeamListPage.section.teamSection
+		);
 	}
 );
