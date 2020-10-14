@@ -80,6 +80,14 @@ async function getTeamWithNameInSection(teamName, section) {
 	};
 }
 
+async function isTeamDescription(teamName, expectedDescription, section) {
+	const team = await getTeamWithNameInSection(teamName, section);
+	const actualDescr = team.teamDescription;
+	const msg = `Team with name: ${teamName} has wrong description. \n`;
+	const resultMsg = `Expected: ${expectedDescription} , Actual: ${actualDescr}`;
+	expect(expectedDescription, msg + resultMsg).to.include(actualDescr);
+}
+
 async function isTeamColour(teamName, expectedColour, section) {
 	const team = await getTeamWithNameInSection(teamName, section);
 	const actualColourNumber = team.teamColour;
@@ -167,6 +175,7 @@ module.exports = {
 	goToTeams,
 	goToAddTeam,
 	isTeamColour,
+	isTeamDescription,
 	isTeamOnList,
 	isTeamMemberNumber,
 	areMembersOnTheListInTeamForSection,
