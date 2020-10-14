@@ -51,6 +51,6 @@ Then(/^the correct number of students in the team should be displayed$/, async f
 });
 
 Then(/^by clicking the students icon the popup opens and shows all team members with surname and lastname$/, async function(){
-    return TMSTeamListPage.openMemberIcon(teamName);
+    return TMSTeamListPage.openMemberIcon();
 });
 

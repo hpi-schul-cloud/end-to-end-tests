@@ -9,6 +9,7 @@ const namesContainer = '.row.tasks.card-deck-row';
 const addTeamBtn = "[data-testid='add-team-btn']";
 const teamColor = ".sc-card-header[style='background:#ffad42']";
 const teamIcon = "a[aria-label='test team Teilnehmer 3']"
+const member = ".additionalInfo:nth-child(3)"
 //const memberModal = "#member-modal-body";
 
 module.exports = {
@@ -51,9 +52,9 @@ module.exports = {
 		return teamNames;
 	},
 
-	openMemberIcon: async function(teamname){
-		let clickable = elementHelpers.isElementClickable(".btn-member");
-		console.log(clickable);
+	openMemberIcon: async function(){
 
-	}
+		await elementHelpers.click(member);
+
+	},
 }
