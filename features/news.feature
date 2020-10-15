@@ -13,7 +13,7 @@ Feature: Different options for news. I would like to test whether users with dif
         And student logs in with email <studentUsername> and password <studentPassword>
         And student with full age accepts student's data protection with password <newStudentPassword>
         And click left navigation item "news"
-        Then he can see the news
+        Then teacher can see the news
 
         Examples:
             | teacherEmail                | teacherPassword | studentUsername                | studentPassword | newStudentPassword  |
