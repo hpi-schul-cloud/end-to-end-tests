@@ -16,6 +16,7 @@ const navItemHelpQuestionCircle = '[data-testid="question-circle"]';
 const navItemHelpWishProblem = '[data-testid="submit-wish-or-problem]';
 const navItemHelpContactAdmin = '[data-testid="contact-admin"]';
 const navItemHelpTraining = '[data-testid="fortbildungen"]';
+const avatarCircle = '.avatar-circle';
 
 module.exports = {
     isSchoolNameCorrect: async function () {
@@ -24,15 +25,15 @@ module.exports = {
         return expect(schoolNameOnPage).to.equal(schoolNameProvidedByAPI);
     },
     areUserInitialsCorrect: async function () {
-        let initialsProvidedByAPI = await apiHelpers.getInitials();
-        let intitialsOnPage = await this.getInitials();
-        return expect(intitialsOnPage).to.equal(initialsProvidedByAPI)
+        const initialsProvidedByAPI = await apiHelpers.getInitials();
+        const avatarInitials = await elementHelpers.getElementText(avatarCircle);
+        const errorMsg = 'Incorrect user initials. Expected: [' + initialsProvidedByAPI + '], Actual: [' + avatarInitials + ']';
+        return expect(avatarInitials, errorMsg).to.equal(initialsProvidedByAPI)
     },
 
     isUserNameAndRoleCorrect: async function () {
         let userName = await apiHelpers.getUserName();
         let userRole = await apiHelpers.getUserRole();
-        await this.clickInitials();
         let fullNameAndRole = await this.getNameAndPosition();
         expect(fullNameAndRole).to.include(userName, userRole);
     },

@@ -27,6 +27,7 @@ async function clickFABBtn() {
 }
 
 async function clickAddStudentBtn() {
+	await waitHelpers.waitUntilAjaxIsFinished();
 	await elementHelpers.clickAndWait(addStudentBtn);
 }
 
@@ -68,12 +69,12 @@ async function setStudentsBirthday(date) {
 }
 
 async function getStudentsEmailList() {
-	await waitHelpers.waitUntilElementIsVisible(tableOfStudents);
+	await waitHelpers.waitUntilElementIsPresent(tableOfStudents);
 	let names = await driver.$$(tableOfStudents + ' > tr');
 	return Promise.all(
 		names.map(async (nameContainer) => {
 			const emailContainer = await nameContainer.$('td:nth-child(5)');
-			return await emailContainer.getText();
+			return emailContainer.getText();
 		})
 	);
 }

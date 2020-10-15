@@ -6,7 +6,8 @@ const studentAdministration = require('../page-objects/pages/administrationPages
 When(/^admin goes to students administration$/, function () {
 	return ADMNSTRTNAdministrationOverviewPage.clickAdministrateStudents();
 });
-When(/^an admin puts in (.*) and (.*) and (.*) of the new pupil$/, function (firstname, secondname, email) {
+
+When(/^.*set student firstname: (.*), lastname: (.*), email: (.*)$/, function (firstname, secondname, email) {
 	return studentAdministration.createNewPupil(firstname, secondname, email)
 });
 Then(/^the admin should see new pupil with email (.*) among his pupils$/, function (email) {
