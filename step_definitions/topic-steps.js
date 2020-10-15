@@ -8,6 +8,6 @@ When(/^.* adds a new Topic with name (.*)$/, async function (topicname) {
 
 });
 
-Then(/^.* should see that created topic with name (.*) is shown$/, function (topicName) {
+Then(/^.* should see that created topic with name (.*) is shown on the list$/, function (topicName) {
 	return addEditTopicPage.isTopicCreated(topicName)
 });

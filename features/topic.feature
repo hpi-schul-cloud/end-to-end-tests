@@ -7,11 +7,11 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 		Given User accepts data protection
 
 	@createTopic
-	Scenario Outline: User creates a new topic
+	Scenario Outline: User creates a new topic in course
 		When User goes to courses page
 		And User chooses course with name <courseName>
 		And User adds a new Topic with name <topicName>
 		Then User should see that created topic with name <topicName> is shown
 		Examples:
-			| courseName | topicName |
-			| Mathe      | Division  |
+		| userRole	| courseName | topicName |
+		|teacher	| Mathe      | Division  |
