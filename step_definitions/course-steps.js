@@ -19,6 +19,10 @@ When(/^.*clicks Create-new-course button$/, function () {
 	return courseListPage.clickCreateCourseBtn();
 });
 
+When(/^.*chooses himself as a Course teacher$/, async function () {
+	return addCourse.setCurrentUserAsTeacher();
+});
+
 When(/^.*enters course name (.*) into new course form$/, function (courseName) {
 	return addCourse.setCourseName(courseName);
 });

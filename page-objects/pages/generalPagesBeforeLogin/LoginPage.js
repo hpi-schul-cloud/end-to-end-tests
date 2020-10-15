@@ -1,25 +1,18 @@
 /*[url/login]*/
 'use strict';
 const elementHelpers = require('../../../runtime/helpers/elementHelpers.js');
-const apiHelpers = require('../../../runtime/helpers/APIhelpers');
+const waitHelpers = require('../../../runtime/helpers/waitHelpers.js');
 
-const failureMessages = ['Login fehlgeschlagen.', 'Login failed.'];
+const loginFailureMessages = ['Login fehlgeschlagen.', 'Login failed.'];
 const usernameInput = 'section#loginarea input[data-testid="username"]';
 const passwordInput = 'section#loginarea input[data-testid="password"]';
 const loginBtn = 'input[data-testid="submit-login"]';
 
-const sectionNames = {
-	sectionOne: '[data-testid="name-section-1"]',
-	sectionTwo: '[data-testid="name-section-2"]',
-	sectionThree: '[data-testid="name-section-3"]',
-	section_three_name: '.panels.mb-2 > section:nth-child(3) > h2',
-};
 const nextSectionBtn = '#nextSection';
-const avatarCircle = '.avatar-circle';
-const notificationIfWrongLogin = '.notification-content';
+const wrongLoginNotificationContainer = '.notification-content';
 
 const defaultPassword = 'Schulcloud1!';
-
+const defaultNewPassword = 'NewPwSchulcloud1!';
 const users = {
 	teachers: {
 		klaraFallUsername: 'klara.fall@schul-cloud.org',
@@ -41,75 +34,86 @@ const users = {
 	},
 };
 
-const firstLoginSel = {
-	dataProtection: {
-		box1: 'input[name="privacyConsent"]',
-		box2: 'input[name="termsOfUseConsent"]',
-	},
-	startUsageOfSchulcloudBtn: 'a[data-testid="btn_schul-cloud_erkunden"]',
-
-	setOwnPasswort: {
-		passwordSet: 'input[data-testid="firstlogin_password"]',
-		passwordSet2: 'input[data-testid="firstlogin_password_control"]',
-	},
+const consent = {
+	privacyCheckbox: 'input[name="privacyConsent"]',
+	termsOfUseCheckbox: 'input[name="termsOfUseConsent"]',
 };
+
+const startUsageOfSchulcloudBtn = 'a[data-testid="btn_schul-cloud_erkunden"]';
+
+const newOwnPassword = {
+	setPassword: 'input[data-testid="firstlogin_password"]',
+	setPassordConfirmation: 'input[data-testid="firstlogin_password_control"]',
+};
+
+async function setUsername(username) {
+	await waitHelpers.waitAndSetValue(usernameInput, username);
+}
+
+async function setPassword(password) {
+	await waitHelpers.waitAndSetValue(passwordInput, password);
+}
+
+async function clickNextSectionBtn() {
+	await elementHelpers.clickAndWait(nextSectionBtn);
+}
+
+async function clickLoginBtn() {
+	await elementHelpers.clickAndWait(loginBtn);
+}
+
+async function clickStartUsageOfSchulcloudBtn() {
+	await elementHelpers.clickAndWait(startUsageOfSchulcloudBtn);
+}
+
+async function acceptDataProtection() {
+	await clickOnDataProtectionBoxes();
+	await clickNextSectionBtn();
+}
+
+/* First Login */
+
+async function performLogin(username, password) {
+	await setUsername(username);
+	await setPassword(password);
+	await clickLoginBtn();
+}
+
+async function performLoginActions({shouldAcceptDataProtection, shouldSetOwnPassword, newPassword=defaultNewPassword})  {
+	await clickNextSectionBtn();
+	await clickNextSectionBtn();
+	if (shouldAcceptDataProtection) {
+		await acceptDataProtection();
+	}
+	if (shouldSetOwnPassword) {
+		await setNewPassword(newPassword);
+	}
+	await clickStartUsageOfSchulcloudBtn();
+}
+
+async function clickOnDataProtectionBoxes() {
+	await elementHelpers.click(consent.privacyCheckbox);
+	await elementHelpers.click(consent.termsOfUseCheckbox);
+}
+
+async function setNewPassword(newPassword) {
+	await waitHelpers.waitAndSetValue(newOwnPassword.setPassword, newPassword);
+	await waitHelpers.waitAndSetValue(newOwnPassword.setPassordConfirmation, newPassword);
+	await clickNextSectionBtn();
+}
+
+async function isWrongLoginNotification() {
+	const actualLoginNotification = await elementHelpers.getElementText(wrongLoginNotificationContainer);
+	const errorMsg = 'Actual login notification: [' + actualLoginNotification + '] is not one of expected ones: ['+ loginFailureMessages +']';
+	expect(actualLoginNotification, errorMsg).to.be.oneOf(loginFailureMessages);
+}
 
 module.exports = {
 	users,
-
-	performLogin: async function (username, password) {
-		let loginSel = await driver.$(usernameInput);
-		await loginSel.setValue(username);
-		let passwordSel = await driver.$(passwordInput);
-		await passwordSel.setValue(password);
-		let loginBtnSel = await driver.$(loginBtn);
-		await loginBtnSel.click();
-		await driver.pause(1500);
-	},
-
-	areUserInitialsCorrect: async function () {
-		let initials = await apiHelpers.getInitials();
-		expect(await elementHelpers.getElementText(avatarCircle)).to.equal(initials);
-	},
-	/* First Login */
-	firstLoginStudent: async function (newPassword) {
-		await elementHelpers.click(nextSectionBtn);
-		await elementHelpers.click(nextSectionBtn);
-		// if Data protection is needed
-		let section_three_name = await driver.$(sectionNames.section_three_name);
-		if ((await section_three_name.getText()) == 'Einwilligungserklärung') {
-			await this.clickOnDataProtectionBoxes();
-			await elementHelpers.click(nextSectionBtn);
-		}
-		await this.setNewPasswordStudent(newPassword);
-		await elementHelpers.click(nextSectionBtn);
-		await elementHelpers.click(firstLoginSel.startUsageOfSchulcloudBtn);
-	},
-
-	firstLoginAdminOrTeacher: async function () {
-		await elementHelpers.clickAndWait(nextSectionBtn);
-		await elementHelpers.clickAndWait(nextSectionBtn);
-		await elementHelpers.clickAndWait(nextSectionBtn);
-		await this.clickOnDataProtectionBoxes();
-		await elementHelpers.clickAndWait(nextSectionBtn);
-		await elementHelpers.clickAndWait(firstLoginSel.startUsageOfSchulcloudBtn);
-	},
-	clickOnDataProtectionBoxes: async function () {
-		await elementHelpers.click(firstLoginSel.dataProtection.box1);
-		await elementHelpers.click(firstLoginSel.dataProtection.box2);
-	},
-	setNewPasswordStudent: async function (newPassword) {
-		let passwordSel1 = await driver.$(firstLoginSel.setOwnPasswort.passwordSet);
-		let passwordSel2 = await driver.$(firstLoginSel.setOwnPasswort.passwordSet2);
-		await passwordSel1.setValue(newPassword);
-		await passwordSel2.setValue(newPassword);
-	},
-	isWrongLoginNotification: async function () {
-		const actualLoginNotification = await elementHelpers.getElementText(notificationIfWrongLogin);
-		expect(actualLoginNotification).to.be.oneOf(failureMessages);
-	},
-
-	clickNextSelection: async function () {
-		await elementHelpers.clickAndWait(nextSectionBtn);
-	},
+	performLogin,
+	performLoginActions,
+	clickOnDataProtectionBoxes,
+	setNewPassword,
+	isWrongLoginNotification,
+	clickNextSectionBtn,
 };

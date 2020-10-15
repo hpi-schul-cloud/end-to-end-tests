@@ -51,7 +51,7 @@ module.exports = {
     teacherLogsInAndCanSeeTheTextSubmission: async function (coursename, taskname, studentname) {
         await startPage.clickLoginBtn();
         await loginPage.performLogin(loginPage.users.teachers.klaraFallUsername, loginPage.users.teachers.klaraFallPassword);
-        await loginPage.firstLoginAdminOrTeacher();
+        await loginPage.performLoginActions({shouldAcceptDataProtection: true , shouldSetOwnPassword: false});
         await courseListPage.goToCourses();
         await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
         await this.gotoTasksTab();

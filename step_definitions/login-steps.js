@@ -17,7 +17,3 @@ Then(/^dashboard should have the following tabs$/, async function (LoginTextLabe
 	let subitems = await DashboardPage.getMenuItems();
 	return DashboardPage.areMenuItemsVisible(LoginTextLabels, subitems);
 });
-
-Then(/^a user should see a notification$/, function () {
-	return loginPage.isWrongLoginNotification();
-});

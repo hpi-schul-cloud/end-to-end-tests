@@ -12,10 +12,10 @@ Feature: users can edit their profiles
 		And teacher changes passwort from <password> to <newPassword>
 		And teacher logs out
 		And teacher logs in with email <username> and password <password>
-		Then the login must fail
+		Then login must fail
 		When teacher waits for next login
-		And teacher is on LoginPage and logs in with <username> and <newPassword>
-		Then the login must be successful
+		And teacher is on LoginPage and logs in using email <username> and password <newPassword>
+		Then login must be successful
 
 		Examples:
 			| username                   | password     | newPassword   |
