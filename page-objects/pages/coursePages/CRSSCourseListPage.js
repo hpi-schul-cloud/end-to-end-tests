@@ -42,13 +42,8 @@ const section = {
 };
 
 async function goToCourses() {
-	await navigationLeftPage.clickNavItemCourses();
-}
-
-async function importAndCreateCourseBtnsAreVisible() {
-	expect(await elementHelpers.isElementPresent(importCourseBtn)).to.equal(true);
-	expect(await elementHelpers.isElementPresent(createCourseBtn)).to.equal(true);
-}
+        await navigationLeftPage.clickNavItemCourses();
+};
 
 async function areImportAndCreateCourseBtnsVisible() {
 	await waitHelpers.waitUntilElementIsVisible(importCourseBtn);
@@ -181,8 +176,8 @@ async function getCourseWithNameInSection(courseName, section) {
 async function getWrapperOfCourseInSection(courseName, section) {
 	var index = await getIndexOfGivenCourseInSection(courseName, section);
 	const list = await getListOfCoursesInSection(section);
-	const errorMsg = "Can't find course: " + courseName + ' in section: ' + section + '\n';
-	const resultMsg = 'Actual list of courses: [' + list + ']';
+	const errorMsg = "Can't find course: " + courseName + ' in section: ' + section + "\n"; 
+	const resultMsg = "Actual list of courses: [" + list + "]"
 	if (index == -1) throw errorMsg + resultMsg;
 	const element = list[index];
 	return element;
@@ -237,11 +232,11 @@ async function goToTasksOfTheCourse(coursename, section) {
 }
 
 async function studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename) {
-	await navigationTopPage.performLogout();
-	await startPage.performLogin(username, password);
-	await loginPage.firstLoginStudent(username, password);
-	await goToTasksOfTheCourse(coursename);
-}
+        await navigationTopPage.performLogout();
+        await startPage.performLogin(username, password);
+        await loginPage.performLoginActions({shouldAcceptDataProtection: true, shouldSetOwnPassword: true, password});
+        await goToTasksOfTheCourse(coursename);
+};
 
 async function isTopicInCourseInSection(courseName, topicName, section) {
 	await clickOnCourseInSection(courseName, section);

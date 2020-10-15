@@ -3,7 +3,7 @@
 const waitHelpers = require("./waitHelpers");
 
 async function expectToIncludeText(selector, expectedText, errorMsg) {
-	const element = await waitHelpers.waitUntilElementIsNotPresent(selector);
+	const element = await waitHelpers.waitUntilElementIsPresent(selector);
 	let actual = (await element.getText()).trim();
 	const msg = errorMsg + '\n Actual: [' + actual + '], Expected: [' + expected + '] \n ';
 	expect(actual, msg).to.include(expectedText);

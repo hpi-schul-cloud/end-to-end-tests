@@ -5,40 +5,38 @@ const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPa
 const createCourse = require('../page-objects/pages/coursePages/CRSSAddCoursePage')
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
-
-
 const schulCloudURL = `${CLIENT.URL}`;
 /*Login, Logout*/
-const performLogin = async function(username, password) {
-    await startPage.clickLoginBtn();
-	await loginPage.performLogin(username, password);
-};
 
 Given(/^.* arrives on the Schul-Cloud homepage$/, function () {
 	return elementHelpers.loadPage(schulCloudURL);
 });
 
 Given(/^.* logs in with email (.*) and password (.*)$/, async function (username, password) {
-	await performLogin(username, password);
+	await startPage.clickLoginBtn();
+	await loginPage.performLogin(username, password);
 });
 
 Given(/^teacher logs in$/, async function () {
-	await performLogin(loginPage.users.teachers.klaraFallUsername, loginPage.users.teachers.klaraFallPassword);
+	await startPage.clickLoginBtn();
+	await loginPage.performLogin(loginPage.users.teachers.klaraFallUsername, loginPage.users.teachers.klaraFallPassword);
 });
 
 Given(/^admin logs in$/, async function () {
-	await performLogin(loginPage.users.admins.thorstenTestUsername, loginPage.users.admins.thorstenTestPassword);
+	await startPage.clickLoginBtn();
+	await loginPage.performLogin(loginPage.users.admins.thorstenTestUsername, loginPage.users.admins.thorstenTestPassword);
 });
 
 Given(/^student logs in$/, async function () {
-	await performLogin(loginPage.users.students.paulaMayerUsername, loginPage.users.students.paulaMayerPassword);
+	await startPage.clickLoginBtn();
+	await loginPage.performLogin(loginPage.users.students.paulaMayerUsername, loginPage.users.students.paulaMayerPassword);
 });
 
-When(/^.* goes from start page to login page$/, async function () {
+When(/^.* clicks 'Login' button on start page$/, async function () {
 	await startPage.clickLoginBtn();
 });
 
-When(/^.* is on LoginPage and logs in with (.*) and (.*)$/, async function (username, password) {
+When(/^.* is on LoginPage and logs in using email (.*) and password (.*)$/, async function (username, password) {
 	await loginPage.performLogin(username, password);
 });
 
@@ -51,11 +49,11 @@ When(/^.* waits for next login$/, async function () {
 	await driver.pause(waitTime * 1000);
 });
 
-Then(/^the login must fail$/, async function () {
+Then(/^login must fail$/, async function () {
 	return loginPage.isWrongLoginNotification();
 });
 
-Then(/^the login must be successful$/, function () {
+Then(/^login must be successful$/, function () {
 	return navigationTopPage.areUserInitialsCorrect();
 });
 
@@ -76,10 +74,14 @@ When(/^.* goes to user settings$/, async function () {
 
 
 /*first login*/
-Then(/^.* accepts data protection$/, function () {
-	return loginPage.firstLoginAdminOrTeacher();
+Then(/^.* accepts data protection$/, async function () {
+	return loginPage.performLoginActions({shouldAcceptDataProtection:true, shouldSetOwnPassword:false});
 });
 
-Then(/^student with full age accepts student\'s data protection with password (.*)$/, function (newPassword) {
-	return loginPage.firstLoginStudent(newPassword);
+Then(/^student with full age accepts student\'s data protection with password (.*)$/, async function (newPassword) {
+	await loginPage.performLoginActions({shouldAcceptDataProtection:true, shouldSetOwnPassword:true, newPassword});
+});
+
+Then(/^.*data protection is already accepted and set a new password (.*)$/, async function (newPassword) {
+	await loginPage.performLoginActions({shouldAcceptDataProtection:false, shouldSetOwnPassword:true, newPassword});
 });
