@@ -6,6 +6,7 @@ const courseTopicsPage = require("../page-objects/pages/coursePages/CRSSCourseTo
 When(/^.*adds a new Topic with name (.*)$/, async function (topicname) {
 	await courseTopicsPage.clickAddNewTopicBtn();
 	await addEditTopicPage.setTopic(topicname);
+	await addEditTopicPage.addText("aaaaaaaaaaaaa");
 	await addEditTopicPage.clickSaveTopicButton();
 
 });

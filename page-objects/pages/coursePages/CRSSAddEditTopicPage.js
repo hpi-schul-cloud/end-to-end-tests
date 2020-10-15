@@ -11,6 +11,7 @@ const textFieldSel = '.ck-content';
 const textBtn = ".btn-group > button:nth-child(1)";
 const topicName = "p.topic-label";
 const editTopicButton = "a[title='Edit topic']";
+const editTopicIkon = ".btn-add .fa-pencil";
 //geoGebra:
 const geogebraBtn = ".btn-group > button:nth-child(2)";
 const titleInput = "input[placeholder='Titel des Abschnitts']";
@@ -68,27 +69,27 @@ async function isTopicCreated(name) {
 }
 
 async function clickEditTopicButton() {
-	await elementHelpers.clickAndWait(editTopicButton);
+	await elementHelpers.clickAndWait(editTopicIkon);
 }
 
 async function clickOnTopicWithName(name) {
-	const courseIndex = await getIndexOfGivenTopic(name);
-	if (courseIndex == -1) throw "Can't find course: " + name;
-	const courseList = await getListOfTopic(name);
-	let elem = courseList[courseIndex]
-	// const element = courseList[courseIndex];
-	await elementHelpers.clickAndWait(elem);
+	let topicSelector = '#topic-list .card'
+	const courseIndex = await getIndexOfGivenTopic(name, topicSelector);
+	if (courseIndex == -1) throw "Can't find topic: " + name;
+	const courseList = await getListOfTopics(topicSelector);
+	const element = courseList[courseIndex];
+	await elementHelpers.clickAndWait(element);
 }
 
 async function getIndexOfGivenTopic(courseName, section) {
-	const listOfCourseTitlesForSection = await getListOfTopic(section);
+	const listOfCourseTitlesForSection = await getListOfTopicTitles(section);
 	var index = listOfCourseTitlesForSection.indexOf(courseName);
 	return index;
 }
 
-async function getListOfTopic(section) {
+async function getListOfTopicTitles(topicSelector) {
 	await waitHelpers.waitUntilPageLoads();
-	const selector = "#topic-list .card-header .topic-label";
+	const selector = topicSelector;
 	try {
 		await waitHelpers.waitUntilElementIsVisible(selector);
 	} catch (err) {
@@ -97,6 +98,16 @@ async function getListOfTopic(section) {
 	const listOfCourseTitleElements = await driver.$$(selector);
 	let courseTitleList = await elementHelpers.getTextListFromListOfElements(listOfCourseTitleElements);
 	return courseTitleList;
+}
+async function getListOfTopics(section) {
+	await waitHelpers.waitUntilPageLoads();
+	const selector = section;
+	try {
+		await waitHelpers.waitUntilElementIsVisible(selector);
+	} catch (err) {
+		return [];
+	}
+	return driver.$$(selector);
 }
 
 async function getIndexOfTopic(topicName) {
