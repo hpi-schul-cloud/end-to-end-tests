@@ -6,14 +6,14 @@ Feature: Creating a task as a teacher
 
 	Scenario Outline: The user logs in as a teacher and creates a simple task
 	Given teacher logs in with email <teacherEmail> and password <teacherPassword>
-	Given teacher accepts data protection
-	Then he should click the task-button in the dashboard-sidebar
-	Then he should click the create-task-button on the task page
-	Then he should put the taskname <taskname> into the name field
-	Then he should put the taskBody <taskBody> into the body field
-	Then he should click the submit-task-button on the task-creation-form
-	Then teacher goes to tasks page
-	Then he should see the created task with the name <taskname> on the task page
+	And teacher accepts data protection
+	And teacher goes to tasks page
+	And teacher clicks create-task-button on task page
+	And teacher puts taskname <taskname> into name field
+	And teacher puts taskBody <taskBody> into body field
+	And teacher clicks submit-task-button on task-creation-form
+	And teacher goes to tasks page
+	Then teacher should see created task with name <taskname> is on task page
 
 	Examples:
 	| teacherEmail            | teacherPassword      | taskname                | taskBody |

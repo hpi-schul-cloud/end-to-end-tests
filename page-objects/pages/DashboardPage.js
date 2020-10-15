@@ -21,11 +21,6 @@ module.exports = {
 		expect(await elementHelpers.getElementText(dashboardHeader)).to.equal(dashboardTitle);
 	},
 
-	areUserInitialsCorrect: async function () {
-		let initials = await apiHelpers.getInitials();
-		expect(await elementHelpers.getElementText('.avatar-circle')).to.equal(initials);
-	},
-
 	isSchoolNameCorrect: async function () {
 		await this.goToDashboard();
 		let schoolNameProvidedByAPI = await apiHelpers.getSchoolName();

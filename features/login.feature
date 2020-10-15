@@ -2,17 +2,17 @@
 Feature: Log in as an admin, as a teacher, as a student
 
     Background:
-        When user arrives on the Schul-Cloud homepage
+        Given user arrives on the Schul-Cloud homepage
 
     @adminLogin
     Scenario Outline: admin logs in
         As an admin, I want to be able to login
         When admin logs in with email <adminUsername> and password <password>
-        Then admin accepts data protection
-        Then the login must be successful
-        Then dashboard should have the correct school
-        Then dashboard should have the correct name and profession
-        Then dashboard should have the following tabs
+        And admin accepts data protection
+        Then login must be successful
+        And dashboard should have the correct school
+        And dashboard should have the correct name and profession
+        And dashboard should have the following tabs
             | tabs           |
             | ÜBERSICHT      |
             | KURSE          |
@@ -35,11 +35,11 @@ Feature: Log in as an admin, as a teacher, as a student
     Scenario Outline: teacher logs in
         As a teacher, I want to be able to login
         When teacher logs in with email <teacherUsername> and password <password>
-        When teacher accepts data protection
-        Then the login must be successful
-        Then dashboard should have the correct school
-        Then dashboard should have the correct name and profession
-        Then dashboard should have the following tabs
+        And teacher accepts data protection
+        Then login must be successful
+        And dashboard should have the correct school
+        And dashboard should have the correct name and profession
+        And dashboard should have the following tabs
             | tabs           |
             | ÜBERSICHT      |
             | KURSE          |
@@ -63,10 +63,10 @@ Feature: Log in as an admin, as a teacher, as a student
         As a student, I want to be able to login
         When student logs in with email <studentUsername> and password <password>
         And student with full age accepts student's data protection with password <newStudentPassword>
-        Then the login must be successful
-        Then dashboard should have the correct school
-        Then dashboard should have the correct name and profession
-        Then dashboard should have the following tabs
+        Then login must be successful
+        And dashboard should have the correct school
+        And dashboard should have the correct name and profession
+        And dashboard should have the following tabs
             | tabs           |
             | ÜBERSICHT      |
             | KURSE          |
@@ -88,7 +88,7 @@ Feature: Log in as an admin, as a teacher, as a student
     Scenario Outline: student logs in with the correct username and a wrong password
         admin should not be able to login with a wrong password
         When admin logs in with email <adminUsername> and password <wrongPassword>
-        Then the login must fail
+        Then login must fail
         # doesn't work
         # Then the login-page should look like it looked before for <adminUsername>
 

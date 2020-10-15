@@ -13,12 +13,8 @@ const searchCourseFiled = ".input-group .search-field";
 const courseWrapper = ".sc-card-wrapper";
 const titleOfCourse = ".title";
 const memberBtn = ".btn-member";
-const homeworktab = '.tabs button[data-testid="hometasks"]';
 const importCourseBtn = '[data-testid="import-course-btn"]';
 const createCourseBtn = '[data-testid="create-course-btn"]';
-const createYourFirstCourseBtn = 'a.btn-primary.btn-add:not([data-testid="create-course-btn"])';
-const container_of_element = '[data-testid="container_of_element"]';
-const header_of_element = '[data-testid="header-of-element"]';
 const listOfMembersSel = '#member-modal-body > ol > li';
 const topicNameContainer = '#topic-list > div > div > div';
 const popupMembers = ".member-modal.in[role='dialog']"
@@ -44,11 +40,6 @@ const section = {
 async function goToCourses() {
         await navigationLeftPage.clickNavItemCourses();
 };
-
-async function importAndCreateCourseBtnsAreVisible() {
-        expect(await elementHelpers.isElementPresent(importCourseBtn)).to.equal(true);
-		expect(await elementHelpers.isElementPresent(createCourseBtn)).to.equal(true);
-}
 
 async function areImportAndCreateCourseBtnsVisible() {
 	await waitHelpers.waitUntilElementIsVisible(importCourseBtn);
@@ -239,7 +230,7 @@ async function goToTasksOfTheCourse(coursename, section) {
 async function studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename) {
         await navigationTopPage.performLogout();
         await startPage.performLogin(username, password);
-        await loginPage.firstLoginStudent(username, password);
+        await loginPage.performLoginActions({shouldAcceptDataProtection: true, shouldSetOwnPassword: true, password});
         await goToTasksOfTheCourse(coursename);
 };
 
