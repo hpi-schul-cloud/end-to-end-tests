@@ -5,13 +5,15 @@ const elementHelpers = require("../../../runtime/helpers/elementHelpers");
 const waitHelpers = require("../../../runtime/helpers/waitHelpers");
 
 const topicNameInput = ".form-group > .form-control";
-const saveTopicBtn = ".btn.btn-primary.btn-submit";
+const createTopicBtn = ".btn.btn-primary.btn-submit";
 const lernStoreUrl = `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`;
 const textFieldSel = '.ck-content';
 const textBtn = ".btn-group > button:nth-child(1)";
-const topicName = "p.topic-label";
 const editTopicButton = "a[title='Edit topic']";
-const editTopicIkon = ".btn-add .fa-pencil";
+const editTopicSelector = ".btn-add .fa-pencil";
+const topicSelector = '#topic-list .card';
+const sectionTopicTitleSelector = '.section-title #page-title';
+const topicSuccessTextSelector = '.first-topic-success';
 //geoGebra:
 const geogebraBtn = ".btn-group > button:nth-child(2)";
 const titleInput = "input[placeholder='Titel des Abschnitts']";
@@ -30,8 +32,8 @@ async function setTopic(topicname) {
 	await waitHelpers.waitAndSetValue(topicNameInput, topicname);
 }
 
-async function clickSaveTopicButton() {
-	await elementHelpers.clickAndWait(saveTopicBtn);
+async function clickCreateTopicButton() {
+	await elementHelpers.clickAndWait(createTopicBtn);
 }
 
 async function addText(text) {
@@ -64,64 +66,52 @@ async function addEtherpad(name, description) {
 	await waitHelpers.waitAndSetValue(etherpadDescriptionField, description);
 }
 
-async function isTopicCreated(name) {
-	expect(await elementHelpers.getElementText(topicName)).to.equal(name)
+async function isTopicCreatedOnListOfTopics(name) {
+	// let topicTitleList = await elementHelpers.getTextListFromListOfElements(await driver.$$(topicSelector));
+	if ((topicTitleList().length) > 0) {
+		await expect(topicTitleList.includes(name)).to.equal(true);
+	} else {
+		return new Error("The list of topics is not created.");
+	}
 }
 
-async function clickEditTopicButton() {
-	await elementHelpers.clickAndWait(editTopicIkon);
+async function isItTheFirstTopicAdded() {
+	if (topicTitleList().length === 1) {
+		await waitHelpers.waitUntilElementIsVisible(topicSuccessTextSelector);
+	}
 }
 
 async function clickOnTopicWithName(name) {
-	let topicSelector = '#topic-list .card'
-	const courseIndex = await getIndexOfGivenTopic(name, topicSelector);
-	if (courseIndex == -1) throw "Can't find topic: " + name;
-	const courseList = await getListOfTopics(topicSelector);
-	const element = courseList[courseIndex];
-	await elementHelpers.clickAndWait(element);
+	let listOfTopicElements = await driver.$$(topicSelector)
+	let topicTitleList = await elementHelpers.getTextListFromListOfElements(listOfTopicElements);
+	await elementHelpers.clickAndWait(listOfTopicElements[topicTitleList.indexOf(name)]);
 }
 
-async function getIndexOfGivenTopic(courseName, section) {
-	const listOfCourseTitlesForSection = await getListOfTopicTitles(section);
-	var index = listOfCourseTitlesForSection.indexOf(courseName);
-	return index;
+async function isTopicTitleVisible(name) {
+	expect(await elementHelpers.getElementText(sectionTopicTitleSelector)).to.equal(name);
 }
 
-async function getListOfTopicTitles(topicSelector) {
-	await waitHelpers.waitUntilPageLoads();
-	const selector = topicSelector;
-	try {
-		await waitHelpers.waitUntilElementIsVisible(selector);
-	} catch (err) {
-		return [];
-	}
-	const listOfCourseTitleElements = await driver.$$(selector);
-	let courseTitleList = await elementHelpers.getTextListFromListOfElements(listOfCourseTitleElements);
-	return courseTitleList;
-}
-async function getListOfTopics(section) {
-	await waitHelpers.waitUntilPageLoads();
-	const selector = section;
-	try {
-		await waitHelpers.waitUntilElementIsVisible(selector);
-	} catch (err) {
-		return [];
-	}
-	return driver.$$(selector);
+async function topicTitleList() {
+	return await elementHelpers.getTextListFromListOfElements(await driver.$$(topicSelector));
 }
 
-async function getIndexOfTopic(topicName) {
-
+async function clickOnTopicEditPencilButton(name) {
+	let pencilBtnSelector = ".fa-pencil";
+	let listOfTopicElements = await driver.$$(topicSelector);
+	let topicTitleList = await elementHelpers.getTextListFromListOfElements(listOfTopicElements);
+	await elementHelpers.clickAndWait(listOfTopicElements[topicTitleList.indexOf(name)].$(pencilBtnSelector));
 }
 
 module.exports = {
 	setTopic,
-	clickSaveTopicButton,
+	clickCreateTopicButton,
 	addText,
 	addGeoGebra,
 	addMaterial,
 	addEtherpad,
-	isTopicCreated,
-	clickEditTopicButton,
+	isTopicCreatedOnListOfTopics,
+	isItTheFirstTopicAdded,
 	clickOnTopicWithName,
+	isTopicTitleVisible,
+	clickOnTopicEditPencilButton,
 }
