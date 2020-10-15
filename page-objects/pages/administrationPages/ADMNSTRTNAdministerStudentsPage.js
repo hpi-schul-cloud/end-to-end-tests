@@ -27,7 +27,7 @@ async function clickFABBtn() {
 }
 
 async function clickAddStudentBtn() {
-	await waitHelpers.waitUntilAjaxIsFinished();
+	//await waitHelpers.waitUntilAjaxIsFinished();
 	await elementHelpers.clickAndWait(addStudentBtn);
 }
 
