@@ -64,8 +64,7 @@ async function addEtherpad(name, description) {
 	await waitHelpers.waitAndSetValue(etherpadDescriptionField, description);
 }
 
-async function isTopicCreatedOnListOfTopics(name) {
-	// let topicTitleList = await elementHelpers.getTextListFromListOfElements(await driver.$$(topicSelector));
+async function isTopicCreatedOnTopicList(name) {
 	if ((topicTitleList().length) > 0) {
 		await expect(topicTitleList.includes(name)).to.equal(true);
 	} else {
@@ -101,7 +100,7 @@ module.exports = {
 	addGeoGebra,
 	addMaterial,
 	addEtherpad,
-	isTopicCreatedOnListOfTopics,
+	isTopicCreatedOnTopicList,
 	isItTheFirstTopicAdded,
 	clickOnTopicWithName,
 	isTopicTitleVisible,
