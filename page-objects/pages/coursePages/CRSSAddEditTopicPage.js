@@ -9,7 +9,9 @@ const createTopicBtn = ".btn.btn-primary.btn-submit";
 const lernStoreUrl = `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`;
 const textFieldSel = '.ck-content';
 const textBtn = ".btn-group > button:nth-child(1)";
-const topicName = "p.topic-label";
+const topicSelector = '#topic-list .card';
+const sectionTopicTitleSelector = '.section-title #page-title';
+const topicSuccessTextSelector = '.first-topic-success';
 //geoGebra:
 const geogebraBtn = ".btn-group > button:nth-child(2)";
 const titleInput = "input[placeholder='Titel des Abschnitts']";
@@ -62,8 +64,34 @@ async function addEtherpad(name, description) {
 	await waitHelpers.waitAndSetValue(etherpadDescriptionField, description);
 }
 
-async function isTopicCreated(name) {
-	expect(await elementHelpers.getElementText(topicName)).to.equal(name)
+async function isTopicCreatedOnListOfTopics(name) {
+	// let topicTitleList = await elementHelpers.getTextListFromListOfElements(await driver.$$(topicSelector));
+	if ((topicTitleList().length) > 0) {
+		await expect(topicTitleList.includes(name)).to.equal(true);
+	} else {
+		return new Error("The list of topics is not created.");
+	}
+}
+
+async function isItTheFirstTopicAdded() {
+	if (topicTitleList().length === 1) {
+		await waitHelpers.waitUntilElementIsVisible(topicSuccessTextSelector);
+	}
+
+}
+
+async function clickOnTopicWithName(name) {
+	let listOfTopicElements = await driver.$$(topicSelector)
+	let topicTitleList = await elementHelpers.getTextListFromListOfElements(listOfTopicElements);
+	await elementHelpers.clickAndWait(listOfTopicElements[topicTitleList.indexOf(name)]);
+}
+
+async function isTopicTitleVisible(name) {
+	expect(await elementHelpers.getElementText(sectionTopicTitleSelector)).to.equal(name);
+}
+
+async function topicTitleList() {
+	return await elementHelpers.getTextListFromListOfElements(await driver.$$(topicSelector));
 }
 
 module.exports = {
@@ -73,5 +101,8 @@ module.exports = {
 	addGeoGebra,
 	addMaterial,
 	addEtherpad,
-	isTopicCreated,
+	isTopicCreatedOnListOfTopics,
+	isItTheFirstTopicAdded,
+	clickOnTopicWithName,
+	isTopicTitleVisible,
 }
