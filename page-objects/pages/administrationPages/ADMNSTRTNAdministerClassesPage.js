@@ -10,8 +10,9 @@ const moreOptionsBtn = "a[data-testid='classCreationExtraOptions']"
 const classNameInput = "input[data-testid='Klassenbezeichnung']"
 const addClassConfirmBtn = "button[data-testId='confirmClassCreate']"
 const classListTable = "table [data-testid='students_names_container']"
-const titleOfAdministrationClassesPage = "Administration: Klassen"
+const titleOfAdministrationClassesPage = "Klassen"
 const titleOfCreateNewClassPage = "Erstelle eine neue Klasse"
+const editClassBtn = ".fa-edit"
 
 //Administration: Classes
 async function isTitleOfAdministrationClassesPage() {
@@ -34,7 +35,11 @@ async function isNewEmptyClassCreated(className = "11c", numOfStudents = "0") {
     expect(contentArray[2]).to.equal(numOfStudents)
 }
 
-//Course creation page
+async function clickEditClassBtn() {
+    await elementHelpers.clickAndWait(editClassBtn)
+}
+
+//Class creation page
 async function isTitleOfCreateClassPage() {
     await waitHelpers.waitUntilPageTitleContains(titleOfCreateNewClassPage)
 }
@@ -61,7 +66,12 @@ async function createNewClass(className) {
     await clickConfirmClassCreation()
 }
 
+async function editNewClass(className) {
+    await clickEditClassBtn(className)
+}
+
 module.exports = {
     isNewEmptyClassCreated,
     createNewClass,
+    editNewClass,
 }
