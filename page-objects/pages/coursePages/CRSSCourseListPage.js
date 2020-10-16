@@ -142,14 +142,7 @@ async function isCorrectNumberOfMembersInCourseForSection(courseName, membersLis
 }
 
 async function getListOfCoursesInSection(section) {
-	await waitHelpers.waitUntilPageLoads();
-	const selector = section + ' ' + courseWrapper;
-	try {
-		await waitHelpers.waitUntilElementIsVisible(selector);
-	} catch (err) {
-		return [];
-	}
-	return driver.$$(selector);
+	return elementHelpers.getListOfAllElements(section + ' ' + courseWrapper);
 }
 
 async function getIndexOfGivenCourseInSection(courseName, section) {
@@ -184,16 +177,7 @@ async function getWrapperOfCourseInSection(courseName, section) {
 }
 
 async function getListOfCourseTitlesInSection(section) {
-	await waitHelpers.waitUntilPageLoads();
-	const selector = section + ' ' + courseWrapper + ' ' + titleOfCourse;
-	try {
-		await waitHelpers.waitUntilElementIsVisible(selector);
-	} catch (err) {
-		return [];
-	}
-	const listOfCourseTitleElements = await driver.$$(selector);
-	let courseTitleList = await elementHelpers.getTextListFromListOfElements(listOfCourseTitleElements);
-	return courseTitleList;
+	return elementHelpers.getTextFromAllElements(section + ' ' + courseWrapper + ' ' + titleOfCourse);
 }
 
 async function getCountOfCoursesWhichTitlesContainTextForSection(text, section) {
