@@ -28,15 +28,7 @@ async function goToAddTeam() {
 async function getListOfTeamNames() {
 	await waitHelpers.waitUntilAjaxIsFinished();
 	await goToTeams();
-	const selector = teamNameContainer;
-	try {
-		await waitHelpers.waitUntilElementIsVisible(selector);
-	} catch (err) {
-		return [];
-	}
-	const listOfTitleElements = await driver.$$(selector);
-	const titleList = await elementHelpers.getTextListFromListOfElements(listOfTitleElements);
-	return titleList;
+	return elementHelpers.getTextFromAllElements(teamNameContainer);
 }
 
 async function isTeamOnList(teamName) {
@@ -106,27 +98,11 @@ async function isTeamMemberNumber(teamName, expectedNumber, section) {
 }
 
 async function getListOfTeamsInSection(section) {
-	await waitHelpers.waitUntilPageLoads();
-	const selector = section + ' ' + teamWrapper;
-	try {
-		await waitHelpers.waitUntilElementIsVisible(selector);
-	} catch (err) {
-		return [];
-	}
-	return driver.$$(selector);
+	return elementHelpers.getListOfAllElements(section + ' ' + teamWrapper);
 }
 
 async function getListOfTeamTitlesInSection(section) {
-	await waitHelpers.waitUntilPageLoads();
-	const selector = section + ' ' + teamWrapper + ' ' + titleOfTeam;
-	try {
-		await waitHelpers.waitUntilElementIsVisible(selector);
-	} catch (err) {
-		return [];
-	}
-	const listOfTeamTitleElements = await driver.$$(selector);
-	let teamTitleList = await elementHelpers.getTextListFromListOfElements(listOfTeamTitleElements);
-	return teamTitleList;
+	return elementHelpers.getTextFromAllElements(section + ' ' + teamWrapper + ' ' + titleOfTeam);
 }
 
 async function getIndexOfGivenTeamInSection(teamName, section) {

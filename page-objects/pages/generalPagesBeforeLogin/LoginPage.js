@@ -109,6 +109,8 @@ async function isWrongLoginNotification() {
 }
 
 module.exports = {
+	defaultPassword,
+	defaultNewPassword,
 	users,
 	performLogin,
 	performLoginActions,

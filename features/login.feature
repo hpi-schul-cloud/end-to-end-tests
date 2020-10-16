@@ -12,24 +12,11 @@ Feature: Log in as an admin, as a teacher, as a student
         Then login must be successful
         And dashboard should have the correct school
         And dashboard should have the correct name and profession
-        And dashboard should have the following tabs
-            | tabs           |
-            | ÜBERSICHT      |
-            | KURSE          |
-            | TEAMS          |
-            | AUFGABEN       |
-            | MEINE DATEIEN  |
-            | NEUIGKEITEN    |
-            | TERMINE        |
-            | LERN-STORE     |
-            | ADD-ONS        |
-            | HELPDESK       |
-            | VERWALTUNG     |
-            | HILFEBEREICH   |
+        And admin should see that all menu items are visible: <menuItems>
 
         Examples:
-            | adminUsername         | password     |
-            | admin@schul-cloud.org | Schulcloud1! |
+            | adminUsername         | password     | menuItems                                                                                                                       |
+            | admin@schul-cloud.org | Schulcloud1! | ÜBERSICHT, KURSE, TEAMS, AUFGABEN, MEINE DATEIEN, NEUIGKEITEN, TERMINE, LERN-STORE, ADD-ONS, HELPDESK, VERWALTUNG, HILFEBEREICH |
 
     @teacherLogin
     Scenario Outline: teacher logs in
@@ -39,23 +26,11 @@ Feature: Log in as an admin, as a teacher, as a student
         Then login must be successful
         And dashboard should have the correct school
         And dashboard should have the correct name and profession
-        And dashboard should have the following tabs
-            | tabs           |
-            | ÜBERSICHT      |
-            | KURSE          |
-            | TEAMS          |
-            | AUFGABEN       |
-            | MEINE DATEIEN  |
-            | NEUIGKEITEN    |
-            | TERMINE        |
-            | LERN-STORE     |
-            | ADD-ONS        |
-            | VERWALTUNG     |
-            | HILFEBEREICH   |
+        And teacher should see that all menu items are visible: <menuItems>
 
         Examples:
-            | teacherUsername            | password     |
-            | klara.fall@schul-cloud.org | Schulcloud1! |
+            | teacherUsername            | password     | menuItems                                                                                                             |
+            | klara.fall@schul-cloud.org | Schulcloud1! | ÜBERSICHT, KURSE, TEAMS, AUFGABEN, MEINE DATEIEN, NEUIGKEITEN, TERMINE, LERN-STORE, ADD-ONS, VERWALTUNG, HILFEBEREICH |
 
 
     @studentLogin
@@ -66,22 +41,11 @@ Feature: Log in as an admin, as a teacher, as a student
         Then login must be successful
         And dashboard should have the correct school
         And dashboard should have the correct name and profession
-        And dashboard should have the following tabs
-            | tabs           |
-            | ÜBERSICHT      |
-            | KURSE          |
-            | TEAMS          |
-            | AUFGABEN       |
-            | MEINE DATEIEN  |
-            | NEUIGKEITEN    |
-            | TERMINE        |
-            | LERN-STORE     |
-            | ADD-ONS        |
-            | HILFEBEREICH   |
+        And student should see that all menu items are visible: <menuItems>
 
         Examples:
-            | studentUsername             | password     | newStudentPassword     |
-            | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!          |
+            | studentUsername             | password     | newStudentPassword | menuItems                                                                                                 |
+            | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!      | ÜBERSICHT, KURSE, TEAMS, AUFGABEN, MEINE DATEIEN, NEUIGKEITEN, TERMINE, LERN-STORE, ADD-ONS, HILFEBEREICH |
 
 
     @wrongPasswordAdminLogin
