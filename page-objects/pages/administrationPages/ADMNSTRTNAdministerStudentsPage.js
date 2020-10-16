@@ -53,7 +53,7 @@ async function createNewPupil(firstname, lastname, email) {
 }
 async function setStudentsBirthday(birthdayDate) {
 	await waitHelpers.waitUntilPageLoads();
-	await driver.execute('document.querySelector("#create_birthday").value = "' + birthdayDate + '"'); //date format dd.mm.yyyy
+	await driver.execute('document.querySelector("#birthday").value = "' + birthdayDate + '"'); //date format dd.mm.yyyy
 }
 
 async function getStudentsEmailList() {
