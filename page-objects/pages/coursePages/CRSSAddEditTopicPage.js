@@ -39,8 +39,11 @@ async function clickCreateTopicButton() {
 
 async function addText(sectionTitle, text) {
 	await elementHelpers.clickAndWait(textBtn);
+	// if(newContentElement){
+	//
+	// }
 	await waitHelpers.waitAndSetValue(sectionTitleSelector, sectionTitle);
-	await waitHelpers.waitAndSetValue('.card .ck [role="textbox"] p', text);
+	await waitHelpers.waitAndSetValue('.card .ck-content p', text);
 }
 
 async function addGeoGebra(geoGebraTitle, geogebraID) {

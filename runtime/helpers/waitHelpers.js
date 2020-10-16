@@ -1,6 +1,6 @@
 'use strict';
 
-const { getElement } = require('./sharedHelpers');
+const {getElement} = require('./sharedHelpers');
 const sharedHelpers = require('./sharedHelpers');
 
 const elementIsPresentTimeout = 10000;
@@ -159,15 +159,8 @@ async function waitUntilScriptResultIsTrue(script, timeoutMsg, timeout = pageLoa
 }
 
 async function waitAndSetValue(selectorOrElement, value) {
-	const element =  await waitUntilElementIsEnabled(selectorOrElement);
-	try {
-		await driver.waitUntil(
-			async () => {
-				await element.setValue(value);
-			});
-	} catch (error) {
-		throw error.message + '\n' + '"Actual value: "' + actualValue + "'";
-	}
+	const element = await waitUntilElementIsEnabled(selectorOrElement);
+	await element.setValue(value);
 	return element;
 }
 
