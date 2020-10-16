@@ -26,6 +26,7 @@ const etherpadBtn = ".btn-group > button:nth-child(4)";
 const etherpadNameField = "#content-blocks > div > div:nth-child(1) .form-control";
 const etherpadDescriptionField = "div:nth-child(2) > textarea";
 
+
 async function setTopic(topicname) {
 	await waitHelpers.waitAndSetValue(topicNameInput, topicname);
 }
@@ -64,33 +65,34 @@ async function addEtherpad(name, description) {
 	await waitHelpers.waitAndSetValue(etherpadDescriptionField, description);
 }
 
-async function isTopicCreatedOnTopicList(name) {
-	if ((topicTitleList().length) > 0) {
-		await expect(topicTitleList.includes(name)).to.equal(true);
-	} else {
-		return new Error("The list of topics is not created.");
-	}
+async function isTopicOnTopicList(name) {
+	const listOfTopicTitles = await topicTitleList();
+	const msg = 'Topic with name [' + name + '] is not visible on the list \n';
+	const resultMsg = ', List of task titles: ' + listOfTopicTitles;
+	expect(listOfTopicTitles, msg + resultMsg).to.include(name);
 }
 
 async function isItTheFirstTopicAdded() {
-	if (topicTitleList().length === 1) {
+	if (await topicTitleList().length === 1) {
 		await waitHelpers.waitUntilElementIsVisible(topicSuccessTextSelector);
 	}
-
 }
 
 async function clickOnTopicWithName(name) {
 	let listOfTopicElements = await driver.$$(topicSelector)
-	let topicTitleList = await elementHelpers.getTextListFromListOfElements(listOfTopicElements);
-	await elementHelpers.clickAndWait(listOfTopicElements[topicTitleList.indexOf(name)]);
+	let listOfTopic = await elementHelpers.getTextFromAllElements(topicSelector);
+	await elementHelpers.clickAndWait(listOfTopicElements[listOfTopic.indexOf(name)]);
 }
 
 async function isTopicTitleVisible(name) {
-	expect(await elementHelpers.getElementText(sectionTopicTitleSelector)).to.equal(name);
+	const listOfTopicTitles = await elementHelpers.getTextFromAllElements(sectionTopicTitleSelector);
+	const msg = 'Topic with name [' + name + '] is not visible on the list \n';
+	const resultMsg = ', List of topics titles: ' + listOfTopicTitles;
+	expect(listOfTopicTitles, msg + resultMsg).to.include(name);
 }
 
 async function topicTitleList() {
-	return await elementHelpers.getTextListFromListOfElements(await driver.$$(topicSelector));
+	return elementHelpers.getTextFromAllElements(topicSelector);
 }
 
 module.exports = {
@@ -100,7 +102,7 @@ module.exports = {
 	addGeoGebra,
 	addMaterial,
 	addEtherpad,
-	isTopicCreatedOnTopicList,
+	isTopicOnTopicList,
 	isItTheFirstTopicAdded,
 	clickOnTopicWithName,
 	isTopicTitleVisible,

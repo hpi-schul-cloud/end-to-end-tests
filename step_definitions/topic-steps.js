@@ -9,13 +9,13 @@ When(/^.* adds a new Topic with name (.*)$/, async function (topicName) {
 
 Then(/^.* should see that created topic with name (.*) is shown on the topic list$/, async function (topicName) {
 	await addEditTopicPage.isItTheFirstTopicAdded();
-	await addEditTopicPage.isTopicCreatedOnTopicList(topicName);
+	await addEditTopicPage.isTopicOnTopicList(topicName);
 });
 
 When(/^.* clicks on the topic with name (.*)$/, function (topicName) {
 	return addEditTopicPage.clickOnTopicWithName(topicName);
 });
 
-Then(/^.* should see that the topic with name (.*) is visible one the topic page$/, async function (topicName) {
+Then(/^.* should see that the topic with name (.*) is visible on the topic page$/, async function (topicName) {
 	return addEditTopicPage.isTopicTitleVisible(topicName);
 });
