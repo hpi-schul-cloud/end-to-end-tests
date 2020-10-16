@@ -7,6 +7,7 @@ const elementHelpers=require('../../runtime/helpers/elementHelpers');
 
 
 const createTaskButton = "a[href='/homework/new']"
+const editTaskButton = ".btn-edit"
 const sortBtn = "#filter > div > div.md-chip.md-theme-default.md-deletable.md-clickable > div"
 const select = "#selection-picker > div > div"
 const lastedited =
@@ -15,11 +16,15 @@ const submitBtn = ".md-button.md-primary.md-theme-default > div > div"
 const pageTitleSelector = "#page-title"
 const taskElement = ".col-xl-12"
 const tasksContainer = "#homeworks > ol > div > li"
-const homeworListSection = "section .homework"
-const taskBox = "h2.h6"
+const taskTitleContainer = ".assignment.card .title"
+const taskDescriptionContainer = ".assignment .text-muted.ckcontent"
 
 
 module.exports = {
+    clickEditTaskButton: async function(){
+        await elementHelpers.click(editTaskButton)
+    },
+
     goToHomeworkListPage: async function () {
         await navigationLeftPage.clickNavItemTasks();
     },
@@ -79,23 +84,26 @@ module.exports = {
         return listOfTasks.length > 0 ? true : false
     },
 
-    getAllTasks: async function () {
+    getListOfTaskTitles: async function () {
         await waitHelpers.waitUntilElementIsNotVisible(".loaded #MathJax_Message");
-	    const selector = taskBox;
-	    try {
-		    await waitHelpers.waitUntilElementIsPresent(selector);
-	    } catch (err) {
-		    return [];
-	    }
-	    const listOfTaskElements = await driver.$$(selector);
-	    let taskTitleList = await Promise.all(listOfTaskElements.map(async (element) => await element.getText()));
-	    return taskTitleList;
+	    return elementHelpers.getTextFromAllElements(taskTitleContainer);
     },
 
+
     isTaskVisible: async function (taskname) {
-        const allTasks = await this.getAllTasks();
+        const allTasks = await this.getListOfTaskTitles();
         const isTaskOnList = allTasks.some((element) => element.includes(taskname));
-        return isTaskOnList;
+        const msg = 'Task with name is not visible on the list: \n';
+        const resultMsg = 'Expected: ' + taskname + ', Actual: ' + allTasks;
+        await expect(isTaskOnList, msg + resultMsg).to.equal(true);
+    },
+
+    isTaskNotVisible: async function (taskname) {
+        const allTasks = await this.getListOfTaskTitles();
+        const isTaskOnList = allTasks.some((element) => element.includes(taskname));
+        const msg = 'Task with name is not visible on the list: \n';
+        const resultMsg = 'Expected: ' + taskname + ', Actual: ' + allTasks;
+        await expect(isTaskOnList, msg + resultMsg).to.equal(false);
     },
 
     clickOnTaskFromList: async function (taskname) {
@@ -109,6 +117,12 @@ module.exports = {
                 await driver.pause(1000)
             }
         }
+    },
+    
+    getDescription: async function(){
+        await waitHelpers.waitUntilAjaxIsFinished();
+        const descriptionList = await elementHelpers.getTextFromAllElements(taskDescriptionContainer);
+        return descriptionList;
     },
 
     goToPrivateHomeworkArea: async function () {

@@ -1,6 +1,5 @@
 'use strict';
 
-const { expect } = require('chai');
 const waitHelpers = require('./waitHelpers');
 
 const LOAD_PAGE_TIMEOUT = 10000;
@@ -160,6 +159,23 @@ async function getListOfSelectedOption(selectSelector) {
     return getTextListFromListOfElements(listOfSelectedOptions);
 }
 
+async function getTextFromAllElements(selector) {
+	await waitHelpers.waitUntilPageLoads();
+	const listOfElements = await getListOfAllElements(selector);
+	let textList = await getTextListFromListOfElements(listOfElements);
+	return textList;
+}
+
+async function getListOfAllElements(selector) {
+	await waitHelpers.waitUntilPageLoads();
+	try {
+		await waitHelpers.waitUntilElementIsVisible(selector);
+	} catch (err) {
+		return [];
+	}
+	return driver.$$(selector);
+}
+
 async function isOptionSelected(selectSelector, text) {
 	text = text.trim();
 	const listOfSelectedOption = await getListOfSelectedOption(selectSelector);
@@ -180,6 +196,8 @@ module.exports = {
 	getElementText,
 	getLink,
 	getTextListFromListOfElements,
+	getTextFromAllElements,
+	getListOfAllElements,
 	getValueListFromListOfElements,
 	getListOfSelectedOption,
 	isElementDisplayed,
