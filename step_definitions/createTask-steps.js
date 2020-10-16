@@ -24,6 +24,5 @@ Then(/^.*goes to tasks page$/, function () {
 });
 
 Then(/^.*created task with name (.*) is on task page$/, async function (taskName) {
-	let tasks = await addEditHomeworkPage.getTaskNames();
-	await expect(taskName).to.be.oneOf(tasks);
+	await homeworkListPage.isTaskVisible(taskName);
 });
