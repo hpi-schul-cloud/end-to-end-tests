@@ -20,7 +20,7 @@ const createYourFirstCourseBtn = 'a.btn-primary.btn-add:not([data-testid="create
 const container_of_element = '[data-testid="container_of_element"]';
 const header_of_element = '[data-testid="header-of-element"]';
 const listOfMembersSel = '#member-modal-body > ol > li';
-const topicNameContainer = '#topic-list > div > div > div';
+const topicNameContainer = '#topic-list .card-header .topic-label';
 const popupMembers = ".member-modal.in[role='dialog']";
 
 const courseColour = {
@@ -169,7 +169,7 @@ async function getCourseWithNameInSection(courseName, section) {
 async function getWrapperOfCourseInSection(courseName, section) {
 	var index = await getIndexOfGivenCourseInSection(courseName, section);
 	const list = await getListOfCoursesInSection(section);
-	const errorMsg = "Can't find course: " + courseName + ' in section: ' + section + "\n"; 
+	const errorMsg = "Can't find course: " + courseName + ' in section: ' + section + "\n";
 	const resultMsg = "Actual list of courses: [" + list + "]"
 	if (index == -1) throw errorMsg + resultMsg;
 	const element = list[index];
