@@ -9,6 +9,7 @@ const createTopicBtn = ".btn.btn-primary.btn-submit";
 const lernStoreUrl = `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`;
 const textFieldSel = '.card .ck-content p';
 const sectionTitleSelector = '.card .card-header .form-control';
+
 const textBtn = ".btn-group > button:nth-child(1)";
 const editTopicButton = "a[title='Edit topic']";
 const editTopicSelector = ".btn-add .fa-pencil";
@@ -39,9 +40,12 @@ async function clickCreateTopicButton() {
 
 async function addText(sectionTitle, text) {
 	await elementHelpers.clickAndWait(textBtn);
-	// if(newContentElement){
-	//
-	// }
+	let e = await driver.$(sectionTitleSelector)
+	e.placeholder = "Title of the section";
+	let elem = await waitHelpers.waitUntilElementIsPresent(e.placeholder = "Title of the section");
+	if (elem) {
+
+	}
 	await waitHelpers.waitAndSetValue(sectionTitleSelector, sectionTitle);
 	await waitHelpers.waitAndSetValue('.card .ck-content p', text);
 }
