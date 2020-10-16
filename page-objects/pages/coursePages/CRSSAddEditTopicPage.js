@@ -7,7 +7,8 @@ const waitHelpers = require("../../../runtime/helpers/waitHelpers");
 const topicNameInput = ".form-group > .form-control";
 const createTopicBtn = ".btn.btn-primary.btn-submit";
 const lernStoreUrl = `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`;
-const textFieldSel = '.ck-content';
+const textFieldSel = '.card .ck-content p';
+const sectionTitleSelector = '.card .card-header .form-control';
 const textBtn = ".btn-group > button:nth-child(1)";
 const editTopicButton = "a[title='Edit topic']";
 const editTopicSelector = ".btn-add .fa-pencil";
@@ -36,9 +37,10 @@ async function clickCreateTopicButton() {
 	await elementHelpers.clickAndWait(createTopicBtn);
 }
 
-async function addText(text) {
+async function addText(sectionTitle, text) {
 	await elementHelpers.clickAndWait(textBtn);
-	await waitHelpers.waitAndSetValue(textFieldSel, text);
+	await waitHelpers.waitAndSetValue(sectionTitleSelector, sectionTitle);
+	await waitHelpers.waitAndSetValue('.card .ck [role="textbox"] p', text);
 }
 
 async function addGeoGebra(geoGebraTitle, geogebraID) {
