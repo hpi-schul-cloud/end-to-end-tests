@@ -1,43 +1,29 @@
-"use strict";
+'use strict';
 
 const navigationLeftPage = require('../page-objects/pages/NavigationLeftPage.js');
 const homeworkListPage = require('../page-objects/pages/HMWRKHomeworkListPage.js');
 const addEditHomeworkPage = require('../page-objects/pages/HMWRKAddEditHomeworkPage.js');
 
-
-Then(/^he should click the task-button in the dashboard-sidebar$/, function() {
-	return navigationLeftPage.clickNavItemTasks();
-});
-
-Then(/^he should click the create-task-button on the task page$/, function() {
+Then(/^.*clicks create-task-button on task page$/, function () {
 	return homeworkListPage.clickCreateTaskButton();
 });
 
-Then(/^he should put the taskname (.*) into the name field$/, function(
-	taskName
-) {
+Then(/^.*puts taskname (.*) into name field$/, function (taskName) {
 	return addEditHomeworkPage.setHomeworkName(taskName);
 });
 
-Then(/^he should put the taskBody (.*) into the body field$/, function(
-	taskBody
-) {
+Then(/^.*puts taskBody (.*) into body field$/, function (taskBody) {
 	return addEditHomeworkPage.setHomeworkText(taskBody);
 });
 
-Then(
-	/^he should click the submit-task-button on the task-creation-form$/,
-	function() {
-		return addEditHomeworkPage.clickSubmitHomeworkBtn();
-	}
-);
-Then(/^teacher goes to tasks page$/, function() {
+Then(/^.*clicks submit-task-button on task-creation-form$/, function () {
+	return addEditHomeworkPage.clickSubmitHomeworkBtn();
+});
+Then(/^.*goes to tasks page$/, function () {
 	return navigationLeftPage.clickNavItemTasks();
-x});
+});
 
-Then(
-	/^he should see the created task with the name (.*) on the task page$/,
-	async function(taskName) {
-		let tasks = await addEditHomeworkPage.getTaskNames();
-		await expect(taskName).to.be.oneOf(tasks);
-	});
+Then(/^.*created task with name (.*) is on task page$/, async function (taskName) {
+	let tasks = await addEditHomeworkPage.getTaskNames();
+	await expect(taskName).to.be.oneOf(tasks);
+});

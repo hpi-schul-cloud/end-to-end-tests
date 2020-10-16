@@ -23,14 +23,14 @@ const mediumInterval = 100;
 
 async function waitUntilElementIsPresent(selectorOrElement, timeout = elementIsPresentTimeout) {
 	let element = await sharedHelpers.getElement(selectorOrElement);
-	let msg = 'Element is not present: [' + element.selector + ']  within time: ' + timeout;
+	let msg = 'Element is not present: ' + element.selector + ' within time: ' + timeout;
 	await element.waitForExist(timeout, false, msg);
 	return element;
 }
 
 async function waitUntilElementIsNotPresent(selectorOrElement, timeout = elementIsNotPresentTimeout) {
 	let element = await sharedHelpers.getElement(selectorOrElement);
-	let msg = 'Element should not be present: [' + element.selector + '"  within time: ' + timeout;
+	let msg = 'Element should not be present: ' + element.selector + '"  within time: ' + timeout;
 	await element.waitForExist(timeout, true, msg);
 }
 
@@ -158,17 +158,17 @@ async function waitUntilScriptResultIsTrue(script, timeoutMsg, timeout = pageLoa
 	);
 }
 
-async function waitAndSetValue(selectorOrElement, expectedValue, timeout = setValueTimeout) {
+async function waitAndSetValue(selectorOrElement, value, timeout = setValueTimeout) {
 	const element =  await waitUntilElementIsEnabled(selectorOrElement);
 	const msg =
-		'Could not set value: ' + expectedValue + ' for element: "' + element.selector + '" within time: ' + timeout;
+		'Could not set value: ' + value + ' for element: "' + element.selector + '" within time: ' + timeout;
 	let actualValue = '';
 	try {
 		await driver.waitUntil(
 			async () => {
-				await element.setValue(expectedValue);
+				await element.setValue(value);
 				actualValue = await element.getValue();
-				return actualValue === expectedValue;
+				return actualValue === value;
 			},
 			timeout,
 			msg
