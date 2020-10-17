@@ -20,7 +20,7 @@ const createYourFirstCourseBtn = 'a.btn-primary.btn-add:not([data-testid="create
 const container_of_element = '[data-testid="container_of_element"]';
 const header_of_element = '[data-testid="header-of-element"]';
 const listOfMembersSel = '#member-modal-body > ol > li';
-const topicNameContainer = '#topic-list > div > div > div';
+const topicNameContainer = '#topic-list > button > div > div';
 const popupMembers = ".member-modal.in[role='dialog']";
 
 const courseColour = {
