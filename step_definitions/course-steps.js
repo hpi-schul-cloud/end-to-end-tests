@@ -89,6 +89,8 @@ Then(/^.*color of the course (.*) is (\S*).*$/, async function (courseName, cour
 	await courseListPage.isCourseColour(courseName, courseColour, courseListPage.section.activeCourses);
 });
 
+
+
 Then(/^.*clicks on Course edit$/, async function () {
 	await CRSSGeneralCoursePage.clickEditCourse();
 });

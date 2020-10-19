@@ -13,10 +13,14 @@ const searchCourseFiled = '.input-group .search-field';
 const courseWrapper = '.sc-card-wrapper';
 const titleOfCourse = '.title';
 const memberBtn = '.btn-member';
+const homeworktab = '.tabs button[data-testid="hometasks"]';
 const importCourseBtn = '[data-testid="import-course-btn"]';
 const createCourseBtn = '[data-testid="create-course-btn"]';
+const createYourFirstCourseBtn = 'a.btn-primary.btn-add:not([data-testid="create-course-btn"])';
+const container_of_element = '[data-testid="container_of_element"]';
+const header_of_element = '[data-testid="header-of-element"]';
 const listOfMembersSel = '#member-modal-body > ol > li';
-const topicNameContainer = '#topic-list > div > div > div';
+const topicNameContainer = '#topic-list .card-header .topic-label';
 const popupMembers = ".member-modal.in[role='dialog']";
 
 const courseColour = {
@@ -189,6 +193,7 @@ async function clickOnCourseInSection(courseName, section) {
 	if (courseIndex == -1) {
 		throw "Can't find course: '" + courseName + "' in section: " + section + "\n" + "Actual list of courses: [" + courseList + "]";
 	}
+
 	const element = courseList[courseIndex];
 	await elementHelpers.clickAndWait(element);
 }
