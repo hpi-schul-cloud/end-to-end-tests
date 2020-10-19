@@ -109,11 +109,18 @@ async function clickOnTopicEditPencilButton(name) {
 	await elementHelpers.clickAndWait(listOfTopicElements[topicTitleList.indexOf(name)].$(pencilBtnSelector));
 }
 
-async function isEditedContentVisibleOnTopicPage(changedTopicName, contentTitle, description) {
-	const msg = 'Topic with name [' + changedTopicName + '] and content title [' + contentTitle + '] and text [' + description + '] is not visible on the topic page \n';
-	expect(await elementHelpers.getElementText(sectionTopicTitleSelector), msg).to.equal(changedTopicName);
-	expect(await elementHelpers.getElementText(contentTitleValue), msg).to.equal(contentTitle);
-	expect(await elementHelpers.getElementText(textValue), msg).to.equal(description);
+async function isContentTopicTitleVisible(contentTitle) {
+	const listOfContentsTopicTitles = await elementHelpers.getTextFromAllElements(contentTitleValue);
+	const msg = 'Topic with content title [' + contentTitle + '] is not visible on the topic page \n';
+	const resultMsg = ', List of content topics titles: ' + listOfContentsTopicTitles;
+	expect(listOfContentsTopicTitles, msg + resultMsg).to.include(contentTitle);
+}
+
+async function isTopicDescriptionVisible(description) {
+	const listOfTopicDescriptions = await elementHelpers.getTextFromAllElements(textValue);
+	const msg = 'Topic with description [' + description + '] is not visible on the topic page \n';
+	const resultMsg = ', List of descriptions: ' + listOfTopicDescriptions;
+	expect(listOfTopicDescriptions, msg + resultMsg).to.include(description);
 }
 
 async function findContentByTitleAndChanged(contentTitle, changedContentTitle, changedDescription) {
@@ -136,6 +143,7 @@ module.exports = {
 	clickOnTopicWithName,
 	isTopicTitleVisible,
 	clickOnTopicEditPencilButton,
-	isEditedContentVisibleOnTopicPage,
+	isContentTopicTitleVisible,
 	findContentByTitleAndChanged,
+	isTopicDescriptionVisible,
 }

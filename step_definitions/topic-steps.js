@@ -30,7 +30,11 @@ When(/^.* finds title (.*) and changes title on (.*) and text (.*) of the topic$
 	await addEditTopicPage.clickCreateTopicButton();
 });
 Then(/^.* should see changed topic with name (.*) and content title (.*) and description (.*) is visible on the topic page$/,async function (changedTopicName, changedContentTitle, changedDescription) {
-	await addEditTopicPage.isEditedContentVisibleOnTopicPage(changedTopicName, changedContentTitle, changedDescription);
+	// await addEditTopicPage.(changedTopicName, changedContentTitle, changedDescription);
+	await addEditTopicPage.isTopicTitleVisible(changedTopicName);
+	await addEditTopicPage.isContentTopicTitleVisible(changedContentTitle);
+	await addEditTopicPage.isTopicDescriptionVisible(changedDescription);
+
 });
 Then(/^.* should see that edited topic with name (.*) is shown on the topic list$/,async function (changedTopicName) {
 	await addEditTopicPage.isTopicOnTopicList(changedTopicName);
