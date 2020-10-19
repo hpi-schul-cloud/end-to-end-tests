@@ -115,12 +115,12 @@ async function createCourse(courseName) {
 	await clickGoToCourseListBtn();
 }
 
-async function createCourseWithStudents(courseName, studentName) {
+async function createCourseWithStudents(courseName, studentNameList) {
 	await goToAddCourses();
 	await setCourseName(courseName);
 	await setCurrentUserAsTeacher();
 	await goToNextSection();
-	await setStudent(studentName);
+	await setStudent(studentNameList);
 	await goToNextSection();
 	await clickGoToCourseListBtn();
 }

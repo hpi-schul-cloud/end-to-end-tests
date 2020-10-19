@@ -3,75 +3,80 @@ const path = require('path');
 const addEditHomeworkPage = require('../page-objects/pages/HMWRKAddEditHomeworkPage.js');
 const homeworkListPage = require('../page-objects/pages/HMWRKHomeworkListPage');
 const homeworkPage = require('../page-objects/pages/HMWRKHomeworkPage');
-const addCoursePage = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
-const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
-const courseHomeworksPage = require("../page-objects/pages/coursePages/CRSSCourseHomeworksPage");
-const navigationLeftPage = require('../page-objects/pages/NavigationLeftPage.js');
+const addCoursePage = require('../page-objects/pages/coursePages/CRSSAddCoursePage');
+const courseListPage = require('../page-objects/pages/coursePages/CRSSCourseListPage');
+const courseHomeworksPage = require('../page-objects/pages/coursePages/CRSSCourseHomeworksPage');
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
 
 /* CREATE A BASIC HOMEWORK */
 
-When(/^the teacher creates one course with (.*) and$/, function (coursename) {
-    return addCoursePage.createCourse(coursename);
+When(/^.* creates one course with name (.*)$/, function (coursename) {
+	return addCoursePage.createCourse(coursename);
 });
 
-When(/^teacher clicks "create a new home task" in the course (.*) with (.*)$/, function (coursename, taskname) {
-    return addEditHomeworkPage.addBasicHometask(coursename, taskname);
+When(/^.* clicks "create a new home task" in course (.*) with (.*)$/, function (coursename, taskname) {
+	return addEditHomeworkPage.addBasicHometask(coursename, taskname);
 });
 
-Then(/^the hometask with (.*) is to be found at the task pannel$/, function (taskname) {
-    return homeworkListPage.goToHomeworkListAndCheckTaskIfExist(taskname);
+Then(/^.* hometask with (.*) is to be found at task pannel$/, function (taskname) {
+	return homeworkListPage.goToHomeworkListAndCheckTaskIfExist(taskname);
 });
 
 /* PRIVATE */
 
-Given(/^the teacher creates one course with (.*) and student with (.*)$/, function (coursename, studentname) {
-    return addCoursePage.createCourseWithStudents(coursename, studentname);
+Given(/^.* creates one course with (.*) and student with (.*)$/, function (coursename, studentname) {
+	return addCoursePage.createCourseWithStudents(coursename, studentname);
 });
 
-When(/^teacher creates a private hometask in the course (.*) with (.*)$/, async function (coursename, taskname) {
-    await addEditHomeworkPage.addPrivateHometask(coursename, taskname);
-    await homeworkListPage.goToPrivateHomeworkArea();
-    await homeworkListPage.isTaskVisible(taskname);
-    await navigationTopPage.performLogout();
+When(/^.* creates a private hometask in course (.*) with (.*)$/, async function (coursename, taskname) {
+	await addEditHomeworkPage.addPrivateHometask(coursename, taskname);
+	await homeworkListPage.goToPrivateHomeworkArea();
+	await homeworkListPage.isTaskVisible(taskname);
+	await navigationTopPage.performLogout();
 });
 
-Then(/^the student will not see this task with (.*)$/, async function (taskname) {
-    await homeworkListPage.goToPrivateHomeworkArea();
-    await homeworkListPage.isTaskNotVisible(taskname);
+Then(/^.* will not see this task with (.*)$/, async function (taskname) {
+	await homeworkListPage.goToPrivateHomeworkArea();
+	await homeworkListPage.isTaskNotVisible(taskname);
 });
 
 /* SUBMISSION */
-When(/^the student finds (.*)$/, function (taskname) {
-    return homeworkListPage.clickOnTaskFromList(taskname);
+When(/^.* finds (.*)$/, function (taskname) {
+	return homeworkListPage.clickOnTaskButton(taskname, 'Task open');
 });
 
-When(/^student with (.*), (.*) of this course (.*) goes to hometasks$/, function (username, password, coursename) {
-    return courseListPage.studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename, courseListPage.section.activeCourses);
+When(/^.* with (.*), (.*) of this course (.*) goes to hometasks$/, function (username, password, coursename) {
+	return courseListPage.studentLogsInAndGoesToTasksOfTheCourse(
+		username,
+		password,
+		coursename,
+		courseListPage.section.activeCourses
+	);
 });
 
-When(/^the student edits a text hometask and submits it$/, function () {
-    return homeworkPage.studentEditsTextHomeworkAndSubmits();
+When(/^.* edits a text hometask and submits it$/, function () {
+	return homeworkPage.studentEditsTextHomeworkAndSubmits();
 });
-Then(/^the teacher can see the submission in course (.*) of task (.*) done by student (.*) and$/, function (coursename, taskname, studentname) {
-    return homeworkPage.teacherLogsInAndCanSeeTheTextSubmission(coursename, taskname, studentname);
+Then(/^.* can see submission in course (.*) of task (.*) done by student (.*) and$/, function (
+	coursename,
+	taskname,
+	studentname
+) {
+	return homeworkPage.teacherLogsInAndCanSeeTheTextSubmission(coursename, taskname, studentname);
 });
 
 /* File homework submission*/
-Given(/^the Teacher creates one course with (.*) and pupil with:$/, function (coursename) {
-    return copyCourse.create(coursename);
-});
-When(/^Teacher creates a homework for the course (.*)$/, function (coursename) {
+When(/^.* creates a homework for course (.*)$/, function (coursename) {
 	return courseHomeworksPage.clickAddNewTaskInCourse(coursename);
 });
-When(/^the teacher puts in data (.*) and some text description of the task$/, function (taskname) {
-    return addEditHomeworkPage.addBasicHometask(taskname);
+When(/^.* puts in data (.*) and some text description of task$/, function (taskname) {
+	return addEditHomeworkPage.addBasicHometask(taskname);
 });
-When(/^the user goes to the course (.*) where the hometask (.*) must be submitted$/, function (coursename, taskname) {
-    return addEditHomeworkPage.uploadHomework();
+When(/^.* goes to course (.*) where hometask (.*) must be submitted$/, function (coursename, taskname) {
+	return addEditHomeworkPage.uploadHomework();
 });
-Then(/^the students can upload a file as a solution$/, function () {
-    return addEditHomeworkPage.uploadHomework();
+Then(/^.* can upload a file as a solution$/, function () {
+	return addEditHomeworkPage.uploadHomework();
 });
 
 (function () {
@@ -86,19 +91,19 @@ Then(/^the students can upload a file as a solution$/, function () {
         password: 'Schulcloud1!'
     };
 
-    Given(/^the teacher has posed a homework$/, function () {
+    Given(/^.* posed a homework$/, function () {
         return addEditHomeworkPage.addBasicHometask(courseName, taskName);
-    });
-
-    Given(/^the student has submitted that homework$/, function () {
+	});
+	
+	Given(/^.* submitted that homework$/, function () {
         return homeworkPage.submitHomework(taskName, student);
-    });
-
-    When(/^the teacher uploads file feedback$/, function () {
+	});
+	
+	When(/^.* uploads file feedback$/, function () {
         return homeworkPage.submitFileFeedback(taskName, file);
-    });
-
-    Then(/^both the teacher and student can see and download the feedback$/, function () {
+	});
+	
+	Then(/^teacher and student can see and download feedback$/, function () {
         return homeworkPage.testFileUploadSuccess(taskName, file, student);
     });
 })();

@@ -23,7 +23,7 @@ const mediumInterval = 100;
 
 async function waitUntilElementIsPresent(selectorOrElement, timeout = elementIsPresentTimeout) {
 	let element = await sharedHelpers.getElement(selectorOrElement);
-	let msg = 'Element is not present: [' + element.selector + ']  within time: ' + timeout;
+	let msg = 'Element is not present: "' + element.selector + '"  within time: ' + timeout;
 	await element.waitForExist(timeout, false, msg);
 	return element;
 }
