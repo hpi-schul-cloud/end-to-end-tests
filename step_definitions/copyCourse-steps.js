@@ -36,8 +36,8 @@ When(/^.*adds a Topic with name (.*)$/, async function (topicname) {
 	await addEditTopicPage.setTopic(topicname);
 
 });
-When(/^.* adds content title (.*) and text (.*) to the topic$/, async function (sectionTitle, description) {
-	await addEditTopicPage.addText(sectionTitle, description);
+When(/^.* adds content title (.*) and text (.*) to the topic content$/, async function (contentTitle, description) {
+	await addEditTopicPage.addText(contentTitle, description);
 	await addEditTopicPage.clickCreateTopicButton();
 });
 

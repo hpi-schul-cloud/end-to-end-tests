@@ -7,14 +7,17 @@ const waitHelpers = require("../../../runtime/helpers/waitHelpers");
 const topicNameInput = ".form-group > .form-control";
 const createTopicBtn = ".btn.btn-primary.btn-submit";
 const lernStoreUrl = `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`;
-const textFieldSel = '.card .ck-content p';
-const sectionTitleSelector = '.card .card-header .form-control';
+const textFieldSel = '.card .ck-content';
+const textFieldValueSel = '.card .ck-content p';
+const contentTitleSelector = '.card .card-header .form-control';
 const textBtn = ".btn-group > button:nth-child(1)";
 const topicSelector = '#topic-list .card';
 const sectionTopicTitleSelector = '.section-title #page-title';
 const topicSuccessTextSelector = '.first-topic-success';
 const pencilBtnSelector = ".fa-pencil";
-
+const blankContentTitleSel = '.card input[placeholder][value=""]';
+const contentTitleValue = '.section-course .content-block .h4';
+const textValue = '.section-course .content-block .row';
 //geoGebra:
 const geogebraBtn = ".btn-group > button:nth-child(2)";
 const titleInput = "input[placeholder='Titel des Abschnitts']";
@@ -30,16 +33,18 @@ const etherpadNameField = "#content-blocks > div > div:nth-child(1) .form-contro
 const etherpadDescriptionField = "div:nth-child(2) > textarea";
 
 
-async function setTopic(topicname) {
-	await waitHelpers.waitAndSetValue(topicNameInput, topicname);
+async function setTopic(topicName) {
+	await waitHelpers.waitAndSetValue(topicNameInput, topicName);
 }
 
 async function clickCreateTopicButton() {
 	await elementHelpers.clickAndWait(createTopicBtn);
 }
 
-async function addText(text) {
+async function addText(contentTitle, text) {
 	await elementHelpers.clickAndWait(textBtn);
+	await waitHelpers.waitUntilElementIsPresent(blankContentTitleSel);
+	await waitHelpers.waitAndSetValue(contentTitleSelector, contentTitle);
 	await waitHelpers.waitAndSetValue(textFieldSel, text);
 }
 
@@ -89,7 +94,7 @@ async function clickOnTopicWithName(name) {
 
 async function isTopicTitleVisible(name) {
 	const listOfTopicTitles = await elementHelpers.getTextFromAllElements(sectionTopicTitleSelector);
-	const msg = 'Topic with name [' + name + '] is not visible on the list \n';
+	const msg = 'Topic with name [' + name + '] is not visible on the topic page \n';
 	const resultMsg = ', List of topics titles: ' + listOfTopicTitles;
 	expect(listOfTopicTitles, msg + resultMsg).to.include(name);
 }
@@ -100,24 +105,23 @@ async function topicTitleList() {
 
 async function clickOnTopicEditPencilButton(name) {
 	let listOfTopicElements = await driver.$$(topicSelector);
-	let topicTitleList = await elementHelpers.getTextListFromListOfElements(listOfTopicElements);
+	let topicTitleList = await elementHelpers.getTextFromAllElements(topicSelector);
 	await elementHelpers.clickAndWait(listOfTopicElements[topicTitleList.indexOf(name)].$(pencilBtnSelector));
 }
 
-async function isEditedContentVisibleOnTopic(changedTopicName, contentTitle, description) {
-	expect(await elementHelpers.getElementText(topicTitleSelector)).to.equal(changedTopicName);
-	expect(await elementHelpers.getElementText('.section-course .content-block .h4')).to.equal(contentTitle);
-	expect(await elementHelpers.getElementText('.section-course .content-block .row')).to.equal(description);
+async function isEditedContentVisibleOnTopicPage(changedTopicName, contentTitle, description) {
+	const msg = 'Topic with name [' + changedTopicName + '] and content title [' + contentTitle + '] and text [' + description + '] is not visible on the topic page \n';
+	expect(await elementHelpers.getElementText(sectionTopicTitleSelector), msg).to.equal(changedTopicName);
+	expect(await elementHelpers.getElementText(contentTitleValue), msg).to.equal(contentTitle);
+	expect(await elementHelpers.getElementText(textValue), msg).to.equal(description);
 }
 
 async function findContentByTitleAndChanged(contentTitle, changedContentTitle, changedDescription) {
-	let contentTitleSelector = '.card input[placeholder][value="' + contentTitle + '"]';
-	await waitHelpers.waitAndSetValue(contentTitleSelector, changedContentTitle);
-	// await waitHelpers.waitAndSetValue(contentTitleSelector, changedContentTitle);
-	let listOfTopicElements = await driver.$$('.card .ck-content');
-	let topicTitleList = await elementHelpers.getTextListFromListOfElements(listOfTopicElements);
-	await waitHelpers.waitAndSetValue(listOfTopicElements[topicTitleList.indexOf("Human as Art")], changedDescription);
-
+	const contentTitleValueSel = '.card input[placeholder][value="' + contentTitle + '"]';
+	await waitHelpers.waitAndSetValue(contentTitleValueSel, changedContentTitle);
+	const contentDescription = await waitHelpers.waitUntilElementIsEnabled(textFieldValueSel);
+	await contentDescription.clearValue();
+	await waitHelpers.waitAndSetValue(textFieldSel, changedDescription);
 }
 
 module.exports = {
@@ -132,6 +136,6 @@ module.exports = {
 	clickOnTopicWithName,
 	isTopicTitleVisible,
 	clickOnTopicEditPencilButton,
-	isEditedContentVisibleOnTopic,
+	isEditedContentVisibleOnTopicPage,
 	findContentByTitleAndChanged,
 }
