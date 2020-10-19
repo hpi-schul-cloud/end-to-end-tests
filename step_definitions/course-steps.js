@@ -89,7 +89,7 @@ Then(/^.*color of the course (.*) is (\S*).*$/, async function (courseName, cour
 	await courseListPage.isCourseColour(courseName, courseColour, courseListPage.section.activeCourses);
 });
 
-Then(/^.*chooses Kurs with name (\S*)$/, async function (courseName) {
+Then(/^.*chooses course with name (\S*)$/, async function (courseName) {
 	await courseListPage.clickOnCourseInSection(courseName, courseListPage.section.activeCourses);
 });
 
