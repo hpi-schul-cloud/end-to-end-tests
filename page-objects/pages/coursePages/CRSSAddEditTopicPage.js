@@ -9,13 +9,11 @@ const createTopicBtn = ".btn.btn-primary.btn-submit";
 const lernStoreUrl = `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`;
 const textFieldSel = '.card .ck-content p';
 const sectionTitleSelector = '.card .card-header .form-control';
-
 const textBtn = ".btn-group > button:nth-child(1)";
-const editTopicButton = "a[title='Edit topic']";
-const editTopicSelector = ".btn-add .fa-pencil";
 const topicSelector = '#topic-list .card';
 const topicTitleSelector = '.section-title #page-title';
 const topicSuccessTextSelector = '.first-topic-success';
+const pencilBtnSelector = ".fa-pencil";
 //geoGebra:
 const geogebraBtn = ".btn-group > button:nth-child(2)";
 const titleInput = "input[placeholder='Titel des Abschnitts']";
@@ -30,8 +28,8 @@ const etherpadBtn = ".btn-group > button:nth-child(4)";
 const etherpadNameField = "#content-blocks > div > div:nth-child(1) .form-control";
 const etherpadDescriptionField = "div:nth-child(2) > textarea";
 
-async function setTopic(topicname) {
-	await waitHelpers.waitAndSetValue(topicNameInput, topicname);
+async function setTopic(topicName) {
+	await waitHelpers.waitAndSetValue(topicNameInput, topicName);
 }
 
 async function clickCreateTopicButton() {
@@ -100,7 +98,6 @@ async function topicTitleList() {
 }
 
 async function clickOnTopicEditPencilButton(name) {
-	let pencilBtnSelector = ".fa-pencil";
 	let listOfTopicElements = await driver.$$(topicSelector);
 	let topicTitleList = await elementHelpers.getTextListFromListOfElements(listOfTopicElements);
 	await elementHelpers.clickAndWait(listOfTopicElements[topicTitleList.indexOf(name)].$(pencilBtnSelector));
@@ -116,8 +113,9 @@ async function findContentByTitleAndChanged(contentTitle, changedContentTitle, c
 	let contentTitleSelector = '.card input[placeholder][value="' + contentTitle + '"]';
 	await waitHelpers.waitAndSetValue(contentTitleSelector, changedContentTitle);
 	// await waitHelpers.waitAndSetValue(contentTitleSelector, changedContentTitle);
-	await waitHelpers.waitAndSetValue('.card .ck-content', changedDescription);
-	let test;
+	let listOfTopicElements = await driver.$$('.card .ck-content');
+	let topicTitleList = await elementHelpers.getTextListFromListOfElements(listOfTopicElements);
+	await waitHelpers.waitAndSetValue(listOfTopicElements[topicTitleList.indexOf("Human as Art")], changedDescription);
 
 }
 

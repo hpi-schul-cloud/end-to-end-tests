@@ -32,6 +32,6 @@ Then(/^.* should see that edited topic with name (.*) is shown on the topic list
 Then(/^.* should see changed topic name on (.*) and content title (.*) and description (.*) is visible$/, function (changedTopicName, contentTitle, description) {
 	return addEditTopicPage.isEditedContentVisibleOnTopic(changedTopicName, contentTitle, description);
 });
-When(/^.* find (.*) and changes to title (.*) and text (.*) of the topic$/, function (contentTitle, changedContentTitle, changedDescription) {
-		addEditTopicPage.findContentByTitleAndChanged(contentTitle, changedContentTitle, changedDescription);
+When(/^.* find (.*) and changes to title (.*) and text (.*) of the topic$/, async function (contentTitle, changedContentTitle, changedDescription) {
+	await addEditTopicPage.findContentByTitleAndChanged(contentTitle, changedContentTitle, changedDescription);
 });
