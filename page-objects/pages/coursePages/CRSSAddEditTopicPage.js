@@ -14,7 +14,7 @@ const textBtn = ".btn-group > button:nth-child(1)";
 const editTopicButton = "a[title='Edit topic']";
 const editTopicSelector = ".btn-add .fa-pencil";
 const topicSelector = '#topic-list .card';
-const sectionTopicTitleSelector = '.section-title #page-title';
+const topicTitleSelector = '.section-title #page-title';
 const topicSuccessTextSelector = '.first-topic-success';
 //geoGebra:
 const geogebraBtn = ".btn-group > button:nth-child(2)";
@@ -40,14 +40,10 @@ async function clickCreateTopicButton() {
 
 async function addText(sectionTitle, text) {
 	await elementHelpers.clickAndWait(textBtn);
-	let e = await driver.$(sectionTitleSelector)
-	e.placeholder = "Title of the section";
-	let elem = await waitHelpers.waitUntilElementIsPresent(e.placeholder = "Title of the section");
-	if (elem) {
-
-	}
+	let contentTitle = '.card input[placeholder][value=""]';
+	await waitHelpers.waitUntilElementIsPresent(contentTitle);
 	await waitHelpers.waitAndSetValue(sectionTitleSelector, sectionTitle);
-	await waitHelpers.waitAndSetValue('.card .ck-content p', text);
+	await waitHelpers.waitAndSetValue('.card .ck-content', text);
 }
 
 async function addGeoGebra(geoGebraTitle, geogebraID) {
@@ -76,7 +72,6 @@ async function addEtherpad(name, description) {
 }
 
 async function isTopicCreatedOnListOfTopics(name) {
-	// let topicTitleList = await elementHelpers.getTextListFromListOfElements(await driver.$$(topicSelector));
 	if ((topicTitleList().length) > 0) {
 		await expect(topicTitleList.includes(name)).to.equal(true);
 	} else {
@@ -97,7 +92,7 @@ async function clickOnTopicWithName(name) {
 }
 
 async function isTopicTitleVisible(name) {
-	expect(await elementHelpers.getElementText(sectionTopicTitleSelector)).to.equal(name);
+	expect(await elementHelpers.getElementText(topicTitleSelector)).to.equal(name);
 }
 
 async function topicTitleList() {
@@ -109,6 +104,21 @@ async function clickOnTopicEditPencilButton(name) {
 	let listOfTopicElements = await driver.$$(topicSelector);
 	let topicTitleList = await elementHelpers.getTextListFromListOfElements(listOfTopicElements);
 	await elementHelpers.clickAndWait(listOfTopicElements[topicTitleList.indexOf(name)].$(pencilBtnSelector));
+}
+
+async function isEditedContentVisibleOnTopic(changedTopicName, contentTitle, description) {
+	expect(await elementHelpers.getElementText(topicTitleSelector)).to.equal(changedTopicName);
+	expect(await elementHelpers.getElementText('.section-course .content-block .h4')).to.equal(contentTitle);
+	expect(await elementHelpers.getElementText('.section-course .content-block .row')).to.equal(description);
+}
+
+async function findContentByTitleAndChanged(contentTitle, changedContentTitle, changedDescription) {
+	let contentTitleSelector = '.card input[placeholder][value="' + contentTitle + '"]';
+	await waitHelpers.waitAndSetValue(contentTitleSelector, changedContentTitle);
+	// await waitHelpers.waitAndSetValue(contentTitleSelector, changedContentTitle);
+	await waitHelpers.waitAndSetValue('.card .ck-content', changedDescription);
+	let test;
+
 }
 
 module.exports = {
@@ -123,4 +133,6 @@ module.exports = {
 	clickOnTopicWithName,
 	isTopicTitleVisible,
 	clickOnTopicEditPencilButton,
+	isEditedContentVisibleOnTopic,
+	findContentByTitleAndChanged,
 }
