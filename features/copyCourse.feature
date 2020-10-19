@@ -61,7 +61,6 @@ Examples:
 
 
 @copyCourseWithEtherpad
-
 Scenario Outline: teacher can copy course with certain Etherpad
 Given the teacher creates a course with name <coursename>,
 Given the teacher chooses this course with <coursename> and

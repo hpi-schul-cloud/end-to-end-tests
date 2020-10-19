@@ -25,7 +25,7 @@ Examples:
 @createCourseCorrectly
 Scenario Outline: submit compulsory fields by creating the course
 	Given teacher logs in with email <username> and password <password>
-	When teacher accepts data protection
+	And teacher accepts data protection
 	And teacher goes to courses page
 	Then teacher should see that buttons: Import-course, Create-new-course are visible
 	When teacher clicks Create-new-course button
@@ -48,7 +48,7 @@ Scenario Outline: submit compulsory fields by creating the course
 	When teacher clicks Go-to-course-list
 	Then teacher should see that course with name <courseName> is visible on the list
 	And teacher should see that course with name <courseName> is displayed correctly on the list
-	Then teacher should see that color of the course <courseName> is <courseColour> that was selected during the creation process
+	And teacher should see that color of the course <courseName> is <courseColour> that was selected during the creation process
 Examples:
 	|username                  |password    |courseName           |courseColour|
 	|klara.fall@schul-cloud.org|Schulcloud1!|Mathe@Sport&Music    |corn        |
@@ -59,7 +59,7 @@ Scenario Outline: logging in as a teacher I want to be able to edit a course on 
 	And teacher accepts data protection
 	And teacher goes to courses page
 	And teacher should see that course with name <courseName> is visible on the list
-	When teacher chooses Kurs with name <courseName>
+	When teacher chooses course with name <courseName>
     And teacher clicks on Course edit
     And teacher changes name of Course <changeName>
     And teacher enters Course description <description>
@@ -79,7 +79,7 @@ Scenario Outline: logging in as a teacher I want to be able to edit a course on 
 	And teacher accepts data protection
 	And teacher goes to courses page
 	And teacher should see that course with name <courseName> is visible on the list
-	When teacher chooses Kurs with name <courseName>
+	When teacher chooses course with name <courseName>
     And teacher clicks on Course edit
 	And teacher clicks on delete course button
 	And teacher clicks on delete course button confirmation
