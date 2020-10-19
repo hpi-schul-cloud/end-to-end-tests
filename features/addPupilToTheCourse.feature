@@ -5,7 +5,6 @@ Feature: logging in as a teacher and create a new course and add pupils and clas
 
 	Background:
 		Given teacher arrives on the Schul-Cloud homepage
-		And Login
 
 	@addStudentToCourse
 	Scenario Outline:
