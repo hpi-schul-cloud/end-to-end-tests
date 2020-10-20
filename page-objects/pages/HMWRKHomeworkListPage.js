@@ -6,8 +6,9 @@ const navigationLeftPage = require("../../page-objects/pages/NavigationLeftPage.
 const elementHelpers=require('../../runtime/helpers/elementHelpers');
 
 
-const createTaskButton = "a[href='/homework/new']"
-const sortBtn = "#filter > div > div.md-chip.md-theme-default.md-deletable.md-clickable > div"
+//const selectorCreateTaskButton = "a[href='/homework/new']"
+const selectorCreateTaskButton = '[data-testid="create-task-btn"]';
+const selectorSortBtn = "#filter .md-clickable > div"
 const select = "#selection-picker > div > div"
 const lastedited =
     "body > div.md-select-menu.md-menu-content-bottom-start.md-menu-content-small.md-menu-content.md-theme-default > div > ul > li:nth-child(2) > button"
@@ -20,16 +21,13 @@ const taskBox = "h2.h6"
 
 
 module.exports = {
-    goToHomeworkListPage: async function () {
-        await navigationLeftPage.clickNavItemTasks();
-    },
-
+  
     clickCreateTaskButton: async function () {
-        await elementHelpers.click(createTaskButton)
+        await elementHelpers.click(selectorCreateTaskButton)
     },
 
-    sortHometasks: async function () {
-        await elementHelpers.click(sortBtn)
+    clickSortHometasks: async function () {
+        await elementHelpers.click(selectorSortBtn)
         await elementHelpers.click(select)
         await elementHelpers.click(lastedited)
         await elementHelpers.click(submitBtn)
@@ -61,17 +59,6 @@ module.exports = {
         } else {
             console.log("No such task was found")
         }
-    },
-
-    goToHomeworkListAndCheckTaskIfExist: async function (taskname) {
-        await this.goToHomeworkListPage()
-        await this.sortHometasks()
-        await this.clickOnTask(taskname)
-        let pageTitle = await waitHelpers.waitUntilElementIsPresent(pageTitleSelector)
-        let courseAndTaskName = await pageTitle.getText()
-        let tasknameArray = await courseAndTaskName.split("- ")
-        let foundtaskName = tasknameArray[1]
-        await expect(taskname).to.equal(foundtaskName)
     },
 
     areThereAnyTasks: async function () {
@@ -114,5 +101,15 @@ module.exports = {
     goToPrivateHomeworkArea: async function () {
         await navigationLeftPage.clickNavItemTasks()
         await navigationLeftPage.clickNavItemTasksPrivate()
+    },
+    goToHomeworkListAndCheckTaskIfExist: async function (taskname) {
+        await navigationLeftPage.clickNavItemTasks();
+        await this.clickSortHometasks();
+        await this.clickOnTask(taskname)
+        let pageTitle = await waitHelpers.waitUntilElementIsPresent(pageTitleSelector)
+        let courseAndTaskName = await pageTitle.getText()
+        let tasknameArray = await courseAndTaskName.split("- ")
+        let foundtaskName = tasknameArray[1]
+        await expect(taskname).to.equal(foundtaskName)
     },
 }

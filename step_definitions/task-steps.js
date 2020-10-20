@@ -51,9 +51,14 @@ Given(/^.* adds a student with name (.*) to the course$/, function (studentname)
     return addCoursePage.selectStudent(studentname);
 });
 
-When('teacher creates a private hometask in the course {string} with (.*)', async function (string, string2) {
+When('teacher creates a private hometask in the course {string} with {}', async function (string, string2) {
     await addEditHomeworkPage.addPrivateHometask(string, string2);
 });
+
+When(/^.* goes to the tasks section$/, async function () {
+    await navigationLeftPage.clickNavItemTasks();
+});
+
 Then(/^the task (.*) should be visible for .*$/,async  function (taskname) {
     await taskListPage.goToPrivateHomeworkArea();
     const msg = 'Task with name: "' + taskname + '" should be visible on the list.' + '\n' + 'Actual list of tasks: ';
@@ -61,7 +66,7 @@ Then(/^the task (.*) should be visible for .*$/,async  function (taskname) {
 });
 
 Then(/^the student will not see this task with (.*)$/, async function (taskname) {
-    await taskListPage.goToPrivateHomeworkArea();
+   // await taskListPage.goToPrivateHomeworkArea();
     const msg = 'Task with name: "' + taskname + '" should not be visible on the list.' + '\n' + 'Actual list of tasks: ';
     expect(await taskListPage.isTaskVisible(taskname), msg + await taskListPage.getAllTasks() + "'").to.equal(false);
 });
