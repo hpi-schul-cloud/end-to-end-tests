@@ -1,33 +1,44 @@
 'use strict';
 
-
-const newPupil = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerStudentsPage');
 const TMSAddEditTeamPage = require('../page-objects/pages/teamsPages/TMSAddEditTeamPage.js');
 const TMSTeamListPage = require('../page-objects/pages/teamsPages/TMSTeamListPage.js');
 const TMSTeamMembersPage = require('../page-objects/pages/teamsPages/TMSTeamMembersPage.js');
 let teamName;
-const student1 = 'Marla Mathe';
-const student2 = 'Waldemar Wunderlich';
+let descriptionTest;
+const members = ['Cord Carl', 'Marla Mathe', 'Waldemar Wunderlich'];
 
-
-When(/^teacher adds a new student with (.*), (.*), (.*)$/, function (firstname1, lastname1, email1) {
-    fullname1 = firstname1 + " " + lastname1;
-    return newPupil.createNewPupil(firstname1, lastname1, email1);
+When(/^.*creates a new team with name (.*) and description (.*) and color orange$/, function (teamname, description) {
+	teamName = teamname;
+	descriptionTest = description;
+	return TMSAddEditTeamPage.createTeamAndGoToInternalMembersAdministration(teamName, descriptionTest);
 });
-When(/^teacher adds one more student with (.*), (.*), (.*)$/, function (firstname2, lastname2, email2) {
-
-    return newPupil.createNewPupil(firstname2, lastname2, email2);
-});
-
-When(/^teacher creates a new team with (.*) and$/, function (teamname) {
-    teamName = teamname;
-    return TMSAddEditTeamPage.createTeamAndGoToSettings(teamName);
-});
-When(/^teacher adds two students to this team$/, function () {
-    return TMSTeamMembersPage.addTwoTeamMemebers(student1, student2)
+When(/^.*adds a student to team with lastname: (.*) and firstname: (.*)$/, async function (lastname, firstname) {
+	await TMSTeamMembersPage.addTeamAttendee(lastname, firstname);
 });
 
-Then(/^this team should be displayed on the team page$/, async function () {
-    let teamNames = await TMSTeamListPage.getTeamNames();
-    await expect(teamNames).to.include(teamName);
+When(/^.*clicks submit add team member button$/, async function () {
+	await TMSTeamMembersPage.clickSubmitAddTeamAttendeeBtn();
 });
+
+Then(/^.*team should be displayed on the team page$/, async function () {
+	await TMSTeamListPage.isTeamOnList(teamName);
+});
+
+Then(/^.*team should be displayed with the correct color$/, async function () {
+	await TMSTeamListPage.isTeamColour(teamName, '#ffad42', TMSTeamListPage.section.teamSection);
+});
+
+Then(/^the correct number of students in the team should be displayed$/, async function () {
+	await TMSTeamListPage.isTeamMemberNumber(teamName, '3', TMSTeamListPage.section.teamSection);
+});
+
+Then(
+	/^by clicking the students icon the popup opens and shows all team members with surname and lastname$/,
+	async function () {
+		await TMSTeamListPage.areMembersOnTheListInTeamForSection(
+			'test team',
+			['Cord Carl', 'Marla Mathe', 'Waldemar Wunderlich'],
+			TMSTeamListPage.section.teamSection
+		);
+	}
+);

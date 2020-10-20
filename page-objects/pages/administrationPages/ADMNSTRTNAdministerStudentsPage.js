@@ -19,6 +19,7 @@ const passwordInput = '#passwd';
 
 //
 async function clickAddStudentBtn() {
+	await waitHelpers.waitUntilAjaxIsFinished();
 	await elementHelpers.clickAndWait(addStudentBtn);
 }
 
@@ -62,7 +63,7 @@ async function getStudentsEmailList() {
 	return Promise.all(
 		names.map(async (nameContainer) => {
 			const emailContainer = await nameContainer.$('td:nth-child(3)');
-			return await emailContainer.getText();
+			return emailContainer.getText();
 		})
 	);
 }
@@ -71,7 +72,7 @@ async function isStudentEmailOnTheList(email) {
 	await expect(emails).to.contain(email);
 }
 async function submitConsent(e_mail) {
-    await waitHelpers.waitUntilElementIsPresent(tableOfStudents);
+    await waitHelpers.waitUntilElementIsVisible(tableOfStudents);
 	let names = await driver.$$(tableOfStudents + ' > tr');
 	for (var i = 1; i <= names.length; i++) {
 		let emailPromise = await driver.$(tableOfStudents + ' > tr:nth-child(' + i + ') > td:nth-child(3)');
