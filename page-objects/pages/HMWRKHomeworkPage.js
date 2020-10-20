@@ -100,7 +100,7 @@ async function submitFileFeedback(taskName, file) {
 	await HMWRKHomeworkListPage.clickOnTask(taskName, 'Task open');
 	await teacherShowGradeTabForFirstSubmission();
 	await driver.execute(function () {
-		document.querySelector(remoteFilePathInput).style = {};
+		document.querySelector('input[type=file][class=dz-hidden-input]').style = {};
 	});
 	const remoteFilePath = await driver.uploadFile(file.path);
 	await waitHelpers.waitAndSetValue(remoteFilePathInput, remoteFilePath);
