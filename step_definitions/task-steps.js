@@ -48,7 +48,7 @@ When('teacher clicks edit-the-course-button in the course {string}', async funct
 });
 
 Given(/^.* adds a student with name (.*) to the course$/, function (studentname) {
-    return addCoursePage.selectStudent(studentname);
+    return addCoursePage.setStudent(studentname);
 });
 
 When('teacher creates a private hometask in the course {string} with {}', async function (string, string2) {
@@ -66,7 +66,6 @@ Then(/^the task (.*) should be visible for .*$/,async  function (taskname) {
 });
 
 Then(/^the student will not see this task with (.*)$/, async function (taskname) {
-   // await taskListPage.goToPrivateHomeworkArea();
     const msg = 'Task with name: "' + taskname + '" should not be visible on the list.' + '\n' + 'Actual list of tasks: ';
     expect(await taskListPage.isTaskVisible(taskname), msg + await taskListPage.getAllTasks() + "'").to.equal(false);
 });

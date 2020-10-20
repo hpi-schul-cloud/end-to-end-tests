@@ -17,7 +17,7 @@ const section = {
 const multipleChoiceSelectForStudents ='select[data-testid="pupils"]';
 //Course data section
 const courseDefaultInputValue = "z.B. Mathe 10a";
-const courseNameInput ='#nameOfTheCourse';
+const courseNameInput ='[data-testid="coursename"]';
 const teacherSelect = '#courseTeacher';
 const teacherSubSelect ='#courseSubstitute';
 const colourPicker = ".color-picker__item";
@@ -233,5 +233,5 @@ module.exports = {
 	setColour,
 	createCourse,
 	createCourseWithStudents,
-	selectStudent,
+	setStudent,
 };
