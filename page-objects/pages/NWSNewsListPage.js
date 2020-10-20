@@ -1,26 +1,20 @@
 /*[url/news]*/
 'use strict';
-const navigationLeftPage = require('./NavigationLeftPage')
+const navigationLeftPage = require('./NavigationLeftPage');
 const selectorNewsElementInTheList = 'span.title';
 
-
 module.exports = {
-
-	goToNews: async function() {
+	goToNews: async function () {
 		await navigationLeftPage.clickNavItemNews();
-    },
-    getListOfNewNames: async function() {
+	},
+	getListOfNewNames: async function () {
 		const listOfElements = await driver.$$(selectorNewsElementInTheList);
-		const namePromises = listOfElements.map(async element => await element.getText());
+		const namePromises = listOfElements.map(async (element) => await element.getText());
 		const newsNames = await Promise.all(namePromises);
 		return newsNames;
 	},
-	isNewsVisible: async function(name) {
+	isNewsVisible: async function (name, expectedValue) {
 		let newsNames = await this.getListOfNewNames();
-		await expect(newsNames).to.include(name);
+		expectedValue ? await expect(newsNames).to.include(name) : await expect(newsNames).to.not.include(name);
 	},
-	isNewsNotVisible: async function(name) {
-		let newsNames = await this.getListOfNewNames();
-		await expect(newsNames).to.not.include(name);
-	}
-}
+};

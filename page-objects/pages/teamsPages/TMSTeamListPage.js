@@ -45,18 +45,6 @@ async function getTeamMemberIcon(teamname) {
 	} else return false;
 }
 
-// assertion helper in steps:
-async function getTeamNames() {
-	await driver.pause(1000);
-
-	await this.goToTeams();
-	let container = await driver.$(namesContainer);
-	let elements = await container.$$('div');
-	const namePromises = elements.map(async (element) => await element.getText());
-	const teamNames = await Promise.all(namePromises);
-	return teamNames;
-}
-
 async function getTeamWithNameInSection(teamName, section) {
 	let index = await getIndexOfGivenTeamInSection(teamName, section);
 	const list = await getListOfTeamsInSection(section);
@@ -92,7 +80,7 @@ async function isTeamColour(teamName, expectedColour, section) {
 async function isTeamMemberNumber(teamName, expectedNumber, section) {
 	const team = await getTeamWithNameInSection(teamName, section);
 	const actualNum = team.teamMembersCount;
-	const msg = `Team with name: ${teamName} has wrong colour. \n`;
+	const msg = `Team with name: ${teamName} has wrong member number. \n`;
 	const resultMsg = `Expected: ${expectedNumber} , Actual: ${actualNum}`;
 	expect(expectedNumber, msg + resultMsg).to.include(actualNum);
 }
