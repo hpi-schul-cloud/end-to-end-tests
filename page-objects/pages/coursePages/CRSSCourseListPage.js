@@ -42,8 +42,8 @@ const section = {
 };
 
 async function goToCourses() {
-        await navigationLeftPage.clickNavItemCourses();
-};
+	await navigationLeftPage.clickNavItemCourses();
+}
 
 async function areImportAndCreateCourseBtnsVisible() {
 	await waitHelpers.waitUntilElementIsVisible(importCourseBtn);
@@ -169,8 +169,8 @@ async function getCourseWithNameInSection(courseName, section) {
 async function getWrapperOfCourseInSection(courseName, section) {
 	var index = await getIndexOfGivenCourseInSection(courseName, section);
 	const list = await getListOfCoursesInSection(section);
-	const errorMsg = "Can't find course: " + courseName + ' in section: ' + section + "\n";
-	const resultMsg = "Actual list of courses: [" + list + "]"
+	const errorMsg = "Can't find course: " + courseName + ' in section: ' + section + '\n';
+	const resultMsg = 'Actual list of courses: [' + list + ']';
 	if (index == -1) throw errorMsg + resultMsg;
 	const element = list[index];
 	return element;
@@ -216,11 +216,11 @@ async function goToTasksOfTheCourse(coursename, section) {
 }
 
 async function studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename) {
-        await navigationTopPage.performLogout();
-        await startPage.performLogin(username, password);
-        await loginPage.performLoginActions({shouldAcceptDataProtection: true, shouldSetOwnPassword: true, password});
-        await goToTasksOfTheCourse(coursename);
-};
+	await navigationTopPage.performLogout();
+	await startPage.performLogin(username, password);
+	await loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: true, password });
+	await goToTasksOfTheCourse(coursename);
+}
 
 async function isTopicInCourseInSection(courseName, topicName, section) {
 	await clickOnCourseInSection(courseName, section);
@@ -276,18 +276,25 @@ async function isCountOfDisplayedCoursesForSection(expectedCount, section) {
 	expect(parseInt(expectedCount), msg + resultMsg).to.equal(actualCount);
 }
 
-async function isCourseVisible(courseName, section) {
-	const msg = "Course with name: '" + courseName + "' should be visible on the list. \n";
-	const resultMsg = 'Actual list of courses: ' + (await getListOfCourseTitlesInSection(section));
-	const isCourseOnList = await isCourseOnListInSection(courseName, section);
-	expect(isCourseOnList, msg + resultMsg).to.be.true;
-}
+/**
+ * Use this method to check the visiblity of a course
+ * set expectedValue = 'true' to check if visible
+ * set expectedValue = 'false' to check if invisible
+ */
 
-async function isCourseNotVisible(courseName, section) {
-	const msg = "Course with name: '" + courseName + "' should not be visible on the list. \n";
+async function isCourseVisible(courseName, section, expectedValue) {
+	const defaultString = `Course with name: ${courseName}`;
+
+	const msg = expectedValue
+		? `${defaultString} should be visible on the list`
+		: `${defaultString} should not be visible on the list`;
+
 	const resultMsg = 'Actual list of courses: ' + (await getListOfCourseTitlesInSection(section));
 	const isCourseOnList = await isCourseOnListInSection(courseName, section);
-	expect(isCourseOnList, msg + resultMsg).to.be.false;
+
+	expectedValue
+		? expect(isCourseOnList, msg + resultMsg).to.be.true
+		: expect(isCourseOnList, msg + resultMsg).to.be.false;
 }
 
 module.exports = {
@@ -311,6 +318,5 @@ module.exports = {
 	isCorrectNumberOfDisplayedResults,
 	isCountOfDisplayedCoursesForSection,
 	isCountOfCoursesWithNameOnList,
-	isCourseNotVisible,
 	isCourseVisible,
 };

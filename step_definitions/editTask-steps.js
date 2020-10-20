@@ -46,7 +46,7 @@ Then(/^.* goes to the tasks page$/, async function () {
 });
 
 Then(/^.* checks if the new taskname is (.*)$/, async function (taskname) {
-	await homeworkListPage.isTaskVisible(taskname);
+	await homeworkListPage.isTaskVisible(taskname, true);
 });
 
 Then(/^.* checks if the new taskbody is (.*)$/, async function (taskbody) {
