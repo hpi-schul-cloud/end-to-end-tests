@@ -16,4 +16,4 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 		Then <userRole> should see that the topic with name <topicName> is visible on the topic page
 		Examples:
 			| userRole | courseName | topicName |
-			| Teacher  | Mathe      | Division  |
+			| teacher  | Mathe      | Division  |

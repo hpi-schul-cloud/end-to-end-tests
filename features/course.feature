@@ -79,7 +79,7 @@ Scenario Outline: logging in as a teacher I want to be able to edit a course on 
 	And teacher accepts data protection
 	And teacher goes to courses page
 	And teacher should see that course with name '<courseName>' is visible on the list
-	When teacher chooses Kurs with name <courseName>
+	When teacher chooses course with name '<courseName>'
     And teacher clicks on Course edit
 	And teacher clicks on delete course button
 	And teacher clicks on delete course button confirmation

@@ -9,16 +9,11 @@ const courseHomeworksPage = require('../page-objects/pages/coursePages/CRSSCours
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
 
 /* CREATE A BASIC HOMEWORK */
-
-When(/^.* creates one course with name (.*)$/, function (coursename) {
-	return addCoursePage.createCourse(coursename);
-});
-
 When(/^.* clicks "create a new home task" in course (.*) with (.*)$/, function (coursename, taskname) {
 	return addEditHomeworkPage.addBasicHometask(coursename, taskname);
 });
 
-Then(/^.* hometask with (.*) is to be found at task pannel$/, function (taskname) {
+Then(/^.* hometask with '(.*)' is to be found at task pannel$/, function (taskname) {
 	return homeworkListPage.goToHomeworkListAndCheckTaskIfExist(taskname);
 });
 
@@ -41,9 +36,10 @@ Then(/^.* will not see this task with (.*)$/, async function (taskname) {
 });
 
 /* SUBMISSION */
-When(/^.* finds (.*)$/, function (taskname) {
-	return homeworkListPage.clickOnTaskButton(taskname, 'Task open');
+When(/^.* finds task with name '(.*)'$/, async function (taskname) {
+	await homeworkListPage.clickOnTask(taskname, "Task open");
 });
+
 
 When(/^.* with (.*), (.*) of this course (.*) goes to hometasks$/, function (username, password, coursename) {
 	return courseListPage.studentLogsInAndGoesToTasksOfTheCourse(
@@ -57,11 +53,12 @@ When(/^.* with (.*), (.*) of this course (.*) goes to hometasks$/, function (use
 When(/^.* edits a text hometask and submits it$/, function () {
 	return homeworkPage.studentEditsTextHomeworkAndSubmits();
 });
-Then(/^.* can see submission in course (.*) of task (.*) done by student (.*) and$/, function (
-	coursename,
-	taskname,
-	studentname
-) {
+
+When(/^.* clicks action button '(.*)' on task with name '(.*)'$/, async function (button, taskname) {
+	return homeworkListPage.clickOnTask(taskname, button);
+});
+
+Then(/^.* can see submission in course (.*) of task (.*) done by student (.*) and$/, function (coursename, taskname, studentname) {
 	return homeworkPage.teacherLogsInAndCanSeeTheTextSubmission(coursename, taskname, studentname);
 });
 
@@ -80,30 +77,30 @@ Then(/^.* can upload a file as a solution$/, function () {
 });
 
 (function () {
-    const courseName = 'file feedback';
-    const taskName = 'Art homework';
-    const file = {
-        path: path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt'),
-        name: 'upload.txt'
-    };
-    const student = {
-        login: 'paula.meyer@schul-cloud.org',
-        password: 'Schulcloud1!'
-    };
+	const courseName = 'file feedback';
+	const taskName = 'Art homework';
+	const file = {
+		path: path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt'),
+		name: 'upload.txt',
+	};
+	const student = {
+		login: 'paula.meyer@schul-cloud.org',
+		password: 'Schulcloud1!',
+	};
 
-    Given(/^.* posed a homework$/, function () {
-        return addEditHomeworkPage.addBasicHometask(courseName, taskName);
+	Given(/^.* posed a homework$/, function () {
+		return addEditHomeworkPage.addBasicHometask(courseName, taskName);
 	});
-	
+
 	Given(/^.* submitted that homework$/, function () {
-        return homeworkPage.submitHomework(taskName, student);
+		return homeworkPage.submitHomework(taskName);
 	});
-	
+
 	When(/^.* uploads file feedback$/, function () {
-        return homeworkPage.submitFileFeedback(taskName, file);
+		return homeworkPage.submitFileFeedback(taskName, file);
 	});
-	
+
 	Then(/^teacher and student can see and download feedback$/, function () {
-        return homeworkPage.testFileUploadSuccess(taskName, file, student);
-    });
+		return homeworkPage.testFileUploadSuccess(taskName, file, student);
+	});
 })();

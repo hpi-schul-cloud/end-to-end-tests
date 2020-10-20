@@ -6,6 +6,8 @@ const waitHelpers = require('../../../runtime/helpers/waitHelpers');
 const startPage = require('../../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin');
 const loginPage = require('../../../page-objects/pages/generalPagesBeforeLogin/LoginPage');
 const navigationLeftPage = require('../NavigationLeftPage');
+const CRSSGeneralCoursePage = require('./CRSSGeneralCoursePage');
+const courseListPage = require('../../../page-objects/pages/coursePages/CRSSCourseListPage');
 
 const courseDescription = '.ckcontent';
 const courseHeader = '.sc-card-header';
@@ -13,12 +15,8 @@ const searchCourseFiled = '.input-group .search-field';
 const courseWrapper = '.sc-card-wrapper';
 const titleOfCourse = '.title';
 const memberBtn = '.btn-member';
-const homeworktab = '.tabs button[data-testid="hometasks"]';
 const importCourseBtn = '[data-testid="import-course-btn"]';
 const createCourseBtn = '[data-testid="create-course-btn"]';
-const createYourFirstCourseBtn = 'a.btn-primary.btn-add:not([data-testid="create-course-btn"])';
-const container_of_element = '[data-testid="container_of_element"]';
-const header_of_element = '[data-testid="header-of-element"]';
 const listOfMembersSel = '#member-modal-body > ol > li';
 const topicNameContainer = '#topic-list .card-header .topic-label';
 const popupMembers = ".member-modal.in[role='dialog']";
@@ -213,14 +211,15 @@ async function clickPupilIconInCourseInSection(courseName, section) {
 async function goToTasksOfTheCourse(coursename, section) {
 	await goToCourses();
 	await clickOnCourseInSection(coursename, section);
-	await gotoTasksTab();
+	await CRSSGeneralCoursePage.openHomeworksTab();
 }
 
-async function studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename) {
-        await navigationTopPage.performLogout();
+async function studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename, section) {
+		await navigationTopPage.performLogout();
+		await startPage.clickLoginBtn();
         await loginPage.performLogin(username, password);
         await loginPage.performLoginActions({shouldAcceptDataProtection: true, shouldSetOwnPassword: true, password});
-        await goToTasksOfTheCourse(coursename);
+        await goToTasksOfTheCourse(coursename, section);
 };
 
 async function isTopicInCourseInSection(courseName, topicName, section) {

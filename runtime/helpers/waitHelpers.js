@@ -160,23 +160,7 @@ async function waitUntilScriptResultIsTrue(script, timeoutMsg, timeout = pageLoa
 
 async function waitAndSetValue(selectorOrElement, value, timeout = setValueTimeout) {
 	const element =  await waitUntilElementIsEnabled(selectorOrElement);
-	const msg =
-		'Could not set value: ' + value + ' for element: "' + element.selector + '" within time: ' + timeout;
-	let actualValue = '';
-	try {
-		await driver.waitUntil(
-			async () => {
-				await element.setValue(value);
-				actualValue = await element.getValue();
-				return actualValue === value;
-			},
-			timeout,
-			msg
-		);
-	} catch (error) {
-		throw error.message + '\n' + '"Actual value: "' + actualValue + "'";
-	}
-	return element;
+	await element.setValue(value);		
 }
 
 async function waitUntilElementAttributeEquals(
