@@ -1,18 +1,18 @@
 /*[url/courses]*/
-"use strict";
+'use strict';
 const navigationTopPage = require('../NavigationTopPage');
-const elementHelpers = require("../../../runtime/helpers/elementHelpers");
-const waitHelpers = require("../../../runtime/helpers/waitHelpers");
+const elementHelpers = require('../../../runtime/helpers/elementHelpers');
+const waitHelpers = require('../../../runtime/helpers/waitHelpers');
 const startPage = require('../../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin');
 const loginPage = require('../../../page-objects/pages/generalPagesBeforeLogin/LoginPage');
 const navigationLeftPage = require('../NavigationLeftPage');
 
 const courseDescription = '.ckcontent';
 const courseHeader = '.sc-card-header';
-const searchCourseFiled = ".input-group .search-field";
-const courseWrapper = ".sc-card-wrapper";
-const titleOfCourse = ".title";
-const memberBtn = ".btn-member";
+const searchCourseFiled = '.input-group .search-field';
+const courseWrapper = '.sc-card-wrapper';
+const titleOfCourse = '.title';
+const memberBtn = '.btn-member';
 const homeworktab = '.tabs button[data-testid="hometasks"]';
 const importCourseBtn = '[data-testid="import-course-btn"]';
 const createCourseBtn = '[data-testid="create-course-btn"]';
@@ -20,8 +20,8 @@ const createYourFirstCourseBtn = 'a.btn-primary.btn-add:not([data-testid="create
 const container_of_element = '[data-testid="container_of_element"]';
 const header_of_element = '[data-testid="header-of-element"]';
 const listOfMembersSel = '#member-modal-body > ol > li';
-const topicNameContainer = '#topic-list > div > div > div';
-const popupMembers = ".member-modal.in[role='dialog']"
+const topicNameContainer = '#topic-list .card-header .topic-label';
+const popupMembers = ".member-modal.in[role='dialog']";
 
 const courseColour = {
 	grey: 'background:#ACACAC',
@@ -44,11 +44,6 @@ const section = {
 async function goToCourses() {
         await navigationLeftPage.clickNavItemCourses();
 };
-
-async function importAndCreateCourseBtnsAreVisible() {
-        expect(await elementHelpers.isElementPresent(importCourseBtn)).to.equal(true);
-		expect(await elementHelpers.isElementPresent(createCourseBtn)).to.equal(true);
-}
 
 async function areImportAndCreateCourseBtnsVisible() {
 	await waitHelpers.waitUntilElementIsVisible(importCourseBtn);
@@ -147,14 +142,7 @@ async function isCorrectNumberOfMembersInCourseForSection(courseName, membersLis
 }
 
 async function getListOfCoursesInSection(section) {
-	await waitHelpers.waitUntilPageLoads();
-	const selector = section + ' ' + courseWrapper;
-	try {
-		await waitHelpers.waitUntilElementIsVisible(selector);
-	} catch (err) {
-		return [];
-	}
-	return driver.$$(selector);
+	return elementHelpers.getListOfAllElements(section + ' ' + courseWrapper);
 }
 
 async function getIndexOfGivenCourseInSection(courseName, section) {
@@ -181,7 +169,7 @@ async function getCourseWithNameInSection(courseName, section) {
 async function getWrapperOfCourseInSection(courseName, section) {
 	var index = await getIndexOfGivenCourseInSection(courseName, section);
 	const list = await getListOfCoursesInSection(section);
-	const errorMsg = "Can't find course: " + courseName + ' in section: ' + section + "\n"; 
+	const errorMsg = "Can't find course: " + courseName + ' in section: ' + section + "\n";
 	const resultMsg = "Actual list of courses: [" + list + "]"
 	if (index == -1) throw errorMsg + resultMsg;
 	const element = list[index];
@@ -189,16 +177,7 @@ async function getWrapperOfCourseInSection(courseName, section) {
 }
 
 async function getListOfCourseTitlesInSection(section) {
-	await waitHelpers.waitUntilPageLoads();
-	const selector = section + ' ' + courseWrapper + ' ' + titleOfCourse;
-	try {
-		await waitHelpers.waitUntilElementIsVisible(selector);
-	} catch (err) {
-		return [];
-	}
-	const listOfCourseTitleElements = await driver.$$(selector);
-	let courseTitleList = await elementHelpers.getTextListFromListOfElements(listOfCourseTitleElements);
-	return courseTitleList;
+	return elementHelpers.getTextFromAllElements(section + ' ' + courseWrapper + ' ' + titleOfCourse);
 }
 
 async function getCountOfCoursesWhichTitlesContainTextForSection(text, section) {
@@ -239,7 +218,7 @@ async function goToTasksOfTheCourse(coursename, section) {
 async function studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename) {
         await navigationTopPage.performLogout();
         await startPage.performLogin(username, password);
-        await loginPage.firstLoginStudent(username, password);
+        await loginPage.performLoginActions({shouldAcceptDataProtection: true, shouldSetOwnPassword: true, password});
         await goToTasksOfTheCourse(coursename);
 };
 

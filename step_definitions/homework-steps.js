@@ -32,15 +32,13 @@ Given(/^the teacher creates one course with (.*) and student with (.*)$/, functi
 When(/^teacher creates a private hometask in the course (.*) with (.*)$/, async function (coursename, taskname) {
     await addEditHomeworkPage.addPrivateHometask(coursename, taskname);
     await homeworkListPage.goToPrivateHomeworkArea();
-    const msg = 'Task with name: "' + taskname + '" should be visible on the list.' + '\n' + 'Actual list of tasks: ';
-    expect(await homeworkListPage.isTaskVisible(taskname), msg + await homeworkListPage.getAllTasks() + "'").to.equal(true);
+    await homeworkListPage.isTaskVisible(taskname);
     await navigationTopPage.performLogout();
 });
 
 Then(/^the student will not see this task with (.*)$/, async function (taskname) {
     await homeworkListPage.goToPrivateHomeworkArea();
-    const msg = 'Task with name: "' + taskname + '" should not be visible on the list.' + '\n' + 'Actual list of tasks: ';
-    expect(await homeworkListPage.isTaskVisible(taskname), msg + await homeworkListPage.getAllTasks() + "'").to.equal(false);
+    await homeworkListPage.isTaskNotVisible(taskname);
 });
 
 /* SUBMISSION */
