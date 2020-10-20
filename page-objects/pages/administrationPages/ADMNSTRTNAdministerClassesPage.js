@@ -7,7 +7,6 @@ const ADMNSTRTNAdministrationOverviewPage = require("./ADMNSTRTNAdministrationOv
 const ADMNSTRTNManageClassPage = require("./ADMNSTRTNManageClassPage")
 const ADMNSTRTNEditClassPage = require("./ADMNSTRTNEditClassPage")
 
-
 const addClassBtn = "a[data-testid='createClass']"
 const moreOptionsBtn = "a[data-testid='classCreationExtraOptions']"
 const classNameInput = "input[data-testid='Klassenbezeichnung']"
@@ -43,7 +42,7 @@ async function isClassEdited(newClassName, teacherLastname) {
     const allClassesContent = await allClassesContainer.getText()
     const contentArray = allClassesContent.split(" ")
 
-    expect(contentArray.length).to.equal(4) // teacher column should be empty and therefore not 4, but 3
+    expect(contentArray.length).to.equal(4) // teacher is not empty and therefore not 3, but 4
     expect(contentArray[0]).to.equal(newClassName)
     expect(contentArray[1]).to.equal(teacherLastname)
 }
