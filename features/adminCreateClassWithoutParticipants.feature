@@ -6,7 +6,6 @@ The naming of the class should be the usual way (e.g. "11c")
 
 Background:
 	Given admin arrives on the Schul-Cloud homepage
-	
 
 Scenario Outline:
 

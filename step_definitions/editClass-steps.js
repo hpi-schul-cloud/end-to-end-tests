@@ -1,13 +1,11 @@
 'use strict';
 
-
-const navigationLeftPanel = require('../page-objects/pages/NavigationLeftPage')
 const administrationClasses= require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerClassesPage');
 
-When(/^.* edits a class (.*)$/, function (className) {
-    return administrationClasses.editNewClass(className);
+When(/^.* edits a class(.*)$/, function (className) {
+    return administrationClasses.editClass(className);
 });
 
-Then(/^.* should see the class (.*) with (.*) participants.$/, function (className, participants) {
-    return administrationClasses.isNewEmptyClassCreated(className, participants)
+Then(/^.* should see the class (.*) with last name of teacher (.*).$/, function (newClassName, teacherLastname) {
+    return administrationClasses.isClassEdited(newClassName, teacherLastname)
 });

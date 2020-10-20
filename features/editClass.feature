@@ -12,11 +12,9 @@ Scenario Outline:
 	Given teacher accepts data protection
 	Given teacher goes to administration
 	When teacher creates a class <className>
-	When teacher edits a class <className>
-	And changes school year
-	And changes class description
-	Then admin should see the class <sameClass> with <participants> participants.
+	When teacher edits a class <newClassName>
+	Then teacher should see the class <newClassName> with last name of teacher <teacherLastname>.
 
 Examples:
-	|teachersUsername			| teachersPassword	|className| sameClass | participants |
-	|klara.fall@schul-cloud.org | Schulcloud1!		|8a      | 8a       | 0			 |
+	|teachersUsername			|teachersPassword	|className	|teacherLastname	|newClassName	|
+	|klara.fall@schul-cloud.org |Schulcloud1!		|8a			|Fall				|4d				|

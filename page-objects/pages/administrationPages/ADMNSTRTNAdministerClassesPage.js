@@ -4,15 +4,18 @@
 const elementHelpers = require("../../../runtime/helpers/elementHelpers")
 const waitHelpers = require("../../../runtime/helpers/waitHelpers")
 const ADMNSTRTNAdministrationOverviewPage = require("./ADMNSTRTNAdministrationOverviewPage")
+const ADMNSTRTNManageClassPage = require("./ADMNSTRTNManageClassPage")
+const ADMNSTRTNEditClassPage = require("./ADMNSTRTNEditClassPage")
+
 
 const addClassBtn = "a[data-testid='createClass']"
 const moreOptionsBtn = "a[data-testid='classCreationExtraOptions']"
 const classNameInput = "input[data-testid='Klassenbezeichnung']"
 const addClassConfirmBtn = "button[data-testId='confirmClassCreate']"
+const switchClassesTab = "[data-tab='js-upcoming']"
 const classListTable = "table [data-testid='students_names_container']"
 const titleOfAdministrationClassesPage = "Klassen"
 const titleOfCreateNewClassPage = "Erstelle eine neue Klasse"
-const editClassBtn = ".fa-edit"
 
 //Administration: Classes
 async function isTitleOfAdministrationClassesPage() {
@@ -35,8 +38,14 @@ async function isNewEmptyClassCreated(className = "11c", numOfStudents = "0") {
     expect(contentArray[2]).to.equal(numOfStudents)
 }
 
-async function clickEditClassBtn() {
-    await elementHelpers.clickAndWait(editClassBtn)
+async function isClassEdited(newClassName, teacherLastname) {
+    const allClassesContainer = await waitHelpers.waitUntilElementIsVisible(classListTable)
+    const allClassesContent = await allClassesContainer.getText()
+    const contentArray = allClassesContent.split(" ")
+
+    expect(contentArray.length).to.equal(4) // teacher column should be empty and therefore not 4, but 3
+    expect(contentArray[0]).to.equal(newClassName)
+    expect(contentArray[1]).to.equal(teacherLastname)
 }
 
 //Class creation page
@@ -56,6 +65,10 @@ async function clickConfirmClassCreation() {
     await elementHelpers.clickAndWait(addClassConfirmBtn)
 }
 
+ async function changeClassesTab() {
+     await elementHelpers.clickAndWait(switchClassesTab)
+ }
+
 async function createNewClass(className) {
     await ADMNSTRTNAdministrationOverviewPage.clickAdministrateClasses()
     await isTitleOfAdministrationClassesPage()
@@ -66,12 +79,17 @@ async function createNewClass(className) {
     await clickConfirmClassCreation()
 }
 
-async function editNewClass(className) {
-    await clickEditClassBtn(className)
+async function editClass(newClassName) {
+    await ADMNSTRTNManageClassPage.clickEditClassBtn()
+    await ADMNSTRTNEditClassPage.changeSchoolYear()
+    await setClassName(newClassName)
+    await ADMNSTRTNEditClassPage.clickSafeChanges()
+    await changeClassesTab()
 }
 
 module.exports = {
     isNewEmptyClassCreated,
     createNewClass,
-    editNewClass,
+    editClass,
+    isClassEdited,
 }
