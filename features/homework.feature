@@ -21,7 +21,7 @@ Feature: create different types of homework
 
     @createPrivateHomework
     Scenario Outline: create a private hometask has to be visible only for the teacher
-        Given teacher creates one course with <coursename> and student with <studentname>
+        Given teacher creates course with name '<coursename>', and student: <studentname>
         When teacher creates a private hometask in course <coursename> with <taskname>
         And student logs in with email <username> and password <password>
         And student with full age accepts student's data protection with password <newStudentPassword>
@@ -32,7 +32,7 @@ Feature: create different types of homework
 
     #@submitTextHomework
     #Scenario Outline: pupil submits a homework and teacher evaluates it
-        #Given teacher creates one course with <coursename> and student with <studentname>
+        #Given teacher creates course with name '<coursename>', and student: <studentname>
         #Given teacher clicks "create a new home task" in course <coursename> with <taskname>
         #When student with <username>, <password> of this course <coursename> goes to hometasks
         #When student finds task with name '<taskname>'
@@ -46,7 +46,7 @@ Feature: create different types of homework
 
     @gradeHomeworkWithFile
     Scenario Outline: grade a homework submission by uploading a file
-        Given teacher creates one course with file feedback and student with Paula Meyer
+        Given teacher creates course with name 'file feedback', and student: Paula Meyer
         When teacher has posed a homework
         And teacher logs out
         And student logs in with email <username> and password <password>

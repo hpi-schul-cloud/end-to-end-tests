@@ -12,7 +12,7 @@ When(/^.* creates course with name '(.*)'$/, function(coursename) {
 });
 
 When(/^.* creates course with name '(.*)', and student: (.*)$/, function(coursename, studentNameList) {
-	return addCoursePage.createCourseWithStudents(coursename, studentNameList);
+	return addCoursePage.createCourse(coursename, studentNameList);
 });
 
 When(/^.* chooses course with name '(.*)'$/, function(coursename) {

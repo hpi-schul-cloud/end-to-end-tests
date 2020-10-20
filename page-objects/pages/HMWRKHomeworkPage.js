@@ -85,11 +85,11 @@ async function teacherShowGradeTabForFirstSubmission() {
 }
 
 async function clickOnFirstSubmission() {
-	await waitHelpers.click(submissionContainer)
+	await elementHelpers.click(submissionContainer);
 }
 
 async function clickCommentBtn() {
-	await waitHelpers.click(commentBtn)
+	await elementHelpers.click(commentBtn);
 }
 
 async function submitFileFeedback(taskName, file) {

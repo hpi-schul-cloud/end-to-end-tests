@@ -37,11 +37,11 @@ When(/^.*clicks to preview$/, function () {
 });
 
 Then(/^.*course with name '(.*)' is visible on the list$/, async function (courseName) {
-	return courseListPage.isCourseVisible(courseName, courseListPage.section.activeCourses);
+	return courseListPage.isCourseVisible(courseName, courseListPage.section.activeCourses, true);
 });
 
 Then(/^.*course with name '(.*)' is not visible on the list$/, async function (courseName) {
-	return courseListPage.isCourseNotVisible(courseName, courseListPage.section.activeCourses);
+	return courseListPage.isCourseVisible(courseName, courseListPage.section.activeCourses, false);
 });
 
 Then(/^.*course with name (.*) is displayed correctly on the list$/, async function (courseName) {

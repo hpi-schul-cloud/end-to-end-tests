@@ -10,7 +10,7 @@ const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
 
 /* CREATE A BASIC HOMEWORK */
 When(/^.* clicks "create a new home task" in course (.*) with (.*)$/, function (coursename, taskname) {
-	return addEditHomeworkPage.addBasicHometask(coursename, taskname);
+	return addEditHomeworkPage.addHomework(coursename, taskname, false);
 });
 
 Then(/^.* hometask with '(.*)' is to be found at task pannel$/, function (taskname) {
@@ -18,21 +18,16 @@ Then(/^.* hometask with '(.*)' is to be found at task pannel$/, function (taskna
 });
 
 /* PRIVATE */
-
-Given(/^.* creates one course with (.*) and student with (.*)$/, function (coursename, studentname) {
-	return addCoursePage.createCourseWithStudents(coursename, studentname);
-});
-
 When(/^.* creates a private hometask in course (.*) with (.*)$/, async function (coursename, taskname) {
-	await addEditHomeworkPage.addPrivateHometask(coursename, taskname);
+	await addEditHomeworkPage.addHomework(coursename, taskname, true);
 	await homeworkListPage.goToPrivateHomeworkArea();
-	await homeworkListPage.isTaskVisible(taskname);
+	await homeworkListPage.isTaskVisible(taskname, true);
 	await navigationTopPage.performLogout();
 });
 
 Then(/^.* will not see this task with (.*)$/, async function (taskname) {
 	await homeworkListPage.goToPrivateHomeworkArea();
-	await homeworkListPage.isTaskNotVisible(taskname);
+	await homeworkListPage.isTaskVisible(taskname, false);
 });
 
 /* SUBMISSION */
@@ -67,7 +62,7 @@ When(/^.* creates a homework for course (.*)$/, function (coursename) {
 	return courseHomeworksPage.clickAddNewTaskInCourse(coursename);
 });
 When(/^.* puts in data (.*) and some text description of task$/, function (taskname) {
-	return addEditHomeworkPage.addBasicHometask(taskname);
+	return addEditHomeworkPage.addHomework(taskname, '', false);
 });
 When(/^.* goes to course (.*) where hometask (.*) must be submitted$/, function (coursename, taskname) {
 	return addEditHomeworkPage.uploadHomework();
@@ -89,7 +84,7 @@ Then(/^.* can upload a file as a solution$/, function () {
 	};
 
 	Given(/^.* posed a homework$/, function () {
-		return addEditHomeworkPage.addBasicHometask(courseName, taskName);
+		return addEditHomeworkPage.addHomework(courseName, taskName, false);
 	});
 
 	Given(/^.* submitted that homework$/, function () {

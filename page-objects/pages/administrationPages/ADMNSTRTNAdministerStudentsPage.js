@@ -54,6 +54,7 @@ async function createNewPupil(firstname, lastname, email) {
 }
 async function setStudentsBirthday(birthdayDate) {
 	await waitHelpers.waitUntilPageLoads();
+	await waitHelpers.waitUntilElementIsPresent("#create_birthday");
 	await driver.execute('document.querySelector("#create_birthday").value = "' + birthdayDate + '"'); //date format dd.mm.yyyy
 }
 

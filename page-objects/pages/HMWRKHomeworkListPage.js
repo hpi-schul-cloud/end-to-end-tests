@@ -112,20 +112,16 @@ async function goToHomeworkListAndCheckTaskIfExist (taskname) {
     await expect(taskname).to.equal(foundtaskName)
 }
 
-async function isTaskVisible (taskname) {
-    const allTasks = await getListOfTaskTitles();
+async function isTaskVisible(taskname, expectedValue) {
+	const allTasks = await getListOfTaskTitles();
     const isTaskOnList = allTasks.some((element) => element.includes(taskname));
-    const msg = 'Task with name is not visible on the list: \n';
-    const resultMsg = 'Expected: ' + taskname + ', Actual: ' + allTasks;
-    await expect(isTaskOnList, msg + resultMsg).to.equal(true);
-}
+    const fillString = !expectedValue ? 'not' : '';
+	const msg = `Task with name is ${fillString} visible on the list: \n`;
+	const resultMsg = 'Expected: ' + taskname + ', Actual: ' + allTasks;
 
-async function isTaskNotVisible (taskname) {
-    const allTasks = await getListOfTaskTitles();
-    const isTaskOnList = allTasks.some((element) => element.includes(taskname));
-    const msg = 'Task with name is not visible on the list: \n';
-    const resultMsg = 'Expected: ' + taskname + ', Actual: ' + allTasks;
-    await expect(isTaskOnList, msg + resultMsg).to.equal(false);
+	expectedValue
+		? await expect(isTaskOnList, msg + resultMsg).to.equal(true)
+		: await expect(isTaskOnList, msg + resultMsg).to.equal(false);
 }
 
 async function getDescription(){
@@ -148,7 +144,6 @@ module.exports = {
     goToHomeworkListAndCheckTaskIfExist,
     getListOfTaskTitles,
     isTaskVisible,
-    isTaskNotVisible,
     getDescription,
     goToPrivateHomeworkArea,
 }

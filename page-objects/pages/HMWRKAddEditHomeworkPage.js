@@ -65,23 +65,14 @@ async function clickSubmitHomeworkBtn () {
     await elementHelpers.clickAndWait(submitHomeworkBtn);
 }
 
-async function addBasicHometask (coursename, taskname) {
-    await courseHomeworksPage.clickAddNewTaskInCourse(coursename);
-    await setHomeworkName(taskname);
-    await clickTeamSubmissionsCheckbox();
-    await setAccomplishTime();
-    await setHomeworkText();
-    await clickSubmitHomeworkBtn();
-}
-
-async function addPrivateHometask (coursename, taskname) {
-    await courseHomeworksPage.clickAddNewTaskInCourse(coursename);
-    await setHomeworkName(taskname);
-    await clickTeamSubmissionsCheckbox();
-    await setAccomplishTime();
-    await setHomeworkText();
-    await clickPrivateHomeworkCheckbox();
-    await clickSubmitHomeworkBtn();
+async function addHomework(coursename, taskname, isPrivate) {
+	await courseHomeworksPage.clickAddNewTaskInCourse(coursename);
+	await setHomeworkName(taskname);
+	await clickTeamSubmissionsCheckbox();
+	await setAccomplishTime();
+	await setHomeworkText();
+	if (isPrivate) await clickPrivateHomeworkCheckbox();
+	await clickSubmitHomeworkBtn();
 }
 
 async function uploadHomework () {
@@ -97,15 +88,14 @@ async function uploadHomework () {
 }
 
 module.exports = {
-    clickPrivateHomeworkCheckbox ,
-    clickPublicSubmissionsCheckbox,
-    clickTeamSubmissionsCheckbox,
-    clickSubmitHomeworkBtn,
-    selectFirstCourseOnTheList,
-    setHomeworkName,
-    setHomeworkText,
-    setAccomplishTime,
-    addBasicHometask,
-    addPrivateHometask,
-    uploadHomework,
-}
+	clickPrivateHomeworkCheckbox,
+	clickPublicSubmissionsCheckbox,
+	clickTeamSubmissionsCheckbox,
+	clickSubmitHomeworkBtn,
+	selectFirstCourseOnTheList,
+	setHomeworkName,
+	setHomeworkText,
+	setAccomplishTime,
+	addHomework,
+	uploadHomework,
+};
