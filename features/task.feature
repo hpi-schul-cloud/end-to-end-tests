@@ -8,8 +8,6 @@ Feature: create different types of task
         And teacher logs in
         And teacher accepts data protection
         And teacher goes to courses page
-       
-
 
     @createTaskForStudents
     Scenario Outline: create a simple hometask

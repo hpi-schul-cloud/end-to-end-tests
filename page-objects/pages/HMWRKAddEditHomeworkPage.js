@@ -3,99 +3,75 @@
 const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers.js');
 const courseHomeworksPage = require("../pages/coursePages/CRSSCourseHomeworksPage");
 const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
+const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
 
 const uploadBtn = '//*[@id="main-content"]/div/section[1]/div/div/div[1]/input';
 const teamSubmissionsCheckbox = "#teamSubmissions";
 const privateHomeworkCheckbox = "[data-testid='private-checkbox']";
 const publicSubmissionsCheckbox = "#publicSubmissionsCheckbox";
 const homeworkTitleInput = "input[placeholder='Titel']";
+const homeworkTextArea = '#homework-form .ck-content';
 const submitHomeworkBtn = ".btn-submit";
 const courseSelect = '#coursePicker';
 const activatePublicSubmissionsDialog = '.modal.fade.dontShowAgainAlert-modal.in'
-const activatePublicSubmissionsButton = 'button[type="submit"]';
+const activatePublicSubmissionsButton = '.modal-dialog .modal-checkbox button.btn-submit';
 
 
-async function clickEditButton(){
-    await elementHelpers.click()
-}
 
 async function clickPrivateHomeworkCheckbox () {
     await elementHelpers.click(privateHomeworkCheckbox);
 }
 
-async function clickPublicSubmissionsCheckbox (){
-
-
-    const checkbox= await driver.$("[name='publicSubmissions']");
-    const checkboxChecked = await checkbox.isSelected();
-
-    if(checkboxChecked){
-        await elementHelpers.click(publicSubmissionsCheckbox)
-    } else {
-        await elementHelpers.click(publicSubmissionsCheckbox)
-
-        let dialogContainerElement = await driver.$(activatePublicSubmissionsDialog);
-        let submitBtnElement = await dialogContainerElement.$(activatePublicSubmissionsButton);
-
-        if(dialogContainerElement != null){
-            await submitBtnElement.click();
-        }
-    }
+async function clickPublicSubmissionsCheckbox() {
+	const checkbox = await waitHelpers.waitUntilElementIsPresent(publicSubmissionsCheckbox);
+	const checkboxChecked = await checkbox.isSelected();
+	if (checkboxChecked) {
+		await elementHelpers.click(checkbox);
+	} else {
+		await elementHelpers.click(checkbox);
+		let dialogContainerElement = await waitHelpers.waitUntilElementIsPresent(activatePublicSubmissionsDialog);
+		if (dialogContainerElement != null) {
+			await elementHelpers.clickAndWait(activatePublicSubmissionsButton);
+		}
+	}
 }
 async function clickTeamSubmissionsCheckbox () {
     await elementHelpers.click(teamSubmissionsCheckbox);
 }
 
 async function selectFirstCourseOnTheList(){
-   let dropdown = await driver.$(courseSelect);
+   let dropdown = await waitHelpers.waitUntilElementIsPresent(courseSelect);
    await dropdown.selectByIndex(0);
 }
 
 async function setHomeworkName (taskName) {
-    await driver.pause(global.SHORT_WAIT_MILLIS);
-    const nameField = await driver.$(homeworkTitleInput);
-    await nameField.setValue(taskName);
+    await waitHelpers.waitAndSetValue(homeworkTitleInput, taskName);
 }
 
-async function setHomeworkText (taskbody) {
-    await driver.pause(global.SHORT_WAIT_MILLIS);
-    let editorContent = await driver.$('.ck-content');
-   
-    await driver.pause(global.SHORT_WAIT_MILLIS);
-
-    await editorContent.setValue(taskbody);
+async function setHomeworkText (text) {
+    await waitHelpers.waitAndSetValue(homeworkTextArea, text);
     
 }
 
 async function setAccomplishTime () {
     var begin = await dateTimeHelpers.dateToString();
     var end = await dateTimeHelpers.randomDate();
-
     await driver.execute(`document.querySelector("#availableDate").value="${begin}"`);
     await driver.execute(`document.querySelector("#dueDate").value="${end}"`);
 }
 
 async function clickSubmitHomeworkBtn () {
-    await elementHelpers.click(submitHomeworkBtn);
+    await elementHelpers.clickAndWait(submitHomeworkBtn);
 }
 
-async function addBasicHometask (coursename, taskname) {
-    await courseHomeworksPage.clickAddNewTaskInCourse(coursename);
-    await setHomeworkName(taskname);
-    await clickTeamSubmissionsCheckbox();
-    await setAccomplishTime();
-    await setHomeworkText();
-    await clickSubmitHomeworkBtn();
-}
-
-async function addPrivateHometask (coursename, taskname) {
-    await courseHomeworksPage.clickAddNewTaskInCourse(coursename);
-    await setHomeworkName(taskname);
-    await clickTeamSubmissionsCheckbox();
-    await setAccomplishTime();
-    await setHomeworkText();
-    await clickPrivateHomeworkCheckbox();
-    await clickSubmitHomeworkBtn();
+async function addHomework(coursename, taskname, isPrivate) {
+	await courseHomeworksPage.clickAddNewTaskInCourse(coursename);
+	await setHomeworkName(taskname);
+	await clickTeamSubmissionsCheckbox();
+	await setAccomplishTime();
+	await setHomeworkText();
+	if (isPrivate) await clickPrivateHomeworkCheckbox();
+	await clickSubmitHomeworkBtn();
 }
 
 async function uploadHomework () {

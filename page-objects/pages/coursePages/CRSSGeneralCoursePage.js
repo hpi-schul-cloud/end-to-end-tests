@@ -3,6 +3,7 @@
 
 const editCopyCoursePage = require("../../../page-objects/pages/coursePages/CRSSEditCopyCoursePage");
 const elementHelpers = require("../../../runtime/helpers/elementHelpers");
+const CRSSCourseListPage = require("./CRSSCourseListPage");
 
 const courseSettingsBtn = ".fa.fa-ellipsis-v.i-cog";
 
@@ -60,6 +61,12 @@ async function clickEditCourse () {
 	}
 }
 
+async function copyCourseWithName(courseName) {
+	await CRSSCourseListPage.goToCourses();
+	await CRSSCourseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
+	await cloneCourse();
+}
+
 module.exports = {
 	openTopicsTab,
 	openHomeworksTab,
@@ -69,4 +76,5 @@ module.exports = {
 	clickSettingsDropdownMenuBtn,
 	cloneCourse,
 	clickEditCourse,
+	copyCourseWithName,
 };
