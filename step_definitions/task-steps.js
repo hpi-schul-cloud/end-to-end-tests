@@ -51,8 +51,8 @@ Given(/^.* adds a student with name (.*) to the course$/, function (studentname)
     return addCoursePage.setStudent(studentname);
 });
 
-When('teacher creates a private hometask in the course {string} with {}', async function (string, string2) {
-    await addEditHomeworkPage.addPrivateHometask(string, string2);
+When(/^.* creates a private hometask in the course (.*) with the name (.*)$/, async function (coursename, taskname) {
+    await addEditHomeworkPage.addPrivateHometask(coursename, taskname);
 });
 
 When(/^.* goes to the tasks section$/, async function () {

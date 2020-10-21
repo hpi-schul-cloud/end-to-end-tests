@@ -231,7 +231,6 @@ module.exports = {
 	setCurrentUserAsTeacher,
 	setColour,
 	createCourse,
-	createCourseWithStudents,
 	setStudent,
 };
 
