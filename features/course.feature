@@ -11,31 +11,31 @@ Scenario Outline: create first course. Teachers have 2 options: to import or to 
 	When teacher goes to courses page
 	Then teacher should see that buttons: Import-course, Create-new-course are visible
 	When teacher clicks Create-new-course button
-	When teacher enters course name <courseName> into new course form
+	When teacher enters course name '<courseName>' into new course form
 	And teacher chooses himself as a Course teacher
 	When teacher chooses course colour <courseColour>
 	When teacher clicks Next-section button
 	When teacher clicks Next-section button
 	When teacher clicks Go-to-course-list
-	Then teacher should see that course with name <courseName> is visible on the list
+	Then teacher should see that course with name '<courseName>' is visible on the list
 Examples:
 	| username                  | password    | courseName| courseColour|
 	| klara.fall@schul-cloud.org| Schulcloud1!| Mathe     | corn        |
 
 @createCourseCorrectly
-Scenario Outline: submit compulsory fields by creating the course 
+Scenario Outline: submit compulsory fields by creating the course
 	Given teacher logs in with email <username> and password <password>
-	Given teacher accepts data protection
+	And teacher accepts data protection
 	And teacher goes to courses page
 	Then teacher should see that buttons: Import-course, Create-new-course are visible
 	When teacher clicks Create-new-course button
 	#Then teacher should see that his name is entered by default in teachers' field (to be restored after SC-7152)
-	And teacher should see that time span is already set
-	And teacher should see that supply teacher is not set 
-	When teacher see that course name has not been entered 
-	And teacher clicks Next-section button
+	Then teacher should see that time span is already set
+	And teacher should see that supply teacher is not set
+	And teacher should see that course name has not been entered
+	When teacher clicks Next-section button
 	Then teacher should see that the 2 section can not be opened
-	When teacher enters course name <courseName> into new course form
+	When teacher enters course name '<courseName>' into new course form
 	And teacher chooses himself as a Course teacher
 	And teacher chooses course colour <courseColour>
 	And teacher clicks Next-section button
@@ -46,9 +46,9 @@ Scenario Outline: submit compulsory fields by creating the course
 	Then teacher should see that 3 section is opened
 	And teacher should see that buttons: Create-new-course, Go-to-course-list-page are visible
 	When teacher clicks Go-to-course-list
-	Then teacher should see that course with name <courseName> is visible on the list
+	Then teacher should see that course with name '<courseName>' is visible on the list
 	And teacher should see that course with name <courseName> is displayed correctly on the list
-	And teacher should see that color of the course <courseName> is <courseColour> that was selected during the creation process	
+	And teacher should see that color of the course <courseName> is <courseColour> that was selected during the creation process
 Examples:
 	|username                  |password    |courseName           |courseColour|
 	|klara.fall@schul-cloud.org|Schulcloud1!|Mathe@Sport&Music    |corn        |
@@ -58,8 +58,8 @@ Scenario Outline: logging in as a teacher I want to be able to edit a course on 
 	Given teacher logs in with email <username> and password <password>
 	And teacher accepts data protection
 	And teacher goes to courses page
-	And teacher should see that course with name <courseName> is visible on the list
-	When teacher chooses Kurs with name <courseName>
+	And teacher should see that course with name '<courseName>' is visible on the list
+	When teacher chooses course with name '<courseName>'
     And teacher clicks on Course edit
     And teacher changes name of Course <changeName>
     And teacher enters Course description <description>
@@ -78,12 +78,12 @@ Scenario Outline: logging in as a teacher I want to be able to edit a course on 
 	Given teacher logs in with email <username> and password <password>
 	And teacher accepts data protection
 	And teacher goes to courses page
-	And teacher should see that course with name <courseName> is visible on the list
-	When teacher chooses Kurs with name <courseName>
+	And teacher should see that course with name '<courseName>' is visible on the list
+	When teacher chooses course with name '<courseName>'
     And teacher clicks on Course edit
 	And teacher clicks on delete course button
 	And teacher clicks on delete course button confirmation
-	Then teacher should see that course with name <courseName> is not visible on the list
+	Then teacher should see that course with name '<courseName>' is not visible on the list
 Examples:
 	|username                |password    |courseName    |courseColour|
 	|lehrer@schul-cloud.org  |Schulcloud1!|Mathe         |corn        |

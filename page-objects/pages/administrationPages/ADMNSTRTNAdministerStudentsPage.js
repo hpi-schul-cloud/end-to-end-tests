@@ -16,9 +16,11 @@ const tableOfStudents = "tbody[data-testid='students_names_container']";
 const consentSubmitBtn = "button[data-testid='submit_consent']";
 const addStudentSubmitBtn = 'div.modal.fade.add-modal.in button.btn-submit';
 const passwordInput = '#passwd';
+const birthday = '#birthday';
 
 //
 async function clickAddStudentBtn() {
+	await waitHelpers.waitUntilAjaxIsFinished();
 	await elementHelpers.clickAndWait(addStudentBtn);
 }
 
@@ -53,16 +55,17 @@ async function createNewPupil(firstname, lastname, email) {
 }
 async function setStudentsBirthday(birthdayDate) {
 	await waitHelpers.waitUntilPageLoads();
+  await waitHelpers.waitUntilElementIsPresent(birthday);
 	await driver.execute('document.querySelector("#birthday").value = "' + birthdayDate + '"'); //date format dd.mm.yyyy
 }
 
 async function getStudentsEmailList() {
-	await waitHelpers.waitUntilElementIsVisible(tableOfStudents);
+	await waitHelpers.waitUntilElementIsPresent(tableOfStudents);
 	let names = await driver.$$(tableOfStudents + ' > tr');
 	return Promise.all(
 		names.map(async (nameContainer) => {
 			const emailContainer = await nameContainer.$('td:nth-child(3)');
-			return await emailContainer.getText();
+			return emailContainer.getText();
 		})
 	);
 }

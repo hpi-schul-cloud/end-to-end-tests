@@ -9,8 +9,8 @@ Scenario Outline:
 Given teacher logs in with email <teacherUsername> and password <teacherPassword>
 Given teacher accepts data protection
 Given teacher goes to courses page
-When teacher enters course name <coursename> into search field
-Then teacher should see that course list satisfies the search request <coursename>
+When teacher enters course name '<coursename>' into search field
+Then teacher should see that course list satisfies the search request '<coursename>'
 
 Examples:
 | coursename    | teacherUsername            | teacherPassword |
