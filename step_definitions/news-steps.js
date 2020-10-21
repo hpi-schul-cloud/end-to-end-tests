@@ -22,6 +22,6 @@ When(/^.*creates some news which has to be published later$/, function () {
 });
 
 Then(/^.*cannot see the news which is not due yet$/, async function () {
-	await newsListPage.isNewsVisible(name, true);
+	await newsListPage.isNewsVisible(name, false);
 });
 
