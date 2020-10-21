@@ -16,8 +16,8 @@ Given('teacher creates one course with name {string}', async function (string) {
 
 /*  @createTaskForStudents */    
 
-When('teacher clicks create-a-new-task-button in the course {string}', function (string) {
-    return courseHomeworksPage.clickAddNewTaskInCourse(string);
+When(/^.* creates one course with name (.*)$/, function (coursename) {
+    return courseHomeworksPage.clickAddNewTaskInCourse(coursename);
 });
 
 When(/^.* pastes name (.*) of the task$/, function (taskname) {
@@ -62,7 +62,7 @@ When(/^.* goes to the tasks section$/, async function () {
 Then(/^the task (.*) should be visible for .*$/,async  function (taskname) {
     await taskListPage.goToPrivateHomeworkArea();
     const msg = 'Task with name: "' + taskname + '" should be visible on the list.' + '\n' + 'Actual list of tasks: ';
-    expect(await taskListPage.isTaskVisible(taskname), msg + await taskListPage.getAllTasks() + "'").to.equal(true);
+    expect(await taskListPage.isTaskVisible(taskname), msg + await taskListPage.getListOfTaskTitles()+ "'").to.equal(true);
 });
 
 Then(/^the student will not see this task with (.*)$/, async function (taskname) {

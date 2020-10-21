@@ -8,12 +8,13 @@ Feature: create different types of task
         And teacher logs in
         And teacher accepts data protection
         And teacher goes to courses page
-        And teacher creates one course with name "new course with a task"
+       
 
 
     @createTaskForStudents
     Scenario Outline: create a simple hometask
-        When teacher clicks create-a-new-task-button in the course "new course with a task"
+        When teacher creates one course with name <coursename>
+        When teacher clicks create-a-new-task-button in the course <coursename>
         And teacher pastes name <taskname> of the task
         And teacher clicks on "enable group submission" checkbox
         And teacher sets accomplish time for the task
@@ -21,15 +22,13 @@ Feature: create different types of task
         And teacher clicks submit-task-button
         Then the hometask with <taskname> is to be found at the task pannel
         Examples:
-            | coursename    | taskname     | taskText                          |
-            | test hometask | task example | here is some task for my students |
+            | coursename             | taskname     | taskText                          |
+            | new course with a task | task example | here is some task for my students |
 
     @createPrivateTask
     Scenario Outline: create a private hometask has to be visible only for the teacher
-        When teacher goes to courses page
-        #And teacher clicks edit-the-course-button in the course "new course with a task"
-        #And teacher adds a student with name <studentname> to the course 
-        When teacher creates a private hometask in the course "new course with a task" with the name <taskname>
+        When teacher creates a course <coursename> and adds student <studentname> to this course
+        When teacher creates a private hometask in the course <coursename> with the name <taskname>
         Then the task <taskname> should be visible for the teacher
         And teacher logs out 
         And student logs in with email <username> and password <password>
