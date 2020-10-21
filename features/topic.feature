@@ -9,11 +9,11 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 	@createTopic
 	Scenario Outline: <userRole> creates a new topic in course
 		When <userRole> goes to courses page
-		And <userRole> chooses course with name <courseName>
+		And <userRole> chooses course with name '<courseName>'
 		And <userRole> adds a new Topic with name <topicName>
 		Then <userRole> should see that created topic with name <topicName> is shown on the topic list
 		When <userRole> clicks on the topic with name <topicName>
 		Then <userRole> should see that the topic with name <topicName> is visible on the topic page
 		Examples:
 			| userRole | courseName | topicName |
-			| Teacher  | Mathe      | Division  |
+			| teacher  | Mathe      | Division  |

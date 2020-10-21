@@ -39,11 +39,11 @@ async function setTextOfTextbox(textBox, text) {
 }
 
 async function setCourseName(courseName) {
-	setTextOfTextbox(courseNameInput, courseName);
+	await setTextOfTextbox(courseNameInput, courseName);
 }
 
 async function setCourseDescription(courseDescription) {
-	setTextOfTextbox(courseDescriptionInput, courseDescription);
+	await setTextOfTextbox(courseDescriptionInput, courseDescription);
 }
 
 module.exports = {
