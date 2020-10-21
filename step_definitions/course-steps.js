@@ -23,7 +23,7 @@ When(/^.*chooses himself as a Course teacher$/, async function () {
 	return addCourse.setCurrentUserAsTeacher();
 });
 
-When(/^.*enters course name (.*) into new course form$/, function (courseName) {
+When(/^.*enters course name '(.*)' into new course form$/, function (courseName) {
 	return addCourse.setCourseName(courseName);
 });
 When(/^.*chooses course colour (.*)$/, function (courseColour) {
@@ -36,11 +36,11 @@ When(/^.*clicks to preview$/, function () {
 	return addCourse.goToNextSection();
 });
 
-Then(/^.*course with name (.*) is visible on the list$/, async function (courseName) {
+Then(/^.*course with name '(.*)' is visible on the list$/, async function (courseName) {
 	return courseListPage.isCourseVisible(courseName, courseListPage.section.activeCourses, true);
 });
 
-Then(/^.*course with name (.*) is not visible on the list$/, async function (courseName) {
+Then(/^.*course with name '(.*)' is not visible on the list$/, async function (courseName) {
 	return courseListPage.isCourseVisible(courseName, courseListPage.section.activeCourses, false);
 });
 
@@ -89,9 +89,7 @@ Then(/^.*color of the course (.*) is (\S*).*$/, async function (courseName, cour
 	await courseListPage.isCourseColour(courseName, courseColour, courseListPage.section.activeCourses);
 });
 
-Then(/^.*chooses course with name (\S*)$/, async function (courseName) {
-	await courseListPage.clickOnCourseInSection(courseName, courseListPage.section.activeCourses);
-});
+
 
 Then(/^.*clicks on Course edit$/, async function () {
 	await CRSSGeneralCoursePage.clickEditCourse();
@@ -109,10 +107,7 @@ Then(/^.*clicks on save changes button$/, async function () {
 	await CRSSEditCopyCoursePage.clickSubmitButton();
 });
 
-Then(/^.*course name (.*) with description correctly displayed (.*)$/, async function (
-	courseName,
-	expectedDescription
-) {
+Then(/^.*course name (.*) with description correctly displayed (.*)$/, async function (courseName,expectedDescription) {
 	await courseListPage.isCourseDescription(courseName, expectedDescription, courseListPage.section.activeCourses);
 });
 
