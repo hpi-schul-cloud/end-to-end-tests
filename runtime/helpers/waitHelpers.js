@@ -1,6 +1,5 @@
 'use strict';
 
-const {getElement} = require('./sharedHelpers');
 const sharedHelpers = require('./sharedHelpers');
 
 const elementIsPresentTimeout = 10000;
@@ -23,7 +22,7 @@ const mediumInterval = 100;
 
 async function waitUntilElementIsPresent(selectorOrElement, timeout = elementIsPresentTimeout) {
 	let element = await sharedHelpers.getElement(selectorOrElement);
-	let msg = 'Element is not present: [' + element.selector + ']  within time: ' + timeout;
+	let msg = 'Element is not present: "' + element.selector + '"  within time: ' + timeout;
 	await element.waitForExist(timeout, false, msg);
 	return element;
 }
@@ -158,10 +157,9 @@ async function waitUntilScriptResultIsTrue(script, timeoutMsg, timeout = pageLoa
 	);
 }
 
-async function waitAndSetValue(selectorOrElement, value) {
-	const element = await waitUntilElementIsEnabled(selectorOrElement);
+async function waitAndSetValue(selectorOrElement, value, timeout = setValueTimeout) {
+	const element =  await waitUntilElementIsEnabled(selectorOrElement);
 	await element.setValue(value);
-	return element;
 }
 
 async function waitUntilElementAttributeEquals(

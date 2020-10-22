@@ -1,13 +1,15 @@
 @topic
 Feature: Create, edit and delete a topic in the course on the HPI SchulCloud page
 
+	Background:
+		Given User arrives on the Schul-Cloud homepage
+
 	@createTopic
 	Scenario Outline: <userRole> creates a new topic in course
-		Given <userRole> arrives on the Schul-Cloud homepage
-		When <userRole> logs in with email <email> and password <password>
+		Given <userRole> logs in with email <email> and password <password>
 		And <userRole> accepts data protection
-		When <userRole> goes to courses page
-		And <userRole> chooses course with name <courseName>
+		And <userRole> goes to courses page
+		And <userRole> chooses course with name '<courseName>'
 		And <userRole> adds a new Topic with name <topicName>
 		Then <userRole> should see that created topic with name <topicName> is shown on the topic list
 		When <userRole> clicks on the topic with name <topicName>
@@ -17,21 +19,20 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 			| teacher  | lehrer@schul-cloud.org | Schulcloud1! | Mathe      | Division  |
 
 	@editTopic
-	Scenario Outline: <userRole> edit a topic
-		Given <userRole> arrives on the Schul-Cloud homepage
-		When <userRole> logs in with email <email> and password <password>
+	Scenario Outline: User edit a topic
+		Given <userRole> logs in with email <email> and password <password>
 		And <userRole> accepts data protection
 		When <userRole> goes to courses page
-		And <userRole> chooses course with name <courseName>
-		And <userRole> adds a Topic with name <topicName>
-		And <userRole> adds content title <contentTitle> and text <description> to the topic content
+		And <userRole> chooses course with name '<courseName>'
+		And <userRole> adds a topic with name '<topicName>'
+		And <userRole> adds content title '<contentTitle>' and text '<description>' to the topic content
 		Then <userRole> should see that created topic with name <topicName> is shown on the topic list
 		When <userRole> clicks on the pencil button in the line of the topic with name <topicName> to edit the topic
-		When <userRole> changes topic name <changedTopicName>
+		And <userRole> changes topic name <changedTopicName>
 		And  <userRole> finds title <contentTitle> and changes title on <changedContentTitle> and text <changedDescription> of the topic
 		Then <userRole> should see changed topic with name <changedTopicName> and content title <changedContentTitle> and description <changedDescription> is visible on the topic page
 		When <userRole> goes to courses page
-		And <userRole> chooses course with name <courseName>
+		And <userRole> chooses course with name '<courseName>'
 		Then <userRole> should see that edited topic with name <changedTopicName> is shown on the topic list
 		Examples:
 			| userRole | email                  | password     | courseName | topicName | contentTitle | description     | changedTopicName | changedContentTitle | changedDescription |
