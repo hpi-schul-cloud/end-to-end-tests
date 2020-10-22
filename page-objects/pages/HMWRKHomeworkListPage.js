@@ -57,10 +57,6 @@ function getTaskActionBtnSelector(buttonAction) {
         return btnSel;
 };
 
-async function goToHomeworkListPage () {
-    await navigationLeftPage.clickNavItemTasks();
-}
-
 async function clickCreateTaskButton () {
     await elementHelpers.clickAndWait(selectorCreateTaskButton)
 }
@@ -101,16 +97,6 @@ async function clickOnTask(taskName, button) {
 	await elementHelpers.clickAndWait(actionButton);
 }
 
-async function goToHomeworkListAndCheckTaskIfExist (taskname) {
-    await sortHometasks()
-    await clickOnTask(taskname, "Task open")
-    let pageTitle = await waitHelpers.waitUntilElementIsPresent(pageTitleSelector)
-    let courseAndTaskName = await pageTitle.getText()
-    let tasknameArray = await courseAndTaskName.split("- ")
-    let foundtaskName = tasknameArray[1]
-    await expect(taskname).to.equal(foundtaskName)
-}
-
 async function isTaskVisible(taskname, expectedValue) {
 	const allTasks = await getListOfTaskTitles();
     const isTaskOnList = allTasks.some((element) => element.includes(taskname));
@@ -133,13 +119,6 @@ async function goToPrivateHomeworkArea () {
     await navigationLeftPage.clickNavItemTasks()
     await navigationLeftPage.clickNavItemTasksPrivate()
 }
-async function clickSortHometasks() {
-        await elementHelpers.click(selectorSortBtn)
-        await elementHelpers.click(select)
-        await elementHelpers.click(lastedited)
-        await elementHelpers.click(submitBtn)
-}
-
 async function areThereAnyTasks() {
         let listOfTasks = await driver.$$(taskElement)
         return listOfTasks.length > 0 ? true : false
@@ -163,32 +142,15 @@ async function clickOnTaskFromList (taskname) {
             }
         }
  }
-    
- async function goToHomeworkListAndCheckTaskIfExist (taskname) {
-        await navigationLeftPage.clickNavItemTasks();
-        await this.clickSortHometasks();
-        await this.clickOnTask(taskname, 'Task open')
-        let pageTitle = await waitHelpers.waitUntilElementIsPresent(pageTitleSelector)
-        let courseAndTaskName = await pageTitle.getText()
-        let tasknameArray = await courseAndTaskName.split("- ")
-        let foundtaskName = tasknameArray[1]
-        await expect(taskname).to.equal(foundtaskName)
-}
+
 module.exports = {
-    getTaskActionBtnSelector,
-    goToHomeworkListPage,
     clickCreateTaskButton,
     sortHometasks,
-    getTaskIndex,
     getListOfTaskTitles,
     getListOfTask,
     clickOnTask,
-    goToHomeworkListAndCheckTaskIfExist, // delete
     isTaskVisible,
-    getTaskDescription,
     goToPrivateHomeworkArea,
-    clickSortHometasks,
-    areThereAnyTasks,
     isTaskNotVisible,
     clickOnTaskFromList,
 

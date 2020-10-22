@@ -73,7 +73,6 @@ async function teacherLogsInAndCanSeeTheTextSubmission(coursename, taskname, stu
 }
 
 async function submitHomework(taskName) {
-	await HMWRKHomeworkListPage.goToHomeworkListPage();
 	await HMWRKHomeworkListPage.clickOnTask(taskName, 'Task open');
 	await openStudentSubmissionTab();
 	await submitSolutionForTheHometask();
@@ -99,11 +98,6 @@ async function gotoTasksTab () {
 }
 
 async function submitFileFeedback(taskName, file) {
-	await navigationTopPage.performLogout();
-	await startPage.clickLoginBtn();
-	await loginPage.performLogin(loginPage.users.teachers.klaraFallUsername, loginPage.users.teachers.klaraFallPassword);
-	await HMWRKHomeworkListPage.goToHomeworkListPage();
-	await HMWRKHomeworkListPage.clickOnTask(taskName, 'Task open');
 	await teacherShowGradeTabForFirstSubmission();
 	await driver.execute(function () {
 		document.querySelector('input[type=file][class=dz-hidden-input]').style = {};

@@ -143,4 +143,6 @@ When(/^the teacher uploads file feedback$/, function () {
 Then(/^both the teacher and student can see and download the feedback$/, function () {
     return taskPage.testFileUploadSuccess(taskName, file, student);
 });
-
+When(/^.* clicks on task with name (.*)$/, async function (taskName) {
+    await taskListPage.clickOnTask(taskName, 'Task open');
+});

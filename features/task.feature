@@ -59,9 +59,15 @@ Feature: create different types of task
         And teacher logs out
         And student logs in with email <username> and password <password>
         And student with full age accepts student's data protection with password <newPasswordStudent>
+        And student goes to tasks page
         And the student has submitted that task
+        And student logs out 
+        When teacher logs in
+        And teacher accepts data protection
+        And  teacher goes to tasks page
+        And teacher clicks on task with name <taskname>
         And the teacher uploads file feedback
         Then both the teacher and student can see and download the feedback
         Examples:
-            | username                    | password     | newPasswordStudent |
-            | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!      |
+            | username                    | password     | newPasswordStudent | taskname              |
+            | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!      | task with file upload |   
