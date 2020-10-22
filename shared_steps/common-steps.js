@@ -8,7 +8,7 @@ const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const schulCloudURL = `${CLIENT.URL}`;
 /*Login, Logout*/
 
-Given(/^.*arrives on the Schul-Cloud homepage$/, function () {
+Given(/^.* arrives on the Schul-Cloud homepage$/, function () {
 	return elementHelpers.loadPage(schulCloudURL);
 });
 

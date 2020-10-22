@@ -5,7 +5,6 @@ const textFileHelpers = require('./textFileHelpers.js');
 const { SERVER } = require('../../shared-objects/servers');
 const Axios = require('axios');
 
-module.exports = {
 	/**
 	 *  API call for GET, PUT, POST and DELETE functionality
 	 * @param url
@@ -15,7 +14,8 @@ module.exports = {
 	 * @param statusCode
 	 * @type {{ GET: receive all info, POST: create, PUT: edit / update, DELETE: remove info }},
 	 */
-	apiCall: function (url, method, body, fileName, statusCode) {
+
+	function apiCall (url, method, body, fileName, statusCode) {
 		let options = {
 			url: url,
 			method: method,
@@ -46,7 +46,7 @@ module.exports = {
 			if (method === 'POST' && fileName != null) {
 				let data = res.body.adminDoc;
 				let doc_Id = data.replace(/.*documents\/([^\/]+)\/properties.*/, '$1');
-				await textFileHelpers.writeTextFile(fileName, doc_Id, function (err) {
+				textFileHelpers.writeTextFile(fileName, doc_Id, function (err) {
 					if (err) {
 						log.error(err.message);
 					}
@@ -57,8 +57,9 @@ module.exports = {
 			}
 			return res;
 		});
-	},
-	getUserInfo: async function (attribute) {
+	}
+
+	async function getUserInfo (attribute) {
 		const cookie = await driver.getCookies(['jwt']);
 		const jwt = cookie[0].value;
 		const info = await Axios.request({
@@ -70,24 +71,32 @@ module.exports = {
 		});
 		let object = info.data;
 		return object[attribute];
-	},
-	getUserName: async function () {
-		return this.getUserInfo('fullName');
-	},
+	}
 
-	getSchoolName: async function () {
-		return this.getUserInfo('schoolName');
-	},
-	getInitials: async function () {
-		return this.getUserInfo('avatarInitials');
-	},
-	getUserRole: async function () {
+	async function getUserName () {
+		return getUserInfo('fullName');
+	}
+
+	async function getSchoolName () {
+		return getUserInfo('schoolName');
+	}
+	async function getInitials () {
+		return getUserInfo('avatarInitials');
+	}
+	async function getUserRole () {
 		try {
-			let userRole = await this.getUserInfo('roles');
+			let userRole = await getUserInfo('roles');
 			return userRole[0].displayName;
 		} catch (error) {
 			log.error('Can not find role: ' + error.message);
 			throw error;
 		}
-	},
+	}
+
+module.exports = {
+	apiCall,
+	getUserName,
+	getSchoolName,
+	getInitials,
+	getUserRole,
 };

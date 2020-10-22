@@ -8,8 +8,6 @@ const LOAD_PAGE_TIMEOUT = 10000;
 async function click(selectorOrElement) {
 	const element = await waitHelpers.waitUntilElementIsClickable(selectorOrElement);
 	await element.click();
-	//waitUntilPageLoads(); is temporary:
-	await waitHelpers.waitUntilPageLoads();
 }
 
 //This method should be used when we wait for element, click and wait page for reload

@@ -1,6 +1,5 @@
 'use strict';
 
-const { getElement } = require('./sharedHelpers');
 const sharedHelpers = require('./sharedHelpers');
 
 const elementIsPresentTimeout = 10000;
@@ -159,8 +158,9 @@ async function waitUntilScriptResultIsTrue(script, timeoutMsg, timeout = pageLoa
 }
 
 async function waitAndSetValue(selectorOrElement, value, timeout = setValueTimeout) {
+	await waitUntilElementIsVisible(selectorOrElement);
 	const element =  await waitUntilElementIsEnabled(selectorOrElement);
-	await element.setValue(value);		
+	await element.setValue(value);
 }
 
 async function waitUntilElementAttributeEquals(

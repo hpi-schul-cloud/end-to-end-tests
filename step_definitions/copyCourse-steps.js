@@ -19,6 +19,8 @@ When(/^.* chooses course with name '(.*)'$/, function(coursename) {
 	return courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 });
 
+
+
 Then(/^.* amount of courses with name '(.*)' is ([0-9])$/, async function(courseName, coursesCount) {
 	return courseListPage.isCountOfCoursesWithNameOnList(courseName, coursesCount, courseListPage.section.activeCourses);
 });
@@ -32,14 +34,13 @@ Then(/^.* course with name '(.*)' is cloned, but without students$/, async funct
 		await courseListPage.isCountOfCourseMemebrs(clonedCourseName, 0, courseListPage.section.activeCourses);
 	});
 
-When(/^.*adds a topic with name '(.*)'$/, async function(topicname) {
+When(/^.* adds a topic with name '(.*)'$/, async function(topicname) {
 	await courseTopicsPage.clickAddNewTopicBtn();
 	await addEditTopicPage.setTopic(topicname);
 
 });
-
-When(/^.* adds some Text '(.*)'$/, async function(text) {
-	await addEditTopicPage.addText(text);
+When(/^.* adds content title '(.*)' and text '(.*)' to the topic content$/, async function (contentTitle, description) {
+	await addEditTopicPage.addText(contentTitle, description);
 	await addEditTopicPage.clickCreateTopicButton();
 });
 
