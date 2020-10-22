@@ -14,8 +14,7 @@ When(/^.*creates some news which has to be published immediately$/, function () 
 });
 
 Then(/^.*can see the news$/, async function () {
-	let newsNames = await newsListPage.getListOfNewNames();
-	await expect(newsNames).to.include(name);
+	await newsListPage.isNewsVisible(name, true);
 });
 
 When(/^.*creates some news which has to be published later$/, function () {
@@ -23,7 +22,6 @@ When(/^.*creates some news which has to be published later$/, function () {
 });
 
 Then(/^.*cannot see the news which is not due yet$/, async function () {
-	let newsNames = await newsListPage.getListOfNewNames();
-	await expect(newsNames).not.to.include(laterNewsName);
+	await newsListPage.isNewsVisible(name, false);
 });
 

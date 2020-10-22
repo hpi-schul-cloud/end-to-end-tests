@@ -19,6 +19,8 @@ When(/^.* chooses course with name '(.*)'$/, function(coursename) {
 	return courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 });
 
+
+
 Then(/^.* amount of courses with name '(.*)' is ([0-9])$/, async function(courseName, coursesCount) {
 	return courseListPage.isCountOfCoursesWithNameOnList(courseName, coursesCount, courseListPage.section.activeCourses);
 });

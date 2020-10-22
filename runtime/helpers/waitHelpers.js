@@ -158,6 +158,7 @@ async function waitUntilScriptResultIsTrue(script, timeoutMsg, timeout = pageLoa
 }
 
 async function waitAndSetValue(selectorOrElement, value, timeout = setValueTimeout) {
+	await waitUntilElementIsVisible(selectorOrElement);
 	const element =  await waitUntilElementIsEnabled(selectorOrElement);
 	await element.setValue(value);
 }
