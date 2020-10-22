@@ -54,8 +54,11 @@ Feature: create different types of task
 
     @gradeHomeworkWithFile
     Scenario Outline: grade a task submission by uploading a file
-        Given the teacher creates one course with file feedback and student with Paula Meyer
-        When the teacher has posed a task
+        When teacher creates a course <coursename> and adds student <studentname> to this course
+        And teacher clicks create-a-new-task-button in the course <coursename>
+        And teacher pastes name <taskname> of the task
+        And teacher pastes text <taskText> of the task
+        And teacher clicks submit-task-button
         And teacher logs out
         And student logs in with email <username> and password <password>
         And student with full age accepts student's data protection with password <newPasswordStudent>
@@ -69,5 +72,5 @@ Feature: create different types of task
         And the teacher uploads file feedback
         Then both the teacher and student can see and download the feedback
         Examples:
-            | username                    | password     | newPasswordStudent | taskname              |
-            | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!      | task with file upload |   
+            | username                    | password     | newPasswordStudent | taskname              | studentname | 
+            | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!      | task with file upload | Paula Meyer |

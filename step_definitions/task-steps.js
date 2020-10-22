@@ -105,9 +105,7 @@ Given(/^the Teacher creates one course with (.*) and pupil with:$/, function (co
 When(/^Teacher creates a task for the course (.*)$/, function (coursename) {
 	return courseHomeworksPage.clickAddNewTaskInCourse(coursename);
 });
-When(/^the teacher puts in data (.*) and some text description of the task$/, function (taskname) {
-    return addEditHomeworkPage.addBasicHometask(taskname);
-});
+
 When(/^the user goes to the course (.*) where the task (.*) must be submitted$/, function (coursename, taskname) {
     return addEditHomeworkPage.uploadHomework();
 });
@@ -128,9 +126,6 @@ Then(/^the students can upload a file as a solution$/, function () {
     };
 })
 
-Given(/^the teacher has posed a task$/, function () {
-    return addEditHomeworkPage.addBasicHometask(courseName, taskName);
- });
 
 Given(/^the student has submitted that task$/, function () {
     return taskPage.submitHomework(taskName, student);

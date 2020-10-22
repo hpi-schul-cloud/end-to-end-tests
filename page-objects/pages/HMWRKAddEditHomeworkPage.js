@@ -18,7 +18,7 @@ const activatePublicSubmissionsButton = '.modal-dialog .modal-checkbox button.bt
 
 
 
-async function clickPrivateHomeworkCheckbox () {
+async function clickPrivateTaskCheckbox () {
     await elementHelpers.click(privateHomeworkCheckbox);
 }
 
@@ -45,11 +45,11 @@ async function selectFirstCourseOnTheList(){
    await dropdown.selectByIndex(0);
 }
 
-async function setHomeworkName (taskName) {
+async function setTaskName (taskName) {
     await waitHelpers.waitAndSetValue(homeworkTitleInput, taskName);
 }
 
-async function setHomeworkText (text) {
+async function setTaskText (text) {
     await waitHelpers.waitAndSetValue(homeworkTextArea, text);
 }
 
@@ -60,21 +60,12 @@ async function setAccomplishTime () {
     await driver.execute(`document.querySelector("#dueDate").value="${end}"`);
 }
 
-async function clickSubmitHomeworkBtn () {
+async function clickSubmitTaskBtn () {
     await elementHelpers.clickAndWait(submitHomeworkBtn);
 }
 
-async function addHomework(coursename, taskname, isPrivate) {
-	await courseHomeworksPage.clickAddNewTaskInCourse(coursename);
-	await setHomeworkName(taskname);
-	await clickTeamSubmissionsCheckbox();
-	await setAccomplishTime();
-	await setHomeworkText();
-	if (isPrivate) await clickPrivateHomeworkCheckbox();
-	await clickSubmitHomeworkBtn();
-}
 
-async function uploadHomework () {
+async function uploadTask () {
     //making the upload-element visible to selenium
     change_visibility = uploadBtn +'.css("visibility,"visible");';
     change_display = uploadBtn +'.css("display,"block");';
@@ -84,21 +75,6 @@ async function uploadHomework () {
     const filePath = path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt');
     await driver.$x(uploadBtn).send_keys(filePath);
 }
-
-async function setTaskName (taskName) {
-    const nameField = await driver.$(homeworkTitleInput);
-    await nameField.setValue(taskName);
-}
-
-async function addBasicHometask(coursename, taskname) {
-    await courseHomeworksPage.clickAddNewTaskInCourse(coursename);
-    await this.setTaskName(taskname);
-    await this.clickTeamSubmissionsCheckbox();
-    await this.setAccomplishTime();
-    await this.setHomeworkText();
-    await this.clickSubmitHomeworkBtn();
-}
-
 async function addPrivateHometask (coursename, taskname) {
     await courseHomeworksPage.clickAddNewTaskInCourse(coursename);
     await this.setTaskName(taskname);
@@ -126,18 +102,16 @@ async function getTaskNames () {
 
 module.exports = {
 getTaskNames,
-clickPrivateHomeworkCheckbox ,
+clickPrivateHomeworkCheckbox: clickPrivateTaskCheckbox ,
 clickPublicSubmissionsCheckbox,
 clickTeamSubmissionsCheckbox,
-clickSubmitHomeworkBtn,
+clickSubmitHomeworkBtn: clickSubmitTaskBtn,
 selectFirstCourseOnTheList,
-setHomeworkName,
-setHomeworkText,
+setHomeworkName: setTaskName,
+setHomeworkText: setTaskText,
 setAccomplishTime,
 addPrivateHometask,
-uploadHomework,
-addHomework,
+uploadHomework: uploadTask,
 setTaskName,
-addBasicHometask,
 
 }
