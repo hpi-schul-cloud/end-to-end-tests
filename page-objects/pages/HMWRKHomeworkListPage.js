@@ -7,7 +7,7 @@ const elementHelpers=require('../../runtime/helpers/elementHelpers');
 
 
 //const selectorCreateTaskButton = "a[href='/homework/new']"
-const selectorCreateTaskButton = '[data-testid="create-task-btn"]';
+const selectorCreateTaskButton = '.col-sm-12.add-button > a';
 const selectorSortBtn = "#filter .md-clickable > div"
 const select = "#selection-picker > div > div"
 const lastedited =
@@ -62,11 +62,11 @@ async function goToHomeworkListPage () {
 }
 
 async function clickCreateTaskButton () {
-    await elementHelpers.clickAndWait(createTaskButton)
+    await elementHelpers.clickAndWait(selectorCreateTaskButton)
 }
 
 async function sortHometasks () {
-    await elementHelpers.click(sortBtn)
+    await elementHelpers.click(selectorSortBtn)
     await elementHelpers.click(select)
     await elementHelpers.click(lastedited)
     await elementHelpers.clickAndWait(submitBtn)
@@ -102,7 +102,6 @@ async function clickOnTask(taskName, button) {
 }
 
 async function goToHomeworkListAndCheckTaskIfExist (taskname) {
-    await goToHomeworkListPage()
     await sortHometasks()
     await clickOnTask(taskname, "Task open")
     let pageTitle = await waitHelpers.waitUntilElementIsPresent(pageTitleSelector)
@@ -168,7 +167,7 @@ async function clickOnTaskFromList (taskname) {
  async function goToHomeworkListAndCheckTaskIfExist (taskname) {
         await navigationLeftPage.clickNavItemTasks();
         await this.clickSortHometasks();
-        await this.clickOnTask(taskname)
+        await this.clickOnTask(taskname, 'Task open')
         let pageTitle = await waitHelpers.waitUntilElementIsPresent(pageTitleSelector)
         let courseAndTaskName = await pageTitle.getText()
         let tasknameArray = await courseAndTaskName.split("- ")
@@ -192,19 +191,5 @@ module.exports = {
     areThereAnyTasks,
     isTaskNotVisible,
     clickOnTaskFromList,
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
 
 }

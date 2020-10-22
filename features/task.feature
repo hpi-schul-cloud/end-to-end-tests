@@ -18,6 +18,7 @@ Feature: create different types of task
         And teacher sets accomplish time for the task
         And teacher pastes text <taskText> of the task
         And teacher clicks submit-task-button
+        When teacher goes to tasks page
         Then the hometask with <taskname> is to be found at the task pannel
         Examples:
             | coursename             | taskname     | taskText                          |

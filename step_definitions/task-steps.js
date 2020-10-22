@@ -17,7 +17,15 @@ Given('teacher creates one course with name {string}', async function (string) {
 /*  @createTaskForStudents */    
 
 When(/^.* creates one course with name (.*)$/, function (coursename) {
-    return courseHomeworksPage.clickAddNewTaskInCourse(coursename);
+    return addCoursePage.createCourse(coursename);
+});
+
+When(/^.* clicks create-a-new-task-button in the course (.*)$/, async function (coursename) {
+
+    await courseListPage.goToCourses();
+    await  courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
+    await taskPage.gotoTasksTab();
+    await taskListPage.clickCreateTaskButton();
 });
 
 When(/^.* pastes name (.*) of the task$/, function (taskname) {
@@ -36,8 +44,11 @@ When(/^.* pastes text (.*) of the task$/, function (taskText) {
 When(/^.* clicks submit-task-button$/, function () {
     return addEditHomeworkPage.clickSubmitHomeworkBtn();
 });
-Then(/^the hometask with (.*) is to be found at the task pannel$/, function (taskname) {
-    return taskListPage.goToHomeworkListAndCheckTaskIfExist(taskname);
+
+Then(/^the hometask with (.*) is to be found at the task pannel$/, async function (taskname) {
+    await taskListPage.sortHometasks(); // last edited
+    let tasks =  await addEditHomeworkPage.getTaskNames();
+    expect(tasks).to.include(taskname);
 });
 
 /* createPrivateTask */

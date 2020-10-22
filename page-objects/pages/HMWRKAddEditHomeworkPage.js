@@ -110,15 +110,17 @@ async function addPrivateHometask (coursename, taskname) {
 }
 
 async function getTaskNames () {
-    await driver.pause(1000 * 10);
-    const container = await driver.$(".col-xl-12");
-    const tasksArray = await container.$$("li");
+    const tasksArray = await driver.$$(".col-xl-12 > li");
+    const container = await driver.$('.col-xl-12 ');
     const namesArray = [];
     for (let i = 1; i <= tasksArray.length; i++) {
         const task = await container.$("li:nth-child(" + i + ") h2");
-        const taskName = (await task.getText());
-        namesArray.push(taskName);
+        const courseAndTaskName = (await task.getText());
+        const tasknameArray = await courseAndTaskName.split("- ")
+        const foundtaskName = tasknameArray[1]
+        namesArray.push(foundtaskName);
     }
+    return namesArray;
 }
 
 

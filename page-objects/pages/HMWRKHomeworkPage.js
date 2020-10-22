@@ -19,6 +19,7 @@ const studentSubmissionTab = '#submission-tab-link';
 const submissionContainer = '.table .usersubmission';
 const remoteFilePathInput = 'input[type=file][class=dz-hidden-input]';
 const commentBtn = "a#comment-tab-link.tab-link";
+const hometasksTabSel = 'button[data-testid="hometasks"]';
 
 async function submitSolutionForTheHometask() {
 	const assignmentText = 'here is some text which I want to submit';
@@ -91,6 +92,11 @@ async function clickOnFirstSubmission() {
 async function clickCommentBtn() {
 	await elementHelpers.click(commentBtn);
 }
+async function gotoTasksTab () {
+	let hometasksTab = await driver.$(hometasksTabSel);
+	await hometasksTab.click();
+	await driver.pause(1000);
+}
 
 async function submitFileFeedback(taskName, file) {
 	await navigationTopPage.performLogout();
@@ -155,4 +161,5 @@ module.exports = {
 	testFileUploadSuccess,
 	isFileVisible,
 	getCurrentTabUrl,
+	gotoTasksTab,
 };
