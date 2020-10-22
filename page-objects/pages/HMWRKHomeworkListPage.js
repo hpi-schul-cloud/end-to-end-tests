@@ -5,8 +5,6 @@ const waitHelpers = require("../../runtime/helpers/waitHelpers")
 const navigationLeftPage = require("../../page-objects/pages/NavigationLeftPage.js")
 const elementHelpers=require('../../runtime/helpers/elementHelpers');
 
-
-//const selectorCreateTaskButton = "a[href='/homework/new']"
 const selectorCreateTaskButton = '.col-sm-12.add-button > a';
 const selectorSortBtn = "#filter .md-clickable > div"
 const select = "#selection-picker > div > div"
@@ -142,6 +140,20 @@ async function clickOnTaskFromList (taskname) {
         }
  }
 
+ async function getTaskNames () {
+    const tasksArray = await driver.$$(taskElement + " > li");
+    const container = await driver.$(taskElement);
+    const namesArray = [];
+    for (let i = 1; i <= tasksArray.length; i++) {
+        const task = await container.$("li:nth-child(" + i + ") h2");
+        const courseAndTaskName = (await task.getText());
+        const tasknameArray = await courseAndTaskName.split("- ")
+        const foundtaskName = tasknameArray[1]
+        namesArray.push(foundtaskName);
+    }
+    return namesArray;
+}
+
 module.exports = {
     clickCreateTaskButton,
     sortHometasks,
@@ -152,5 +164,6 @@ module.exports = {
     goToPrivateHomeworkArea,
     isTaskNotVisible,
     clickOnTaskFromList,
+    getTaskNames
 
 }

@@ -47,7 +47,7 @@ When(/^.* clicks submit-task-button$/, function () {
 
 Then(/^the hometask with (.*) is to be found at the task pannel$/, async function (taskname) {
     await taskListPage.sortHometasks(); // last edited
-    let tasks =  await addEditHomeworkPage.getTaskNames();
+    let tasks =  await  taskListPage.getTaskNames();
     expect(tasks).to.include(taskname);
 });
 

@@ -85,23 +85,8 @@ async function addPrivateHometask (coursename, taskname) {
     await this.clickSubmitHomeworkBtn();
 }
 
-async function getTaskNames () {
-    const tasksArray = await driver.$$(".col-xl-12 > li");
-    const container = await driver.$('.col-xl-12 ');
-    const namesArray = [];
-    for (let i = 1; i <= tasksArray.length; i++) {
-        const task = await container.$("li:nth-child(" + i + ") h2");
-        const courseAndTaskName = (await task.getText());
-        const tasknameArray = await courseAndTaskName.split("- ")
-        const foundtaskName = tasknameArray[1]
-        namesArray.push(foundtaskName);
-    }
-    return namesArray;
-}
-
 
 module.exports = {
-getTaskNames,
 clickPrivateHomeworkCheckbox: clickPrivateTaskCheckbox ,
 clickPublicSubmissionsCheckbox,
 clickTeamSubmissionsCheckbox,
