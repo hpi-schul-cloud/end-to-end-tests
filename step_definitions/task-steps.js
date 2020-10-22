@@ -1,6 +1,6 @@
 'use strict';
 const path = require('path');
-const addEditHomeworkPage = require('../page-objects/pages/TASKAddEditTaskPage.js/index.js');
+const addEditHomeworkPage = require('../page-objects/pages/TASKAddEditTaskPage.js');
 const taskListPage = require('../page-objects/pages/TASKListPage');
 const taskPage = require('../page-objects/pages/TASKPage');
 const addCoursePage = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
@@ -9,16 +9,11 @@ const generalCoursePage = require('../page-objects/pages/coursePages/CRSSGeneral
 const courseHomeworksPage = require("../page-objects/pages/coursePages/CRSSCourseHomeworksPage");
 const navigationLeftPage = require('../page-objects/pages/NavigationLeftPage.js');
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
-/* Given */
-Given('teacher creates one course with name {string}', async function (string) {
-    return addCoursePage.createCourse(string);
-});
+
+
 
 /*  @createTaskForStudents */    
 
-When(/^.* creates one course with name (.*)$/, function (coursename) {
-    return addCoursePage.createCourse(coursename);
-});
 
 When(/^.* clicks create-a-new-task-button in the course (.*)$/, async function (coursename) {
 
