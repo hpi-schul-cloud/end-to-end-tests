@@ -2,11 +2,10 @@
 
 const navigationLeftPage = require('../page-objects/pages/NavigationLeftPage.js');
 const homeworkListPage = require('../page-objects/pages/HMWRKHomeworkListPage.js');
-const homeworkPage = require('../page-objects/pages/HMWRKHomeworkPage.js');
 const editHomeworkPage = require('../page-objects/pages/HMWRKAddEditHomeworkPage.js');
 
-Then(/^.* should click the edit-task-button$/, async function () {
-	await homeworkListPage.clickEditTaskButton();
+Then(/^.* should click '(.*)' button for task with name '(.*)'$/, async function (button, taskname) {
+	await homeworkListPage.clickOnTask(taskname, button)
 });
 
 Then(/^.* should change the taskname to (.*) in the name field$/, async function (taskname) {
@@ -46,7 +45,7 @@ Then(/^.* goes to the tasks page$/, async function () {
 });
 
 Then(/^.* checks if the new taskname is (.*)$/, async function (taskname) {
-	await homeworkListPage.isTaskVisible(taskname);
+	await homeworkListPage.isTaskVisible(taskname, true);
 });
 
 Then(/^.* checks if the new taskbody is (.*)$/, async function (taskbody) {
