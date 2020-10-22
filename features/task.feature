@@ -25,7 +25,7 @@ Feature: create different types of task
             | coursename             | taskname     | taskText                          | 
             | new course with a task | task example | here is some task for my students |
 
-    @createPrivateTask
+    @createPrivateTaskInTheCourse
     Scenario Outline: create a private hometask has to be visible only for the teacher
         When teacher creates a course <coursename> and adds student <studentname> to this course
         When teacher creates a private hometask in the course <coursename> with the name <taskname>
