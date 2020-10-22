@@ -1,3 +1,4 @@
+#with creating a course
 @task
 
 Feature: create different types of task
@@ -8,20 +9,20 @@ Feature: create different types of task
         And teacher logs in
         And teacher accepts data protection
         And teacher goes to courses page
-
-    @createTaskForStudents
+    
+    @createTaskInTheCourse
     Scenario Outline: create a simple hometask
         When teacher creates course with name '<coursename>'
         And teacher clicks create-a-new-task-button in the course <coursename>
-        And teacher pastes name <taskname> of the task
+        And teacher puts taskname <taskname> into name field
         And teacher clicks on "enable group submission" checkbox
         And teacher sets accomplish time for the task
-        And teacher pastes text <taskText> of the task
+        And teacher puts taskBody <taskText> into body field
         And teacher clicks submit-task-button
         When teacher goes to tasks page
         Then the hometask with <taskname> is to be found at the task pannel
         Examples:
-            | coursename             | taskname     | taskText                          |
+            | coursename             | taskname     | taskText                          | 
             | new course with a task | task example | here is some task for my students |
 
     @createPrivateTask
@@ -61,6 +62,7 @@ Feature: create different types of task
         And teacher pastes text <taskText> of the task
         And teacher clicks submit-task-button
         And teacher logs out
+        When student arrives on the Schul-Cloud homepage
         And student logs in with email <username> and password <password>
         And student with full age accepts student's data protection with password <newPasswordStudent>
         And student goes to tasks page
