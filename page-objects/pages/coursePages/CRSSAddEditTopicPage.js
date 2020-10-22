@@ -86,7 +86,7 @@ async function isItTheFirstTopicAdded() {
 }
 
 async function clickOnTopicWithName(name) {
-	let listOfTopicElements = await driver.$$(topicSelector)
+	let listOfTopicElements = await elementHelpers.getListOfAllElements(topicSelector)
 	let listOfTopic = await elementHelpers.getTextFromAllElements(topicSelector);
 	await elementHelpers.clickAndWait(listOfTopicElements[listOfTopic.indexOf(name)]);
 }
@@ -103,7 +103,7 @@ async function topicTitleList() {
 }
 
 async function clickOnTopicEditPencilButton(name) {
-	let listOfTopicElements = await driver.$$(topicSelector);
+	let listOfTopicElements = await elementHelpers.getListOfAllElements(topicSelector);
 	let topicTitleList = await elementHelpers.getTextFromAllElements(topicSelector);
 	await elementHelpers.clickAndWait(listOfTopicElements[topicTitleList.indexOf(name)].$(pencilBtnSelector));
 }

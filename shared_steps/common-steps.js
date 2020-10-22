@@ -12,7 +12,7 @@ Given(/^.* arrives on the Schul-Cloud homepage$/, function () {
 	return elementHelpers.loadPage(schulCloudURL);
 });
 
-Given(/^.*logs in with email (.*) and password (.*)$/, async function (username, password) {
+Given(/^.* logs in with email (.*) and password (.*)$/, async function (username, password) {
 	await startPage.clickLoginBtn();
 	await loginPage.performLogin(username, password);
 });

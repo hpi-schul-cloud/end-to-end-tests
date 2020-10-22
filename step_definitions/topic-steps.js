@@ -1,13 +1,13 @@
 const addEditTopicPage = require("../page-objects/pages/coursePages/CRSSAddEditTopicPage");
 const courseTopicsPage = require("../page-objects/pages/coursePages/CRSSCourseTopicsPage");
 
-When(/^.* adds a new Topic with name (.*)$/, async function (topicName) {
+When(/^.* adds a new Topic with name '(.*)'$/, async function (topicName) {
 	await courseTopicsPage.clickAddNewTopicBtn();
 	await addEditTopicPage.setTopic(topicName);
 	await addEditTopicPage.clickCreateTopicButton();
 });
 
-Then(/^.* should see that created topic with name (.*) is shown on the topic list$/, async function (topicName) {
+Then(/^.* should see that created topic with name '(.*)' is shown on the topic list$/, async function (topicName) {
 	await addEditTopicPage.isItTheFirstTopicAdded();
 	await addEditTopicPage.isTopicOnTopicList(topicName);
 });
@@ -22,10 +22,10 @@ Then(/^.* should see that the topic with name (.*) is visible on the topic page$
 When(/^.* clicks on the pencil button in the line of the topic with name (.*) to edit the topic$/, async function (topicName) {
 	await addEditTopicPage.clickOnTopicEditPencilButton(topicName);
 });
-When(/^.* changes topic name (.*)$/, async function (changedTopicName) {
+When(/^.* changes topic name '(.*)'$/, async function (changedTopicName) {
 	await addEditTopicPage.setTopic(changedTopicName);
 });
-When(/^.* finds title (.*) and changes title on (.*) and text (.*) of the topic$/, async function (contentTitle, changedContentTitle, changedDescription) {
+When(/^.* finds title '(.*)' and changes title on '(.*)' and text '(.*)' of the topic$/, async function (contentTitle, changedContentTitle, changedDescription) {
 	await addEditTopicPage.findContentByTitleAndChanged(contentTitle, changedContentTitle, changedDescription);
 	await addEditTopicPage.clickCreateTopicButton();
 });
