@@ -28,7 +28,13 @@ Feature: create different types of task
     @createPrivateTaskInTheCourse
     Scenario Outline: create a private hometask has to be visible only for the teacher
         When teacher creates a course <coursename> and adds student <studentname> to this course
-        When teacher creates a private hometask in the course <coursename> with the name <taskname>
+        And teacher clicks create-a-new-task-button in the course <coursename>
+        And teacher puts taskname <taskname> into name field
+        And teacher sets accomplish time for the task
+        And teacher puts taskBody <taskText> into body field
+        And teacher clicks on "private task" checkbox
+        And teacher clicks submit-task-button on task-creation-form
+        When teacher goes to tasks page
         Then the task <taskname> should be visible for the teacher
         And teacher logs out 
         When student arrives on the Schul-Cloud homepage

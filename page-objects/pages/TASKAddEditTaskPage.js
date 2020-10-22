@@ -75,16 +75,6 @@ async function uploadTask () {
     const filePath = path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt');
     await driver.$x(uploadBtn).send_keys(filePath);
 }
-async function addPrivateHometask (coursename, taskname) {
-    await courseHomeworksPage.clickAddNewTaskInCourse(coursename);
-    await this.setTaskName(taskname);
-    await this.clickTeamSubmissionsCheckbox();
-    await this.setAccomplishTime();
-    await this.setHomeworkText();
-    await this.clickPrivateHomeworkCheckbox();
-    await this.clickSubmitHomeworkBtn();
-}
-
 
 module.exports = {
 clickPrivateHomeworkCheckbox: clickPrivateTaskCheckbox ,
@@ -95,7 +85,6 @@ selectFirstCourseOnTheList,
 setHomeworkName: setTaskName,
 setHomeworkText: setTaskText,
 setAccomplishTime,
-addPrivateHometask,
 uploadHomework: uploadTask,
 setTaskName,
 

@@ -1,4 +1,5 @@
 #without creating a course
+@task
 @createTask
 Feature: Creating a task as a teacher
 

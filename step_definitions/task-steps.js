@@ -23,9 +23,7 @@ When(/^.* clicks create-a-new-task-button in the course (.*)$/, async function (
     await taskListPage.clickCreateTaskButton();
 });
 
-When(/^.* pastes name (.*) of the task$/, function (taskname) {
-    return addEditHomeworkPage.setTaskName(taskname);
-});
+
 When(/^.* clicks on "enable group submission" checkbox$/, function () {
     return addEditHomeworkPage.clickTeamSubmissionsCheckbox();
 });
@@ -57,8 +55,8 @@ Given(/^.* adds a student with name (.*) to the course$/, function (studentname)
     return addCoursePage.setStudent(studentname);
 });
 
-When(/^.* creates a private hometask in the course (.*) with the name (.*)$/, async function (coursename, taskname) {
-    await addEditHomeworkPage.addPrivateHometask(coursename, taskname);
+When(/^.* clicks on "private task" checkbox$/, async function () {
+    await addEditHomeworkPage.clickPrivateHomeworkCheckbox();
 });
 
 When(/^.* goes to the tasks section$/, async function () {
