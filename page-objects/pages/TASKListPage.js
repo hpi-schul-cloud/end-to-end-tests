@@ -2,7 +2,7 @@
 "use strict"
 
 const waitHelpers = require("../../runtime/helpers/waitHelpers")
-const navigationLeftPage = require("../../page-objects/pages/NavigationLeftPage.js")
+const navigationLeftPage = require("./NavigationLeftPage.js")
 const elementHelpers=require('../../runtime/helpers/elementHelpers');
 
 const selectorCreateTaskButton = '.col-sm-12.add-button > a';

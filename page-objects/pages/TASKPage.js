@@ -3,11 +3,11 @@
 
 const waitHelpers = require('../../runtime/helpers/waitHelpers');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
-const courseListPage = require('../../page-objects/pages/coursePages/CRSSCourseListPage');
-const navigationTopPage = require('../pages/NavigationTopPage');
-const startPage = require('../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin');
-const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage');
-const HMWRKHomeworkListPage = require('./HMWRKHomeworkListPage');
+const courseListPage = require('./coursePages/CRSSCourseListPage');
+const navigationTopPage = require('./NavigationTopPage');
+const startPage = require('./generalPagesBeforeLogin/StartPageBeforeLogin');
+const loginPage = require('./generalPagesBeforeLogin/LoginPage');
+const HMWRKHomeworkListPage = require('./TASKListPage');
 const CRSSGeneralCoursePage = require('./coursePages/CRSSGeneralCoursePage');
 
 const textFieldSel = '.ck-content';
@@ -26,6 +26,7 @@ async function submitSolutionForTheHometask() {
 	await waitHelpers.waitAndSetValue(textFieldSel, assignmentText);
 	await elementHelpers.clickAndWait(submitBtn);
 }
+
 async function studentEditsTextHomeworkAndSubmits() {
 	await openStudentSubmissionTab();
 	await submitSolutionForTheHometask();

@@ -73,5 +73,5 @@ Feature: create different types of task
         And the teacher uploads file feedback
         Then both the teacher and student can see and download the feedback
         Examples:
-            | username                    | password     | newPasswordStudent | taskname              | studentname | 
-            | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!      | task with file upload | Paula Meyer |
+            | username                    | password     | newPasswordStudent | taskname              | studentname | coursename            |
+            | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!      | task with file upload | Paula Meyer | course with file task |
