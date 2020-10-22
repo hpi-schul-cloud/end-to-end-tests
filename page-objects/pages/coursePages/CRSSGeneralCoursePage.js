@@ -16,7 +16,7 @@ const setting = {
 
 const tab = {
 	topics: "[data-tab='js-topics']",
-	homeworks: "[data-tab='js-homeworks']",
+	tasks: "[data-tab='js-homeworks']",
 	tools: "[data-tab='js-tools']",
 	groups: "[data-tab='js-groups']",
 };
@@ -26,7 +26,7 @@ async function openTopicsTab() {
 }
 
 async function openHomeworksTab () {
-	await elementHelpers.clickAndWait(tab.homeworks);
+	await elementHelpers.clickAndWait(tab.tasks);
 }
 
 async function openToolsTab () {
