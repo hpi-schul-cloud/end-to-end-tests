@@ -12,7 +12,7 @@ Feature: create different types of task
     @createTaskForStudents
     Scenario Outline: create a simple hometask
         When teacher creates one course with name <coursename>
-        When teacher clicks create-a-new-task-button in the course <coursename>
+        And teacher clicks create-a-new-task-button in the course <coursename>
         And teacher pastes name <taskname> of the task
         And teacher clicks on "enable group submission" checkbox
         And teacher sets accomplish time for the task
