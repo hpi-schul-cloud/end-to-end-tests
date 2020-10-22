@@ -71,14 +71,14 @@ When(/^.* goes to the tasks section$/, async function () {
 });
 
 Then(/^the task (.*) should be visible for .*$/,async  function (taskname) {
-    await taskListPage.goToPrivateHomeworkArea();
-    const msg = 'Task with name: "' + taskname + '" should be visible on the list.' + '\n' + 'Actual list of tasks: ';
-    expect(await taskListPage.isTaskVisible(taskname), msg + await taskListPage.getListOfTaskTitles()+ "'").to.equal(true);
+    await navigationLeftPage.clickNavItemTasks();
+    let tasksOnPage = await taskListPage.getTaskNames();
+    expect(tasksOnPage).to.include(taskname)
 });
 
-Then(/^the student will not see this task with (.*)$/, async function (taskname) {
+Then(/^the task (.*) should not be visible for .*$/, async function (taskname) {
     const msg = 'Task with name: "' + taskname + '" should not be visible on the list.' + '\n' + 'Actual list of tasks: ';
-    expect(await taskListPage.isTaskVisible(taskname), msg + await taskListPage.getAllTasks() + "'").to.equal(false);
+    expect(await taskListPage.isTaskVisible(taskname, false), msg + await taskListPage.getAllTasks() + "'").to.equal(false);
 });
 
 /* SUBMISSION */

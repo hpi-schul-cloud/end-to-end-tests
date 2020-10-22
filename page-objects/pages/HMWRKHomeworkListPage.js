@@ -113,7 +113,7 @@ async function getTaskDescription(){
     return descriptionList;
 }
 
-async function goToPrivateHomeworkArea () {
+async function goToPrivateTasksArea () {
     await navigationLeftPage.clickNavItemTasks()
     await navigationLeftPage.clickNavItemTasksPrivate()
 }
@@ -161,7 +161,7 @@ module.exports = {
     getListOfTask,
     clickOnTask,
     isTaskVisible,
-    goToPrivateHomeworkArea,
+    goToPrivateHomeworkArea: goToPrivateTasksArea,
     isTaskNotVisible,
     clickOnTaskFromList,
     getTaskNames

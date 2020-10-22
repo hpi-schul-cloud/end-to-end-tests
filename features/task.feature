@@ -30,10 +30,11 @@ Feature: create different types of task
         When teacher creates a private hometask in the course <coursename> with the name <taskname>
         Then the task <taskname> should be visible for the teacher
         And teacher logs out 
+        When student arrives on the Schul-Cloud homepage
         And student logs in with email <username> and password <password>
         And student with full age accepts student's data protection with password <newStudentPassword>
         And the student goes to the tasks section
-        Then the student will not see this task with <taskname>
+        Then the task <taskname> should not be visible for student
         Examples:
         | coursename            | studentname | taskname             | username                    | password     | newStudentPassword     |
         | test private hometask | Paula Meyer | private task example | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!          |
