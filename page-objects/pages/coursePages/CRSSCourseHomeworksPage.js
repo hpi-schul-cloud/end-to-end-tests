@@ -4,11 +4,11 @@ const courseListPage = require("../../../page-objects/pages/coursePages/CRSSCour
 const coursePage = require("../../../page-objects/pages/coursePages/CRSSGeneralCoursePage")
 const elementHelpers = require("../../../runtime/helpers/elementHelpers.js")
 
-const addNewHomeworkBtn = "[data-section='js-homeworks'] .add-button a"
+const addNewTaskBtn = "[data-section='js-homeworks'] .add-button a"
 
 
 async function clickAddNewTaskBtn() {
-    await elementHelpers.clickAndWait(addNewHomeworkBtn)
+    await elementHelpers.clickAndWait(addNewTaskBtn)
 }
 
 async function clickAddNewTaskInCourse(coursename) {

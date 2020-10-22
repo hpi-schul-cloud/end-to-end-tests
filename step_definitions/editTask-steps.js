@@ -1,8 +1,8 @@
 'use strict';
 
 const navigationLeftPage = require('../page-objects/pages/NavigationLeftPage.js');
-const tasksListPage = require('../page-objects/pages/HMWRKHomeworkListPage.js');
-const editHomeworkPage = require('../page-objects/pages/HMWRKAddEditHomeworkPage.js');
+const tasksListPage = require('../page-objects/pages/TASKListPage.js');
+const editHomeworkPage = require('../page-objects/pages/TASKAddEditTaskPage.js');
 
 Then(/^.* should click '(.*)' button for task with name '(.*)'$/, async function (button, taskname) {
 	await tasksListPage.clickOnTask(taskname, button)

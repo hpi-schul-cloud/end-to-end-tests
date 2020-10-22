@@ -1,8 +1,8 @@
 'use strict';
 const path = require('path');
-const addEditHomeworkPage = require('../page-objects/pages/HMWRKAddEditHomeworkPage.js');
-const taskListPage = require('../page-objects/pages/HMWRKHomeworkListPage');
-const taskPage = require('../page-objects/pages/HMWRKHomeworkPage');
+const addEditHomeworkPage = require('../page-objects/pages/TASKAddEditTaskPage.js/index.js');
+const taskListPage = require('../page-objects/pages/TASKListPage');
+const taskPage = require('../page-objects/pages/TASKPage');
 const addCoursePage = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
 const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
 const generalCoursePage = require('../page-objects/pages/coursePages/CRSSGeneralCoursePage');
