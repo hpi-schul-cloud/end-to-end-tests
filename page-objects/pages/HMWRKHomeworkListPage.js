@@ -137,8 +137,7 @@ async function clickOnTaskFromList (taskname) {
             let taskSelector = await driver.$("#homeworks > ol > div > li:nth-child(" + i + ") .h5.title")
             let tasknameOnPage = await taskSelector.getText()
             if (tasknameOnPage == taskname) {
-                await taskSelector.click()
-                await driver.pause(1000)
+                await elementHelpers.clickAndWait(taskSelector)
             }
         }
  }
