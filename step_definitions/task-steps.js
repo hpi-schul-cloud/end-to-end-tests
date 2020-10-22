@@ -77,8 +77,9 @@ Then(/^the task (.*) should be visible for .*$/,async  function (taskname) {
 });
 
 Then(/^the task (.*) should not be visible for .*$/, async function (taskname) {
-    const msg = 'Task with name: "' + taskname + '" should not be visible on the list.' + '\n' + 'Actual list of tasks: ';
-    expect(await taskListPage.isTaskVisible(taskname, false), msg + await taskListPage.getAllTasks() + "'").to.equal(false);
+    await navigationLeftPage.clickNavItemTasks();
+    let tasksOnPage = await taskListPage.getTaskNames();
+    expect(tasksOnPage).not.to.include(taskname)
 });
 
 /* SUBMISSION */
