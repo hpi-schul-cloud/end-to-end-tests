@@ -7,7 +7,7 @@ const courseListPage = require('./coursePages/CRSSCourseListPage');
 const navigationTopPage = require('./NavigationTopPage');
 const startPage = require('./generalPagesBeforeLogin/StartPageBeforeLogin');
 const loginPage = require('./generalPagesBeforeLogin/LoginPage');
-const HMWRKHomeworkListPage = require('./TASKListPage');
+const TaskListPage = require('./TASKListPage');
 const CRSSGeneralCoursePage = require('./coursePages/CRSSGeneralCoursePage');
 
 const textFieldSel = '.ck-content';
@@ -69,12 +69,12 @@ async function teacherLogsInAndCanSeeTheTextSubmission(coursename, taskname, stu
 	await courseListPage.goToCourses();
 	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 	await CRSSGeneralCoursePage.openHomeworksTab();
-	await HMWRKHomeworkListPage.clickOnTask(taskname, 'Task open');
+	await TaskListPage.clickOnTask(taskname, 'Task open');
 	await hasTheStudentSubmittedTheTask(studentname);
 }
 
 async function submitHomework(taskName) {
-	await HMWRKHomeworkListPage.clickOnTask(taskName, 'Task open');
+	await TaskListPage.clickOnTask(taskName, 'Task open');
 	await openStudentSubmissionTab();
 	await submitSolutionForTheHometask();
 }
@@ -122,7 +122,7 @@ async function testFileUploadSuccess(taskName, file, student) {
 	await driver.switchToWindow(mainWindow);
 	await navigationTopPage.performLogout();
 	await loginPage.performLogin(student.login, student.password);
-	await HMWRKHomeworkListPage.goToHomeworkListPage();
+	await TaskListPage.goToHomeworkListPage();
 	await elementHelpers.click(`*=${taskName}`);
 	await clickCommentBtn();
 	await isFileVisible(file);
