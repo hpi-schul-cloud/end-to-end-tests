@@ -64,7 +64,7 @@ Feature: create different types of task
     Scenario Outline: grade a task submission by uploading a file
         When teacher creates a course <coursename> and adds student <studentname> to this course
         And teacher clicks create-a-new-task-button in the course <coursename>
-        And teacher pastes name <taskname> of the task
+        And teacher puts taskname <taskname> into name field
         And teacher clicks submit-task-button
         And teacher logs out
         When student arrives on the Schul-Cloud homepage
