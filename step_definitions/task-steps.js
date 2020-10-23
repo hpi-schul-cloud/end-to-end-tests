@@ -124,10 +124,10 @@ When(/^.* goes to evaluation tab$/, async function () {
     await taskPage.goToEvaluationTab()
 });
 
-When(/^.* can see the file evaluation$/, async function (taskName) {
+When(/^.* can see the file evaluation$/, async function () {
     await taskPage.isFileVisible(file);
 });
-When(/^.* goes to task evaluation$/, async function (taskName) {
+When(/^.* goes to task evaluation$/, async function () {
     await taskPage.clickCommentBtn()
 });
 When(/^file evaluation is visible for .*$/, async function (file) {
