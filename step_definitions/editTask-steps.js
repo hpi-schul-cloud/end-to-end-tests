@@ -49,6 +49,6 @@ Then(/^.* checks if the new taskname is (.*)$/, async function (taskname) {
 });
 
 Then(/^.* checks if the new taskbody is (.*)$/, async function (taskbody) {
-	let descriptions = await tasksListPage.getDescription();
+	let descriptions = await tasksListPage.getTaskDescription();
 	await expect(descriptions.some((x) => x.includes(taskbody))).to.be.true;
 });

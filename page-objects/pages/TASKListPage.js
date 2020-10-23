@@ -164,6 +164,7 @@ module.exports = {
     goToPrivateHomeworkArea: goToPrivateTasksArea,
     isTaskNotVisible,
     clickOnTaskFromList,
-    getTaskNames
+    getTaskNames,
+    getTaskDescription
 
 }
