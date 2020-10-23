@@ -1,6 +1,6 @@
 'use strict';
 const path = require('path');
-const addEditHomeworkPage = require('../page-objects/pages/TASKAddEditTaskPage.js');
+const addEditTaskPage = require('../page-objects/pages/TASKAddEditTaskPage.js');
 const taskListPage = require('../page-objects/pages/TASKListPage');
 const taskPage = require('../page-objects/pages/TASKPage');
 const addCoursePage = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
@@ -9,10 +9,6 @@ const generalCoursePage = require('../page-objects/pages/coursePages/CRSSGeneral
 const courseHomeworksPage = require("../page-objects/pages/coursePages/CRSSCourseHomeworksPage");
 const navigationLeftPage = require('../page-objects/pages/NavigationLeftPage.js');
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
-
-
-
-/*  @createTaskForStudents */    
 
 
 When(/^.* clicks create-a-new-task-button in the course (.*)$/, async function (coursename) {
@@ -25,17 +21,15 @@ When(/^.* clicks create-a-new-task-button in the course (.*)$/, async function (
 
 
 When(/^.* clicks on "enable group submission" checkbox$/, function () {
-    return addEditHomeworkPage.clickTeamSubmissionsCheckbox();
+    return addEditTaskPage.clickTeamSubmissionsCheckbox();
 });
 When(/^.* sets accomplish time for the task$/, function () {
-    return addEditHomeworkPage.setAccomplishTime();
+    return addEditTaskPage.setAccomplishTime();
 });
 
-When(/^.* pastes text (.*) of the task$/, function (taskText) {
-    return addEditHomeworkPage.setHomeworkText(taskText)
-});
+
 When(/^.* clicks submit-task-button$/, function () {
-    return addEditHomeworkPage.clickSubmitHomeworkBtn();
+    return addEditTaskPage.clickSubmitHomeworkBtn();
 });
 
 Then(/^the hometask with (.*) is to be found at the task pannel$/, async function (taskname) {
@@ -44,19 +38,9 @@ Then(/^the hometask with (.*) is to be found at the task pannel$/, async functio
     expect(tasks).to.include(taskname);
 });
 
-/* createPrivateTask */
-
-When('teacher clicks edit-the-course-button in the course {string}', async function (string) {
-    await courseListPage.clickOnCourseInSection(string, courseListPage.section.activeCourses);
-    await  generalCoursePage.clickEditCourse();
-});
-
-Given(/^.* adds a student with name (.*) to the course$/, function (studentname) {
-    return addCoursePage.setStudent(studentname);
-});
 
 When(/^.* clicks on "private task" checkbox$/, async function () {
-    await addEditHomeworkPage.clickPrivateHomeworkCheckbox();
+    await addEditTaskPage.clickPrivateHomeworkCheckbox();
 });
 
 When(/^.* goes to the tasks section$/, async function () {
@@ -101,10 +85,10 @@ When(/^Teacher creates a task for the course (.*)$/, function (coursename) {
 });
 
 When(/^the user goes to the course (.*) where the task (.*) must be submitted$/, function (coursename, taskname) {
-    return addEditHomeworkPage.uploadHomework();
+    return addEditTaskPage.uploadHomework();
 });
 Then(/^the students can upload a file as a solution$/, function () {
-    return addEditHomeworkPage.uploadHomework();
+    return addEditTaskPage.uploadHomework();
 });
 
 (function () {
