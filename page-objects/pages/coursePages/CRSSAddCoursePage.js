@@ -239,7 +239,7 @@ module.exports = {
 	setTeacher,
 	setCurrentUserAsTeacher,
 	setColour,
-	createCourse: createCourseWithStudent,
+	createCourseWithStudent,
 	setStudent,
 	createCourse
 };

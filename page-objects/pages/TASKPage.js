@@ -93,9 +93,8 @@ async function clickCommentBtn() {
 	await elementHelpers.click(commentBtn);
 }
 async function gotoTasksTab () {
-	let hometasksTab = await driver.$(hometasksTabSel);
-	await hometasksTab.click();
-	await driver.pause(1000);
+	await elementHelpers.clickAndWait(hometasksTabSel)
+	
 }
 
 async function submitFileFeedback(taskName, file) {
@@ -116,8 +115,7 @@ async function testFileUploadSuccess(taskName, file, student) {
 	}
 	await isFileVisible(file);
 	const mainWindow = await driver.getWindowHandle();
-	await elementHelpers.click(`a*=${file.name}`);
-	await driver.pause(1000);
+	await elementHelpers.clickAndWait(`a*=${file.name}`);
 	const fileUrl = await getCurrentTabUrl();
 	await driver.switchToWindow(mainWindow);
 	await navigationTopPage.performLogout();
@@ -126,8 +124,7 @@ async function testFileUploadSuccess(taskName, file, student) {
 	await elementHelpers.click(`*=${taskName}`);
 	await clickCommentBtn();
 	await isFileVisible(file);
-	await elementHelpers.click(`a*=${file.name}`);
-	await driver.pause(1000);
+	await elementHelpers.clickAndWait(`a*=${file.name}`);
 	const studentFileUrl = await getCurrentTabUrl();
 	expect(studentFileUrl.origin).to.equal(fileUrl.origin);
 	expect(studentFileUrl.pathname).to.equal(fileUrl.pathname);

@@ -56,8 +56,7 @@ async function addGeoGebra(geoGebraTitle, geogebraID) {
 
 async function addMaterial() {
 	await elementHelpers.clickAndWait(materialBtn);
-	await elementHelpers.click(addMaterialBtn);
-	await driver.pause(9000);
+	await elementHelpers.clickAndWait(addMaterialBtn);
 	await driver.switchWindow(lernStoreUrl);
 	let browsers = await driver.getWindowHandles();
 	await driver.switchWindow(browsers[1]);
