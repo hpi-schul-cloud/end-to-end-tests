@@ -42,7 +42,7 @@ async function clickOnSendRegistrationLinkCheckbox() {
 }
 
 async function clickSendConsentFormEmailsButton() {
-	await elementHelpers.clickAndWait(sendConsentFormEmails);
+	await elementHelpers.click(sendConsentFormEmails);
 }
 
 async function submitStudentAddition() {
