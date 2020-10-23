@@ -4,6 +4,12 @@ const waitHelpers = require('./waitHelpers');
 
 const LOAD_PAGE_TIMEOUT = 10000;
 
+/*async function acceptAlertDialog() {
+	//await waitHelpers.waitUntilAlertIsPresent();
+	await driver.pause(1000);
+	await driver.switchTo().alert().accept();
+}*/
+
 //Wait for element and click (without waitUntilPageLoads)
 async function click(selectorOrElement) {
 	const element = await waitHelpers.waitUntilElementIsClickable(selectorOrElement);
@@ -43,9 +49,9 @@ async function getSelectOptions(selectSelector) {
 async function selectOptionByText(selectSelector, text) {
 	const element = await waitHelpers.waitUntilElementIsVisible(selectSelector);
 	if (!(await isOptionSelected(selectSelector, text))) {
-	await driver.keys('Control');
-	await element.selectByVisibleText(text.trim());
-	await driver.keys('Control');
+		await driver.keys('Control');
+		await element.selectByVisibleText(text.trim());
+		await driver.keys('Control');
 	}
 }
 
@@ -155,8 +161,8 @@ async function getValueListFromListOfElements(listOfElements) {
 
 async function getListOfSelectedOption(selectSelector) {
 	await waitHelpers.waitUntilElementIsVisible(selectSelector);
-    const listOfSelectedOptions = await driver.$$(selectSelector + " option[selected='']");
-    return getTextListFromListOfElements(listOfSelectedOptions);
+	const listOfSelectedOptions = await driver.$$(selectSelector + " option[selected='']");
+	return getTextListFromListOfElements(listOfSelectedOptions);
 }
 
 async function getTextFromAllElements(selector) {
@@ -183,6 +189,7 @@ async function isOptionSelected(selectSelector, text) {
 }
 
 module.exports = {
+	//acceptAlertDialog,
 	click,
 	clickAndWait,
 	doubleClick,
