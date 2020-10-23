@@ -5,7 +5,7 @@ const waitHelpers = require("../../runtime/helpers/waitHelpers")
 const navigationLeftPage = require("./NavigationLeftPage.js")
 const elementHelpers=require('../../runtime/helpers/elementHelpers');
 
-const selectorCreateTaskButton = '.col-sm-12.add-button > a';
+const selectorCreateTaskButton = '.btn.btn-primary.btn-add.create';
 const selectorSortBtn = "#filter .md-clickable > div"
 const select = "#selection-picker > div > div"
 const lastedited =
