@@ -102,7 +102,7 @@ Then(/^the students can upload a file as a solution$/, function () {
         login: 'paula.meyer@schul-cloud.org',
         password: 'Schulcloud1!'
     };
-    
+
 Given(/^.* submits solution for the task$/, function () {
     return taskPage.submitHomework(taskName, student);
 });
@@ -115,6 +115,7 @@ Then(/^both the teacher and student can see and download the feedback$/, functio
     return taskPage.testFileUploadSuccess(taskName, file, student);
 });
 When(/^.* clicks on task with name (.*)$/, async function (taskName) {
+    await taskListPage.sortHometasks();
     await taskListPage.clickOnTask(taskName, 'Task open');
 });
 
