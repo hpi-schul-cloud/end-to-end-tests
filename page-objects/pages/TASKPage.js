@@ -146,9 +146,6 @@ async function getCurrentTabUrl() {
 	await driver.switchToWindow(handles[handles.length - 1]);
 	return new URL(await driver.getUrl());
 }
-async function 
-
-}
 
 module.exports = {
 	openSubmissionsTab: openTeacherSubmissionsTab,
