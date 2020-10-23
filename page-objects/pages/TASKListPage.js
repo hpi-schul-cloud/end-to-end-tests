@@ -6,6 +6,7 @@ const navigationLeftPage = require("./NavigationLeftPage.js")
 const elementHelpers=require('../../runtime/helpers/elementHelpers');
 
 const selectorCreateTaskButton = '.btn.btn-primary.btn-add.create';
+const selectorCreateTaskBtnInTheCourse = '.col-sm-12.add-button > a';
 const selectorSortBtn = "#filter .md-clickable > div"
 const select = "#selection-picker > div > div"
 const lastedited =
@@ -57,6 +58,10 @@ function getTaskActionBtnSelector(buttonAction) {
 
 async function clickCreateTaskButton () {
     await elementHelpers.clickAndWait(selectorCreateTaskButton)
+}
+
+async function clickCreateTaskButtonInTheCourse () {
+    await elementHelpers.clickAndWait(selectorCreateTaskBtnInTheCourse)
 }
 
 async function sortHometasks () {
@@ -165,6 +170,7 @@ module.exports = {
     isTaskNotVisible,
     clickOnTaskFromList,
     getTaskNames,
-    getTaskDescription
+    getTaskDescription,
+    clickCreateTaskButtonInTheCourse
 
 }

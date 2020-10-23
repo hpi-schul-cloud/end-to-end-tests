@@ -16,7 +16,7 @@ When(/^.* clicks create-a-new-task-button in the course (.*)$/, async function (
     await courseListPage.goToCourses();
     await  courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
     await taskPage.gotoTasksTab();
-    await taskListPage.clickCreateTaskButton();
+    await taskListPage.clickCreateTaskButtonInTheCourse()
 });
 
 
