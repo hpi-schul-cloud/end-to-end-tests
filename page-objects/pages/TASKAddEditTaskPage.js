@@ -17,7 +17,6 @@ const activatePublicSubmissionsDialog = '.modal.fade.dontShowAgainAlert-modal.in
 const activatePublicSubmissionsButton = '.modal-dialog .modal-checkbox button.btn-submit';
 
 
-
 async function clickPrivateTaskCheckbox () {
     await elementHelpers.click(privateHomeworkCheckbox);
 }
@@ -36,13 +35,13 @@ async function clickPublicSubmissionsCheckbox() {
 	}
 }
 
-async function clickTeamSubmissionsCheckbox () {
-    await elementHelpers.click(teamSubmissionsCheckbox);
+async function clickTeamSubmissionsCheckbox() {
+	await elementHelpers.click(teamSubmissionsCheckbox);
 }
 
-async function selectFirstCourseOnTheList(){
-   let dropdown = await waitHelpers.waitUntilElementIsPresent(courseSelect);
-   await dropdown.selectByIndex(0);
+async function selectFirstCourseOnTheList() {
+	let dropdown = await waitHelpers.waitUntilElementIsPresent(courseSelect);
+	await dropdown.selectByIndex(0);
 }
 
 async function setTaskName (taskName) {
@@ -53,11 +52,11 @@ async function setTaskText (text) {
     await waitHelpers.waitAndSetValue(taskTextArea, text);
 }
 
-async function setAccomplishTime () {
-    var begin = await dateTimeHelpers.dateToString();
-    var end = await dateTimeHelpers.randomDate();
-    await driver.execute(`document.querySelector("#availableDate").value="${begin}"`);
-    await driver.execute(`document.querySelector("#dueDate").value="${end}"`);
+async function setAccomplishTime() {
+	var begin = await dateTimeHelpers.dateToString();
+	var end = await dateTimeHelpers.randomDate();
+	await driver.execute(`document.querySelector("#availableDate").value="${begin}"`);
+	await driver.execute(`document.querySelector("#dueDate").value="${end}"`);
 }
 
 async function clickSubmitTaskBtn () {
