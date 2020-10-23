@@ -1,6 +1,6 @@
 'use strict';
 const axios = require('axios');
-const mailCatcherAPI = 'http://localhost:1080/messages';
+let mailCatcherAPI = 'http://localhost:1080/messages';
 
 async function receiveEmails() {
 	if (process.env.CI) {
