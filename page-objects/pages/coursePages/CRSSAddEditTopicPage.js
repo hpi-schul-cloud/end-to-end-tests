@@ -79,6 +79,13 @@ async function isTopicOnTopicList(name) {
 	expect(listOfTopicTitles, msg + resultMsg).to.include(name);
 }
 
+async function isTopicNotOnTopicList(name) {
+	const listOfTopicTitles = await topicTitleList();
+	const msg = 'Topic with name [' + name + '] is visible on the list \n';
+	const resultMsg = ', List of task titles: ' + listOfTopicTitles;
+	expect(listOfTopicTitles, msg + resultMsg).to.not.include(name);
+}
+
 async function isItTheFirstTopicAdded() {
 	if (await topicTitleList().length === 1) {
 		await waitHelpers.waitUntilElementIsVisible(topicSuccessTextSelector);
@@ -103,7 +110,7 @@ async function topicTitleList() {
 }
 
 async function clickOnTopicEditPencilButton(name) {
-	let listOfTopicElements = await driver.$$(topicSelector);
+	let listOfTopicElements = await elementHelpers.getListOfAllElements(topicSelector);
 	let topicTitleList = await elementHelpers.getTextFromAllElements(topicSelector);
 	await elementHelpers.clickAndWait(listOfTopicElements[topicTitleList.indexOf(name)].$(pencilBtnSelector));
 }
@@ -138,6 +145,7 @@ module.exports = {
 	addMaterial,
 	addEtherpad,
 	isTopicOnTopicList,
+	isTopicNotOnTopicList,
 	isItTheFirstTopicAdded,
 	clickOnTopicWithName,
 	isTopicTitleVisible,
