@@ -8,11 +8,11 @@ const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const schulCloudURL = `${CLIENT.URL}`;
 /*Login, Logout*/
 
-Given(/^.*arrives on the Schul-Cloud homepage$/, function () {
+Given(/^.* arrives on the Schul-Cloud homepage$/, function () {
 	return elementHelpers.loadPage(schulCloudURL);
 });
 
-Given(/^.*logs in with email (.*) and password (.*)$/, async function (username, password) {
+Given(/^.* logs in with email (.*) and password (.*)$/, async function (username, password) {
 	await startPage.clickLoginBtn();
 	await loginPage.performLogin(username, password);
 });
