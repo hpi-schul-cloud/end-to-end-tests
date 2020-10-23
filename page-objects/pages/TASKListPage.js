@@ -53,7 +53,7 @@ function getTaskActionBtnSelector(buttonAction) {
                 break;
         }
         return btnSel;
-};
+}
 
 async function clickCreateTaskButton () {
     await elementHelpers.clickAndWait(selectorCreateTaskButton)
