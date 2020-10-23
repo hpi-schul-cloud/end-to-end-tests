@@ -122,12 +122,15 @@ async function isTopicDescriptionVisible(description) {
 	expect(listOfTopicDescriptions, msg + resultMsg).to.include(description);
 }
 
-async function findContentByTitleAndChanged(contentTitle, changedContentTitle, changedDescription) {
+async function setContentByTitle(contentTitle, changeContentTitle) {
 	const contentTitleValueSel = '.card input[placeholder][value="' + contentTitle + '"]';
-	await waitHelpers.waitAndSetValue(contentTitleValueSel, changedContentTitle);
+	await waitHelpers.waitAndSetValue(contentTitleValueSel, changeContentTitle);
+}
+
+async function setDescription(changeDescription) {
 	const contentDescription = await waitHelpers.waitUntilElementIsEnabled(textFieldValueSel);
 	await contentDescription.clearValue();
-	await waitHelpers.waitAndSetValue(textFieldSel, changedDescription);
+	await waitHelpers.waitAndSetValue(textFieldSel, changeDescription);
 }
 
 module.exports = {
@@ -143,6 +146,7 @@ module.exports = {
 	isTopicTitleVisible,
 	clickOnTopicEditPencilButton,
 	isContentTopicTitleVisible,
-	findContentByTitleAndChanged,
 	isTopicDescriptionVisible,
+	setContentByTitle,
+	setDescription,
 }

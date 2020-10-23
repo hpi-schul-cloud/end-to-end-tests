@@ -25,8 +25,9 @@ When(/^.* clicks on the pencil button in the line of the topic with name (.*) to
 When(/^.* changes topic name '(.*)'$/, async function (changedTopicName) {
 	await addEditTopicPage.setTopic(changedTopicName);
 });
-When(/^.* finds title '(.*)' and changes title on '(.*)' and text '(.*)' of the topic$/, async function (contentTitle, changedContentTitle, changedDescription) {
-	await addEditTopicPage.findContentByTitleAndChanged(contentTitle, changedContentTitle, changedDescription);
+When(/^.* finds title '(.*)' and changes title on '(.*)' and text '(.*)' of the topic$/, async function (contentTitle, changeContentTitle, changeDescription) {
+	await addEditTopicPage.setContentByTitle(contentTitle, changeContentTitle);
+	await addEditTopicPage.setDescription(changeDescription);
 	await addEditTopicPage.clickCreateTopicButton();
 });
 Then(/^.* should see changed topic with name (.*) and content title (.*) and description (.*) is visible on the topic page$/,async function (changedTopicName, changedContentTitle, changedDescription) {
