@@ -102,9 +102,7 @@ Then(/^the students can upload a file as a solution$/, function () {
         login: 'paula.meyer@schul-cloud.org',
         password: 'Schulcloud1!'
     };
-})
-
-
+    
 Given(/^.* submits solution for the task$/, function () {
     return taskPage.submitHomework(taskName, student);
 });
@@ -133,4 +131,4 @@ When(/^.* goes to task evaluation$/, async function () {
 When(/^file evaluation is visible for .*$/, async function () {
     await taskPage.checkFileEvaluation(file)
 });
-
+})();
