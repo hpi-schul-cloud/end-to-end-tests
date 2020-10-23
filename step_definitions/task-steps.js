@@ -105,7 +105,7 @@ Then(/^the students can upload a file as a solution$/, function () {
 })
 
 
-Given(/^the student has submitted that task$/, function () {
+Given(/^.* submits solution for the task$/, function () {
     return taskPage.submitHomework(taskName, student);
 });
 
@@ -119,3 +119,18 @@ Then(/^both the teacher and student can see and download the feedback$/, functio
 When(/^.* clicks on task with name (.*)$/, async function (taskName) {
     await taskListPage.clickOnTask(taskName, 'Task open');
 });
+
+When(/^.* goes to evaluation tab$/, async function () {
+    await taskPage.goToEvaluationTab()
+});
+
+When(/^.* can see the file evaluation$/, async function (taskName) {
+    await taskPage.isFileVisible(file);
+});
+When(/^.* goes to task evaluation$/, async function (taskName) {
+    await taskPage.clickCommentBtn()
+});
+When(/^file evaluation is visible for .*$/, async function (file) {
+    await taskPage.checkFileEvaluation(file)
+});
+

@@ -72,14 +72,13 @@ async function teacherLogsInAndCanSeeTheTextSubmission(coursename, taskname, stu
 	await TaskListPage.clickOnTask(taskname, 'Task open');
 	await hasTheStudentSubmittedTheTask(studentname);
 }
-
-async function submitHomework(taskName) {
-	await TaskListPage.clickOnTask(taskName, 'Task open');
+//delete
+async function submitHomework() {
 	await openStudentSubmissionTab();
 	await submitSolutionForTheHometask();
 }
 
-async function teacherShowGradeTabForFirstSubmission() {
+async function goToEvaluationTab() {
 	await openTeacherSubmissionsTab();
 	await clickOnFirstSubmission();
 	await clickCommentBtn();
@@ -98,7 +97,7 @@ async function gotoTasksTab () {
 }
 
 async function submitFileFeedback(taskName, file) {
-	await teacherShowGradeTabForFirstSubmission();
+	await goToEvaluationTab();
 	await driver.execute(function () {
 		document.querySelector('input[type=file][class=dz-hidden-input]').style = {};
 	});
@@ -106,9 +105,9 @@ async function submitFileFeedback(taskName, file) {
 	await waitHelpers.waitAndSetValue(remoteFilePathInput, remoteFilePath);
 	await waitHelpers.waitUntilElementIsVisible(activeSubmissions);
 }
-
+//delete
 async function testFileUploadSuccess(taskName, file, student) {
-	await teacherShowGradeTabForFirstSubmission();
+	await goToEvaluationTab();
 	if (process.env.CI) {
 		console.warn('S3 is not available on CI. The files were never uploaded.');
 		return;
@@ -129,6 +128,13 @@ async function testFileUploadSuccess(taskName, file, student) {
 	expect(studentFileUrl.origin).to.equal(fileUrl.origin);
 	expect(studentFileUrl.pathname).to.equal(fileUrl.pathname);
 }
+async function checkFileEvaluation (file) {
+	await isFileVisible(file);
+	await elementHelpers.clickAndWait(`a*=${file.name}`);
+	const studentFileUrl = await getCurrentTabUrl();
+	expect(studentFileUrl.origin).to.equal(fileUrl.origin);
+	expect(studentFileUrl.pathname).to.equal(fileUrl.pathname);
+}
 
 async function isFileVisible(file) {
 	const gradeFilesList = await waitHelpers.waitUntilElementIsVisible(gradeFilesListSel);
@@ -140,6 +146,9 @@ async function getCurrentTabUrl() {
 	await driver.switchToWindow(handles[handles.length - 1]);
 	return new URL(await driver.getUrl());
 }
+async function 
+
+}
 
 module.exports = {
 	openSubmissionsTab: openTeacherSubmissionsTab,
@@ -148,10 +157,13 @@ module.exports = {
 	hasTheStudentSubmittedTheTask,
 	teacherLogsInAndCanSeeTheTextSubmission,
 	submitHomework,
-	teacherShowGradeTabForFirstSubmission,
+	teacherShowGradeTabForFirstSubmission: goToEvaluationTab,
 	submitFileFeedback,
 	testFileUploadSuccess,
 	isFileVisible,
 	getCurrentTabUrl,
 	gotoTasksTab,
+	goToEvaluationTab,
+	clickCommentBtn,
+	checkFileEvaluation
 };

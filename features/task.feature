@@ -71,14 +71,25 @@ Feature: create different types of task
         And student logs in with email <username> and password <password>
         And student with full age accepts student's data protection with password <newPasswordStudent>
         And student goes to tasks page
-        And the student has submitted that task
+        And student clicks on task with name <taskname>
+        And student submits solution for the task
+        #And the student has submitted that task
         And student logs out 
         When teacher logs in
         And teacher accepts data protection
         And teacher goes to tasks page
         And teacher clicks on task with name <taskname>
         And the teacher uploads file feedback
-        Then both the teacher and student can see and download the feedback
+        And teacher goes to evaluation tab
+        Then teacher can see the file evaluation
+        And teacher logs out
+        And student arrives on the Schul-Cloud homepage
+        And student goes to tasks page
+        And student clicks on task with name <taskname>
+        And student goes to task evaluation
+        Then file evaluation is visible for student 
+
+       # Then both the teacher and student can see and download the feedback
         Examples:
             | username                    | password     | newPasswordStudent | taskname              | studentname | coursename            |
             | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!      | task with file upload | Paula Meyer | course with file task |
