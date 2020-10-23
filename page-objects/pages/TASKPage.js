@@ -18,7 +18,7 @@ const teacherSubmissionsTab = '#submissions-tab-link';
 const studentSubmissionTab = '#submission-tab-link';
 const submissionContainer = '.table .usersubmission';
 const remoteFilePathInput = 'input[type=file][class=dz-hidden-input]';
-const commentBtn = "a#comment-tab-link.tab-link";
+const commentBtn = 'a#comment-tab-link.tab-link';
 const hometasksTabSel = 'button[data-testid="hometasks"]';
 
 async function submitSolutionForTheHometask() {

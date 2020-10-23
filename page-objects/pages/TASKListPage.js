@@ -7,15 +7,15 @@ const elementHelpers=require('../../runtime/helpers/elementHelpers');
 
 const selectorCreateTaskButton = '.btn.btn-primary.btn-add.create';
 const selectorCreateTaskBtnInTheCourse = '.col-sm-12.add-button > a';
-const selectorSortBtn = "#filter .md-clickable > div"
-const select = "#selection-picker > div > div"
+const selectorSortBtn = '#filter .md-clickable > div';
+const select = '#selection-picker > div > div'
 const lastedited =
-    "body > div.md-select-menu.md-menu-content-bottom-start.md-menu-content-small.md-menu-content.md-theme-default > div > ul > li:nth-child(2) > button"
-const submitBtn = ".md-button.md-primary.md-theme-default > div > div"
-const pageTitleSelector = "#page-title"
-const taskElement = ".col-xl-12"
-const taskTitleContainer = ".assignment.card .title"
-const taskDescriptionContainer = ".assignment .text-muted.ckcontent"
+    'body > div.md-select-menu.md-menu-content-bottom-start.md-menu-content-small.md-menu-content.md-theme-default > div > ul > li:nth-child(2) > button';
+const submitBtn = '.md-button.md-primary.md-theme-default > div > div';
+const pageTitleSelector = '#page-title';
+const taskElement = '.col-xl-12';
+const taskTitleContainer = '.assignment.card .title';
+const taskDescriptionContainer = '.assignment .text-muted.ckcontent'
 const taskContainer = '.homework li.card';
 
 const taskButton = {
