@@ -17,9 +17,8 @@ const activatePublicSubmissionsDialog = '.modal.fade.dontShowAgainAlert-modal.in
 const activatePublicSubmissionsButton = '.modal-dialog .modal-checkbox button.btn-submit';
 
 
-
-async function clickPrivateHomeworkCheckbox () {
-    await elementHelpers.click(privateHomeworkCheckbox);
+async function clickPrivateHomeworkCheckbox() {
+	await elementHelpers.click(privateHomeworkCheckbox);
 }
 
 async function clickPublicSubmissionsCheckbox() {
@@ -36,33 +35,33 @@ async function clickPublicSubmissionsCheckbox() {
 	}
 }
 
-async function clickTeamSubmissionsCheckbox () {
-    await elementHelpers.click(teamSubmissionsCheckbox);
+async function clickTeamSubmissionsCheckbox() {
+	await elementHelpers.click(teamSubmissionsCheckbox);
 }
 
-async function selectFirstCourseOnTheList(){
-   let dropdown = await waitHelpers.waitUntilElementIsPresent(courseSelect);
-   await dropdown.selectByIndex(0);
+async function selectFirstCourseOnTheList() {
+	let dropdown = await waitHelpers.waitUntilElementIsPresent(courseSelect);
+	await dropdown.selectByIndex(0);
 }
 
-async function setHomeworkName (taskName) {
-    await waitHelpers.waitAndSetValue(homeworkTitleInput, taskName);
+async function setHomeworkName(taskName) {
+	await waitHelpers.waitAndSetValue(homeworkTitleInput, taskName);
 }
 
-async function setHomeworkText (text) {
-    await waitHelpers.waitAndSetValue(homeworkTextArea, text);
-    
+async function setHomeworkText(text) {
+	await waitHelpers.waitAndSetValue(homeworkTextArea, text);
+
 }
 
-async function setAccomplishTime () {
-    var begin = await dateTimeHelpers.dateToString();
-    var end = await dateTimeHelpers.randomDate();
-    await driver.execute(`document.querySelector("#availableDate").value="${begin}"`);
-    await driver.execute(`document.querySelector("#dueDate").value="${end}"`);
+async function setAccomplishTime() {
+	var begin = await dateTimeHelpers.dateToString();
+	var end = await dateTimeHelpers.randomDate();
+	await driver.execute(`document.querySelector("#availableDate").value="${begin}"`);
+	await driver.execute(`document.querySelector("#dueDate").value="${end}"`);
 }
 
-async function clickSubmitHomeworkBtn () {
-    await elementHelpers.clickAndWait(submitHomeworkBtn);
+async function clickSubmitHomeworkBtn() {
+	await elementHelpers.clickAndWait(submitHomeworkBtn);
 }
 
 async function addHomework(coursename, taskname, isPrivate) {
@@ -75,16 +74,16 @@ async function addHomework(coursename, taskname, isPrivate) {
 	await clickSubmitHomeworkBtn();
 }
 
-async function uploadHomework () {
-    //making the upload-element visible to selenium
-    change_visibility = uploadBtn +'.css("visibility,"visible");';
-    change_display = uploadBtn +'.css("display,"block");';
-    await driver.execute_script(change_visibility);
-    await driver.execute_script(change_display);
+async function uploadHomework() {
+	//making the upload-element visible to selenium
+	let change_visibility = uploadBtn + '.css("visibility,"visible");';
+	let change_display = uploadBtn + '.css("display,"block");';
+	await driver.execute_script(change_visibility);
+	await driver.execute_script(change_display);
 
-    const path = require('path');
-    const filePath = path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt');
-    await driver.$x(uploadBtn).send_keys(filePath);
+	const path = require('path');
+	const filePath = path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt');
+	await driver.$x(uploadBtn).send_keys(filePath);
 }
 
 module.exports = {
