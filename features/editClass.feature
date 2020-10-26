@@ -8,12 +8,12 @@ Background:
 	Given teacher arrives on the Schul-Cloud homepage
 
 Scenario Outline:
-	Given teacher logs in with email <teachersUsername> and password <teachersPassword>
+	Given teacher logs in with email '<teachersUsername>' and password '<teachersPassword>'
 	Given teacher accepts data protection
 	Given teacher goes to administration
-	When teacher creates a class <className>
-	When teacher edits a class <newClassName>
-	Then teacher should see the class <newClassName> with last name of teacher <teacherLastname>.
+	When teacher creates a class '<className>'
+	When teacher edits a class'<newClassName>'
+	Then teacher should see the class '<newClassName>' with last name of teacher '<teacherLastname>'
 
 Examples:
 	|teachersUsername			|teachersPassword	|className	|teacherLastname	|newClassName	|
