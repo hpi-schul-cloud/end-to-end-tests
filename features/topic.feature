@@ -40,7 +40,7 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 
 	@deleteTopic
 	Scenario Outline: User delete a topic
-		Given <userRole> logs in with email <email> and password <password>
+		Given <userRole> logs in with email '<email>' and password '<password>'
 		And <userRole> accepts data protection
 		When <userRole> goes to courses page
 		And <userRole> chooses course with name '<courseName>'
