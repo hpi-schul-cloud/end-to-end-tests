@@ -8,11 +8,11 @@ Feature: logging in as a teacher and create a new course and add pupils and clas
 
 	@addStudentToCourse
 	Scenario Outline:
-		Given teacher logs in with email <teachersUsername> and password <teachersPassword>
+		Given teacher logs in with email '<teachersUsername>' and password '<teachersPassword>'
 		Given teacher accepts data protection
 		And  teacher goes to courses page
-		And  teacher creates a course <courseName> and adds student <studentName> to this course
-		Then teacher clicks the participants icon in the course <courseName> and sees the added student <studentName> there.
+		And  teacher creates course with name '<courseName>' and student '<studentName>'
+		Then teacher clicks the participants icon in the course '<courseName>' and sees the added student '<studentName>' there.
 		Examples:
 			| courseName | studentName | teachersUsername           | teachersPassword |
 			| Mathe      | Paula Meyer | klara.fall@schul-cloud.org | Schulcloud1!     |

@@ -11,7 +11,7 @@ Feature:
         And <userRole> logs in
         And <userRole> accepts data protection
         When click left navigation item "administration"
-        Then <userRole> should see that all sub menu items are visible: <tabsList> in administration area
+        Then <userRole> should see that all sub menu items are visible: '<tabsList>' in administration area
 
         Examples:
             | userRole | tabsList                                       |
