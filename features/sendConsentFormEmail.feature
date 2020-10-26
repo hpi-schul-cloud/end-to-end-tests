@@ -9,7 +9,7 @@ Feature: Send emails to pupils that have not accepted the consent form yet
 
 	Scenario Outline: Admin sends email to pupils
 
-		When admin logs in with email <adminsUsername> and password <adminsPassword>
+		When admin logs in with email '<adminsUsername>' and password '<adminsPassword>'
 		When admin accepts data protection
 		When admin goes to administration
 		When admin goes to students administration
