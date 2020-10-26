@@ -4,7 +4,7 @@ let mailCatcherAPI = 'http://localhost:1080/messages';
 
 async function receiveEmails() {
 	if (process.env.CI) {
-		mailCatcherAPI = process.env.MAILCATCH_URL;
+		mailCatcherAPI = process.env.MAILCATCH_API;
 	}
 
 	let res = await axios.get(mailCatcherAPI);
