@@ -46,7 +46,7 @@ Feature: create different types of task
         | coursename            | studentname | taskname             | username                    | password     | newStudentPassword     |
         | test private hometask | Paula Meyer | private task example | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!          |
 
-    #@submitTextHomework
+    #@submitTextTask
     #Scenario Outline: pupil submits a task and teacher evaluates it
     #Given the teacher creates one course with <coursename> and student with <studentname>
     #Given teacher clicks "create a new home task" in the course <coursename> with <taskname>
@@ -60,7 +60,7 @@ Feature: create different types of task
     #| coursename                        | firstname   | lastname | taskname   | username                     | password     | studentname  |
     #| course with a task for submission | Paula       | Meyer    | task       | paula.meyer@schul-cloud.org  | Schulcloud1! | Paula Meyer  |
 
-    @gradeHomeworkWithFile
+    @gradeTaskWithFile
     Scenario Outline: grade a task submission by uploading a file
         When teacher creates a course <coursename> and adds student <studentname> to this course
         And teacher clicks create-a-new-task-button in the course <coursename>
