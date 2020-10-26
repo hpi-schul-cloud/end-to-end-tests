@@ -10,7 +10,7 @@ When(/^.* adds a new Topic with name '(.*)'$/, async function (topicName) {
 
 Then(/^.* should see that created topic with name '(.*)' is shown on the topic list$/, async function (topicName) {
 	await addEditTopicPage.isItTheFirstTopicAdded();
-	await addEditTopicPage.isTopicOnTopicList(topicName);
+	await addEditTopicPage.isTopicOnTopicList(topicName, true);
 });
 
 When(/^.* clicks on the topic with name (.*)$/, function (topicName) {
@@ -50,9 +50,9 @@ Then(/^.* should see changed topic with name (.*) and content title (.*) and des
 });
 
 Then(/^.* should see that edited topic with name (.*) is shown on the topic list$/,async function (changedTopicName) {
-	await addEditTopicPage.isTopicOnTopicList(changedTopicName);
+	await addEditTopicPage.isTopicOnTopicList(changedTopicName, true);
 });
 
 Then(/^.* should see that deleted topic with name (.*) is not shown on the topic list$/,async function (topicName) {
-	await addEditTopicPage.isTopicNotOnTopicList(topicName);
+	await addEditTopicPage.isTopicOnTopicList(topicName, false);
 });

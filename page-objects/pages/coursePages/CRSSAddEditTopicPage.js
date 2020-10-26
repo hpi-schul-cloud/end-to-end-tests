@@ -11,7 +11,7 @@ const textFieldSel = '.card .ck-content';
 const textFieldValueSel = '.card .ck-content p';
 const contentTitleSelector = '.card .card-header .form-control';
 const textBtn = ".btn-group > button:nth-child(1)";
-const topicSelector = '#topic-list .card';
+const topicSelector = '#topic-list';
 const sectionTopicTitleSelector = '.section-title #page-title';
 const topicSuccessTextSelector = '.first-topic-success';
 const pencilBtnSelector = ".fa-pencil";
@@ -84,6 +84,18 @@ async function isTopicNotOnTopicList(name) {
 	const msg = 'Topic with name [' + name + '] is visible on the list \n';
 	const resultMsg = ', List of task titles: ' + listOfTopicTitles;
 	expect(listOfTopicTitles, msg + resultMsg).to.not.include(name);
+}
+
+async function isTopicOnTopicList(topicname, expectedValue) {
+	const allTopics = await topicTitleList();
+    const isTopicOnList = allTopics.some((element) => element.includes(topicname));
+    const fillString = !expectedValue ? 'not' : '';
+	const msg = `Topic with name is ${fillString} visible on the list: \n`;
+	const resultMsg = 'Expected: ' + topicname + ', Actual: ' + allTopics;
+
+	expectedValue
+		? await expect(isTopicOnList, msg + resultMsg).to.equal(true)
+		: await expect(isTopicOnList, msg + resultMsg).to.equal(false);
 }
 
 async function isItTheFirstTopicAdded() {
