@@ -11,12 +11,12 @@ And teacher goes to courses page
 Scenario Outline: teacher can copy an existing course
 When teacher creates course with name '<courseName>'
 And teacher enters course name '<courseName>' into search field
-Then teacher should see that amount of courses with name '<courseName>' is 1
+Then teacher should see that amount of courses with name '<courseName>' is '1'
 When teacher chooses course with name '<courseName>'
 And teacher clicks 'duplicate course'
 And teacher goes to courses page
 Then teacher should see that cloned course with name '<courseName> - Kopie' is visible on the list
-Then teacher should see that amount of courses with name '<courseName> - Kopie' is 1
+Then teacher should see that amount of courses with name '<courseName> - Kopie' is '1'
 
 Examples:
 | courseName                 |
@@ -92,7 +92,7 @@ Examples:
 
 @copyCourseWithStudents
 Scenario Outline: teacher can copy course with students
-Given teacher creates course with name '<courseName>', and student: <studentName>
+Given teacher creates course with name '<courseName>' and student '<studentName>'
 And teacher goes to courses page
 And teacher chooses course with name '<courseName>'
 And teacher clicks 'duplicate course'

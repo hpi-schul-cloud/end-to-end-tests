@@ -7,12 +7,13 @@ let teamName;
 let descriptionTest;
 const members = ['Cord Carl', 'Marla Mathe', 'Waldemar Wunderlich'];
 
-When(/^.*creates a new team with name (.*) and description (.*) and color orange$/, function (teamname, description) {
+When(/^.*creates a new team with name '([^']*)' and description '([^']*)' and color orange$/, function (teamname, description) {
 	teamName = teamname;
 	descriptionTest = description;
 	return TMSAddEditTeamPage.createTeamAndGoToInternalMembersAdministration(teamName, descriptionTest);
 });
-When(/^.*adds a student to team with lastname: (.*) and firstname: (.*)$/, async function (lastname, firstname) {
+
+When(/^.*adds a student to team with lastname: '([^']*)' and firstname: '([^']*)'$/, async function (lastname, firstname) {
 	await TMSTeamMembersPage.addTeamAttendee(lastname, firstname);
 });
 
@@ -33,12 +34,7 @@ Then(/^the correct number of students in the team should be displayed$/, async f
 });
 
 Then(
-	/^by clicking the students icon the popup opens and shows all team members with surname and lastname$/,
-	async function () {
-		await TMSTeamListPage.areMembersOnTheListInTeamForSection(
-			'test team',
-			['Cord Carl', 'Marla Mathe', 'Waldemar Wunderlich'],
-			TMSTeamListPage.section.teamSection
-		);
+	/^by clicking the students icon the popup opens and shows all team members with surname and lastname$/,  async function () {
+		await TMSTeamListPage.areMembersOnTheListInTeamForSection('test team',members,TMSTeamListPage.section.teamSection);
 	}
 );
