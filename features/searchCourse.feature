@@ -6,7 +6,7 @@ Given user arrives on the Schul-Cloud homepage
 
 
 Scenario Outline:
-Given teacher logs in with email <teacherUsername> and password <teacherPassword>
+Given teacher logs in with email '<teacherUsername>' and password '<teacherPassword>'
 Given teacher accepts data protection
 Given teacher goes to courses page
 When teacher enters course name '<coursename>' into search field

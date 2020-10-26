@@ -8,11 +8,11 @@ const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const schulCloudURL = `${CLIENT.URL}`;
 /*Login, Logout*/
 
-Given(/^.* arrives on the Schul-Cloud homepage$/, function () {
+Given(/^.*arrives on the Schul-Cloud homepage$/, function () {
 	return elementHelpers.loadPage(schulCloudURL);
 });
 
-Given(/^.* logs in with email (.*) and password (.*)$/, async function (username, password) {
+Given(/^.* logs in with email '([^']*)' and password '([^']*)'$/, async function (username, password) {
 	await startPage.clickLoginBtn();
 	await loginPage.performLogin(username, password);
 });
@@ -45,7 +45,7 @@ When(/^.* clicks 'Login' button on start page$/, async function () {
 	await startPage.clickLoginBtn();
 });
 
-When(/^.* is on LoginPage and logs in using email (.*) and password (.*)$/, async function (username, password) {
+When(/^.* is on LoginPage and logs in using email '([^']*)' and password '([^']*)'$/, async function (username, password) {
 	await loginPage.performLogin(username, password);
 });
 
@@ -86,10 +86,10 @@ Then(/^.* accepts data protection$/, async function () {
 	return loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: false });
 });
 
-Then(/^student with full age accepts student\'s data protection with password (.*)$/, async function (newPassword) {
+Then(/^student with full age accepts student\'s data protection with password '([^']*)'$/, async function (newPassword) {
 	await loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: true, newPassword });
 });
 
-Then(/^.*data protection is already accepted and set a new password (.*)$/, async function (newPassword) {
+Then(/^.*data protection is already accepted and set a new password '([^']*)'$/, async function (newPassword) {
 	await loginPage.performLoginActions({ shouldAcceptDataProtection: false, shouldSetOwnPassword: true, newPassword });
 });
