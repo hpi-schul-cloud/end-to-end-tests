@@ -66,16 +66,17 @@ When(/^.* adds some Text '(.*)'$/, async function(text) {
 
 When(/^.* inputs subtopic name '(.*)'$/, async function(subtopicName) {
 	await addEditTopicPage.setSubtopicName(subtopicName);
+	await addEditTopicPage.clickCreateTopicButton();
 });
 
 Then(/^.* course with name '([^']*)' contains topic with name '([^']*)'$/, async function(coursename, topicname) {
 	await courseListPage.goToCourses();
 	await courseListPage.isTopicInCourseInSection(coursename, topicname, courseListPage.section.activeCourses);
-	});
+});
 
 When(/^.* clicks add-Text-Btn$/, async function() {
 		await addEditTopicPage.clickAddTextBtn()
-	});
-	 
+});
 
+	 
 
