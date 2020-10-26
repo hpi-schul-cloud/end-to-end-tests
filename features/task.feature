@@ -73,7 +73,6 @@ Feature: create different types of task
         And student goes to tasks page
         And student clicks on task with name <taskname>
         And student submits solution for the task
-        #And the student has submitted that task
         And student logs out 
         When teacher logs in
         And teacher goes to tasks page

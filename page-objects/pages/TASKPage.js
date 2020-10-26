@@ -9,7 +9,6 @@ const startPage = require('./generalPagesBeforeLogin/StartPageBeforeLogin');
 const loginPage = require('./generalPagesBeforeLogin/LoginPage');
 const TaskListPage = require('./TASKListPage');
 const CRSSGeneralCoursePage = require('./coursePages/CRSSGeneralCoursePage');
-
 const textFieldSel = '.ck-content';
 const submitBtn = '.ckeditor-submit';
 const activeSubmissions = '.tab-content.section-homeworksubmissions.active';
@@ -20,6 +19,7 @@ const submissionContainer = '.table .usersubmission';
 const remoteFilePathInput = 'input[type=file][class=dz-hidden-input]';
 const commentBtn = 'a#comment-tab-link.tab-link';
 const hometasksTabSel = 'button[data-testid="hometasks"]';
+let fileUrl; 
 
 async function submitSolutionForTheHometask() {
 	const assignmentText = 'here is some text which I want to submit';
@@ -128,12 +128,25 @@ async function testFileUploadSuccess(taskName, file, student) {
 	expect(studentFileUrl.origin).to.equal(fileUrl.origin);
 	expect(studentFileUrl.pathname).to.equal(fileUrl.pathname);
 }
-async function checkFileEvaluation (file) {
+async function checkFileEvaluationStudent (file) {
 	await isFileVisible(file);
 	await elementHelpers.clickAndWait(`a*=${file.name}`);
 	const studentFileUrl = await getCurrentTabUrl();
 	expect(studentFileUrl.origin).to.equal(fileUrl.origin);
 	expect(studentFileUrl.pathname).to.equal(fileUrl.pathname);
+}
+
+async function checkFileEvaluationTeacher (file) {
+	if (process.env.CI) {
+		console.warn('S3 is not available on CI. The files were never uploaded.');
+		return;
+	}
+	await isFileVisible(file);
+	const mainWindow = await driver.getWindowHandle();
+	await elementHelpers.clickAndWait(`a*=${file.name}`);
+	fileUrl = await getCurrentTabUrl();
+	await driver.switchToWindow(mainWindow);
+
 }
 
 async function isFileVisible(file) {
@@ -162,5 +175,6 @@ module.exports = {
 	gotoTasksTab,
 	goToEvaluationTab,
 	clickCommentBtn,
-	checkFileEvaluation
+	checkFileEvaluationStudent,
+	checkFileEvaluationTeacher
 };

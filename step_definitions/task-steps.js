@@ -124,12 +124,12 @@ When(/^.* goes to evaluation tab$/, async function () {
 });
 
 When(/^.* can see the file evaluation$/, async function () {
-    await taskPage.isFileVisible(file);
+    await taskPage.checkFileEvaluationTeacher(file)
 });
 When(/^.* goes to task evaluation$/, async function () {
     await taskPage.clickCommentBtn()
 });
 When(/^file evaluation is visible for .*$/, async function () {
-    await taskPage.checkFileEvaluation(file)
+    await taskPage.checkFileEvaluationStudent(file)
 });
 })();
