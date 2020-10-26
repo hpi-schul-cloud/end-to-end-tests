@@ -31,7 +31,6 @@ sudo apt install -y apt-transport-https ca-certificates curl git mongodb-org-too
 export BRANCH_NAME=${GITHUB_REF#refs/heads/}
 export IT_CLIENT_HOST=nuxtclient
 export IT_CLIENT_PORT=4000
-export MAILCATCH_API=http://localhost:1080/messages
 
 echo "BRANCH: $BRANCH_NAME"
 
