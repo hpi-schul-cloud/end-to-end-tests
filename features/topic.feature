@@ -53,4 +53,4 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 		Then <userRole> should see that deleted topic with name '<topicName>' is not shown on the topic list
 		Examples:
 			| userRole | email                  | password     | courseName | topicName		 | secondTopicName	|
-			| teacher  | lehrer@schul-cloud.org | Schulcloud1! | Mathe      | Multiplication | Addition			|
+			| teacher  | lehrer@schul-cloud.org | Schulcloud1! | Mathe      | Multiplication | Addition   		|
