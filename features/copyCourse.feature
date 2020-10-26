@@ -27,8 +27,9 @@ Examples:
 Scenario Outline: teacher can copy course with certain text
 Given teacher creates course with name '<courseName>'
 And teacher chooses course with name '<courseName>'
-When teacher adds a topic with name '<topicName>'
-And teacher adds some Text '<text>'
+And teacher adds a topic with name '<topicName>'
+And teacher clicks add-Text-Btn 
+And teacher inputs subtopic name '<subtopicName>'
 And teacher goes to courses page
 And teacher chooses course with name '<courseName>'
 And teacher clicks 'duplicate course'
@@ -36,8 +37,8 @@ And teacher goes to courses page
 Then teacher should see that course with name '<courseName> - Kopie' is visible on the list
 And teacher should see that copied course with name '<courseName> - Kopie' contains topic with name '<topicName>'
 Examples:
-| courseName    | topicName         | text                  |
-| sample course | sample topic name | some sample text here |
+| courseName    | topicName         | text                  | subtopicName |
+| sample course | sample topic name | some sample text here | subtopic     | 
 
 
 @copyCourseWithGeoGebra
