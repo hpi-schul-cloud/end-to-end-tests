@@ -72,20 +72,6 @@ async function addEtherpad(name, description) {
 	await waitHelpers.waitAndSetValue(etherpadDescriptionField, description);
 }
 
-async function isTopicOnTopicList(name) {
-	const listOfTopicTitles = await topicTitleList();
-	const msg = 'Topic with name [' + name + '] is not visible on the list \n';
-	const resultMsg = ', List of task titles: ' + listOfTopicTitles;
-	expect(listOfTopicTitles, msg + resultMsg).to.include(name);
-}
-
-async function isTopicNotOnTopicList(name) {
-	const listOfTopicTitles = await topicTitleList();
-	const msg = 'Topic with name [' + name + '] is visible on the list \n';
-	const resultMsg = ', List of task titles: ' + listOfTopicTitles;
-	expect(listOfTopicTitles, msg + resultMsg).to.not.include(name);
-}
-
 async function isTopicOnTopicList(topicname, expectedValue) {
 	const allTopics = await topicTitleList();
     const isTopicOnList = allTopics.some((element) => element.includes(topicname));
@@ -160,7 +146,6 @@ module.exports = {
 	addMaterial,
 	addEtherpad,
 	isTopicOnTopicList,
-	isTopicNotOnTopicList,
 	isItTheFirstTopicAdded,
 	clickOnTopicWithName,
 	isTopicTitleVisible,
