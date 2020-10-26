@@ -31,6 +31,11 @@ Then(/^.* course with name '([^']*)' is cloned, but without students$/, async fu
 	await courseListPage.isCountOfCourseMemebrs(clonedCourseName, 0, courseListPage.section.activeCourses);
 });
 
+When(/^.* adds content title '([^']*)' and text '([^']*)' to the topic content$/, async function (contentTitle, description) {
+	await addEditTopicPage.addText(contentTitle, description);
+	await addEditTopicPage.clickCreateTopicButton();
+});
+
 When(/^.*adds a topic with name '([^']*)'$/, async function (topicname) {
 	await courseTopicsPage.clickAddNewTopicBtn();
 	await addEditTopicPage.setTopic(topicname);
