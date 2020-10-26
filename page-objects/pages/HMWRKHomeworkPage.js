@@ -19,6 +19,9 @@ const studentSubmissionTab = '#submission-tab-link';
 const submissionContainer = '.table .usersubmission';
 const remoteFilePathInput = 'input[type=file][class=dz-hidden-input]';
 const commentBtn = "a#comment-tab-link.tab-link";
+const dashboardTitleListSel = '.dashboard-title';
+const courseNameOnHomeworkSel = '.homework-tile .text-muted'
+const homeworkNameSel = '.homework-tile .title-row .title';
 
 async function submitSolutionForTheHometask() {
 	const assignmentText = 'here is some text which I want to submit';
@@ -44,7 +47,7 @@ async function hasTheStudentSubmittedTheTask(studentname) {
 	const listOfSubmisionStudentNames = await getListOfSubmisions();
 	const isSubbmitedByStudent = listOfSubmisionStudentNames.some(
 		async (element) =>
-            (await element.getText()).includes(studentname) && 
+            (await element.getText()).includes(studentname) &&
             (await element.$$('i.fa-check')).length == 1
 	);
 	await expect(isSubbmitedByStudent).to.equal(true);
@@ -142,6 +145,24 @@ async function getCurrentTabUrl() {
 	await driver.switchToWindow(handles[handles.length - 1]);
 	return new URL(await driver.getUrl());
 }
+async function isPrivateTasksAndDraftsListVisible(listNames) {
+	const dashboardTitlesList = await elementHelpers.getTextFromAllElements(dashboardTitleListSel)
+	const msg = 'Topic with name [' + listNames + '] is not visible on the list \n';
+	const resultMsg = ', List of task titles: ' + dashboardTitlesList;
+	return expect(dashboardTitlesList, msg + resultMsg).to.include(listNames);
+}
+async function isCourseNameOnPrivateHomeworkVisible(courseName) {
+	const courseNameList = await elementHelpers.getTextFromAllElements(courseNameOnHomeworkSel)
+	const msg = 'Topic with name [' + courseName + '] is not visible on the list \n';
+	const resultMsg = ', List of task titles: ' + courseNameList;
+	return expect(courseNameList, msg + resultMsg).to.include(courseName);
+}
+async function isPrivateHomeworkNameVisible(homeworkName) {
+	const homeworkNameList = await elementHelpers.getTextFromAllElements(homeworkNameSel)
+	const msg = 'Topic with name [' + homeworkName + '] is not visible on the list \n';
+	const resultMsg = ', List of task titles: ' + homeworkNameList;
+	return expect(homeworkNameList, msg + resultMsg).to.include(homeworkName);
+}
 
 module.exports = {
 	openSubmissionsTab: openTeacherSubmissionsTab,
@@ -155,4 +176,7 @@ module.exports = {
 	testFileUploadSuccess,
 	isFileVisible,
 	getCurrentTabUrl,
+	isPrivateTasksAndDraftsListVisible,
+	isCourseNameOnPrivateHomeworkVisible,
+	isPrivateHomeworkNameVisible,
 };

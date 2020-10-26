@@ -7,6 +7,8 @@ const addCoursePage = require('../page-objects/pages/coursePages/CRSSAddCoursePa
 const courseListPage = require('../page-objects/pages/coursePages/CRSSCourseListPage');
 const courseHomeworksPage = require('../page-objects/pages/coursePages/CRSSCourseHomeworksPage');
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
+var {When} = require('cucumber');
+var {Then} = require('cucumber');
 
 /* CREATE A BASIC HOMEWORK */
 When(/^.* clicks "create a new home task" in course (.*) with (.*)$/, function (coursename, taskname) {
@@ -18,16 +20,13 @@ Then(/^.* hometask with '(.*)' is to be found at task pannel$/, function (taskna
 });
 
 /* PRIVATE */
-When(/^.* creates a private hometask in course (.*) with (.*)$/, async function (coursename, taskname) {
+When(/^.* creates a private homework in course (.*) with (.*)$/, async function (coursename, taskname) {
 	await addEditHomeworkPage.addHomework(coursename, taskname, true);
-	await homeworkListPage.goToPrivateHomeworkArea();
-	await homeworkListPage.isTaskVisible(taskname, true);
-	await navigationTopPage.performLogout();
 });
 
-Then(/^.* will not see this task with (.*)$/, async function (taskname) {
+Then(/^.* will '([^']*)' this task with (.*)$/, async function (expectedValue, taskName) {
 	await homeworkListPage.goToPrivateHomeworkArea();
-	await homeworkListPage.isTaskVisible(taskname, false);
+	await homeworkListPage.isTaskVisible(expectedValue, taskName);
 });
 
 /* SUBMISSION */
@@ -99,3 +98,9 @@ Then(/^.* can upload a file as a solution$/, function () {
 		return homeworkPage.testFileUploadSuccess(taskName, file, student);
 	});
 })();
+Then(/^.* should see created private homework with name '([^']*)' and course name '([^']*)' and homework timeout on Private tasks and drafts list$/, function (homeworkName, courseName) {
+
+});
+When(/^.* should see '([^']*)' list$/, function (listName) {
+	return homeworkPage.isPrivateTasksAndDraftsListVisible(listName);
+});
