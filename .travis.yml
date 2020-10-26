@@ -22,7 +22,6 @@ jobs:
       env:
         - IT_CLIENT_HOST=nuxtclient
         - IT_CLIENT_PORT=4000
-        - MAILCATCHER_API=http://localhost:1080/messages
       git:
         clone: false
       services:
