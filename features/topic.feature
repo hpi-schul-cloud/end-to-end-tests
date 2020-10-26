@@ -48,9 +48,9 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 		And <userRole> adds content title '<contentTitle>' and text '<description>' to the topic content
 		Then <userRole> should see that created topic with name '<topicName>' is shown on the topic list
 		And <userRole> adds a new Topic with name '<secondTopicName>'
-		When <userRole> clicks on the trashcan button in the line of the topic with name <topicName> to delete the topic
+		When <userRole> clicks on the trashcan button in the line of the topic with name '<topicName>' to delete the topic
 		And <userRole> clicks on the Löschen button in the Löschen pop up
-		Then <userRole> should see that deleted topic with name <topicName> is not shown on the topic list
+		Then <userRole> should see that deleted topic with name '<topicName>' is not shown on the topic list
 		Examples:
 			| userRole | email                  | password     | courseName | topicName		 | secondTopicName	|
 			| teacher  | lehrer@schul-cloud.org | Schulcloud1! | Mathe      | Multiplication | Addition   		|
