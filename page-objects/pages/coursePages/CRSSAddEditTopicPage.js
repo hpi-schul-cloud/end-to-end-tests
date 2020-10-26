@@ -104,6 +104,7 @@ async function isTopicTitleVisible(name) {
 }
 
 async function topicTitleList() {
+	await waitHelpers.waitUntilElementIsVisible(topicSelector);
 	return elementHelpers.getTextFromAllElements(topicSelector);
 }
 
