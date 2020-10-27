@@ -20,7 +20,7 @@ Then(/^.* hometask with '(.*)' is to be found at task pannel$/, function (taskna
 });
 
 /* PRIVATE */
-When(/^.* creates a private homework in course (.*) with (.*)$/, async function (coursename, taskname) {
+When(/^.* creates a private homework in course '([^']*)' with '([^']*)'$/, async function (coursename, taskname) {
 	await addEditHomeworkPage.addHomework(coursename, taskname, true);
 });
 
@@ -98,9 +98,14 @@ Then(/^.* can upload a file as a solution$/, function () {
 		return homeworkPage.testFileUploadSuccess(taskName, file, student);
 	});
 })();
-Then(/^.* should see created private homework with name '([^']*)' and course name '([^']*)' and homework timeout on Private tasks and drafts list$/, function (homeworkName, courseName) {
-
+Then(/^.* should see created private homework with name '([^']*)' and course name '([^']*)' and timeout on Private tasks and drafts list$/, async function (homeworkName, courseName) {
+	await homeworkPage.isCourseNameOnPrivateHomeworkVisible(courseName);
+	await homeworkPage.isPrivateHomeworkNameVisible(homeworkName);
+	await homeworkPage.isTimeoutVisible();
 });
 When(/^.* should see '([^']*)' list$/, function (listName) {
 	return homeworkPage.isPrivateTasksAndDraftsListVisible(listName);
+});
+Then(/^.* should not see number of completed homework and number of graded homework$/, async function () {
+	return homeworkPage.isNumberOfCompletedHomeworkVisible();
 });

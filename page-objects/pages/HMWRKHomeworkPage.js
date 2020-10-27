@@ -9,6 +9,7 @@ const startPage = require('../../page-objects/pages/generalPagesBeforeLogin/Star
 const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage');
 const HMWRKHomeworkListPage = require('./HMWRKHomeworkListPage');
 const CRSSGeneralCoursePage = require('./coursePages/CRSSGeneralCoursePage');
+const editHomeworkPage = require('./HMWRKAddEditHomeworkPage.js');
 
 const textFieldSel = '.ck-content';
 const submitBtn = '.ckeditor-submit';
@@ -20,8 +21,9 @@ const submissionContainer = '.table .usersubmission';
 const remoteFilePathInput = 'input[type=file][class=dz-hidden-input]';
 const commentBtn = "a#comment-tab-link.tab-link";
 const dashboardTitleListSel = '.dashboard-title';
-const courseNameOnHomeworkSel = '.homework-tile .text-muted'
+const courseNameOnHomeworkSel = '.homework-tile .text-muted span'
 const homeworkNameSel = '.homework-tile .title-row .title';
+const homeworkTimeout = '.homework-tile .text-muted .pull-right';
 
 async function submitSolutionForTheHometask() {
 	const assignmentText = 'here is some text which I want to submit';
@@ -147,15 +149,20 @@ async function getCurrentTabUrl() {
 }
 async function isPrivateTasksAndDraftsListVisible(listNames) {
 	const dashboardTitlesList = await elementHelpers.getTextFromAllElements(dashboardTitleListSel)
-	const msg = 'Topic with name [' + listNames + '] is not visible on the list \n';
-	const resultMsg = ', List of task titles: ' + dashboardTitlesList;
+	const msg = 'Title with name [' + listNames + '] is not visible on the list \n';
+	const resultMsg = ', List of titles: ' + dashboardTitlesList;
 	return expect(dashboardTitlesList, msg + resultMsg).to.include(listNames);
 }
 async function isCourseNameOnPrivateHomeworkVisible(courseName) {
-	const courseNameList = await elementHelpers.getTextFromAllElements(courseNameOnHomeworkSel)
-	const msg = 'Topic with name [' + courseName + '] is not visible on the list \n';
-	const resultMsg = ', List of task titles: ' + courseNameList;
-	return expect(courseNameList, msg + resultMsg).to.include(courseName);
+let listOfTopicElements = await elementHelpers.getListOfAllElements(".homework-tile")
+	let listOfTopic = await elementHelpers.getTextFromAllElements(".homework-tile");
+	const a =listOfTopicElements[listOfTopic.indexOf("private task example")];
+	      return a;
+	// const courseNameList = await elementHelpers.getTextFromAllElements(courseNameOnHomeworkSel)
+	// const msg = 'Course with name [' + courseName + '] is not visible on the private homework list \n';
+	// const resultMsg = ', List of course titles: ' + courseNameList;
+	//               /
+	// return expect(courseNameList, msg + resultMsg).to.include(courseName);
 }
 async function isPrivateHomeworkNameVisible(homeworkName) {
 	const homeworkNameList = await elementHelpers.getTextFromAllElements(homeworkNameSel)
@@ -163,6 +170,9 @@ async function isPrivateHomeworkNameVisible(homeworkName) {
 	const resultMsg = ', List of task titles: ' + homeworkNameList;
 	return expect(homeworkNameList, msg + resultMsg).to.include(homeworkName);
 }
+ async function isTimeoutVisible(){
+	return waitHelpers.waitUntilElementIsPresent(homeworkTimeout);
+ }
 
 module.exports = {
 	openSubmissionsTab: openTeacherSubmissionsTab,
@@ -179,4 +189,5 @@ module.exports = {
 	isPrivateTasksAndDraftsListVisible,
 	isCourseNameOnPrivateHomeworkVisible,
 	isPrivateHomeworkNameVisible,
+	isTimeoutVisible,
 };

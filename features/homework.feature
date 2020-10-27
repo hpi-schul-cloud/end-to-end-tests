@@ -22,7 +22,7 @@ Feature: create different types of homework
 	@createPrivateHomework
 	Scenario Outline: create a private homework has to be visible only for the teacher
 		Given teacher creates course with name '<coursename>', and student: <studentname>
-		When teacher creates a private homework in course <coursename> with <homeworkName>
+		When teacher creates a private homework in course '<coursename>' with '<homeworkName>'
 		Then teacher will 'see' this task with '<homeworkName>'
 		And teacher logs out
 		And student logs in with email <username> and password <password>
@@ -63,11 +63,12 @@ Feature: create different types of homework
 	@showPrivateHomeworkOnDashboard
 	Scenario Outline: create a private homework has to be visible only for the teacher on the dashboard
 		Given teacher creates course with name '<courseName>', and student: <studentName>
-		When teacher creates a private homework in course <courseName> with <homeworkName>
+		When teacher creates a private homework in course '<courseName>' with '<homeworkName>'
 		Then teacher will 'see' this task with <homeworkName>
 		When click left navigation item "dashboard"
 		When teacher should see 'Private Aufgaben und Entwürfe' list
-		Then teacher should see created private homework with name '<homeworkName>' and course name '<courseName>' and homework timeout on Private tasks and drafts list
+		Then teacher should see created private homework with name '<homeworkName>' and course name '<courseName>' and timeout on Private tasks and drafts list
+		Then teacher should not see number of completed homework and number of graded homework
 		Examples:
 			| courseName | studentName | homeworkName         |
 			| Math       | Paula Meyer | private task example |
