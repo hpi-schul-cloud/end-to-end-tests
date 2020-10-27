@@ -48,13 +48,26 @@ Feature: create different types of task
 
     #@submitTextTask
     #Scenario Outline: pupil submits a task and teacher evaluates it
-        #Given the teacher creates one course with <coursename> and student with <studentname>
-        #Given teacher clicks "create a new home task" in the course <coursename> with <taskname>
-        #When student with <username>, <password> of this course <coursename> goes to hometasks
-        #When the student finds <taskname>
+        #Given teacher creates a course <coursename> and adds student <studentname> to this course
+        #Given teacher clicks create-a-new-task-button in the course <coursename>
+        #And teacher puts taskname <taskname> into name field
+        #And teacher sets accomplish time for the task
+        #And teacher puts taskBody <taskText> into body field
+        #And teacher clicks submit-task-button on task-creation-form
+        #When teacher goes to tasks page
+        #Then the task <taskname> should be visible for the teacher
+        #And teacher logs out 
+        #When student arrives on the Schul-Cloud homepage
+        #And student logs in with email <username> and password <password>
+        #And student with full age accepts student's data protection with password <newStudentPassword>
+        #And the student goes to the tasks section
+        #Then the task <taskname> should not be visible for student
         #Then the student sees the task <taskname> on the dashboard and
-        #When the student edits a text hometask and submits it
-        #Then the teacher can see the submission in course <coursename> of task <taskname> done by student <studentname> and
+        #And student submits solution for the task
+        #And student logs out 
+        #When teacher logs in
+        #And teacher goes to tasks page
+        #And teacher clicks on task with name <taskname>
         #Then teacher can evaluate the task <taskname>
         #Examples:
         #| coursename                        | firstname   | lastname | taskname   | username                     | password     | studentname  |
