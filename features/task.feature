@@ -95,6 +95,7 @@ Feature: create different types of task
         And teacher goes to evaluation tab
         Then teacher can see the file evaluation
         And teacher logs out
+        When student arrives on the Schul-Cloud homepage
         And student logs in with email '<username>' and password '<password>'
         And student goes to tasks page
         And student clicks on task with name '<taskname>'
