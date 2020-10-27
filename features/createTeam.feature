@@ -6,11 +6,11 @@ Background: a teacher logged in and created a new pupil
 Given teacher arrives on the Schul-Cloud homepage
 
 Scenario Outline: create a team with two new members
-When teacher logs in with email <teacherUsername> and password <teacherPassword>
+When teacher logs in with email '<teacherUsername>' and password '<teacherPassword>'
 And teacher accepts data protection
-Then teacher creates a new team with name <teamname> and description <description> and color orange
-And teacher adds a student to team with lastname: <lastname1> and firstname: <firstname1>
-And teacher adds a student to team with lastname: <lastname2> and firstname: <firstname2>
+Then teacher creates a new team with name '<teamname>' and description '<description>' and color orange
+And teacher adds a student to team with lastname: '<lastname1>' and firstname: '<firstname1>'
+And teacher adds a student to team with lastname: '<lastname2>' and firstname: '<firstname2>'
 When teacher clicks submit add team member button
 Then this team should be displayed on the team page
 And this team should be displayed with the correct color

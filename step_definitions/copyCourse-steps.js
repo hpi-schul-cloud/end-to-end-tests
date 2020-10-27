@@ -1,134 +1,82 @@
 'use strict';
 
-const addCoursePage = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
-const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
-const generalCoursePage = require("../page-objects/pages/coursePages/CRSSGeneralCoursePage");
-const courseTopicsPage = require("../page-objects/pages/coursePages/CRSSCourseTopicsPage");
-const addEditTopicPage = require("../page-objects/pages/coursePages/CRSSAddEditTopicPage");
-let coursesCount;
+const addCoursePage = require('../page-objects/pages/coursePages/CRSSAddCoursePage');
+const courseListPage = require('../page-objects/pages/coursePages/CRSSCourseListPage');
+const generalCoursePage = require('../page-objects/pages/coursePages/CRSSGeneralCoursePage');
+const courseTopicsPage = require('../page-objects/pages/coursePages/CRSSCourseTopicsPage');
+const addEditTopicPage = require('../page-objects/pages/coursePages/CRSSAddEditTopicPage');
 
-// _________Copy__________
-
-Given(/^.* creates a course with name (.*) and$/, function(coursename) {
+When(/^.* creates course with name '([^']*)'$/, function (coursename) {
 	return addCoursePage.createCourse(coursename);
 });
 
-Given(/^.*amount of courses with name (.*) is ([0-9])$/, async function(courseName, coursesCount) {
-	return courseListPage.isCountOfCoursesWithNameOnList(courseName, coursesCount, courseListPage.section.activeCourses);
+When(/^.* creates course with name '([^']*)' and student '([^']*)'$/, function (coursename, studentNameList) {
+	return addCoursePage.createCourse(coursename, studentNameList);
 });
 
-When(/^.* selects the course (.*) and clicks clone it$/, async function(coursename) {
-	await courseListPage.goToCourses();
-	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
+When(/^.* chooses course with name '([^']*)'$/, function (coursename) {
+	return courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
+});
+
+Then(/^.* amount of courses with name '([^']*)' is '([^']*)'$/, async function (courseName, coursesCount) {
+	return courseListPage.isCountOfCoursesWithNameOnList(courseName,coursesCount,courseListPage.section.activeCourses);
+});
+
+When(/^.* clicks 'duplicate course'$/, async function () {
 	await generalCoursePage.cloneCourse();
 });
 
-// _________With Text__________
-Given(/^.* creates some with name (.*)$/, function(coursename) {
-	return addCoursePage.createCourse(coursename);
+Then(/^.* course with name '([^']*)' is cloned, but without students$/, async function (clonedCourseName) {
+	await courseListPage.goToCourses();
+	await courseListPage.isCountOfCourseMemebrs(clonedCourseName, 0, courseListPage.section.activeCourses);
 });
-Given(/^.* chooses the created course with (.*) and$/, function(coursename) {
-	return courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
+
+When(/^.* adds content title '([^']*)' and text '([^']*)' to the topic content$/, async function (contentTitle, description) {
+	await addEditTopicPage.addText(contentTitle, description);
+	await addEditTopicPage.clickCreateTopicButton();
 });
-When(/^.*adds a Topic with name (.*)$/, async function(topicname) {
-	//return copyCourse.addTopic(topicname);
+
+When(/^.*adds a topic with name '([^']*)'$/, async function (topicname) {
 	await courseTopicsPage.clickAddNewTopicBtn();
 	await addEditTopicPage.setTopic(topicname);
-
 });
-When(/^.* adds some Text (.*) to the course$/, async function(text) {
+
+When(/^.* adds some Text '([^']*)'$/, async function (text) {
 	await addEditTopicPage.addText(text);
 	await addEditTopicPage.clickCreateTopicButton();
 });
 
-When(/^.* clicks copy course (.*) with Text$/, async function(coursename) {
-	await courseListPage.goToCourses();
-	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
-	await generalCoursePage.cloneCourse();
-});
-
-When(/^.* sees the course (.*) was copied and the topic (.*) is still availiable$/, async function(coursename, topicname) {
-		//return copyCourse.verify(coursename, topicname);
-	await courseListPage.goToCourses();
-	await courseListPage.isTopicInCourseInSection(coursename, topicname, courseListPage.section.activeCourses);
-	});
-
-// _________With GeoGebra__________
-
-When(/^.* adds some GeoGebraArbeitsblatt with id (.*) to the course$/, async function(geogebraID) {
-	//return copyCourse.addGeoGebra(geogebraID);
-	await addEditTopicPage.addGeoGebra("GeoGebra", geogebraID);
+When(/^.* adds some GeoGebraArbeitsblatt with id '([^']*)'$/, async function (geogebraID) {
+	await addEditTopicPage.addGeoGebra('GeoGebra', geogebraID);
 	await addEditTopicPage.clickCreateTopicButton();
-
-});
-When(/^.* clicks copy course (.*) with GeoGebraArbeitsblatt$/, async function(coursename) {
-	await courseListPage.goToCourses();
-	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
-	await generalCoursePage.cloneCourse();
-});
-Then(/^.* sees the course (.*) copy and the GeoGebraArbeitsblatt (.*) is still availiable$/, async function(coursename, topicname) {
-		//return copyCourse.verify(coursename, topicname);
-		await courseListPage.goToCourses();
-		await courseListPage.isTopicInCourseInSection(coursename, topicname, courseListPage.section.activeCourses);
-	});
-
-// _________With Material__________
-Given(/^.* creates a course with name (.*),$/, function(coursename) {
-	return addCoursePage.createCourse(coursename);
-});
-Given(/^.* chooses this course with (.*) and$/, function(coursename) {
-	return courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
-});
-Given(/^.* adds a topic with (.*)$/, async function(topicname) {
-	//return copyCourse.addTopic(topicname);
-	await courseTopicsPage.clickAddNewTopicBtn();
-	await addEditTopicPage.setTopic(topicname);
 });
 
-When(/^.* adds some Material  to the course$/, function() {
+When(/^.* adds some Material$/, function () {
 	return addEditTopicPage.addMaterial();
 });
-When(/^.* clicks copy course (.*) with Material$/, async function(coursename) {
-	await courseListPage.goToCourses();
-	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
-	await generalCoursePage.cloneCourse();
-});
-Then(/^.* sees the course (.*) copy and the material (.*) is still availiable$/, async function(coursename, topicname) {
-	//return copyCourse.verify(coursename, topicname);
-	await courseListPage.goToCourses();
-	await courseListPage.isTopicInCourseInSection(coursename, topicname, courseListPage.section.activeCourses);
-});
 
-
-
-// _________With Etherpad__________
-When(/^.* adds some Etherpad with (.*) and (.*) to the course$/, async function(etherpadName, etherpadDescription) {
-	//return copyCourse.addEtherpad(etherpadName, etherpadDescription);
+When(/^.* adds some Etherpad with name '([^']*)' and description '([^']*)'$/, async function (etherpadName,etherpadDescription) {
 	await addEditTopicPage.addEtherpad(etherpadName, etherpadDescription);
 	await addEditTopicPage.clickCreateTopicButton();
 });
-When(/^.* clicks copy course (.*) with Etherpad$/, async function(coursename) {
-	await courseListPage.goToCourses();
-	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
-	await generalCoursePage.cloneCourse();
+
+When(/^.* adds some Text '(.*)'$/, async function(text) {
+	await addEditTopicPage.addText(text);
 });
-Then(/^.* sees the course (.*) copy and the Etherpadd (.*) is still availiable$/, async function(coursename, topicname) {
-	//return copyCourse.verify(coursename, topicname);
+
+When(/^.* inputs subtopic name '(.*)'$/, async function(subtopicName) {
+	await addEditTopicPage.setSubtopicName(subtopicName);
+	await addEditTopicPage.clickCreateTopicButton();
+});
+
+Then(/^.* course with name '([^']*)' contains topic with name '([^']*)'$/, async function(coursename, topicname) {
 	await courseListPage.goToCourses();
 	await courseListPage.isTopicInCourseInSection(coursename, topicname, courseListPage.section.activeCourses);
 });
 
+When(/^.* clicks add-Text-Btn$/, async function() {
+		await addEditTopicPage.clickAddTextBtn()
+});
 
-// _________With pupils__________
-Given(/^.* creates a course with name (.*) and student (.*)$/, function(coursename, studentname) {
-	return addCoursePage.createCourseWithStudents(coursename, studentname);
-});
-When(/^.* copies the course (.*) with students$/, async function(coursename) {
-	await courseListPage.goToCourses();
-	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
-	await generalCoursePage.cloneCourse();
-});
-Then(/^.* should see the cloned course (.*) but without students$/, async function(coursename) {
-		await courseListPage.goToCourses();
-		await courseListPage.isCountOfCourseMemebrs(coursename, 0, courseListPage.section.activeCourses);
-	});
+	 
+
