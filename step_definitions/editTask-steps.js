@@ -5,7 +5,7 @@ const tasksListPage = require('../page-objects/pages/TASKListPage.js');
 const editHomeworkPage = require('../page-objects/pages/TASKAddEditTaskPage.js');
 
 Then(/^.* should click '([^']*)' button for task with name '([^']*)'$/, async function (button, taskname) {
-	await homeworkListPage.clickOnTask(taskname, button)
+	await tasksListPage.clickOnTask(taskname, button)
 });
 
 Then(/^.* should change the taskname to '([^']*)' in the name field$/, async function (taskname) {
@@ -45,10 +45,10 @@ Then(/^.* goes to the tasks page$/, async function () {
 });
 
 Then(/^.* checks if the new taskname is '([^']*)'$/, async function (taskname) {
-	await homeworkListPage.isTaskVisible(taskname, true);
+	await tasksListPage.isTaskVisible(taskname, true);
 });
 
 Then(/^.* checks if the new taskbody is '([^']*)'$/, async function (taskbody) {
-	let descriptions = await homeworkListPage.getDescription();
+	let descriptions = await tasksListPage.getDescription();
 	await expect(descriptions.some((x) => x.includes(taskbody))).to.be.true;
 });

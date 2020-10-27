@@ -25,5 +25,5 @@ Then(/^.*goes to tasks page$/, function () {
 });
 
 Then(/^.*created task with name '([^']*)' is on task page$/, async function (taskName) {
-	await homeworkListPage.isTaskVisible(taskName, true);
+	await tasksListPage.isTaskVisible(taskName, true);
 });
