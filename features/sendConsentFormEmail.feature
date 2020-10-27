@@ -10,13 +10,13 @@ Feature: Send emails to pupils that have not accepted the consent form yet
 	Scenario Outline: Admin sends email to pupils
 
 		When admin logs in with email '<adminsUsername>' and password '<adminsPassword>'
-		When admin accepts data protection
+		And admin accepts data protection
 		When admin goes to administration
-		When admin goes to students administration
+		And admin goes to students administration
 		When admin clicks the send links to pupil email address button
 		Then the email is sent to all students that have not accepted
 
 		Examples:
-			| firstName | secondName | studentEmail              | adminsUsername        | adminsPassword | newPasswordStudent |
-	    	| Georg     | Georgmann  | georgmann@schul-cloud.org | admin@schul-cloud.org | Schulcloud1!   | Schulcloud1!!      |
+			| adminsUsername        | adminsPassword |
+	    	| admin@schul-cloud.org | Schulcloud1!   | 
 
