@@ -18,6 +18,7 @@ const pencilBtnSelector = ".fa-pencil";
 const blankContentTitleSel = '.card input[placeholder][value=""]';
 const contentTitleValue = '.section-course .content-block .h4';
 const textValue = '.section-course .content-block .row';
+const subtopicInputField = ".input-group .form-control";
 //geoGebra:
 const geogebraBtn = ".btn-group > button:nth-child(2)";
 const titleInput = "input[placeholder='Titel des Abschnitts']";
@@ -91,6 +92,10 @@ async function isItTheFirstTopicAdded() {
 	}
 }
 
+async function setSubtopicName (subtopicName) {
+	await waitHelpers.waitAndSetValue(subtopicInputField, subtopicName);
+}
+
 async function clickOnTopicWithName(name) {
 	let listOfTopicElements = await elementHelpers.getListOfAllElements(topicSelector)
 	let listOfTopic = await elementHelpers.getTextFromAllElements(topicSelector);
@@ -140,6 +145,10 @@ async function setDescription(changeDescription) {
 	await waitHelpers.waitAndSetValue(textFieldSel, changeDescription);
 }
 
+async function clickAddTextBtn() {
+	await elementHelpers.click(textBtn)
+}
+
 module.exports = {
 	setTopic,
 	clickCreateTopicButton,
@@ -156,4 +165,6 @@ module.exports = {
 	isTopicDescriptionVisible,
 	setContentByTitle,
 	setDescription,
+	setSubtopicName,
+	clickAddTextBtn
 }
