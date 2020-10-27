@@ -16,14 +16,13 @@ When(/^.* clicks create-a-new-task-button in the course (.*)$/, async function (
     await taskListPage.clickCreateTaskButtonInTheCourse()
 });
 
-
 When(/^.* clicks on "enable group submission" checkbox$/, function () {
     return addEditTaskPage.clickTeamSubmissionsCheckbox();
 });
+
 When(/^.* sets accomplish time for the task$/, function () {
     return addEditTaskPage.setAccomplishTime();
 });
-
 
 When(/^.* clicks submit-task-button$/, function () {
     return addEditTaskPage.clickSubmitHomeworkBtn();
@@ -34,7 +33,6 @@ Then(/^the hometask with (.*) is to be found at the task pannel$/, async functio
     let tasks =  await  taskListPage.getTaskNames();
     expect(tasks).to.include(taskname);
 });
-
 
 When(/^.* clicks on "private task" checkbox$/, async function () {
     await addEditTaskPage.clickPrivateHomeworkCheckbox();
@@ -56,10 +54,9 @@ Then(/^the task (.*) should not be visible for .*$/, async function (taskname) {
     expect(tasksOnPage).not.to.include(taskname)
 });
 
-/* SUBMISSION */
-When(/^the student finds (.*)$/, function (taskname) {
+/* When(/^the student finds (.*)$/, function (taskname) {
     return taskListPage.clickOnTaskFromList(taskname);
-});
+}); */
 
 When(/^student with (.*), (.*) of this course (.*) goes to hometasks$/, function (username, password, coursename) {
     return courseListPage.studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename, courseListPage.section.activeCourses);
