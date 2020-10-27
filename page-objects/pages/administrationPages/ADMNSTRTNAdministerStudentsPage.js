@@ -7,6 +7,7 @@ const waitHelpers = require('../../../runtime/helpers/waitHelpers');
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 let oldPassword;
 
+const addStudentBtn = "button[data-testid='btn_add_student']";
 const firstNameInput = "input[data-testid='create_student_input_firstname']";
 const lastNameInput = "input[data-testid='create_student_input_lastname']";
 const emailInput = "input[data-testid='create_student_input_email']";
