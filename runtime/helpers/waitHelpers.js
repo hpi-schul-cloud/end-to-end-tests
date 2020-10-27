@@ -1,6 +1,5 @@
 'use strict';
 
-const { getElement } = require('./sharedHelpers');
 const sharedHelpers = require('./sharedHelpers');
 
 const elementIsPresentTimeout = 10000;
@@ -12,6 +11,7 @@ const elementIsNotVisibleTimeout = 5000;
 const elementIsEnabled = 5000;
 const elementIsDisabled = 5000;
 const elementContainsTextTimeout = 10000;
+const emailSendingTimeout = 10000;
 const urlContainsTimeout = 10000;
 const pageLoadingTimeout = 30000;
 const ajaxTimeout = 7000;
@@ -95,6 +95,10 @@ async function waitUntilElementContainsText(selectorOrElement, expectedText, tim
 	return element;
 }
 
+async function waitUntilEmailIsSent() {
+	await driver.pause(5000);
+}
+
 async function waitUntilUrlContains(expectedUrlText, timeout = urlContainsTimeout) {
 	let textTimeoutMsg = 'Url does not contains text : "' + expectedUrlText + '" within time: ' + timeout;
 	let actualUrl = '';
@@ -160,8 +164,8 @@ async function waitUntilScriptResultIsTrue(script, timeoutMsg, timeout = pageLoa
 
 async function waitAndSetValue(selectorOrElement, value, timeout = setValueTimeout) {
 	await waitUntilElementIsVisible(selectorOrElement);
-	const element =  await waitUntilElementIsEnabled(selectorOrElement);
-	await element.setValue(value);		
+	const element = await waitUntilElementIsEnabled(selectorOrElement);
+	await element.setValue(value);
 }
 
 async function waitUntilElementAttributeEquals(
@@ -273,6 +277,7 @@ module.exports = {
 	waitUntilElementIsEnabled,
 	waitUntilElementIsDisabled,
 	waitUntilElementContainsText,
+	waitUntilEmailIsSent,
 	waitUntilUrlContains,
 	waitUntilUrlNotContains,
 	waitUntilAjaxIsFinished,

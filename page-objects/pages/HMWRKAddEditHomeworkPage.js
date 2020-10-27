@@ -16,6 +16,7 @@ const courseSelect = '#coursePicker';
 const activatePublicSubmissionsDialog = '.modal.fade.dontShowAgainAlert-modal.in'
 const activatePublicSubmissionsButton = '.modal-dialog .modal-checkbox button.btn-submit';
 
+
 async function clickPrivateHomeworkCheckbox() {
 	await elementHelpers.click(privateHomeworkCheckbox);
 }
@@ -52,13 +53,12 @@ async function setHomeworkText(text) {
 
 }
 
-async function setAccomplishTime () {
-    const begin = await dateTimeHelpers.dateToString();
-    const end = await dateTimeHelpers.randomDate();
-    await driver.execute(`document.querySelector("#availableDate").value="${begin}"`);
-    await driver.execute(`document.querySelector("#dueDate").value="${end}"`);
+async function setAccomplishTime() {
+	var begin = await dateTimeHelpers.dateToString();
+	var end = await dateTimeHelpers.randomDate();
+	await driver.execute(`document.querySelector("#availableDate").value="${begin}"`);
+	await driver.execute(`document.querySelector("#dueDate").value="${end}"`);
 }
-
 
 async function clickSubmitHomeworkBtn() {
 	await elementHelpers.clickAndWait(submitHomeworkBtn);
@@ -76,8 +76,8 @@ async function addHomework(courseName, taskName, isPrivate) {
 
 async function uploadHomework() {
 	//making the upload-element visible to selenium
-	change_visibility = uploadBtn + '.css("visibility,"visible");';
-	change_display = uploadBtn + '.css("display,"block");';
+	let change_visibility = uploadBtn + '.css("visibility,"visible");';
+	let change_display = uploadBtn + '.css("display,"block");';
 	await driver.execute_script(change_visibility);
 	await driver.execute_script(change_display);
 

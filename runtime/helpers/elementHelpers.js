@@ -41,9 +41,9 @@ async function getSelectOptions(selectSelector) {
 async function selectOptionByText(selectSelector, text) {
 	const element = await waitHelpers.waitUntilElementIsVisible(selectSelector);
 	if (!(await isOptionSelected(selectSelector, text))) {
-	await driver.keys('Control');
-	await element.selectByVisibleText(text.trim());
-	await driver.keys('Control');
+		await driver.keys('Control');
+		await element.selectByVisibleText(text.trim());
+		await driver.keys('Control');
 	}
 }
 
@@ -153,8 +153,8 @@ async function getValueListFromListOfElements(listOfElements) {
 
 async function getListOfSelectedOption(selectSelector) {
 	await waitHelpers.waitUntilElementIsVisible(selectSelector);
-    const listOfSelectedOptions = await driver.$$(selectSelector + " option[selected='']");
-    return getTextListFromListOfElements(listOfSelectedOptions);
+	const listOfSelectedOptions = await driver.$$(selectSelector + " option[selected='']");
+	return getTextListFromListOfElements(listOfSelectedOptions);
 }
 
 async function getTextFromAllElements(selector) {
