@@ -9,7 +9,6 @@ When(/^.*clicks create course button$/, async function () {
 });
 
 When(/^.*creates a course '([^']*)'$/, async function (courseName) {
-	coursename = courseName;
 	await addCoursePage.setCourseName(courseName);
 	await addCoursePage.goToNextSection();
 });
