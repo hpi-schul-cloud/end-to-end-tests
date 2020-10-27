@@ -4,12 +4,6 @@ const waitHelpers = require('./waitHelpers');
 
 const LOAD_PAGE_TIMEOUT = 10000;
 
-/*async function acceptAlertDialog() {
-	//await waitHelpers.waitUntilAlertIsPresent();
-	await driver.pause(1000);
-	await driver.switchTo().alert().accept();
-}*/
-
 //Wait for element and click (without waitUntilPageLoads)
 async function click(selectorOrElement) {
 	const element = await waitHelpers.waitUntilElementIsClickable(selectorOrElement);
@@ -187,7 +181,6 @@ async function isOptionSelected(selectSelector, text) {
 }
 
 module.exports = {
-	//acceptAlertDialog,
 	click,
 	clickAndWait,
 	doubleClick,
