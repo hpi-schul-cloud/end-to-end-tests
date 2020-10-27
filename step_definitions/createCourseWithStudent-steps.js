@@ -3,7 +3,6 @@
 const courseListPage = require('../page-objects/pages/coursePages/CRSSCourseListPage');
 const addCoursePage = require('../page-objects/pages/coursePages/CRSSAddCoursePage');
 const { Then } = require('cucumber');
-let coursename = '';
 
 When(/^.*clicks create course button$/, async function () {
 	await courseListPage.clickCreateCourseBtn();
@@ -24,18 +23,20 @@ Then(/^.*returns to course list page$/, async function () {
 	await addCoursePage.clickGoToCourseListBtn();
 });
 
-Then(/^.*sees that number of participants of the course '([^']*)' equals one$/, async function () {
-	await courseListPage.isCountOfCourseMembers(coursename, '1', courseListPage.section.activeCourses);
+Then(/^.*sees that number of participants of the course '([^']*)' equals one$/, async function (courseName) {
+	await courseListPage.isCountOfCourseMembers(courseName, 1, courseListPage.section.activeCourses);
 });
 
 When(
-	/^teacher clicks the participants icon in the course Sport and sees the added student Marla Mathe there$/,
-	async function (studentName) {
+	/^.* clicks the participants icon in the course '([^']*)' and sees the added student '([^']*)' there$/,
+	async function (courseName, studentName) {
 		await courseListPage.areMembersOnTheListInCourseForSection(
-			coursename,
-			studentName,
+			courseName,
+			[studentName],
 			courseListPage.section.activeCourses
 		);
+
+		await courseListPage.closeMemberModal();
 	}
 );
 
@@ -43,6 +44,6 @@ Then(/^student goes to course page$/, async function () {
 	await courseListPage.goToCourses();
 });
 
-Then(/^the course '([^']*)' is visible for the student '([^']*)'$/, async function (courseName) {
-	await courseListPage.isCourseVisible(courseName, courseListPage.section.activeCourses);
+Then(/^the course '([^']*)' is visible for the student '([^']*)'$/, async function (courseName, studentName) {
+	await courseListPage.isCourseVisible(courseName, courseListPage.section.activeCourses, true);
 });

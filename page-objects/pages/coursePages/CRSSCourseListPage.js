@@ -20,6 +20,7 @@ const createCourseBtn = '[data-testid="create-course-btn"]';
 const listOfMembersSel = '#member-modal-body > ol > li';
 const topicNameContainer = '#topic-list .card-header .topic-label';
 const popupMembers = ".member-modal.in[role='dialog']";
+const closeMemberModalButton = '.close';
 
 const courseColour = {
 	grey: 'background:#ACACAC',
@@ -129,6 +130,10 @@ async function areMembersOnTheListInCourseForSection(courseName, members, sectio
 	const msg = "Members: '" + names + "' should be visible on the list. \n";
 	const resultMsg = 'Actual list of members: ' + names;
 	expect(names, msg + resultMsg).to.have.members(members);
+}
+
+async function closeMemberModal() {
+	await driver.keys(['Escape']);
 }
 
 async function isCorrectNumberOfMembersInCourseForSection(courseName, membersList, section) {
@@ -314,6 +319,7 @@ module.exports = {
 	clickCreateCourseBtn,
 	clickOnCourseInSection,
 	clickPupilIconInCourseInSection,
+	closeMemberModal,
 	setCourseNameIntoSearchInputField,
 	areImportAndCreateCourseBtnsVisible,
 	areMembersOnTheListInCourseForSection,

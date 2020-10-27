@@ -19,7 +19,11 @@ When(/^.* chooses course with name '([^']*)'$/, function (coursename) {
 });
 
 Then(/^.* amount of courses with name '([^']*)' is '([^']*)'$/, async function (courseName, coursesCount) {
-	return courseListPage.isCountOfCoursesWithNameOnList(courseName,coursesCount,courseListPage.section.activeCourses);
+	return courseListPage.isCountOfCoursesWithNameOnList(
+		courseName,
+		coursesCount,
+		courseListPage.section.activeCourses
+	);
 });
 
 When(/^.* clicks 'duplicate course'$/, async function () {
@@ -28,10 +32,13 @@ When(/^.* clicks 'duplicate course'$/, async function () {
 
 Then(/^.* course with name '([^']*)' is cloned, but without students$/, async function (clonedCourseName) {
 	await courseListPage.goToCourses();
-	await courseListPage.isCountOfCourseMemebrs(clonedCourseName, 0, courseListPage.section.activeCourses);
+	await courseListPage.isCountOfCourseMembers(clonedCourseName, 0, courseListPage.section.activeCourses);
 });
 
-When(/^.* adds content title '([^']*)' and text '([^']*)' to the topic content$/, async function (contentTitle, description) {
+When(/^.* adds content title '([^']*)' and text '([^']*)' to the topic content$/, async function (
+	contentTitle,
+	description
+) {
 	await addEditTopicPage.addText(contentTitle, description);
 	await addEditTopicPage.clickCreateTopicButton();
 });
@@ -55,28 +62,28 @@ When(/^.* adds some Material$/, function () {
 	return addEditTopicPage.addMaterial();
 });
 
-When(/^.* adds some Etherpad with name '([^']*)' and description '([^']*)'$/, async function (etherpadName,etherpadDescription) {
+When(/^.* adds some Etherpad with name '([^']*)' and description '([^']*)'$/, async function (
+	etherpadName,
+	etherpadDescription
+) {
 	await addEditTopicPage.addEtherpad(etherpadName, etherpadDescription);
 	await addEditTopicPage.clickCreateTopicButton();
 });
 
-When(/^.* adds some Text '(.*)'$/, async function(text) {
+When(/^.* adds some Text '(.*)'$/, async function (text) {
 	await addEditTopicPage.addText(text);
 });
 
-When(/^.* inputs subtopic name '(.*)'$/, async function(subtopicName) {
+When(/^.* inputs subtopic name '(.*)'$/, async function (subtopicName) {
 	await addEditTopicPage.setSubtopicName(subtopicName);
 	await addEditTopicPage.clickCreateTopicButton();
 });
 
-Then(/^.* course with name '([^']*)' contains topic with name '([^']*)'$/, async function(coursename, topicname) {
+Then(/^.* course with name '([^']*)' contains topic with name '([^']*)'$/, async function (coursename, topicname) {
 	await courseListPage.goToCourses();
 	await courseListPage.isTopicInCourseInSection(coursename, topicname, courseListPage.section.activeCourses);
 });
 
-When(/^.* clicks add-Text-Btn$/, async function() {
-		await addEditTopicPage.clickAddTextBtn()
+When(/^.* clicks add-Text-Btn$/, async function () {
+	await addEditTopicPage.clickAddTextBtn();
 });
-
-	 
-
