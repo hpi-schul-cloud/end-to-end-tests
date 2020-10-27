@@ -14,15 +14,15 @@ Feature: create different types of task
     Scenario Outline: create a simple hometask
         When teacher creates course with name '<coursename>'
         And teacher clicks create-a-new-task-button in the course <coursename>
-        And teacher puts taskname <taskname> into name field
+        And teacher puts taskname '<taskName>' into name field
         And teacher clicks on "enable group submission" checkbox
         And teacher sets accomplish time for the task
-        And teacher puts taskBody <taskText> into body field
+        And teacher puts taskBody '<taskBody>' into body field
         And teacher clicks submit-task-button
         When teacher goes to tasks page
-        Then the hometask with <taskname> is to be found at the task pannel
+        Then the hometask with <taskName> is to be found at the task pannel
         Examples:
-            | coursename             | taskname     | taskText                          | 
+            | coursename             | taskName     | taskText                          | 
             | new course with a task | task example | here is some task for my students |
 
     @createPrivateTaskInTheCourse

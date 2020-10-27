@@ -9,11 +9,11 @@ Then(/^.*clicks create-task-button on task page$/, function () {
 });
 
 Then(/^.*puts taskname '([^']*)' into name field$/, function (taskName) {
-	return addEditHomeworkPage.setHomeworkName(taskName);
+	return addEditTaskPage.setHomeworkName(taskName);
 });
 
 Then(/^.*puts taskBody '([^']*)' into body field$/, function (taskBody) {
-	return addEditHomeworkPage.setHomeworkText(taskBody);
+	return addEditTaskPage.setHomeworkText(taskBody);
 });
 
 Then(/^.*clicks submit-task-button on task-creation-form$/, function () {
