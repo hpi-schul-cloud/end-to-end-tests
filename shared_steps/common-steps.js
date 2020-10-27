@@ -67,7 +67,7 @@ Then(/^login must be successful$/, function () {
 });
 
 /*Courses*/
-When(/^teacher creates a course (.*) and adds student (.*)to this course$/, async function (courseName, studentName) {
+When(/^teacher creates a course '(.*)' and adds student (.*)to this course$/, async function (courseName, studentName) {
 	return createCourse.createCourseWithStudent(courseName, studentName);
 });
 

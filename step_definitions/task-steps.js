@@ -8,7 +8,7 @@ const courseHomeworksPage = require("../page-objects/pages/coursePages/CRSSCours
 const navigationLeftPage = require('../page-objects/pages/NavigationLeftPage.js');
 
 
-When(/^.* clicks create-a-new-task-button in the course (.*)$/, async function (coursename) {
+When(/^.* clicks create-a-new-task-button in the course '(.*)'$/, async function (coursename) {
 
     await courseListPage.goToCourses();
     await  courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
@@ -28,7 +28,7 @@ When(/^.* clicks submit-task-button$/, function () {
     return addEditTaskPage.clickSubmitHomeworkBtn();
 });
 
-Then(/^the hometask with (.*) is to be found at the task pannel$/, async function (taskname) {
+Then(/^the hometask with '(.*)' is to be found at the task pannel$/, async function (taskname) {
     await taskListPage.sortHometasks(); // last edited
     let tasks =  await  taskListPage.getTaskNames();
     expect(tasks).to.include(taskname);
@@ -42,13 +42,13 @@ When(/^.* goes to the tasks section$/, async function () {
     await navigationLeftPage.clickNavItemTasks();
 });
 
-Then(/^the task (.*) should be visible for .*$/,async  function (taskname) {
+Then(/^the task '(.*)' should be visible for .*$/,async  function (taskname) {
     await navigationLeftPage.clickNavItemTasks();
     let tasksOnPage = await taskListPage.getTaskNames();
     expect(tasksOnPage).to.include(taskname)
 });
 
-Then(/^the task (.*) should not be visible for .*$/, async function (taskname) {
+Then(/^the task '(.*)' should not be visible for .*$/, async function (taskname) {
     await navigationLeftPage.clickNavItemTasks();
     let tasksOnPage = await taskListPage.getTaskNames();
     expect(tasksOnPage).not.to.include(taskname)
@@ -108,7 +108,7 @@ When(/^the teacher uploads file feedback$/, function () {
 Then(/^both the teacher and student can see and download the feedback$/, function () {
     return taskPage.testFileUploadSuccess(taskName, file, student);
 });
-When(/^.* clicks on task with name (.*)$/, async function (taskName) {
+When(/^.* clicks on task with name '(.*)'$/, async function (taskName) {
     await taskListPage.sortHometasks();
     await taskListPage.clickOnTask(taskName, 'Task open');
 });
