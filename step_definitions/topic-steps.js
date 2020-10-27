@@ -21,7 +21,7 @@ Then(/^.* should see that the topic with name '([^']*)' is visible on the topic 
 	return addEditTopicPage.isTopicTitleVisible(topicName);
 });
 
-When(/^.* clicks on the pencil button in the line of the topic with name '([^']*)' to edit the topic$/, async function (topicName) {
+When(/^.* clicks pencil in line of topic named '([^']*)' to edit the topic$/, async function (topicName) {
 	await addEditTopicPage.clickOnTopicEditPencilButton(topicName);
 });
 
@@ -35,11 +35,11 @@ When(/^.* finds title '([^']*)' and changes title on '([^']*)' and text '([^']*)
 	await addEditTopicPage.clickCreateTopicButton();
 });
 
-When(/^.* clicks on the trashcan button in the line of the topic with name '([^']*)' to delete the topic$/, async function (topicName) {
+When(/^.* clicks trashcan in line of topic named '([^']*)' to delete the topic$/, async function (topicName) {
 	await GeneralCoursePage.clickOnTopicDeleteTrashcanButton(topicName);
 });
 
-When(/^.* clicks on the Löschen button in the Löschen pop up$/, async function () {
+When(/^.* clicks on Löschen button in Löschen pop up$/, async function () {
 	await GeneralCoursePage.clickDeleteTopicButtonInPopup();
 });
 
@@ -49,10 +49,10 @@ Then(/^.* should see changed topic with name '([^']*)' and content title '([^']*
 	await addEditTopicPage.isTopicDescriptionVisible(changedDescription);
 });
 
-Then(/^.* should see that edited topic with name '([^']*)' is shown on the topic list$/,async function (changedTopicName) {
+Then(/^.* should see edited topic named '([^']*)' on topic list$/,async function (changedTopicName) {
 	await addEditTopicPage.isTopicOnTopicList(changedTopicName, true);
 });
 
-Then(/^.* should see that deleted topic with name '([^']*)' is not shown on the topic list$/,async function (topicName) {
+Then(/^.* should not see deleted topic named '([^']*)' on topic list$/,async function (topicName) {
 	await addEditTopicPage.isTopicOnTopicList(topicName, false);
 });

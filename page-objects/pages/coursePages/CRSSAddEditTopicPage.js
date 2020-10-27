@@ -77,7 +77,8 @@ async function isTopicOnTopicList(topicname, expectedValue) {
     const isTopicOnList = allTopics.some((element) => element.includes(topicname));
     const fillString = !expectedValue ? 'not' : '';
 	const msg = `Topic with name is ${fillString} visible on the list: \n`;
-	const resultMsg = 'Expected: ' + topicname + ', Actual: ' + allTopics;
+	const resultMsg = 'Expected: ' + topicname + ', Actual: ' + allTopics; //Actual = Actual listed topics
+	//ggf. msg + resultsMsg zusammen packen vorher und dann mit neuer Variable übergeben
 
 	expectedValue
 		? await expect(isTopicOnList, msg + resultMsg).to.equal(true)
