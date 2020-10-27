@@ -104,10 +104,7 @@ Given(/^.* submits solution for the task$/, function () {
 When(/^the teacher uploads file feedback$/, function () {
     return taskPage.submitFileFeedback(taskName, file);
 });
-
-Then(/^both the teacher and student can see and download the feedback$/, function () {
-    return taskPage.testFileUploadSuccess(taskName, file, student);
-});
+ 
 When(/^.* clicks on task with name '(.*)'$/, async function (taskName) {
     await taskListPage.sortHometasks();
     await taskListPage.clickOnTask(taskName, 'Task open');
