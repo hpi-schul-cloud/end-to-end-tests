@@ -21,7 +21,7 @@ const submissionContainer = '.table .usersubmission';
 const remoteFilePathInput = 'input[type=file][class=dz-hidden-input]';
 const commentBtn = "a#comment-tab-link.tab-link";
 const dashboardTitleListSel = '.dashboard-title';
-const courseNameOnHomeworkSel = '.homework-tile .text-muted span'
+const courseNameOnHomeworkSel = '.text-muted span'
 const homeworkNameSel = '.homework-tile .title-row .title';
 const homeworkTimeout = '.homework-tile .text-muted .pull-right';
 
@@ -156,7 +156,8 @@ async function isPrivateTasksAndDraftsListVisible(listNames) {
 async function isCourseNameOnPrivateHomeworkVisible(courseName) {
 let listOfTopicElements = await elementHelpers.getListOfAllElements(".homework-tile")
 	let listOfTopic = await elementHelpers.getTextFromAllElements(".homework-tile");
-	const a =listOfTopicElements[listOfTopic.indexOf("private task example")];
+	const a =(listOfTopicElements[listOfTopic.indexOf("private task example")].$(".text-muted"));
+	await elementHelpers.getElementText(a);
 	      return a;
 	// const courseNameList = await elementHelpers.getTextFromAllElements(courseNameOnHomeworkSel)
 	// const msg = 'Course with name [' + courseName + '] is not visible on the private homework list \n';

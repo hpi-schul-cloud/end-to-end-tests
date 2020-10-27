@@ -21,11 +21,11 @@ Feature: create different types of homework
 
     @createPrivateHomework
     Scenario Outline: create a private hometask has to be visible only for the teacher
-        Given teacher creates course with name '<coursename>' and student '<studentname>'
-        When teacher creates a private hometask in course '<coursename>' with '<taskname>'
-        And student logs in with email '<username>' and password '<password>'
-        And student with full age accepts student's data protection with password '<newStudentPassword>'
-        Then student will not see this task with '<taskname>'
+        Given teacher creates course with name '<coursename>', and student: <studentname>
+        When teacher creates a private hometask in course <coursename> with <taskname>
+        And student logs in with email <username> and password <password>
+        And student with full age accepts student's data protection with password <newStudentPassword>
+        Then student will not see this task with <taskname>
         Examples:
             | coursename            | studentname | taskname             | username                    | password     | newStudentPassword |
             | test private hometask | Paula Meyer | private task example | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!      |
@@ -60,7 +60,7 @@ Feature: create different types of homework
 
 	@showPrivateHomeworkOnDashboard
 	Scenario Outline: create a private homework has to be visible only for the teacher on the dashboard
-		Given teacher creates course with name '<courseName>', and student: <studentName>
+		Given teacher creates course with name '<courseName>' and student '<studentName>'
 		When teacher creates a private homework in course '<courseName>' with '<homeworkName>'
 		Then teacher will 'see' this task with <homeworkName>
 		When click left navigation item "dashboard"

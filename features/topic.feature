@@ -15,8 +15,8 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 		When <userRole> clicks on the topic with name '<topicName>'
 		Then <userRole> should see that the topic with name '<topicName>' is visible on the topic page
 		Examples:
-			| userRole | email                           | password     | courseName | topicName |
-			| teacher   | lehrer@schul-cloud.org | Schulcloud1! | Mathe          | Division     |
+			| userRole | email                  | password     | courseName | topicName |
+			| teacher  | lehrer@schul-cloud.org | Schulcloud1! | Mathe      | Division  |
 
 	@editTopic
 	Scenario Outline: User edit a topic
@@ -35,5 +35,5 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 		And <userRole> chooses course with name '<courseName>'
 		Then <userRole> should see that edited topic with name '<changedTopicName>' is shown on the topic list
 		Examples:
-			| userRole | email                           | password     | courseName | topicName | contentTitle  | description         | changedTopicName | changedContentTitle | changedDescription |
-			| teacher   | lehrer@schul-cloud.org | Schulcloud1! | Mathe          | Division     | Operations    | Math operations | Art                         | Picasso                    | Human of Art         |
+			| userRole | email                  | password     | courseName | topicName | contentTitle | description     | changedTopicName | changedContentTitle | changedDescription |
+			| teacher  | lehrer@schul-cloud.org | Schulcloud1! | Mathe      | Division  | Operations   | Math operations | Art              | Picasso             | Human of Art       |

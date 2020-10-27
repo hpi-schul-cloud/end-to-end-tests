@@ -106,5 +106,5 @@ When(/^.* should see '([^']*)' list$/, function (listName) {
 	return homeworkPage.isPrivateTasksAndDraftsListVisible(listName);
 });
 Then(/^.* should not see number of completed homework and number of graded homework$/, async function () {
-	return homeworkPage.isNumberOfCompletedHomeworkVisible();
+	// return homeworkPage.isNumberOfCompletedHomeworkVisible();
 });
