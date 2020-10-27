@@ -3,12 +3,9 @@ const path = require('path');
 const addEditTaskPage = require('../page-objects/pages/TASKAddEditTaskPage.js');
 const taskListPage = require('../page-objects/pages/TASKListPage');
 const taskPage = require('../page-objects/pages/TASKPage');
-const addCoursePage = require("../page-objects/pages/coursePages/CRSSAddCoursePage");
 const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
-const generalCoursePage = require('../page-objects/pages/coursePages/CRSSGeneralCoursePage');
 const courseHomeworksPage = require("../page-objects/pages/coursePages/CRSSCourseHomeworksPage");
 const navigationLeftPage = require('../page-objects/pages/NavigationLeftPage.js');
-const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
 
 
 When(/^.* clicks create-a-new-task-button in the course (.*)$/, async function (coursename) {
