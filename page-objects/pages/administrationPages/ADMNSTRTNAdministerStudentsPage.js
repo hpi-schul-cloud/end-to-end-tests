@@ -7,10 +7,9 @@ const waitHelpers = require('../../../runtime/helpers/waitHelpers');
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 let oldPassword;
 
-const addStudentBtn = "button[data-testid='btn_add_student']";
-const firstNameInput = '#create_firstname';
-const lastNameInput = '#create_lastname';
-const emailInput = '#create_email';
+const firstNameInput = "input[data-testid='create_student_input_firstname']";
+const lastNameInput = "input[data-testid='create_student_input_lastname']";
+const emailInput = "input[data-testid='create_student_input_email']";
 const sendRegistrationLinkCheckbox = "input[data-testid='create_student_input_send_link']";
 const tableOfStudents = "tbody[data-testid='students_names_container']";
 const consentSubmitBtn = "button[data-testid='submit_consent']";
