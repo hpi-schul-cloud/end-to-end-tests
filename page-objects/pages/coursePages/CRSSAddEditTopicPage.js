@@ -78,12 +78,12 @@ async function isTopicOnTopicList(topicname, expectedValue) {
     const isTopicOnList = allTopics.some((element) => element.includes(topicname));
     const fillString = !expectedValue ? 'not' : '';
 	const msg = `Topic with name is ${fillString} visible on the list: \n`;
-	const resultMsg = 'Expected: ' + topicname + ', Actual: ' + allTopics; //Actual = Actual listed topics
-	//ggf. msg + resultsMsg zusammen packen vorher und dann mit neuer Variable übergeben
+	const resultMsg = 'Expected: ' + topicname + ', Actual listed topics: ' + allTopics;
+	const cmpltMsg = msg + resultMsg;
 
 	expectedValue
-		? await expect(isTopicOnList, msg + resultMsg).to.equal(true)
-		: await expect(isTopicOnList, msg + resultMsg).to.equal(false);
+		? await expect(isTopicOnList, msg + cmpltMsg).to.equal(true)
+		: await expect(isTopicOnList, msg + cmpltMsg).to.equal(false);
 }
 
 async function isItTheFirstTopicAdded() {

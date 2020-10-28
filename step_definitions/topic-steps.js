@@ -21,7 +21,7 @@ Then(/^.* should see that the topic with name '([^']*)' is visible on the topic 
 	return addEditTopicPage.isTopicTitleVisible(topicName);
 });
 
-When(/^.* clicks pencil in line of topic named '([^']*)' to edit the topic$/, async function (topicName) {
+When(/^.* clicks pencil in line of topic named '([^']*)'$/, async function (topicName) {
 	await addEditTopicPage.clickOnTopicEditPencilButton(topicName);
 });
 
@@ -35,7 +35,7 @@ When(/^.* finds title '([^']*)' and changes title on '([^']*)' and text '([^']*)
 	await addEditTopicPage.clickCreateTopicButton();
 });
 
-When(/^.* clicks trashcan in line of topic named '([^']*)' to delete the topic$/, async function (topicName) {
+When(/^.* clicks trashcan in line of topic named '([^']*)'$/, async function (topicName) {
 	await GeneralCoursePage.clickOnTopicDeleteTrashcanButton(topicName);
 });
 

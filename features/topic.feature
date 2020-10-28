@@ -27,7 +27,7 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 		And <userRole> adds a topic with name '<topicName>'
 		And <userRole> adds content title '<contentTitle>' and text '<description>' to the topic content
 		Then <userRole> should see that created topic with name '<topicName>' is shown on the topic list
-		When <userRole> clicks pencil in line of topic named '<topicName>' to edit the topic
+		When <userRole> clicks pencil in line of topic named '<topicName>'
 		And <userRole> changes topic name '<changedTopicName>'
 		And  <userRole> finds title '<contentTitle>' and changes title on '<changedContentTitle>' and text '<changedDescription>' of the topic
 		Then <userRole> should see changed topic with name '<changedTopicName>' and content title '<changedContentTitle>' and description '<changedDescription>' is visible on the topic page
@@ -48,7 +48,7 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 		And <userRole> adds content title '<contentTitle>' and text '<description>' to the topic content
 		Then <userRole> should see that created topic with name '<topicName>' is shown on the topic list
 		When <userRole> adds a new Topic with name '<secondTopicName>'
-		And <userRole> clicks trashcan in line of topic named '<topicName>' to delete the topic
+		And <userRole> clicks trashcan in line of topic named '<topicName>'
 		And <userRole> clicks on Löschen button in Löschen pop up
 		Then <userRole> should not see deleted topic named '<topicName>' on topic list
 		Examples:
