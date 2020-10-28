@@ -44,12 +44,12 @@ When(/^.* goes to the tasks section$/, async function () {
     await navigationLeftPage.clickNavItemTasks();
 });
 
-Then(/^.* task '([^'])' is not visible on the list$/, async function (taskname) {
+Then(/^task with name '([^'])' is not visible on the list$/, async function (taskname) {
 
     let tasksOnPage = await taskListPage.getTaskNames();
     expect(tasksOnPage).not.to.include(taskname)
 });
-Then(/^.* task '([^'])' is visible on the list$/, async function (taskname) {
+Then(/^task with name '([^'])' is visible on the list$/, async function (taskname) {
 
     let tasksOnPage = await taskListPage.getTaskNames();
     expect(tasksOnPage).to.include(taskname)

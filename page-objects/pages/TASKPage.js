@@ -22,6 +22,7 @@ const selectorTabFeedbackForSubmission = '#feedback-tab-link';
 const hometasksTabSel = 'button[data-testid="hometasks"]';
 let fileUrl; 
 
+
 async function submitSolutionForTheHometask() {
 	const assignmentText = 'here is some text which I want to submit';
 	await waitHelpers.waitAndSetValue(textFieldSel, assignmentText);
@@ -97,7 +98,7 @@ async function clickTasksTab () {
 	
 }
 async function clickOpenFeedbackTab () {
-	await elementHelpers.click(selectorTabFeedbackForSubmission)
+	await elementHelpers.clickAndWait(selectorTabFeedbackForSubmission)
 }
 
 async function submitFileFeedback(taskName, file) {

@@ -20,7 +20,7 @@ Feature: create different types of task
         And teacher puts taskBody '<taskBody>' into body field
         And teacher clicks submit-task-button
         When teacher goes to tasks page
-        Then teacher sees that task '<taskName>' is visible on the list
+        Then task with name  '<taskName>' is visible on the list
         Examples:
             | coursename             | taskName     | taskText                          |taskBody          | 
             | new course with a task | task example | here is some task for my students |text of the task  |
@@ -41,9 +41,9 @@ Feature: create different types of task
         And student logs in with email '<username>' and password '<password>'
         And student with full age accepts student's data protection with password '<newStudentPassword>'
         And student goes to tasks page
-        Then student sees that task  '<taskname>' is not visible on the list
+        Then task with name '<taskName>' is not visible on the list
         Examples:
-        | coursename            | studentname | taskname             | username                    | password     | newStudentPassword     |
+        | coursename            | studentname | taskName             | username                    | password     | newStudentPassword     |
         | test private hometask | Paula Meyer | private task example | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!          |
 
     #@submitTextTask
@@ -100,7 +100,7 @@ Feature: create different types of task
         And student goes to tasks page
         And student clicks on task with name '<taskname>'
         And student goes to task evaluation
-        Then student should see that file evaluation is visible
+        #Then student should see that file evaluation is visible
 
         Examples:
             | username                    | password     | newPasswordStudent | taskname              | studentname | coursename            |taskBody          |
