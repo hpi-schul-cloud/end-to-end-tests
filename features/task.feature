@@ -99,7 +99,7 @@ Feature: create different types of task
         And student logs in with email '<username>' and password '<newPasswordStudent>'
         And student goes to tasks page
         And student clicks on task with name '<taskname>'
-        #And student goes to task evaluation
+        And student goes to task evaluation
         Then file evaluation is visible for student 
 
         Examples:

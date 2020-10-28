@@ -133,10 +133,8 @@ async function testFileUploadSuccess(taskName, file, student) {
 	expect(studentFileUrl.pathname).to.equal(fileUrl.pathname);
 }
 async function checkFileEvaluationStudent (file) {
-	await clickCommentBtn();
 	await isFileVisible(file);
-	await elementHelpers.click(`a*=${file.name}`);
-	await driver.pause(1000);
+	await elementHelpers.clickAndWait(`a*=${file.name}`);
 	const studentFileUrl = await getCurrentTabUrl();
 	expect(studentFileUrl.origin).to.equal(fileUrl.origin);
 	expect(studentFileUrl.pathname).to.equal(fileUrl.pathname);
