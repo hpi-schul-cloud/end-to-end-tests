@@ -33,7 +33,7 @@ async function studentEditsTextHomeworkAndSubmits() {
 	await submitSolutionForTheHometask();
 }
 
-async function openTeacherSubmissionsTab() {
+async function clickOpenTeacherSubmissionsTab() {
 	await elementHelpers.click(teacherSubmissionsTab);
 }
 
@@ -42,8 +42,8 @@ async function openStudentSubmissionTab() {
 }
 
 // teacher helpers
-async function hasTheStudentSubmittedTheTask(studentname) {
-	await openTeacherSubmissionsTab();
+async function isTaskSubmitted(studentname) {
+	await clickOpenTeacherSubmissionsTab();
 	const listOfSubmisionStudentNames = await getListOfSubmisions();
 	const isSubbmitedByStudent = listOfSubmisionStudentNames.some(
 		async (element) =>
@@ -60,7 +60,7 @@ async function getListOfSubmisionStudentNames() {
 async function getListOfSubmisions() {
 	return elementHelpers.getListOfAllElements(submissionContainer);
 }
-
+// must be splitted and renamed
 async function teacherLogsInAndCanSeeTheTextSubmission(coursename, taskname, studentname) {
 	await startPage.clickLoginBtn();
 	await loginPage.performLogin(
@@ -71,7 +71,7 @@ async function teacherLogsInAndCanSeeTheTextSubmission(coursename, taskname, stu
 	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
 	await CRSSGeneralCoursePage.openHomeworksTab();
 	await TaskListPage.clickOnTask(taskname, 'Task open');
-	await hasTheStudentSubmittedTheTask(studentname);
+	await isTaskSubmitted(studentname);
 }
 //delete
 async function submitHomework() {
@@ -80,7 +80,7 @@ async function submitHomework() {
 }
 
 async function goToEvaluationTab() {
-	await openTeacherSubmissionsTab();
+	await clickOpenTeacherSubmissionsTab();
 	await clickOnFirstSubmission();
 	await clickCommentBtn();
 }
@@ -92,7 +92,7 @@ async function clickOnFirstSubmission() {
 async function clickCommentBtn() {
 	await elementHelpers.click(commentBtn);
 }
-async function gotoTasksTab () {
+async function clickTasksTab () {
 	await elementHelpers.clickAndWait(hometasksTabSel)
 	
 }
@@ -165,10 +165,10 @@ async function getCurrentTabUrl() {
 }
 
 module.exports = {
-	openSubmissionsTab: openTeacherSubmissionsTab,
+	openSubmissionsTab: clickOpenTeacherSubmissionsTab,
 	submitSolutionForTheHometask,
 	studentEditsTextHomeworkAndSubmits,
-	hasTheStudentSubmittedTheTask,
+	hasTheStudentSubmittedTheTask: isTaskSubmitted,
 	teacherLogsInAndCanSeeTheTextSubmission,
 	submitHomework,
 	teacherShowGradeTabForFirstSubmission: goToEvaluationTab,
@@ -176,7 +176,7 @@ module.exports = {
 	testFileUploadSuccess,
 	isFileVisible,
 	getCurrentTabUrl,
-	gotoTasksTab,
+	gotoTasksTab: clickTasksTab,
 	goToEvaluationTab,
 	clickCommentBtn,
 	checkFileEvaluationStudent,

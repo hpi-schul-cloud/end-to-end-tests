@@ -13,14 +13,14 @@ Feature: create different types of task
     @createTaskInTheCourse
     Scenario Outline: create a simple hometask
         When teacher creates course with name '<coursename>'
-        And teacher clicks create-a-new-task-button in the course '<coursename>'
+        And teacher clicks Create-a-new-task-button in the course '<coursename>'
         And teacher puts taskname '<taskName>' into name field
-        And teacher clicks on "enable group submission" checkbox
+        And teacher clicks on Enable-group-submission checkbox
         And teacher sets accomplish time for the task
         And teacher puts taskBody '<taskBody>' into body field
         And teacher clicks submit-task-button
         When teacher goes to tasks page
-        Then the hometask with '<taskName>' is to be found at the task pannel
+        Then teacher sees that task '<taskName>' is visible on the list
         Examples:
             | coursename             | taskName     | taskText                          |taskBody          | 
             | new course with a task | task example | here is some task for my students |text of the task  |
@@ -28,11 +28,11 @@ Feature: create different types of task
     @createPrivateTaskInTheCourse
     Scenario Outline: create a private hometask has to be visible only for the teacher
         When teacher creates a course '<coursename>' and adds student <studentname> to this course
-        And teacher clicks create-a-new-task-button in the course '<coursename>'
+        And teacher clicks Create-a-new-task-button in the course '<coursename>'
         And teacher puts taskname '<taskname>' into name field
         And teacher sets accomplish time for the task
         And teacher puts taskBody '<taskBody>' into body field
-        And teacher clicks on "private task" checkbox
+        And teacher clicks on Private-task checkbox
         And teacher clicks submit-task-button on task-creation-form
         When teacher goes to tasks page
         Then the task '<taskname>' should be visible for the teacher
@@ -40,8 +40,8 @@ Feature: create different types of task
         When student arrives on the Schul-Cloud homepage
         And student logs in with email '<username>' and password '<password>'
         And student with full age accepts student's data protection with password '<newStudentPassword>'
-        And the student goes to the tasks section
-        Then the task '<taskname>' should not be visible for student
+        And student goes to tasks page
+        Then student sees that task  '<taskname>' is not visible on the list
         Examples:
         | coursename            | studentname | taskname             | username                    | password     | newStudentPassword     |
         | test private hometask | Paula Meyer | private task example | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!          |
@@ -49,13 +49,13 @@ Feature: create different types of task
     #@submitTextTask
     #Scenario Outline: pupil submits a task and teacher evaluates it
         #Given teacher creates a course '<coursename>' and adds student <studentname> to this course
-        #Given teacher clicks create-a-new-task-button in the course <coursename>
+        #Given teacher clicks Create-a-new-task-button in the course <coursename>
         #And teacher puts taskname '<taskname>' into name field
         #And teacher sets accomplish time for the task
         #And teacher puts taskBody '<taskBody>' into body field
         #And teacher clicks submit-task-button on task-creation-form
         #When teacher goes to tasks page
-        #Then the task <taskname> should be visible for the teacher
+        #Then the task '<taskname>' should be visible for the teacher
         #And teacher logs out 
         #When student arrives on the Schul-Cloud homepage
         #And student logs in with email '<username>' and password '<password>'
@@ -76,7 +76,7 @@ Feature: create different types of task
     @gradeTaskWithFile
     Scenario Outline: grade a task submission by uploading a file
         When teacher creates a course '<coursename>' and adds student <studentname> to this course
-        And teacher clicks create-a-new-task-button in the course '<coursename>'
+        And teacher clicks Create-a-new-task-button in the course '<coursename>'
         And teacher puts taskname '<taskname>' into name field
         And teacher puts taskBody '<taskBody>' into body field
         And teacher clicks submit-task-button
@@ -100,7 +100,7 @@ Feature: create different types of task
         And student goes to tasks page
         And student clicks on task with name '<taskname>'
         And student goes to task evaluation
-        Then file evaluation is visible for student 
+        Then student should see that file evaluation is visible
 
         Examples:
             | username                    | password     | newPasswordStudent | taskname              | studentname | coursename            |taskBody          |

@@ -8,7 +8,9 @@ const courseHomeworksPage = require("../page-objects/pages/coursePages/CRSSCours
 const navigationLeftPage = require('../page-objects/pages/NavigationLeftPage.js');
 
 
-When(/^.* clicks create-a-new-task-button in the course '(.*)'$/, async function (coursename) {
+
+
+When(/^.* clicks Create-a-new-task-button in the course '(.*)'$/, async function (coursename) {
 
     await courseListPage.goToCourses();
     await  courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
@@ -16,7 +18,7 @@ When(/^.* clicks create-a-new-task-button in the course '(.*)'$/, async function
     await taskListPage.clickCreateTaskButtonInTheCourse()
 });
 
-When(/^.* clicks on "enable group submission" checkbox$/, function () {
+When(/^.* clicks on Enable-group-submission" checkbox$/, function () {
     return addEditTaskPage.clickTeamSubmissionsCheckbox();
 });
 
@@ -34,7 +36,7 @@ Then(/^the hometask with '(.*)' is to be found at the task pannel$/, async funct
     expect(tasks).to.include(taskname);
 });
 
-When(/^.* clicks on "private task" checkbox$/, async function () {
+When(/^.* clicks on Private-task checkbox$/, async function () {
     await addEditTaskPage.clickPrivateHomeworkCheckbox();
 });
 
@@ -42,16 +44,15 @@ When(/^.* goes to the tasks section$/, async function () {
     await navigationLeftPage.clickNavItemTasks();
 });
 
-Then(/^the task '(.*)' should be visible for .*$/,async  function (taskname) {
-    await navigationLeftPage.clickNavItemTasks();
-    let tasksOnPage = await taskListPage.getTaskNames();
-    expect(tasksOnPage).to.include(taskname)
-});
+Then(/^.* task '([^'])' is not visible on the list$/, async function (taskname) {
 
-Then(/^the task '(.*)' should not be visible for .*$/, async function (taskname) {
-    await navigationLeftPage.clickNavItemTasks();
     let tasksOnPage = await taskListPage.getTaskNames();
     expect(tasksOnPage).not.to.include(taskname)
+});
+Then(/^.* task '([^'])' is visible on the list$/, async function (taskname) {
+
+    let tasksOnPage = await taskListPage.getTaskNames();
+    expect(tasksOnPage).to.include(taskname)
 });
 
 /* When(/^the student finds (.*)$/, function (taskname) {
@@ -120,7 +121,7 @@ When(/^.* can see the file evaluation$/, async function () {
 When(/^.* goes to task evaluation$/, async function () {
     await taskPage.clickOpenFeedbackTab();
 });
-When(/^file evaluation is visible for .*$/, async function () {
+When(/^.* file evaluation is visible$/, async function () {
     await taskPage.checkFileEvaluationStudent(file)
 });
 })();
