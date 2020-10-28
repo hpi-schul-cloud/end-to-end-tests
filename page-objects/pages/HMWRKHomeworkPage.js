@@ -157,14 +157,16 @@ async function isPrivateTasksAndDraftsListVisible(listNames) {
 }
 
 async function isCourseNameOnPrivateHomeworkVisible(courseName) {
-	const courseNameList = await elementHelpers.getTextFromAllElements(courseNameOnHomeworkSel)
+	const courseNameList = await elementHelpers.getListOfAllElements("span[data-testid=\"homework-name\"]")
 	const msg = 'Course with name [' + courseName + '] is not visible on the private homework list \n';
 	const resultMsg = ', List of course titles: ' + courseNameList;
-	return expect(courseNameList, msg + resultMsg).to.include(courseName);
+	const courseNameT = await elementHelpers.getTextFromAllElements("span[data-testid=\"homework-name\"]")
+	const atext = await elementHelpers.getElementText(courseNameList[courseNameT.indexOf("private task example")].$("span[data-testid=\"homework-course-name\"]"));
+	return expect(courseNameList, msg + resultMsg).to.include(atext);
 }
 
 async function isPrivateHomeworkNameVisible(homeworkName) {
-	const homeworkNameList = await elementHelpers.getTextFromAllElements(homeworkNameSel)
+	const homeworkNameList = await elementHelpers.getTextFromAllElements("span[data-testid=\"homework-name\"]")
 	const msg = 'Topic with name [' + homeworkName + '] is not visible on the list \n';
 	const resultMsg = ', List of task titles: ' + homeworkNameList;
 	return expect(homeworkNameList, msg + resultMsg).to.include(homeworkName);
