@@ -20,7 +20,7 @@ Feature: create different types of task
         And teacher puts taskBody '<taskBody>' into body field
         And teacher clicks submit-task-button
         When teacher goes to tasks page
-        Then task with name  '<taskName>' is visible on the list
+        Then task with name '<taskName>' is visible on the list
         Examples:
             | coursename             | taskName     | taskText                          |taskBody          | 
             | new course with a task | task example | here is some task for my students |text of the task  |
