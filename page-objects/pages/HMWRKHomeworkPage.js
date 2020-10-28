@@ -30,6 +30,7 @@ async function submitSolutionForTheHometask() {
 	await waitHelpers.waitAndSetValue(textFieldSel, assignmentText);
 	await elementHelpers.clickAndWait(submitBtn);
 }
+
 async function studentEditsTextHomeworkAndSubmits() {
 	await openStudentSubmissionTab();
 	await submitSolutionForTheHometask();
@@ -49,8 +50,8 @@ async function hasTheStudentSubmittedTheTask(studentname) {
 	const listOfSubmisionStudentNames = await getListOfSubmisions();
 	const isSubbmitedByStudent = listOfSubmisionStudentNames.some(
 		async (element) =>
-            (await element.getText()).includes(studentname) &&
-            (await element.$$('i.fa-check')).length == 1
+			(await element.getText()).includes(studentname) &&
+			(await element.$$('i.fa-check')).length == 1
 	);
 	await expect(isSubbmitedByStudent).to.equal(true);
 }
@@ -147,33 +148,43 @@ async function getCurrentTabUrl() {
 	await driver.switchToWindow(handles[handles.length - 1]);
 	return new URL(await driver.getUrl());
 }
+
 async function isPrivateTasksAndDraftsListVisible(listNames) {
 	const dashboardTitlesList = await elementHelpers.getTextFromAllElements(dashboardTitleListSel)
 	const msg = 'Title with name [' + listNames + '] is not visible on the list \n';
 	const resultMsg = ', List of titles: ' + dashboardTitlesList;
 	return expect(dashboardTitlesList, msg + resultMsg).to.include(listNames);
 }
+
 async function isCourseNameOnPrivateHomeworkVisible(courseName) {
-let listOfTopicElements = await elementHelpers.getListOfAllElements(".homework-tile")
-	let listOfTopic = await elementHelpers.getTextFromAllElements(".homework-tile");
-	const a =(listOfTopicElements[listOfTopic.indexOf("private task example")].$(".text-muted"));
-	await elementHelpers.getElementText(a);
-	      return a;
-	// const courseNameList = await elementHelpers.getTextFromAllElements(courseNameOnHomeworkSel)
-	// const msg = 'Course with name [' + courseName + '] is not visible on the private homework list \n';
-	// const resultMsg = ', List of course titles: ' + courseNameList;
-	//               /
-	// return expect(courseNameList, msg + resultMsg).to.include(courseName);
+	const courseNameList = await elementHelpers.getTextFromAllElements(courseNameOnHomeworkSel)
+	const msg = 'Course with name [' + courseName + '] is not visible on the private homework list \n';
+	const resultMsg = ', List of course titles: ' + courseNameList;
+	return expect(courseNameList, msg + resultMsg).to.include(courseName);
 }
+
 async function isPrivateHomeworkNameVisible(homeworkName) {
 	const homeworkNameList = await elementHelpers.getTextFromAllElements(homeworkNameSel)
 	const msg = 'Topic with name [' + homeworkName + '] is not visible on the list \n';
 	const resultMsg = ', List of task titles: ' + homeworkNameList;
 	return expect(homeworkNameList, msg + resultMsg).to.include(homeworkName);
 }
- async function isTimeoutVisible(){
+
+async function isTimeoutVisible() {
 	return waitHelpers.waitUntilElementIsPresent(homeworkTimeout);
- }
+}
+
+async function isNumberOfCompletedHomeworkNotVisible() {
+	const completedHomework = await waitHelpers.waitUntilElementIsPresent(" .homework-tile .text-muted .hidden-xs-down")
+	const msg = 'Number of completed homework is visible.\n';
+	return expect(completedHomework, msg).to.be.false;
+}
+
+async function isNumberOfGradedHomeworkNotVisible() {
+	const gradedHomework = await waitHelpers.waitUntilElementIsPresent(" .homework-tile .text-muted .pull-right")
+	const msg = 'Number of graded homework is visible.\n';
+	return expect(gradedHomework, msg).to.be.false;
+}
 
 module.exports = {
 	openSubmissionsTab: openTeacherSubmissionsTab,
@@ -191,4 +202,6 @@ module.exports = {
 	isCourseNameOnPrivateHomeworkVisible,
 	isPrivateHomeworkNameVisible,
 	isTimeoutVisible,
+	isNumberOfCompletedHomeworkNotVisible,
+	isNumberOfGradedHomeworkNotVisible,
 };
