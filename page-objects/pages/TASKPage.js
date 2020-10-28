@@ -18,6 +18,7 @@ const studentSubmissionTab = '#submission-tab-link';
 const submissionContainer = '.table .usersubmission';
 const remoteFilePathInput = 'input[type=file][class=dz-hidden-input]';
 const commentBtn = 'a#comment-tab-link.tab-link';
+const selectorTabFeedbackForSubmission = '#feedback-tab-link';
 const hometasksTabSel = 'button[data-testid="hometasks"]';
 let fileUrl; 
 
@@ -94,6 +95,9 @@ async function clickCommentBtn() {
 async function gotoTasksTab () {
 	await elementHelpers.clickAndWait(hometasksTabSel)
 	
+}
+async function clickOpenFeedbackTab () {
+	await elementHelpers.click(selectorTabFeedbackForSubmission)
 }
 
 async function submitFileFeedback(taskName, file) {
@@ -176,5 +180,6 @@ module.exports = {
 	goToEvaluationTab,
 	clickCommentBtn,
 	checkFileEvaluationStudent,
-	checkFileEvaluationTeacher
+	checkFileEvaluationTeacher,
+	clickOpenFeedbackTab
 };

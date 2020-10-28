@@ -118,7 +118,7 @@ When(/^.* can see the file evaluation$/, async function () {
     await taskPage.checkFileEvaluationTeacher(file)
 });
 When(/^.* goes to task evaluation$/, async function () {
-    await taskPage.clickCommentBtn()
+    await taskPage.clickOpenFeedbackTab();
 });
 When(/^file evaluation is visible for .*$/, async function () {
     await taskPage.checkFileEvaluationStudent(file)
