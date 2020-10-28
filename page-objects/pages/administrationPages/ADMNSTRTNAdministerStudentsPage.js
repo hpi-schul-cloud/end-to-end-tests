@@ -21,6 +21,7 @@ const consentSubmitBtn = "button[data-testid='submit_consent']";
 const addStudentSubmitBtn = "button[data-testid='button_create-user_submit']";
 const passwordInput = '#passwd';
 const createBirthday = '#create_birthday';
+const sendConsentFormEmails = '.btn-send-links-emails';
 
 //
 async function clickFABBtn() {
@@ -46,6 +47,10 @@ async function setStudentEmail(email) {
 
 async function clickOnSendRegistrationLinkCheckbox() {
 	await elementHelpers.click(sendRegistrationLinkCheckbox);
+}
+
+async function clickSendConsentFormEmailsButton() {
+	await elementHelpers.click(sendConsentFormEmails);
 }
 
 async function submitStudentAddition() {
@@ -84,7 +89,7 @@ async function isStudentEmailOnTheList(email) {
 	await expect(emails).to.contain(email);
 }
 async function submitConsent(e_mail) {
-    await waitHelpers.waitUntilElementIsVisible(tableOfStudents);
+	await waitHelpers.waitUntilElementIsVisible(tableOfStudents);
 	let names = await driver.$$(tableOfStudents + ' > tr');
 	for (var i = 1; i <= names.length; i++) {
 		let emailPromise = await driver.$(tableOfStudents + ' > tr:nth-child(' + i + ') > td:nth-child(3)');
@@ -106,6 +111,7 @@ async function studentLogsInWithDefaultPassword(email) {
 }
 
 module.exports = {
+	clickSendConsentFormEmailsButton,
 	createNewPupil,
 	isStudentEmailOnTheList,
 	submitConsent,
