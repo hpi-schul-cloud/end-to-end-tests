@@ -66,7 +66,8 @@ Feature: create different types of homework
 		When click left navigation item "dashboard"
 		When teacher should see 'Private Aufgaben und Entwürfe' list
 		Then teacher should see created private homework with name '<homeworkName>' and course name '<courseName>' and timeout
-		Then teacher should not see number of completed homework and number of graded homework
+		Then teacher should not see number of completed homework on private homework with name '<homeworkName>'
+		Then teacher should not see number of graded homework on private homework with name '<homeworkName>'
 		Examples:
 			| courseName | studentName | homeworkName         |
 			| Math       | Paula Meyer | private task example |

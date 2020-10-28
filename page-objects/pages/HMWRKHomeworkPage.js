@@ -9,7 +9,6 @@ const startPage = require('../../page-objects/pages/generalPagesBeforeLogin/Star
 const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage');
 const HMWRKHomeworkListPage = require('./HMWRKHomeworkListPage');
 const CRSSGeneralCoursePage = require('./coursePages/CRSSGeneralCoursePage');
-const editHomeworkPage = require('./HMWRKAddEditHomeworkPage.js');
 
 const textFieldSel = '.ck-content';
 const submitBtn = '.ckeditor-submit';
@@ -21,9 +20,12 @@ const submissionContainer = '.table .usersubmission';
 const remoteFilePathInput = 'input[type=file][class=dz-hidden-input]';
 const commentBtn = "a#comment-tab-link.tab-link";
 const dashboardTitleListSel = '.dashboard-title';
-const courseNameOnHomeworkSel = '.text-muted span'
-const homeworkNameSel = '.homework-tile .title-row .title';
-const homeworkTimeout = '.homework-tile .text-muted .pull-right';
+const homeworkTimeout = 'span[data-testid="homework-due-date"]';
+const homeworkNameSel = 'span[data-testid="homework-name"]';
+const homeworkCompleted = 'span[data-testid="homework-submitted"]';
+const homeworkGraded = 'span[data-testid="homework-graded"]';
+const courseNameSel = 'span[data-testid="homework-course-name"]';
+
 
 async function submitSolutionForTheHometask() {
 	const assignmentText = 'here is some text which I want to submit';
@@ -156,34 +158,48 @@ async function isPrivateTasksAndDraftsListVisible(listNames) {
 	return expect(dashboardTitlesList, msg + resultMsg).to.include(listNames);
 }
 
-async function isCourseNameOnPrivateHomeworkVisible(courseName) {
-	const courseNameList = await elementHelpers.getListOfAllElements("span[data-testid=\"homework-name\"]")
+async function isCourseNameOnPrivateHomeworkVisible(homeworkName, courseName) {
+	const homeworkIndex = await getIndexOfHomeworkFromList(homeworkName);
+	const homeworkCourseElementList = await elementHelpers.getListOfAllElements(courseNameSel)
+	const courseNameText = await elementHelpers.getElementText(homeworkCourseElementList[homeworkIndex]);
 	const msg = 'Course with name [' + courseName + '] is not visible on the private homework list \n';
-	const resultMsg = ', List of course titles: ' + courseNameList;
-	const courseNameT = await elementHelpers.getTextFromAllElements("span[data-testid=\"homework-name\"]")
-	const atext = await elementHelpers.getElementText(courseNameList[courseNameT.indexOf("private task example")].$("span[data-testid=\"homework-course-name\"]"));
-	return expect(courseNameList, msg + resultMsg).to.include(atext);
+	const resultMsg = 'List of course titles: ' + homeworkCourseElementList;
+	return expect(courseNameText, msg + resultMsg).to.include(courseName);
+}
+
+async function getIndexOfHomeworkFromList(homeworkName) {
+	const homeworkTextElementList = await elementHelpers.getListOfAllElements(homeworkNameSel)
+	const homeworkTextValueList = await elementHelpers.getTextListFromListOfElements(homeworkTextElementList);
+	const index = homeworkTextValueList.indexOf(homeworkName);
+	return index;
 }
 
 async function isPrivateHomeworkNameVisible(homeworkName) {
-	const homeworkNameList = await elementHelpers.getTextFromAllElements("span[data-testid=\"homework-name\"]")
-	const msg = 'Topic with name [' + homeworkName + '] is not visible on the list \n';
-	const resultMsg = ', List of task titles: ' + homeworkNameList;
+	const homeworkNameList = await elementHelpers.getTextFromAllElements(homeworkNameSel)
+	const msg = 'Homework with name [' + homeworkName + '] is not visible on the list \n';
+	const resultMsg = 'List of Homework titles: ' + homeworkNameList;
 	return expect(homeworkNameList, msg + resultMsg).to.include(homeworkName);
 }
 
-async function isTimeoutVisible() {
-	return waitHelpers.waitUntilElementIsPresent(homeworkTimeout);
+async function isTimeoutVisible(homeworkName) {
+	const homeworkIndex = await getIndexOfHomeworkFromList(homeworkName);
+	const homeworkTimeoutElementList = await elementHelpers.getListOfAllElements(homeworkTimeout);
+	return waitHelpers.waitUntilElementIsPresent(homeworkTimeoutElementList[homeworkIndex]);
 }
 
-async function isNumberOfCompletedHomeworkNotVisible() {
-	const completedHomework = await waitHelpers.waitUntilElementIsPresent(" .homework-tile .text-muted .hidden-xs-down")
+async function isNumberOfCompletedHomeworkNotVisible(homeworkName) {
+	const homeworkIndex = await getIndexOfHomeworkFromList(homeworkName);
+	const homeworkCompletedElementList = await elementHelpers.getListOfAllElements(homeworkCompleted);
+	let completedHomework = '';
+	homeworkCompletedElementList.length === 0 ? completedHomework = false : await waitHelpers.waitUntilElementIsPresent(homeworkCompletedElementList[homeworkIndex]);
 	const msg = 'Number of completed homework is visible.\n';
 	return expect(completedHomework, msg).to.be.false;
 }
 
-async function isNumberOfGradedHomeworkNotVisible() {
-	const gradedHomework = await waitHelpers.waitUntilElementIsPresent(" .homework-tile .text-muted .pull-right")
+async function isNumberOfGradedHomeworkNotVisible(homeworkName) {
+	const homeworkIndex = await getIndexOfHomeworkFromList(homeworkName);
+	const homeworkGradedElementList = await elementHelpers.getListOfAllElements(homeworkGraded);
+	const gradedHomework = await waitHelpers.waitUntilElementIsPresent(homeworkGradedElementList[homeworkIndex]);
 	const msg = 'Number of graded homework is visible.\n';
 	return expect(gradedHomework, msg).to.be.false;
 }
@@ -206,4 +222,5 @@ module.exports = {
 	isTimeoutVisible,
 	isNumberOfCompletedHomeworkNotVisible,
 	isNumberOfGradedHomeworkNotVisible,
+
 };

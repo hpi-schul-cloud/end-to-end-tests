@@ -98,14 +98,16 @@ Then(/^.* can upload a file as a solution$/, function () {
 	});
 })();
 Then(/^.* should see created private homework with name '([^']*)' and course name '([^']*)' and timeout$/, async function (homeworkName, courseName) {
-	await homeworkPage.isCourseNameOnPrivateHomeworkVisible(courseName);
+	await homeworkPage.isCourseNameOnPrivateHomeworkVisible(homeworkName,courseName);
 	await homeworkPage.isPrivateHomeworkNameVisible(homeworkName);
-	await homeworkPage.isTimeoutVisible();
+	await homeworkPage.isTimeoutVisible(homeworkName);
 });
 When(/^.* should see '([^']*)' list$/, function (listName) {
 	return homeworkPage.isPrivateTasksAndDraftsListVisible(listName);
 });
-Then(/^.* should not see number of completed homework and number of graded homework$/, async function () {
-	await homeworkPage.isNumberOfCompletedHomeworkNotVisible();
-	await homeworkPage.isNumberOfGradedHomeworkNotVisible();
+Then(/^.* should not see number of completed homework on private homework with name '([^']*)'$/, async function (homeworkName) {
+	await homeworkPage.isNumberOfCompletedHomeworkNotVisible(homeworkName);
+});
+Then(/^.* should not see number of graded homework on private homework with name '([^']*)'$/, async function (homeworkName) {
+	await homeworkPage.isNumberOfGradedHomeworkNotVisible(homeworkName);
 });
