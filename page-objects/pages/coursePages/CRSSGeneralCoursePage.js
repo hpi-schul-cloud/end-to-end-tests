@@ -6,6 +6,9 @@ const elementHelpers = require("../../../runtime/helpers/elementHelpers");
 const CRSSCourseListPage = require("./CRSSCourseListPage");
 
 const courseSettingsBtn = ".fa.fa-ellipsis-v.i-cog";
+const topicSelector = '#topic-list .card';
+const trashcanBtnSelector = ".fa-trash-o";
+const deleteTopicButtonInPopup = "body > div.modal.fade.delete-modal.in > div > div > div.modal-footer > button.btn.btn-primary.btn-submit";
 
 const setting = {
 	editCourse: '.btn-course-edit',
@@ -63,8 +66,18 @@ async function clickEditCourse () {
 
 async function copyCourseWithName(courseName) {
 	await CRSSCourseListPage.goToCourses();
-	await CRSSCourseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
+	await CRSSCourseListPage.clickOnCourseInSection(courseName, courseListPage.section.activeCourses);
 	await cloneCourse();
+}
+
+async function clickOnTopicDeleteTrashcanButton(name) {
+	let listOfTopicElements = await elementHelpers.getListOfAllElements(topicSelector);
+	let topicTitleList = await elementHelpers.getTextFromAllElements(topicSelector);
+	await elementHelpers.clickAndWait(listOfTopicElements[topicTitleList.indexOf(name)].$(trashcanBtnSelector));
+}
+
+async function clickDeleteTopicButtonInPopup() {
+	await elementHelpers.clickAndWait(deleteTopicButtonInPopup);
 }
 
 module.exports = {
@@ -77,4 +90,6 @@ module.exports = {
 	cloneCourse,
 	clickEditCourse,
 	copyCourseWithName,
+	clickOnTopicDeleteTrashcanButton,
+	clickDeleteTopicButtonInPopup,
 };
