@@ -72,7 +72,7 @@ async function clickEvaluationTab() {
 }
 
 async function clickOnFirstSubmission() {
-	await elementHelpers.click(submissionContainer);
+	await elementHelpers.clickAndWait(submissionContainer);
 }
 
 async function clickCommentBtn() {
