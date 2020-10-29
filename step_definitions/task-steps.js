@@ -9,7 +9,6 @@ const navigationLeftPage = require('../page-objects/pages/NavigationLeftPage.js'
 
 
 
-
 When(/^.* clicks Create-a-new-task-button in the course '(.*)'$/, async function (coursename) {
 
     await courseListPage.goToCourses();
@@ -18,30 +17,20 @@ When(/^.* clicks Create-a-new-task-button in the course '(.*)'$/, async function
     await taskListPage.clickCreateTaskButtonInTheCourse()
 });
 
-When(/^.* clicks on Enable-group-submission checkbox$/, function () {
-    return addEditTaskPage.clickTeamSubmissionsCheckbox();
+When(/^.* clicks on Enable-group-submission checkbox$/, async function () {
+    await addEditTaskPage.clickTeamSubmissionsCheckbox();
 });
 
-When(/^.* sets accomplish time for the task$/, function () {
-    return addEditTaskPage.setAccomplishTime();
+When(/^.* sets accomplish time for the task$/, async function () {
+    await addEditTaskPage.setAccomplishTime();
 });
 
-When(/^.* clicks submit-task-button$/, function () {
-    return addEditTaskPage.clickSubmitHomeworkBtn();
-});
-
-Then(/^the hometask with '(.*)' is to be found at the task pannel$/, async function (taskname) {
-    await taskListPage.sortHometasks(); // last edited
-    let tasks =  await  taskListPage.getTaskNames();
-    expect(tasks).to.include(taskname);
+When(/^.* clicks submit-task-button$/, async function () {
+    await addEditTaskPage.clickSubmitHomeworkBtn();
 });
 
 When(/^.* clicks on Private-task checkbox$/, async function () {
     await addEditTaskPage.clickPrivateHomeworkCheckbox();
-});
-
-When(/^.* goes to the tasks section$/, async function () {
-    await navigationLeftPage.clickNavItemTasks();
 });
 
 Then(/^task with name '([^']*)' is not visible on the list$/, async function (taskname) {
@@ -55,29 +44,8 @@ Then(/^task with name '([^']*)' is visible on the list$/, async function (taskna
     expect(tasksOnPage).to.include(taskname)
 });
 
-When(/^student with (.*), (.*) of this course (.*) goes to hometasks$/, function (username, password, coursename) {
-    return courseListPage.studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename, courseListPage.section.activeCourses);
-});
-
-When(/^the student edits a text hometask and submits it$/, function () {
-    return taskPage.studentEditsTextHomeworkAndSubmits();
-});
-
-
-/* File task submission*/
-
-Given(/^the Teacher creates one course with (.*) and pupil with:$/, function (coursename) {
-    return copyCourse.create(coursename);
-});
-When(/^Teacher creates a task for the course (.*)$/, function (coursename) {
-	return courseHomeworksPage.clickAddNewTaskInCourse(coursename);
-});
-
-When(/^the user goes to the course (.*) where the task (.*) must be submitted$/, function (coursename, taskname) {
-    return addEditTaskPage.uploadHomework();
-});
-Then(/^the students can upload a file as a solution$/, function () {
-    return addEditTaskPage.uploadHomework();
+Then(/^the students can upload a file as a solution$/, async function () {
+    await addEditTaskPage.uploadHomework();
 });
 
 Then(/^.* evaluates the task$/, async function () {
@@ -104,12 +72,12 @@ Then(/^.*should see the evaluation$/, async function () {
         password: 'Schulcloud1!'
     };
 
-Given(/^.* submits solution for the task$/, function () {
-    return taskPage.submitHomework(taskName, student);
+Given(/^.* submits solution for the task$/, async function () {
+    await taskPage.submitHomework();
 });
 
-When(/^the teacher uploads file feedback$/, function () {
-    return taskPage.submitFileFeedback(file);
+When(/^the teacher uploads file feedback$/, async function () {
+    await taskPage.submitFileFeedback(file);
 });
  
 When(/^.* clicks on task with name '(.*)'$/, async function (taskName) {

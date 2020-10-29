@@ -3,9 +3,6 @@
 
 const waitHelpers = require('../../runtime/helpers/waitHelpers');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
-const navigationTopPage = require('./NavigationTopPage');
-const loginPage = require('./generalPagesBeforeLogin/LoginPage');
-const TaskListPage = require('./TASKListPage');
 const textFieldSel = '.ck-content';
 const submitBtn = '.ckeditor-submit';
 const activeSubmissions = '.tab-content.section-homeworksubmissions.active';
@@ -62,7 +59,7 @@ async function getListOfSubmisionStudentNames() {
 async function getListOfSubmisions() {
 	return elementHelpers.getListOfAllElements(submissionContainer);
 }
-//delete
+
 async function submitHomework() {
 	await clickStudentSubmissionTab();
 	await submitSolutionForTheHometask();

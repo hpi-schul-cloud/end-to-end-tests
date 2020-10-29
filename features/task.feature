@@ -61,7 +61,7 @@ Feature: create different types of task
         And teacher logs out 
         And student logs in with email '<username>' and password '<password>'
         And student with full age accepts student's data protection with password '<newStudentPassword>'
-        And the student goes to the tasks section
+        And the student goes to the tasks page
         And student clicks on task with name '<taskName>'
         And student submits solution for the task
         And student logs out 
@@ -71,7 +71,7 @@ Feature: create different types of task
         Then teacher evaluates the task
         And teacher logs out
         And student logs in with email '<username>' and password '<newStudentPassword>'
-        And the student goes to the tasks section
+        And the student goes to the tasks page
         And student clicks on task with name '<taskName>'
         Then student should see the evaluation
 
