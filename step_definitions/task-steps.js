@@ -4,10 +4,10 @@ const addEditTaskPage = require('../page-objects/pages/TASKAddEditTaskPage.js');
 const taskListPage = require('../page-objects/pages/TASKListPage');
 const taskPage = require('../page-objects/pages/TASKPage');
 const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
-const courseHomeworksPage = require("../page-objects/pages/coursePages/CRSSCourseHomeworksPage");
-const navigationLeftPage = require('../page-objects/pages/NavigationLeftPage.js');
-
-
+const file = {
+    path: path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt'),
+    name: 'upload.txt'
+};
 
 When(/^.* clicks Create-a-new-task-button in the course '(.*)'$/, async function (coursename) {
 
@@ -60,18 +60,6 @@ Then(/^.*should see the evaluation$/, async function () {
     await expect(actualEvaluation).to.equal(expectedValueString)
 });
 
-(function () {
-    const courseName = 'file feedback';
-    const taskName = 'Art task';
-    const file = {
-        path: path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt'),
-        name: 'upload.txt'
-    };
-    const student = {
-        login: 'paula.meyer@schul-cloud.org',
-        password: 'Schulcloud1!'
-    };
-
 Given(/^.* submits solution for the task$/, async function () {
     await taskPage.submitHomework();
 });
@@ -98,4 +86,3 @@ When(/^.* goes to task evaluation$/, async function () {
 When(/^.* file evaluation is visible$/, async function () {
     await taskPage.checkFileEvaluationStudent(file)
 });
-})();
