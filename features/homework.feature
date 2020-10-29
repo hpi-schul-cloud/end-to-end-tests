@@ -59,8 +59,8 @@ Feature: create different types of homework
 	Scenario Outline: As a teacher I want to be able to see private homework on dashboard
 		Given <userRole> creates course with name '<courseName>' and student '<studentName>'
 		When <userRole> creates a private homework in course '<courseName>' with '<homeworkName>'
-		Then <userRole> 'see' homework with name '<homeworkName>'
-		When click left navigation item "dashboard"
+		And <userRole> 'see' homework with name '<homeworkName>'
+		When <userRole> click left navigation item 'dashboard'
 		And <userRole> see 'Private Aufgaben und Entwürfe' list on dashboard
 		Then <userRole> see created private homework with name '<homeworkName>'
 		Then <userRole> see created private homework with name '<homeworkName>' and course name '<courseName>'
