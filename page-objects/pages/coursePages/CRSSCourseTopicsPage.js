@@ -6,6 +6,9 @@ const waitHelpers = require("../../../runtime/helpers/waitHelpers");
 
 const addNewTopicBtn = "[data-section='js-topics'] .add-button a";
 const topicNameContainer = '#topic-list .card-header .topic-label';
+const topicSelector = '#topic-list .card';
+const trashcanBtnSelector = ".fa-trash-o";
+const deleteTopicButtonInPopup = ".delete-modal button.btn-submit";
 
 async function clickAddNewTopicBtn () {
 	await elementHelpers.clickAndWait(addNewTopicBtn);
@@ -27,8 +30,21 @@ async function isTopicInCourseInSection(courseName, topicName, section) {
 	expect(listOfTopicNames, msg + resultMsg).to.include(topicName);
 }
 
+async function clickOnTopicDeleteTrashcanButton(name) {
+	let listOfTopicElements = await elementHelpers.getListOfAllElements(topicSelector);
+	let topicTitleList = await elementHelpers.getTextFromAllElements(topicSelector);
+	await elementHelpers.clickAndWait(listOfTopicElements[topicTitleList.indexOf(name)].$(trashcanBtnSelector));
+}
+
+async function clickDeleteTopicButtonInPopup() {
+	await elementHelpers.clickAndWait(deleteTopicButtonInPopup);
+	await waitHelpers.waitUntilAjaxIsFinished();
+}
+
 module.exports = {
 	isTopicInCourseInSection,
 	clickAddNewTopicBtn,
 	clickAddNewTopicInCourse,
+	clickOnTopicDeleteTrashcanButton,
+	clickDeleteTopicButtonInPopup,
 }

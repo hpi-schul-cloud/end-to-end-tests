@@ -173,12 +173,15 @@ async function isContentWithTitleVisibleOnTheList(contentTitle) {
 	expect(listOfContentsTopicTitles, msg + resultMsg).to.include(contentTitle);
 }
 
-async function isTopicOnTheList(name) {
-	const listOfTopicTitles = await getTopicTitleList();
-	const msg = 'Topic with name [' + name + '] is not visible on the list \n';
-	const resultMsg = 'List of task titles: ' + listOfTopicTitles;
-	expect(listOfTopicTitles, msg + resultMsg).to.include(name);
+async function isTopicOnTheList(topicName, expectedValue = true) {
+	const allTopics = await getTopicTitleList();
+    const isTopicOnList = allTopics.some((element) => element.includes(topicName));
+    const fillString = !expectedValue ? 'not' : '';
+	const msg = "Topic with name is "+ fillString +" visible on the list: \n";
+	const resultMsg = 'Actual list of topisc: ' + allTopics;
+	await expect(isTopicOnList, msg + resultMsg).to.equal(expectedValue);
 }
+
 
 async function isCorrectTopicTitle(title) {
 	const actualTopicTitle = await elementHelpers.getElementText(topicTitleSel);

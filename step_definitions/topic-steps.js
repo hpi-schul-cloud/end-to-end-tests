@@ -30,6 +30,14 @@ When(/^.* adds content Etherpad with name '([^']*)' and description '([^']*)'$/,
 	await addEditTopicPage.addEtherpad(etherpadName, etherpadDescription);
 });
 
+When(/^.* clicks on Trashcan icon in topic with name '([^']*)'$/, async function (topicName) {
+	await CRSSCourseTopicsPage.clickOnTopicDeleteTrashcanButton(topicName);
+});
+
+When(/^.* clicks on Delete topic button$/, async function () {
+	await CRSSCourseTopicsPage.clickDeleteTopicButtonInPopup();
+});
+
 When(/^.* clicks Add-Content-'([^']*)' button$/, async function (contentName) {
 	await addEditTopicPage.clickAddContent(contentName);
 });
@@ -39,7 +47,11 @@ When(/^.* clicks Save-changes$/, async function () {
 });
 
 Then(/^.* topic with name '([^']*)' is visible on the list$/, async function (topicName) {
-	await addEditTopicPage.isTopicOnTheList(topicName);
+	await addEditTopicPage.isTopicOnTheList(topicName, true);
+});
+
+Then(/^.* topic with name '([^']*)' is not visible on the list$/, async function (topicName) {
+	await addEditTopicPage.isTopicOnTheList(topicName, false);
 });
 
 Then(/^.* is only one topic visible on the list$/, async function () {
