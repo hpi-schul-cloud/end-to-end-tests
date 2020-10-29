@@ -1,10 +1,8 @@
 /*[url/homework/new] | [url/homework/[homeworkId]/edit]*/
 'use strict';
 const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers.js');
-const courseHomeworksPage = require("./coursePages/CRSSCourseHomeworksPage");
 const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
 const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
-
 const uploadBtn = '//*[@id="main-content"]/div/section[1]/div/div/div[1]/input';
 const teamSubmissionsCheckbox = '#teamSubmissions';
 const privateHomeworkCheckbox = '[data-testid="private-checkbox"]';

@@ -4,7 +4,6 @@
 const waitHelpers = require("../../runtime/helpers/waitHelpers")
 const navigationLeftPage = require("./NavigationLeftPage.js")
 const elementHelpers=require('../../runtime/helpers/elementHelpers');
-
 const selectorCreateTaskButton = '.btn.btn-primary.btn-add.create';
 const selectorCreateTaskBtnInTheCourse = '.col-sm-12.add-button > a';
 const selectorSortBtn = '#filter .md-clickable > div';
@@ -12,7 +11,6 @@ const select = '#selection-picker > div > div'
 const lastedited =
     'body > div.md-select-menu.md-menu-content-bottom-start.md-menu-content-small.md-menu-content.md-theme-default > div > ul > li:nth-child(2) > button';
 const submitBtn = '.md-button.md-primary.md-theme-default > div > div';
-const pageTitleSelector = '#page-title';
 const taskElement = '.col-xl-12';
 const taskTitleContainer = '.assignment.card .title';
 const taskDescriptionContainer = '.assignment .text-muted.ckcontent'
@@ -64,7 +62,7 @@ async function clickCreateTaskButtonInTheCourse () {
     await elementHelpers.clickAndWait(selectorCreateTaskBtnInTheCourse)
 }
 
-async function sortHometasks () {
+async function sortHometasksLastEdited () {
     await elementHelpers.click(selectorSortBtn)
     await elementHelpers.click(select)
     await elementHelpers.click(lastedited)
@@ -122,10 +120,7 @@ async function goToPrivateTasksArea () {
     await navigationLeftPage.clickNavItemTasks()
     await navigationLeftPage.clickNavItemTasksPrivate()
 }
-async function areThereAnyTasks() {
-        let listOfTasks = await driver.$$(taskElement)
-        return listOfTasks.length > 0 ? true : false
-}
+
 async function isTaskNotVisible (taskname) {
         const allTasks = await this.getListOfTaskTitles();
         const isTaskOnList = allTasks.some((element) => element.includes(taskname));
@@ -133,6 +128,7 @@ async function isTaskNotVisible (taskname) {
         const resultMsg = 'Expected: ' + taskname + ', Actual: ' + allTasks;
         await expect(isTaskOnList, msg + resultMsg).to.equal(false);
 }
+
 async function clickOnTaskFromList (taskname) {
         let areThereAnyTasks = await driver.$$(tasksContainer)
         await expect(areThereAnyTasks.length).not.to.equal(0)
@@ -161,7 +157,7 @@ async function clickOnTaskFromList (taskname) {
 
 module.exports = {
     clickCreateTaskButton,
-    sortHometasks,
+    sortHometasks: sortHometasksLastEdited,
     getListOfTaskTitles,
     getListOfTask,
     clickOnTask,

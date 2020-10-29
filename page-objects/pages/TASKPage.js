@@ -133,9 +133,11 @@ async function evaluateTheTask() {
 	await waitHelpers.waitAndSetValue(textFieldSel, 'good')
 	await elementHelpers.click(selectorSubmitFeedbackBtn);
 }
+
 async function getEvaluation() {
 	return await elementHelpers.getElementText(selectorEvaluationProcentStudentView)
 }
+
 module.exports = {
 	openSubmissionsTab: clickOpenTeacherSubmissionsTab,
 	submitSolutionForTheHometask,
