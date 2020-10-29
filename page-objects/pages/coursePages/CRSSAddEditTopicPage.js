@@ -11,7 +11,7 @@ const textFieldSel = '.card .ck-content';
 const textFieldValueSel = '.card .ck-content p';
 const contentTitleSelector = '.card .card-header .form-control';
 const textBtn = ".btn-group > button:nth-child(1)";
-const topicSelector = '#topic-list .card';
+const topicSelector = '#topic-list';
 const sectionTopicTitleSelector = '.section-title #page-title';
 const topicSuccessTextSelector = '.first-topic-success';
 const pencilBtnSelector = ".fa-pencil";
@@ -73,11 +73,17 @@ async function addEtherpad(name, description) {
 	await waitHelpers.waitAndSetValue(etherpadDescriptionField, description);
 }
 
-async function isTopicOnTopicList(name) {
-	const listOfTopicTitles = await topicTitleList();
-	const msg = 'Topic with name [' + name + '] is not visible on the list \n';
-	const resultMsg = ', List of task titles: ' + listOfTopicTitles;
-	expect(listOfTopicTitles, msg + resultMsg).to.include(name);
+async function isTopicOnTopicList(topicname, expectedValue) {
+	const allTopics = await topicTitleList();
+    const isTopicOnList = allTopics.some((element) => element.includes(topicname));
+    const fillString = !expectedValue ? 'not' : '';
+	const msg = `Topic with name is ${fillString} visible on the list: \n`;
+	const resultMsg = 'Expected: ' + topicname + ', Actual listed topics: ' + allTopics;
+	const cmpltMsg = msg + resultMsg;
+
+	expectedValue
+		? await expect(isTopicOnList, msg + cmpltMsg).to.equal(true)
+		: await expect(isTopicOnList, msg + cmpltMsg).to.equal(false);
 }
 
 async function isItTheFirstTopicAdded() {
@@ -104,6 +110,7 @@ async function isTopicTitleVisible(name) {
 }
 
 async function topicTitleList() {
+	await waitHelpers.waitUntilElementIsVisible(topicSelector);
 	return elementHelpers.getTextFromAllElements(topicSelector);
 }
 
