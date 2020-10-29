@@ -29,13 +29,13 @@ Feature: create different types of task
     Scenario Outline: create a private hometask has to be visible only for the teacher
         When teacher creates a course '<coursename>' and adds student <studentname> to this course
         And teacher clicks Create-a-new-task-button in the course '<coursename>'
-        And teacher puts taskname '<taskname>' into name field
+        And teacher puts taskname '<taskName>' into name field
         And teacher sets accomplish time for the task
         And teacher puts taskBody '<taskBody>' into body field
         And teacher clicks on Private-task checkbox
         And teacher clicks submit-task-button on task-creation-form
         When teacher goes to tasks page
-        Then the task '<taskname>' should be visible for the teacher
+        Then task with name '<taskName>' is visible on the list
         And teacher logs out 
         When student arrives on the Schul-Cloud homepage
         And student logs in with email '<username>' and password '<password>'
@@ -81,7 +81,7 @@ Feature: create different types of task
         And teacher puts taskBody '<taskBody>' into body field
         And teacher clicks submit-task-button
         And teacher logs out
-        When student arrives on the Schul-Cloud homepage
+        #When student arrives on the Schul-Cloud homepage
         And student logs in with email '<username>' and password '<password>'
         And student with full age accepts student's data protection with password '<newPasswordStudent>'
         And student goes to tasks page
@@ -100,7 +100,7 @@ Feature: create different types of task
         And student goes to tasks page
         And student clicks on task with name '<taskname>'
         And student goes to task evaluation
-        #Then student should see that file evaluation is visible
+        Then student should see that file evaluation is visible
 
         Examples:
             | username                    | password     | newPasswordStudent | taskname              | studentname | coursename            |taskBody          |

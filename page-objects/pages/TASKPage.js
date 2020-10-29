@@ -15,9 +15,9 @@ const activeSubmissions = '.tab-content.section-homeworksubmissions.active';
 const gradeFilesListSel = '.list-group-files';
 const teacherSubmissionsTab = '#submissions-tab-link';
 const studentSubmissionTab = '#submission-tab-link';
-const submissionContainer = '.table .usersubmission';
+const submissionContainer = '.userinfo';
 const remoteFilePathInput = 'input[type=file][class=dz-hidden-input]';
-const commentBtn = 'a#comment-tab-link.tab-link';
+const commentBtn = '#comment-tab-link';
 const selectorTabFeedbackForSubmission = '#feedback-tab-link';
 const hometasksTabSel = 'button[data-testid="hometasks"]';
 let fileUrl; 
@@ -80,7 +80,7 @@ async function submitHomework() {
 	await submitSolutionForTheHometask();
 }
 
-async function goToEvaluationTab() {
+async function clickEvaluationTab() {
 	await clickOpenTeacherSubmissionsTab();
 	await clickOnFirstSubmission();
 	await clickCommentBtn();
@@ -91,7 +91,7 @@ async function clickOnFirstSubmission() {
 }
 
 async function clickCommentBtn() {
-	await elementHelpers.click(commentBtn);
+	await elementHelpers.clickAndWait(commentBtn);
 }
 async function clickTasksTab () {
 	await elementHelpers.clickAndWait(hometasksTabSel)
@@ -101,8 +101,8 @@ async function clickOpenFeedbackTab () {
 	await elementHelpers.clickAndWait(selectorTabFeedbackForSubmission)
 }
 
-async function submitFileFeedback(taskName, file) {
-	await goToEvaluationTab();
+async function submitFileFeedback(file) {
+	await clickEvaluationTab();
 	await driver.execute(function () {
 		document.querySelector('input[type=file][class=dz-hidden-input]').style = {};
 	});
@@ -112,7 +112,7 @@ async function submitFileFeedback(taskName, file) {
 }
 //delete
 async function testFileUploadSuccess(taskName, file, student) {
-	await goToEvaluationTab();
+	await clickEvaluationOfStudentSubmission();
 	if (process.env.CI) {
 		console.warn('S3 is not available on CI. The files were never uploaded.');
 		return;
@@ -172,13 +172,13 @@ module.exports = {
 	hasTheStudentSubmittedTheTask: isTaskSubmitted,
 	teacherLogsInAndCanSeeTheTextSubmission,
 	submitHomework,
-	teacherShowGradeTabForFirstSubmission: goToEvaluationTab,
+	//teacherShowGradeTabForFirstSubmission: clickEvaluationOfStudentSubmission,
 	submitFileFeedback,
 	testFileUploadSuccess,
 	isFileVisible,
 	getCurrentTabUrl,
 	gotoTasksTab: clickTasksTab,
-	goToEvaluationTab,
+	clickEvaluationTab,
 	clickCommentBtn,
 	checkFileEvaluationStudent,
 	checkFileEvaluationTeacher,

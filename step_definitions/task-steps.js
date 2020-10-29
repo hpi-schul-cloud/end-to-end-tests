@@ -18,7 +18,7 @@ When(/^.* clicks Create-a-new-task-button in the course '(.*)'$/, async function
     await taskListPage.clickCreateTaskButtonInTheCourse()
 });
 
-When(/^.* clicks on Enable-group-submission" checkbox$/, function () {
+When(/^.* clicks on Enable-group-submission checkbox$/, function () {
     return addEditTaskPage.clickTeamSubmissionsCheckbox();
 });
 
@@ -44,12 +44,12 @@ When(/^.* goes to the tasks section$/, async function () {
     await navigationLeftPage.clickNavItemTasks();
 });
 
-Then(/^task with name '([^'])' is not visible on the list$/, async function (taskname) {
+Then(/^task with name '([^']*)' is not visible on the list$/, async function (taskname) {
 
     let tasksOnPage = await taskListPage.getTaskNames();
     expect(tasksOnPage).not.to.include(taskname)
 });
-Then(/^task with name '([^'])' is visible on the list$/, async function (taskname) {
+Then(/^task with name '([^']*)' is visible on the list$/, async function (taskname) {
 
     let tasksOnPage = await taskListPage.getTaskNames();
     expect(tasksOnPage).to.include(taskname)
@@ -103,7 +103,7 @@ Given(/^.* submits solution for the task$/, function () {
 });
 
 When(/^the teacher uploads file feedback$/, function () {
-    return taskPage.submitFileFeedback(taskName, file);
+    return taskPage.submitFileFeedback(file);
 });
  
 When(/^.* clicks on task with name '(.*)'$/, async function (taskName) {
@@ -112,7 +112,7 @@ When(/^.* clicks on task with name '(.*)'$/, async function (taskName) {
 });
 
 When(/^.* goes to evaluation tab$/, async function () {
-    await taskPage.goToEvaluationTab()
+    await taskPage.clickEvaluationTab();
 });
 
 When(/^.* can see the file evaluation$/, async function () {
