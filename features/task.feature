@@ -46,32 +46,32 @@ Feature: create different types of task
         | coursename            | studentname | taskName             | username                    | password     | newStudentPassword     |
         | test private hometask | Paula Meyer | private task example | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!          |
 
-    #@submitTextTask
-    #Scenario Outline: pupil submits a task and teacher evaluates it
-        #Given teacher creates a course '<coursename>' and adds student <studentname> to this course
-        #Given teacher clicks Create-a-new-task-button in the course <coursename>
-        #And teacher puts taskname '<taskname>' into name field
-        #And teacher sets accomplish time for the task
-        #And teacher puts taskBody '<taskBody>' into body field
-        #And teacher clicks submit-task-button on task-creation-form
-        #When teacher goes to tasks page
-        #Then the task '<taskname>' should be visible for the teacher
-        #And teacher logs out 
+    @submitTextTask
+    Scenario Outline: pupil submits a task and teacher evaluates it
+        Given teacher creates a course '<coursename>' and adds student <studentname> to this course
+        Given teacher clicks Create-a-new-task-button in the course '<coursename>'
+        And teacher puts taskname '<taskName>' into name field
+        And teacher sets accomplish time for the task
+        And teacher puts taskBody '<taskBody>' into body field
+        And teacher clicks submit-task-button on task-creation-form
+        When teacher goes to tasks page
+        Then task with name '<taskName>' is visible on the list
+        And teacher logs out 
         #When student arrives on the Schul-Cloud homepage
-        #And student logs in with email '<username>' and password '<password>'
-        #And student with full age accepts student's data protection with password '<newStudentPassword>'
-        #And the student goes to the tasks section
-        #Then the task '<taskname>' should not be visible for student
-        #Then the student sees the task <taskname> on the dashboard and
-        #And student submits solution for the task
-        #And student logs out 
-        #When teacher logs in
-        #And teacher goes to tasks page
-        #And teacher clicks on task with name '<taskname>''
-        #Then teacher can evaluate the task <taskname>
-        #Examples:
-        #| coursename                        | firstname   | lastname | taskname   | username                     | password     | studentname  | taskBody          |
-        #| course with a task for submission | Paula       | Meyer    | task       | paula.meyer@schul-cloud.org  | Schulcloud1! | Paula Meyer  | text of the task  |
+        And student logs in with email '<username>' and password '<password>'
+        And student with full age accepts student's data protection with password '<newStudentPassword>'
+        And the student goes to the tasks section
+        Then task with name '<taskName>' is visible on the list
+        Then the student sees the task <taskName> on the dashboard and
+        And student submits solution for the task
+        And student logs out 
+        When teacher logs in
+        And teacher goes to tasks page
+        And teacher clicks on task with name '<taskName>''
+        Then teacher can evaluate the task <taskName>
+        Examples:
+        | coursename                        | firstname   | lastname | taskName   | username                     | password     | studentname  | taskBody          | newStudentPassword |
+        | course with a task for submission | Paula       | Meyer    | task       | paula.meyer@schul-cloud.org  | Schulcloud1! | Paula Meyer  | text of the task  | Schulcloud1!!      |
 
     @gradeTaskWithFile
     Scenario Outline: grade a task submission by uploading a file
