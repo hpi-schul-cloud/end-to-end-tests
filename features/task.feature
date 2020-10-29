@@ -25,6 +25,7 @@ Feature: create different types of task
             | coursename             | taskName     | taskText                          |taskBody          | 
             | new course with a task | task example | here is some task for my students |text of the task  |
 
+
     @createPrivateTaskInTheCourse
     Scenario Outline: create a private hometask has to be visible only for the teacher
         When teacher creates a course '<coursename>' and adds student <studentname> to this course
@@ -46,6 +47,7 @@ Feature: create different types of task
         | coursename            | studentname | taskName             | username                    | password     | newStudentPassword     |
         | test private hometask | Paula Meyer | private task example | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!          |
 
+
     @submitTextTask
     Scenario Outline: pupil submits a task and teacher evaluates it
         Given teacher creates a course '<coursename>' and adds student <studentname> to this course
@@ -57,21 +59,27 @@ Feature: create different types of task
         When teacher goes to tasks page
         Then task with name '<taskName>' is visible on the list
         And teacher logs out 
-        #When student arrives on the Schul-Cloud homepage
         And student logs in with email '<username>' and password '<password>'
         And student with full age accepts student's data protection with password '<newStudentPassword>'
         And the student goes to the tasks section
-        Then task with name '<taskName>' is visible on the list
-        Then the student sees the task <taskName> on the dashboard and
+        And student clicks on task with name '<taskName>'
         And student submits solution for the task
         And student logs out 
         When teacher logs in
         And teacher goes to tasks page
-        And teacher clicks on task with name '<taskName>''
-        Then teacher can evaluate the task <taskName>
+        And teacher clicks on task with name '<taskName>'
+        Then teacher evaluates the task
+        And teacher logs out
+        And student logs in with email '<username>' and password '<newStudentPassword>'
+        And the student goes to the tasks section
+        And student clicks on task with name '<taskName>'
+        Then student should see the evaluation
+
+
         Examples:
         | coursename                        | firstname   | lastname | taskName   | username                     | password     | studentname  | taskBody          | newStudentPassword |
         | course with a task for submission | Paula       | Meyer    | task       | paula.meyer@schul-cloud.org  | Schulcloud1! | Paula Meyer  | text of the task  | Schulcloud1!!      |
+
 
     @gradeTaskWithFile
     Scenario Outline: grade a task submission by uploading a file
@@ -81,11 +89,10 @@ Feature: create different types of task
         And teacher puts taskBody '<taskBody>' into body field
         And teacher clicks submit-task-button
         And teacher logs out
-        #When student arrives on the Schul-Cloud homepage
         And student logs in with email '<username>' and password '<password>'
         And student with full age accepts student's data protection with password '<newPasswordStudent>'
         And student goes to tasks page
-        And student clicks on task with name '<taskname>'
+        And student clicks on task with name '<taskName>'
         And student submits solution for the task
         And student logs out 
         When teacher logs in
@@ -100,7 +107,7 @@ Feature: create different types of task
         And student goes to tasks page
         And student clicks on task with name '<taskname>'
         And student goes to task evaluation
-        Then student should see that file evaluation is visible
+        #Then student should see that file evaluation is visible
 
         Examples:
             | username                    | password     | newPasswordStudent | taskname              | studentname | coursename            |taskBody          |

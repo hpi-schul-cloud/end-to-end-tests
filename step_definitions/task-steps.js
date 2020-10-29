@@ -55,10 +55,6 @@ Then(/^task with name '([^']*)' is visible on the list$/, async function (taskna
     expect(tasksOnPage).to.include(taskname)
 });
 
-/* When(/^the student finds (.*)$/, function (taskname) {
-    return taskListPage.clickOnTaskFromList(taskname);
-}); */
-
 When(/^student with (.*), (.*) of this course (.*) goes to hometasks$/, function (username, password, coursename) {
     return courseListPage.studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename, courseListPage.section.activeCourses);
 });
@@ -66,9 +62,7 @@ When(/^student with (.*), (.*) of this course (.*) goes to hometasks$/, function
 When(/^the student edits a text hometask and submits it$/, function () {
     return taskPage.studentEditsTextHomeworkAndSubmits();
 });
-Then(/^the teacher can see the submission in course (.*) of task (.*) done by student (.*) and$/, function (coursename, taskname, studentname) {
-    return taskPage.teacherLogsInAndCanSeeTheTextSubmission(coursename, taskname, studentname);
-});
+
 
 /* File task submission*/
 
@@ -84,6 +78,18 @@ When(/^the user goes to the course (.*) where the task (.*) must be submitted$/,
 });
 Then(/^the students can upload a file as a solution$/, function () {
     return addEditTaskPage.uploadHomework();
+});
+
+Then(/^.* evaluates the task$/, async function () {
+    await taskPage.clickEvaluationTab()
+    await taskPage.evaluateTheTask()
+});
+
+Then(/^.*should see the evaluation$/, async function () {
+    await taskPage.clickOpenFeedbackTab();
+    const actualEvaluation = await taskPage.getEvaluation();
+    const expectedValueString = taskPage.evaluation + '%'
+    await expect(actualEvaluation).to.equal(expectedValueString)
 });
 
 (function () {

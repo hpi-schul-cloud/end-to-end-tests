@@ -3,12 +3,9 @@
 
 const waitHelpers = require('../../runtime/helpers/waitHelpers');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
-const courseListPage = require('./coursePages/CRSSCourseListPage');
 const navigationTopPage = require('./NavigationTopPage');
-const startPage = require('./generalPagesBeforeLogin/StartPageBeforeLogin');
 const loginPage = require('./generalPagesBeforeLogin/LoginPage');
 const TaskListPage = require('./TASKListPage');
-const CRSSGeneralCoursePage = require('./coursePages/CRSSGeneralCoursePage');
 const textFieldSel = '.ck-content';
 const submitBtn = '.ckeditor-submit';
 const activeSubmissions = '.tab-content.section-homeworksubmissions.active';
@@ -20,7 +17,11 @@ const remoteFilePathInput = 'input[type=file][class=dz-hidden-input]';
 const commentBtn = '#comment-tab-link';
 const selectorTabFeedbackForSubmission = '#feedback-tab-link';
 const hometasksTabSel = 'button[data-testid="hometasks"]';
+const selectorEvaluationProcent = '[data-testid="evaluation_procent"]';
+const selectorEvaluationProcentStudentView = '.grade';
+const selectorSubmitFeedbackBtn = '.ckeditor-submit.btn.btn-primary'
 let fileUrl; 
+const evaluation = 90;
 
 
 async function submitSolutionForTheHometask() {
@@ -30,7 +31,7 @@ async function submitSolutionForTheHometask() {
 }
 
 async function studentEditsTextHomeworkAndSubmits() {
-	await openStudentSubmissionTab();
+	await clickStudentSubmissionTab();
 	await submitSolutionForTheHometask();
 }
 
@@ -38,7 +39,7 @@ async function clickOpenTeacherSubmissionsTab() {
 	await elementHelpers.click(teacherSubmissionsTab);
 }
 
-async function openStudentSubmissionTab() {
+async function clickStudentSubmissionTab() {
 	await elementHelpers.click(studentSubmissionTab);
 }
 
@@ -61,22 +62,9 @@ async function getListOfSubmisionStudentNames() {
 async function getListOfSubmisions() {
 	return elementHelpers.getListOfAllElements(submissionContainer);
 }
-// must be splitted and renamed
-async function teacherLogsInAndCanSeeTheTextSubmission(coursename, taskname, studentname) {
-	await startPage.clickLoginBtn();
-	await loginPage.performLogin(
-		loginPage.users.teachers.klaraFallUsername,
-		loginPage.users.teachers.klaraFallPassword
-	);
-	await courseListPage.goToCourses();
-	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
-	await CRSSGeneralCoursePage.openHomeworksTab();
-	await TaskListPage.clickOnTask(taskname, 'Task open');
-	await isTaskSubmitted(studentname);
-}
 //delete
 async function submitHomework() {
-	await openStudentSubmissionTab();
+	await clickStudentSubmissionTab();
 	await submitSolutionForTheHometask();
 }
 
@@ -110,29 +98,7 @@ async function submitFileFeedback(file) {
 	await waitHelpers.waitAndSetValue(remoteFilePathInput, remoteFilePath);
 	await waitHelpers.waitUntilElementIsVisible(activeSubmissions);
 }
-//delete
-async function testFileUploadSuccess(taskName, file, student) {
-	await clickEvaluationOfStudentSubmission();
-	if (process.env.CI) {
-		console.warn('S3 is not available on CI. The files were never uploaded.');
-		return;
-	}
-	await isFileVisible(file);
-	const mainWindow = await driver.getWindowHandle();
-	await elementHelpers.clickAndWait(`a*=${file.name}`);
-	const fileUrl = await getCurrentTabUrl();
-	await driver.switchToWindow(mainWindow);
-	await navigationTopPage.performLogout();
-	await loginPage.performLogin(student.login, student.password);
-	await TaskListPage.goToHomeworkListPage();
-	await elementHelpers.click(`*=${taskName}`);
-	await clickCommentBtn();
-	await isFileVisible(file);
-	await elementHelpers.clickAndWait(`a*=${file.name}`);
-	const studentFileUrl = await getCurrentTabUrl();
-	expect(studentFileUrl.origin).to.equal(fileUrl.origin);
-	expect(studentFileUrl.pathname).to.equal(fileUrl.pathname);
-}
+
 async function checkFileEvaluationStudent (file) {
 	await isFileVisible(file);
 	await elementHelpers.clickAndWait(`a*=${file.name}`);
@@ -165,16 +131,21 @@ async function getCurrentTabUrl() {
 	return new URL(await driver.getUrl());
 }
 
+async function evaluateTheTask() {
+	await waitHelpers.waitAndSetValue(selectorEvaluationProcent, evaluation);
+	await waitHelpers.waitAndSetValue(textFieldSel, 'good')
+	await elementHelpers.click(selectorSubmitFeedbackBtn);
+}
+async function getEvaluation() {
+	return await elementHelpers.getElementText(selectorEvaluationProcentStudentView)
+}
 module.exports = {
 	openSubmissionsTab: clickOpenTeacherSubmissionsTab,
 	submitSolutionForTheHometask,
 	studentEditsTextHomeworkAndSubmits,
 	hasTheStudentSubmittedTheTask: isTaskSubmitted,
-	teacherLogsInAndCanSeeTheTextSubmission,
 	submitHomework,
-	//teacherShowGradeTabForFirstSubmission: clickEvaluationOfStudentSubmission,
 	submitFileFeedback,
-	testFileUploadSuccess,
 	isFileVisible,
 	getCurrentTabUrl,
 	gotoTasksTab: clickTasksTab,
@@ -182,5 +153,8 @@ module.exports = {
 	clickCommentBtn,
 	checkFileEvaluationStudent,
 	checkFileEvaluationTeacher,
-	clickOpenFeedbackTab
+	clickOpenFeedbackTab,
+	evaluateTheTask,
+	getEvaluation,
+	evaluation,
 };
