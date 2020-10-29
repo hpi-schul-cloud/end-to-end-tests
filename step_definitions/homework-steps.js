@@ -104,14 +104,14 @@ Then(/^.* see created private homework with name '([^']*)' and course name '([^'
 	await homeworkPage.isCourseNameOnPrivateHomeworkVisible(homeworkName, courseName);
 });
 Then(/^.* see created private homework with name '([^']*)' and timeout$/, async function (homeworkName) {
-	await homeworkPage.isTimeoutVisible(homeworkName);
+	await homeworkPage.isElementOfHomeworkVisible("Timeout", homeworkName, homeworkPage.element.homeworkTimeout, true);
 });
 When(/^.* see '([^']*)' list on dashboard$/, function (listName) {
 	return homeworkPage.isPrivateTasksAndDraftsListVisible(listName);
 });
 Then(/^.* not see number of completed homework on homework with name '([^']*)'$/, async function (homeworkName) {
-	await homeworkPage.isNumberOfCompletedHomeworkNotVisible(homeworkName);
+	await homeworkPage.isElementOfHomeworkVisible("Completed", homeworkName, homeworkPage.element.homeworkCompleted, false);
 });
 Then(/^.* not see number of graded on homework with name '([^']*)'$/, async function (homeworkName) {
-	await homeworkPage.isNumberOfGradedHomeworkNotVisible(homeworkName);
+	await homeworkPage.isElementOfHomeworkVisible("Graded", homeworkName, homeworkPage.element.homeworkGraded, false);
 });

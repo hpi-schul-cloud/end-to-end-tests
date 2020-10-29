@@ -20,12 +20,19 @@ const submissionContainer = '.table .usersubmission';
 const remoteFilePathInput = 'input[type=file][class=dz-hidden-input]';
 const commentBtn = "a#comment-tab-link.tab-link";
 const dashboardTitleListSel = '.dashboard-title';
-const homeworkTimeout = 'span[data-testid="homework-due-date"]';
-const homeworkNameSel = 'span[data-testid="homework-name"]';
-const homeworkCompleted = 'span[data-testid="homework-submitted"]';
-const homeworkGraded = 'span[data-testid="homework-graded"]';
-const courseNameSel = 'span[data-testid="homework-course-name"]';
+// const homeworkTimeout = 'span[data-testid="homework-due-date"]';
+// const homeworkNameSel = 'span[data-testid="homework-name"]';
+// const homeworkCompleted = 'span[data-testid="homework-submitted"]';
+// const homeworkGraded = 'span[data-testid="homework-graded"]';
+// const courseNameSel = 'span[data-testid="homework-course-name"]';
 
+const element = {
+	homeworkName: 'span[data-testid="homework-name"]',
+	courseName: 'span[data-testid="homework-course-name"]',
+	homeworkTimeout: 'span[data-testid="homework-due-date"]',
+	homeworkCompleted: 'span[data-testid="homework-submitted"]',
+	homeworkGraded: 'span[data-testid="homework-graded"]',
+};
 
 async function submitSolutionForTheHometask() {
 	const assignmentText = 'here is some text which I want to submit';
@@ -168,7 +175,7 @@ async function isCourseNameOnPrivateHomeworkVisible(homeworkName, courseName) {
 }
 
 async function getIndexOfHomeworkFromList(homeworkName) {
-	const homeworkTextElementList = await elementHelpers.getListOfAllElements(homeworkNameSel)
+	const homeworkTextElementList = await elementHelpers.getListOfAllElements(element.homeworkName)
 	const homeworkTextValueList = await elementHelpers.getTextListFromListOfElements(homeworkTextElementList);
 	const index = homeworkTextValueList.indexOf(homeworkName);
 	return index;
@@ -187,7 +194,7 @@ async function isTimeoutVisible(homeworkName) {
 	return waitHelpers.waitUntilElementIsPresent(homeworkTimeoutElementList[homeworkIndex]);
 }
 
-async function isNumberOfCompletedHomeworkNotVisible(homeworkName) {
+async function isNumberCompletedHomeworkVisible(homeworkName) {
 	const homeworkIndex = await getIndexOfHomeworkFromList(homeworkName);
 	const homeworkCompletedElementList = await elementHelpers.getListOfAllElements(homeworkCompleted);
 	let completedHomework = '';
@@ -196,12 +203,21 @@ async function isNumberOfCompletedHomeworkNotVisible(homeworkName) {
 	return expect(completedHomework, msg).to.be.false;
 }
 
-async function isNumberOfGradedHomeworkNotVisible(homeworkName) {
+async function isElementOfHomeworkVisible(elementName, homeworkName, selector, expectedValue) {
+	const defaultString = `Element with name: ${elementName}`;
+	let elementOfHomework = '';
 	const homeworkIndex = await getIndexOfHomeworkFromList(homeworkName);
-	const homeworkGradedElementList = await elementHelpers.getListOfAllElements(homeworkGraded);
-	const gradedHomework = await waitHelpers.waitUntilElementIsPresent(homeworkGradedElementList[homeworkIndex]);
-	const msg = 'Number of graded homework is visible.\n';
-	return expect(gradedHomework, msg).to.be.false;
+	const elementsOfHomeworksList = await elementHelpers.getListOfAllElements(selector);
+	elementsOfHomeworksList.length === 0 ? elementOfHomework = false : await waitHelpers.waitUntilElementIsPresent(elementsOfHomeworksList[homeworkIndex]);
+
+	const msg = expectedValue
+		? `${defaultString} should be visible on the homework`
+		: `${defaultString} should not be visible on the homework`;
+
+	expectedValue
+		? expect(elementOfHomework, msg).to.be.true
+		: expect(elementOfHomework, msg).to.be.false;
+
 }
 
 module.exports = {
@@ -220,7 +236,8 @@ module.exports = {
 	isCourseNameOnPrivateHomeworkVisible,
 	isPrivateHomeworkNameVisible,
 	isTimeoutVisible,
-	isNumberOfCompletedHomeworkNotVisible,
-	isNumberOfGradedHomeworkNotVisible,
+	isNumberCompletedHomeworkVisible,
+	isElementOfHomeworkVisible,
+	element,
 
 };
