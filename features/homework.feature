@@ -1,14 +1,11 @@
 @homework
-
 Feature: create different types of homework
-
 
 	Background: a teacher logs in and creates a course
 		Given teacher arrives on the Schul-Cloud homepage
 		And teacher logs in
 		And teacher accepts data protection
 		And teacher goes to courses page
-
 
 	@createSimpleHomework
 	Scenario Outline: create a simple hometask
@@ -59,7 +56,7 @@ Feature: create different types of homework
 			| paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!      |
 
 	@showPrivateHomeworkOnDashboard
-	Scenario Outline: Private homework has to be visible for the teacher on the dashboard
+	Scenario Outline: As a teacher I want to be able to see private homework on dashboard
 		Given <userRole> creates course with name '<courseName>' and student '<studentName>'
 		When <userRole> creates a private homework in course '<courseName>' with '<homeworkName>'
 		Then <userRole> 'see' homework with name '<homeworkName>'
