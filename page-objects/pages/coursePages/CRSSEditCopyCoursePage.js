@@ -21,36 +21,18 @@ async function clickDeleteButton() {
 	await elementHelpers.clickAndWait(deleteButton);
 }
 
-/**
- * Use this method to set text of inputfields
- * textBox defines the input field
- * text defines the input itself
- */
-
-async function setTextOfTextbox(textBox, text) {
-	try {
-		const courseNameContainer = await waitHelpers.waitUntilElementIsPresent(textBox);
-		await courseNameContainer.clearValue();
-		await courseNameContainer.setValue(text);
-	} catch (error) {
-		log.error('Can not set value: ' + error.message);
-		throw error;
-	}
+async function setNewCourseName(courseName) {
+	await waitHelpers.waitAndSetValue(courseNameInput, courseName);
 }
 
-async function setCourseName(courseName) {
-	await setTextOfTextbox(courseNameInput, courseName);
-}
-
-async function setCourseDescription(courseDescription) {
-	await setTextOfTextbox(courseDescriptionInput, courseDescription);
+async function setNewCourseDescription(courseDescription) {
+	await waitHelpers.waitAndSetValue(courseDescriptionInput, courseDescription);
 }
 
 module.exports = {
 	clickSubmitButton,
 	clickConfirmDeleteButton,
 	clickDeleteButton,
-	setCourseName,
-	setTextOfTextbox,
-	setCourseDescription,
+	setNewCourseName,
+	setNewCourseDescription,
 };

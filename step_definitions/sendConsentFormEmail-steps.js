@@ -2,7 +2,6 @@
 
 const administerStudentsPage = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerStudentsPage.js');
 const mailCatcher = require('../runtime/helpers/mailCatcher.js');
-const waitHelpers = require('../runtime/helpers/waitHelpers.js');
 
 When(/^. goes to students administration$/, async function () {
 	return administerStudentsPage.clickAdministrateStudents();

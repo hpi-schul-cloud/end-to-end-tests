@@ -2,13 +2,12 @@
 const { CLIENT } = require('../shared-objects/servers');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
-const createCourse = require('../page-objects/pages/coursePages/CRSSAddCoursePage');
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const schulCloudURL = `${CLIENT.URL}`;
 /*Login, Logout*/
 
-Given(/^.*arrives on the Schul-Cloud homepage$/, function () {
+Given(/^.*arrives on the Schul-Cloud homepage$/, async function () {
 	return elementHelpers.loadPage(schulCloudURL);
 });
 

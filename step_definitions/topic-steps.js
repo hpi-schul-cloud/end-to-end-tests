@@ -1,42 +1,99 @@
-const addEditTopicPage = require("../page-objects/pages/coursePages/CRSSAddEditTopicPage");
-const courseTopicsPage = require("../page-objects/pages/coursePages/CRSSCourseTopicsPage");
+const addEditTopicPage = require('../page-objects/pages/coursePages/CRSSAddEditTopicPage');
+const CRSSCourseListPage = require('../page-objects/pages/coursePages/CRSSCourseListPage');
+const CRSSCourseTopicsPage = require('../page-objects/pages/coursePages/CRSSCourseTopicsPage');
+const courseTopicsPage = require('../page-objects/pages/coursePages/CRSSCourseTopicsPage');
 
 When(/^.* adds a new Topic with name '([^']*)'$/, async function (topicName) {
 	await courseTopicsPage.clickAddNewTopicBtn();
-	await addEditTopicPage.setTopic(topicName);
+	await addEditTopicPage.setTopicName(topicName);
 	await addEditTopicPage.clickCreateTopicButton();
 });
 
-Then(/^.* should see that created topic with name '([^']*)' is shown on the topic list$/, async function (topicName) {
-	await addEditTopicPage.isItTheFirstTopicAdded();
-	await addEditTopicPage.isTopicOnTopicList(topicName);
+When(/^.* adds a topic with name '([^']*)'$/, async function (topicname) {
+	await courseTopicsPage.clickAddNewTopicBtn();
+	await addEditTopicPage.setTopicName(topicname);
 });
 
-When(/^.* clicks on the topic with name '([^']*)'$/, function (topicName) {
+When(/^.* adds content Text with title '([^']*)' and description '([^']*)'$/, async function (
+	contentTitle,
+	description
+) {
+	await addEditTopicPage.addText(contentTitle, description);
+});
+
+When(/^.* adds content GeoGebraArbeitsblatt with id '([^']*)'$/, async function (geogebraID) {
+	await addEditTopicPage.addGeoGebra('GeoGebra', geogebraID);
+});
+
+When(/^.* adds content Material$/, function () {
+	return addEditTopicPage.addMaterial();
+});
+
+When(/^.* adds content Etherpad with name '([^']*)' and description '([^']*)'$/, async function (
+	etherpadName,
+	etherpadDescription
+) {
+	await addEditTopicPage.addEtherpad(etherpadName, etherpadDescription);
+});
+
+When(/^.* clicks Add-Content-'([^']*)' button$/, async function (contentName) {
+	await addEditTopicPage.clickAddContent(contentName);
+});
+
+When(/^.* clicks Save-changes$/, async function () {
+	await addEditTopicPage.clickSaveChanges();
+});
+
+Then(/^.* topic with name '([^']*)' is visible on the list$/, async function (topicName) {
+	await addEditTopicPage.isTopicOnTheList(topicName);
+});
+
+Then(/^.* is only one topic visible on the list$/, async function () {
+	await addEditTopicPage.isFirstTopicAdded();
+});
+
+Then(/^.* topic title is '([^']*)'$/, async function (topicName) {
+	return addEditTopicPage.isCorrectTopicTitle(topicName);
+});
+
+When(/^.* clicks on topic with name '([^']*)'$/, function (topicName) {
 	return addEditTopicPage.clickOnTopicWithName(topicName);
 });
 
-Then(/^.* should see that the topic with name '([^']*)' is visible on the topic page$/, async function (topicName) {
-	return addEditTopicPage.isTopicTitleVisible(topicName);
-});
-When(/^.* clicks on the pencil button in the line of the topic with name '([^']*)' to edit the topic$/, async function (topicName) {
+When(/^.* clicks on the pencil button in the line of the topic with name '([^']*)' to edit the topic$/, async function (
+	topicName
+) {
 	await addEditTopicPage.clickOnTopicEditPencilButton(topicName);
 });
+
 When(/^.* changes topic name '([^']*)'$/, async function (changedTopicName) {
-	await addEditTopicPage.setTopic(changedTopicName);
+	await addEditTopicPage.setTopicName(changedTopicName);
 });
-When(/^.* finds title '([^']*)' and changes title on '([^']*)' and text '([^']*)' of the topic$/, async function (contentTitle, changeContentTitle, changeDescription) {
-	await addEditTopicPage.setContentByTitle(contentTitle, changeContentTitle);
-	await addEditTopicPage.setDescription(changeDescription);
-	await addEditTopicPage.clickCreateTopicButton();
-});
-Then(/^.* should see changed topic with name '([^']*)' and content title '([^']*)' and description '([^']*)' is visible on the topic page$/,async function (changedTopicName, changedContentTitle, changedDescription) {
-	await addEditTopicPage.isTopicTitleVisible(changedTopicName);
-	await addEditTopicPage.isContentTopicTitleVisible(changedContentTitle);
-	await addEditTopicPage.isTopicDescriptionVisible(changedDescription);
 
+When(/^.* changes title of content from '([^']*)' to '([^']*)'$/, async function (contentTitle, changeContentTitle) {
+	await addEditTopicPage.setNewContentTitle(contentTitle, changeContentTitle);
 });
-Then(/^.* should see that edited topic with name '([^']*)' is shown on the topic list$/,async function (changedTopicName) {
-	await addEditTopicPage.isTopicOnTopicList(changedTopicName);
 
+When(/^.* changes description of content from '([^']*)' to '([^']*)'$/, async function (
+	contentDescription,
+	newContentDescription
+) {
+	await addEditTopicPage.setNewContentText(contentDescription, newContentDescription);
+});
+
+Then(/^.* content text title is '([^']*)'$/, async function (contentTitle) {
+	await addEditTopicPage.isContentWithTitleVisibleOnTheList(contentTitle);
+});
+
+Then(/^.* content text contains text '([^']*)'$/, async function (contentText) {
+	await addEditTopicPage.isContentDescriptionVisibleOnTheList(contentText);
+});
+
+Then(/^.* course with name '([^']*)' contains topic with name '([^']*)'$/, async function (coursename, topicname) {
+	await CRSSCourseListPage.goToCourses();
+	await CRSSCourseTopicsPage.isTopicInCourseInSection(
+		coursename,
+		topicname,
+		CRSSCourseListPage.section.activeCourses
+	);
 });

@@ -18,9 +18,9 @@ const memberBtn = '.btn-member';
 const importCourseBtn = '[data-testid="import-course-btn"]';
 const createCourseBtn = '[data-testid="create-course-btn"]';
 const listOfMembersSel = '#member-modal-body > ol > li';
-const topicNameContainer = '#topic-list .card-header .topic-label';
 const popupMembers = ".member-modal.in[role='dialog']";
-const closeMemberModalButton = '.close';
+const closeMemberModalBtn = ".member-modal button.close";
+
 
 const courseColour = {
 	grey: 'background:#ACACAC',
@@ -117,23 +117,22 @@ async function getCountOfDisplayedCoursesForSection(section) {
 	return numberOfDisplayedCourses;
 }
 
-async function getNamesOfMembers() {
+async function getListOfCourseMembers() {
 	await waitHelpers.waitUntilElementIsVisible(popupMembers);
 	await waitHelpers.waitUntilElementIsVisible(listOfMembersSel);
 	const listOfMembers = await driver.$$(listOfMembersSel);
 	return elementHelpers.getTextListFromListOfElements(listOfMembers);
 }
 
-async function areMembersOnTheListInCourseForSection(courseName, members, section) {
-	await clickPupilIconInCourseInSection(courseName, section);
-	let names = await getNamesOfMembers();
+async function areMembersOnTheListInCourseForSection(listOfStudentNames) {
+	let names = await getListOfCourseMembers();
 	const msg = "Members: '" + names + "' should be visible on the list. \n";
 	const resultMsg = 'Actual list of members: ' + names;
-	expect(names, msg + resultMsg).to.have.members(members);
+	expect(names, msg + resultMsg).to.have.members(listOfStudentNames);
 }
 
 async function closeMemberModal() {
-	await driver.keys(['Escape']);
+	await elementHelpers.clickAndWait(closeMemberModalBtn);
 }
 
 async function isCorrectNumberOfMembersInCourseForSection(courseName, membersList, section) {
@@ -236,21 +235,11 @@ async function studentLogsInAndGoesToTasksOfTheCourse(username, password, course
 	await goToTasksOfTheCourse(coursename, section);
 }
 
-async function isTopicInCourseInSection(courseName, topicName, section) {
-	await clickOnCourseInSection(courseName, section);
-	await waitHelpers.waitUntilElementIsVisible(topicNameContainer);
-	const listOfTopics = await driver.$$(topicNameContainer);
-	const listOfTopicNames = await elementHelpers.getTextListFromListOfElements(listOfTopics);
-	const msg = "Topic with name: '" + courseName + "' is not visible on list \n";
-	const resultMsg = 'Expected: ' + topicName + ', Actual: ' + listOfTopicNames;
-	expect(listOfTopicNames, msg + resultMsg).to.include(topicName);
-}
-
 async function isCountOfCourseMembers(courseName, expectedCountOfCourseMembers, section) {
 	const actualCountOfCourseMembers = await getCountOfMemebersInGivenCourseInSection(courseName, section);
 	const msg = 'Course with name: ' + courseName + ' has wrong members count. \n';
 	const resultMsg = 'Expected: ' + expectedCountOfCourseMembers + ', Actual: ' + actualCountOfCourseMembers;
-	expect(actualCountOfCourseMembers, msg + resultMsg).to.equal(expectedCountOfCourseMembers);
+	expect(actualCountOfCourseMembers, msg + resultMsg).to.equal(parseInt(expectedCountOfCourseMembers));
 }
 
 async function isCourseDescription(courseName, expectedDescription, section) {
@@ -328,7 +317,6 @@ module.exports = {
 	isCourseOnListInSection,
 	isCourseColour,
 	isCourseDescription,
-	isTopicInCourseInSection,
 	isCountOfCourseMembers,
 	isCorrectNumberOfDisplayedResults,
 	isCountOfDisplayedCoursesForSection,
