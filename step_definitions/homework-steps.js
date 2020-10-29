@@ -21,7 +21,7 @@ When(/^.* creates a private homework in course '([^']*)' with '([^']*)'$/, async
 	await addEditHomeworkPage.addHomework(coursename, taskname, true);
 });
 
-Then(/^.* will '([^']*)' this task with (.*)$/, async function (expectedValue, taskName) {
+Then(/^.* '([^']*)' homework with name '([^']*)'$/, async function (expectedValue, taskName) {
 	await homeworkListPage.goToPrivateHomeworkArea();
 	await homeworkListPage.isTaskVisible(expectedValue, taskName);
 });
@@ -97,17 +97,21 @@ Then(/^.* can upload a file as a solution$/, function () {
 		return homeworkPage.testFileUploadSuccess(taskName, file, student);
 	});
 })();
-Then(/^.* should see created private homework with name '([^']*)' and course name '([^']*)' and timeout$/, async function (homeworkName, courseName) {
-	await homeworkPage.isCourseNameOnPrivateHomeworkVisible(homeworkName,courseName);
+Then(/^.* see created private homework with name '([^']*)'$/, async function (homeworkName) {
 	await homeworkPage.isPrivateHomeworkNameVisible(homeworkName);
+});
+Then(/^.* see created private homework with name '([^']*)' and course name '([^']*)'$/, async function (homeworkName, courseName) {
+	await homeworkPage.isCourseNameOnPrivateHomeworkVisible(homeworkName, courseName);
+});
+Then(/^.* see created private homework with name '([^']*)' and timeout$/, async function (homeworkName) {
 	await homeworkPage.isTimeoutVisible(homeworkName);
 });
-When(/^.* should see '([^']*)' list$/, function (listName) {
+When(/^.* see '([^']*)' list on dashboard$/, function (listName) {
 	return homeworkPage.isPrivateTasksAndDraftsListVisible(listName);
 });
-Then(/^.* should not see number of completed homework on private homework with name '([^']*)'$/, async function (homeworkName) {
+Then(/^.* not see number of completed homework on homework with name '([^']*)'$/, async function (homeworkName) {
 	await homeworkPage.isNumberOfCompletedHomeworkNotVisible(homeworkName);
 });
-Then(/^.* should not see number of graded homework on private homework with name '([^']*)'$/, async function (homeworkName) {
+Then(/^.* not see number of graded on homework with name '([^']*)'$/, async function (homeworkName) {
 	await homeworkPage.isNumberOfGradedHomeworkNotVisible(homeworkName);
 });

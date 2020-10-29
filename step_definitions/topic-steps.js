@@ -38,5 +38,4 @@ Then(/^.* should see changed topic with name '([^']*)' and content title '([^']*
 });
 Then(/^.* should see that edited topic with name '([^']*)' is shown on the topic list$/,async function (changedTopicName) {
 	await addEditTopicPage.isTopicOnTopicList(changedTopicName);
-
 });
