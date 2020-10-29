@@ -10,7 +10,8 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 		And <userRole> accepts data protection
 		And <userRole> goes to courses page
 		And <userRole> chooses course with name '<courseName>'
-		And <userRole> adds a new Topic with name '<topicName>'
+		And <userRole> adds a topic with name '<topicName>'
+		And <userRole> clicks Save-changes
 		Then <userRole> should see that topic with name '<topicName>' is visible on the list
 		When <userRole> clicks on topic with name '<topicName>'
 		Then <userRole> should see that topic title is '<topicName>'
@@ -42,3 +43,22 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 		Examples:
 			| userRole | email                  | password     | courseName | topicName | contentTitle | contentText     | changedTopicName | newContentTitle | newContentText |
 			| teacher  | lehrer@schul-cloud.org | Schulcloud1! | Mathe      | Division  | Operations   | Math operations | Art              | Picasso         | Human of Art   |
+
+	@deleteTopic
+	Scenario Outline: User delete a topic
+		Given <userRole> logs in with email '<email>' and password '<password>'
+		And <userRole> accepts data protection
+		When <userRole> goes to courses page
+		And <userRole> chooses course with name '<courseName>'
+		And <userRole> adds a topic with name '<topicName>'
+		And <userRole> clicks Save-changes
+		Then <userRole> should see that created topic with name '<topicName>' is shown on the topic list
+		When <userRole> adds a topic with name '<secondTopicName>'
+		And <userRole> clicks Save-changes
+		Then <userRole> should see that created topic with name '<secondTopicName>' is shown on the topic list
+		When <userRole> clicks on Trashcan icon in topic with name '<topicName>'
+		And <userRole> clicks on Delete button
+		Then <userRole> should not see thet deleted topic with name'<topicName>' is not visible on the list
+		Examples:
+			| userRole | email                  | password     | courseName | topicName		 | secondTopicName	| contentText     | 
+			| teacher  | lehrer@schul-cloud.org | Schulcloud1! | Mathe      | Multiplication | Addition   		| Math operations |

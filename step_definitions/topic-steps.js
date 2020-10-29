@@ -3,12 +3,6 @@ const CRSSCourseListPage = require('../page-objects/pages/coursePages/CRSSCourse
 const CRSSCourseTopicsPage = require('../page-objects/pages/coursePages/CRSSCourseTopicsPage');
 const courseTopicsPage = require('../page-objects/pages/coursePages/CRSSCourseTopicsPage');
 
-When(/^.* adds a new Topic with name '([^']*)'$/, async function (topicName) {
-	await courseTopicsPage.clickAddNewTopicBtn();
-	await addEditTopicPage.setTopicName(topicName);
-	await addEditTopicPage.clickCreateTopicButton();
-});
-
 When(/^.* adds a topic with name '([^']*)'$/, async function (topicname) {
 	await courseTopicsPage.clickAddNewTopicBtn();
 	await addEditTopicPage.setTopicName(topicname);
