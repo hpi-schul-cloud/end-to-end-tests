@@ -12,7 +12,7 @@
 
 ## Installation
 
-First you need to setup and start a local version of Schulcloud & a database following this documentation: https://docs.schul-cloud.org/display/SCDOK/Setup
+First you need to setup and start a local version of Schulcloud & a database following this documentation: https://docs.hpi-schul-cloud.org/display/SCDOK/Setup
 This is the project against we run all the tests
 
 ```bash
@@ -50,7 +50,7 @@ npm run test -- -t @teacherLogin
 
 key | description
 ---|---
-IT_CLIENT_URL | URL where the [schulcloud-client](https://github.com/schul-cloud/schulcloud-client) is running.
+IT_CLIENT_URL | URL where the [schulcloud-client](https://github.com/hpi-schul-cloud/schulcloud-client) is running.
 
 #### Command Line Parameters
 

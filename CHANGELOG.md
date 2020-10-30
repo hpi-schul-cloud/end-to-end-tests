@@ -38,9 +38,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added in 23.5.0
 
-- Fix dependencies security vulnerabilities [SC-4534](https://github.com/schul-cloud/end-to-end-tests/pull/78)
-- Add timestamps to filenames [NA](https://github.com/schul-cloud/end-to-end-tests/pull/75)
-- Fix for failing test in @createSimpleHomework [NA](https://github.com/schul-cloud/end-to-end-tests/pull/72)
+- Fix dependencies security vulnerabilities [SC-4534](https://github.com/hpi-schul-cloud/end-to-end-tests/pull/78)
+- Add timestamps to filenames [NA](https://github.com/hpi-schul-cloud/end-to-end-tests/pull/75)
+- Fix for failing test in @createSimpleHomework [NA](https://github.com/hpi-schul-cloud/end-to-end-tests/pull/72)
 
 ## [23.2.0] - 2020-06-29
 

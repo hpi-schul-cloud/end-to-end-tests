@@ -15,8 +15,8 @@
 ## Links to Tickets or other pull requests
 <!--
 Base links to copy
-- https://github.com/schul-cloud/schulcloud-server/pull/????
-- https://ticketsystem.schul-cloud.org/browse/SC-????
+- https://github.com/hpi-schul-cloud/schulcloud-server/pull/????
+- https://ticketsystem.hpi-schul-cloud.org/browse/SC-????
 -->
 
 ## Changes
@@ -50,4 +50,4 @@ Base links to copy
 > Notice: Please remove the WIP label if the PR is ready to review, otherwise nobody will review it.
 
 ### Link to Definiton of Done
-More and detailed information on the *definition of done* can be found [on Confluence](https://docs.schul-cloud.org/pages/viewpage.action?pageId=92831762)
+More and detailed information on the *definition of done* can be found [on Confluence](https://docs.hpi-schul-cloud.org/pages/viewpage.action?pageId=92831762)
