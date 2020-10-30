@@ -20,11 +20,6 @@ const submissionContainer = '.table .usersubmission';
 const remoteFilePathInput = 'input[type=file][class=dz-hidden-input]';
 const commentBtn = "a#comment-tab-link.tab-link";
 const dashboardTitleListSel = '.dashboard-title';
-// const homeworkTimeout = 'span[data-testid="homework-due-date"]';
-// const homeworkNameSel = 'span[data-testid="homework-name"]';
-// const homeworkCompleted = 'span[data-testid="homework-submitted"]';
-// const homeworkGraded = 'span[data-testid="homework-graded"]';
-// const courseNameSel = 'span[data-testid="homework-course-name"]';
 
 const element = {
 	homeworkName: 'span[data-testid="homework-name"]',
@@ -188,12 +183,6 @@ async function isPrivateHomeworkNameVisible(homeworkName) {
 	return expect(homeworkNameList, msg + resultMsg).to.include(homeworkName);
 }
 
-async function isTimeoutVisible(homeworkName) {
-	const homeworkIndex = await getIndexOfHomeworkFromList(homeworkName);
-	const homeworkTimeoutElementList = await elementHelpers.getListOfAllElements(element.homeworkTimeout);
-	return waitHelpers.waitUntilElementIsPresent(homeworkTimeoutElementList[homeworkIndex]);
-}
-
 async function isElementOfHomeworkVisible(elementName, homeworkName, selector, expectedValue) {
 	const defaultString = `Element with name: ${elementName}`;
 	let elementOfHomework = true;
@@ -227,7 +216,6 @@ module.exports = {
 	isCourseNameOnPrivateHomeworkVisible,
 	isPrivateHomeworkNameVisible,
 	isElementOfHomeworkVisible,
-	isTimeoutVisible,
 	element,
 
 };
