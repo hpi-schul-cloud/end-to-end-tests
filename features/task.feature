@@ -81,33 +81,33 @@ Feature: create different types of task
         | course with a task for submission | Paula       | Meyer    | task       | paula.meyer@schul-cloud.org  | Schulcloud1! | Paula Meyer  | text of the task  | Schulcloud1!!      |
 
 
-    @gradeTaskWithFile
-    Scenario Outline: grade a task submission by uploading a file
-        When teacher creates a course '<coursename>' and adds student <studentname> to this course
-        And teacher clicks Create-a-new-task-button in the course '<coursename>'
-        And teacher puts taskname '<taskName>' into name field
-        And teacher puts taskBody '<taskBody>' into body field
-        And teacher clicks submit-task-button
-        And teacher logs out
-        And student logs in with email '<username>' and password '<password>'
-        And student with full age accepts student's data protection with password '<newPasswordStudent>'
-        And student goes to tasks page
-        And student clicks on task with name '<taskName>'
-        And student submits solution for the task
-        And student logs out 
-        When teacher logs in
-        And teacher goes to tasks page
-        And teacher clicks on task with name '<taskName>'
-        And the teacher uploads file feedback
+    #@gradeTaskWithFile
+    #Scenario Outline: grade a task submission by uploading a file
+        #When teacher creates a course '<coursename>' and adds student <studentname> to this course
+        #And teacher clicks Create-a-new-task-button in the course '<coursename>'
+        #And teacher puts taskname '<taskName>' into name field
+        #And teacher puts taskBody '<taskBody>' into body field
+        #And teacher clicks submit-task-button
+        #And teacher logs out
+        #And student logs in with email '<username>' and password '<password>'
+        #And student with full age accepts student's data protection with password '<newPasswordStudent>'
+        #And student goes to tasks page
+        #And student clicks on task with name '<taskName>'
+        #And student submits solution for the task
+        #And student logs out 
+        #When teacher logs in
+        #And teacher goes to tasks page
+        #And teacher clicks on task with name '<taskName>'
+        #And the teacher uploads file feedback
         #And teacher goes to evaluation tab
         #Then teacher can see the file evaluation
-        And teacher logs out
-        And student logs in with email '<username>' and password '<newPasswordStudent>'
-        And student goes to tasks page
-        And student clicks on task with name '<taskName>'
-        And student goes to task evaluation
+        #And teacher logs out
+        #And student logs in with email '<username>' and password '<newPasswordStudent>'
+        #And student goes to tasks page
+        #And student clicks on task with name '<taskName>'
+        #And student goes to task evaluation
         #Then student should see that file evaluation is visible
 
-        Examples:
-            | username                    | password     | newPasswordStudent | taskName              | studentname | coursename            |taskBody          |
-            | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!      | task with file upload | Paula Meyer | course with file task |text of the task  |
+        #Examples:
+            #| username                    | password     | newPasswordStudent | taskName              | studentname | coursename            |taskBody          |
+            #| paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!      | task with file upload | Paula Meyer | course with file task |text of the task  |
