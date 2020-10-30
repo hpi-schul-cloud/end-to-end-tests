@@ -33,8 +33,8 @@ fetch(){
 	git clone https://github.com/hpi-schul-cloud/docker-compose.git docker-compose
 	switchBranch "docker-compose"
 
-	git clone https://github.com/hpi-schul-cloud/integration-tests.git integration-tests
-	switchBranch "integration-tests"
+	git clone https://github.com/hpi-schul-cloud/end-to-end-tests.git end-to-end-tests
+	switchBranch "end-to-end-tests"
 
 	git clone https://github.com/hpi-schul-cloud/node-notification-service.git node-notification-service
 	switchBranch "node-notification-service"
@@ -43,16 +43,16 @@ fetch(){
 install(){
 	cd docker-compose
 	echo "BUILD CONTAINERS..."
-	docker-compose -f docker-compose.integration-test.yml build
+	docker-compose -f docker-compose.end-to-end-tests.yml build
 	echo "BUILD CONTAINERS DONE"
 	echo "BOOT CONTAINERS..."
-	docker-compose -f docker-compose.integration-test.yml up -d
+	docker-compose -f docker-compose.end-to-end-tests.yml up -d
 	echo "BOOT CONTAINERS DONE"
 	cd ..
 
 	echo "INSTALL DEPENDNECIES..."
 	cd schulcloud-server && npm ci && cd ..
-	cd integration-tests && npm ci && cd ..
+	cd end-to-end-tests && npm ci && cd ..
 	echo "INSTALL DEPENDNECIES DONE"
 }
 
@@ -66,7 +66,7 @@ before(){
 }
 
 main(){
-	cd integration-tests
+	cd end-to-end-tests
 	npm run test
 	cd ..
 }

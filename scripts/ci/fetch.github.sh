@@ -3,19 +3,19 @@
 ########################################
 # USAGE:
 #
-# name: Integration Tests
+# name: end-to-end-tests
 # on: [push]
 # jobs:
-#   integration-tests:
+#   end-to-end-tests:
 #     runs-on: ubuntu-latest
 #     steps:
 #       - name: execute tests
-#         run: curl "https://raw.githubusercontent.com/hpi-schul-cloud/integration-tests/develop/scripts/ci/fetch.github.sh" | bash
+#         run: curl "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/develop/scripts/ci/fetch.github.sh" | bash
 #       - uses: actions/upload-artifact@v1
 #         if: always()
 #         with:
 #           name: report
-#           path: integration-tests/reports
+#           path: end-to-end-tests/reports
 #
 ########################################
 
@@ -36,19 +36,19 @@ echo "BRANCH: $BRANCH_NAME"
 
 # fetch default (develop) script
 echo "try fetching script from default branch"
-curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/integration-tests/develop/scripts/ci/integration-test.github.sh" || true
+curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/develop/scripts/ci/end-to-end-tests.github.sh" || true
 
 # use master as default for releases & hotfixes
 if [[ $BRANCH_NAME = release* || $BRANCH_NAME = hotfix* ]];
 then
 	echo "try fetching script from master branch"
-	curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/integration-tests/master/scripts/ci/integration-test.github.sh" || true
+	curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/master/scripts/ci/end-to-end-tests.github.sh" || true
 fi
 # use branch specific script if available
 echo "try fetching script from $BRANCH_NAME branch"
-curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/integration-tests/$BRANCH_NAME/scripts/ci/integration-test.github.sh" || true
+curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/$BRANCH_NAME/scripts/ci/end-to-end-tests.github.sh" || true
 
 ls -a
-chmod 700 integration-test.github.sh
-bash integration-test.github.sh
+chmod 700 end-to-end-tests.github.sh
+bash end-to-end-tests.github.sh
 set +e
