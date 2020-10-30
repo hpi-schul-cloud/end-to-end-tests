@@ -297,7 +297,7 @@ new Promise(async function(resolve, reject) {
 			}
 		});
 	} catch (err) {
-		console.log('cucumber integration has failed ' + err.message);
+		console.log('cucumber end-to-end-tests failed ' + err.message);
 		await reject(err);
 		throw err;
 	}
