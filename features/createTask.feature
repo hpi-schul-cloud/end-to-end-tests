@@ -17,4 +17,4 @@ Feature: Creating a task as a teacher
 
 	Examples:
 	| teacherEmail            | teacherPassword      | taskName                | taskBody |
-	| lehrer@schul-cloud.org  | Schulcloud1!         | IntegrationTestAufgabe  | MyBody   |
+	| lehrer@schul-cloud.org  | Schulcloud1!         | end-to-end-task  | MyBody   |
