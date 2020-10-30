@@ -40,7 +40,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - Fix dependencies security vulnerabilities [SC-4534](https://github.com/schul-cloud/end-to-end-tests/pull/78)
 - Add timestamps to filenames [NA](https://github.com/schul-cloud/end-to-end-tests/pull/75)
-- Fix for failing test in @createSimpleHomework [NA](https://github.com/schul-cloud/end-to-end-testss/pull/72)
+- Fix for failing test in @createSimpleHomework [NA](https://github.com/schul-cloud/end-to-end-tests/pull/72)
 
 ## [23.2.0] - 2020-06-29
 
