@@ -33,11 +33,11 @@ async function studentEditsTextHomeworkAndSubmits() {
 }
 
 async function clickOpenTeacherSubmissionsTab() {
-	await elementHelpers.click(teacherSubmissionsTab);
+	await elementHelpers.clickAndWait(teacherSubmissionsTab);
 }
 
 async function clickStudentSubmissionTab() {
-	await elementHelpers.click(studentSubmissionTab);
+	await elementHelpers.clickAndWait(studentSubmissionTab);
 }
 
 // teacher helpers
@@ -73,9 +73,11 @@ async function clickEvaluationTab() {
 
 async function clickOnFirstSubmission() {
 	await elementHelpers.clickAndWait(submissionContainer);
+	await waitHelpers.waitUntilPageLoads(1500);
 }
 
 async function clickCommentBtn() {
+	await waitHelpers.waitUntilElementIsClickable(commentBtn);
 	await elementHelpers.clickAndWait(commentBtn);
 }
 async function clickTasksTab () {
@@ -94,6 +96,7 @@ async function submitFileFeedback(file) {
 	const remoteFilePath = await driver.uploadFile(file.path);
 	await waitHelpers.waitAndSetValue(remoteFilePathInput, remoteFilePath);
 	await waitHelpers.waitUntilElementIsVisible(activeSubmissions);
+	await waitHelpers.waitUntilPageLoads(1500);
 }
 
 async function checkFileEvaluationStudent (file) {
@@ -114,7 +117,7 @@ async function checkFileEvaluationTeacher (file) {
 	await elementHelpers.clickAndWait(`a*=${file.name}`);
 	fileUrl = await getCurrentTabUrl();
 	await driver.switchToWindow(mainWindow);
-
+	await waitHelpers.waitUntilPageLoads(1500);
 }
 
 async function isFileVisible(file) {
