@@ -78,6 +78,7 @@ async function clickNavItemHelpAdvancedTraining () {
 
 async function clickInitials () {
     await waitHelpers.waitUntilPageLoads(1500);
+    await waitHelpers.waitUntilElementIsPresent(initialsDiv);
     await elementHelpers.clickAndWait(initialsDiv);
 }
 
