@@ -99,8 +99,8 @@ Feature: create different types of task
         And teacher goes to tasks page
         And teacher clicks on task with name '<taskName>'
         And the teacher uploads file feedback
-        And teacher goes to evaluation tab
-        Then teacher can see the file evaluation
+        #And teacher goes to evaluation tab
+        #Then teacher can see the file evaluation
         And teacher logs out
         And student logs in with email '<username>' and password '<newPasswordStudent>'
         And student goes to tasks page
