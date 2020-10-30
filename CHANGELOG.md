@@ -10,7 +10,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Changed
 
-- rename repository
+- IMP-160 rename repository
 
 ## 25.0.1 - 2020-09-30
 
