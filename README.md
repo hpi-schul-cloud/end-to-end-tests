@@ -24,7 +24,7 @@ The following directory structure is also required:
 
 ```
 .
-├── integration-tests (this repo)
+├── end-to-end-tests (this repo)
 │   └── ...
 └── schulcloud-server (must be named exactly like that!)
     └── ...

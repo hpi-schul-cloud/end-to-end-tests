@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
+## Unpublished
+
+## Changed
+
+- rename repository
+
 ## 25.0.1 - 2020-09-30
 
 ### Changed
@@ -32,9 +38,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added in 23.5.0
 
-- Fix dependencies security vulnerabilities [SC-4534](https://github.com/schul-cloud/integration-tests/pull/78)
-- Add timestamps to filenames [NA](https://github.com/schul-cloud/integration-tests/pull/75)
-- Fix for failing test in @createSimpleHomework [NA](https://github.com/schul-cloud/integration-tests/pull/72)
+- Fix dependencies security vulnerabilities [SC-4534](https://github.com/schul-cloud/end-to-end-tests/pull/78)
+- Add timestamps to filenames [NA](https://github.com/schul-cloud/end-to-end-tests/pull/75)
+- Fix for failing test in @createSimpleHomework [NA](https://github.com/schul-cloud/end-to-end-testss/pull/72)
 
 ## [23.2.0] - 2020-06-29
 

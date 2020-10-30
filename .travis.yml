@@ -17,7 +17,7 @@ jobs:
       script:
         - echo $TRAVIS_BRANCH
         - echo $TRAVIS_TAG
-        - curl "https://raw.githubusercontent.com/hpi-schul-cloud/integration-tests/master/scripts/ci/fetch.travis.sh" | bash
+        - curl "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/master/scripts/ci/fetch.travis.sh" | bash
       name: "test:integration"
       env:
         - IT_CLIENT_HOST=nuxtclient
