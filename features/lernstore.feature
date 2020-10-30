@@ -1,5 +1,5 @@
 @lernstore
-#comment
+
 Feature: different actions in lernstore
 Background: a teacher logs in and creates a course
 Given teacher arrives on the Schul-Cloud homepage
@@ -25,3 +25,5 @@ Examples:
     | coursename          | topicName             | lerstoreTopicName | content |
     | courseWithLernstore | Topic with Lernstore  | LernstoreTest     | Mathe   |
 
+#add one more testcase accessing lernstore as the first step
+# add test case clicking add btn
