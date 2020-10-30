@@ -91,6 +91,7 @@ async function clickLogout () {
 }
 
 async function performLogout () {
+    await waitHelpers.waitUntilPageLoads(2000);
     await clickInitials();
     await clickLogout();
 }
