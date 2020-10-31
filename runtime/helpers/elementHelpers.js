@@ -180,6 +180,17 @@ async function isOptionSelected(selectSelector, text) {
 	return listOfSelectedOption.includes(text);
 }
 
+/**
+ * Use this method to set text of inputfields
+ * textBox defines the input field
+ * text defines the input itself
+ */
+async function clearAndSetValue(selectorOrElement, value) {
+	await waitHelpers.waitUntilElementIsVisible(selectorOrElement);
+	const element = await waitHelpers.waitUntilElementIsEnabled(selectorOrElement);
+	await element.setValue(value);
+}
+
 module.exports = {
 	click,
 	clickAndWait,
@@ -203,4 +214,5 @@ module.exports = {
 	isElementClickable,
 	isUrlContaining,
 	isOptionSelected,
+	clearAndSetValue,
 };
