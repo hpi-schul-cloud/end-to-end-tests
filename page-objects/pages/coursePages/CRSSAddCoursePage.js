@@ -110,7 +110,7 @@ function getSectionSelector(sectionNumber) {
  * if studentName is set a student is added
  */
 
-async function createCourse(courseName, studentName = 'default') {
+async function createCourseWithStudent(courseName, studentName = 'default') {
 	await goToAddCourses();
 	await setCourseName(courseName);
 	await setCurrentUserAsTeacher();
@@ -121,6 +121,17 @@ async function createCourse(courseName, studentName = 'default') {
 	await goToNextSection();
 	await clickGoToCourseListBtn();
 }
+
+async function createCourse (courseName) {
+	await goToAddCourses();
+	await setCourseName(courseName);
+	await setCurrentUserAsTeacher();
+	await goToNextSection();
+	await goToNextSection();
+	await clickGoToCourseListBtn();
+}
+
+
 
 //Course data section
 async function isCourseNameNotSet() {
@@ -226,6 +237,8 @@ module.exports = {
 	setTeacher,
 	setCurrentUserAsTeacher,
 	setColour,
-	createCourse,
+	createCourseWithStudent,
+	setStudent,
+	createCourse
 };
 

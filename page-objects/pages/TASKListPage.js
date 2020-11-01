@@ -2,21 +2,18 @@
 "use strict"
 
 const waitHelpers = require("../../runtime/helpers/waitHelpers")
-const navigationLeftPage = require("../../page-objects/pages/NavigationLeftPage.js")
+const navigationLeftPage = require("./NavigationLeftPage.js")
 const elementHelpers=require('../../runtime/helpers/elementHelpers');
-
-
-const createTaskButton = "a[href='/homework/new']"
-const editTaskButton = ".btn-edit"
-const sortBtn = "#filter > div > div.md-chip.md-theme-default.md-deletable.md-clickable > div"
-const select = "#selection-picker > div > div"
+const selectorCreateTaskButton = '.btn.btn-primary.btn-add.create';
+const selectorCreateTaskBtnInTheCourse = '.col-sm-12.add-button > a';
+const selectorSortBtn = '#filter .md-clickable > div';
+const select = '#selection-picker > div > div'
 const lastedited =
-    "body > div.md-select-menu.md-menu-content-bottom-start.md-menu-content-small.md-menu-content.md-theme-default > div > ul > li:nth-child(2) > button"
-const submitBtn = ".md-button.md-primary.md-theme-default > div > div"
-const pageTitleSelector = "#page-title"
-const taskElement = ".col-xl-12"
-const taskTitleContainer = ".assignment.card .title"
-const taskDescriptionContainer = ".assignment .text-muted.ckcontent"
+    'body > div.md-select-menu.md-menu-content-bottom-start.md-menu-content-small.md-menu-content.md-theme-default > div > ul > li:nth-child(2) > button';
+const submitBtn = '.md-button.md-primary.md-theme-default > div > div';
+const taskElement = '.col-xl-12';
+const taskTitleContainer = '.assignment.card .title';
+const taskDescriptionContainer = '.assignment .text-muted.ckcontent'
 const taskContainer = '.homework li.card';
 
 const taskButton = {
@@ -55,18 +52,18 @@ function getTaskActionBtnSelector(buttonAction) {
                 break;
         }
         return btnSel;
-};
-
-async function goToHomeworkListPage () {
-    await navigationLeftPage.clickNavItemTasks();
 }
 
 async function clickCreateTaskButton () {
-    await elementHelpers.clickAndWait(createTaskButton)
+    await elementHelpers.clickAndWait(selectorCreateTaskButton)
 }
 
-async function sortHometasks () {
-    await elementHelpers.click(sortBtn)
+async function clickCreateTaskButtonInTheCourse () {
+    await elementHelpers.clickAndWait(selectorCreateTaskBtnInTheCourse)
+}
+
+async function sortHometasksLastEdited () {
+    await elementHelpers.click(selectorSortBtn)
     await elementHelpers.click(select)
     await elementHelpers.click(lastedited)
     await elementHelpers.clickAndWait(submitBtn)
@@ -101,17 +98,6 @@ async function clickOnTask(taskName, button) {
 	await elementHelpers.clickAndWait(actionButton);
 }
 
-async function goToHomeworkListAndCheckTaskIfExist (taskname) {
-    await goToHomeworkListPage()
-    await sortHometasks()
-    await clickOnTask(taskname, "Task open")
-    let pageTitle = await waitHelpers.waitUntilElementIsPresent(pageTitleSelector)
-    let courseAndTaskName = await pageTitle.getText()
-    let tasknameArray = await courseAndTaskName.split("- ")
-    let foundtaskName = tasknameArray[1]
-    await expect(taskname).to.equal(foundtaskName)
-}
-
 async function isTaskVisible(taskname, expectedValue) {
 	const allTasks = await getListOfTaskTitles();
     const isTaskOnList = allTasks.some((element) => element.includes(taskname));
@@ -124,26 +110,63 @@ async function isTaskVisible(taskname, expectedValue) {
 		: await expect(isTaskOnList, msg + resultMsg).to.equal(false);
 }
 
-async function getDescription(){
+async function getTaskDescription(){
     await waitHelpers.waitUntilAjaxIsFinished();
     const descriptionList = await elementHelpers.getTextFromAllElements(taskDescriptionContainer);
     return descriptionList;
 }
 
-async function goToPrivateHomeworkArea () {
+async function goToPrivateTasksArea () {
     await navigationLeftPage.clickNavItemTasks()
     await navigationLeftPage.clickNavItemTasksPrivate()
 }
 
+async function isTaskNotVisible (taskname) {
+        const allTasks = await this.getListOfTaskTitles();
+        const isTaskOnList = allTasks.some((element) => element.includes(taskname));
+        const msg = 'Task with name is not visible on the list: \n';
+        const resultMsg = 'Expected: ' + taskname + ', Actual: ' + allTasks;
+        await expect(isTaskOnList, msg + resultMsg).to.equal(false);
+}
+
+async function clickOnTaskFromList (taskname) {
+        let areThereAnyTasks = await driver.$$(tasksContainer)
+        await expect(areThereAnyTasks.length).not.to.equal(0)
+        for (var i = 1; i <= areThereAnyTasks.length; i++) {
+            let taskSelector = await driver.$("#homeworks > ol > div > li:nth-child(" + i + ") .h5.title")
+            let tasknameOnPage = await taskSelector.getText()
+            if (tasknameOnPage == taskname) {
+                await elementHelpers.clickAndWait(taskSelector)
+            }
+        }
+ }
+
+ async function getTaskNames () {
+    const tasksArray = await driver.$$(taskElement + " > li");
+    const container = await driver.$(taskElement);
+    const namesArray = [];
+    for (let i = 1; i <= tasksArray.length; i++) {
+        const task = await container.$("li:nth-child(" + i + ") h2");
+        const courseAndTaskName = (await task.getText());
+        const tasknameArray = await courseAndTaskName.split("- ")
+        const foundtaskName = tasknameArray[1]
+        namesArray.push(foundtaskName);
+    }
+    return namesArray;
+}
+
 module.exports = {
-    goToHomeworkListPage,
     clickCreateTaskButton,
-    sortHometasks,
-    getTaskIndex,
-    clickOnTask,
-    goToHomeworkListAndCheckTaskIfExist,
+    sortHometasks: sortHometasksLastEdited,
     getListOfTaskTitles,
+    getListOfTask,
+    clickOnTask,
     isTaskVisible,
-    getDescription,
-    goToPrivateHomeworkArea,
+    goToPrivateHomeworkArea: goToPrivateTasksArea,
+    isTaskNotVisible,
+    clickOnTaskFromList,
+    getTaskNames,
+    getTaskDescription,
+    clickCreateTaskButtonInTheCourse
+
 }

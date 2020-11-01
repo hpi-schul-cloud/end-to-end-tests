@@ -77,11 +77,13 @@ async function clickNavItemHelpAdvancedTraining () {
 }
 
 async function clickInitials () {
-    await elementHelpers.click(initialsDiv);
+    await waitHelpers.waitUntilPageLoads(1500);
+    await waitHelpers.waitUntilElementIsPresent(initialsDiv);
+    await elementHelpers.clickAndWait(initialsDiv);
 }
 
 async function clickSettings () {
-    await elementHelpers.click(initialsDDSettings);
+    await elementHelpers.clickAndWait(initialsDDSettings);
 }
 
 async function clickLogout () {
@@ -89,6 +91,7 @@ async function clickLogout () {
 }
 
 async function performLogout () {
+    await waitHelpers.waitUntilPageLoads(2000);
     await clickInitials();
     await clickLogout();
 }

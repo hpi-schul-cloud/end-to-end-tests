@@ -9,7 +9,7 @@ When(/^.* creates course with name '([^']*)'$/, function (coursename) {
 });
 
 When(/^.* creates course with name '([^']*)' and student '([^']*)'$/, function (coursename, studentNameList) {
-	return addCoursePage.createCourse(coursename, studentNameList);
+	return addCoursePage.createCourseWithStudent(coursename, studentNameList);
 });
 
 When(/^.* goes to courses page$/, function () {

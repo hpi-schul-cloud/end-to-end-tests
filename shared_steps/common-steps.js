@@ -65,6 +65,11 @@ Then(/^login must be successful$/, function () {
 	return navigationTopPage.areUserInitialsCorrect();
 });
 
+/*Courses*/
+When(/^teacher creates a course '(.*)' and adds student (.*)to this course$/, async function (courseName, studentName) {
+	return createCourse.createCourseWithStudent(courseName, studentName);
+});
+
 /*NavigationTopPage*/
 When(/^.* goes to initials$/, async function () {
 	await navigationTopPage.clickInitials();
