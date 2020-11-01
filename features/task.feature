@@ -28,7 +28,7 @@ Feature: create different types of task
 
     @createPrivateTaskInTheCourse
     Scenario Outline: create a private hometask has to be visible only for the teacher
-        When teacher creates a course '<coursename>' and adds student <studentname> to this course
+        When teacher creates course with name '<courseName>' and student '<studentName>'
         And teacher clicks Create-a-new-task-button in the course '<coursename>'
         And teacher puts taskname '<taskName>' into name field
         And teacher sets accomplish time for the task
@@ -50,8 +50,8 @@ Feature: create different types of task
 
     @submitTextTask
     Scenario Outline: pupil submits a task and teacher evaluates it
-        Given teacher creates a course '<coursename>' and adds student <studentname> to this course
-        Given teacher clicks Create-a-new-task-button in the course '<coursename>'
+        Given teacher creates course with name '<courseName>' and student '<studentName>'
+        Given teacher clicks Create-a-new-task-button in the course '<courseName>'
         And teacher puts taskname '<taskName>' into name field
         And teacher sets accomplish time for the task
         And teacher puts taskBody '<taskBody>' into body field
@@ -77,13 +77,13 @@ Feature: create different types of task
 
 
         Examples:
-        | coursename                        | firstname   | lastname | taskName   | username                     | password     | studentname  | taskBody          | newStudentPassword |
+        | courseName                        | firstname   | lastname | taskName   | username                     | password     | studentName  | taskBody          | newStudentPassword |
         | course with a task for submission | Paula       | Meyer    | task       | paula.meyer@schul-cloud.org  | Schulcloud1! | Paula Meyer  | text of the task  | Schulcloud1!!      |
 
 
     #@gradeTaskWithFile
     #Scenario Outline: grade a task submission by uploading a file
-        #When teacher creates a course '<coursename>' and adds student <studentname> to this course
+        #When teacher creates course with name '<courseName>' and student '<studentName>'
         #And teacher clicks Create-a-new-task-button in the course '<coursename>'
         #And teacher puts taskname '<taskName>' into name field
         #And teacher puts taskBody '<taskBody>' into body field
