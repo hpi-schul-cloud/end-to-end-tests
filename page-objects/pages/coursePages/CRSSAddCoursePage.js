@@ -134,7 +134,7 @@ async function createCourse (courseName) {
 
 
 //Course data section
-async function isCourseNameNotEntered() {
+async function isCourseNameNotSet() {
 	await isDefaultInputValue(courseNameInput, courseDefaultInputValue);
 }
 
@@ -225,7 +225,7 @@ module.exports = {
 	clickGoToCourseListBtn,
 	isSectionDisplayed,
 	isSectionNotDisplayed,
-	isCourseNameNotEntered,
+	isCourseNameNotSet,
 	isTeachersNameSetByDefault,
 	isTeacherSubstituteNotSet,
 	isTimeSpanSet,
