@@ -5,7 +5,7 @@ Feature:checkLeftNavigation
 	Scenario Outline: The user logs in as a teacher and clicks the left menu items he should have access to
 		When teacher arrives on the Schul-Cloud homepage
 		When teacher logs in with email '<teacherUsername>' and password '<password>'
-		When teacher accepts data protection
+		When teacher performs first login actions: data protection acceptance
 		Then click left navigation item 'logo'
 		Then click left navigation item 'dashboard'
 		Then click left navigation item 'courses'
@@ -40,7 +40,7 @@ Feature:checkLeftNavigation
 	Scenario Outline: The user logs in as a student and clicks the left menu items he should have access to
 		When student arrives on the Schul-Cloud homepage
 		And student logs in with email '<studentUsername>' and password '<password>'
-        And student with full age accepts student's data protection with password '<password>'
+		And student performs first login actions: data protection acceptance, password change '<password>'
 		Then click left navigation item 'logo'
 		Then click left navigation item 'dashboard'
 		Then click left navigation item 'courses'
@@ -71,7 +71,7 @@ Feature:checkLeftNavigation
 	Scenario Outline: The user logs in as an admin and clicks the left menu items he should have access to
 		When admin arrives on the Schul-Cloud homepage
 		When admin logs in with email '<adminUsername>' and password '<password>'
-		When admin accepts data protection
+		When admin performs first login actions: data protection acceptance
 		Then click left navigation item 'logo'
 		Then click left navigation item 'dashboard'
 		Then click left navigation item 'courses'
