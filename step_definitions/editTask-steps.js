@@ -1,18 +1,18 @@
 'use strict';
 
 const navigationLeftPage = require('../page-objects/pages/NavigationLeftPage.js');
-const homeworkListPage = require('../page-objects/pages/HMWRKHomeworkListPage.js');
-const editHomeworkPage = require('../page-objects/pages/HMWRKAddEditHomeworkPage.js');
+const tasksListPage = require('../page-objects/pages/TASKListPage.js');
+const editHomeworkPage = require('../page-objects/pages/TASKAddEditTaskPage.js');
 
-Then(/^.* should click '(.*)' button for task with name '(.*)'$/, async function (button, taskname) {
-	await homeworkListPage.clickOnTask(taskname, button)
+Then(/^.* should click '([^']*)' button for task with name '([^']*)'$/, async function (button, taskname) {
+	await tasksListPage.clickOnTask(taskname, button)
 });
 
-Then(/^.* should change the taskname to (.*) in the name field$/, async function (taskname) {
+Then(/^.* should change the taskname to '([^']*)' in the name field$/, async function (taskname) {
 	await editHomeworkPage.setHomeworkName(taskname);
 });
 
-Then(/^.* should change the taskbody to (.*) in the taskbody field$/, async function (taskbody) {
+Then(/^.* should change the taskbody to '([^']*)' in the taskbody field$/, async function (taskbody) {
 	await editHomeworkPage.setHomeworkText(taskbody);
 });
 
@@ -44,11 +44,11 @@ Then(/^.* goes to the tasks page$/, async function () {
 	await navigationLeftPage.clickNavItemTasks();
 });
 
-Then(/^.* checks if the new taskname is (.*)$/, async function (taskname) {
-	await homeworkListPage.isTaskVisible(taskname, true);
+Then(/^.* checks if the new taskname is '([^']*)'$/, async function (taskname) {
+	await tasksListPage.isTaskVisible(taskname, true);
 });
 
-Then(/^.* checks if the new taskbody is (.*)$/, async function (taskbody) {
-	let descriptions = await homeworkListPage.getDescription();
+Then(/^.* checks if the new taskbody is '([^']*)'$/, async function (taskbody) {
+	let descriptions = await tasksListPage.getTaskDescription();
 	await expect(descriptions.some((x) => x.includes(taskbody))).to.be.true;
 });

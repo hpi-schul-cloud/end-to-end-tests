@@ -8,19 +8,19 @@ echo "BRANCH: $BRANCH_NAME"
 
 # fetch default (develop) script
 echo "try fetching script from default branch"
-curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/integration-tests/develop/scripts/ci/integration-test.travis.sh" || true
+curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/develop/scripts/ci/end-to-end-tests.travis.sh" || true
 
 # use master as default for releases & hotfixes
 if [[ $BRANCH_NAME = release* || $BRANCH_NAME = hotfix* ]];
 then
 	echo "try fetching script from master branch"
-	curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/integration-tests/master/scripts/ci/integration-test.travis.sh" || true
+	curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/master/scripts/ci/end-to-end-tests.travis.sh" || true
 fi
 # use branch specific script if available
 echo "try fetching script from $BRANCH_NAME branch"
-curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/integration-tests/$BRANCH_NAME/scripts/ci/integration-test.travis.sh" || true
+curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/$BRANCH_NAME/scripts/ci/end-to-end-tests.travis.sh" || true
 
 ls -a
-chmod 700 integration-test.travis.sh
-bash integration-test.travis.sh
+chmod 700 end-to-end-tests.travis.sh
+bash end-to-end-tests.travis.sh
 set +e

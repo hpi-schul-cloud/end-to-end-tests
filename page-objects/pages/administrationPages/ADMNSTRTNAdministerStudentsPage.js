@@ -16,7 +16,8 @@ const tableOfStudents = "tbody[data-testid='students_names_container']";
 const consentSubmitBtn = "button[data-testid='submit_consent']";
 const addStudentSubmitBtn = 'div.modal.fade.add-modal.in button.btn-submit';
 const passwordInput = '#passwd';
-const birthday = '#birthday';
+const createBirthday = '#birthday';
+const sendConsentFormEmails = '.btn-send-links-emails';
 
 //
 async function clickAddStudentBtn() {
@@ -40,6 +41,10 @@ async function clickOnSendRegistrationLinkCheckbox() {
 	await elementHelpers.click(sendRegistrationLinkCheckbox);
 }
 
+async function clickSendConsentFormEmailsButton() {
+	await elementHelpers.click(sendConsentFormEmails);
+}
+
 async function submitStudentAddition() {
 	await elementHelpers.clickAndWait(addStudentSubmitBtn);
 }
@@ -54,8 +59,7 @@ async function createNewPupil(firstname, lastname, email) {
 	await submitStudentAddition();
 }
 async function setStudentsBirthday(birthdayDate) {
-	await waitHelpers.waitUntilPageLoads();
-  await waitHelpers.waitUntilElementIsPresent(birthday);
+	await waitHelpers.waitUntilElementIsClickable(createBirthday);
 	await driver.execute('document.querySelector("#birthday").value = "' + birthdayDate + '"'); //date format dd.mm.yyyy
 }
 
@@ -74,7 +78,7 @@ async function isStudentEmailOnTheList(email) {
 	await expect(emails).to.contain(email);
 }
 async function submitConsent(e_mail) {
-    await waitHelpers.waitUntilElementIsVisible(tableOfStudents);
+	await waitHelpers.waitUntilElementIsVisible(tableOfStudents);
 	let names = await driver.$$(tableOfStudents + ' > tr');
 	for (var i = 1; i <= names.length; i++) {
 		let emailPromise = await driver.$(tableOfStudents + ' > tr:nth-child(' + i + ') > td:nth-child(3)');
@@ -96,6 +100,7 @@ async function studentLogsInWithDefaultPassword(email) {
 }
 
 module.exports = {
+	clickSendConsentFormEmailsButton,
 	createNewPupil,
 	isStudentEmailOnTheList,
 	submitConsent,

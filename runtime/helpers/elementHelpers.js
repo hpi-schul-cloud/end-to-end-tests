@@ -8,8 +8,6 @@ const LOAD_PAGE_TIMEOUT = 10000;
 async function click(selectorOrElement) {
 	const element = await waitHelpers.waitUntilElementIsClickable(selectorOrElement);
 	await element.click();
-	//waitUntilPageLoads(); is temporary:
-	await waitHelpers.waitUntilPageLoads();
 }
 
 //This method should be used when we wait for element, click and wait page for reload
@@ -43,9 +41,9 @@ async function getSelectOptions(selectSelector) {
 async function selectOptionByText(selectSelector, text) {
 	const element = await waitHelpers.waitUntilElementIsVisible(selectSelector);
 	if (!(await isOptionSelected(selectSelector, text))) {
-	await driver.keys('Control');
-	await element.selectByVisibleText(text.trim());
-	await driver.keys('Control');
+		await driver.keys('Control');
+		await element.selectByVisibleText(text.trim());
+		await driver.keys('Control');
 	}
 }
 
@@ -155,8 +153,8 @@ async function getValueListFromListOfElements(listOfElements) {
 
 async function getListOfSelectedOption(selectSelector) {
 	await waitHelpers.waitUntilElementIsVisible(selectSelector);
-    const listOfSelectedOptions = await driver.$$(selectSelector + " option[selected='']");
-    return getTextListFromListOfElements(listOfSelectedOptions);
+	const listOfSelectedOptions = await driver.$$(selectSelector + " option[selected='']");
+	return getTextListFromListOfElements(listOfSelectedOptions);
 }
 
 async function getTextFromAllElements(selector) {
@@ -182,6 +180,17 @@ async function isOptionSelected(selectSelector, text) {
 	return listOfSelectedOption.includes(text);
 }
 
+/**
+ * Use this method to set text of inputfields
+ * textBox defines the input field
+ * text defines the input itself
+ */
+async function clearAndSetValue(selectorOrElement, value) {
+	await waitHelpers.waitUntilElementIsVisible(selectorOrElement);
+	const element = await waitHelpers.waitUntilElementIsEnabled(selectorOrElement);
+	await element.setValue(value);
+}
+
 module.exports = {
 	click,
 	clickAndWait,
@@ -205,4 +214,5 @@ module.exports = {
 	isElementClickable,
 	isUrlContaining,
 	isOptionSelected,
+	clearAndSetValue,
 };
