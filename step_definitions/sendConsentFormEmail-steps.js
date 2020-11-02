@@ -7,10 +7,12 @@ When(/^. goes to students administration$/, async function () {
 	return administerStudentsPage.clickAdministrateStudents();
 });
 
-Then(/^.* clicks the send links to pupil email address button$/, async function () {
+Then(/^.* clicks Send-links-to-students'-e-mail-addresses button$/, async function () {
 	await administerStudentsPage.clickSendConsentFormEmailsButton();
 });
 
-Then(/^the email is sent to all students that have not accepted$/, async function () {
+Then(/^email is sent to all students without a full declaration of consent$/, async function () {
 	await mailCatcher.isEmailReceived('<waldemar.wunderlich@schul-cloud.org>');
 });
+
+                                    

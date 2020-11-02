@@ -7,7 +7,7 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 	@createTopic
 	Scenario Outline: <userRole> creates a new topic in course
 		Given <userRole> logs in with email '<email>' and password '<password>'
-		And <userRole> accepts data protection
+		And <userRole> performs first login actions: data protection acceptance
 		And <userRole> goes to courses page
 		And <userRole> chooses course with name '<courseName>'
 		And <userRole> adds a topic with name '<topicName>'
@@ -22,7 +22,7 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 	@editTopic
 	Scenario Outline: User edit a topic
 		Given <userRole> logs in with email '<email>' and password '<password>'
-		And <userRole> accepts data protection
+		And <userRole> performs first login actions: data protection acceptance
 		When <userRole> goes to courses page
 		And <userRole> chooses course with name '<courseName>'
 		And <userRole> adds a topic with name '<topicName>'
@@ -47,7 +47,7 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 	@deleteTopic
 	Scenario Outline: User delete a topic
 		Given <userRole> logs in with email '<email>' and password '<password>'
-		And <userRole> accepts data protection
+		And <userRole> performs first login actions: data protection acceptance
 		When <userRole> goes to courses page
 		And <userRole> chooses course with name '<courseName>'
 		And <userRole> adds a topic with name '<topicName>'

@@ -9,7 +9,7 @@ Background:
 
 Scenario Outline:
 	Given teacher logs in with email '<teachersUsername>' and password '<teachersPassword>'
-	Given teacher accepts data protection
+	Given teacher performs first login actions: data protection acceptance
 	Given teacher goes to administration
 	When teacher creates a class '<className>'
 	When teacher edits a class'<newClassName>'
