@@ -5,12 +5,12 @@ const NavigationLeftPage = require('./NavigationLeftPage');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 
 const dashboardBtnOnNavigationLeftPanel = "[data-testid='startseite']";
-const homeworkElement = {
-	homeworkName: 'span[data-testid="homework-name"]',
+const taskElement = {
+	taskName: 'span[data-testid="homework-name"]',
 	courseName: 'span[data-testid="homework-course-name"]',
-	homeworkTimeout: 'span[data-testid="homework-due-date"]',
-	homeworkCompleted: 'span[data-testid="homework-submitted"]',
-	homeworkGraded: 'span[data-testid="homework-graded"]',
+	taskTimeout: 'span[data-testid="homework-due-date"]',
+	taskCompleted: 'span[data-testid="homework-submitted"]',
+	taskGraded: 'span[data-testid="homework-graded"]',
 	dashboardTitleList: '.dashboard-title',
 
 };
@@ -25,57 +25,57 @@ async function isTitleOfDashboard() {
 }
 
 async function isPrivateTasksAndDraftsListVisible(listName) {
-	const dashboardTitlesList = await elementHelpers.getTextFromAllElements(homeworkElement.dashboardTitleList)
+	const dashboardTitlesList = await elementHelpers.getTextFromAllElements(taskElement.dashboardTitleList)
 	const msg = 'Title with name [' + listName + '] is not visible on the list \n';
 	const resultMsg = ', List of titles: ' + dashboardTitlesList;
 	return expect(dashboardTitlesList, msg + resultMsg).to.include(listName);
 }
 
-async function isCourseNameOnPrivateHomeworkVisible(homeworkName, courseName) {
-	const homeworkIndex = await getIndexOfHomeworkFromList(homeworkName);
-	const homeworkCourseElementList = await elementHelpers.getListOfAllElements(homeworkElement.courseName)
-	const courseNameText = await elementHelpers.getElementText(homeworkCourseElementList[homeworkIndex]);
-	const msg = 'Course with name [' + courseName + '] is not visible on the private homework \n';
-	const resultMsg = 'List of course titles: ' + homeworkCourseElementList;
+async function isCourseNameOnPrivateTaskVisible(taskName, courseName) {
+	const taskIndex = await getIndexOfTaskFromList(taskName);
+	const taskCourseElementList = await elementHelpers.getListOfAllElements(taskElement.courseName)
+	const courseNameText = await elementHelpers.getElementText(taskCourseElementList[taskIndex]);
+	const msg = 'Course with name [' + courseName + '] is not visible on the private task \n';
+	const resultMsg = 'List of course titles: ' + taskCourseElementList;
 	return expect(courseNameText, msg + resultMsg).to.include(courseName);
 }
 
-async function getIndexOfHomeworkFromList(homeworkName) {
-	const homeworkTextElementList = await elementHelpers.getListOfAllElements(homeworkElement.homeworkName)
-	const homeworkTextValueList = await elementHelpers.getTextListFromListOfElements(homeworkTextElementList);
-	const index = homeworkTextValueList.indexOf(homeworkName);
+async function getIndexOfTaskFromList(taskName) {
+	const taskTextElementList = await elementHelpers.getListOfAllElements(taskElement.taskName)
+	const taskTextValueList = await elementHelpers.getTextListFromListOfElements(taskTextElementList);
+	const index = taskTextValueList.indexOf(taskName);
 	return index;
 }
 
-async function isPrivateHomeworkNameVisible(homeworkName) {
-	const homeworkNameList = await elementHelpers.getTextFromAllElements(homeworkElement.homeworkName)
-	const msg = 'Homework with name [' + homeworkName + '] is not visible on the list \n';
-	const resultMsg = 'List of Homework titles: ' + homeworkNameList;
-	return expect(homeworkNameList, msg + resultMsg).to.include(homeworkName);
+async function isPrivateTaskNameVisible(taskName) {
+	const taskNameList = await elementHelpers.getTextFromAllElements(taskElement.taskName)
+	const msg = 'Task with name [' + taskName + '] is not visible on the list \n';
+	const resultMsg = 'List of Task titles: ' + taskNameList;
+	return expect(taskNameList, msg + resultMsg).to.include(taskName);
 }
 
-async function isElementOfHomeworkVisible(elementName, homeworkName, selector, expectedValue) {
+async function isElementOnTaskVisible(elementName, taskName, selector, expectedValue) {
 	const defaultString = `Element with name: ${elementName}`;
-	let elementOfHomework = true;
-	const homeworkIndex = await getIndexOfHomeworkFromList(homeworkName);
-	const elementsOfHomeworksList = await elementHelpers.getListOfAllElements(selector);
-	elementsOfHomeworksList.length === 0 ? elementOfHomework = false : await waitHelpers.waitUntilElementIsPresent(elementsOfHomeworksList[homeworkIndex]);
+	let elementOfTask = true;
+	const taskIndex = await getIndexOfTaskFromList(taskName);
+	const elementsOfTaskList = await elementHelpers.getListOfAllElements(selector);
+	elementsOfTaskList.length === 0 ? elementOfTask = false : await waitHelpers.waitUntilElementIsPresent(elementsOfTaskList[taskIndex]);
 
 	const msg = expectedValue
-		? `${defaultString} should be visible on the homework`
-		: `${defaultString} should not be visible on the homework`;
+		? `${defaultString} should be visible on the task`
+		: `${defaultString} should not be visible on the task`;
 
 	expectedValue
-		? expect(elementOfHomework, msg).to.be.true
-		: expect(elementOfHomework, msg).to.be.false;
+		? expect(elementOfTask, msg).to.be.true
+		: expect(elementOfTask, msg).to.be.false;
 }
 
 module.exports = {
 	goToDashboard,
 	isTitleOfDashboard,
 	isPrivateTasksAndDraftsListVisible,
-	isCourseNameOnPrivateHomeworkVisible,
-	isPrivateHomeworkNameVisible,
-	isElementOfHomeworkVisible,
-	homeworkElement,
+	isCourseNameOnPrivateTaskVisible,
+	isPrivateTaskNameVisible,
+	isElementOnTaskVisible,
+	taskElement,
 };

@@ -4,6 +4,7 @@ const addEditTaskPage = require('../page-objects/pages/TASKAddEditTaskPage.js');
 const taskListPage = require('../page-objects/pages/TASKListPage');
 const taskPage = require('../page-objects/pages/TASKPage');
 const courseListPage = require("../page-objects/pages/coursePages/CRSSCourseListPage");
+const dashboardPage = require('../page-objects/pages/DashboardPage');
 const file = {
     path: path.join(__dirname, '../shared-objects/fileUpldFolder/upload.txt'),
     name: 'upload.txt'
@@ -67,7 +68,7 @@ Given(/^.* submits solution for the task$/, async function () {
 When(/^the teacher uploads file feedback$/, async function () {
     await taskPage.submitFileFeedback(file);
 });
- 
+
 When(/^.* clicks on task with name '(.*)'$/, async function (taskName) {
     await taskListPage.sortHometasks();
     await taskListPage.clickOnTask(taskName, 'Task open');
@@ -85,4 +86,22 @@ When(/^.* goes to task evaluation$/, async function () {
 });
 When(/^.* file evaluation is visible$/, async function () {
     await taskPage.checkFileEvaluationStudent(file)
+});
+Then(/^.* see created private task with name '([^']*)'$/, async function (taskName) {
+	await dashboardPage.isPrivateTaskNameVisible(taskName);
+});
+Then(/^.* see created private task with name '([^']*)' and course name '([^']*)'$/, async function (taskName, courseName) {
+	await dashboardPage.isCourseNameOnPrivateTaskVisible(taskName, courseName);
+});
+Then(/^.* see created private task with name '([^']*)' and timeout$/, async function (taskName) {
+	await dashboardPage.isElementOnTaskVisible("Timeout", taskName, dashboardPage.taskElement.taskTimeout, true);
+});
+When(/^.* see '([^']*)' list on dashboard$/, function (listName) {
+	return dashboardPage.isPrivateTasksAndDraftsListVisible(listName);
+});
+Then(/^.* not see number of completed on task with name '([^']*)'$/, async function (taskName) {
+	await dashboardPage.isElementOnTaskVisible("Completed", taskName, dashboardPage.taskElement.taskCompleted, false);
+});
+Then(/^.* not see number of graded on task with name '([^']*)'$/, async function (taskName) {
+	await dashboardPage.isElementOnTaskVisible("Graded", taskName, dashboardPage.taskElement.taskGraded, false);
 });
