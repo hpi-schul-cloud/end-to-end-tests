@@ -20,7 +20,7 @@ Feature: Administrate pupils, classes and teachers
 		And admin manually submits a consent '<studentEmail>'
 		And admin logs out
 		#Then new pupil '<studentEmail>' can log in with default password
-		#Then student should see that data protection is already accepted and set a new password '<newPasswordStudent>'
+		#And student should see that data protection is already accepted and set a new password '<newPasswordStudent>'
 
 		Examples:
 			| firstName | lastName | studentEmail              | adminsUsername        | adminsPassword | newPasswordStudent |
