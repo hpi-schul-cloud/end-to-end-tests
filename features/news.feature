@@ -12,7 +12,7 @@ Feature: Different options for news. I would like to test whether users with dif
         And teacher logs out
         And student logs in with email '<studentUsername>' and password '<studentPassword>'
         And student performs first login actions: data protection acceptance, password change '<newStudentPassword>'
-        And click left navigation item "news"
+        And click left navigation item 'news'
         Then teacher can see the news
         Examples:
             | teacherEmail                | teacherPassword | studentUsername                | studentPassword | newStudentPassword  |
@@ -26,7 +26,7 @@ Feature: Different options for news. I would like to test whether users with dif
         And teacher logs out
         And student logs in with email '<studentUsername>' and password '<studentPassword>'
         And student performs first login actions: data protection acceptance, password change '<newStudentPassword>'
-        And click left navigation item "news"
+        And click left navigation item 'news'
         Then he cannot see the news which is not due yet
         Examples:
             | teacherEmail                | teacherPassword | studentUsername                | studentPassword | newStudentPassword  |
