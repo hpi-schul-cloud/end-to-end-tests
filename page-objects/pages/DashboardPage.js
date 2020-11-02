@@ -11,7 +11,7 @@ const taskElement = {
 	taskTimeout: 'span[data-testid="homework-due-date"]',
 	taskCompleted: 'span[data-testid="homework-submitted"]',
 	taskGraded: 'span[data-testid="homework-graded"]',
-	dashboardTitleList: 'span[data-testid="dashboard-tasks-title"]',
+	dashboardTitleList: 'h2[data-testid="dashboard-tasks-title"]',
 };
 
 async function goToDashboard() {
@@ -23,11 +23,11 @@ async function isTitleOfDashboard() {
 	await waitHelpers.waitUntilPageTitleContains(dashboardBtnOnNavigationLeftPanel);
 }
 
-async function isPrivateTasksAndDraftsListVisible(listName) {
+async function isPrivateTasksAndDraftsListVisible(taskAndDraftsTitle) {
 	const dashboardTitlesList = await elementHelpers.getTextFromAllElements(taskElement.dashboardTitleList)
-	const msg = 'Title with name [' + listName + '] is not visible on the list \n';
+	const msg = 'Title with name [' + taskAndDraftsTitle + '] is not visible on the list \n';
 	const resultMsg = ', List of titles: ' + dashboardTitlesList;
-	return expect(dashboardTitlesList, msg + resultMsg).to.include(listName);
+	return expect(dashboardTitlesList, msg + resultMsg).to.include(taskAndDraftsTitle);
 }
 
 async function isCourseNameOnPrivateTaskVisible(taskName, courseName) {

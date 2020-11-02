@@ -91,8 +91,8 @@ Then(/^.* see created private task with name '([^']*)' and course name '([^']*)'
 Then(/^.* see created private task with name '([^']*)' and timeout$/, async function (taskName) {
 	await dashboardPage.isElementOnTaskVisible("Timeout", taskName, dashboardPage.taskElement.taskTimeout, true);
 });
-When(/^.* see '([^']*)' list on dashboard$/, function (listName) {
-	return dashboardPage.isPrivateTasksAndDraftsListVisible(listName);
+When(/^.* see '([^']*)' list on dashboard$/, function (taskAndDraftsTitle) {
+	return dashboardPage.isPrivateTasksAndDraftsListVisible(taskAndDraftsTitle);
 });
 Then(/^.* not see number of completed on task with name '([^']*)'$/, async function (taskName) {
 	await dashboardPage.isElementOnTaskVisible("Completed", taskName, dashboardPage.taskElement.taskCompleted, false);
