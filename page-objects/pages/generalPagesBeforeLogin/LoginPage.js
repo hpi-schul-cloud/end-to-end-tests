@@ -79,15 +79,11 @@ async function performLogin(username, password) {
 	await clickLoginBtn();
 }
 
-async function performLoginActions({shouldAcceptDataProtection, shouldSetOwnPassword, newPassword=defaultNewPassword})  {
+async function performLoginActions({shouldAcceptDataProtection, shouldSetOwnPassword, newPassword=defaultPassword})  {
 	await clickNextSectionBtn();
 	await clickNextSectionBtn();
-	if (shouldAcceptDataProtection) {
-		await acceptDataProtection();
-	}
-	if (shouldSetOwnPassword) {
-		await setNewPassword(newPassword);
-	}
+	if (shouldAcceptDataProtection) await acceptDataProtection();
+	if (shouldSetOwnPassword) await setNewPassword(newPassword);
 	await clickStartUsageOfSchulcloudBtn();
 }
 

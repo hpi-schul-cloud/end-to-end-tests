@@ -4,7 +4,7 @@ Feature: I want to be able to see the version of the deployed Schul-Cloud
 
 @nuxtversion
 Scenario:
-	When a user arrives on the nuxt version page
+	When user arrives on the nuxt version page
 	Then he should see the git sha
 
 # Currently only the client works,
@@ -12,10 +12,10 @@ Scenario:
 
 # @clientversion
 # Scenario:
-#   When a user arrives on the client version page
+#   When user arrives on the client version page
 #   Then he should see the git sha
 
 # @serverversion
 # Scenario:
-#   When a user arrives on the server version page
+#   When user arrives on the server version page
 #   Then he should see the git sha

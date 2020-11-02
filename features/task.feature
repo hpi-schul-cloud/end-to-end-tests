@@ -7,7 +7,7 @@ Feature: create different types of task
     Background: a teacher logs in and creates a course
         Given teacher arrives on the Schul-Cloud homepage
         And teacher logs in
-        And teacher accepts data protection
+        And teacher performs first login actions: data protection acceptance
         And teacher goes to courses page
     
     @createTaskInTheCourse
@@ -39,7 +39,7 @@ Feature: create different types of task
         Then task with name '<taskName>' is visible on the list
         And teacher logs out 
         And student logs in with email '<username>' and password '<password>'
-        And student with full age accepts student's data protection with password '<newStudentPassword>'
+        And student performs first login actions: data protection acceptance, password change '<newStudentPassword>'
         And student goes to tasks page
         Then task with name '<taskName>' is not visible on the list
         Examples:
@@ -59,7 +59,7 @@ Feature: create different types of task
         Then task with name '<taskName>' is visible on the list
         And teacher logs out 
         And student logs in with email '<username>' and password '<password>'
-        And student with full age accepts student's data protection with password '<newStudentPassword>'
+        And student performs first login actions: data protection acceptance, password change '<newStudentPassword>'
         And the student goes to the tasks page
         And student clicks on task with name '<taskName>'
         And student submits solution for the task
@@ -89,7 +89,7 @@ Feature: create different types of task
         #And teacher clicks submit-task-button
         #And teacher logs out
         #And student logs in with email '<username>' and password '<password>'
-        #And student with full age accepts student's data protection with password '<newPasswordStudent>'
+        #And student performs first login actions: data protection acceptance, password change '<newPasswordStudent>'
         #And student goes to tasks page
         #And student clicks on task with name '<taskName>'
         #And student submits solution for the task

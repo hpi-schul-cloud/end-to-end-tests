@@ -10,7 +10,7 @@ Background:
 Scenario Outline:
 
 	Given admin logs in with email '<adminUsername>' and password '<adminPassword>'
-	Given admin accepts data protection
+	Given admin performs first login actions: data protection acceptance
 	Given admin goes to administration
 	When admin creates a class '<className>'
 	Then admin should see the class '<sameClass>' with '<participants>' participants.

@@ -1,22 +1,18 @@
-@sendConsentFormEmail
-Feature: Send emails to pupils that have not accepted the consent form yet
-	As an admin on Schul-Cloud
-	I want to be able to send and email containing an link to accept the consent form to all students that haven't accepted it
-
+@email
+Feature: Test set for sending emails
 	Background:
+		Given user arrives on the Schul-Cloud homepage
 
-		Given admin arrives on the Schul-Cloud homepage
-
-	Scenario Outline: Admin sends email to pupils
-
-		When admin logs in with email '<adminsUsername>' and password '<adminsPassword>'
-		And admin accepts data protection
-		When admin goes to administration
-		And admin goes to students administration
-		When admin clicks the send links to pupil email address button
-		Then the email is sent to all students that have not accepted
+	@sendConsentFormEmail
+	Scenario Outline: Send emails to all students without a full declaration of consent.
+		When <userRole> logs in with email '<adminsUsername>' and password '<adminsPassword>'
+		And <userRole> performs first login actions: data protection acceptance
+		When <userRole> goes to administration
+		And <userRole> goes to students administration
+		When <userRole> clicks Send-links-to-students'-e-mail-addresses button
+		Then email is sent to all students without a full declaration of consent
 
 		Examples:
-			| adminsUsername        | adminsPassword |
-	    	| admin@schul-cloud.org | Schulcloud1!   | 
+			| userRole | adminsUsername        | adminsPassword |
+			| admin    | admin@schul-cloud.org | Schulcloud1!   |
 
