@@ -9,6 +9,9 @@ const newPasswordInput = 'input[data-testid="settings_password_new"]';
 const newPasswordConfInput = 'input[data-testid="settings_password_control"]';
 const submitAccountDataBtn = '[data-testid="submit_new_password_btn"]';
 
+const languageSelect = 'select#language';
+const languageOptions = 'option';
+
 async function clickSubmitAccountDataBtn() {
     await elementHelpers.clickAndWait(submitAccountDataBtn);
 }
@@ -32,6 +35,20 @@ async function changePassword(oldPassword, newPassword) {
     await clickSubmitAccountDataBtn();
 }
 
+async function changeLanguage(language) {
+	await elementHelpers.clickAndWait(languageSelect);
+	const elements = await elementHelpers.getListOfAllElements(languageOptions);
+	for(let i = 0; i < elements.length ; i++) {
+		let name = await elements[i].getText();
+		if(name === language){
+			elements[i].click();
+			break;
+		}
+	}
+    await clickSubmitAccountDataBtn();
+}
+
 module.exports = {
-    changePassword,
+	changePassword,
+	changeLanguage,
 };

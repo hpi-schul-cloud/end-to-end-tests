@@ -20,7 +20,7 @@ const tableOfStudents = "tbody[data-testid='table-data-body']";
 const consentSubmitBtn = "button[data-testid='submit_consent']";
 const addStudentSubmitBtn = "button[data-testid='button_create-user_submit']";
 const passwordInput = '#passwd';
-const createBirthday = '#create_birthday';
+const createBirthday = '#birthday';
 const sendConsentFormEmails = '.btn-send-links-emails';
 
 //
