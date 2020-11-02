@@ -1,4 +1,3 @@
-#with creating a course
 @task
 Feature: create different types of task
 
@@ -23,7 +22,6 @@ Feature: create different types of task
 			| courseName             | taskName     | taskText                          | taskBody         |
 			| new course with a task | task example | here is some task for my students | text of the task |
 
-
 	@createPrivateTaskInTheCourse
 	Scenario Outline: create a private hometask has to be visible only for the teacher
 		When teacher creates course with name '<courseName>' and student '<studentName>'
@@ -43,7 +41,6 @@ Feature: create different types of task
 		Examples:
 			| courseName            | studentName | taskName             | username                    | password     | newStudentPassword | taskBody  |
 			| test private hometask | Paula Meyer | private task example | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!      | task body |
-
 
 	@submitTextTask
 	Scenario Outline: pupil submits a task and teacher evaluates it
@@ -71,12 +68,9 @@ Feature: create different types of task
 		And the student goes to the tasks page
 		And student clicks on task with name '<taskName>'
 		Then student should see the evaluation
-
-
 		Examples:
 			| courseName                        | firstname | lastname | taskName | username                    | password     | studentName | taskBody         | newStudentPassword |
 			| course with a task for submission | Paula     | Meyer    | task     | paula.meyer@schul-cloud.org | Schulcloud1! | Paula Meyer | text of the task | Schulcloud1!!      |
-
 
     #@gradeTaskWithFile
     #Scenario Outline: grade a task submission by uploading a file
@@ -104,7 +98,6 @@ Feature: create different types of task
         #And student clicks on task with name '<taskName>'
         #And student goes to task evaluation
         #Then student should see that file evaluation is visible
-
         #Examples:
             #| username                    | password     | newPasswordStudent | taskName              | studentName | courseName            |taskBody          |
             #| paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!      | task with file upload | Paula Meyer | course with file task |text of the task  |
