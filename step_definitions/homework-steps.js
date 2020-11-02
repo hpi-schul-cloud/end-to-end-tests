@@ -5,7 +5,7 @@ const homeworkListPage = require('../page-objects/pages/HMWRKHomeworkListPage');
 const homeworkPage = require('../page-objects/pages/HMWRKHomeworkPage');
 const courseListPage = require('../page-objects/pages/coursePages/CRSSCourseListPage');
 const courseHomeworksPage = require('../page-objects/pages/coursePages/CRSSCourseHomeworksPage');
-const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
+const dashboardPage = require('../page-objects/pages/DashboardPage');
 
 /* CREATE A BASIC HOMEWORK */
 When(/^.* clicks "create a new home task" in course '([^']*)' with '([^']*)'$/, function (coursename, taskname) {
@@ -98,20 +98,20 @@ Then(/^.* can upload a file as a solution$/, function () {
 	});
 })();
 Then(/^.* see created private homework with name '([^']*)'$/, async function (homeworkName) {
-	await homeworkPage.isPrivateHomeworkNameVisible(homeworkName);
+	await dashboardPage.isPrivateHomeworkNameVisible(homeworkName);
 });
 Then(/^.* see created private homework with name '([^']*)' and course name '([^']*)'$/, async function (homeworkName, courseName) {
-	await homeworkPage.isCourseNameOnPrivateHomeworkVisible(homeworkName, courseName);
+	await dashboardPage.isCourseNameOnPrivateHomeworkVisible(homeworkName, courseName);
 });
 Then(/^.* see created private homework with name '([^']*)' and timeout$/, async function (homeworkName) {
-	await homeworkPage.isElementOfHomeworkVisible("Timeout", homeworkName, homeworkPage.element.homeworkTimeout, true);
+	await dashboardPage.isElementOfHomeworkVisible("Timeout", homeworkName, dashboardPage.homeworkElement.homeworkTimeout, true);
 });
 When(/^.* see '([^']*)' list on dashboard$/, function (listName) {
-	return homeworkPage.isPrivateTasksAndDraftsListVisible(listName);
+	return dashboardPage.isPrivateTasksAndDraftsListVisible(listName);
 });
 Then(/^.* not see number of completed homework on homework with name '([^']*)'$/, async function (homeworkName) {
-	await homeworkPage.isElementOfHomeworkVisible("Completed", homeworkName, homeworkPage.element.homeworkCompleted, false);
+	await dashboardPage.isElementOfHomeworkVisible("Completed", homeworkName, dashboardPage.homeworkElement.homeworkCompleted, false);
 });
 Then(/^.* not see number of graded on homework with name '([^']*)'$/, async function (homeworkName) {
-	await homeworkPage.isElementOfHomeworkVisible("Graded", homeworkName, homeworkPage.element.homeworkGraded, false);
+	await dashboardPage.isElementOfHomeworkVisible("Graded", homeworkName, dashboardPage.homeworkElement.homeworkGraded, false);
 });

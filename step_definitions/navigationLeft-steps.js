@@ -5,7 +5,7 @@ var {Then} = require('cucumber');
 var {When} = require('cucumber');
 const leftMenuItems = leftNavigation.navItemsEnum;
 
-Then(/^.* click left navigation item '([^']*)'$/, function (string) {
+Then(/^.*click left navigation item '([^']*)'$/, function (string) {
     let navigationItem = string;
     switch (navigationItem) {
         case leftMenuItems.LOGO:
