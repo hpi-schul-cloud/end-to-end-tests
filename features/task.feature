@@ -1,8 +1,6 @@
 #with creating a course
 @task
-
 Feature: create different types of task
-
 
 	Background: a teacher logs in and creates a course
 		Given teacher arrives on the Schul-Cloud homepage

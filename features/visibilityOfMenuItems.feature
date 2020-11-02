@@ -1,8 +1,8 @@
 @visibilityOfMenuItems
 
-Feature: 
+Feature:
 
-	Background: 
+	Background:
         Given user arrives on the Schul-Cloud homepage
 
 	@visibilityOfAdministrationSubMenuItems
@@ -10,7 +10,7 @@ Feature:
         Given <userRole> arrives on the Schul-Cloud homepage
         And <userRole> logs in
         And <userRole> accepts data protection
-        When click left navigation item "administration"
+        When click left navigation item 'administration'
         Then <userRole> should see that all sub menu items are visible: '<tabsList>'
 
         Examples:
