@@ -11,9 +11,8 @@ const file = {
 };
 
 When(/^.* clicks Create-a-new-task-button in the course '(.*)'$/, async function (coursename) {
-
     await courseListPage.goToCourses();
-    await  courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
+    await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
     await taskPage.gotoTasksTab();
     await taskListPage.clickCreateTaskButtonInTheCourse()
 });
@@ -34,15 +33,11 @@ When(/^.* clicks on Private-task checkbox$/, async function () {
     await addEditTaskPage.clickPrivateHomeworkCheckbox();
 });
 
-Then(/^task with name '([^']*)' is not visible on the list$/, async function (taskname) {
-
-    let tasksOnPage = await taskListPage.getTaskNames();
-    expect(tasksOnPage).not.to.include(taskname)
+Then(/^task with name '([^']*)' is not visible on the list$/, async function (taskName) {
+	await taskListPage.isTaskVisible(taskName,false);
 });
-Then(/^task with name '([^']*)' is visible on the list$/, async function (taskname) {
-
-    let tasksOnPage = await taskListPage.getTaskNames();
-    expect(tasksOnPage).to.include(taskname)
+Then(/^task with name '([^']*)' is visible on the list$/, async function (taskName) {
+    await taskListPage.isTaskVisible(taskName,true);
 });
 
 Then(/^the students can upload a file as a solution$/, async function () {
