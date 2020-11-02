@@ -16,7 +16,7 @@ const tableOfStudents = "tbody[data-testid='students_names_container']";
 const consentSubmitBtn = "button[data-testid='submit_consent']";
 const addStudentSubmitBtn = 'div.modal.fade.add-modal.in button.btn-submit';
 const passwordInput = '#passwd';
-const createBirthday = '#create_birthday';
+const createBirthday = '#birthday';
 const sendConsentFormEmails = '.btn-send-links-emails';
 
 //
@@ -60,7 +60,7 @@ async function createNewPupil(firstname, lastname, email) {
 }
 async function setStudentsBirthday(birthdayDate) {
 	await waitHelpers.waitUntilElementIsClickable(createBirthday);
-	await driver.execute('document.querySelector("#create_birthday").value = "' + birthdayDate + '"'); //date format dd.mm.yyyy
+	await driver.execute('document.querySelector("#birthday").value = "' + birthdayDate + '"'); //date format dd.mm.yyyy
 }
 
 async function getStudentsEmailList() {
