@@ -6,7 +6,7 @@ Feature: I as an admin I should only have access to the students attached to my 
 
 	Scenario Outline:
 		Given admin logs in with email '<adminsUsername>' and password '<password>'
-		Given admin accepts data protection
+		And admin performs first login actions: data protection acceptance
 		Then an admin are able to request information about students from own school
 		When admin tries to request information about students from other school
 		Then admin should be given a empty object

@@ -8,7 +8,7 @@ Feature: logging in as a teacher and create a new course
 	@createCourse
 	Scenario Outline: create first course. Teachers have 2 options: to import or to create new course and the teacher sees the created course in the list
 		Given teacher logs in with email '<userName>' and password '<password>'
-		And teacher accepts data protection
+		And teacher performs first login actions: data protection acceptance
 		When teacher goes to courses page
 		Then teacher should see that buttons: Import-course, Create-new-course are visible
 		When teacher clicks Create-new-course button
@@ -26,7 +26,7 @@ Feature: logging in as a teacher and create a new course
 	@createCourseCorrectly
 	Scenario Outline: submit compulsory fields by creating the course
 		Given teacher logs in with email '<userName>' and password '<password>'
-		And teacher accepts data protection
+		And teacher performs first login actions: data protection acceptance
 		And teacher goes to courses page
 		Then teacher should see that buttons: Import-course, Create-new-course are visible
 		When teacher clicks Create-new-course button
@@ -57,7 +57,7 @@ Feature: logging in as a teacher and create a new course
 	@createCourseWithStudent
 	Scenario Outline:
 		When teacher logs in with email '<teachersUsername>' and password '<password>'
-		And teacher accepts data protection
+		And teacher performs first login actions: data protection acceptance
 		And teacher creates course with name '<courseName>' and student '<studentName>'
 		And teacher sees that course with name '<courseName>' contains number of members '1'
 		And teacher clicks on members icon in course with name '<courseName>'
@@ -65,7 +65,7 @@ Feature: logging in as a teacher and create a new course
 		When teacher closes member modal window
 		And teacher logs out
 		And student '<studentName>' logs in with email '<studentLogin>' and password '<password>'
-		And student accepts data protection
+		And student performs first login actions: data protection acceptance
 		And student goes to courses page
 		Then student should see that course with name '<courseName>' is visible on the list
 		Examples:
@@ -75,7 +75,7 @@ Feature: logging in as a teacher and create a new course
 	@editCourse
 	Scenario Outline: logging in as a teacher I want to be able to edit a course on Schul-Cloud
 		Given teacher logs in with email '<userName>' and password '<password>'
-		And teacher accepts data protection
+		And teacher performs first login actions: data protection acceptance
 		And teacher goes to courses page
 		And teacher should see that course with name '<courseName>' is visible on the list
 		When teacher chooses course with name '<courseName>'
@@ -95,7 +95,7 @@ Feature: logging in as a teacher and create a new course
 	@deleteCourse
 	Scenario Outline: logging in as a teacher I want to be able to delete a course on Schul-Cloud
 		Given teacher logs in with email '<userName>' and password '<password>'
-		And teacher accepts data protection
+		And teacher performs first login actions: data protection acceptance
 		And teacher goes to courses page
 		And teacher should see that course with name '<courseName>' is visible on the list
 		When teacher chooses course with name '<courseName>'
