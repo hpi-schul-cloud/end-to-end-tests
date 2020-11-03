@@ -31,7 +31,7 @@ Feature:checkLeftNavigation
 		Then clicks left navigation item 'contact'
 		# TODO nuxt pages - the navigation structure is different,
 	  	#  therefor leave it for last page otherwise the other pages won't be found
-		Then click left navigation item "content"
+		Then clicks left navigation item 'content'
 
 		Examples:
 			| teacherUsername        | password     |
@@ -64,7 +64,7 @@ Feature:checkLeftNavigation
 		Then clicks left navigation item 'contact'
 		# TODO nuxt pages - the navigation structure is different,
 	  	#  therefor leave it for last page otherwise the other pages won't be found
-		Then click left navigation item "content"
+		Then clicks left navigation item 'content'
 
 		Examples:
 			| studentUsername             | password     |
@@ -102,7 +102,7 @@ Feature:checkLeftNavigation
 		Then clicks left navigation item 'contact'
 		# TODO nuxt pages - the navigation structure is different,
 	  	#  therefor leave it for last page otherwise the other pages won't be found
-		Then click left navigation item "content"
+		Then clicks left navigation item 'content'
 
 		Examples:
 			| adminUsername         | password     |
