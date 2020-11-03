@@ -9,7 +9,10 @@ Feature: Test set for sending emails
 		And <userRole> performs first login actions: data protection acceptance
 		When <userRole> goes to administration
 		And <userRole> goes to students administration
-		When <userRole> clicks Send-links-to-students'-e-mail-addresses button
+		And <userRole> sorts students by registration tab
+		When <userRole> selects the first student
+		And <userRole> clicks actions button
+		And <userRole> clicks Send-links-to-students'-e-mail-addresses button
 		Then email is sent to all students without a full declaration of consent
 
 		Examples:
