@@ -82,21 +82,21 @@ When(/^.* goes to task evaluation$/, async function () {
 When(/^.* file evaluation is visible$/, async function () {
     await taskPage.checkFileEvaluationStudent(file)
 });
-Then(/^.* see created private task with name '([^']*)'$/, async function (taskName) {
+Then(/^.* sees created private task with name '([^']*)'$/, async function (taskName) {
 	await dashboardPage.isPrivateTaskNameVisible(taskName);
 });
-Then(/^.* see created private task with name '([^']*)' and course name '([^']*)'$/, async function (taskName, courseName) {
+Then(/^.* sees created private task with name '([^']*)' and course name '([^']*)'$/, async function (taskName, courseName) {
 	await dashboardPage.isCourseNameOnPrivateTaskVisible(taskName, courseName);
 });
-Then(/^.* see created private task with name '([^']*)' and timeout$/, async function (taskName) {
+Then(/^.* sees created private task with name '([^']*)' and timeout$/, async function (taskName) {
 	await dashboardPage.isElementOnTaskVisible("Timeout", taskName, dashboardPage.taskElement.taskTimeout, true);
 });
-When(/^.* see '([^']*)' list on dashboard$/, function (taskAndDraftsTitle) {
+When(/^.* sees '([^']*)' list on dashboard$/, function (taskAndDraftsTitle) {
 	return dashboardPage.isPrivateTasksAndDraftsListVisible(taskAndDraftsTitle);
 });
-Then(/^.* not see number of completed on task with name '([^']*)'$/, async function (taskName) {
+Then(/^.* does not see number of completed on task with name '([^']*)'$/, async function (taskName) {
 	await dashboardPage.isElementOnTaskVisible("Completed", taskName, dashboardPage.taskElement.taskCompleted, false);
 });
-Then(/^.* not see number of graded on task with name '([^']*)'$/, async function (taskName) {
+Then(/^.* does not see number of graded on task with name '([^']*)'$/, async function (taskName) {
 	await dashboardPage.isElementOnTaskVisible("Graded", taskName, dashboardPage.taskElement.taskGraded, false);
 });

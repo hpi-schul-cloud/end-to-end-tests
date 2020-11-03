@@ -114,13 +114,13 @@ Feature: create different types of task
 		And <userRole> clicks submit-task-button on task-creation-form
 		When <userRole> goes to tasks page
 		Then task with name '<taskName>' is visible on the list
-		When <userRole> click left navigation item 'dashboard'
-		And <userRole> see 'Private Aufgaben und Entwürfe' list on dashboard
-		Then <userRole> see created private task with name '<taskName>'
-		Then <userRole> see created private task with name '<taskName>' and course name '<courseName>'
-		Then <userRole> see created private task with name '<taskName>' and timeout
-		Then <userRole> not see number of completed on task with name '<taskName>'
-		Then <userRole> not see number of graded on task with name '<taskName>'
+		When <userRole> clicks left navigation item 'dashboard'
+		And <userRole> sees 'Private Aufgaben und Entwürfe' list on dashboard
+		Then <userRole> sees created private task with name '<taskName>'
+		Then <userRole> sees created private task with name '<taskName>' and course name '<courseName>'
+		Then <userRole> sees created private task with name '<taskName>' and timeout
+		Then <userRole> does not see number of completed on task with name '<taskName>'
+		Then <userRole> does not see number of graded on task with name '<taskName>'
 		Examples:
 			| userRole | courseName | studentName | taskName             | taskBody         |
 			| teacher  | Math       | Paula Meyer | private task example | text of the task |
