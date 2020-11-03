@@ -1,28 +1,23 @@
 /*[url/news]*/
 'use strict';
-const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
-const { CLIENT } = require("../../shared-objects/servers");
-const url = `${CLIENT.URL}/news/`;
+const elementHelpers = require('../../runtime/helpers/elementHelpers');
+const navigationLeftPage = require('./NavigationLeftPage');
+const newNameSel = 'span.title';
 
-const element = 'span.title';
+async function goToNews () {
+	await navigationLeftPage.clickNavItemNews();
+}
+
+async function getListOfNewNames () {
+	return elementHelpers.getTextFromAllElements(newNameSel);
+}
+
+async function isNewsVisible (name, expectedValue) {
+	let newsNames = await getListOfNewNames();
+	expectedValue ? await expect(newsNames).to.include(name) : await expect(newsNames).to.not.include(name);
+}
 
 module.exports = {
-	// URL HELPER
-	goToNews: async function() {
-		await elementHelpers.loadPage(url, 100);
-    },
-    getListOfNewNames: async function() {
-		const listOfElements = await driver.$$(element);
-		const namePromises = listOfElements.map(async element => await element.getText());
-		const newsNames = await Promise.all(namePromises);
-		return newsNames;
-	},
-	isNewsVisible: async function(name) {
-		let newsNames = await this.getListOfNewNames();
-		await expect(newsNames).to.include(name);
-	},
-	isNewsNotVisible: async function(name) {
-		let newsNames = await this.getListOfNewNames();
-		await expect(newsNames).to.not.include(name);
-	}
-}
+	goToNews,
+	isNewsVisible,
+};

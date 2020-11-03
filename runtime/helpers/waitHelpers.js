@@ -1,17 +1,17 @@
 'use strict';
 
-const { getElement } = require('./sharedHelpers');
 const sharedHelpers = require('./sharedHelpers');
 
 const elementIsPresentTimeout = 10000;
 const elementIsNotPresentTimeout = 10000;
 const elementIsClickableTimeout = 10000;
-const elementIsNotClickableTimeout = 5000;
+const elementIsNotClickableTimeout = 7000;
 const elementIsVisibleTimeout = 5000;
 const elementIsNotVisibleTimeout = 5000;
 const elementIsEnabled = 5000;
 const elementIsDisabled = 5000;
 const elementContainsTextTimeout = 10000;
+const emailSendingTimeout = 10000;
 const urlContainsTimeout = 10000;
 const pageLoadingTimeout = 30000;
 const ajaxTimeout = 7000;
@@ -30,7 +30,7 @@ async function waitUntilElementIsPresent(selectorOrElement, timeout = elementIsP
 
 async function waitUntilElementIsNotPresent(selectorOrElement, timeout = elementIsNotPresentTimeout) {
 	let element = await sharedHelpers.getElement(selectorOrElement);
-	let msg = 'Element should not be present: "' + element.selector + '"  within time: ' + timeout;
+	let msg = 'Element should not be present: [' + element.selector + '"  within time: ' + timeout;
 	await element.waitForExist(timeout, true, msg);
 }
 
@@ -93,6 +93,10 @@ async function waitUntilElementContainsText(selectorOrElement, expectedText, tim
 		throw msg;
 	}
 	return element;
+}
+
+async function waitUntilEmailIsSent() {
+	await driver.pause(5000);
 }
 
 async function waitUntilUrlContains(expectedUrlText, timeout = urlContainsTimeout) {
@@ -158,25 +162,10 @@ async function waitUntilScriptResultIsTrue(script, timeoutMsg, timeout = pageLoa
 	);
 }
 
-async function waitAndSetValue(selectorOrElement, expectedValue, timeout = MEDIUM_WAIT_MILLIS) {
-	const element =  await waitUntilElementIsEnabled(selectorOrElement);
-	const msg =
-		'Could not set value: ' + expectedValue + ' for element: "' + element.selector + '" within time: ' + timeout;
-	let actualValue = '';
-	try {
-		await driver.waitUntil(
-			async () => {
-				await element.setValue(expectedValue);
-				actualValue = await element.getValue();
-				return actualValue === expectedValue;
-			},
-			timeout,
-			msg
-		);
-	} catch (error) {
-		throw error.message + '\n' + '"Actual value: "' + actualValue + "'";
-	}
-	return element;
+async function waitAndSetValue(selectorOrElement, value, timeout = setValueTimeout) {
+	await waitUntilElementIsVisible(selectorOrElement);
+	const element = await waitUntilElementIsEnabled(selectorOrElement);
+	await element.setValue(value);
 }
 
 async function waitUntilElementAttributeEquals(
@@ -288,6 +277,7 @@ module.exports = {
 	waitUntilElementIsEnabled,
 	waitUntilElementIsDisabled,
 	waitUntilElementContainsText,
+	waitUntilEmailIsSent,
 	waitUntilUrlContains,
 	waitUntilUrlNotContains,
 	waitUntilAjaxIsFinished,

@@ -6,11 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
+## Unpublished
+
+## Changed
+
+- IMP-160 rename repository
+
 ## 25.0.1 - 2020-09-30
 
 ### Changed
 
 - SC-6945 skip @copyCourseWithText for hotfix
+- SC-5858 change selectors after removing chosen library in the old client
 
 ## 25.0.0
 
@@ -31,9 +38,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added in 23.5.0
 
-- Fix dependencies security vulnerabilities [SC-4534](https://github.com/schul-cloud/integration-tests/pull/78)
-- Add timestamps to filenames [NA](https://github.com/schul-cloud/integration-tests/pull/75)
-- Fix for failing test in @createSimpleHomework [NA](https://github.com/schul-cloud/integration-tests/pull/72)
+- Fix dependencies security vulnerabilities [SC-4534](https://github.com/hpi-schul-cloud/end-to-end-tests/pull/78)
+- Add timestamps to filenames [NA](https://github.com/hpi-schul-cloud/end-to-end-tests/pull/75)
+- Fix for failing test in @createSimpleHomework [NA](https://github.com/hpi-schul-cloud/end-to-end-tests/pull/72)
 
 ## [23.2.0] - 2020-06-29
 
@@ -46,6 +53,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Added in 23.0.0
 
 - copied in a basic mergify config to automerge PRs
-- added `npm ci` command to integration test ci setup to be able to execute new js seed script properly
+- added `npm ci` command to end-to-end-tests ci setup to be able to execute new js seed script properly
 - This changelog has been added
 

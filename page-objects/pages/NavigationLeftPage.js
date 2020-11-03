@@ -1,41 +1,42 @@
 'use strict';
 
-const elementHelpers = require("../../runtime/helpers/elementHelpers");
-const waitHelpers = require("../../runtime/helpers/waitHelpers");
+const { expect } = require('chai');
+const elementHelpers = require('../../runtime/helpers/elementHelpers');
+const waitHelpers = require('../../runtime/helpers/waitHelpers');
 
 const navItemsEnum = {
-    LOGO: 'logo',
-    DASHBOARD: 'dashboard',
-    COURSES: 'courses',
-    TEAMS: 'teams',
-    HOMEWORK: 'homework',
-    ASKEDHOMEWORK: 'asked homework',
-    PRIVATEHOMEWORK: 'private homework',
-    ARCHIVEDHOMEWORK: 'archived homework',
-    FILES: 'files',
-    MYFILES: 'my files',
-    COURSEFILES: 'course files',
-    TEAMFILES: 'team files',
-    SHAREDFILES: 'shared files',
-    NEWS: 'news',
-    CALENDAR: 'calendar',
-    ADDONS: 'addons',
-    CONTENT: 'content',
-    HELPDESK: 'helpdesk',
-    ADMINISTRATION: 'administration',
-    ADMINSTUDENTS: 'admStudents',
-    ADMINTEACHERS: 'admTeachers',
-    ADMINCLASSES: 'admClasses',
-    ADMINCOURSES: 'admCourses',
-    ADMINTEAMS: 'admTeams',
-    ADMINCSCHOOL: 'admSchool',
-    HELPAREA: 'helparea',
-    HELPARTICLE: 'helparticle',
-    TRAININGS: 'trainings',
-    CONTACT: 'contact'
+	LOGO: 'logo',
+	DASHBOARD: 'dashboard',
+	COURSES: 'courses',
+	TEAMS: 'teams',
+	HOMEWORK: 'homework',
+	ASKEDHOMEWORK: 'asked homework',
+	PRIVATEHOMEWORK: 'private homework',
+	ARCHIVEDHOMEWORK: 'archived homework',
+	FILES: 'files',
+	MYFILES: 'my files',
+	COURSEFILES: 'course files',
+	TEAMFILES: 'team files',
+	SHAREDFILES: 'shared files',
+	NEWS: 'news',
+	CALENDAR: 'calendar',
+	ADDONS: 'addons',
+	CONTENT: 'content',
+	HELPDESK: 'helpdesk',
+	ADMINISTRATION: 'administration',
+	ADMINSTUDENTS: 'admStudents',
+	ADMINTEACHERS: 'admTeachers',
+	ADMINCLASSES: 'admClasses',
+	ADMINCOURSES: 'admCourses',
+	ADMINTEAMS: 'admTeams',
+	ADMINCSCHOOL: 'admSchool',
+	HELPAREA: 'helparea',
+	HELPARTICLE: 'helparticle',
+	TRAININGS: 'trainings',
+	CONTACT: 'contact',
 };
-const navItemStringStart1stLevel = "/html/body/aside/nav/ul/li/a";
-const navItemStringStart2ndLevel = "/html/body/aside/nav/ul/li/ul/li/a";
+const navItemStringStart1stLevel = '/html/body/aside/nav/ul/li/a';
+const navItemStringStart2ndLevel = '/html/body/aside/nav/ul/li/ul/li/a';
 const stringContains = "[contains(@title,'XXX')]";
 const navItemStringDefault1stLevel = navItemStringStart1stLevel + stringContains;
 const navItemStringDefault2ndLevel = navItemStringStart2ndLevel + stringContains;
@@ -69,97 +70,193 @@ const navItemHelparticles = navItemStringDefault2ndLevel.replace('XXX', 'Hilfear
 const navItemHelpTrainings = navItemStringDefault2ndLevel.replace('XXX', 'Fortbildungen');
 const navItemHelpContact = navItemStringDefault2ndLevel.replace('XXX', 'Kontakt');
 
-module.exports = {
-    navItemsEnum,
-    clickNavItemLogo: async function () {
-        await elementHelpers.clickAndWait(navItemLogo);
-    },
-    clickNavItemDashboard: async function () {
-        await elementHelpers.clickAndWait(navItemDashboard);
-    },
-    clickNavItemCourses: async function () {
-        await elementHelpers.clickAndWait(navItemCourses);
-    },
-    clickNavItemTasks: async function () {
-        await elementHelpers.clickAndWait(navItemTasks);
-        await waitHelpers.waitUntilAjaxIsFinished();
-    },
-    clickNavItemTasksAsked: async function () {
-        await elementHelpers.clickAndWait(navItemTasksAsked);
-        await waitHelpers.waitUntilAjaxIsFinished();
-    },
-    clickNavItemTasksPrivate: async function () {
-        await elementHelpers.clickAndWait(navItemTasksPrivate);
-        await waitHelpers.waitUntilAjaxIsFinished();
-    },
-    clickNavItemTasksArchive: async function () {
-        await elementHelpers.clickAndWait(navItemTasksArchive);
-        await waitHelpers.waitUntilAjaxIsFinished();
-    },
-    clickNavItemTeams: async function () {
-        await elementHelpers.clickAndWait(navItemTeams);
-    },
-    clickNavItemFiles: async function () {
-        await elementHelpers.clickAndWait(navItemFiles);
-    },
-    clickNavItemFilesMy: async function () {
-        await elementHelpers.clickAndWait(navItemFilesMy);
-    },
-    clickNavItemFilesCourses: async function () {
-        await elementHelpers.clickAndWait(navItemFilesCourses);
-    },
-    clickNavItemFilesTeams: async function () {
-        await elementHelpers.clickAndWait(navItemFilesTeams);
-    },
-    clickNavItemFilesShared: async function () {
-        await elementHelpers.clickAndWait(navItemFilesShared);
-    },
-    clickNavItemNews: async function () {
-        await elementHelpers.clickAndWait(navItemNews);
-    },
-    clickNavItemCalendar: async function () {
-        await elementHelpers.clickAndWait(navItemCalendar);
-    },
-    clickNavItemContent: async function () {
-        await elementHelpers.clickAndWait(navItemLearnstore);
-    },
-    clickNavItemAddons: async function () {
-        await elementHelpers.clickAndWait(navItemAddons);
-    },
-    clickNavItemAdministration: async function () {
-        await elementHelpers.clickAndWait(navItemAdministration);
-    },
-    clickNavItemAdminStudents: async function () {
-        await elementHelpers.clickAndWait(navItemAdministrationStudents);
-    },
-    clickNavItemAdminTeachers: async function () {
-        await elementHelpers.clickAndWait(navItemAdministrationTeachers);
-    },
-    clickNavItemAdminCourses: async function () {
-        await elementHelpers.clickAndWait(navItemAdministrationCourses);
-    },
-    clickNavItemAdminClasses: async function () {
-        await elementHelpers.clickAndWait(navItemAdministrationClasses);
-    },
-    clickNavItemAdminTeams: async function () {
-        await elementHelpers.clickAndWait(navItemAdministrationTeams);
-    },
-    clickNavItemAdminSchool: async function () {
-        await elementHelpers.clickAndWait(navItemAdministrationSchool);
-    },
-    clickNavItemHelpDesk: async function () {
-        await elementHelpers.clickAndWait(navItemHelpDesk);
-    },
-    clickNavItemHelpArea: async function () {
-        await elementHelpers.clickAndWait(navItemHelparea);
-    },
-    clickNavItemHelpArticles: async function () {
-        await elementHelpers.clickAndWait(navItemHelparticles);
-    },
-    clickNavItemHelpTrainings: async function () {
-        await elementHelpers.clickAndWait(navItemHelpTrainings);
-    },
-    clickNavItemHelpContact: async function () {
-        await elementHelpers.clickAndWait(navItemHelpContact);
-    },
+const item = '.sidebar-list .link-name';
+const subitem = '.subitem .link-name';
+
+async function clickNavItemLogo () {
+	await elementHelpers.clickAndWait(navItemLogo);
 }
+
+async function clickNavItemDashboard () {
+	await elementHelpers.clickAndWait(navItemDashboard);
+}
+
+
+async function clickNavItemCourses () {
+	await elementHelpers.clickAndWait(navItemCourses);
+}
+
+async function clickNavItemTasks () {
+	await elementHelpers.clickAndWait(navItemTasks);
+	await waitHelpers.waitUntilAjaxIsFinished();
+}
+
+async function clickNavItemTasksAsked () {
+	await elementHelpers.clickAndWait(navItemTasksAsked);
+	await waitHelpers.waitUntilAjaxIsFinished();
+}
+async function clickNavItemTasksPrivate () {
+	await elementHelpers.clickAndWait(navItemTasksPrivate);
+	await waitHelpers.waitUntilAjaxIsFinished();
+}
+async function clickNavItemTasksArchive () {
+	await elementHelpers.clickAndWait(navItemTasksArchive);
+	await waitHelpers.waitUntilAjaxIsFinished();
+}
+
+async function clickNavItemTeams () {
+	await elementHelpers.clickAndWait(navItemTeams);
+}
+
+async function clickNavItemFiles () {
+	await elementHelpers.clickAndWait(navItemFiles);
+}
+
+async function clickNavItemFilesMy () {
+	await elementHelpers.clickAndWait(navItemFilesMy);
+}
+
+async function clickNavItemFilesCourses () {
+	await elementHelpers.clickAndWait(navItemFilesCourses);
+}
+
+async function clickNavItemFilesTeams () {
+	await elementHelpers.clickAndWait(navItemFilesTeams);
+}
+
+async function clickNavItemFilesShared () {
+	await elementHelpers.clickAndWait(navItemFilesShared);
+}
+
+async function clickNavItemNews () {
+	await elementHelpers.clickAndWait(navItemNews);
+}
+
+async function clickNavItemCalendar () {
+	await elementHelpers.clickAndWait(navItemCalendar);
+}
+
+async function clickNavItemContent () {
+	await elementHelpers.clickAndWait(navItemLearnstore);
+}
+
+async function clickNavItemAddons () {
+	await elementHelpers.clickAndWait(navItemAddons);
+}
+
+async function clickNavItemAdministration () {
+	await elementHelpers.clickAndWait(navItemAdministration);
+}
+
+async function clickNavItemAdminStudents () {
+	await elementHelpers.clickAndWait(navItemAdministrationStudents);
+}
+
+async function clickNavItemAdminTeachers () {
+	await elementHelpers.clickAndWait(navItemAdministrationTeachers);
+}
+
+async function clickNavItemAdminCourses () {
+	await elementHelpers.clickAndWait(navItemAdministrationCourses);
+}
+
+async function clickNavItemAdminClasses () {
+	await elementHelpers.clickAndWait(navItemAdministrationClasses);
+}
+
+async function clickNavItemAdminTeams () {
+	await elementHelpers.clickAndWait(navItemAdministrationTeams);
+}
+
+async function clickNavItemAdminSchool () {
+	await elementHelpers.clickAndWait(navItemAdministrationSchool);
+}
+
+async function clickNavItemHelpDesk () {
+	await elementHelpers.clickAndWait(navItemHelpDesk);
+}
+
+async function clickNavItemHelpArea () {
+	await elementHelpers.clickAndWait(navItemHelparea);
+}
+
+async function clickNavItemHelpArticles () {
+	await elementHelpers.clickAndWait(navItemHelparticles);
+}
+
+async function clickNavItemHelpTrainings () {
+	await elementHelpers.clickAndWait(navItemHelpTrainings);
+}
+
+async function clickNavItemHelpContact () {
+	await elementHelpers.clickAndWait(navItemHelpContact);
+}
+
+async function getListOfAllItems () {
+	return elementHelpers.getTextFromAllElements(item);
+}
+
+async function getListOfSubItems () {
+	return elementHelpers.getTextFromAllElements(subitem);
+}
+
+async function areSubMenuItemsVisible (listOfExpectedSubItems) {
+	listOfExpectedSubItems = listOfExpectedSubItems.split(",").map(item => {return item.trim();});
+	const listOfSubItems = await getListOfSubItems();
+	const isSame =
+		listOfExpectedSubItems.length == listOfSubItems.length &&
+		listOfSubItems.every(function (element, index) {
+			return element  === listOfSubItems[index];
+		});
+	const msg = 'List of expected sub items does not match with the current one\n';
+	const resultMsg = 'Expected: ' + listOfExpectedSubItems + '\n  Actual: ' + listOfSubItems;
+	expect(isSame, msg + resultMsg).to.equal(true);
+}
+
+async function areMenuItemsVisible (listOfExpectedItems) {
+	listOfExpectedItems = listOfExpectedItems.split(",").map(item => {return item.trim();});
+	const listOfItems = await getListOfAllItems();
+	const isSame =
+		listOfExpectedItems.length == listOfItems.length &&
+		listOfExpectedItems.every(function (element, index) {
+			return element === listOfItems[index];
+		});
+	const msg = 'List of expected sub items does not match with the current one\n';
+	const resultMsg = 'Expected: ' + listOfExpectedItems + '\n  Actual: ' + listOfItems;
+	expect(isSame, msg + resultMsg).to.equal(true);
+}
+
+module.exports = {
+	navItemsEnum,
+	clickNavItemLogo,
+	clickNavItemDashboard,
+	clickNavItemCourses,
+	clickNavItemTasks,
+	clickNavItemTasksAsked,
+	clickNavItemTasksPrivate,
+	clickNavItemTasksArchive,
+	clickNavItemTeams,
+	clickNavItemFiles,
+	clickNavItemFilesMy,
+	clickNavItemFilesCourses,
+	clickNavItemFilesTeams,
+	clickNavItemFilesShared,
+	clickNavItemNews,
+	clickNavItemCalendar,
+	clickNavItemContent,
+	clickNavItemAddons,
+	clickNavItemAdministration,
+	clickNavItemAdminStudents,
+	clickNavItemAdminTeachers,
+	clickNavItemAdminCourses,
+	clickNavItemAdminClasses,
+	clickNavItemAdminTeams,
+	clickNavItemAdminSchool,
+	clickNavItemHelpDesk,
+	clickNavItemHelpArea,
+	clickNavItemHelpArticles,
+	clickNavItemHelpTrainings,
+	clickNavItemHelpContact,
+	areSubMenuItemsVisible,
+	areMenuItemsVisible,
+};

@@ -5,18 +5,18 @@ Feature: users can edit their profiles
 		Given teacher arrives on the Schul-Cloud homepage
 
 	@teacherChangesPassword
-	Scenario Outline: teacher changes the passwort
-		Given teacher logs in with email <username> and password <password>
+	Scenario Outline: teacher changes the password
+		Given teacher logs in with email '<username>' and password '<password>'
 		Given teacher accepts data protection
 		And teacher goes to user settings
-		And teacher changes passwort from <password> to <newPassword>
+		And teacher changes password from '<password>' to '<newPassword>'
 		And teacher logs out
-		And teacher logs in with email <username> and password <password>
-		Then the login must fail
+		And teacher logs in with email '<username>' and password '<password>'
+		Then login must fail
 		When teacher waits for next login
-		And teacher is on LoginPage and logs in with <username> and <newPassword>
-		Then the login must be successful
+		And teacher is on LoginPage and logs in using email '<username>' and password '<newPassword>'
+		Then login must be successful
 
 		Examples:
-			| username                   | password     | newPassword   |
-			| klara.fall@schul-cloud.org | Schulcloud1! | Schulcloud1!! |
+			| username                   | password     | newPassword        |
+			| klara.fall@schul-cloud.org | Schulcloud1! | NewPwSchulcloud1!! |

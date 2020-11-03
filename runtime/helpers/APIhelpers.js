@@ -2,21 +2,20 @@
 let log = global.log;
 const fs = require('fs');
 const textFileHelpers = require('./textFileHelpers.js');
-const { SERVER } = require("../../shared-objects/servers");
-const Axios = require("axios");
+const { SERVER } = require('../../shared-objects/servers');
+const Axios = require('axios');
 
-module.exports = {
 	/**
-		*  API call for GET, PUT, POST and DELETE functionality
-		* @param url
-		* @param method
-		* @param body
-		* @param fileName
-		* @param statusCode
-		* @type {{ GET: receive all info, POST: create, PUT: edit / update, DELETE: remove info }},
-		*/
-	apiCall: function (url, method, body, fileName, statusCode) {
+	 *  API call for GET, PUT, POST and DELETE functionality
+	 * @param url
+	 * @param method
+	 * @param body
+	 * @param fileName
+	 * @param statusCode
+	 * @type {{ GET: receive all info, POST: create, PUT: edit / update, DELETE: remove info }},
+	 */
 
+	function apiCall (url, method, body, fileName, statusCode) {
 		let options = {
 			url: url,
 			method: method,
@@ -26,83 +25,73 @@ module.exports = {
 			resolveWithFullResponse: true,
 		};
 
-		return request(options)
-			.then(async function (res) {
-				if (statusCode != null) {
-					assert.equal(res.statusCode, statusCode);
-					log.info('API Response time : ' + res.timings.response);
-				}
+		return request(options).then(async function (res) {
+			if (statusCode != null) {
+				assert.equal(res.statusCode, statusCode);
+				log.info('API Response time : ' + res.timings.response);
+			}
 
-				if (method === 'GET') {
-					return res;
-				}
-
-				if (method === 'DELETE' && fileName != null || method === 'PUT' && fileName != null) {
-					return fs.readFileSync(fileName, 'utf8', function (err) {
-						if (err) {
-							log.error(err.message);
-						}
-					});
-				}
-
-				if (method === 'POST' && fileName != null) {
-					let data = res.body.adminDoc;
-					let doc_Id = data.replace(/.*documents\/([^\/]+)\/properties.*/, '$1');
-					await textFileHelpers.writeTextFile(fileName, doc_Id, function (err) {
-						if (err) {
-							log.error(err.message);
-						}
-					});
-					log.info('====== DocId API ===== ' + doc_Id);
-
-					await doc_Id;
-				}
+			if (method === 'GET') {
 				return res;
-			});
-	},
-	getUserInfo: async function (attribute) {
+			}
+
+			if ((method === 'DELETE' && fileName != null) || (method === 'PUT' && fileName != null)) {
+				return fs.readFileSync(fileName, 'utf8', function (err) {
+					if (err) {
+						log.error(err.message);
+					}
+				});
+			}
+
+			if (method === 'POST' && fileName != null) {
+				let data = res.body.adminDoc;
+				let doc_Id = data.replace(/.*documents\/([^\/]+)\/properties.*/, '$1');
+				textFileHelpers.writeTextFile(fileName, doc_Id, function (err) {
+					if (err) {
+						log.error(err.message);
+					}
+				});
+				log.info('====== DocId API ===== ' + doc_Id);
+
+				await doc_Id;
+			}
+			return res;
+		});
+	};
+
+	async function getUserInfo (attribute) {
 		const cookie = await driver.getCookies(['jwt']);
 		const jwt = cookie[0].value;
 		const info = await Axios.request({
 			url: `${SERVER.URL}/me`,
 			method: 'get',
 			headers: {
-				Authorization: `${jwt}`
-			}
+				Authorization: `${jwt}`,
+			},
 		});
 		let object = info.data;
 		return object[attribute];
+	};
 
-	},
-	getUserName: async function () {
+	async function getUserName () {
+		return getUserInfo('fullName');
+	};
 
-		return this.getUserInfo('fullName')
-	},
-
-	getSchoolName: async function () {
-
-		return this.getUserInfo('schoolName');
-	},
-	getInitials: async function () {
-
-		return  this.getUserInfo('avatarInitials');
-	}, 
-	getLernstoreMaterialsAfterRequest: async function(request) {
+	async function getLernstoreMaterialsAfterRequest (request) {
 		const cookie = await driver.getCookies(['jwt']);
 		const jwt = cookie[0].value;
-		
 		const info = await Axios.request({
 			url:  `${SERVER.URL}`+"/edu-sharing?searchQuery="+`${request}`,
 			method: 'GET',
 			headers: {
 				Authorization: `${jwt}`
 			},
-		});
-		
+	});
 		let numberOfFoundMaterials = info.data.total;
 		return numberOfFoundMaterials;
-	},
-	getTheFirstElementNamePerRESTRequest: async function(request) {
+	};
+
+	async function getTheFirstElementNamePerRESTRequest (request) {
 		const cookie = await driver.getCookies(['jwt']);
 		const jwt = cookie[0].value;
 		const info = await Axios.request({
@@ -112,26 +101,35 @@ module.exports = {
 				Authorization: `${jwt}`
 			},
 		  });
-		
-		  let title = info.data.data[0].title;
-		
-		  return title;
+		let title = info.data.data[0].title;
+		return title;
+	};
 
-	},
-	urlReturnesStatus: async function(url) {
+	async function getSchoolName () {
+		return getUserInfo('schoolName');
+	};
 
-	},
-	getUserRole: async function () {
+	async function getInitials () {
+		return getUserInfo('avatarInitials');
+	};
+
+	async function getUserRole () {
 		try {
-			let userRole = await this.getUserInfo('roles');
-			return (userRole[0]).displayName;
-		}
-		catch (error) {
-			log.error("Can not find role: " + error.message);
+			let userRole = await getUserInfo('roles');
+			return userRole[0].displayName;
+		} catch (error) {
+			log.error('Can not find role: ' + error.message);
 			throw error;
 		}
-	},
+	}
 
-
+module.exports = {
+	apiCall,
+	getUserInfo,
+	getUserName,
+	getSchoolName,
+	getInitials,
+	getUserRole,
+	getTheFirstElementNamePerRESTRequest,
+	getLernstoreMaterialsAfterRequest,
 }
-

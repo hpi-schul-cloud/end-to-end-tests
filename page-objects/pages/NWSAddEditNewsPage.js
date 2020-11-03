@@ -1,72 +1,69 @@
 /*[url/news/[newsId]/edit] | [url/news/[newsId]/new]*/
 'use strict';
-const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
-const { CLIENT } = require("../../shared-objects/servers");
+const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers');
-
-const submitNewsBtn = 'button[data-testid="btn_news_submit"]';
+const newsListPage= require('./NWSNewsListPage');
+const waitHelpers = require('../../runtime/helpers/waitHelpers');
+const submitNewsBtn = '[data-testid="btn_news_submit"]';
+const addNewsBtn = "[data-testid='create-news-btn']";
 const titleField = 'input.h1';
 const contentField = '.editor [contenteditable="true"]';
 const dateSelector = '[data-testid="news_date"] input';
 const timeSelector = '[data-testid="news_time"] input';
 
+async function goToNewNews () {
+    await newsListPage.goToNews();
+    await  clickCreateNewsButton();
+}
+
+async function setTitle (title) {
+    await waitHelpers.waitAndSetValue(titleField, title);
+}
+
+async function setContent (content) {
+    await waitHelpers.waitAndSetValue(contentField, content);
+}
+
+async function setPublishDate (date) {
+    await waitHelpers.waitAndSetValue(dateSelector, date);
+}
+
+async function setPublishTime (time) {
+    await waitHelpers.waitAndSetValue(timeSelector, time);
+}
+
+async function clickCreateNewsButton () {
+    await elementHelpers.clickAndWait(addNewsBtn);
+}
+
+async function createNews ({ title, content, date, time }) {
+    await goToNewNews();
+    if (title) await setTitle(title);
+    if (content) await setContent(content);
+    if (date) await setPublishDate(date);
+    if (time) await setPublishTime(time);
+    await elementHelpers.click(submitNewsBtn);
+}
+
+async function performCreateNews (title) {
+    await createNews({
+        title: title,
+        content: "Here are some announcements for my pupils"
+    });
+}
+
+
+async function performCreateNewsLater (title) {
+    await createNews({
+		title: title,
+		content: 'Here are some announcements for my pupils',
+		date: dateTimeHelpers.setDate(0, 1, 1, '.', false),
+	});
+}
 
 module.exports = {
-    goToNewNews: async function () {
-        let url = `${CLIENT.URL}/news/new`;
-        await elementHelpers.loadPage(url, 100);
-    },
-    setTitle: async function (title) {
-        let titleFieldInput = await driver.$(titleField);
-        await titleFieldInput.waitForExist(1000);
-        await titleFieldInput.setValue(title);
-    },
-    setContent: async function (content) {
-        let contentFieldInput = await driver.$(contentField);
-        await contentFieldInput.waitForExist(1000);
-        await contentFieldInput.setValue(content);
-    },
-    setPublishDate: async function (date) {
-        let dateField = await driver.$(dateSelector);
-        await dateField.waitForExist(1000);
-        await dateField.setValue(date);
-    },
-    setPublishTime: async function (time) {
-        let timeField = await driver.$(timeSelector);
-        await timeField.waitForExist(1000);
-        await timeField.setValue(time);
-    },
-    clickCreateNewsButton: async function () {
-        let add = await driver.$(submitNewsBtn);
-        await add.click();
-    },
-    createNews: async function ({ title, content, date, time }) {
-        await this.goToNewNews();
-        if (title) {
-            await this.setTitle(title)
-        }
-        if (content) {
-            await this.setContent(content)
-        }
-        if (date) {
-            await this.setPublishDate(date);
-        }
-        if (time) {
-            await this.setPublishTime(time);
-        }
-        await this.clickCreateNewsButton();
-    },
-    performCreateNews: async function (title) {
-        await this.createNews({
-            title: title,
-            content: "Here are some announcements for my pupils"
-        });
-    },
-    performCreateNewsLater: async function (title) {
-        await this.createNews({
-            title: title,
-            content: "Here are some announcements for my pupils",
-            date: dateTimeHelpers.setDate(0, 1, 1, '.', false)
-        });
-    }
+    goToNewNews,
+    createNews,
+    performCreateNews,
+    performCreateNewsLater,
 }

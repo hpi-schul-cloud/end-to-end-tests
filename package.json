@@ -1,13 +1,7 @@
 {
-	"name": "sc-integration-tests",
-	"version": "25.0.1",
+	"name": "sc-end-to-end-tests",
+	"version": "25.2.0",
 	"description": "A platform independent debuggable BDD Javascript testing framework. It's simple, easy to use and not dependant to any other tool or library, using Nodejs, webdriverio and cucumber-js",
-	"Author": {
-		"name": "Larry Goddard",
-		"email": "larryg@klassitech.co.uk",
-		"twitter": "twitter.com/lcgoddard",
-		"url": "linkedin.com/in/larryg"
-	},
 	"license": "Apache-2.0",
 	"keywords": [
 		"api",
@@ -27,7 +21,7 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/hpi-schul-cloud/integration-tests"
+		"url": "https://github.com/hpi-schul-cloud/end-to-end-tests"
 	},
 	"engines": {
 		"node": ">= 10.15.0",
@@ -39,7 +33,7 @@
 		"test:dev": "node index.js -d -k",
 		"selenium": "npx selenium-standalone install && npx selenium-standalone start"
 	},
-	"homepage": "https://github.com/hpi-schul-cloud/integration-tests#readme",
+	"homepage": "https://github.com/hpi-schul-cloud/end-to-end-tests#readme",
 	"dependencies": {
 		"axios": "^0.19.2",
 		"browserstack-local": "^1.3.7",
