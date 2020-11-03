@@ -1,9 +1,11 @@
 "use strict";
 
 const leftNavigation = require('../page-objects/pages/NavigationLeftPage.js');
+var {Then} = require('cucumber');
+var {When} = require('cucumber');
 const leftMenuItems = leftNavigation.navItemsEnum;
 
-Then('click left navigation item {string}', function (string) {
+Then(/^.*clicks left navigation item '([^']*)'$/, function (string) {
     let navigationItem = string;
     switch (navigationItem) {
         case leftMenuItems.LOGO:
@@ -68,4 +70,3 @@ Then('click left navigation item {string}', function (string) {
             return Error("no such element found in 'click left navigation item {string}' " + navigationItem);
     }
 });
-
