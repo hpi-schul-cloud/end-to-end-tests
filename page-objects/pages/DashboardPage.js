@@ -6,12 +6,12 @@ const elementHelpers = require('../../runtime/helpers/elementHelpers');
 
 const dashboardBtnOnNavigationLeftPanel = "[data-testid='startseite']";
 const taskElement = {
-	taskName: 'span[data-testid="homework-name"]',
-	courseName: 'span[data-testid="homework-course-name"]',
-	taskTimeout: 'span[data-testid="homework-due-date"]',
-	taskCompleted: 'span[data-testid="homework-submitted"]',
-	taskGraded: 'span[data-testid="homework-graded"]',
-	dashboardTitleList: 'h2[data-testid="dashboard-tasks-title"]',
+	taskName: 'span[data-testid="task-name"]',
+	courseName: 'span[data-testid="task-course-name"]',
+	taskTimeout: 'span[data-testid="task-due-date"]',
+	taskCompleted: 'span[data-testid="task-submitted"]',
+	taskGraded: 'span[data-testid="task-graded"]',
+	dashboardTitleList: 'a[data-testid="dashboard-tasks-title"]',
 };
 
 async function goToDashboard() {

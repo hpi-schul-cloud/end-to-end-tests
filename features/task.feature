@@ -72,7 +72,6 @@ Feature: create different types of task
 			| courseName                        | taskName | username                    | password     | studentName | taskBody         | newStudentPassword |
 			| course with a task for submission | task     | paula.meyer@schul-cloud.org | Schulcloud1! | Paula Meyer | text of the task | Schulcloud1!!      |
 
-
     #@gradeTaskWithFile
     #Scenario Outline: grade a task submission by uploading a file
         #When teacher creates course with name '<courseName>' and student '<studentName>'
