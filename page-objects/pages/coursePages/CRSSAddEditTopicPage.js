@@ -33,7 +33,6 @@ const btnContainerMaterial = ".fa.fa-plus-square";
 //etherpad:
 const etherpadBtn = ".btn-group > button:nth-child(4)";
 const etherpadNameField = "#content-blocks > div > div:nth-child(1) .form-control";
-const etherpadDescriptionField = "div:nth-child(2) > textarea";
 //lernstore
 const btnAttachLernstoreMaterial = "#content-blocks .btn-secondary.btn-add";
 const lernstoreBtn = ".btn-group > button:nth-child(3)";
@@ -221,7 +220,7 @@ async function addLernstoreMaterial (name) {
 	let idContainer = await driver.$(selectorIDContainer);
 	let lernstoreSelector = await idContainer.$(".form-control");
 	await lernstoreSelector.setValue(name);
-	await waitHelpers.waitAndClick(btnAttachLernstoreMaterial);
+	await elementHelpers.clickAndWait(btnAttachLernstoreMaterial);
 	await elementHelpers.click(btnAttachLernstoreMaterial);
 }
 

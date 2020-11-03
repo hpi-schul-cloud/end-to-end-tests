@@ -20,7 +20,7 @@ async function getIndexOfTopicWithNameInTopicsList(topicName) {
 };
 async function goToTopic(topicName) {
 	let index = await this.helperReturnIndexOfTopicWithNameInTopicsList(topicName);
-	await waitHelpers.waitAndClick(containerWithTopics+ ">div:nth-child("+index+")");
+	await elementHelpers.clickAndWait(containerWithTopics+ ">div:nth-child("+index+")");
 	
 };
 async function clickAddNewTopicBtn () {

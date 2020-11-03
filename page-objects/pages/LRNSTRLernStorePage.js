@@ -6,7 +6,7 @@ const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
 const apiHelpers = require('../../runtime/helpers/APIhelpers');
 const stringHelpers= require('../../runtime/helpers/stringHelpers');
 const {CLIENT} = require("../../shared-objects/servers");
-const url = `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`;
+const lernstoreUrl = `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`;
 let title;
 
 const selectorSearchField = ".input-active.search__container > input";
@@ -31,9 +31,9 @@ module.exports= {
 
     },
     wasRedirectedToContentPage: async function() {
-        await waitHelpers.waitUntilUrlContains(url);
+        await waitHelpers.waitUntilUrlContains(lernstoreUrl);
     },
-    insertSearchRequest: async function(content) {
+    setSearchRequest: async function(content) {
         await waitHelpers.waitAndSetValue(selectorSearchField, content);
         await elementHelpers.click(selectorSearchIcon);
     
@@ -46,8 +46,8 @@ module.exports= {
         await expect(`${apiResponse}`).to.equal(displayedNum);
     },
     clickOnContentCard: async function(request) {
-        await waitHelpers.waitAndClick(selectorFirstElement);
-        await this.checkThatTheMaterialOnGUIAndAPIAreDisplayedCorrectly(request)  
+        await elementHelpers.clickAndWait(selectorFirstElement)
+        await this.checkThatTheMaterialOnGUIAndAPIAreDisplayedCorrectly(request)
     },
     checkThatTheMaterialOnGUIAndAPIAreDisplayedCorrectly: async function(request) {
         let titleOnGUISelector = await driver.$(selectorTitleOfMaterialWhenClicked);
@@ -62,11 +62,11 @@ module.exports= {
         await driver.pause(1500);
     },
     addToCourseOrTopic: async function(courseOrTopicName, courseOrTopicContainer) {
-        await waitHelpers.waitAndClick(courseOrTopicContainer+'> div')
+        await elementHelpers.clickAndWait(courseOrTopicContainer+'> div');
         const courseIndex = await this.getIndexOfCourseOrTopicInDropdown(courseOrTopicContainer, courseOrTopicName);
         let dropDownElementCourseOrTopic = await driver.$(`${courseOrTopicContainer} .multiselect__content-wrapper > ul > li:nth-child(${courseIndex}) > span`);
         await dropDownElementCourseOrTopic.click();
-       //await waitHelpers.waitAndClick(dropDownElementCourseOrTopic)
+       //await elementHelpers.clickAndWait(dropDownElementCourseOrTopic)
 
     },
     getIndexOfCourseOrTopicInDropdown: async function(container, elementToSearch) {
@@ -87,8 +87,8 @@ module.exports= {
         await this.addToCourseOrTopic(topic, selectorTopicSelector);
     },
     clickSubmitAddContentBtn: async function() {
-        await waitHelpers.waitAndClick(selectorSubmitAddToCourseAndTopic);
-        await waitHelpers.waitAndClick(selectorSubmitBtnAfterMaterialWasAddedToCourseAndTopic);
+        await elementHelpers.clickAndWait(selectorSubmitAddToCourseAndTopic)
+        await elementHelpers.clickAndWait(selectorSubmitBtnAfterMaterialWasAddedToCourseAndTopic);
         // return to main window
         let handle = await driver.getWindowHandles();
         await driver.switchToWindow(handle[0]);

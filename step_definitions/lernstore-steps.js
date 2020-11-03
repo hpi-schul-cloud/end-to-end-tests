@@ -15,7 +15,7 @@ Then(/^teacher must be redirected to content page$/, async function () {
 
 });
 When(/^teacher searches for content (.*)$/, async function (searchRequest) {
-    await lernstorePage.insertSearchRequest(searchRequest);
+    await lernstorePage.setSearchRequest(searchRequest);
 
 });
 Then(/^teacher must see the right number of materials (.*)$/, async function (searchRequest) {
