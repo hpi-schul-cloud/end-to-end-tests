@@ -3,29 +3,26 @@
 
 const elementHelpers = require("../../../runtime/helpers/elementHelpers")
 const waitHelpers = require("../../../runtime/helpers/waitHelpers")
-const ADMNSTRTNAdministrationOverviewPage = require("./ADMNSTRTNAdministrationOverviewPage")
 const ADMNSTRTNManageClassPage = require("./ADMNSTRTNManageClassPage")
 const ADMNSTRTNEditClassPage = require("./ADMNSTRTNEditClassPage")
 
 const addClassBtn = "a[data-testid='createClass']"
 const moreOptionsBtn = "a[data-testid='classCreationExtraOptions']"
-const classNameInput = "input[data-testid='Klassenbezeichnung']"
+const classNameInput = "input[name='classsuffix']"
+const customClassNameInput = "input[name='classcustom']"
+const classGradeSelect = "select[name='grade']"
+const schoolYearSelect = "select[name='schoolyear']"
+const teachersMultiSelect = "select[name='teacherIds[]']"
 const addClassConfirmBtn = "button[data-testId='confirmClassCreate']"
-const switchClassesTab = "[data-tab='js-upcoming']"
+const classesTabs = "a.tab span"
 const classListTable = "table [data-testid='students_names_container']"
-const titleOfAdministrationClassesPage = "Klassen"
-const titleOfCreateNewClassPage = "Erstelle eine neue Klasse"
 
 //Administration: Classes
-async function isTitleOfAdministrationClassesPage() {
-    await waitHelpers.waitUntilPageTitleContains(titleOfAdministrationClassesPage)
-}
-
 async function clickCreateClassBtn() {
     await elementHelpers.clickAndWait(addClassBtn)
 }
 
-async function isNewEmptyClassCreated(className = "11c", numOfStudents = "0") {
+async function isNewEmptyClassCreated(className, numOfStudents) {
     const allClassesContainer = await waitHelpers.waitUntilElementIsVisible(classListTable)
     const allClassesContent = await allClassesContainer.getText()
     const contentArray = allClassesContent.split(" ")
@@ -48,10 +45,6 @@ async function isClassEdited(newClassName, teacherLastname) {
 }
 
 //Class creation page
-async function isTitleOfCreateClassPage() {
-    await waitHelpers.waitUntilPageTitleContains(titleOfCreateNewClassPage)
-}
-
 async function clickMoreOptionsBtn() {
     await elementHelpers.clickAndWait(moreOptionsBtn)
 }
@@ -60,35 +53,56 @@ async function setClassName(className) {
     await waitHelpers.waitAndSetValue(classNameInput, className)
 }
 
-async function clickConfirmClassCreation() {
+async function setCustomClassName(customClassName) {
+    await waitHelpers.waitAndSetValue(customClassNameInput, customClassName)
+}
+
+async function setClassGrade(classGrade) {
+    await elementHelpers.selectOptionByText(classGradeSelect, classGrade)
+}
+
+async function setSchoolYear(schoolYear) {
+    await elementHelpers.selectOptionByText(schoolYearSelect, schoolYear)
+}
+
+async function setTeachers(listOfTeachers) {
+    await elementHelpers.selectOptionByText(teachersMultiSelect, listOfTeachers)
+}
+
+async function clickAddClassConfirmation() {
     await elementHelpers.clickAndWait(addClassConfirmBtn)
 }
 
- async function changeClassesTab() {
-     await elementHelpers.clickAndWait(switchClassesTab)
+ async function clickOnClassesTab(tabText) {
+     const element = await elementHelpers.getElementByText(classesTabs, tabText);
+     await elementHelpers.clickAndWait(element);
  }
 
-async function createNewClass(className) {
-    await ADMNSTRTNAdministrationOverviewPage.clickAdministrateClasses()
-    await isTitleOfAdministrationClassesPage()
-    await clickCreateClassBtn()
-    await isTitleOfCreateClassPage()
-    await clickMoreOptionsBtn()
-    await setClassName(className)
-    await clickConfirmClassCreation()
+async function createNewClass({schoolYear, teachers, classGrade, className, customClassName}) {
+    await clickCreateClassBtn();
+    await clickMoreOptionsBtn();
+    if (schoolYear) await setSchoolYear(schoolYear);
+    if (teachers) await setTeachers(teachers);
+    if (classGrade) await setClassGrade(classGrade);
+    if (className) await setClassName(className);
+    if (customClassName) await setCustomClassName(customClassName);
+    await clickAddClassConfirmation();
 }
 
-async function editClass(newClassName) {
+async function editClass({schoolYear, teachers, classGrade, className, customClassName}) {
     await ADMNSTRTNManageClassPage.clickEditClassBtn()
-    await ADMNSTRTNEditClassPage.changeSchoolYear()
-    await setClassName(newClassName)
+    if (schoolYear) await setSchoolYear(schoolYear);
+    if (teachers) await setTeachers(teachers);
+    if (classGrade) await setClassGrade(classGrade);
+    if (className) await setClassName(className);
+    if (customClassName) await setCustomClassName(customClassName);
     await ADMNSTRTNEditClassPage.clickSafeChanges()
-    await changeClassesTab()
 }
 
 module.exports = {
     isNewEmptyClassCreated,
     createNewClass,
+    clickOnClassesTab,
     editClass,
     isClassEdited,
 }

@@ -12,7 +12,7 @@ const firstNameInput = "input[data-testid='create_student_input_firstname']";
 const lastNameInput = "input[data-testid='create_student_input_lastname']";
 const emailInput = "input[data-testid='create_student_input_email']";
 const sendRegistrationLinkCheckbox = "input[data-testid='create_student_input_send_link']";
-const tableOfStudents = "tbody[data-testid='students_names_container']";
+const studentNameContainer = "tbody[data-testid='students_names_container']";
 const consentSubmitBtn = "button[data-testid='submit_consent']";
 const addStudentSubmitBtn = 'div.modal.fade.add-modal.in button.btn-submit';
 const passwordInput = '#passwd';
@@ -81,11 +81,23 @@ async function setStudentsBirthday(birthdayDate) {
 	await driver.execute('document.querySelector("#birthday").value = "' + birthdayDate + '"'); //date format dd.mm.yyyy
 }
 
+<<<<<<< HEAD
 // choose between email, firstname, lastname
 async function getStudentsDetailsList(whichCell) {
 	await waitHelpers.waitUntilElementIsPresent(tableOfStudents);
 	let names = await elementHelpers.getTextFromAllElements(whichCell);
 	return names;
+=======
+async function getStudentsEmailList() {
+	await waitHelpers.waitUntilElementIsPresent(studentNameContainer);
+	let names = await driver.$$(studentNameContainer + ' > tr');
+	return Promise.all(
+		names.map(async (nameContainer) => {
+			const emailContainer = await nameContainer.$('td:nth-child(3)');
+			return emailContainer.getText();
+		})
+	);
+>>>>>>> 20ce9a53223a0741852ef9c74dfc8f4920e07efa
 }
 
 async function isStudentEmailOnTheList(email) {
@@ -108,13 +120,18 @@ async function isStudentLastnameOnTheList(lastname) {
 }
 
 async function submitConsent(e_mail) {
+<<<<<<< HEAD
 	await waitHelpers.waitUntilElementIsVisible(tableOfStudents);
 	let names = await driver.$$(tableOfStudentsColumn);
+=======
+	await waitHelpers.waitUntilElementIsVisible(studentNameContainer);
+	let names = await driver.$$(studentNameContainer + ' > tr');
+>>>>>>> 20ce9a53223a0741852ef9c74dfc8f4920e07efa
 	for (var i = 1; i <= names.length; i++) {
-		let emailPromise = await driver.$(tableOfStudents + ' > tr:nth-child(' + i + ') > td:nth-child(3)');
+		let emailPromise = await driver.$(studentNameContainer + ' > tr:nth-child(' + i + ') > td:nth-child(3)');
 		let email = await emailPromise.getText();
 		if (email === e_mail) {
-			let boxConsent = tableOfStudents + ' > tr:nth-child(' + i + ') > td:nth-child(7) > a:nth-child(2) > i';
+			let boxConsent = studentNameContainer + ' > tr:nth-child(' + i + ') > td:nth-child(7) > a:nth-child(2) > i';
 			await elementHelpers.click(boxConsent);
 			let passwordField = await waitHelpers.waitUntilElementIsPresent(passwordInput);
 			let password_old = await passwordField.getValue();
@@ -124,12 +141,12 @@ async function submitConsent(e_mail) {
 		}
 	}
 }
-async function studentLogsInWithDefaultPassword(email) {
-	await startPage.clickLoginBtn();
-	await loginPage.performLogin(email, oldPassword);
+async function studentLogsInWithPasswordGenaratedByAdminDuringManualSubmission(userName) {
+	await loginPage.performLogin(userName, oldPassword);
 }
 
 module.exports = {
+	oldPassword,
 	clickSendConsentFormEmailsButton,
 	clickEditStudentBtn,
 	createNewPupil,
@@ -137,5 +154,5 @@ module.exports = {
 	isStudentFirstnameOnTheList,
 	isStudentLastnameOnTheList,
 	submitConsent,
-	studentLogsInWithDefaultPassword,
+	studentLogsInWithPasswordGenaratedByAdminDuringManualSubmission,
 };

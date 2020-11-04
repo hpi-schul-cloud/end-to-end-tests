@@ -1,23 +1,23 @@
 'use strict';
 const newsAddEditNews = require('../page-objects/pages/NWSAddEditNewsPage');
 const newsListPage = require('../page-objects/pages/NWSNewsListPage');
-let name = "news";
-let laterNewsName = "news should be published later";
+const dateTimeHelpers = require('../runtime/helpers/dateTimeHelpers.js');
 const common = require('../shared_steps/common-steps.js');
 
-When(/^.*creates some news which has to be published immediately$/, function () {
-	return newsAddEditNews.performCreateNews(name);
+When(/^.*creates news with title '([^']*)', content '([^']*)' and current date$/, async function (newsTitle, newsContent) {
+	await newsAddEditNews.createNews({newsTitle: newsTitle, newsContent: newsContent});
 });
 
-Then(/^.*can see the news$/, async function () {
-	await newsListPage.isNewsVisible(name, true);
+When(/^.*creates news with title '([^']*)', content '([^']*)' and a one-year delay$/, async function (newsTitle, newsContent) {
+	const getDate = dateTimeHelpers.getDate({day: 0, month: 0, year: +1, delimiter: '.', isOrderYearMonthDay: false});
+	await newsAddEditNews.createNews({newsTitle: newsTitle, newsContent: newsContent, date: getDate});
 });
 
-When(/^.*creates some news which has to be published later$/, function () {
-	return newsAddEditNews.performCreateNewsLater(laterNewsName);
+Then(/^.*news with title '([^']*)' is visible on the list$/, async function (newsTitle) {
+	await newsListPage.isNewsVisible(newsTitle, true);
 });
 
-Then(/^.*cannot see the news which is not due yet$/, async function () {
-	await newsListPage.isNewsVisible(name, false);
+Then(/^.*news with title '([^']*)' is not visible on the list$/, async function (newsTitle) {
+	await newsListPage.isNewsVisible(newsTitle, false);
 });
 

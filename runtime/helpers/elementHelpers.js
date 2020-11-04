@@ -187,6 +187,18 @@ async function getListOfAllElements(selector) {
 	return driver.$$(selector);
 }
 
+async function getIndexOfHeaderContainsText(tableSel, text) {
+	const textList = await getTextFromAllElements(tableSel + " th");
+	var index = textList.indexOf(text);
+	return index;
+}
+
+async function getIndexOfRowContainsText(tableSel, text) {
+	const textList = await getTextFromAllElements(tableSel + " tr");
+	var index = textList.indexOf(text);
+	return index;
+}
+
 async function isOptionSelected(selectSelector, text) {
 	text = text.trim();
 	const listOfSelectedOption = await getListOfSelectedOption(selectSelector);
@@ -203,6 +215,14 @@ async function clearAndSetValue(selectorOrElement, value) {
 	const element = await waitHelpers.waitUntilElementIsEnabled(selectorOrElement);
 	await element.setValue(value);
 }
+
+async function getElementByText(selector, text) {
+	const listOfElements = await getListOfAllElements(selector);
+	const listOfElementTexts = await getTextListFromListOfElements(listOfElements);
+	text = text.trim();
+    const index = listOfElementTexts.indexOf(text);
+    return listOfElements[index];
+ }
 
 module.exports = {
 	click,
@@ -222,6 +242,8 @@ module.exports = {
 	getListOfAllElements,
 	getValueListFromListOfElements,
 	getListOfSelectedOption,
+	getIndexOfRowContainsText,
+	getIndexOfHeaderContainsText,
 	isElementDisplayed,
 	isElementPresent,
 	isElementClickable,
@@ -229,5 +251,9 @@ module.exports = {
 	getPageTitle,
 	isOptionSelected,
 	clearAndSetValue,
+<<<<<<< HEAD
 	getValueOfElement,
+=======
+	getElementByText,
+>>>>>>> 20ce9a53223a0741852ef9c74dfc8f4920e07efa
 };

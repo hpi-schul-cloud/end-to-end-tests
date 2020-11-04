@@ -7,7 +7,7 @@ const studentEditPage = require('../page-objects/pages/administrationPages/ADMNS
 let firstname, lastname, emailAddress;
 
 When(/^admin goes to students administration$/, function () {
-	return ADMNSTRTNAdministrationOverviewPage.clickAdministrateStudents();
+	return ADMNSTRTNAdministrationOverviewPage.goToAdministrateStudents();
 });
 
 When(/^.*set student firstname '([^']*)', lastname '([^']*)', email '([^']*)'$/, function (
@@ -18,14 +18,13 @@ When(/^.*set student firstname '([^']*)', lastname '([^']*)', email '([^']*)'$/,
 	return studentAdministration.createNewPupil(firstname, secondname, email);
 });
 
-Then(/^the admin should see new pupil with email '([^']*)' among his pupils$/, function (email) {
+Then(/^.*student with email '([^']*)' is visible on the list$/, function (email) {
 	return studentAdministration.isStudentEmailOnTheList(email);
 });
-Then(/^.* manually submits a consent '([^']*)'$/, function (email) {
+Then(/^.*manually submits consent for user with e-mail '([^']*)', thus generates a random password for him$/, function (
+	email
+) {
 	return studentAdministration.submitConsent(email);
-});
-Then(/^new pupil '([^']*)' can log in with default password$/, async function (email) {
-	await studentAdministration.studentLogsInWithDefaultPassword(email);
 });
 
 /**  Edit a student */

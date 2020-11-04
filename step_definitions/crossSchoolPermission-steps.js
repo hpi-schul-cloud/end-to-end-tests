@@ -2,11 +2,11 @@
 
 const administration = require('../page-objects/apiTest');
 
-Given(/^an admin are able to request information about students from own school$/, async function () {
+Given(/^.*should be able to get information about students of his schools on request$/, async function () {
 	await administration.getStudentsFromSameSchoolAndVerify();
 });
 
-When(/^admin tries to request information about students from other school$/, async function () {
+When(/^.*should not be able to get information about students from other schools on request$/, async function () {
 	await administration.requestForeignStudent();
 });
 
