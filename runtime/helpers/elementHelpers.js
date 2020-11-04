@@ -135,6 +135,12 @@ async function isElementClickable(selector) {
 	}
 }
 
+async function getPageTitle(selectorOfTitle) {
+	await waitHelpers.waitUntilPageLoads();
+	const title = await elementHelpers.getElementText(pageTitle);
+	return title;
+}
+
 async function isUrlContaining(expectedUrl) {
 	try {
 		return driver.getUrl().includes(expectedUrl);
@@ -220,6 +226,7 @@ module.exports = {
 	isElementPresent,
 	isElementClickable,
 	isUrlContaining,
+	getPageTitle,
 	isOptionSelected,
 	clearAndSetValue,
 	getValueOfElement,

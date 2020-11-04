@@ -18,8 +18,10 @@ const addStudentSubmitBtn = 'div.modal.fade.add-modal.in button.btn-submit';
 const passwordInput = '#passwd';
 const createBirthday = '#birthday';
 const sendConsentFormEmails = '.btn-send-links-emails';
-const editStudentBtn = 'a[title="Nutzer bearbeiten"]';
-const editStudentBtnEN = 'a[title="Edit users"]';
+// const editStudentBtn = 'a[title="Nutzer bearbeiten"]';
+// const editStudentBtnEN = 'a[title="Edit users"]';
+const editStudentBtn = '.table-actions .btn .fa-edit';
+
 const pageTitle = '#page-title';
 const newAdminTablesEditButton = 'a[datatest-id="edit_student_button"]';
 const tableOfStudentsColumn = 'tbody[data-testid="students_names_container"] > tr';
@@ -37,11 +39,7 @@ async function clickEditStudentBtn() {
 	try {
 		await elementHelpers.click(newAdminTablesEditButton);
 	} catch (e) {
-		try {
-			await elementHelpers.click(editStudentBtn);
-		} catch (e) {
-			await elementHelpers.click(editStudentBtnEN);
-		}
+		await elementHelpers.click(editStudentBtn);
 	}
 }
 
@@ -83,63 +81,30 @@ async function setStudentsBirthday(birthdayDate) {
 	await driver.execute('document.querySelector("#birthday").value = "' + birthdayDate + '"'); //date format dd.mm.yyyy
 }
 
-async function getStudentsEmailList() {
+// choose between email, firstname, lastname
+async function getStudentsDetailsList(whichCell) {
 	await waitHelpers.waitUntilElementIsPresent(tableOfStudents);
-	let names = await driver.$$(tableOfStudentsColumn);
-	return Promise.all(
-		names.map(async (nameContainer) => {
-			const emailContainer = await nameContainer.$(emailCell);
-			return emailContainer.getText();
-		})
-	);
-}
-
-async function getStudentsFirstnameList() {
-	await waitHelpers.waitUntilElementIsPresent(tableOfStudents);
-	let names = await driver.$$(tableOfStudentsColumn);
-	return Promise.all(
-		names.map(async (nameContainer) => {
-			const firstnameContainer = await nameContainer.$(firstNameCell);
-			return firstnameContainer.getText();
-		})
-	);
-}
-
-async function getStudentsLastnameList() {
-	await waitHelpers.waitUntilElementIsPresent(tableOfStudents);
-	let names = await driver.$$(tableOfStudentsColumn);
-	return Promise.all(
-		names.map(async (nameContainer) => {
-			const lastnameContainer = await nameContainer.$(lastNameCell);
-			return lastnameContainer.getText();
-		})
-	);
-}
-
-async function getPageTitle(expectedValue) {
-	await waitHelpers.waitUntilElementIsPresent(pageTitle);
-	const titleText = await elementHelpers.getElementText(pageTitle);
-	const msg = `Expected page title to equal ${expectedValue}`;
-	expect(titleText, msg).to.equal(expectedValue);
+	let names = await elementHelpers.getTextFromAllElements(whichCell);
+	return names;
 }
 
 async function isStudentEmailOnTheList(email) {
-	let emails = await getStudentsEmailList();
-	const msg = `Student with email ${email} is not visible on the list \n`;
+	let emails = await getStudentsDetailsList(emailCell);
+	const msg = `Student with email ${email} is not visible on the students email list \n`;
 	const resultMsg = `List of emails ${emails}`;
-	await expect(emails, msg + resultMsg).to.contain(email);
+	await expect(emails, msg + resultMsg).to.include(email);
 }
 async function isStudentFirstnameOnTheList(firstname) {
-	let firstnames = await getStudentsFirstnameList();
-	const msg = `Student with firstname ${firstname} is not visible on the list \n`;
-	const resultMsg = `List of emails ${firstnames}`;
-	await expect(firstnames, msg + resultMsg).to.contain(firstname);
+	let firstnames = await getStudentsDetailsList(firstNameCell);
+	const msg = `Student with firstname ${firstname} is not visible on the students firstname list \n`;
+	const resultMsg = `List of firstnames ${firstnames}`;
+	await expect(firstnames, msg + resultMsg).to.include(firstname);
 }
 async function isStudentLastnameOnTheList(lastname) {
-	let lastnames = await getStudentsLastnameList();
-	const msg = `Student with lastname ${lastname} is not visible on the list \n`;
+	let lastnames = await getStudentsDetailsList(lastNameCell);
+	const msg = `Student with lastname ${lastname} is not visible on the student lastname list \n`;
 	const resultMsg = `List of lastnames ${lastnames}`;
-	await expect(lastnames, msg + resultMsg).to.contain(lastname);
+	await expect(lastnames, msg + resultMsg).to.include(lastname);
 }
 
 async function submitConsent(e_mail) {
@@ -172,6 +137,5 @@ module.exports = {
 	isStudentFirstnameOnTheList,
 	isStudentLastnameOnTheList,
 	submitConsent,
-	getPageTitle,
 	studentLogsInWithDefaultPassword,
 };
