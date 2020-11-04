@@ -32,7 +32,7 @@ Feature: Administrate pupils, classes and teachers
 		When admin performs first login actions: data protection acceptance
 		And admin goes to administration
 		When admin goes to students administration
-		And admin clicks edit-student-button 
+		And admin clicks Edit-student button 
 		And new page with page title Schüler bearbeiten opens
 		And admin clicks Abbrechen button to open popup
 		Then admin clicks Abbrechen inside popup 
