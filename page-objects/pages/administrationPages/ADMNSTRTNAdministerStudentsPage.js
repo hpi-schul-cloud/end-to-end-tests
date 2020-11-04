@@ -22,6 +22,9 @@ const editStudentBtn = 'a[title="Nutzer bearbeiten"]';
 const pageTitle = '#page-title';
 const newAdminTablesEditButton = 'a[datatest-id="edit_student_button"]';
 const tableOfStudentsColumn = 'tbody[data-testid="students_names_container"] > tr';
+const firstNameCell = 'td:nth-child(1)';
+const lastNameCell = 'td:nth-child(2)';
+const emailCell = 'td:nth-child(3)';
 
 async function clickAddStudentBtn() {
 	await waitHelpers.waitUntilAjaxIsFinished();
@@ -80,7 +83,7 @@ async function getStudentsEmailList() {
 	let names = await driver.$$(tableOfStudentsColumn);
 	return Promise.all(
 		names.map(async (nameContainer) => {
-			const emailContainer = await nameContainer.$('td:nth-child(3)');
+			const emailContainer = await nameContainer.$(emailCell);
 			return emailContainer.getText();
 		})
 	);
@@ -91,7 +94,7 @@ async function getStudentsFirstnameList() {
 	let names = await driver.$$(tableOfStudentsColumn);
 	return Promise.all(
 		names.map(async (nameContainer) => {
-			const firstnameContainer = await nameContainer.$('td:nth-child(1)');
+			const firstnameContainer = await nameContainer.$(firstNameCell);
 			return firstnameContainer.getText();
 		})
 	);
@@ -102,7 +105,7 @@ async function getStudentsLastnameList() {
 	let names = await driver.$$(tableOfStudentsColumn);
 	return Promise.all(
 		names.map(async (nameContainer) => {
-			const lastnameContainer = await nameContainer.$('td:nth-child(2)');
+			const lastnameContainer = await nameContainer.$(lastNameCell);
 			return lastnameContainer.getText();
 		})
 	);
