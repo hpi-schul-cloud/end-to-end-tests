@@ -29,53 +29,49 @@ Then(/^new pupil '([^']*)' can log in with default password$/, async function (e
 });
 
 /**  Edit a student */
-Then(/^.* clicks edit-student-button$/, async function () {
+Then(/^.* clicks edit-student button$/, async function () {
 	await studentAdministration.clickEditStudentBtn();
 });
 
-Then(/^new page with page title Schüler bearbeiten opens$/, async function () {
-	await studentEditPage.getPageTitle();
-});
-
-Then(/^.* clicks Abbrechen button to open popup$/, async function () {
+Then(/^.* clicks cancel button$/, async function () {
 	await studentEditPage.clickCancelButton();
 });
 
-Then(/^.* clicks Abbrechen inside popup$/, async function () {
-	await studentEditPage.chooseOptionInCancelModal(false);
+Then(/^.* clicks cancel inside popup$/, async function () {
+	await studentEditPage.clickCancelInModal();
 });
 
-Then(/^.* clicks Änderung verwerfen inside popup$/, async function () {
-	await studentEditPage.chooseOptionInCancelModal(true);
+Then(/^.* clicks discard change inside popup$/, async function () {
+	await studentEditPage.clickDiscardChangesInModal();
 });
 
-Then(/^.*returns to administration page$/, async function () {
-	await studentAdministration.getPageTitle('Administration: Schüler');
-});
-
-When(/^.* changes firstname to '([^']*)'$/, async function (firstName) {
+When(/^.* changes student firstname to '([^']*)'$/, async function (firstName) {
 	firstname = firstName;
 	await studentEditPage.setStudentFirstName(firstName);
 });
 
-Then(/^.* changes lastname to '([^']*)'$/, async function (lastName) {
+Then(/^.* changes student lastname to '([^']*)'$/, async function (lastName) {
 	lastname = lastName;
 	await studentEditPage.setStudentLastName(lastName);
 });
 
-Then(/^.* changes email to '([^']*)'$/, async function (email) {
+Then(/^.* changes student email to '([^']*)'$/, async function (email) {
 	emailAddress = email;
 	await studentEditPage.setStudentEmail(email);
 });
 
-Then(/^.* changes birthdate to '([^']*)'$/, async function (birthdate) {
+Then(/^.* changes student birthdate to '([^']*)'$/, async function (birthdate) {
 	await studentEditPage.setStudentBirthday(birthdate);
 });
 
-When(/^.* validates that changes have been saved$/, async function () {
-	await studentAdministration.isStudentEmailOnTheList(emailAddress);
+When(/^.* validates that firstname is edited firstname$/, async function () {
 	await studentAdministration.isStudentFirstnameOnTheList(firstname);
+});
+When(/^.* validates that lastname is edited lastname$/, async function () {
 	await studentAdministration.isStudentLastnameOnTheList(lastname);
+});
+When(/^.* validates that email is edited email$/, async function () {
+	await studentAdministration.isStudentEmailOnTheList(emailAddress);
 });
 
 Then(/^birthdate is '([^']*)'$/, async function (birthdate) {

@@ -19,6 +19,7 @@ const passwordInput = '#passwd';
 const createBirthday = '#birthday';
 const sendConsentFormEmails = '.btn-send-links-emails';
 const editStudentBtn = 'a[title="Nutzer bearbeiten"]';
+const editStudentBtnEN = 'a[title="Edit users"]';
 const pageTitle = '#page-title';
 const newAdminTablesEditButton = 'a[datatest-id="edit_student_button"]';
 const tableOfStudentsColumn = 'tbody[data-testid="students_names_container"] > tr';
@@ -36,7 +37,11 @@ async function clickEditStudentBtn() {
 	try {
 		await elementHelpers.click(newAdminTablesEditButton);
 	} catch (e) {
-		await elementHelpers.click(editStudentBtn);
+		try {
+			await elementHelpers.click(editStudentBtn);
+		} catch (e) {
+			await elementHelpers.click(editStudentBtnEN);
+		}
 	}
 }
 
@@ -120,15 +125,21 @@ async function getPageTitle(expectedValue) {
 
 async function isStudentEmailOnTheList(email) {
 	let emails = await getStudentsEmailList();
-	await expect(emails).to.contain(email);
+	const msg = `Student with email ${email} is not visible on the list \n`;
+	const resultMsg = `List of emails ${emails}`;
+	await expect(emails, msg + resultMsg).to.contain(email);
 }
 async function isStudentFirstnameOnTheList(firstname) {
 	let firstnames = await getStudentsFirstnameList();
-	await expect(firstnames).to.contain(firstname);
+	const msg = `Student with firstname ${firstname} is not visible on the list \n`;
+	const resultMsg = `List of emails ${firstnames}`;
+	await expect(firstnames, msg + resultMsg).to.contain(firstname);
 }
 async function isStudentLastnameOnTheList(lastname) {
 	let lastnames = await getStudentsLastnameList();
-	await expect(lastnames).to.contain(lastname);
+	const msg = `Student with lastname ${lastname} is not visible on the list \n`;
+	const resultMsg = `List of lastnames ${lastnames}`;
+	await expect(lastnames, msg + resultMsg).to.contain(lastname);
 }
 
 async function submitConsent(e_mail) {

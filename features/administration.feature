@@ -32,22 +32,21 @@ Feature: Administrate pupils, classes and teachers
 		When admin performs first login actions: data protection acceptance
 		And admin goes to administration
 		When admin goes to students administration
-		And admin clicks edit-student-button 
-		And new page with page title Schüler bearbeiten opens
-		And admin clicks Abbrechen button to open popup
-		Then admin clicks Abbrechen inside popup 
-		And admin clicks Abbrechen button to open popup
-		And admin clicks Änderung verwerfen inside popup 
-		Then admin returns to administration page
-		And admin clicks edit-student-button 
-		When admin changes firstname to '<firstName>'
-		And admin changes lastname to '<lastName>' 
-		And admin changes email to '<email>'
-		And admin changes birthdate to '<birthdate>'
+		And admin clicks edit-student button 
+		And admin clicks cancel button
+		Then admin clicks cancel inside popup 
+		And admin clicks cancel button
+		And admin clicks discard change inside popup
+		And admin clicks edit-student button 
+		When admin changes student firstname to '<firstName>'
+		And admin changes student lastname to '<lastName>' 
+		And admin changes student email to '<email>'
+		And admin changes student birthdate to '<birthdate>'
 		And admin clicks Save-changes
-		Then admin returns to administration page 
-		When admin validates that changes have been saved
-		And admin clicks edit-student-button
+		When admin validates that firstname is edited firstname
+		And admin validates that lastname is edited lastname
+		And admin validates that email is edited email
+		And admin clicks edit-student button
 		Then birthdate is '<birthdate>' 
 
 		Examples:

@@ -14,8 +14,7 @@ const deleteButtonCancel = '.cancel-modal button.historyback';
 async function getPageTitle() {
 	await waitHelpers.waitUntilPageLoads();
 	const title = await elementHelpers.getElementText(pageTitle);
-	const msg = 'Expected page title to be Schüler bearbeiten';
-	expect(title, msg).to.equal('Schüler bearbeiten');
+	return title;
 }
 
 async function clickCancelButton() {
@@ -46,25 +45,22 @@ async function getStudentBirthdate() {
 
 async function isStudentBirthdayCorrect(birthdayDate) {
 	const birthdate = await getStudentBirthdate();
-	const msg = `Expected birthdate to equal ${birthdayDate}`;
+	const msg = `Expected: ${birthdate}, Actual: ${birthdayDate}`;
 	expect(birthdate, msg).to.equal(birthdayDate);
 }
 
-async function chooseOptionInCancelModal(discard) {
-	// true for discard changes
-	// false for continue editing
-
-	if (discard) {
-		await elementHelpers.clickAndWait(deleteButtonCancel);
-	} else {
-		await elementHelpers.clickAndWait(deleteButtonConfirmation);
-	}
+async function clickCancelInModal() {
+	await elementHelpers.clickAndWait(deleteButtonConfirmation);
+}
+async function clickDiscardChangesInModal() {
+	await elementHelpers.clickAndWait(deleteButtonCancel);
 }
 
 module.exports = {
 	getPageTitle,
 	clickCancelButton,
-	chooseOptionInCancelModal,
+	clickDiscardChangesInModal,
+	clickCancelInModal,
 	setStudentFirstName,
 	setStudentLastName,
 	setStudentEmail,
