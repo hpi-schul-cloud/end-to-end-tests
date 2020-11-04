@@ -21,14 +21,18 @@ const sendConsentFormEmails = '.btn-send-links-emails';
 const editStudentBtn = "a[title='Nutzer bearbeiten']";
 const pageTitle = '#page-title';
 
-//
 async function clickAddStudentBtn() {
 	await waitHelpers.waitUntilAjaxIsFinished();
 	await elementHelpers.clickAndWait(addStudentBtn);
 }
 
 async function clickEditStudentBtn() {
-	await elementHelpers.click(editStudentBtn);
+	// to make it work on new admin tables
+	try {
+		await elementHelpers.click("a[datatest-id='edit_student_button']");
+	} catch (e) {
+		await elementHelpers.click(editStudentBtn);
+	}
 }
 
 async function setStudentFirstName(firstname) {
