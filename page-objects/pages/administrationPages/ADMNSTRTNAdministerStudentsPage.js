@@ -8,9 +8,9 @@ const dateTimeHelpers= require('../../../runtime/helpers/dateTimeHelpers');
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 let oldPassword;
 
-const fabBtn = 'button.fab.primary.button.is-medium.is-none';
-const addStudentBtn = 'a[aria-label="Schüler:in anlegen"]';
-const importStudentBtn = 'a[aria-label="Schüler:innen importieren"]';
+const fabBtn = "[data-testid='fab_button_students_table']";
+const addStudentBtn = "[data-testid='fab_button_add_students']";
+const importStudentBtn = "[data-testid='fab_button_import_students']";
 const firstNameInput = "input[data-testid='input_create-user_firstname']";
 const lastNameInput = "input[data-testid='input_create-user_lastname']";
 const emailInput = "input[data-testid='input_create-user_email']";
@@ -23,13 +23,12 @@ const passwordInput = '#passwd';
 const createBirthday = '#birthday';
 const sendConsentFormEmails = '.btn-send-links-emails';
 
-//
 async function clickFABBtn() {
 	await elementHelpers.clickAndWait(fabBtn);
 }
 
 async function clickAddStudentBtn() {
-	//await waitHelpers.waitUntilAjaxIsFinished();
+	await waitHelpers.waitUntilAjaxIsFinished();
 	await elementHelpers.clickAndWait(addStudentBtn);
 }
 
@@ -84,10 +83,12 @@ async function getStudentsEmailList() {
 		})
 	);
 }
+
 async function isStudentEmailOnTheList(email) {
 	let emails = await getStudentsEmailList();
 	await expect(emails).to.contain(email);
 }
+
 async function submitConsent(e_mail) {
 	await waitHelpers.waitUntilElementIsVisible(tableOfStudents);
 	let names = await driver.$$(tableOfStudents + ' > tr');
@@ -105,15 +106,16 @@ async function submitConsent(e_mail) {
 		}
 	}
 }
-async function studentLogsInWithDefaultPassword(email) {
-	await startPage.clickLoginBtn();
-	await loginPage.performLogin(email, oldPassword);
+
+async function studentLogsInWithPasswordGenaratedByAdminDuringManualSubmission(userName) {
+	await loginPage.performLogin(userName, oldPassword);
 }
 
 module.exports = {
+	oldPassword,
 	clickSendConsentFormEmailsButton,
 	createNewPupil,
 	isStudentEmailOnTheList,
 	submitConsent,
-	studentLogsInWithDefaultPassword,
+	studentLogsInWithPasswordGenaratedByAdminDuringManualSubmission,
 };
