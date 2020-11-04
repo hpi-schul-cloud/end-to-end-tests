@@ -39,7 +39,7 @@ Feature: Administrate pupils, classes and teachers
 		And admin clicks Abbrechen button to open popup
 		And admin clicks Änderung verwerfen inside popup 
 		Then admin returns to administration page
-		And admin clicks edit-student-button 
+		And admin clicks Edit-student button 
 		When admin changes firstname to '<firstName>'
 		And admin changes lastname to '<lastName>' 
 		And admin changes email to '<email>'
