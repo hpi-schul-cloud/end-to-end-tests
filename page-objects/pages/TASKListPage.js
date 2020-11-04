@@ -105,9 +105,7 @@ async function isTaskVisible(taskname, expectedValue) {
 	const msg = `Task with name is ${fillString} visible on the list: \n`;
 	const resultMsg = 'Expected: ' + taskname + ', Actual: ' + allTasks;
 
-	expectedValue
-		? await expect(isTaskOnList, msg + resultMsg).to.equal(true)
-		: await expect(isTaskOnList, msg + resultMsg).to.equal(false);
+	await expect(isTaskOnList, msg + resultMsg).to.equal(expectedValue)
 }
 
 async function getTaskDescription(){

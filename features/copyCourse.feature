@@ -13,7 +13,7 @@ When teacher creates course with name '<courseName>'
 And teacher enters course name '<courseName>' into search field
 Then teacher should see that amount of courses with name '<courseName>' is '1'
 When teacher chooses course with name '<courseName>'
-And teacher clicks Duplicate-course
+And teacher clicks Duplicate-course button
 And teacher goes to courses page
 Then teacher should see that cloned course with name '<courseName> - Kopie' is visible on the list
 And teacher should see that amount of courses with name '<courseName> - Kopie' is '1'
@@ -32,7 +32,7 @@ And teacher adds content Text with title '<contentTitle>' and description '<cont
 And teacher clicks Save-changes
 And teacher goes to courses page
 And teacher chooses course with name '<courseName>'
-And teacher clicks Duplicate-course
+And teacher clicks Duplicate-course button
 And teacher goes to courses page
 Then teacher should see that course with name '<courseName> - Kopie' is visible on the list
 And teacher should see that copied course with name '<courseName> - Kopie' contains topic with name '<topicName>'
@@ -50,7 +50,7 @@ And teacher adds content GeoGebraArbeitsblatt with id '<geogebraID>'
 And teacher clicks Save-changes
 And teacher goes to courses page
 And teacher chooses course with name '<courseName>'
-And teacher clicks Duplicate-course
+And teacher clicks Duplicate-course button
 And teacher goes to courses page
 Then teacher should see that cloned course with name '<courseName> - Kopie' is visible on the list
 And teacher should see that copied course with name '<courseName> - Kopie' contains topic with name '<topicName>'
@@ -67,7 +67,7 @@ Examples:
 #And teacher clicks Save-changes
 #And teacher goes to courses page
 #And teacher chooses course with name '<courseName>'
-#And teacher clicks Duplicate-course
+#And teacher clicks Duplicate-course button
 #And teacher goes to courses page
 #Then teacher should see that copied course with name '<courseName> - Kopie' is visible on the list
 #And teacher should see that copied course with name '<courseName> - Kopie' contains topic with name '<topicName>'
@@ -85,7 +85,7 @@ When teacher adds content Etherpad with name '<etherpadName>' and description '<
 And teacher clicks Save-changes
 And teacher goes to courses page
 And teacher chooses course with name '<courseName>'
-And teacher clicks Duplicate-course
+And teacher clicks Duplicate-course button
 And teacher goes to courses page
 Then teacher should see that cloned course with name '<courseName> - Kopie' is visible on the list
 And teacher should see that copied course with name '<courseName> - Kopie' contains topic with name '<topicName>'
@@ -98,7 +98,7 @@ Scenario Outline: teacher can copy course with students
 Given teacher creates course with name '<courseName>' and student '<studentName>'
 And teacher goes to courses page
 And teacher chooses course with name '<courseName>'
-And teacher clicks Duplicate-course
+And teacher clicks Duplicate-course button
 And teacher goes to courses page
 Then teacher should see that cloned course with name '<courseName> - Kopie' is visible on the list
 And teacher should see that cloned course with name '<courseName> - Kopie' contains number of members '<membersCount>'

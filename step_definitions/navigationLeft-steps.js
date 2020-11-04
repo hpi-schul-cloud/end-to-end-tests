@@ -3,7 +3,7 @@
 const leftNavigation = require('../page-objects/pages/NavigationLeftPage.js');
 const leftMenuItems = leftNavigation.navItemsEnum;
 
-Then('click left navigation item {string}', function (string) {
+Then('click. left navigation item {string}', function (string) {
     let navigationItem = string;
     switch (navigationItem) {
         case leftMenuItems.LOGO:
