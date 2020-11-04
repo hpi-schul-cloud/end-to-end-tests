@@ -1,9 +1,9 @@
-@email
+#@email
 Feature: Test set for sending emails
 	Background:
 		Given user arrives on the Schul-Cloud homepage
 
-	@sendConsentFormEmail
+	#@sendConsentFormEmail
 	Scenario Outline: Send emails to all students without a full declaration of consent.
 		When <userRole> logs in with email '<adminsUsername>' and password '<adminsPassword>'
 		And <userRole> performs first login actions: data protection acceptance
