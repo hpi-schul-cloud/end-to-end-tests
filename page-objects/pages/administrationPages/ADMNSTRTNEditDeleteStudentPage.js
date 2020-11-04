@@ -2,7 +2,6 @@
 const waitHelpers = require('../../../runtime/helpers/waitHelpers');
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 
-const pageTitle = '#page-title';
 const cancelButton = '.btn-cancel';
 const firstNameInput = "input[name='firstName']";
 const lastNameInput = "input[name='lastName']";
@@ -10,12 +9,6 @@ const emailInput = "input[name='email']";
 const birthdayInput = '#birthday';
 const deleteButtonConfirmation = '.cancel-modal button.btn-close';
 const deleteButtonCancel = '.cancel-modal button.historyback';
-
-async function getPageTitle() {
-	await waitHelpers.waitUntilPageLoads();
-	const title = await elementHelpers.getElementText(pageTitle);
-	return title;
-}
 
 async function clickCancelButton() {
 	await elementHelpers.clickAndWait(cancelButton);

@@ -81,23 +81,11 @@ async function setStudentsBirthday(birthdayDate) {
 	await driver.execute('document.querySelector("#birthday").value = "' + birthdayDate + '"'); //date format dd.mm.yyyy
 }
 
-<<<<<<< HEAD
 // choose between email, firstname, lastname
 async function getStudentsDetailsList(whichCell) {
 	await waitHelpers.waitUntilElementIsPresent(tableOfStudents);
 	let names = await elementHelpers.getTextFromAllElements(whichCell);
 	return names;
-=======
-async function getStudentsEmailList() {
-	await waitHelpers.waitUntilElementIsPresent(studentNameContainer);
-	let names = await driver.$$(studentNameContainer + ' > tr');
-	return Promise.all(
-		names.map(async (nameContainer) => {
-			const emailContainer = await nameContainer.$('td:nth-child(3)');
-			return emailContainer.getText();
-		})
-	);
->>>>>>> 20ce9a53223a0741852ef9c74dfc8f4920e07efa
 }
 
 async function isStudentEmailOnTheList(email) {
@@ -120,13 +108,8 @@ async function isStudentLastnameOnTheList(lastname) {
 }
 
 async function submitConsent(e_mail) {
-<<<<<<< HEAD
 	await waitHelpers.waitUntilElementIsVisible(tableOfStudents);
 	let names = await driver.$$(tableOfStudentsColumn);
-=======
-	await waitHelpers.waitUntilElementIsVisible(studentNameContainer);
-	let names = await driver.$$(studentNameContainer + ' > tr');
->>>>>>> 20ce9a53223a0741852ef9c74dfc8f4920e07efa
 	for (var i = 1; i <= names.length; i++) {
 		let emailPromise = await driver.$(studentNameContainer + ' > tr:nth-child(' + i + ') > td:nth-child(3)');
 		let email = await emailPromise.getText();
