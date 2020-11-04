@@ -18,11 +18,17 @@ const addStudentSubmitBtn = 'div.modal.fade.add-modal.in button.btn-submit';
 const passwordInput = '#passwd';
 const createBirthday = '#birthday';
 const sendConsentFormEmails = '.btn-send-links-emails';
+const editStudentBtn = "a[title='Nutzer bearbeiten']";
+const pageTitle = '#page-title';
 
 //
 async function clickAddStudentBtn() {
 	await waitHelpers.waitUntilAjaxIsFinished();
 	await elementHelpers.clickAndWait(addStudentBtn);
+}
+
+async function clickEditStudentBtn() {
+	await elementHelpers.click(editStudentBtn);
 }
 
 async function setStudentFirstName(firstname) {
@@ -73,10 +79,49 @@ async function getStudentsEmailList() {
 		})
 	);
 }
+
+async function getStudentsFirstnameList() {
+	await waitHelpers.waitUntilElementIsPresent(tableOfStudents);
+	let names = await driver.$$(tableOfStudents + ' > tr');
+	return Promise.all(
+		names.map(async (nameContainer) => {
+			const firstnameContainer = await nameContainer.$('td:nth-child(1)');
+			return firstnameContainer.getText();
+		})
+	);
+}
+
+async function getStudentsLastnameList() {
+	await waitHelpers.waitUntilElementIsPresent(tableOfStudents);
+	let names = await driver.$$(tableOfStudents + ' > tr');
+	return Promise.all(
+		names.map(async (nameContainer) => {
+			const lastnameContainer = await nameContainer.$('td:nth-child(2)');
+			return lastnameContainer.getText();
+		})
+	);
+}
+
+async function getPageTitle(expectedValue) {
+	await waitHelpers.waitUntilElementIsPresent(pageTitle);
+	const titleText = await elementHelpers.getElementText(pageTitle);
+	const msg = `Expected page title to equal ${expectedValue}`;
+	expect(titleText, msg).to.equal(expectedValue);
+}
+
 async function isStudentEmailOnTheList(email) {
 	let emails = await getStudentsEmailList();
 	await expect(emails).to.contain(email);
 }
+async function isStudentFirstnameOnTheList(firstname) {
+	let firstnames = await getStudentsFirstnameList();
+	await expect(firstnames).to.contain(firstname);
+}
+async function isStudentLastnameOnTheList(lastname) {
+	let lastnames = await getStudentsLastnameList();
+	await expect(lastnames).to.contain(lastname);
+}
+
 async function submitConsent(e_mail) {
 	await waitHelpers.waitUntilElementIsVisible(tableOfStudents);
 	let names = await driver.$$(tableOfStudents + ' > tr');
@@ -101,8 +146,12 @@ async function studentLogsInWithDefaultPassword(email) {
 
 module.exports = {
 	clickSendConsentFormEmailsButton,
+	clickEditStudentBtn,
 	createNewPupil,
 	isStudentEmailOnTheList,
+	isStudentFirstnameOnTheList,
+	isStudentLastnameOnTheList,
 	submitConsent,
+	getPageTitle,
 	studentLogsInWithDefaultPassword,
 };

@@ -157,6 +157,13 @@ async function getListOfSelectedOption(selectSelector) {
 	return getTextListFromListOfElements(listOfSelectedOptions);
 }
 
+async function getValueOfElement(selector) {
+	await waitHelpers.waitUntilElementIsVisible(selector);
+	const element = await driver.$(selector);
+	const value = await element.getValue();
+	return value;
+}
+
 async function getTextFromAllElements(selector) {
 	await waitHelpers.waitUntilPageLoads();
 	const listOfElements = await getListOfAllElements(selector);
@@ -215,4 +222,5 @@ module.exports = {
 	isUrlContaining,
 	isOptionSelected,
 	clearAndSetValue,
+	getValueOfElement,
 };
