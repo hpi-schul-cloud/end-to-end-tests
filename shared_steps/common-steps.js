@@ -57,11 +57,11 @@ When(/^.* waits for next login$/, async function () {
 	await driver.pause(waitTime * 1000);
 });
 
-Then(/^login must fail$/, async function () {
+Then(/^.*login must fail$/, async function () {
 	return loginPage.isWrongLoginNotification();
 });
 
-Then(/^login must be successful$/, function () {
+Then(/^.*login is successful$/, function () {
 	return navigationTopPage.areUserInitialsCorrect();
 });
 
@@ -81,12 +81,21 @@ When(/^.* goes to user settings$/, async function () {
 });
 
 /*first login*/
-Then(/^.* accepts data protection$/, async function () {
+Then(/^.* performs first login actions: data protection acceptance$/, async function () {
 	return loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: false });
 });
 
-Then(/^student with full age accepts student\'s data protection with password '([^']*)'$/, async function (newPassword) {
+Then(/^.* performs first login actions: data protection acceptance, password change '([^']*)'$/, async function (newPassword) {
 	await loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: true, newPassword });
+});
+
+Then(/^'([^']*)' performs first login actions$/, async function (userRole) {
+	if (userRole.toLowerCase() === "student") {
+	await loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: true });
+	} else {
+	await loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: false});
+	}
+
 });
 
 Then(/^.*data protection is already accepted and set a new password '([^']*)'$/, async function (newPassword) {

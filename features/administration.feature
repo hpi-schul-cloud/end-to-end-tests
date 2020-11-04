@@ -12,7 +12,7 @@ Feature: Administrate pupils, classes and teachers
 	Scenario Outline: Admin creates a pupil
 
 		When admin logs in with email '<adminsUsername>' and password '<adminsPassword>'
-		When admin accepts data protection
+		When admin performs first login actions: data protection acceptance
 		When admin goes to administration
 		When admin goes to students administration
 		And admin set student firstname '<firstName>', lastname '<secondName>', email '<studentEmail>'

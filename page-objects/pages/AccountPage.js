@@ -28,6 +28,10 @@ async function setNewPasswordConfirmation(newPassword = LoginPage.defaultNewPass
     await waitHelpers.waitAndSetValue(newPasswordConfInput, newPassword);
 }
 
+async function setLanguage(language) {
+    await elementHelpers.selectOptionByText(languageSelect, language);
+}
+
 async function changePassword(oldPassword, newPassword) {
     await setCurrentPassword(oldPassword);
     await setNewPassword(newPassword);
@@ -36,15 +40,7 @@ async function changePassword(oldPassword, newPassword) {
 }
 
 async function changeLanguage(language) {
-	await elementHelpers.clickAndWait(languageSelect);
-	const elements = await elementHelpers.getListOfAllElements(languageOptions);
-	for(let i = 0; i < elements.length ; i++) {
-		let name = await elements[i].getText();
-		if(name === language){
-			elements[i].click();
-			break;
-		}
-	}
+	await setLanguage(language);
     await clickSubmitAccountDataBtn();
 }
 

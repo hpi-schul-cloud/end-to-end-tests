@@ -7,7 +7,7 @@ Given teacher arrives on the Schul-Cloud homepage
 
 Scenario Outline: create a team with two new members
 When teacher logs in with email '<teacherUsername>' and password '<teacherPassword>'
-And teacher accepts data protection
+And teacher performs first login actions: data protection acceptance
 Then teacher creates a new team with name '<teamname>' and description '<description>' and color orange
 And teacher adds a student to team with lastname: '<lastname1>' and firstname: '<firstname1>'
 And teacher adds a student to team with lastname: '<lastname2>' and firstname: '<firstname2>'
