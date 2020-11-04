@@ -180,7 +180,7 @@ async function dateToString() {
 }
 async function randomDate() {
 	let today = new Date();
-	let dd = today.getDate();
+	let dd = today.getDate() - 1;
 	let mm = today.getMonth() + 1; //January is 0!
 	let yyyy = today.getFullYear() + 1;
 	let hours = '11';

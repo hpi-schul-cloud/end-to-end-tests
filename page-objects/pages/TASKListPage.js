@@ -4,6 +4,7 @@
 const waitHelpers = require("../../runtime/helpers/waitHelpers")
 const navigationLeftPage = require("./NavigationLeftPage.js")
 const elementHelpers=require('../../runtime/helpers/elementHelpers');
+
 const selectorCreateTaskButton = '.btn.btn-primary.btn-add.create';
 const selectorCreateTaskBtnInTheCourse = '.col-sm-12.add-button > a';
 const selectorSortBtn = '#filter .md-clickable > div';
@@ -119,14 +120,6 @@ async function goToPrivateTasksArea () {
     await navigationLeftPage.clickNavItemTasksPrivate()
 }
 
-async function isTaskNotVisible (taskname) {
-        const allTasks = await this.getListOfTaskTitles();
-        const isTaskOnList = allTasks.some((element) => element.includes(taskname));
-        const msg = 'Task with name is not visible on the list: \n';
-        const resultMsg = 'Expected: ' + taskname + ', Actual: ' + allTasks;
-        await expect(isTaskOnList, msg + resultMsg).to.equal(false);
-}
-
 async function clickOnTaskFromList (taskname) {
         let areThereAnyTasks = await driver.$$(tasksContainer)
         await expect(areThereAnyTasks.length).not.to.equal(0)
@@ -139,20 +132,6 @@ async function clickOnTaskFromList (taskname) {
         }
  }
 
- async function getTaskNames () {
-    const tasksArray = await driver.$$(taskElement + " > li");
-    const container = await driver.$(taskElement);
-    const namesArray = [];
-    for (let i = 1; i <= tasksArray.length; i++) {
-        const task = await container.$("li:nth-child(" + i + ") h2");
-        const courseAndTaskName = (await task.getText());
-        const tasknameArray = await courseAndTaskName.split("- ")
-        const foundtaskName = tasknameArray[1]
-        namesArray.push(foundtaskName);
-    }
-    return namesArray;
-}
-
 module.exports = {
     clickCreateTaskButton,
     sortHometasks: sortHometasksLastEdited,
@@ -161,9 +140,7 @@ module.exports = {
     clickOnTask,
     isTaskVisible,
     goToPrivateHomeworkArea: goToPrivateTasksArea,
-    isTaskNotVisible,
     clickOnTaskFromList,
-    getTaskNames,
     getTaskDescription,
     clickCreateTaskButtonInTheCourse
 

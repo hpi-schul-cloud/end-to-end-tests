@@ -1,8 +1,8 @@
 @news
 Feature: Different options for news. I would like to test whether users with different permissions can see my news
-    Background: I am logged in as a teacher and I create some news
-        Given teacher arrives on the Schul-Cloud homepage
 
+	Background: I am logged in as a teacher and I create news
+		Given teacher arrives on the Schul-Cloud homepage
 
     @newsIsVisible
     Scenario Outline: User can see the news
@@ -12,7 +12,7 @@ Feature: Different options for news. I would like to test whether users with dif
         And teacher logs out
         And student logs in with email '<studentUsername>' and password '<studentPassword>'
         And student performs first login actions: data protection acceptance, password change '<newStudentPassword>'
-        And click left navigation item "news"
+        And click left navigation item 'news'
         Then teacher should see that news with title '<newsTitle>' is visible on the list
 
         Examples:
@@ -27,7 +27,7 @@ Feature: Different options for news. I would like to test whether users with dif
         And teacher logs out
         And student logs in with email '<studentUsername>' and password '<studentPassword>'
         And student performs first login actions: data protection acceptance, password change '<newStudentPassword>'
-        And click left navigation item "news"
+        And click left navigation item 'news'
         Then student should see that news with title '<newsTitle>' is not visible on the list
 
         Examples:
