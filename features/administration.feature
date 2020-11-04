@@ -44,7 +44,7 @@ Feature: Administrate pupils, classes and teachers
 		And admin changes lastname to '<lastName>' 
 		And admin changes email to '<email>'
 		And admin changes birthdate to '<birthdate>'
-		And admin clicks Save-changes
+		And admin clicks Save-changes button 
 		Then admin returns to administration page 
 		When admin validates that changes have been saved
 		And admin clicks edit-student-button
