@@ -20,7 +20,7 @@ When(/^.* creates a class with grade '([^']*)' and name '([^']*)'$/, async funct
 });
 
 When(/^.* opens classes tab with name '([^']*)'$/, async function (classesTabName) {
-	await administrationClasses.clickOnClassesTzab(classesTabName);
+	await administrationClasses.clickOnClassesTab(classesTabName);
 });
 
 Then(/^.* class with name '([^']*)' and '([^']*)' participants is visible$/, async function (className, participantsCount) {
