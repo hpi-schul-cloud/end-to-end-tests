@@ -33,8 +33,8 @@ fetch(){
 	git clone https://github.com/hpi-schul-cloud/docker-compose.git docker-compose
 	switchBranch "docker-compose"
 
-	git clone https://github.com/hpi-schul-cloud/integration-tests.git integration-tests
-	switchBranch "integration-tests"
+	git clone https://github.com/hpi-schul-cloud/end-to-end-tests.git end-to-end-tests
+	switchBranch "end-to-end-tests"
 
 	git clone https://github.com/hpi-schul-cloud/node-notification-service.git node-notification-service
 	switchBranch "node-notification-service"
@@ -47,7 +47,7 @@ install(){
 	cd ..
 
 	cd schulcloud-server && npm ci && cd ..
-	cd integration-tests && npm ci && cd ..
+	cd end-to-end-tests && npm ci && cd ..
 }
 
 before(){
@@ -60,7 +60,7 @@ before(){
 }
 
 main(){
-	cd integration-tests
+	cd end-to-end-tests
 	npm run test
 	cd ..
 }
