@@ -8,8 +8,11 @@ _switchBranch(){
 	git checkout $2 > /dev/null 2>&1 || true
 	echo "(new) active branch for $1:"
 	git branch | grep \* | cut -d ' ' -f2
-	[[ -z "${3}" ]] && export $3=`git rev-parse HEAD`
-	printenv | grep $3
+	if [[ -n "${3}" ]]
+	then
+		export $3=`git rev-parse HEAD`
+		printenv | grep $3
+	fi
 	cd ..
 }
 
