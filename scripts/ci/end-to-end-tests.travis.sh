@@ -57,10 +57,10 @@ install(){
 
 	chmod 700 ./startup_end-to-end-tests.sh
 	echo "BUILD CONTAINERS..."
-	./startup_end-to-end-tests.sh pull --ignore-pull-failures --include-deps
+	./startup_end-to-end-tests.sh pull --ignore-pull-failures --include-deps --quiet
 	echo "BUILD CONTAINERS DONE"
 	echo "BOOT CONTAINERS..."
-	./startup_end-to-end-tests.sh up -d
+	./startup_end-to-end-tests.sh up -d --no-recreate
 	echo "BOOT CONTAINERS DONE"
 	cd ..
 	cd ..
