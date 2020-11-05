@@ -55,7 +55,7 @@ Then(/^.*clicks left navigation item '([^']*)'$/, function (string) {
             return leftNavigation.clickNavItemAdminCourses();
         case leftMenuItems.ADMINTEAMS:
             return leftNavigation.clickNavItemAdminTeams();
-        case leftMenuItems.ADMINCSCHOOL:
+        case leftMenuItems.ADMINSCHOOL:
             return leftNavigation.clickNavItemAdminSchool();
         case leftMenuItems.HELPAREA:
             return leftNavigation.clickNavItemHelpArea();
