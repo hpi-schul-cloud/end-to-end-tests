@@ -18,10 +18,7 @@ const addStudentSubmitBtn = 'div.modal.fade.add-modal.in button.btn-submit';
 const passwordInput = '#passwd';
 const createBirthday = '#birthday';
 const sendConsentFormEmails = '.btn-send-links-emails';
-// const editStudentBtn = 'a[title="Nutzer bearbeiten"]';
-// const editStudentBtnEN = 'a[title="Edit users"]';
 const editStudentBtn = '.table-actions .btn .fa-edit';
-
 const pageTitle = '#page-title';
 const newAdminTablesEditButton = 'a[datatest-id="edit_student_button"]';
 const tableOfStudentsColumn = 'tbody[data-testid="students_names_container"] > tr';
@@ -83,7 +80,7 @@ async function setStudentsBirthday(birthdayDate) {
 
 // choose between email, firstname, lastname
 async function getStudentsDetailsList(whichCell) {
-	await waitHelpers.waitUntilElementIsPresent(tableOfStudents);
+	await waitHelpers.waitUntilElementIsPresent(tableOfStudentsColumn);
 	let names = await elementHelpers.getTextFromAllElements(whichCell);
 	return names;
 }
@@ -108,7 +105,7 @@ async function isStudentLastnameOnTheList(lastname) {
 }
 
 async function submitConsent(e_mail) {
-	await waitHelpers.waitUntilElementIsVisible(tableOfStudents);
+	await waitHelpers.waitUntilElementIsVisible(tableOfStudentsColumn);
 	let names = await driver.$$(tableOfStudentsColumn);
 	for (var i = 1; i <= names.length; i++) {
 		let emailPromise = await driver.$(studentNameContainer + ' > tr:nth-child(' + i + ') > td:nth-child(3)');
