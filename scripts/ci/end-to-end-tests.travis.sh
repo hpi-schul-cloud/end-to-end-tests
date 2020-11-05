@@ -55,8 +55,13 @@ install(){
 	sed -i "s/SECRET_ES_MERLIN_USERNAME.*/SECRET_ES_MERLIN_USERNAME=${SECRET_ES_MERLIN_USERNAME}/" docker-compose.end-to-end-tests.yml
 	sed -i "s/SECRET_ES_MERLIN_PW.*/SECRET_ES_MERLIN_PW=${SECRET_ES_MERLIN_PW}/" docker-compose.end-to-end-tests.yml
 
-	docker-compose -f docker-compose.end-to-end-tests.yml build --parallel
-	docker-compose -f docker-compose.end-to-end-tests.yml up -d
+	echo "BUILD CONTAINERS..."
+	./startup_end-to-end-tests.sh pull --ignore-pull-failures --include-deps
+	echo "BUILD CONTAINERS DONE"
+	echo "BOOT CONTAINERS..."
+	./startup_end-to-end-tests.sh up -d
+	echo "BOOT CONTAINERS DONE"
+	cd ..
 	cd ..
 
 	cd schulcloud-server && npm ci && cd ..
