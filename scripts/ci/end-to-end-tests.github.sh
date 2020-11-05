@@ -1,7 +1,7 @@
 #! /bin/bash
 
 ## need env BRANCH_NAME, setting it in a different file in reliance to github or travis 
-# export BRANCH_NAME=${GITHUB_REF#refs/heads/}
+export BRANCH_NAME=${GITHUB_REF#refs/heads/}
 # export BRANCH_NAME=${TRAVIS_PULL_REQUEST_BRANCH:=$TRAVIS_BRANCH}
 
 echo $BRANCH_NAME
@@ -59,7 +59,7 @@ install(){
 	echo $CLIENT_DOCKER_TAG
 	echo $NUXT_DOCKER_TAG
 	echo "BUILD CONTAINERS..."
-	./startup_end-to-end-tests.sh pull --include-deps
+	./startup_end-to-end-tests.sh pull --ignore-pull-failures --include-deps
 	echo "BUILD CONTAINERS DONE"
 	echo "BOOT CONTAINERS..."
 	#./startup_end-to-end-tests.sh up -d --no-recreate
