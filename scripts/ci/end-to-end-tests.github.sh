@@ -1,10 +1,6 @@
 #! /bin/bash
 
-## need env BRANCH_NAME, setting it in a different file in reliance to github or travis 
 export BRANCH_NAME=${GITHUB_REF#refs/heads/}
-# export BRANCH_NAME=${TRAVIS_PULL_REQUEST_BRANCH:=$TRAVIS_BRANCH}
-
-echo $BRANCH_NAME
 
 _switchBranch(){
 	cd $1
@@ -56,13 +52,11 @@ install(){
 	sed -i "s/ES_MERLIN_USERNAME.*/ES_MERLIN_USERNAME=${ES_MERLIN_USERNAME}/" docker-compose.end-to-end-tests.yml
 	sed -i "s/SECRET_ES_MERLIN_PW.*/SECRET_ES_MERLIN_PW=${SECRET_ES_MERLIN_PW}/" docker-compose.end-to-end-tests.yml
 
-	echo $CLIENT_DOCKER_TAG
-	echo $NUXT_DOCKER_TAG
 	echo "BUILD CONTAINERS..."
-	./startup_end-to-end-tests.sh pull --ignore-pull-failures --include-deps
+	docker-compose -f docker-compose.end-to-end-tests.yml build
 	echo "BUILD CONTAINERS DONE"
 	echo "BOOT CONTAINERS..."
-	#./startup_end-to-end-tests.sh up -d --no-recreate
+	docker-compose -f docker-compose.end-to-end-tests.yml up -d
 	echo "BOOT CONTAINERS DONE"
 	cd ..
 

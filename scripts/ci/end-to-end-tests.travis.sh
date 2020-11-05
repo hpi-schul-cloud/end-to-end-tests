@@ -1,10 +1,6 @@
 #! /bin/bash
 
-## need env BRANCH_NAME, setting it in a different file in reliance to github or travis 
-# export BRANCH_NAME=${GITHUB_REF#refs/heads/}
-# export BRANCH_NAME=${TRAVIS_PULL_REQUEST_BRANCH:=$TRAVIS_BRANCH}
-
-echo $BRANCH_NAME
+export BRANCH_NAME=${TRAVIS_PULL_REQUEST_BRANCH:=$TRAVIS_BRANCH}
 
 _switchBranch(){
 	cd $1
@@ -46,30 +42,22 @@ fetch(){
 	switchBranch "node-notification-service" "NOTIFICATION_SERVICE_DOCKER_TAG"
 }
 
+
 install(){
 	cd docker-compose
 
-	echo "REPLACE ENV VARS..."
 	# add -e on mac, use ; as alternative separator
 	sed -i "s/ES_USER.*/ES_USER=${ES_USER}/" docker-compose.end-to-end-tests.yml
 	sed -i "s/ES_PASSWORD.*/ES_PASSWORD=${ES_PASSWORD}/" docker-compose.end-to-end-tests.yml
-	sed -i "s/ES_MERLIN_USERNAME.*/ES_MERLIN_USERNAME=${ES_MERLIN_USERNAME}/" docker-compose.end-to-end-tests.yml
+	sed -i "s/SECRET_ES_MERLIN_USERNAME.*/SECRET_ES_MERLIN_USERNAME=${SECRET_ES_MERLIN_USERNAME}/" docker-compose.end-to-end-tests.yml
 	sed -i "s/SECRET_ES_MERLIN_PW.*/SECRET_ES_MERLIN_PW=${SECRET_ES_MERLIN_PW}/" docker-compose.end-to-end-tests.yml
 
-	echo $CLIENT_DOCKER_TAG
-	echo $NUXT_DOCKER_TAG
-	echo "BUILD CONTAINERS..."
-	./startup_end-to-end-tests.sh pull --ignore-pull-failures --include-deps
-	echo "BUILD CONTAINERS DONE"
-	echo "BOOT CONTAINERS..."
-	#./startup_end-to-end-tests.sh up -d --no-recreate
-	echo "BOOT CONTAINERS DONE"
+	docker-compose -f docker-compose.end-to-end-tests.yml build --parallel
+	docker-compose -f docker-compose.end-to-end-tests.yml up -d
 	cd ..
 
-	echo "INSTALL DEPENDNECIES..."
 	cd schulcloud-server && npm ci && cd ..
 	cd end-to-end-tests && npm ci && cd ..
-	echo "INSTALL DEPENDNECIES DONE"
 }
 
 before(){
@@ -88,19 +76,8 @@ main(){
 }
 
 set -e
-echo "FETCH..."
 fetch
-echo "FETCH DONE"
-
-echo "INSTALL..."
 install
-echo "INSTALL DONE"
-
-echo "BEFORE..."
 before
-echo "BEFORE DONE"
-
-echo "MAIN..."
 main
-echo "MAIN DONE"
 set +e
