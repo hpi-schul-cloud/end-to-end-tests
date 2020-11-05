@@ -29,26 +29,9 @@ sudo apt install -y apt-transport-https ca-certificates curl git mongodb-org-too
 
 # set envs
 export BRANCH_NAME=${GITHUB_REF#refs/heads/}
-export IT_CLIENT_HOST=nuxtclient
-export IT_CLIENT_PORT=4000
 
-echo "BRANCH: $BRANCH_NAME"
+./fetch.sh
 
-# fetch default (develop) script
-echo "try fetching script from default branch"
-curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/develop/scripts/ci/end-to-end-tests.github.sh" || true
-
-# use master as default for releases & hotfixes
-if [[ $BRANCH_NAME = release* || $BRANCH_NAME = hotfix* ]];
-then
-	echo "try fetching script from master branch"
-	curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/master/scripts/ci/end-to-end-tests.github.sh" || true
-fi
-# use branch specific script if available
-echo "try fetching script from $BRANCH_NAME branch"
-curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/$BRANCH_NAME/scripts/ci/end-to-end-tests.github.sh" || true
-
-ls -a
 chmod 700 end-to-end-tests.github.sh
 bash end-to-end-tests.github.sh
 set +e
