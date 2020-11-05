@@ -10,7 +10,7 @@ _switchBranch(){
 	git checkout $2 > /dev/null 2>&1 || true
 	echo "(new) active branch for $1:"
 	git branch | grep \* | cut -d ' ' -f2
-	[[ -z "${1}" ]] && export $1=`git rev-parse HEAD`
+	[[ -z "${3}" ]] && export $3=`git rev-parse HEAD`
 	cd ..
 }
 
