@@ -50,7 +50,6 @@ async function clickDiscardChangesInModal() {
 }
 
 module.exports = {
-	getPageTitle,
 	clickCancelButton,
 	clickDiscardChangesInModal,
 	clickCancelInModal,

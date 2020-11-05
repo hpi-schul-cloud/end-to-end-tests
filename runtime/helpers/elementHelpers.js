@@ -137,7 +137,7 @@ async function isElementClickable(selector) {
 
 async function getPageTitle(selectorOfTitle) {
 	await waitHelpers.waitUntilPageLoads();
-	const title = await elementHelpers.getElementText(pageTitle);
+	const title = await elementHelpers.getElementText(selectorOfTitle);
 	return title;
 }
 
