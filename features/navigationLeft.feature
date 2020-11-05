@@ -22,7 +22,6 @@ Feature:checkLeftNavigation
 		Then clicks left navigation item 'news'
 		Then clicks left navigation item 'calendar'
 		Then clicks left navigation item 'addons'
-		Then clicks left navigation item 'content'
 		Then clicks left navigation item 'administration'
 		Then clicks left navigation item 'admStudents'
 		Then clicks left navigation item 'admTeachers'
@@ -30,6 +29,9 @@ Feature:checkLeftNavigation
 		Then clicks left navigation item 'helparea'
 		Then clicks left navigation item 'helparticle'
 		Then clicks left navigation item 'contact'
+		# TODO nuxt pages - the navigation structure is different,
+	  	#  therefor leave it for last page otherwise the other pages won't be found
+		Then clicks left navigation item 'content'
 
 		Examples:
 			| teacherUsername        | password     |
@@ -57,10 +59,12 @@ Feature:checkLeftNavigation
 		Then clicks left navigation item 'news'
 		Then clicks left navigation item 'calendar'
 		Then clicks left navigation item 'addons'
-		Then clicks left navigation item 'content'
 		Then clicks left navigation item 'helparea'
 		Then clicks left navigation item 'helparticle'
 		Then clicks left navigation item 'contact'
+		# TODO nuxt pages - the navigation structure is different,
+	  	#  therefor leave it for last page otherwise the other pages won't be found
+		Then clicks left navigation item 'content'
 
 		Examples:
 			| studentUsername             | password     |
@@ -88,7 +92,6 @@ Feature:checkLeftNavigation
 		Then clicks left navigation item 'news'
 		Then clicks left navigation item 'calendar'
 		Then clicks left navigation item 'addons'
-		Then clicks left navigation item 'content'
 		Then clicks left navigation item 'helpdesk'
 		Then clicks left navigation item 'administration'
 		Then clicks left navigation item 'admStudents'
@@ -97,6 +100,9 @@ Feature:checkLeftNavigation
 		Then clicks left navigation item 'helparea'
 		Then clicks left navigation item 'helparticle'
 		Then clicks left navigation item 'contact'
+		# TODO nuxt pages - the navigation structure is different,
+	  	#  therefor leave it for last page otherwise the other pages won't be found
+		Then clicks left navigation item 'content'
 
 		Examples:
 			| adminUsername         | password     |

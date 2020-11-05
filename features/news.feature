@@ -7,27 +7,29 @@ Feature: Different options for news. I would like to test whether users with dif
     @newsIsVisible
     Scenario Outline: User can see the news
         Given teacher logs in with email '<teacherEmail>' and password '<teacherPassword>'
-        Given teacher performs first login actions: data protection acceptance
-        When teacher creates some news which has to be published immediately
+        And teacher performs first login actions: data protection acceptance
+        When teacher creates news with title '<newsTitle>', content '<newsContent>' and current date
         And teacher logs out
         And student logs in with email '<studentUsername>' and password '<studentPassword>'
         And student performs first login actions: data protection acceptance, password change '<newStudentPassword>'
         And clicks left navigation item 'news'
-        Then teacher can see the news
+        Then teacher should see that news with title '<newsTitle>' is visible on the list
+
         Examples:
-            | teacherEmail                | teacherPassword | studentUsername                | studentPassword | newStudentPassword  |
-            | klara.fall@schul-cloud.org  | Schulcloud1!    | paula.meyer@schul-cloud.org    | Schulcloud1!    | Schulcloud1!!       |
+            | teacherEmail               | teacherPassword | studentUsername             | studentPassword | newStudentPassword | newsTitle      | newsContent                               |
+            | klara.fall@schul-cloud.org | Schulcloud1!    | paula.meyer@schul-cloud.org | Schulcloud1!    | Schulcloud1!!      | School day off | Here are some announcements for my pupils |
 
     @newsIsNotVisible
     Scenario Outline: User  cannot see the news if the news is not due yet
         Given teacher logs in with email '<teacherEmail>' and password '<teacherPassword>'
-        Given teacher performs first login actions: data protection acceptance
-        When teacher creates some news which has to be published later
+        And teacher performs first login actions: data protection acceptance
+        When teacher creates news with title '<newsTitle>', content '<newsContent>' and a one-year delay
         And teacher logs out
         And student logs in with email '<studentUsername>' and password '<studentPassword>'
         And student performs first login actions: data protection acceptance, password change '<newStudentPassword>'
         And clicks left navigation item 'news'
-        Then he cannot see the news which is not due yet
+        Then student should see that news with title '<newsTitle>' is not visible on the list
+
         Examples:
-            | teacherEmail                | teacherPassword | studentUsername                | studentPassword | newStudentPassword  |
-            | klara.fall@schul-cloud.org  | Schulcloud1!    | paula.meyer@schul-cloud.org    | Schulcloud1!    | Schulcloud1!!       |
+            | teacherEmail               | teacherPassword | studentUsername             | studentPassword | newStudentPassword | newsTitle      | newsContent                               |
+            | klara.fall@schul-cloud.org | Schulcloud1!    | paula.meyer@schul-cloud.org | Schulcloud1!    | Schulcloud1!!      | School day off | Here are some announcements for my pupils |
