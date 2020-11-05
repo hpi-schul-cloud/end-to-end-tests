@@ -60,7 +60,8 @@ const navItemAdministrationStudentsAdmin = navItemString2ndLevel.replace('XXX', 
 const navItemAdministrationStudentsTeacher = navItemString2ndLevel.replace('XXX', 'Schüler:innen');
 const navItemAdministrationTeachersTeacher = '[data-testid="global.sidebar.teacher"]';
 const navItemAdministrationCourses = navItemString2ndLevel.replace('XXX', 'Kurse');
-const navItemAdministrationClasses = '[data-testid="global.sidebar.classes"]';
+const navItemAdministrationClassesNuxt = '[data-testid="global.sidebar.classes"]';
+const navItemAdministrationClassesOld = navItemString2ndLevel.replace('XXX', 'Klassen');
 const navItemAdministrationTeams = navItemString2ndLevel.replace('XXX', 'Teams');
 const navItemAdministrationSchool = navItemString2ndLevel.replace('XXX', 'Schule');
 const navItemHelparea = navItemString1stLevel.replace('XXX', 'Hilfebereich');
@@ -166,6 +167,15 @@ async function clickNavItemAdminCourses () {
 
 async function clickNavItemAdminClasses () {
 	await elementHelpers.clickAndWait(navItemAdministrationClasses);
+}
+
+async function clickNavItemAdminClasses() {
+	// For nuxt and old client
+	try {
+		await elementHelpers.click(navItemAdministrationClassesNuxt);
+	} catch (e) {
+		await elementHelpers.click(navItemAdministrationClassesOld);
+	}
 }
 
 async function clickNavItemAdminTeams () {
