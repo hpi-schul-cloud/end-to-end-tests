@@ -44,7 +44,7 @@ Feature: Administrate pupils, classes and teachers
 		And admin validates that lastname is edited lastname
 		And admin validates that email is edited email
 		And admin clicks edit-student button
-		Then birthdate is '<birthdate>' 
+		Then admin validates that edited birthdate is '<birthdate>' 
 
 		Examples:
 			| firstName | lastName | email              		 | adminsUsername        | adminsPassword | birthdate  |

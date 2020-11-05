@@ -1,6 +1,5 @@
 /*[url/administration/students]*/
 'use strict';
-const startPage = require('../generalPagesBeforeLogin/StartPageBeforeLogin');
 const loginPage = require('../generalPagesBeforeLogin/LoginPage');
 
 const waitHelpers = require('../../../runtime/helpers/waitHelpers');
@@ -19,7 +18,6 @@ const passwordInput = '#passwd';
 const createBirthday = '#birthday';
 const sendConsentFormEmails = '.btn-send-links-emails';
 const editStudentBtn = '.table-actions .btn .fa-edit';
-const pageTitle = '#page-title';
 const newAdminTablesEditButton = 'a[datatest-id="edit_student_button"]';
 const tableOfStudentsColumn = 'tbody[data-testid="students_names_container"] > tr';
 const firstNameCell = 'td:nth-child(1)';
@@ -80,7 +78,6 @@ async function setStudentsBirthday(birthdayDate) {
 
 // choose between email, firstname, lastname
 async function getStudentsDetailsList(whichCell) {
-	await waitHelpers.waitUntilElementIsPresent(tableOfStudentsColumn);
 	let names = await elementHelpers.getTextFromAllElements(whichCell);
 	return names;
 }

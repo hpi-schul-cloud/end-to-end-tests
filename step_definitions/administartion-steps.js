@@ -73,6 +73,6 @@ When(/^.* validates that email is edited email$/, async function () {
 	await studentAdministration.isStudentEmailOnTheList(emailAddress);
 });
 
-Then(/^birthdate is '([^']*)'$/, async function (birthdate) {
+Then(/^.* validates that edited birthdate is '([^']*)'$/, async function (birthdate) {
 	await studentEditPage.isStudentBirthdayCorrect(birthdate);
 });
