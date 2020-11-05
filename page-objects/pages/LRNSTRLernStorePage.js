@@ -35,7 +35,8 @@ module.exports= {
     },
     setSearchRequest: async function(content) {
         await waitHelpers.waitAndSetValue(selectorSearchField, content);
-        await elementHelpers.click(selectorSearchIcon);
+        // ADJUST WITH PROCESS.ENV
+        await driver.pause(5500)
     
     },
     rightNumberOfFoundContentDisplayed: async function(request) {
