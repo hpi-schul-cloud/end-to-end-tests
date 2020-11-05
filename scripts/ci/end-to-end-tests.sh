@@ -4,6 +4,8 @@
 # export BRANCH_NAME=${GITHUB_REF#refs/heads/}
 # export BRANCH_NAME=${TRAVIS_PULL_REQUEST_BRANCH:=$TRAVIS_BRANCH}
 
+echo $BRANCH_NAME
+
 _switchBranch(){
 	cd $1
 	echo "switching branch..."
@@ -11,6 +13,7 @@ _switchBranch(){
 	echo "(new) active branch for $1:"
 	git branch | grep \* | cut -d ' ' -f2
 	[[ -z "${3}" ]] && export $3=`git rev-parse HEAD`
+	printenv | grep $3
 	cd ..
 }
 
