@@ -8,6 +8,4 @@ echo "BRANCH: $BRANCH_NAME"
 
 ./fetch.sh
 
-chmod 700 end-to-end-tests.travis.sh
-bash end-to-end-tests.travis.sh
 set +e
