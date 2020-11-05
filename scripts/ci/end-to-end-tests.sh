@@ -56,11 +56,13 @@ install(){
 	sed -i "s/ES_MERLIN_USERNAME.*/ES_MERLIN_USERNAME=${ES_MERLIN_USERNAME}/" docker-compose.end-to-end-tests.yml
 	sed -i "s/SECRET_ES_MERLIN_PW.*/SECRET_ES_MERLIN_PW=${SECRET_ES_MERLIN_PW}/" docker-compose.end-to-end-tests.yml
 
+	echo $CLIENT_DOCKER_TAG
+	echo $NUXT_DOCKER_TAG
 	echo "BUILD CONTAINERS..."
 	./startup_end-to-end-tests.sh pull --ignore-pull-failures --include-deps
 	echo "BUILD CONTAINERS DONE"
 	echo "BOOT CONTAINERS..."
-	./startup_end-to-end-tests.sh up -d --no-recreate
+	#./startup_end-to-end-tests.sh up -d --no-recreate
 	echo "BOOT CONTAINERS DONE"
 	cd ..
 
