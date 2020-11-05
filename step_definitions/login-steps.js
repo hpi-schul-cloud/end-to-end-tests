@@ -1,9 +1,9 @@
 const NavigationTopPage = require('../page-objects/pages/NavigationTopPage.js');
 
-Then(/^dashboard should have the correct school$/, function () {
+Then(/^.* school name is correct$/, function () {
 	return NavigationTopPage.isSchoolNameCorrect();
 });
 
-Then(/^dashboard should have the correct name and profession$/, function () {
+Then(/^.* user name and role is correct$/, function () {
 	return NavigationTopPage.isUserNameAndRoleCorrect();
 });
