@@ -135,6 +135,12 @@ async function isElementClickable(selector) {
 	}
 }
 
+async function getPageTitle(selectorOfTitle) {
+	await waitHelpers.waitUntilPageLoads();
+	const title = await elementHelpers.getElementText(selectorOfTitle);
+	return title;
+}
+
 async function isUrlContaining(expectedUrl) {
 	try {
 		return driver.getUrl().includes(expectedUrl);
@@ -157,6 +163,13 @@ async function getListOfSelectedOption(selectSelector) {
 	return getTextListFromListOfElements(listOfSelectedOptions);
 }
 
+async function getValueOfElement(selector) {
+	await waitHelpers.waitUntilElementIsVisible(selector);
+	const element = await driver.$(selector);
+	const value = await element.getValue();
+	return value;
+}
+
 async function getTextFromAllElements(selector) {
 	await waitHelpers.waitUntilPageLoads();
 	const listOfElements = await getListOfAllElements(selector);
@@ -175,13 +188,13 @@ async function getListOfAllElements(selector) {
 }
 
 async function getIndexOfHeaderContainsText(tableSel, text) {
-	const textList = await getTextFromAllElements(tableSel + " th");
+	const textList = await getTextFromAllElements(tableSel + ' th');
 	var index = textList.indexOf(text);
 	return index;
 }
 
 async function getIndexOfRowContainsText(tableSel, text) {
-	const textList = await getTextFromAllElements(tableSel + " tr");
+	const textList = await getTextFromAllElements(tableSel + ' tr');
 	var index = textList.indexOf(text);
 	return index;
 }
@@ -207,9 +220,9 @@ async function getElementByText(selector, text) {
 	const listOfElements = await getListOfAllElements(selector);
 	const listOfElementTexts = await getTextListFromListOfElements(listOfElements);
 	text = text.trim();
-    const index = listOfElementTexts.indexOf(text);
-    return listOfElements[index];
- }
+	const index = listOfElementTexts.indexOf(text);
+	return listOfElements[index];
+}
 
 module.exports = {
 	click,
@@ -235,7 +248,9 @@ module.exports = {
 	isElementPresent,
 	isElementClickable,
 	isUrlContaining,
+	getPageTitle,
 	isOptionSelected,
 	clearAndSetValue,
+	getValueOfElement,
 	getElementByText,
 };
