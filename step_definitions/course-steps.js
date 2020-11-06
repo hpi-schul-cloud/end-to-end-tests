@@ -56,23 +56,23 @@ When(/^.* clicks Create-course-and-continue button'$/, async function () {
 	await addCoursePage.clickCreateCourseAndContinueBtn();
 });
 
-When(/^.* clicks Go-to-course-list$/, async function () {
+When(/^.* clicks Go-to-course-list button$/, async function () {
 	await addCoursePage.clickGoToCourseListBtn();
 });
 
-When(/^.* clicks on Course edit$/, async function () {
+When(/^.* clicks on Edit-course button$/, async function () {
 	await CRSSGeneralCoursePage.clickEditCourse();
 });
 
-When(/^.* clicks on save changes button$/, async function () {
+When(/^.* clicks on Save-changes in course button$/, async function () {
 	await CRSSEditCopyCoursePage.clickSubmitButton();
 });
 
-When(/^.* clicks on delete course button$/, async function () {
+When(/^.* clicks on Delete-course button$/, async function () {
 	await CRSSEditCopyCoursePage.clickDeleteButton();
 });
 
-When(/^.* clicks on delete course button confirmation$/, async function () {
+When(/^.* clicks on Delete-course-confirmation button$/, async function () {
 	await CRSSEditCopyCoursePage.clickConfirmDeleteButton();
 });
 
@@ -140,7 +140,7 @@ Then(/^.* course name '([^']*)' with color correctly displayed '([^']*)'$/, asyn
 });
 
 Then(/^.* course members are visible on the list '([^']*)'$/, async function (listOfStudentNames) {
-	await courseListPage.areMembersOnTheListInCourseForSection([listOfStudentNames]);
+	await courseListPage.areMembersOnTheListInCourseForSection(listOfStudentNames);
 });
 
 Then(/^.* course with name '([^']*)' contains number of members '([^']*)'$/, async function (courseName, membersCount) {

@@ -1,51 +1,45 @@
 @administration
-@createNewStudent
+
 Feature: Administrate pupils, classes and teachers
-	As an admin on Schul-Cloud
-	I want to be able to administrate pupils, teachers and classes
+	As an Schul-Cloud user I want to be able to administrate pupils, teachers and classes
 
 	Background:
-		Given admin arrives on the Schul-Cloud homepage
+		Given user arrives on the Schul-Cloud homepage
 
-	Scenario Outline: Admin creates a pupil
-		Given admin logs in with email '<adminsUsername>' and password '<adminPassword>'
-		And admin performs first login actions: data protection acceptance
-		And admin goes to administration
-		And admin goes to students administration
-		When admin set student firstname '<firstName>', lastname '<secondName>', email '<studentEmail>'
-		And admin sees that student with email '<studentEmail>' is visible on the list
-		And admin manually submits consent for user with e-mail '<studentEmail>', thus generates a random password for him
-		And admin logs out
+	@createNewStudent
+	Scenario Outline: user creates a student
+		Given <userRole> logs in with email '<adminsUsername>' and password '<adminPassword>'
+		And '<userRole>' performs first login actions
+		And <userRole> goes to administration
+		And <userRole> goes to students administration
+		When <userRole> set student firstname '<firstName>', lastname '<secondName>', email '<studentEmail>'
+		And <userRole> sees that student with email '<studentEmail>' is visible on the list
+		And <userRole> manually submits consent for user with e-mail '<studentEmail>', thus generates a random password for him
+		And <userRole> logs out
 		And student logs in with email '<studentEmail>' and password genarated by admin during manual submission of consent
 		Then student should see that data protection is already accepted and performs first login actions: password change '<newPasswordStudent>'
 		Examples:
-			| firstName | secondName | studentEmail              | adminsUsername        | adminPassword   | newPasswordStudent |
-			| Georg     | Georgmann  | georgmann@schul-cloud.org | admin@schul-cloud.org | Schulcloud1!    | Schulcloud1!!      |
+			| userRole | firstName | secondName | studentEmail              | adminsUsername        | adminPassword | newPasswordStudent |
+			| admin    | Georg     | Georgmann  | georgmann@schul-cloud.org | admin@schul-cloud.org | Schulcloud1!  | Schulcloud1!!      |
 
 	@editStudent
-	Scenario Outline: Admin edits a student
-
-		When admin logs in with email '<adminsUsername>' and password '<adminsPassword>'
-		When admin performs first login actions: data protection acceptance
-		And admin goes to administration
-		When admin goes to students administration
-		And admin clicks edit-student button 
-		And admin clicks cancel button
-		Then admin clicks cancel inside popup 
-		And admin clicks cancel button
-		And admin clicks discard change inside popup
-		And admin clicks edit-student button 
-		When admin changes student firstname to '<firstName>'
-		And admin changes student lastname to '<lastName>' 
-		And admin changes student email to '<email>'
-		And admin changes student birthdate to '<birthdate>'
-		And admin clicks Save-changes
-		When admin validates that firstname is edited firstname
-		And admin validates that lastname is edited lastname
-		And admin validates that email is edited email
-		And admin clicks edit-student button
-		Then admin validates that edited birthdate is '<birthdate>' 
+	Scenario Outline: user edits a student
+		Given <userRole> logs in with email '<adminsUsername>' and password '<adminsPassword>'
+		And '<userRole>' performs first login actions
+		And <userRole> goes to administration
+		And <userRole> goes to students administration
+		And <userRole> clicks Edit-student button
+		When <userRole> changes student firstname to '<newFirstName>'
+		And <userRole> changes student lastname to '<newLastName>'
+		And <userRole> changes student email to '<newEmail>'
+		And <userRole> changes student birthdate to '<newBirthdate>'
+		And <userRole> clicks Save-changes button
+		Then <userRole> should see that edited student firstname '<newFirstName>' is visible on the list
+		And <userRole> should see that edited student lastname '<newLastName>' is visible on the list
+		And <userRole> should see that edited student email '<newEmail>' is is visible on the list
+		And <userRole> clicks Edit-student button
+		Then <userRole> should see that student birthdate is '<newBirthdate>'
 
 		Examples:
-			| firstName | lastName | email              		 | adminsUsername        | adminsPassword | birthdate  |
-			| Nils      | Nilsen   | nils.nilsen@schul-cloud.org | admin@schul-cloud.org | Schulcloud1!   | 24.12.2004 | 
+			| userRole | newFirstName | newLastName | newEmail                    | adminsUsername        | adminsPassword | newBirthdate |
+			| admin    | Nils         | Nilsen      | nils.nilsen@schul-cloud.org | admin@schul-cloud.org | Schulcloud1!   | 24.12.2004   |

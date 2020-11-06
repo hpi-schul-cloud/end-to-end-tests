@@ -3,38 +3,43 @@
 const TMSAddEditTeamPage = require('../page-objects/pages/teamsPages/TMSAddEditTeamPage.js');
 const TMSTeamListPage = require('../page-objects/pages/teamsPages/TMSTeamListPage.js');
 const TMSTeamMembersPage = require('../page-objects/pages/teamsPages/TMSTeamMembersPage.js');
-let teamName;
-let descriptionTest;
-const members = ['Cord Carl', 'Marla Mathe', 'Waldemar Wunderlich'];
 
-When(/^.*creates a new team with name '([^']*)' and description '([^']*)' and color orange$/, function (teamname, description) {
-	teamName = teamname;
-	descriptionTest = description;
-	return TMSAddEditTeamPage.createTeamAndGoToInternalMembersAdministration(teamName, descriptionTest);
+When(/^.*creates a new team with name '([^']*)' and description '([^']*)' and color orange$/, function (teamName, description) {
+	return TMSAddEditTeamPage.createTeamAndGoToInternalMembersAdministration(teamName, description);
 });
 
 When(/^.*adds a student to team with lastname: '([^']*)' and firstname: '([^']*)'$/, async function (lastname, firstname) {
 	await TMSTeamMembersPage.addTeamAttendee(lastname, firstname);
 });
 
-When(/^.*clicks submit add team member button$/, async function () {
+When(/^.*clicks Submit-add-team-member button$/, async function () {
 	await TMSTeamMembersPage.clickSubmitAddTeamAttendeeBtn();
 });
 
-Then(/^.*team should be displayed on the team page$/, async function () {
+When(/^.*clicks on Member icon in team with name '([^']*)'$/, async function (teamName) {
+	await TMSTeamListPage.clickMemberIconInTeam(teamName); 
+});
+
+Then(/^.*team with name '([^']*)' is be visible on the list$/, async function (teamName) {
 	await TMSTeamListPage.isTeamOnList(teamName);
 });
 
-Then(/^.*team should be displayed with the correct color$/, async function () {
-	await TMSTeamListPage.isTeamColour(teamName, '#ffad42', TMSTeamListPage.section.teamSection);
+Then(/^.*team with name '([^']*)' has colour '([^']*)'$/, async function (teamName, teamColour) {
+	await TMSTeamListPage.isTeamColour(teamName, teamColour);
 });
 
-Then(/^the correct number of students in the team should be displayed$/, async function () {
-	await TMSTeamListPage.isTeamMemberNumber(teamName, '3', TMSTeamListPage.section.teamSection);
+Then(/^.*team with name '([^']*)' member number is '([^']*)'$/, async function (teamName, memberCount) {
+	await TMSTeamListPage.isTeamMemberNumber(teamName, memberCount);
+});
+
+Then(/^.*team with name '([^']*)', colour '([^']*)' and  member number '([^']*)' is visible on the list$/, async function (teamName, teamColour, memberCount) {
+	await TMSTeamListPage.isTeamOnList(teamName);
+	await TMSTeamListPage.isTeamColour(teamName, teamColour);
+	await TMSTeamListPage.isTeamMemberNumber(teamName, memberCount);
 });
 
 Then(
-	/^by clicking the students icon the popup opens and shows all team members with surname and lastname$/,  async function () {
-		await TMSTeamListPage.areMembersOnTheListInTeamForSection('test team',members,TMSTeamListPage.section.teamSection);
+	/^.*members: '([^']*)' are listed$/,  async function (listOfMembers) {
+		await TMSTeamListPage.areMembersOnTheList(listOfMembers);
 	}
 );

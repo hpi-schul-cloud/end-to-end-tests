@@ -25,7 +25,7 @@ const timeSpan = {
 	start: '[data-testid="date_start"]',
 	end: '#untilDate',
 };
-//Participants section
+//Members section
 const classSelect = '#addClassesToCourse';
 const studentSelect = '#addStudentsToCourse';
 //Final section
@@ -189,7 +189,7 @@ async function isTimeSpanSet() {
 	await expect(endsValue.length).not.to.equal(0);
 }
 
-//Participants section
+//Members section
 async function isClassNotSet() {
 	const list = await elementHelpers.getListOfSelectedOption(classSelect);
 	expect(list.length).to.equal(0);

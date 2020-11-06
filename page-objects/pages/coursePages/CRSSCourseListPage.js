@@ -119,16 +119,15 @@ async function getCountOfDisplayedCoursesForSection(section) {
 
 async function getListOfCourseMembers() {
 	await waitHelpers.waitUntilElementIsVisible(popupMembers);
-	await waitHelpers.waitUntilElementIsVisible(listOfMembersSel);
-	const listOfMembers = await driver.$$(listOfMembersSel);
-	return elementHelpers.getTextListFromListOfElements(listOfMembers);
+	return elementHelpers.getTextFromAllElements(listOfMembersSel);
 }
 
-async function areMembersOnTheListInCourseForSection(listOfStudentNames) {
+async function areMembersOnTheListInCourseForSection(listOfMembers) {
 	let names = await getListOfCourseMembers();
-	const msg = "Members: '" + names + "' should be visible on the list. \n";
-	const resultMsg = 'Actual list of members: ' + names;
-	expect(names, msg + resultMsg).to.have.members(listOfStudentNames);
+	listOfMembers = listOfMembers.split(',');
+	const msg = `Members: ${listOfMembers} are not visible on the list \n`;
+	const resultMsg = `Actual list of members: ${names}`;
+	expect(names, msg + resultMsg).to.have.members(listOfMembers);
 }
 
 async function closeMemberModal() {
