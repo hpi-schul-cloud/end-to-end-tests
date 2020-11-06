@@ -8,6 +8,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unpublished
 
+### Added
+
+- OPS-1297 - Added Changelog github action
+
 ## Changed
 
 - IMP-160 rename repository
