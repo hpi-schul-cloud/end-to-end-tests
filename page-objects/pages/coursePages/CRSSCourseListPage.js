@@ -293,10 +293,8 @@ async function isCourseVisible(courseName, section, expectedValue) {
 
 	const resultMsg = 'Actual list of courses: ' + (await getListOfCourseTitlesInSection(section));
 	const isCourseOnList = await isCourseOnListInSection(courseName, section);
+	expect(isCourseOnList, msg + resultMsg).to.equal(expectedValue);
 
-	expectedValue
-		? expect(isCourseOnList, msg + resultMsg).to.be.true
-		: expect(isCourseOnList, msg + resultMsg).to.be.false;
 }
 
 module.exports = {

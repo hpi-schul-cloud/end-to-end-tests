@@ -112,10 +112,10 @@ Feature: create different types of task
 		And <userRole> puts taskBody '<taskBody>' into body field
 		And <userRole> clicks on Private-task checkbox
 		And <userRole> clicks submit-task-button on task-creation-form
-		When <userRole> goes to tasks page
+		And <userRole> goes to tasks page
 		Then <userRole> sees that task with name '<taskName>' is visible on the list
 		When <userRole> clicks left navigation item 'dashboard'
-		And <userRole> sees 'Private Aufgaben und Entwürfe' list on dashboard
+		Then <userRole> sees that Private tasks section is visible on dashboard
 		Then <userRole> sees created private task with name '<taskName>'
 		And <userRole> sees created private task with name '<taskName>' and course name '<courseName>'
 		And <userRole> sees created private task with name '<taskName>' and timeout

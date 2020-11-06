@@ -4,7 +4,8 @@ const waitHelpers = require('../../runtime/helpers/waitHelpers');
 const NavigationLeftPage = require('./NavigationLeftPage');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 
-const dashboardBtnOnNavigationLeftPanel = "[data-testid='startseite']";
+const privateTaskSection = ".dashboard-title[href*='private']";
+
 const taskElement = {
 	taskName: 'span[data-testid="task-name"]',
 	courseName: 'span[data-testid="task-course-name"]',
@@ -18,16 +19,8 @@ async function goToDashboard() {
 	await NavigationLeftPage.clickNavItemDashboard();
 }
 
-async function isTitleOfDashboard() {
-	await goToDashboard();
-	await waitHelpers.waitUntilPageTitleContains(dashboardBtnOnNavigationLeftPanel);
-}
-
-async function isPrivateTasksAndDraftsListVisible(taskAndDraftsTitle) {
-	const dashboardTitlesList = await elementHelpers.getTextFromAllElements(taskElement.dashboardTitleList)
-	const msg = 'Title with name [' + taskAndDraftsTitle + '] is not visible on the list \n';
-	const resultMsg = ', List of titles: ' + dashboardTitlesList;
-	return expect(dashboardTitlesList, msg + resultMsg).to.include(taskAndDraftsTitle);
+async function isPrivateTasksSectionVisible() {
+		await waitHelpers.waitUntilElementIsVisible(privateTaskSection)
 }
 
 async function isCourseNameOnPrivateTaskVisible(taskName, courseName) {
@@ -40,8 +33,7 @@ async function isCourseNameOnPrivateTaskVisible(taskName, courseName) {
 }
 
 async function getIndexOfTaskFromList(taskName) {
-	const taskTextElementList = await elementHelpers.getListOfAllElements(taskElement.taskName)
-	const taskTextValueList = await elementHelpers.getTextListFromListOfElements(taskTextElementList);
+	const taskTextValueList = await elementHelpers.getTextFromAllElements(taskElement.taskName);
 	const index = taskTextValueList.indexOf(taskName);
 	return index;
 }
@@ -71,8 +63,7 @@ async function isElementOnTaskVisible(elementName, taskName, selector, expectedV
 
 module.exports = {
 	goToDashboard,
-	isTitleOfDashboard,
-	isPrivateTasksAndDraftsListVisible,
+	isPrivateTasksSectionVisible,
 	isCourseNameOnPrivateTaskVisible,
 	isPrivateTaskNameVisible,
 	isElementOnTaskVisible,
