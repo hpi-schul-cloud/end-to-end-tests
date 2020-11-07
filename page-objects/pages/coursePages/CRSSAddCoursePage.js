@@ -131,8 +131,6 @@ async function createCourse (courseName) {
 	await clickGoToCourseListBtn();
 }
 
-
-
 //Course data section
 async function isCourseNameNotSet() {
 	await isDefaultInputValue(courseNameInput, courseDefaultInputValue);
@@ -233,7 +231,6 @@ module.exports = {
 	isStudentNotSet,
 	areFinalButtonsVisible,
 	setCourseName,
-	setStudent,
 	setTeacher,
 	setCurrentUserAsTeacher,
 	setColour,

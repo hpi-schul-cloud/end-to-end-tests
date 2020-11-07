@@ -9,7 +9,7 @@ const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const schulCloudURL = `${CLIENT.URL}`;
 /*Login, Logout*/
 
-Given(/^.*arrives on the Schul-Cloud homepage$/, async function () {
+Given(/^.* arrives on the Schul-Cloud homepage$/, async function () {
 	return elementHelpers.loadPage(schulCloudURL);
 });
 
@@ -100,7 +100,7 @@ Then(/^.* performs first login actions: data protection acceptance, password cha
 	await loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: true, newPassword });
 });
 
-Then(/^'([^']*)' performs first login actions$/, async function (userRole) {
+Then(/^([^']*) performs first login actions$/, async function (userRole) {
 	if (userRole.toLowerCase() === "student") {
 	await loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: true });
 	} else {

@@ -1,5 +1,4 @@
 @administration
-
 Feature: Administrate pupils, classes and teachers
 	As an Schul-Cloud user I want to be able to administrate pupils, teachers and classes
 
@@ -7,8 +6,8 @@ Feature: Administrate pupils, classes and teachers
 		Given user arrives on the Schul-Cloud homepage
 
 	@createNewStudent
-	Scenario Outline: user creates a student
-		Given <userRole> logs in with email '<adminsUsername>' and password '<adminPassword>'
+	Scenario Outline: As a user, I want to be able to create a student
+		When <userRole> logs in with email '<adminsUsername>' and password '<adminPassword>'
 		And '<userRole>' performs first login actions
 		And <userRole> goes to administration
 		And <userRole> goes to students administration
@@ -24,7 +23,7 @@ Feature: Administrate pupils, classes and teachers
 
 	@editStudent
 	Scenario Outline: user edits a student
-		Given <userRole> logs in with email '<adminsUsername>' and password '<adminsPassword>'
+		When <userRole> logs in with email '<adminsUsername>' and password '<adminsPassword>'
 		And '<userRole>' performs first login actions
 		And <userRole> goes to administration
 		And <userRole> goes to students administration
@@ -39,7 +38,6 @@ Feature: Administrate pupils, classes and teachers
 		And <userRole> should see that edited student email '<newEmail>' is is visible on the list
 		And <userRole> clicks Edit-student button
 		Then <userRole> should see that student birthdate is '<newBirthdate>'
-
 		Examples:
 			| userRole | newFirstName | newLastName | newEmail                    | adminsUsername        | adminsPassword | newBirthdate |
 			| admin    | Nils         | Nilsen      | nils.nilsen@schul-cloud.org | admin@schul-cloud.org | Schulcloud1!   | 24.12.2004   |
