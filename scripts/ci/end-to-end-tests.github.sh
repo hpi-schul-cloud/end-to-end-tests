@@ -11,6 +11,7 @@ _switchBranch(){
 	if [ -z "$3" ]
 	then
 		echo "No docker tag set for ${1}"
+		echo $3
 	else
 		set -a
 		export $3=`git rev-parse HEAD`
