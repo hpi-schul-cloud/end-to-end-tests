@@ -69,13 +69,15 @@ install(){
 	cd ..
 
 	echo "INSTALL DEPENDNECIES..."
-	# cd schulcloud-server && npm ci && cd ..
+	#cd schulcloud-server && npm ci && cd ..
 	cd end-to-end-tests && npm ci && cd ..
 	echo "INSTALL DEPENDNECIES DONE"
 }
 
 before(){
-	cd schulcloud-server && npm run setup && npm run seed && cd ..
+	./startup_end-to-end-tests.sh exec server npm run setup
+	./startup_end-to-end-tests.sh exec server npm run seed
+	#cd schulcloud-server && npm run setup && npm run seed && cd ..
 
 	# wait for the nuxt client to be available
 	echo "waiting max 150s for nuxt to be available"
