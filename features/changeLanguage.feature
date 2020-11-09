@@ -1,5 +1,5 @@
 @changeLanguageMenu
-Feature: I want to be able to change language
+Feature: Change language
 
     Background:
         Given user arrives on the Schul-Cloud homepage

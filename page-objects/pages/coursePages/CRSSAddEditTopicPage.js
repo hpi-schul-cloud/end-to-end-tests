@@ -124,7 +124,7 @@ async function setContentDescription(contentText, selector) {
 async function openLearningStoreAndAddMaterial() {
 	await clickSecondaryAddContentLearningMaterial();
 	await driver.pause(9000);
-	await driver.switchWindow(lernStoreUrl);
+	// await driver.switchWindow(lernStoreUrl);
 	let browsers = await driver.getWindowHandles();
 	await driver.switchWindow(browsers[1]);
 	let materialContainer = await waitHelpers.waitUntilElementIsPresent(materialContainerSel);

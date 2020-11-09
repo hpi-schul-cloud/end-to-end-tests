@@ -21,8 +21,7 @@ Feature: Copy a created course with different data
 			| userRole | courseName                 |
 			| teacher  | sample course to be cloned |
 
-
-	@copyCourseWithText
+	@copyCourseWithDescription
 	Scenario Outline: As a user, I want to be able to copy course with certain text
 		When <userRole> logs in
 		And <userRole> performs first login actions: data protection acceptance
@@ -44,22 +43,25 @@ Feature: Copy a created course with different data
 			| teacher  | sample course etherpad | etherpad topic    | Etherpad    | etherpad name         | etherpad description here |
 			| teacher  | sample course geo      | geo topic         | GeoGebra    | some sample text here | ucxngdjf                  |
 
-    #@copyCourseWithMaterial
-    #Scenario Outline: teacher can copy course with certain Material
-    #Given teacher creates course with name '<courseName>'
-    #And teacher chooses course with name '<courseName>'
-    #And teacher adds a topic with name '<topicName>'
-    #When teacher adds content Material
-    #And teacher clicks Save-changes button
-    #And teacher goes to courses page
-    #And teacher chooses course with name '<courseName>'
-    #And teacher clicks Duplicate-course button
-    #And teacher goes to courses page
-    #Then teacher should see that copied course with name '<courseName> - Kopie' is visible on the list
-    #And teacher should see that copied course with name '<courseName> - Kopie' contains topic with name '<topicName>'
-    #Examples:
-    #| courseName             | topicName      | text                  |
-    #| sample course material | material topic | some sample text here |
+#	@copyCourseWithMaterial
+#	Scenario Outline: As a user, I want to be able to copy course with certain Material
+#		When <userRole> logs in
+#		And <userRole> performs first login actions: data protection acceptance
+#		And <userRole> goes to courses page
+#		Given <userRole> creates course with name '<courseName>'
+#		And <userRole> chooses course with name '<courseName>'
+#		And <userRole> adds a topic with name '<topicName>'
+#		When <userRole> adds content Material
+#		And <userRole> clicks Save-changes button
+#		And <userRole> goes to courses page
+#		And <userRole> chooses course with name '<courseName>'
+#		And <userRole> clicks Duplicate-course button
+#		And <userRole> goes to courses page
+#		Then <userRole> should see that copied course with name '<courseName> - Kopie' is visible on the list
+#		And <userRole> should see that copied course with name '<courseName> - Kopie' contains topic with name '<topicName>'
+#		Examples:
+#			| userRole | courseName             | topicName      | text                  |
+#			| teacher  | sample course material | material topic | some sample text here |
 
 	@copyCourseWithStudents
 	Scenario Outline: As a user, I want to be able to copy course with students
