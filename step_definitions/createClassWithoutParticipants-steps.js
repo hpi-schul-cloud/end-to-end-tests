@@ -23,6 +23,6 @@ When(/^.* opens classes tab with name '([^']*)'$/, async function (classesTabNam
 	await administrationClasses.clickOnClassesTab(classesTabName);
 });
 
-Then(/^.* class with name '([^']*)' and '([^']*)' participants is visible$/, async function (className, participantsCount) {
-	await administrationClasses.isNewEmptyClassCreated(className, participantsCount);
+Then(/^.* class with name '([^']*)' and '([^']*)' members is visible$/, async function (className, membersCount) {
+	await administrationClasses.isNewEmptyClassCreated(className, membersCount);
 });

@@ -6,7 +6,6 @@ Feature:
 
 	@visibilityOfAdministrationSubMenuItems
 	Scenario Outline:
-        Given <userRole> arrives on the Schul-Cloud homepage
         And <userRole> logs in
         And <userRole> performs first login actions: data protection acceptance
         When clicks left navigation item 'administration'

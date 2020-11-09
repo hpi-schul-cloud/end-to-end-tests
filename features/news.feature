@@ -2,9 +2,9 @@
 Feature: Different options for news. I would like to test whether users with different permissions can see my news
 
 	Background: I am logged in as a teacher and I create news
-		Given teacher arrives on the Schul-Cloud homepage
+		Given user arrives on the Schul-Cloud homepage
 
-    @newsIsVisible
+    @createInstantNews
     Scenario Outline: User can see the news
         Given teacher logs in with email '<teacherEmail>' and password '<teacherPassword>'
         And teacher performs first login actions: data protection acceptance
@@ -19,7 +19,7 @@ Feature: Different options for news. I would like to test whether users with dif
             | teacherEmail               | teacherPassword | studentUsername             | studentPassword | newStudentPassword | newsTitle      | newsContent                               |
             | klara.fall@schul-cloud.org | Schulcloud1!    | paula.meyer@schul-cloud.org | Schulcloud1!    | Schulcloud1!!      | School day off | Here are some announcements for my pupils |
 
-    @newsIsNotVisible
+    @createPostponedNews
     Scenario Outline: User  cannot see the news if the news is not due yet
         Given teacher logs in with email '<teacherEmail>' and password '<teacherPassword>'
         And teacher performs first login actions: data protection acceptance

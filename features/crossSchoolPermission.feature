@@ -3,7 +3,7 @@
 Feature: I as an admin I should only have access to the students attached to my own school
 
 	Background:
-		Given admin arrives on the Schul-Cloud homepage
+		Given user arrives on the Schul-Cloud homepage
 
 	Scenario Outline:
 		Given admin logs in with email '<adminsUsername>' and password '<password>'
