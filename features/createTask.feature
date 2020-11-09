@@ -1,13 +1,13 @@
 #without creating a course
 @task
-@createTask
-Feature: Creating a task as a teacher
+Feature: Create a task as a teacher
 
 	Background:
 		Given user arrives on the Schul-Cloud homepage
 
-	Scenario Outline: The user logs in as a teacher and creates a simple task
-		Given teacher logs in with email '<teacherEmail>' and password '<teacherPassword>'
+	@createTask
+	Scenario Outline: As a user, I want to be able to create a simple task
+		When teacher logs in with email '<teacherEmail>' and password '<teacherPassword>'
 		And teacher performs first login actions: data protection acceptance
 		And teacher goes to tasks page
 		And teacher clicks create-task-button on task page
