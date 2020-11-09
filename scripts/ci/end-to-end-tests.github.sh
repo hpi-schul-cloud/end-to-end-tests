@@ -13,6 +13,8 @@ _switchBranch(){
 		set -a
 		export $3=`git rev-parse HEAD`
 		printenv | grep $3
+	else
+		echo "No docker tag set for ${1}"
 	fi
 	cd ..
 }
