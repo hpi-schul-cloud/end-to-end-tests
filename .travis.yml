@@ -18,10 +18,6 @@ jobs:
         - echo $TRAVIS_BRANCH
         - echo $TRAVIS_TAG
         - curl "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/master/scripts/ci/fetch.travis.sh" | bash
-      name: "test:end-to-end"
-      env:
-        - IT_CLIENT_HOST=nuxtclient
-        - IT_CLIENT_PORT=4000
       git:
         clone: false
       services:
