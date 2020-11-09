@@ -60,9 +60,9 @@ install(){
 	sed -i "s/SECRET_ES_MERLIN_PW.*/SECRET_ES_MERLIN_PW=${SECRET_ES_MERLIN_PW}/" docker-compose.end-to-end-tests.yml
 
 	chmod 700 ./startup_end-to-end-tests.sh
-	echo "BUILD CONTAINERS..."
+	echo "PULL CONTAINERS..."
 	./startup_end-to-end-tests.sh pull --ignore-pull-failures --include-deps --quiet
-	echo "BUILD CONTAINERS DONE"
+	echo "PULL CONTAINERS DONE"
 	echo "BOOT CONTAINERS..."
 	./startup_end-to-end-tests.sh up -d --no-recreate
 	echo "BOOT CONTAINERS DONE"
