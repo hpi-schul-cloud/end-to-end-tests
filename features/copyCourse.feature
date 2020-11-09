@@ -39,7 +39,6 @@ Feature: Copy a created course with different data
 			| courseName    | topicName         | contentTitle      | contentDescription |
 			| sample course | sample topic name | test text content | test description   |
 
-
 	@copyCourseWithGeoGebra
 	Scenario Outline: teacher can copy course with certain GeoGebra
 		Given teacher creates course with name '<courseName>'

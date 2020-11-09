@@ -22,7 +22,7 @@ Feature: Administrate pupils, classes and teachers
 			| admin    | Georg     | Georgmann  | georgmann@schul-cloud.org | admin@schul-cloud.org | Schulcloud1!  | Schulcloud1!!      |
 
 	@editStudent
-	Scenario Outline: user edits a student
+	Scenario Outline: As a user, I want to be able to edit a student
 		When <userRole> logs in with email '<adminsUsername>' and password '<adminsPassword>'
 		And '<userRole>' performs first login actions
 		And <userRole> goes to administration

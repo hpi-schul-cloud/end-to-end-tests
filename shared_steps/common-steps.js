@@ -5,7 +5,6 @@ const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPa
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
 const studentAdministration = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerStudentsPage');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
-
 const schulCloudURL = `${CLIENT.URL}`;
 /*Login, Logout*/
 
@@ -100,7 +99,7 @@ Then(/^.* performs first login actions: data protection acceptance, password cha
 	await loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: true, newPassword });
 });
 
-Then(/^([^']*) performs first login actions$/, async function (userRole) {
+Then(/^'([^']*)' performs first login actions$/, async function (userRole) {
 	if (userRole.toLowerCase() === "student") {
 	await loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: true });
 	} else {
