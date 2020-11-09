@@ -20,8 +20,6 @@ const createCourseBtn = '[data-testid="create-course-btn"]';
 const listOfMembersSel = '#member-modal-body > ol > li';
 const popupMembers = ".member-modal.in[role='dialog']";
 const closeMemberModalBtn = ".member-modal button.close";
-
-
 const courseColour = {
 	grey: 'background:#ACACAC',
 	metallicGold: 'background:#ACACAC',
@@ -33,7 +31,6 @@ const courseColour = {
 	violetRed: 'background:#FF4081',
 	corn: 'background:#FFEE58',
 };
-
 const section = {
 	allCourses: '.section-courses',
 	activeCourses: '.section-activeCourses',
@@ -230,7 +227,7 @@ async function studentLogsInAndGoesToTasksOfTheCourse(username, password, course
 	await navigationTopPage.performLogout();
 	await startPage.clickLoginBtn();
 	await loginPage.performLogin(username, password);
-	await loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: true, password });
+	await loginPage.performLoginActions({shouldAcceptDataProtection: true, shouldSetOwnPassword: true, password});
 	await goToTasksOfTheCourse(coursename, section);
 }
 
