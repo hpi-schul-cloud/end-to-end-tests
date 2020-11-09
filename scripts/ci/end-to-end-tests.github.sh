@@ -8,13 +8,13 @@ _switchBranch(){
 	git checkout $2 > /dev/null 2>&1 || true
 	echo "(new) active branch for $1:"
 	git branch | grep \* | cut -d ' ' -f2
-	if [ -n "$3" ] ;
+	if [ -z "$3" ]
 	then
+		echo "No docker tag set for ${1}"
+	else
 		set -a
 		export $3=`git rev-parse HEAD`
 		printenv | grep $3
-	else
-		echo "No docker tag set for ${1}"
 	fi
 	cd ..
 }
