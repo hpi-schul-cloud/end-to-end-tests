@@ -79,7 +79,7 @@ before(){
 
 	# wait for the nuxt client to be available
 	echo "waiting max 150s for nuxt to be available"
-	npx -p wait-on wait-on http://localhost:4000 -t 240000
+	npx -p wait-on wait-on http://localhost:4000 -t 2400000
 	echo "nuxt is now online"
 }
 
