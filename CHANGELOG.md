@@ -15,6 +15,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## Changed
 
 - IMP-160 rename repository
+- SC-7110 Refactoring: Improved terms in cucumber steps: Teams, Topics, Class
 
 ## 25.0.1 - 2020-09-30
 

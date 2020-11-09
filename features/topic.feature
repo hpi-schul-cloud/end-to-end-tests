@@ -11,7 +11,7 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 		And <userRole> goes to courses page
 		And <userRole> chooses course with name '<courseName>'
 		And <userRole> adds a topic with name '<topicName>'
-		And <userRole> clicks Save-changes
+		And <userRole> clicks Save-changes button
 		Then <userRole> should see that topic with name '<topicName>' is visible on the list
 		When <userRole> clicks on topic with name '<topicName>'
 		Then <userRole> should see that topic title is '<topicName>'
@@ -27,13 +27,13 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 		And <userRole> chooses course with name '<courseName>'
 		And <userRole> adds a topic with name '<topicName>'
 		And <userRole> adds content Text with title '<contentTitle>' and description '<contentText>'
-		And <userRole> clicks Save-changes
+		And <userRole> clicks Save-changes button
 		Then <userRole> should see that first topic with name '<topicName>' is visible on the list
-		When <userRole> clicks on the pencil button in the line of the topic with name '<topicName>' to edit the topic
+		When <userRole> clicks on Edit-topic-pencil icon in topic line with name '<topicName>'
 		And <userRole> changes topic name '<changedTopicName>'
 		And  <userRole> changes title of content from '<contentTitle>' to '<newContentTitle>'
 		And  <userRole> changes description of content from '<contentText>' to '<newContentText>'
-		And <userRole> clicks Save-changes
+		And <userRole> clicks Save-changes button
 		Then <userRole> should see that topic title is '<changedTopicName>'
 		Then <userRole> should see that content text title is '<newContentTitle>'
 		Then <userRole> should see that content text contains text '<newContentText>'
@@ -51,10 +51,10 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 		When <userRole> goes to courses page
 		And <userRole> chooses course with name '<courseName>'
 		And <userRole> adds a topic with name '<topicName>'
-		And <userRole> clicks Save-changes
+		And <userRole> clicks Save-changes button
 		Then <userRole> should see that topic with name '<topicName>' is visible on the list
 		When <userRole> adds a topic with name '<secondTopicName>'
-		And <userRole> clicks Save-changes
+		And <userRole> clicks Save-changes button
 		Then <userRole> should see that topic with name '<secondTopicName>' is visible on the list
 		When <userRole> clicks on Trashcan icon in topic with name '<topicName>'
 		And <userRole> clicks on Delete topic button

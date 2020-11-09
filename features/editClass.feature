@@ -4,7 +4,7 @@ Feature: As teacher of a class
 	So that I can change school year and class description.
 
 	Background:
-		Given teacher arrives on the Schul-Cloud homepage
+		Given user arrives on the Schul-Cloud homepage
 
 	@editClass
 	Scenario Outline:

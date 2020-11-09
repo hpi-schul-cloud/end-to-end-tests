@@ -33,11 +33,11 @@ When(/^.* clicks on Private-task checkbox$/, async function () {
     await addEditTaskPage.clickPrivateHomeworkCheckbox();
 });
 
-Then(/^task with name '([^']*)' is not visible on the list$/, async function (taskName) {
-	await taskListPage.isTaskVisible(taskName,false);
+Then(/^.*task with name '([^']*)' is not visible on the list$/, async function (taskName) {
+	await taskListPage.isTaskVisible(taskName, false);
 });
-Then(/^task with name '([^']*)' is visible on the list$/, async function (taskName) {
-    await taskListPage.isTaskVisible(taskName,true);
+Then(/^.*task with name '([^']*)' is visible on the list$/, async function (taskName) {
+    await taskListPage.isTaskVisible(taskName, true);
 });
 
 Then(/^the students can upload a file as a solution$/, async function () {
@@ -85,15 +85,19 @@ When(/^.* file evaluation is visible$/, async function () {
 Then(/^.* sees created private task with name '([^']*)'$/, async function (taskName) {
 	await dashboardPage.isPrivateTaskNameVisible(taskName);
 });
+
 Then(/^.* sees created private task with name '([^']*)' and course name '([^']*)'$/, async function (taskName, courseName) {
 	await dashboardPage.isCourseNameOnPrivateTaskVisible(taskName, courseName);
 });
+
 Then(/^.* sees created private task with name '([^']*)' and timeout$/, async function (taskName) {
 	await dashboardPage.isElementOnTaskVisible("Timeout", taskName, dashboardPage.taskElement.taskTimeout, true);
 });
-When(/^.* sees '([^']*)' list on dashboard$/, function (taskAndDraftsTitle) {
-	return dashboardPage.isPrivateTasksAndDraftsListVisible(taskAndDraftsTitle);
+
+Then(/^.* Private tasks section is visible on dashboard$/, async function () {
+	await dashboardPage.isPrivateTasksSectionVisible();
 });
+
 Then(/^.* does not see number of completed on task with name '([^']*)'$/, async function (taskName) {
 	await dashboardPage.isElementOnTaskVisible("Completed", taskName, dashboardPage.taskElement.taskCompleted, false);
 });
