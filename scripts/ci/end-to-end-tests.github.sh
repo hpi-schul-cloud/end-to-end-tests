@@ -11,7 +11,6 @@ _switchBranch(){
 	if [ -z "$3" ]
 	then
 		echo "No docker tag set for ${1}"
-		echo $3
 	else
 		set -a
 		export $3=`git rev-parse HEAD`
@@ -23,9 +22,9 @@ _switchBranch(){
 switchBranch(){
 	if [[ $BRANCH_NAME = release* || $BRANCH_NAME = hotfix* ]]
 	then
-		_switchBranch "$1" "master" $3
+		_switchBranch "$1" "master" $2
 	fi
-	_switchBranch "$1" "$BRANCH_NAME" $3
+	_switchBranch "$1" "$BRANCH_NAME" $2
 }
 
 fetch(){
