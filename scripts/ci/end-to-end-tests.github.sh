@@ -10,6 +10,7 @@ _switchBranch(){
 	git branch | grep \* | cut -d ' ' -f2
 	if [[ -n "${3}" ]]
 	then
+		set -a
 		export $3=`git rev-parse HEAD`
 		printenv | grep $3
 	fi
