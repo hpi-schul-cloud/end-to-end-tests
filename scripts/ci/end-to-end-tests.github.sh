@@ -23,9 +23,9 @@ _switchBranch(){
 switchBranch(){
 	if [[ $BRANCH_NAME = release* || $BRANCH_NAME = hotfix* ]]
 	then
-		_switchBranch "$1" "master" $2
+		_switchBranch "$1" "master" "$2"
 	fi
-	_switchBranch "$1" "$BRANCH_NAME" $2
+	_switchBranch "$1" "$BRANCH_NAME" "$2"
 }
 
 fetch(){
