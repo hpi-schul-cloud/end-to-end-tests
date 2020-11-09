@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 export BRANCH_NAME=${GITHUB_REF#refs/heads/}
 
