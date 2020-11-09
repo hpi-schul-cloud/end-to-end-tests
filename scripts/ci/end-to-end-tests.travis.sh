@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 export BRANCH_NAME=${TRAVIS_PULL_REQUEST_BRANCH:=$TRAVIS_BRANCH}
 
@@ -63,9 +63,8 @@ install(){
 	./startup_end-to-end-tests.sh pull --ignore-pull-failures --include-deps --quiet
 	echo "PULL CONTAINERS DONE"
 	echo "BOOT CONTAINERS..."
-	./startup_end-to-end-tests.sh up -d --no-recreate
+	./startup_end-to-end-tests.sh up -d # --no-recreate
 	echo "BOOT CONTAINERS DONE"
-	cd ..
 	cd ..
 
 	cd schulcloud-server && npm ci && cd ..
