@@ -4,7 +4,7 @@ Feature: different actions in lernstore
 Background: a teacher logs in and creates a course
 Given teacher arrives on the Schul-Cloud homepage
 Given teacher logs in
-Given teacher accepts data protection
+Given teacher performs first login actions: data protection acceptance
 Given teacher goes to courses page
 
 @lernstoreAddMaterialFromContentDetailView
