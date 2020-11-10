@@ -2,11 +2,11 @@
 Feature: Delete User
 
 	Background:
-		Given admin arrives on the Schul-Cloud homepage
+		Given user arrives on the Schul-Cloud homepage
 
 	@deleteUserByManagment
 	Scenario Outline: As an admin, I want to be able to delete the user
-		When admin logs in
+		Given admin logs in with email '<adminUsername>' and password '<adminPassword>'
 		And admin performs first login actions: data protection acceptance
 		And admin login is successful
 		And admin goes to administration
@@ -15,5 +15,5 @@ Feature: Delete User
 		And admin clicks Delete button
 		Then admin should see that user with email '<Email>' is not visible on the list
 		Examples:
-			| Email						 		  |
-			| waldemar.wunderlich@schul-cloud.org |
+			| adminUsername         | adminPassword | Email						 		  |
+			| admin@schul-cloud.org | Schulcloud1!  | waldemar.wunderlich@schul-cloud.org |
