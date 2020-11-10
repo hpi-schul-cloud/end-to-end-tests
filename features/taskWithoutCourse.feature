@@ -3,7 +3,6 @@
 Feature: Editing and deleting a task as a teacher and save or discard
 
     Background: teacher is logged in on the Schul-Cloud homepage
-
         Given user arrives on the Schul-Cloud homepage
 
 @editTask
