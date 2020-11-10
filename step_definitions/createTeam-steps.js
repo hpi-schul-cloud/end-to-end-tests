@@ -39,7 +39,7 @@ Then(/^.*team with name '([^']*)', colour '([^']*)' and  member number '([^']*)'
 });
 
 Then(
-	/^.*members: '([^']*)' are listed$/,  async function (listOfMembers) {
+	/^.*team members: '([^']*)' are listed$/,  async function (listOfMembers) {
 		await TMSTeamListPage.areMembersOnTheList(listOfMembers);
 	}
 );

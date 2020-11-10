@@ -10,12 +10,12 @@ Feature: Creating a task as a teacher
 		Given teacher logs in with email '<teacherEmail>' and password '<teacherPassword>'
 		And teacher performs first login actions: data protection acceptance
 		And teacher goes to tasks page
-		And teacher clicks create-task-button on task page
-		And teacher puts taskname '<taskName>' into name field
-		And teacher puts taskBody '<taskBody>' into body field
-		And teacher clicks submit-task-button on task-creation-form
+		And teacher clicks Add-task button
+		And teacher sets task name '<taskName>' in task form
+		And teacher sets task body '<taskBody>' in task form
+		And teacher clicks Add-task-submit button
 		And teacher goes to tasks page
-		Then teacher should see created task with name '<taskName>' is on task page
+		Then teacher should see task with name '<taskName>' is visible on the list
 
 		Examples:
 			| teacherEmail           | teacherPassword | taskName        | taskBody |

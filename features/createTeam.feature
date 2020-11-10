@@ -14,7 +14,7 @@ Feature: a teacher can create a team with two students
         And teacher clicks Submit-add-team-member button
         Then teacher sees that team with name '<teamName>', colour '#ffad42' and  member number '3' is visible on the list
         When teacher clicks on Member icon in team with name '<teamName>'
-        Then teacher should see that members: '<teacherName>,<firstname1> <lastname1>,<firstname2> <lastname2>' are listed
+        Then teacher should see that team members: '<teacherName>,<firstname1> <lastname1>,<firstname2> <lastname2>' are listed
 
         Examples:
             | teamName  | description      | teacherName | firstname1 | lastname1 | email1                | firstname2 | lastname2  | email2                  | teacherUsername        | teacherPassword |
