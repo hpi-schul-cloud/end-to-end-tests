@@ -69,6 +69,10 @@ When(/^.* clicks on task with name '(.*)'$/, async function (taskName) {
     await taskListPage.clickOnTask(taskName, 'Task open');
 });
 
+When(/^.* clicks on Delete task button$/, async function () {
+	await taskListPage.clickDeleteTaskButtonInPopup();
+});
+
 When(/^.* goes to evaluation tab$/, async function () {
     await taskPage.clickEvaluationTab();
 });
@@ -76,12 +80,15 @@ When(/^.* goes to evaluation tab$/, async function () {
 When(/^.* can see the file evaluation$/, async function () {
     await taskPage.checkFileEvaluationTeacher(file)
 });
+
 When(/^.* goes to task evaluation$/, async function () {
     await taskPage.clickOpenFeedbackTab();
 });
+
 When(/^.* file evaluation is visible$/, async function () {
     await taskPage.checkFileEvaluationStudent(file)
 });
+
 Then(/^.* sees created private task with name '([^']*)'$/, async function (taskName) {
 	await dashboardPage.isPrivateTaskNameVisible(taskName);
 });
@@ -101,6 +108,7 @@ Then(/^.* Private tasks section is visible on dashboard$/, async function () {
 Then(/^.* does not see number of completed on task with name '([^']*)'$/, async function (taskName) {
 	await dashboardPage.isElementOnTaskVisible("Completed", taskName, dashboardPage.taskElement.taskCompleted, false);
 });
+
 Then(/^.* does not see number of graded on task with name '([^']*)'$/, async function (taskName) {
 	await dashboardPage.isElementOnTaskVisible("Graded", taskName, dashboardPage.taskElement.taskGraded, false);
 });
