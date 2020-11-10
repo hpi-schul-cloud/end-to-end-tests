@@ -57,7 +57,7 @@ const Axios = require('axios');
 			}
 			return res;
 		});
-	};
+	}
 
 	async function getUserInfo (attribute) {
 		const cookie = await driver.getCookies(['jwt']);
@@ -71,48 +71,18 @@ const Axios = require('axios');
 		});
 		let object = info.data;
 		return object[attribute];
-	};
+	}
 
 	async function getUserName () {
 		return getUserInfo('fullName');
-	};
-
-	async function getLernstoreMaterialsAfterRequest (request) {
-		const cookie = await driver.getCookies(['jwt']);
-		const jwt = cookie[0].value;
-		const info = await Axios.request({
-			url:  `${SERVER.URL}`+"/edu-sharing?searchQuery="+`${request}`,
-			method: 'GET',
-			headers: {
-				Authorization: `${jwt}`
-			},
-	});
-		let numberOfFoundMaterials = info.data.total;
-		return numberOfFoundMaterials;
-	};
-
-	async function getTheFirstElementNamePerRESTRequest (request) {
-		const cookie = await driver.getCookies(['jwt']);
-		const jwt = cookie[0].value;
-		const info = await Axios.request({
-			url:  `${SERVER.URL}`+"/edu-sharing?searchQuery="+`${request}`,
-			method: 'GET',
-			headers: {
-				Authorization: `${jwt}`
-			},
-		  });
-		let title = info.data.data[0].title;
-		return title;
-	};
+	}
 
 	async function getSchoolName () {
 		return getUserInfo('schoolName');
-	};
-
+	}
 	async function getInitials () {
 		return getUserInfo('avatarInitials');
-	};
-
+	}
 	async function getUserRole () {
 		try {
 			let userRole = await getUserInfo('roles');
@@ -125,11 +95,8 @@ const Axios = require('axios');
 
 module.exports = {
 	apiCall,
-	getUserInfo,
 	getUserName,
 	getSchoolName,
 	getInitials,
 	getUserRole,
-	getTheFirstElementNamePerRESTRequest,
-	getLernstoreMaterialsAfterRequest,
-}
+};

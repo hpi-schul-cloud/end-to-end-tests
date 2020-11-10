@@ -31,12 +31,6 @@ const secondaryAddMaterialBtn = ".btn.btn-secondary.btn-add";
 const materialContainerSel = ".div.ajaxcontent > div";
 const btnContainerMaterial = ".fa.fa-plus-square";
 //etherpad:
-const etherpadBtn = ".btn-group > button:nth-child(4)";
-const etherpadNameField = "#content-blocks > div > div:nth-child(1) .form-control";
-//lernstore
-const btnAttachLernstoreMaterial = "#content-blocks .btn-secondary.btn-add";
-const lernstoreBtn = ".btn-group > button:nth-child(3)";
-const selectorIDContainer = "#content-blocks";
 
 const content = {
 	text: ".btn-group > button:nth-child(1)",
@@ -215,15 +209,6 @@ async function setNewContentText(text, newText) {
 	await driver.keys(newText);
 }
 
-async function addLernstoreMaterial (name) {
-	await elementHelpers.click(lernstoreBtn);
-	let idContainer = await driver.$(selectorIDContainer);
-	let lernstoreSelector = await idContainer.$(".form-control");
-	await lernstoreSelector.setValue(name);
-	await elementHelpers.clickAndWait(btnAttachLernstoreMaterial);
-	await elementHelpers.click(btnAttachLernstoreMaterial);
-}
-
 module.exports = {
 	setTopicName,
 	clickSaveChanges,
@@ -242,5 +227,4 @@ module.exports = {
 	isContentDescriptionVisibleOnTheList,
 	setNewContentTitle,
 	setNewContentText,
-	addLernstoreMaterial
 }
