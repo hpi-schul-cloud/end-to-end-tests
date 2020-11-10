@@ -11,8 +11,7 @@ Feature: Delete User
 		And admin login is successful
 		And admin goes to administration
 		And admin goes to students administration
-		And admin clicks Edit-student with '<Email>' button
-		And admin clicks Delete-user button
+		When admin clicks Edit-student with '<Email>' button
 		And admin clicks Delete button
 		Then admin should see that user with email '<Email>' is not visible on the list
 		Examples:

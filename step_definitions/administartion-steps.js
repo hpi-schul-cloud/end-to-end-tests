@@ -38,10 +38,6 @@ Then(/^.* user with email '([^']*)' is not visible on the list$/, async function
 	return studentAdministration.isStudentVisible(email, false);
 });
 
-When(/^.* clicks Delete-user button$/, async function () {
-	await studentEditPage.clickDeleteUserBtn();
-});
-
 When(/^.* clicks Delete button$/, async function () {
 	await studentEditPage.clickDeleteBtn();
 });

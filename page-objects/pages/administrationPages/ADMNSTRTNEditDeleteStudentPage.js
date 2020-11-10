@@ -7,14 +7,9 @@ const firstNameInput = "input[name='firstName']";
 const lastNameInput = "input[name='lastName']";
 const emailInput = "input[name='email']";
 const birthdayInput = '#birthday';
-const deleteUserBtn = '.btn-delete';
 const deleteConfirmBtn = '.btn-primary .btn-submit';
 const cancelButtonConfirmation = '.cancel-modal button.btn-close';
 const deleteButtonCancel = '.cancel-modal button.historyback';
-
-async function clickDeleteUserBtn() {
-		await elementHelpers.click(deleteUserBtn);
-}
 
 async function clickDeleteBtn() {
 		await elementHelpers.click(deleteConfirmBtn);
