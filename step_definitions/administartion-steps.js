@@ -30,6 +30,14 @@ When(/^.* clicks Edit-student button$/, async function () {
 	await studentAdministration.clickEditStudentBtn();
 });
 
+When(/^.* clicks Edit-student with '([^']*)' button$/, async function (email) {
+	await studentAdministration.clickEditStudentMailBtn(email);
+});
+
+Then(/^.* user with email '([^']*)' is not visible on the list$/, async function (email) {
+	return studentAdministration.isStudentVisible(email, false);
+});
+
 When(/^.* clicks Delete-user button$/, async function () {
 	await studentEditPage.clickDeleteUserBtn();
 });

@@ -9,7 +9,7 @@ const emailInput = "input[name='email']";
 const birthdayInput = '#birthday';
 const deleteUserBtn = '.btn-delete';
 const deleteConfirmBtn = '.btn-primary .btn-submit';
-const deleteButtonConfirmation = '.cancel-modal button.btn-close';
+const cancelButtonConfirmation = '.cancel-modal button.btn-close';
 const deleteButtonCancel = '.cancel-modal button.historyback';
 
 async function clickDeleteUserBtn() {
@@ -52,7 +52,7 @@ async function isStudentBirthdayCorrect(birthdayDate) {
 }
 
 async function clickCancelInModal() {
-	await elementHelpers.clickAndWait(deleteButtonConfirmation);
+	await elementHelpers.clickAndWait(cancelButtonConfirmation);
 }
 async function clickDiscardChangesInModal() {
 	await elementHelpers.clickAndWait(deleteButtonCancel);
