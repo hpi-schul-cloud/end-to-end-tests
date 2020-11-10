@@ -4,7 +4,7 @@ const administerStudentsPage = require('../page-objects/pages/administrationPage
 const mailCatcher = require('../runtime/helpers/mailCatcher.js');
 
 When(/^. goes to students administration$/, async function () {
-	return administerStudentsPage.clickAdministrateStudents();
+	return administerStudentsPage.goToAdministrateStudents();
 });
 
 Then(/^.* clicks Send-links-to-students'-e-mail-addresses button$/, async function () {

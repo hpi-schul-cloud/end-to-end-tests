@@ -1,10 +1,11 @@
-@editTask
-Feature: Editing a task as a teacher and save or discard
+@task
+@taskWithoutCourse
+Feature: Editing and deleting a task as a teacher and save or discard
 
     Background: teacher is logged in on the Schul-Cloud homepage
+        Given user arrives on the Schul-Cloud homepage
 
-        Given teacher arrives on the Schul-Cloud homepage
-
+@editTask
     Scenario Outline: The user logs in as a teacher and edits an existing task
         When teacher logs in with email '<teacherUsername>' and password '<teacherPassword>'
         And teacher performs first login actions: data protection acceptance
@@ -21,6 +22,20 @@ Feature: Editing a task as a teacher and save or discard
         Then teacher goes to the tasks page
         Then teacher checks if the new taskname is '<newTaskname>'
         And teacher checks if the new taskbody is '<taskbody>'
+
         Examples:
             | teacherUsername        | teacherPassword | taskname                                          | newTaskname                | taskbody  |
             | lehrer@schul-cloud.org | Schulcloud1!    | Aufgabe an Marla (Mathe) - mit Abgabe & Bewertung | Aufgabe an Marla (Algebra) | Calculate |
+
+@deleteTask
+    Scenario Outline: The user logs in as a teacher and deletes an existing task
+        When teacher logs in with email '<teacherUsername>' and password '<teacherPassword>'
+        And teacher performs first login actions: data protection acceptance
+        And teacher goes to tasks page
+        And teacher should click 'Delete' button for task with name '<taskname>'
+		And teacher clicks on Delete task button
+		Then task with name '<taskname>' is not visible on the list
+
+        Examples:
+            | teacherUsername        | teacherPassword | taskname                                          |
+            | lehrer@schul-cloud.org | Schulcloud1!    | Aufgabe an Marla (Mathe) - mit Abgabe & Bewertung |

@@ -8,10 +8,7 @@ When(/^.* adds a topic with name '([^']*)'$/, async function (topicname) {
 	await addEditTopicPage.setTopicName(topicname);
 });
 
-When(/^.* adds content Text with title '([^']*)' and description '([^']*)'$/, async function (
-	contentTitle,
-	description
-) {
+When(/^.* adds content Text with title '([^']*)' and description '([^']*)'$/, async function (contentTitle, description) {
 	await addEditTopicPage.addText(contentTitle, description);
 });
 
@@ -23,10 +20,7 @@ When(/^.* adds content Material$/, function () {
 	return addEditTopicPage.addMaterial();
 });
 
-When(/^.* adds content Etherpad with name '([^']*)' and description '([^']*)'$/, async function (
-	etherpadName,
-	etherpadDescription
-) {
+When(/^.* adds content Etherpad with name '([^']*)' and description '([^']*)'$/, async function (etherpadName,etherpadDescription) {
 	await addEditTopicPage.addEtherpad(etherpadName, etherpadDescription);
 });
 
@@ -42,7 +36,7 @@ When(/^.* clicks Add-Content-'([^']*)' button$/, async function (contentName) {
 	await addEditTopicPage.clickAddContent(contentName);
 });
 
-When(/^.* clicks Save-changes$/, async function () {
+When(/^.* clicks Save-changes button$/, async function () {
 	await addEditTopicPage.clickSaveChanges();
 });
 
@@ -66,9 +60,7 @@ When(/^.* clicks on topic with name '([^']*)'$/, function (topicName) {
 	return addEditTopicPage.clickOnTopicWithName(topicName);
 });
 
-When(/^.* clicks on the pencil button in the line of the topic with name '([^']*)' to edit the topic$/, async function (
-	topicName
-) {
+When(/^.* clicks on Edit-topic-pencil icon in topic line with name '([^']*)'$/, async function (topicName) {
 	await addEditTopicPage.clickOnTopicEditPencilButton(topicName);
 });
 
@@ -80,10 +72,7 @@ When(/^.* changes title of content from '([^']*)' to '([^']*)'$/, async function
 	await addEditTopicPage.setNewContentTitle(contentTitle, changeContentTitle);
 });
 
-When(/^.* changes description of content from '([^']*)' to '([^']*)'$/, async function (
-	contentDescription,
-	newContentDescription
-) {
+When(/^.* changes description of content from '([^']*)' to '([^']*)'$/, async function (contentDescription,newContentDescription) {
 	await addEditTopicPage.setNewContentText(contentDescription, newContentDescription);
 });
 

@@ -8,9 +8,14 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unpublished
 
+### Added
+
+- OPS-1297 - Added Changelog github action
+
 ## Changed
 
 - IMP-160 rename repository
+- SC-7110 Refactoring: Improved terms in cucumber steps: Teams, Topics, Class
 
 ## 25.0.1 - 2020-09-30
 

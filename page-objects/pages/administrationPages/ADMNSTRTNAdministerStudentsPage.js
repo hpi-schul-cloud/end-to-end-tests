@@ -1,6 +1,5 @@
 /*[url/administration/students]*/
 'use strict';
-const startPage = require('../generalPagesBeforeLogin/StartPageBeforeLogin');
 const loginPage = require('../generalPagesBeforeLogin/LoginPage');
 
 const waitHelpers = require('../../../runtime/helpers/waitHelpers');
@@ -8,9 +7,9 @@ const dateTimeHelpers= require('../../../runtime/helpers/dateTimeHelpers');
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 let oldPassword;
 
-const fabBtn = 'button.fab.primary.button.is-medium.is-none';
-const addStudentBtn = 'a[aria-label="Schüler:in anlegen"]';
-const importStudentBtn = 'a[aria-label="Schüler:innen importieren"]';
+const fabBtn = "[data-testid='fab_button_students_table']";
+const addStudentBtn = "[data-testid='fab_button_add_students']";
+const importStudentBtn = "[data-testid='fab_button_import_students']";
 const firstNameInput = "input[data-testid='input_create-user_firstname']";
 const lastNameInput = "input[data-testid='input_create-user_lastname']";
 const emailInput = "input[data-testid='input_create-user_email']";
@@ -22,15 +21,28 @@ const addStudentSubmitBtn = "button[data-testid='button_create-user_submit']";
 const passwordInput = '#passwd';
 const createBirthday = '#birthday';
 const sendConsentFormEmails = '.btn-send-links-emails';
+const editStudentBtn = '.table-actions .btn .fa-edit';
+const newAdminTablesEditButton = 'a[data-testid="edit_student_button"]';
+const tableOfStudentsColumn = 'tbody[data-testid="students_names_container"] > tr';
+const firstNameCell = 'td:nth-child(2) > div';
+const lastNameCell = 'td:nth-child(3) > div';
+const emailCell = 'td:nth-child(5) > div';
 
-//
 async function clickFABBtn() {
 	await elementHelpers.clickAndWait(fabBtn);
 }
 
 async function clickAddStudentBtn() {
-	//await waitHelpers.waitUntilAjaxIsFinished();
 	await elementHelpers.clickAndWait(addStudentBtn);
+}
+
+async function clickEditStudentBtn() {
+	// to make it work on new admin tables
+	try {
+		await elementHelpers.click(newAdminTablesEditButton);
+	} catch (e) {
+		await elementHelpers.click(editStudentBtn);
+	}
 }
 
 async function setStudentFirstName(firstname) {
@@ -63,7 +75,7 @@ async function createNewPupil(firstname, lastname, email) {
     await setStudentFirstName(firstname);
     await setStudentLastName(lastname);
     await setStudentEmail(email);
-    let birthdate = dateTimeHelpers.setDate(0,0,-15,'.', false);
+    let birthdate= dateTimeHelpers.getDate({day: 0, month: 0, year: -15, delimiter: '.', isOrderYearMonthDay: false});
     await setStudentsBirthday(birthdate);
     await clickOnSendRegistrationLinkCheckbox();
     await submitStudentAddition();
@@ -84,13 +96,37 @@ async function getStudentsEmailList() {
 		})
 	);
 }
-async function isStudentEmailOnTheList(email) {
-	let emails = await getStudentsEmailList();
-	await expect(emails).to.contain(email);
+
+// choose between email, firstname, lastname
+async function getStudentsDetailsList(whichCell) {
+	let names = await elementHelpers.getTextFromAllElements(whichCell);
+	return names;
 }
+
+async function isStudentEmailOnTheList(email) {
+	let emails = await getStudentsDetailsList(emailCell);
+	const msg = `Student with email ${email} is not visible on the students email list \n`;
+	const resultMsg = `List of emails ${emails}`;
+	await expect(emails, msg + resultMsg).to.include(email);
+}
+
+async function isStudentFirstnameOnTheList(firstname) {
+	let firstnames = await getStudentsDetailsList(firstNameCell);
+	const msg = `Student with firstname ${firstname} is not visible on the students firstname list \n`;
+	const resultMsg = `List of firstnames ${firstnames}`;
+	await expect(firstnames, msg + resultMsg).to.include(firstname);
+}
+
+async function isStudentLastnameOnTheList(lastname) {
+	let lastnames = await getStudentsDetailsList(lastNameCell);
+	const msg = `Student with lastname ${lastname} is not visible on the student lastname list \n`;
+	const resultMsg = `List of lastnames ${lastnames}`;
+	await expect(lastnames, msg + resultMsg).to.include(lastname);
+}
+
 async function submitConsent(e_mail) {
 	await waitHelpers.waitUntilElementIsVisible(tableOfStudents);
-	let names = await driver.$$(tableOfStudents + ' > tr');
+	let names = await driver.$$(tableOfStudents);
 	for (var i = 1; i <= names.length; i++) {
 		let emailPromise = await driver.$(tableOfStudents + ' > tr:nth-child(' + i + ') > td:nth-child(3)');
 		let email = await emailPromise.getText();
@@ -105,15 +141,19 @@ async function submitConsent(e_mail) {
 		}
 	}
 }
-async function studentLogsInWithDefaultPassword(email) {
-	await startPage.clickLoginBtn();
-	await loginPage.performLogin(email, oldPassword);
+
+async function studentLogsInWithPasswordGenaratedByAdminDuringManualSubmission(userName) {
+	await loginPage.performLogin(userName, oldPassword);
 }
 
 module.exports = {
+	oldPassword,
 	clickSendConsentFormEmailsButton,
+	clickEditStudentBtn,
 	createNewPupil,
 	isStudentEmailOnTheList,
+	isStudentFirstnameOnTheList,
+	isStudentLastnameOnTheList,
 	submitConsent,
-	studentLogsInWithDefaultPassword,
+	studentLogsInWithPasswordGenaratedByAdminDuringManualSubmission,
 };

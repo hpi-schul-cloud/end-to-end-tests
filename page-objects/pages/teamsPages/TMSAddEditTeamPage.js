@@ -33,7 +33,8 @@ async function clickCreateTeamSubmitButton() {
 }
 
 async function createTeamWithName(teamname, description) {
-	await TMSTeamListPage.goToAddTeam();
+	await TMSTeamListPage.goToTeams();
+	await TMSTeamListPage.clickAddTeamBtn();
 	await setTeamName(teamname);
 	await setTeamDescription(description);
 	await selectColor();

@@ -57,10 +57,10 @@ function currentDate() {
  *
  * Example use
  *
- * setDate(1, 0 , 1, '.', true);
- * setDate(-10 ,5 , -1, '/', false)
+ * getDate(1, 0 , 1, '.', true);
+ * getDate(-10 ,5 , -1, '/', false)
  */
-function setDate(day, month, year, delimiter, isOrderYearMonthDay) {
+function getDate({day, month, year, delimiter, isOrderYearMonthDay}) {
 	let today = new Date();
 	today.setDate(today.getDate() + day);
 	today.setMonth(today.getMonth() + 1 + month); // +1 January is 0!
@@ -180,7 +180,7 @@ async function dateToString() {
 }
 async function randomDate() {
 	let today = new Date();
-	let dd = today.getDate();
+	let dd = today.getDate() - 1;
 	let mm = today.getMonth() + 1; //January is 0!
 	let yyyy = today.getFullYear() + 1;
 	let hours = '11';
@@ -199,7 +199,7 @@ async function randomDate() {
 module.exports = {
 	stringToDate,
 	currentDate,
-	setDate,
+	getDate: getDate,
 	getCurrentDateTime,
 	getEndDateTime,
 	getStartDateTime,

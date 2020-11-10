@@ -1,9 +1,10 @@
 "use strict";
 
 const leftNavigation = require('../page-objects/pages/NavigationLeftPage.js');
+
 const leftMenuItems = leftNavigation.navItemsEnum;
 
-Then('click left navigation item {string}', function (string) {
+Then(/^.*clicks left navigation item '([^']*)'$/, function (string) {
     let navigationItem = string;
     switch (navigationItem) {
         case leftMenuItems.LOGO:
@@ -54,7 +55,7 @@ Then('click left navigation item {string}', function (string) {
             return leftNavigation.clickNavItemAdminCourses();
         case leftMenuItems.ADMINTEAMS:
             return leftNavigation.clickNavItemAdminTeams();
-        case leftMenuItems.ADMINCSCHOOL:
+        case leftMenuItems.ADMINSCHOOL:
             return leftNavigation.clickNavItemAdminSchool();
         case leftMenuItems.HELPAREA:
             return leftNavigation.clickNavItemHelpArea();
@@ -68,4 +69,3 @@ Then('click left navigation item {string}', function (string) {
             return Error("no such element found in 'click left navigation item {string}' " + navigationItem);
     }
 });
-

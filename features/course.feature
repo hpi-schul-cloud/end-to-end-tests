@@ -3,7 +3,7 @@ Feature: logging in as a teacher and create a new course
 	I want to be able to create a new course on Schul-Cloud
 
 	Background:
-		Given teacher arrives on the Schul-Cloud homepage
+		Given user arrives on the Schul-Cloud homepage
 		
 	@createCourse
 	Scenario Outline: create first course. Teachers have 2 options: to import or to create new course and the teacher sees the created course in the list
@@ -17,7 +17,7 @@ Feature: logging in as a teacher and create a new course
 		And teacher chooses course colour '<courseColour>'
 		And teacher clicks Next-section button
 		And teacher clicks Next-section button
-		And teacher clicks Go-to-course-list
+		And teacher clicks Go-to-course-list button
 		Then teacher should see that course with name '<courseName>' is visible on the list
 		Examples:
 			| userName                   | password     | courseName | courseColour |
@@ -46,7 +46,7 @@ Feature: logging in as a teacher and create a new course
 		When teacher clicks Next-section button
 		Then teacher should see that '3' section is opened
 		And teacher should see that buttons: Create-new-course, Go-to-course-list-page are visible
-		When teacher clicks Go-to-course-list
+		When teacher clicks Go-to-course-list button
 		Then teacher should see that course with name '<courseName>' is visible on the list
 		And teacher should see that course with name '<courseName>' is displayed correctly on the list
 		And teacher should see that color of the course with name '<courseName>' is '<courseColour>' that was selected during the creation process
@@ -79,11 +79,11 @@ Feature: logging in as a teacher and create a new course
 		And teacher goes to courses page
 		And teacher should see that course with name '<courseName>' is visible on the list
 		When teacher chooses course with name '<courseName>'
-		And teacher clicks on Course edit
+		And teacher clicks on Edit-course button
 		And teacher changes name of Course '<changeName>'
 		And teacher enters Course description '<description>'
 		And teacher chooses course colour '<courseColour>'
-		And teacher clicks on save changes button
+		And teacher clicks on Save-changes in course button
 		And teacher goes to courses page
 		Then teacher should see that course with name '<changeName>' is displayed correctly on the list
 		And teacher should see that course name '<changeName>' with description correctly displayed '<description>'
@@ -99,9 +99,9 @@ Feature: logging in as a teacher and create a new course
 		And teacher goes to courses page
 		And teacher should see that course with name '<courseName>' is visible on the list
 		When teacher chooses course with name '<courseName>'
-		And teacher clicks on Course edit
-		And teacher clicks on delete course button
-		And teacher clicks on delete course button confirmation
+		And teacher clicks on Edit-course button
+		And teacher clicks on Delete-course button
+		And teacher clicks on Delete-course-confirmation button
 		Then teacher should see that course with name '<courseName>' is not visible on the list
 		Examples:
 			| userName               | password     | courseName | courseColour |

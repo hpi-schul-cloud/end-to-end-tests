@@ -4,6 +4,7 @@
 const waitHelpers = require("../../runtime/helpers/waitHelpers")
 const navigationLeftPage = require("./NavigationLeftPage.js")
 const elementHelpers=require('../../runtime/helpers/elementHelpers');
+
 const selectorCreateTaskButton = '.btn.btn-primary.btn-add.create';
 const selectorCreateTaskBtnInTheCourse = '.col-sm-12.add-button > a';
 const selectorSortBtn = '#filter .md-clickable > div';
@@ -15,6 +16,8 @@ const taskElement = '.col-xl-12';
 const taskTitleContainer = '.assignment.card .title';
 const taskDescriptionContainer = '.assignment .text-muted.ckcontent'
 const taskContainer = '.homework li.card';
+const trashcanBtnSelector = '.fa-trash-o';
+const deleteTaskButtonInPopup ='.delete-modal button.btn-submit';
 
 const taskButton = {
 	archive: '.fa-archive',
@@ -105,9 +108,7 @@ async function isTaskVisible(taskname, expectedValue) {
 	const msg = `Task with name is ${fillString} visible on the list: \n`;
 	const resultMsg = 'Expected: ' + taskname + ', Actual: ' + allTasks;
 
-	expectedValue
-		? await expect(isTaskOnList, msg + resultMsg).to.equal(true)
-		: await expect(isTaskOnList, msg + resultMsg).to.equal(false);
+	await expect(isTaskOnList, msg + resultMsg).to.equal(expectedValue)
 }
 
 async function getTaskDescription(){
@@ -119,14 +120,6 @@ async function getTaskDescription(){
 async function goToPrivateTasksArea () {
     await navigationLeftPage.clickNavItemTasks()
     await navigationLeftPage.clickNavItemTasksPrivate()
-}
-
-async function isTaskNotVisible (taskname) {
-        const allTasks = await this.getListOfTaskTitles();
-        const isTaskOnList = allTasks.some((element) => element.includes(taskname));
-        const msg = 'Task with name is not visible on the list: \n';
-        const resultMsg = 'Expected: ' + taskname + ', Actual: ' + allTasks;
-        await expect(isTaskOnList, msg + resultMsg).to.equal(false);
 }
 
 async function clickOnTaskFromList (taskname) {
@@ -141,18 +134,9 @@ async function clickOnTaskFromList (taskname) {
         }
  }
 
- async function getTaskNames () {
-    const tasksArray = await driver.$$(taskElement + " > li");
-    const container = await driver.$(taskElement);
-    const namesArray = [];
-    for (let i = 1; i <= tasksArray.length; i++) {
-        const task = await container.$("li:nth-child(" + i + ") h2");
-        const courseAndTaskName = (await task.getText());
-        const tasknameArray = await courseAndTaskName.split("- ")
-        const foundtaskName = tasknameArray[1]
-        namesArray.push(foundtaskName);
-    }
-    return namesArray;
+async function clickDeleteTaskButtonInPopup() {
+	await elementHelpers.clickAndWait(deleteTaskButtonInPopup);
+	await waitHelpers.waitUntilAjaxIsFinished();
 }
 
 module.exports = {
@@ -163,10 +147,8 @@ module.exports = {
     clickOnTask,
     isTaskVisible,
     goToPrivateHomeworkArea: goToPrivateTasksArea,
-    isTaskNotVisible,
     clickOnTaskFromList,
-    getTaskNames,
     getTaskDescription,
-    clickCreateTaskButtonInTheCourse
-
+    clickCreateTaskButtonInTheCourse,
+    clickDeleteTaskButtonInPopup
 }

@@ -2,10 +2,10 @@
 
 const elementHelpers = require("../../../runtime/helpers/elementHelpers")
 
-const editClassBtn = "a.d-block.mb-1"
+const editClassBtn = "a[title='administration.classes.placeholer.change']"
 
 async function clickEditClassBtn() {
-    await elementHelpers.clickAndWait(editClassBtn)
+    await elementHelpers.clickAndWait(editClassBtn);
 }
 
 module.exports = {
