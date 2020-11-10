@@ -31,7 +31,7 @@ When(/^.* clicks Edit-student button$/, async function () {
 });
 
 When(/^.* clicks Edit-student with '([^']*)' button$/, async function (email) {
-	await studentAdministration.clickEditStudentMailBtn(email);
+	await studentAdministration.clickEditStudentByMailBtn(email);
 });
 
 Then(/^.* user with email '([^']*)' is not visible on the list$/, async function (email) {

@@ -39,7 +39,7 @@ async function clickEditStudentBtn() {
 }
 
 // TODO make it working on new admin tables
-async function clickEditStudentMailBtn(userEmail) {
+async function clickEditStudentByMailBtn(userEmail) {
 	await waitHelpers.waitUntilElementIsVisible(tableOfStudentsColumn);
 	let studentsTable = await driver.$$(tableOfStudentsColumn);
 	for (let index = 1; index <= studentsTable.length; index++) {
@@ -136,7 +136,7 @@ async function isStudentLastnameOnTheList(lastname) {
 async function submitConsent(e_mail) {
 	await waitHelpers.waitUntilElementIsVisible(tableOfStudentsColumn);
 	let names = await driver.$$(tableOfStudentsColumn);
-	for (var i = 1; i <= names.length; i++) {
+	for (let i = 1; i <= names.length; i++) {
 		let emailPromise = await driver.$(studentNameContainer + ' > tr:nth-child(' + i + ') > td:nth-child(3)');
 		let email = await emailPromise.getText();
 		if (email === e_mail) {
@@ -157,7 +157,7 @@ async function studentLogsInWithPasswordGenaratedByAdminDuringManualSubmission(u
 module.exports = {
 	oldPassword,
 	isStudentVisible,
-	clickEditStudentMailBtn,
+	clickEditStudentByMailBtn,
 	clickSendConsentFormEmailsButton,
 	clickEditStudentBtn,
 	createNewPupil,
