@@ -1,35 +1,33 @@
 @news
 Feature: Different options for news. I would like to test whether users with different permissions can see my news
 
-	Background: I am logged in as a teacher and I create news
+	Background:
 		Given user arrives on the Schul-Cloud homepage
 
-    @createInstantNews
-    Scenario Outline: User can see the news
-        Given teacher logs in with email '<teacherEmail>' and password '<teacherPassword>'
-        And teacher performs first login actions: data protection acceptance
-        When teacher creates news with title '<newsTitle>', content '<newsContent>' and current date
-        And teacher logs out
-        And student logs in with email '<studentUsername>' and password '<studentPassword>'
-        And student performs first login actions: data protection acceptance, password change '<newStudentPassword>'
-        And clicks left navigation item 'news'
-        Then teacher should see that news with title '<newsTitle>' is visible on the list
+	@createInstantNews
+	Scenario Outline: As a user, I want to be able to see the news
+		When <userRole> logs in with email '<teacherEmail>' and password '<teacherPassword>'
+		And <userRole> performs first login actions: data protection acceptance
+		When <userRole> creates news with title '<newsTitle>', content '<newsContent>' and current date
+		And <userRole> logs out
+		And student logs in with email '<studentUsername>' and password '<studentPassword>'
+		And student performs first login actions: data protection acceptance, password change '<newStudentPassword>'
+		And <userRole> clicks left navigation item 'news'
+		Then <userRole> should see that news with title '<newsTitle>' is visible on the list
+		Examples:
+			| userRole | teacherEmail               | teacherPassword | studentUsername             | studentPassword | newStudentPassword | newsTitle      | newsContent                               |
+			| teacher  | klara.fall@schul-cloud.org | Schulcloud1!    | paula.meyer@schul-cloud.org | Schulcloud1!    | Schulcloud1!!      | School day off | Here are some announcements for my pupils |
 
-        Examples:
-            | teacherEmail               | teacherPassword | studentUsername             | studentPassword | newStudentPassword | newsTitle      | newsContent                               |
-            | klara.fall@schul-cloud.org | Schulcloud1!    | paula.meyer@schul-cloud.org | Schulcloud1!    | Schulcloud1!!      | School day off | Here are some announcements for my pupils |
-
-    @createPostponedNews
-    Scenario Outline: User  cannot see the news if the news is not due yet
-        Given teacher logs in with email '<teacherEmail>' and password '<teacherPassword>'
-        And teacher performs first login actions: data protection acceptance
-        When teacher creates news with title '<newsTitle>', content '<newsContent>' and a one-year delay
-        And teacher logs out
-        And student logs in with email '<studentUsername>' and password '<studentPassword>'
-        And student performs first login actions: data protection acceptance, password change '<newStudentPassword>'
-        And clicks left navigation item 'news'
-        Then student should see that news with title '<newsTitle>' is not visible on the list
-
-        Examples:
-            | teacherEmail               | teacherPassword | studentUsername             | studentPassword | newStudentPassword | newsTitle      | newsContent                               |
-            | klara.fall@schul-cloud.org | Schulcloud1!    | paula.meyer@schul-cloud.org | Schulcloud1!    | Schulcloud1!!      | School day off | Here are some announcements for my pupils |
+	@createPostponedNews
+	Scenario Outline: As a user, I want to be able to not see the news if the news is not due yet
+		When <userRole> logs in with email '<teacherEmail>' and password '<teacherPassword>'
+		And <userRole> performs first login actions: data protection acceptance
+		When <userRole> creates news with title '<newsTitle>', content '<newsContent>' and a one-year delay
+		And <userRole> logs out
+		And student logs in with email '<studentUsername>' and password '<studentPassword>'
+		And student performs first login actions: data protection acceptance, password change '<newStudentPassword>'
+		And student clicks left navigation item 'news'
+		Then student should see that news with title '<newsTitle>' is not visible on the list
+		Examples:
+			| userRole| teacherEmail               | teacherPassword | studentUsername             | studentPassword | newStudentPassword | newsTitle      | newsContent                               |
+			| teacher | klara.fall@schul-cloud.org | Schulcloud1!    | paula.meyer@schul-cloud.org | Schulcloud1!    | Schulcloud1!!      | School day off | Here are some announcements for my pupils |
