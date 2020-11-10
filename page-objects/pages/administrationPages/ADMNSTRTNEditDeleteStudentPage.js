@@ -57,7 +57,6 @@ module.exports = {
 	clickCancelButton,
 	clickDiscardChangesInModal,
 	clickCancelInModal,
-	clickDeleteUserBtn,
 	clickDeleteBtn,
 	setStudentFirstName,
 	setStudentLastName,

@@ -38,21 +38,21 @@ async function clickEditStudentBtn() {
 	}
 }
 
-async function clickEditStudentMailBtn(e_mail) {
-	// TODO make it working on new admin tables
+// TODO make it working on new admin tables
+async function clickEditStudentMailBtn(userEmail) {
 	await waitHelpers.waitUntilElementIsVisible(tableOfStudentsColumn);
 	let studentsTable = await driver.$$(tableOfStudentsColumn);
 	for (let index = 1; index <= studentsTable.length; index++) {
 		let emailPromise = await driver.$(`${studentNameContainer} > tr:nth-child(${index}) > td:nth-child(3)`);
 		let email = await emailPromise.getText();
-		if (email === e_mail) {
+		if (email === userEmail) {
 			let editUser = studentNameContainer + `tr:nth-child(${index}) > td.table-actions  i.fa-edit`;
 			await elementHelpers.click(editUser);
 			break;
 		}
 	}
 }
-
+// TODO make it working on new admin tables
 async function isStudentVisible(userEmail, expectedValue) {
 	await waitHelpers.waitUntilElementIsVisible(tableOfStudentsColumn);
 	let studentsTable = await driver.$$(tableOfStudentsColumn);
