@@ -7,9 +7,18 @@ const firstNameInput = "input[name='firstName']";
 const lastNameInput = "input[name='lastName']";
 const emailInput = "input[name='email']";
 const birthdayInput = '#birthday';
+const deleteUserBtn = '.btn-delete';
+const deleteConfirmBtn = '.btn-primary .btn-submit';
 const deleteButtonConfirmation = '.cancel-modal button.btn-close';
 const deleteButtonCancel = '.cancel-modal button.historyback';
 
+async function clickDeleteUserBtn() {
+		await elementHelpers.click(deleteUserBtn);
+}
+
+async function clickDeleteBtn() {
+		await elementHelpers.click(deleteConfirmBtn);
+}
 async function clickCancelButton() {
 	await elementHelpers.clickAndWait(cancelButton);
 }
@@ -53,6 +62,8 @@ module.exports = {
 	clickCancelButton,
 	clickDiscardChangesInModal,
 	clickCancelInModal,
+	clickDeleteUserBtn,
+	clickDeleteBtn,
 	setStudentFirstName,
 	setStudentLastName,
 	setStudentEmail,

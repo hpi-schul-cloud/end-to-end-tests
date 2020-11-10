@@ -30,6 +30,14 @@ When(/^.* clicks Edit-student button$/, async function () {
 	await studentAdministration.clickEditStudentBtn();
 });
 
+When(/^.* clicks Delete-user button$/, async function () {
+	await studentEditPage.clickDeleteUserBtn();
+});
+
+When(/^.* clicks Delete button$/, async function () {
+	await studentEditPage.clickDeleteBtn();
+});
+
 When(/^.* clicks edit student Cancel button$/, async function () {
 	await studentEditPage.clickCancelButton();
 });
