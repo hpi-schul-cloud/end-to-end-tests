@@ -77,6 +77,14 @@ When(/^teacher creates a course '(.*)' and adds student (.*)to this course$/, as
 	return createCourse.createCourseWithStudent(courseName, studentName);
 });
 
+/*Topics*/ 
+When(/^.* goes to topic (.*) of course (.*)$/, async function (topicName, courseName) {
+	await navigationLeftPanel.clickNavItemCourses();
+	await courseListPage.clickOnCourseInSection(courseName, courseListPage.section.activeCourses);
+	await courseTopicPage.goToTopic(topicName);
+
+});
+
 /*NavigationTopPage*/
 When(/^.* goes to initials$/, async function () {
 	await navigationTopPage.clickInitials();
