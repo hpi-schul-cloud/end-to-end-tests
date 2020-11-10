@@ -1,11 +1,11 @@
 @searchCourse
 Feature: teacher wants to search for a course
 
-    Background: teacher is logged in and visits the course page
+    Background:
         Given user arrives on the Schul-Cloud homepage
 
 
-    Scenario Outline:
+    Scenario Outline: As a user, I want to be able to search a course
         Given teacher logs in with email '<teacherUsername>' and password '<teacherPassword>'
         Given teacher performs first login actions: data protection acceptance
         Given teacher goes to courses page

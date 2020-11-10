@@ -33,10 +33,10 @@ When(/^.* clicks on Private-task checkbox$/, async function () {
     await addEditTaskPage.clickPrivateHomeworkCheckbox();
 });
 
-Then(/^.*task with name '([^']*)' is not visible on the list$/, async function (taskName) {
+Then(/^.* sees that task with name '([^']*)' is not visible on the list$/, async function (taskName) {
 	await taskListPage.isTaskVisible(taskName, false);
 });
-Then(/^.*task with name '([^']*)' is visible on the list$/, async function (taskName) {
+Then(/^.* sees that task with name '([^']*)' is visible on the list$/, async function (taskName) {
     await taskListPage.isTaskVisible(taskName, true);
 });
 
@@ -60,7 +60,7 @@ Given(/^.* submits solution for the task$/, async function () {
     await taskPage.submitHomework();
 });
 
-When(/^the teacher uploads file feedback$/, async function () {
+When(/^.* uploads file feedback$/, async function () {
     await taskPage.submitFileFeedback(file);
 });
 

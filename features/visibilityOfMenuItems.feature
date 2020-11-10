@@ -1,14 +1,14 @@
 @visibilityOfMenuItems
-Feature:
+Feature: Check visibility of menu items
 
 	Background:
 		Given user arrives on the Schul-Cloud homepage
 
 	@visibilityOfAdministrationSubMenuItems
-	Scenario Outline:
+	Scenario Outline: As a user, I want to be able to check submenu items for administration
         And <userRole> logs in
         And <userRole> performs first login actions: data protection acceptance
-        When clicks left navigation item 'administration'
+        When <userRole> clicks left navigation item 'administration'
         Then <userRole> should see that all sub menu items are visible: '<tabsList>'
         Examples:
             | userRole | tabsList                                       |

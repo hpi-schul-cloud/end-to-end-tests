@@ -5,7 +5,7 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 		Given user arrives on the Schul-Cloud homepage
 
 	@createTopic
-	Scenario Outline: <userRole> creates a new topic in course
+	Scenario Outline: As a user I want to be able to create a new topic in course
 		Given <userRole> logs in with email '<email>' and password '<password>'
 		And <userRole> performs first login actions: data protection acceptance
 		And <userRole> goes to courses page
@@ -20,7 +20,7 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 			| teacher  | lehrer@schul-cloud.org | Schulcloud1! | Mathe      | Division  |
 
 	@editTopic
-	Scenario Outline: User edit a topic
+	Scenario Outline: As a user, I want to be able to edit a topic
 		Given <userRole> logs in with email '<email>' and password '<password>'
 		And <userRole> performs first login actions: data protection acceptance
 		When <userRole> goes to courses page
@@ -45,7 +45,7 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 			| teacher  | lehrer@schul-cloud.org | Schulcloud1! | Mathe      | Division  | Operations   | Math operations | Art              | Picasso         | Human of Art   |
 
 	@deleteTopic
-	Scenario Outline: User delete a topic
+	Scenario Outline: As a user, I want to be able to delete a topic
 		Given <userRole> logs in with email '<email>' and password '<password>'
 		And <userRole> performs first login actions: data protection acceptance
 		When <userRole> goes to courses page
@@ -60,5 +60,5 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 		And <userRole> clicks on Delete topic button
 		Then <userRole> should see that topic with name '<topicName>' is not visible on the list
 		Examples:
-			| userRole | email                  | password     | courseName | topicName		 | secondTopicName	| contentText     | 
+			| userRole | email                  | password     | courseName | topicName		 | secondTopicName	| contentText     |
 			| teacher  | lehrer@schul-cloud.org | Schulcloud1! | Mathe      | Multiplication | Addition   		| Math operations |
