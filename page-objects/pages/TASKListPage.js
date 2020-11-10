@@ -16,6 +16,8 @@ const taskElement = '.col-xl-12';
 const taskTitleContainer = '.assignment.card .title';
 const taskDescriptionContainer = '.assignment .text-muted.ckcontent'
 const taskContainer = '.homework li.card';
+const trashcanBtnSelector = '.fa-trash-o';
+const deleteTaskButtonInPopup ='.delete-modal button.btn-submit';
 
 const taskButton = {
 	archive: '.fa-archive',
@@ -132,6 +134,11 @@ async function clickOnTaskFromList (taskname) {
         }
  }
 
+async function clickDeleteTaskButtonInPopup() {
+	await elementHelpers.clickAndWait(deleteTaskButtonInPopup);
+	await waitHelpers.waitUntilAjaxIsFinished();
+}
+
 module.exports = {
     clickCreateTaskButton,
     sortHometasks: sortHometasksLastEdited,
@@ -142,6 +149,6 @@ module.exports = {
     goToPrivateHomeworkArea: goToPrivateTasksArea,
     clickOnTaskFromList,
     getTaskDescription,
-    clickCreateTaskButtonInTheCourse
-
+    clickCreateTaskButtonInTheCourse,
+    clickDeleteTaskButtonInPopup
 }
