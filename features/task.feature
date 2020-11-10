@@ -1,14 +1,14 @@
 @task
 Feature: create different types of task
 
-	Background: a teacher logs in and creates a course
-		Given teacher arrives on the Schul-Cloud homepage
-		And teacher logs in
-		And teacher performs first login actions: data protection acceptance
-		And teacher goes to courses page
+	Background:
+		Given user arrives on the Schul-Cloud homepage
 
 	@createTaskInTheCourse
 	Scenario Outline: create a simple hometask
+		When teacher logs in
+		And teacher performs first login actions: data protection acceptance
+		And teacher goes to courses page
 		When teacher creates course with name '<courseName>'
 		And teacher clicks Create-a-new-task-button in the course '<courseName>'
 		And teacher puts taskname '<taskName>' into name field
