@@ -3,8 +3,9 @@ const { CLIENT } = require('../shared-objects/servers');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
-const navigationLeftPanel = require('../page-objects/pages/NavigationLeftPage');
+const studentAdministration = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerStudentsPage');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
+
 const schulCloudURL = `${CLIENT.URL}`;
 /*Login, Logout*/
 
@@ -15,6 +16,11 @@ Given(/^.*arrives on the Schul-Cloud homepage$/, async function () {
 Given(/^.* logs in with email '([^']*)' and password '([^']*)'$/, async function (username, password) {
 	await startPage.clickLoginBtn();
 	await loginPage.performLogin(username, password);
+});
+
+Then(/^.* logs in with email '([^']*)' and password genarated by admin during manual submission of consent$/, async function (username) {
+	await startPage.clickLoginBtn();
+	await studentAdministration.studentLogsInWithPasswordGenaratedByAdminDuringManualSubmission(username);
 });
 
 Given(/^teacher logs in$/, async function () {
@@ -94,6 +100,10 @@ Then(/^.* performs first login actions: data protection acceptance$/, async func
 	return loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: false });
 });
 
+Then(/^.* performs first login actions: password change '([^']*)'$/, async function (newPassword) {
+	await loginPage.performLoginActions({ shouldAcceptDataProtection: false, shouldSetOwnPassword: true, newPassword });
+});
+
 Then(/^.* performs first login actions: data protection acceptance, password change '([^']*)'$/, async function (newPassword) {
 	await loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: true, newPassword });
 });
@@ -105,8 +115,4 @@ Then(/^'([^']*)' performs first login actions$/, async function (userRole) {
 	await loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: false});
 	}
 
-});
-
-Then(/^.*data protection is already accepted and set a new password '([^']*)'$/, async function (newPassword) {
-	await loginPage.performLoginActions({ shouldAcceptDataProtection: false, shouldSetOwnPassword: true, newPassword });
 });

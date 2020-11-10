@@ -1,27 +1,45 @@
-#This feature caused errors for other tests and have been temporary ignored
-#Error: ERROR webdriver: Request failed due to invalid session id
-@createNewStudent
+@administration
+
 Feature: Administrate pupils, classes and teachers
-	As an admin on Schul-Cloud
-	I want to be able to administrate pupils, teachers and classes
+	As an Schul-Cloud user I want to be able to administrate pupils, teachers and classes
 
 	Background:
+		Given user arrives on the Schul-Cloud homepage
 
-		Given admin arrives on the Schul-Cloud homepage
-
-	Scenario Outline: Admin creates a pupil
-
-		When admin logs in with email '<adminsUsername>' and password '<adminsPassword>'
-		When admin performs first login actions: data protection acceptance
-		When admin goes to administration
-		When admin goes to students administration
-		And admin set student firstname '<firstName>', lastname '<secondName>', email '<studentEmail>'
-		And the admin should see new pupil with email '<studentEmail>' among his pupils
-		And admin manually submits a consent '<studentEmail>'
-		And admin logs out
-		Then new pupil '<studentEmail>' can log in with default password
-		Then student should see that data protection is already accepted and set a new password '<newPasswordStudent>'
+	@createNewStudent
+	Scenario Outline: user creates a student
+		Given <userRole> logs in with email '<adminsUsername>' and password '<adminPassword>'
+		And '<userRole>' performs first login actions
+		And <userRole> goes to administration
+		And <userRole> goes to students administration
+		When <userRole> set student firstname '<firstName>', lastname '<secondName>', email '<studentEmail>'
+		And <userRole> sees that student with email '<studentEmail>' is visible on the list
+		And <userRole> manually submits consent for user with e-mail '<studentEmail>', thus generates a random password for him
+		And <userRole> logs out
+		And student logs in with email '<studentEmail>' and password genarated by admin during manual submission of consent
+		Then student should see that data protection is already accepted and performs first login actions: password change '<newPasswordStudent>'
 		Examples:
-			| firstName | secondName | studentEmail              | adminsUsername        | adminsPassword | newPasswordStudent |
-	    	| Georg     | Georgmann  | georgmann@schul-cloud.org | admin@schul-cloud.org | Schulcloud1!   | Schulcloud1!!      |
+			| userRole | firstName | secondName | studentEmail              | adminsUsername        | adminPassword | newPasswordStudent |
+			| admin    | Georg     | Georgmann  | georgmann@schul-cloud.org | admin@schul-cloud.org | Schulcloud1!  | Schulcloud1!!      |
 
+	@editStudent
+	Scenario Outline: user edits a student
+		Given <userRole> logs in with email '<adminsUsername>' and password '<adminsPassword>'
+		And '<userRole>' performs first login actions
+		And <userRole> goes to administration
+		And <userRole> goes to students administration
+		And <userRole> clicks Edit-student button
+		When <userRole> changes student firstname to '<newFirstName>'
+		And <userRole> changes student lastname to '<newLastName>'
+		And <userRole> changes student email to '<newEmail>'
+		And <userRole> changes student birthdate to '<newBirthdate>'
+		And <userRole> clicks Save-changes button
+		Then <userRole> should see that edited student firstname '<newFirstName>' is visible on the list
+		And <userRole> should see that edited student lastname '<newLastName>' is visible on the list
+		And <userRole> should see that edited student email '<newEmail>' is is visible on the list
+		And <userRole> clicks Edit-student button
+		Then <userRole> should see that student birthdate is '<newBirthdate>'
+
+		Examples:
+			| userRole | newFirstName | newLastName | newEmail                    | adminsUsername        | adminsPassword | newBirthdate |
+			| admin    | Nils         | Nilsen      | nils.nilsen@schul-cloud.org | admin@schul-cloud.org | Schulcloud1!   | 24.12.2004   |

@@ -135,6 +135,12 @@ async function isElementClickable(selector) {
 	}
 }
 
+async function getPageTitle(selectorOfTitle) {
+	await waitHelpers.waitUntilPageLoads();
+	const title = await elementHelpers.getElementText(selectorOfTitle);
+	return title;
+}
+
 async function isUrlContaining(expectedUrl) {
 	try {
 		return driver.getUrl().includes(expectedUrl);
@@ -157,6 +163,13 @@ async function getListOfSelectedOption(selectSelector) {
 	return getTextListFromListOfElements(listOfSelectedOptions);
 }
 
+async function getValueOfElement(selector) {
+	await waitHelpers.waitUntilElementIsVisible(selector);
+	const element = await driver.$(selector);
+	const value = await element.getValue();
+	return value;
+}
+
 async function getTextFromAllElements(selector) {
 	await waitHelpers.waitUntilPageLoads();
 	const listOfElements = await getListOfAllElements(selector);
@@ -174,6 +187,18 @@ async function getListOfAllElements(selector) {
 	return driver.$$(selector);
 }
 
+async function getIndexOfHeaderContainsText(tableSel, text) {
+	const textList = await getTextFromAllElements(tableSel + ' th');
+	var index = textList.indexOf(text);
+	return index;
+}
+
+async function getIndexOfRowContainsText(tableSel, text) {
+	const textList = await getTextFromAllElements(tableSel + ' tr');
+	var index = textList.indexOf(text);
+	return index;
+}
+
 async function isOptionSelected(selectSelector, text) {
 	text = text.trim();
 	const listOfSelectedOption = await getListOfSelectedOption(selectSelector);
@@ -189,6 +214,14 @@ async function clearAndSetValue(selectorOrElement, value) {
 	await waitHelpers.waitUntilElementIsVisible(selectorOrElement);
 	const element = await waitHelpers.waitUntilElementIsEnabled(selectorOrElement);
 	await element.setValue(value);
+}
+
+async function getElementByText(selector, text) {
+	const listOfElements = await getListOfAllElements(selector);
+	const listOfElementTexts = await getTextListFromListOfElements(listOfElements);
+	text = text.trim();
+	const index = listOfElementTexts.indexOf(text);
+	return listOfElements[index];
 }
 
 module.exports = {
@@ -209,10 +242,15 @@ module.exports = {
 	getListOfAllElements,
 	getValueListFromListOfElements,
 	getListOfSelectedOption,
+	getIndexOfRowContainsText,
+	getIndexOfHeaderContainsText,
 	isElementDisplayed,
 	isElementPresent,
 	isElementClickable,
 	isUrlContaining,
+	getPageTitle,
 	isOptionSelected,
 	clearAndSetValue,
+	getValueOfElement,
+	getElementByText,
 };

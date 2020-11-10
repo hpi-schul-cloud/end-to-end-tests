@@ -2,34 +2,22 @@
 "use strict"
 
 const elementHelpers = require("../../../runtime/helpers/elementHelpers")
-const waitHelpers = require("../../../runtime/helpers/waitHelpers")
-const navigationLeftPanel = require("../NavigationLeftPage");
-const administrateStudentsBtn = "div[data-testid='administrate_students']"
-const administrateTeachersBtn = "div[data-testid='administrate_teachers']"
-const administrateClassesBtn = "div[data-testid='administrate_classes']"
-const administrationsSubItems = "//*[@id='sidebar']/ul/li/ul//*/span"
+const NavigationLeftPage = require("../NavigationLeftPage");
 
-async function clickAdministrateStudents() {
-    await elementHelpers.clickAndWait(administrateStudentsBtn)
+async function goToAdministrateStudents() {
+    await NavigationLeftPage.clickNavItemAdminStudents();
 }
 
-async function clickAdministrateClasses() {
-    await elementHelpers.clickAndWait(administrateClassesBtn)
+async function goToAdministrateClasses() {
+    await NavigationLeftPage.clickNavItemAdminClasses();
 }
 
-async function clickAdministrateTeachers() {
-    await elementHelpers.clickAndWait(administrateTeachersBtn)
-}
-
-async function getListOfAdministrationTabs() {
-    await waitHelpers.waitUntilPageLoads();
-    let items = await driver.$$(administrationsSubItems)
-    return items
+async function goToAdministrateTeachers() {
+    await elementHelpers.clickAdministrateTeachers();
 }
 
 module.exports = {
-    clickAdministrateStudents,
-    clickAdministrateClasses,
-    clickAdministrateTeachers,
-    getListOfAdministrationTabs,
+    goToAdministrateStudents,
+    goToAdministrateClasses,
+    goToAdministrateTeachers,
 }

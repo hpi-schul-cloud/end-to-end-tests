@@ -2,10 +2,10 @@
 
 const administrationClasses= require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerClassesPage');
 
-When(/^.* edits a class'([^']*)'$/, function (className) {
-    return administrationClasses.editClass(className);
+When(/^.* edits custom class name to '([^']*)'$/, function (customClassName) {
+    return administrationClasses.editClass({customClassName: customClassName});
 });
 
-Then(/^.* should see the class '([^']*)' with last name of teacher '([^']*)'$/, function (newClassName, teacherLastname) {
+Then(/^.* class with name '([^']*)' and teacher named '([^']*)' is visible$/, function (newClassName, teacherLastname) {
     return administrationClasses.isClassEdited(newClassName, teacherLastname)
 });
