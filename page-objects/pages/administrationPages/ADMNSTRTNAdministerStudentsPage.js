@@ -16,6 +16,7 @@ const emailInput = "input[data-testid='input_create-user_email']";
 const birthdateInput = 'input[data-testid="input_create-student_birthdate"]';
 const sendRegistrationLinkCheckbox = "label[data-testid='input_create-student_send-registration']";
 const tableOfStudents = "tbody[data-testid='table-data-body']";
+const skipConsentBtn = '.fa-check-square-o';
 const consentSubmitBtn = "button[data-testid='submit_consent']";
 const addStudentSubmitBtn = "button[data-testid='button_create-user_submit']";
 const passwordInput = '#passwd';
@@ -149,11 +150,12 @@ async function submitConsent(e_mail) {
 	await waitHelpers.waitUntilElementIsVisible(tableOfStudents);
 	let names = await driver.$$(tableOfStudents);
 	for (var i = 1; i <= names.length; i++) {
-		let emailPromise = await driver.$(tableOfStudents + ' > tr:nth-child(' + i + ') > td:nth-child(3)');
+		let emailPromise = await driver.$(tableOfStudents + ' > tr:nth-child(' + i + ') > td:nth-child(5)');
 		let email = await emailPromise.getText();
 		if (email === e_mail) {
-			let boxConsent = tableOfStudents + ' > tr:nth-child(' + i + ') > td:nth-child(7) > a:nth-child(2) > i';
+			let boxConsent = tableOfStudents + ' > tr:nth-child(' + i + ') > td:nth-child(9)';
 			await elementHelpers.click(boxConsent);
+			await elementHelpers.clickAndWait(skipConsentBtn);
 			let passwordField = await waitHelpers.waitUntilElementIsPresent(passwordInput);
 			let password_old = await passwordField.getValue();
 			oldPassword = password_old;
