@@ -12,8 +12,8 @@ When(/^.*set student firstname '([^']*)', lastname '([^']*)', email '([^']*)'$/,
 	return studentAdministration.createNewPupil(firstname, lastname, email);
 });
 
-Then(/^.*student with email '([^']*)' is visible on the list$/, function (email) {
-	return studentAdministration.isStudentEmailOnTheList(email);
+Then(/^.*student with email '([^']*)' is visible on the list$/, async function (email) {
+	await studentAdministration.isStudentEmailOnTheList(email);
 });
 
 When(/^.*manually submits consent for user with e-mail '([^']*)', thus generates a random password for him$/, function (
