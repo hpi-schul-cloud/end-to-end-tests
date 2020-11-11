@@ -3,7 +3,7 @@
 const loginPage = require('../generalPagesBeforeLogin/LoginPage');
 
 const waitHelpers = require('../../../runtime/helpers/waitHelpers');
-const dateTimeHelpers= require('../../../runtime/helpers/dateTimeHelpers');
+const dateTimeHelpers = require('../../../runtime/helpers/dateTimeHelpers');
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 let oldPassword;
 
@@ -27,6 +27,9 @@ const tableOfStudentsColumn = 'tbody[data-testid="students_names_container"] > t
 const firstNameCell = 'td:nth-child(2) > div';
 const lastNameCell = 'td:nth-child(3) > div';
 const emailCell = 'td:nth-child(5) > div';
+const selectAllCheckbox = 'th:nth-child(1) > div';
+const actionsBtn = '.actions > button';
+const sendEmailBtn = '.context-menu:nth-child(2)';
 
 async function clickFABBtn() {
 	await elementHelpers.clickAndWait(fabBtn);
@@ -62,28 +65,52 @@ async function clickOnSendRegistrationLinkCheckbox() {
 }
 
 async function clickSendConsentFormEmailsButton() {
-	await elementHelpers.click(sendConsentFormEmails);
+	try {
+		await elementHelpers.click(sendConsentFormEmails);
+	} catch (e) {
+		await selectAllStudents();
+		await clickActionsButton();
+		await sendEmailsFromActionsDropdown();
+	}
+}
+
+async function clickActionsButton() {
+	await elementHelpers.clickAndWait(actionsBtn);
 }
 
 async function submitStudentAddition() {
 	await elementHelpers.clickAndWait(addStudentSubmitBtn);
 }
 
+async function sendEmailsFromActionsDropdown() {
+	await elementHelpers.clickAndWait(sendEmailBtn);
+}
+
+async function selectAllStudents() {
+	await elementHelpers.click(selectAllCheckbox);
+}
+
 async function createNewPupil(firstname, lastname, email) {
-    await clickFABBtn();
-    await clickAddStudentBtn();
-    await setStudentFirstName(firstname);
-    await setStudentLastName(lastname);
-    await setStudentEmail(email);
-    let birthdate= dateTimeHelpers.getDate({day: 0, month: 0, year: -15, delimiter: '.', isOrderYearMonthDay: false});
-    await setStudentsBirthday(birthdate);
-    await clickOnSendRegistrationLinkCheckbox();
-    await submitStudentAddition();
+	await clickFABBtn();
+	await clickAddStudentBtn();
+	await setStudentFirstName(firstname);
+	await setStudentLastName(lastname);
+	await setStudentEmail(email);
+	let birthdate = dateTimeHelpers.getDate({
+		day: 0,
+		month: 0,
+		year: -15,
+		delimiter: '.',
+		isOrderYearMonthDay: false,
+	});
+	await setStudentsBirthday(birthdate);
+	await clickOnSendRegistrationLinkCheckbox();
+	await submitStudentAddition();
 }
 
 async function setStudentsBirthday(date) {
-    let dateField = await driver.$(birthdateInput);
-    await dateField.setValue(date);
+	let dateField = await driver.$(birthdateInput);
+	await dateField.setValue(date);
 }
 
 async function getStudentsEmailList() {
@@ -151,8 +178,11 @@ module.exports = {
 	clickSendConsentFormEmailsButton,
 	clickEditStudentBtn,
 	createNewPupil,
+	selectAllStudents,
+	clickActionsButton,
 	isStudentEmailOnTheList,
 	isStudentFirstnameOnTheList,
+	sendEmailsFromActionsDropdown,
 	isStudentLastnameOnTheList,
 	submitConsent,
 	studentLogsInWithPasswordGenaratedByAdminDuringManualSubmission,
