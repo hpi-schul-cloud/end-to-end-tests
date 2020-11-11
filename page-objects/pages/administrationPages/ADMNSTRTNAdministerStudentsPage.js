@@ -20,10 +20,8 @@ const consentSubmitBtn = "button[data-testid='submit_consent']";
 const addStudentSubmitBtn = "button[data-testid='button_create-user_submit']";
 const passwordInput = '#passwd';
 const createBirthday = '#birthday';
-const sendConsentFormEmails = '.btn-send-links-emails';
 const editStudentBtn = '.table-actions .btn .fa-edit';
 const newAdminTablesEditButton = 'a[data-testid="edit_student_button"]';
-const tableOfStudentsColumn = 'tbody[data-testid="students_names_container"] > tr';
 const firstNameCell = 'td:nth-child(2) > div';
 const lastNameCell = 'td:nth-child(3) > div';
 const emailCell = 'td:nth-child(5) > div';
@@ -65,13 +63,9 @@ async function clickOnSendRegistrationLinkCheckbox() {
 }
 
 async function clickSendConsentFormEmailsButton() {
-	try {
-		await elementHelpers.click(sendConsentFormEmails);
-	} catch (e) {
-		await selectAllStudents();
-		await clickActionsButton();
-		await sendEmailsFromActionsDropdown();
-	}
+	await selectAllStudents();
+	await clickActionsButton();
+	await sendEmailsFromActionsDropdown();
 }
 
 async function clickActionsButton() {

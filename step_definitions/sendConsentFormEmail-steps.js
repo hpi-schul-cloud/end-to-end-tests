@@ -12,5 +12,5 @@ Then(/^.* clicks Send-links-to-students'-e-mail-addresses button$/, async functi
 });
 
 Then(/^email is sent to all students without a full declaration of consent$/, async function () {
-	await mailCatcher.isEmailReceived('<waldemar.wunderlich@schul-cloud.org>');
+	await mailCatcher.isEmailReceived('<nils.kono@schulcloud.org>');
 });

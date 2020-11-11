@@ -15,7 +15,6 @@ async function deleteAllEmails() {
 }
 
 async function isEmailReceived(msg) {
-	await deleteAllEmails();
 	await waitHelpers.waitUntilEmailIsSent();
 	let email = await receiveEmails();
 	let recipientEmails = [];
@@ -23,7 +22,8 @@ async function isEmailReceived(msg) {
 	for (let i = 0; i < email.length; i++) {
 		recipientEmails += email[i]['recipients'];
 	}
-	expect(recipientEmails, 'Received Emails').to.include(msg);
+	const message = `Expected: ${msg}, Actual: ${recipientEmails}`;
+	expect(recipientEmails, message).to.include(msg);
 	await deleteAllEmails();
 }
 
