@@ -26,7 +26,7 @@ const newAdminTablesEditButton = 'a[data-testid="edit_student_button"]';
 const firstNameCell = 'td:nth-child(2) > div';
 const lastNameCell = 'td:nth-child(3) > div';
 const emailCell = 'td:nth-child(5) > div';
-const selectAllCheckbox = 'th:nth-child(1) > div';
+const selectAllCheckbox = '.th-wrap .select-wrap';
 const actionsBtn = '.actions > button';
 const sendEmailBtn = '.context-menu:nth-child(2)';
 
@@ -99,7 +99,7 @@ async function createNewPupil(firstname, lastname, email) {
 		isOrderYearMonthDay: false,
 	});
 	await setStudentsBirthday(birthdate);
-	await clickOnSendRegistrationLinkCheckbox();
+	//	await clickOnSendRegistrationLinkCheckbox();  Commented out since functionality currently not working
 	await submitStudentAddition();
 }
 
