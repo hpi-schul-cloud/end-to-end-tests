@@ -16,8 +16,8 @@ Feature: Administrate pupils, classes and teachers
 		And <userRole> sees that student with email '<studentEmail>' is visible on the list
 		And <userRole> manually submits consent for user with e-mail '<studentEmail>', thus generates a random password for him
 		And <userRole> logs out
-		#And student logs in with email '<studentEmail>' and password genarated by admin during manual submission of consent
-		#Then student should see that data protection is already accepted and performs first login actions: password change '<newPasswordStudent>'
+		And student logs in with email '<studentEmail>' and password genarated by admin during manual submission of consent
+		Then student should see that data protection is already accepted and performs first login actions: password change '<newPasswordStudent>'
 
 		Examples:
 			| userRole | firstName | lastName	| studentEmail              | adminsUsername        | adminPassword | newPasswordStudent |
