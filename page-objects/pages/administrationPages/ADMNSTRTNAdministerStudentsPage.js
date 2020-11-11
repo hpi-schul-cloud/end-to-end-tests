@@ -99,7 +99,7 @@ async function createNewPupil(firstname, lastname, email) {
 		isOrderYearMonthDay: false,
 	});
 	await setStudentsBirthday(birthdate);
-	await clickOnSendRegistrationLinkCheckbox();
+	//	await clickOnSendRegistrationLinkCheckbox(); Commented out because this doesn't work currently
 	await submitStudentAddition();
 }
 
