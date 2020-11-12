@@ -8,6 +8,7 @@ branches:
     - /^(?i:release|hotfix).*$/
 env:
   global:
+    - DOCKER_COMPOSE_VERSION=1.27
     - GIT_SHA=$( git rev-parse HEAD )
     - BRANCH_NAME=${TRAVIS_PULL_REQUEST_BRANCH:=$TRAVIS_BRANCH}
 jobs:
