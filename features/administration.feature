@@ -47,7 +47,6 @@ Feature: Administrate pupils, classes and teachers
 	@deleteStudent
 	Scenario Outline: As an admin, I want to be able to delete the user
 		Given <userRole> logs in with email '<adminUsername>' and password '<adminPassword>'
-		And <userRole> performs first login actions: data protection acceptance
 		And <userRole> login is successful
 		And <userRole> goes to administration
 		And <userRole> goes to students administration
@@ -56,5 +55,5 @@ Feature: Administrate pupils, classes and teachers
 		And <userRole> clicks Delete button inside popup
 		Then <userRole> should see that user with email '<Email>' is not visible on the list
 		Examples:
-			| userRole | adminUsername         | adminPassword | Email					   |
-			| admin    | admin@schul-cloud.org | Schulcloud1!  | schueler@schul-cloud.org  |
+			| userRole | adminUsername                   | adminPassword   | Email					           |
+			| admin    | kai.admin.qa@schul-cloud.org    | Schulcloud1qa!  | amelia.strobl.qa@schul-cloud.org  |
