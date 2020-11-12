@@ -20,9 +20,10 @@ const sendConsentFormEmails = '.btn-send-links-emails';
 const editStudentBtn = '.table-actions .btn .fa-edit';
 const newAdminTablesEditButton = 'a[datatest-id="edit_student_button"]';
 const tableOfStudentsColumn = 'tbody[data-testid="students_names_container"] > tr';
-const firstNameCell = 'td:nth-child(1)';
-const lastNameCell = 'td:nth-child(2)';
-const emailCell = 'td:nth-child(3)';
+const firstNameCell = '[data-testid="students_names_container"] td:nth-child(1)';
+const lastNameCell = '[data-testid="students_names_container"] td:nth-child(2)';
+const emailCell = '[data-testid="students_names_container"] td:nth-child(3)';
+const editElements = 'i.fa-edit';
 
 async function clickAddStudentBtn() {
 	await waitHelpers.waitUntilAjaxIsFinished();
@@ -38,36 +39,31 @@ async function clickEditStudentBtn() {
 	}
 }
 
-// TODO make it working on new admin tables
+
 async function clickEditStudentByMailBtn(userEmail) {
 	await waitHelpers.waitUntilElementIsVisible(tableOfStudentsColumn);
-	let studentsTable = await driver.$$(tableOfStudentsColumn);
+	let studentsTable = await getStudentsDetailsList(emailCell);
+	let editsElements = await elementHelpers.getListOfAllElements(editElements);
 	for (let index = 1; index <= studentsTable.length; index++) {
-		let emailPromise = await driver.$(`${studentNameContainer} > tr:nth-child(${index}) > td:nth-child(3)`);
+		let emailPromise = await driver.$(studentNameContainer + '> tr:nth-child('+index+') > td:nth-child(3)');
 		let email = await emailPromise.getText();
 		if (email === userEmail) {
-			let editUser = studentNameContainer + `tr:nth-child(${index}) > td.table-actions  i.fa-edit`;
-			await elementHelpers.click(editUser);
+			await elementHelpers.clickAndWait(editsElements[index-1]);
 			break;
 		}
 	}
 }
-// TODO make it working on new admin tables
+
 async function isStudentVisible(userEmail, expectedValue) {
 	await waitHelpers.waitUntilElementIsVisible(tableOfStudentsColumn);
-	let studentsTable = await driver.$$(tableOfStudentsColumn);
-
-	const isStudentOnList = async () => {
-		let exists = false;
+	let studentsTable = await getStudentsDetailsList(emailCell);
+		let isEmailExists = false;
 		for (let index = 1; index <= studentsTable.length; index++) {
-			let emailPromise = await driver.$(`${studentNameContainer} > tr:nth-child(${index}) > td:nth-child(3)`);
+			let emailPromise = await driver.$(studentNameContainer + '> tr:nth-child('+index+') > td:nth-child(3)');
 			let email = await emailPromise.getText();
-			email === userEmail ? exist = true : '' ;
+			email === userEmail ? isEmailExists = true : '';
 		}
-		return exists
-	};
-
-	expect(isStudentOnList).to.equal(expectedValue);
+	expect(isEmailExists).to.equal(expectedValue);
 }
 
 async function setStudentFirstName(firstname) {

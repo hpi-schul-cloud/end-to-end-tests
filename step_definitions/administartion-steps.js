@@ -50,6 +50,10 @@ When(/^.* clicks edit student Cancel button inside popup$/, async function () {
 	await studentEditPage.clickCancelInModal();
 });
 
+When(/^.* clicks Delete button inside popup$/, async function () {
+	await studentEditPage.clickDeleteInModal();
+});
+
 When(/^.* clicks edit student Discard-change button inside popup$/, async function () {
 	await studentEditPage.clickDiscardChangesInModal();
 });
