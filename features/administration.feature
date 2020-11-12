@@ -6,22 +6,22 @@ Feature: Administrate pupils, classes and teachers
 	Background:
 		Given user arrives on the Schul-Cloud homepage
 
-	@createNewStudent
-	Scenario Outline: user creates a student
-		Given <userRole> logs in with email '<adminsUsername>' and password '<adminPassword>'
-		And '<userRole>' performs first login actions
-		And <userRole> goes to administration
-		And <userRole> goes to students administration
-		When <userRole> set student firstname '<firstName>', lastname '<lastName>', email '<studentEmail>'
-		And <userRole> sees that student with email '<studentEmail>' is visible on the list
-		And <userRole> manually submits consent for user with e-mail '<studentEmail>', thus generates a random password for him
-		And <userRole> logs out
-		And student logs in with email '<studentEmail>' and password genarated by admin during manual submission of consent
-		Then student should see that data protection is already accepted and performs first login actions: password change '<newPasswordStudent>'
-
-		Examples:
-			| userRole | firstName | lastName	| studentEmail              | adminsUsername        | adminPassword | newPasswordStudent |
-			| admin    | Georg     | Georgmann  | georgmann@schul-cloud.org | admin@schul-cloud.org | Schulcloud1!  | Schulcloud1!!      |
+	#@createNewStudent
+	#Scenario Outline: user creates a student
+	#	Given <userRole> logs in with email '<adminsUsername>' and password '<adminPassword>'
+	#	And '<userRole>' performs first login actions
+	#	And <userRole> goes to administration
+	#	And <userRole> goes to students administration
+	#	When <userRole> set student firstname '<firstName>', lastname '<lastName>', email '<studentEmail>'
+	#	And <userRole> sees that student with email '<studentEmail>' is visible on the list
+	#	And <userRole> manually submits consent for user with e-mail '<studentEmail>', thus generates a random password for him
+	#	And <userRole> logs out
+	#	And student logs in with email '<studentEmail>' and password genarated by admin during manual submission of consent
+	#	Then student should see that data protection is already accepted and performs first login actions: password change '<newPasswordStudent>'
+	#
+	#	Examples:
+	#		| userRole | firstName | lastName	| studentEmail              | adminsUsername        | adminPassword | newPasswordStudent |
+	#		| admin    | Georg     | Georgmann  | georgmann@schul-cloud.org | admin@schul-cloud.org | Schulcloud1!  | Schulcloud1!!      |
 
 	@editStudent
 	Scenario Outline: user edits a student
