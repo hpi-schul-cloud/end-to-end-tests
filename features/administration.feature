@@ -43,3 +43,17 @@ Feature: Administrate pupils, classes and teachers
 		Examples:
 			| userRole | newFirstName | newLastName | newEmail                    | adminsUsername        | adminsPassword | newBirthdate |
 			| admin    | Nils         | Nilsen      | nils.nilsen@schul-cloud.org | admin@schul-cloud.org | Schulcloud1!   | 24.12.2004   |
+
+	@deleteStudent
+	Scenario Outline: As an admin, I want to be able to delete the user
+		Given <userRole> logs in with email '<adminUsername>' and password '<adminPassword>'
+		And <userRole> login is successful
+		And <userRole> goes to administration
+		And <userRole> goes to students administration
+		When <userRole> clicks Edit-student with '<Email>' button
+		And <userRole> clicks Delete button
+		And <userRole> clicks Delete button inside popup
+		Then <userRole> should see that user with email '<Email>' is not visible on the list
+		Examples:
+			| userRole | adminUsername                   | adminPassword   | Email					           |
+			| admin    | kai.admin.qa@schul-cloud.org    | Schulcloud1qa!  | amelia.strobl.qa@schul-cloud.org  |
