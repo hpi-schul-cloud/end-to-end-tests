@@ -3,6 +3,9 @@ const { CLIENT } = require('../shared-objects/servers');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
+const navigationLeftPanel = require('../page-objects/pages/NavigationLeftPage');
+const courseListPage = require('../page-objects/pages/coursePages/CRSSCourseListPage');
+const courseTopicPage = require('../page-objects/pages/coursePages/CRSSCourseTopicsPage');
 const studentAdministration = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerStudentsPage');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 

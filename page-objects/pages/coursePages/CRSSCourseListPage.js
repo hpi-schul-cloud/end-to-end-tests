@@ -7,7 +7,7 @@ const startPage = require('../../../page-objects/pages/generalPagesBeforeLogin/S
 const loginPage = require('../../../page-objects/pages/generalPagesBeforeLogin/LoginPage');
 const navigationLeftPage = require('../NavigationLeftPage');
 const CRSSGeneralCoursePage = require('./CRSSGeneralCoursePage');
-const courseListPage = require('../../../page-objects/pages/coursePages/CRSSCourseListPage');
+
 
 const courseDescription = '.ckcontent';
 const courseHeader = '.sc-card-header';
