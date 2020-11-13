@@ -20,9 +20,10 @@ const sendConsentFormEmails = '.btn-send-links-emails';
 const editStudentBtn = '.table-actions .btn .fa-edit';
 const newAdminTablesEditButton = 'a[datatest-id="edit_student_button"]';
 const tableOfStudentsColumn = 'tbody[data-testid="students_names_container"] > tr';
-const firstNameCell = 'td:nth-child(1)';
-const lastNameCell = 'td:nth-child(2)';
-const emailCell = 'td:nth-child(3)';
+const firstNameCell = '[data-testid="students_names_container"] td:nth-child(1)';
+const lastNameCell = '[data-testid="students_names_container"] td:nth-child(2)';
+const emailCell = '[data-testid="students_names_container"] td:nth-child(3)';
+const editElements = 'i.fa-edit';
 
 async function clickAddStudentBtn() {
 	await waitHelpers.waitUntilAjaxIsFinished();
@@ -36,6 +37,33 @@ async function clickEditStudentBtn() {
 	} catch (e) {
 		await elementHelpers.click(editStudentBtn);
 	}
+}
+
+
+async function clickEditStudentByMailBtn(userEmail) {
+	await waitHelpers.waitUntilElementIsVisible(tableOfStudentsColumn);
+	let studentsTable = await getStudentsDetailsList(emailCell);
+	let editsElements = await elementHelpers.getListOfAllElements(editElements);
+	for (let index = 1; index <= studentsTable.length; index++) {
+		let emailPromise = await driver.$(studentNameContainer + '> tr:nth-child('+index+') > td:nth-child(3)');
+		let email = await emailPromise.getText();
+		if (email === userEmail) {
+			await elementHelpers.clickAndWait(editsElements[index-1]);
+			break;
+		}
+	}
+}
+
+async function isStudentVisible(userEmail, expectedValue) {
+	await waitHelpers.waitUntilElementIsVisible(tableOfStudentsColumn);
+	let studentsTable = await getStudentsDetailsList(emailCell);
+		let isEmailExists = false;
+		for (let index = 1; index <= studentsTable.length; index++) {
+			let emailPromise = await driver.$(studentNameContainer + '> tr:nth-child('+index+') > td:nth-child(3)');
+			let email = await emailPromise.getText();
+			email === userEmail ? isEmailExists = true : '';
+		}
+	expect(isEmailExists).to.equal(expectedValue);
 }
 
 async function setStudentFirstName(firstname) {
@@ -104,7 +132,7 @@ async function isStudentLastnameOnTheList(lastname) {
 async function submitConsent(e_mail) {
 	await waitHelpers.waitUntilElementIsVisible(tableOfStudentsColumn);
 	let names = await driver.$$(tableOfStudentsColumn);
-	for (var i = 1; i <= names.length; i++) {
+	for (let i = 1; i <= names.length; i++) {
 		let emailPromise = await driver.$(studentNameContainer + ' > tr:nth-child(' + i + ') > td:nth-child(3)');
 		let email = await emailPromise.getText();
 		if (email === e_mail) {
@@ -124,6 +152,8 @@ async function studentLogsInWithPasswordGenaratedByAdminDuringManualSubmission(u
 
 module.exports = {
 	oldPassword,
+	isStudentVisible,
+	clickEditStudentByMailBtn,
 	clickSendConsentFormEmailsButton,
 	clickEditStudentBtn,
 	createNewPupil,

@@ -7,11 +7,20 @@ const firstNameInput = "input[name='firstName']";
 const lastNameInput = "input[name='lastName']";
 const emailInput = "input[name='email']";
 const birthdayInput = '#birthday';
-const deleteButtonConfirmation = '.cancel-modal button.btn-close';
+const deleteButton = '.btn-delete';
+const cancelButtonConfirmation = '.cancel-modal button.btn-close';
 const deleteButtonCancel = '.cancel-modal button.historyback';
+const deleteButtonConfirmation = '.delete-modal.in  button.btn-submit';
 
+async function clickDeleteBtn() {
+		await elementHelpers.click(deleteButton);
+}
 async function clickCancelButton() {
 	await elementHelpers.clickAndWait(cancelButton);
+}
+
+async function clickDeleteInModal() {
+	await elementHelpers.clickAndWait(deleteButtonConfirmation);
 }
 
 async function setStudentFirstName(firstname) {
@@ -43,7 +52,7 @@ async function isStudentBirthdayCorrect(birthdayDate) {
 }
 
 async function clickCancelInModal() {
-	await elementHelpers.clickAndWait(deleteButtonConfirmation);
+	await elementHelpers.clickAndWait(cancelButtonConfirmation);
 }
 async function clickDiscardChangesInModal() {
 	await elementHelpers.clickAndWait(deleteButtonCancel);
@@ -53,9 +62,11 @@ module.exports = {
 	clickCancelButton,
 	clickDiscardChangesInModal,
 	clickCancelInModal,
+	clickDeleteBtn,
 	setStudentFirstName,
 	setStudentLastName,
 	setStudentEmail,
 	setStudentBirthday,
 	isStudentBirthdayCorrect,
+	clickDeleteInModal,
 };
