@@ -10,6 +10,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+- SC-7059 - DeletionConcept Tests
 - OPS-1297 - Added Changelog github action
 
 ## Changed
