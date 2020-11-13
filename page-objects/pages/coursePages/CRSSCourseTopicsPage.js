@@ -19,7 +19,7 @@ async function getIndexOfTopicWithNameInTopicsList(topicName) {
     return (topicNames.findIndex(isTheSameName)+1);
 };
 async function goToTopic(topicName) {
-	let index = await this.helperReturnIndexOfTopicWithNameInTopicsList(topicName);
+	let index = await getIndexOfTopicWithNameInTopicsList(topicName);
 	await elementHelpers.clickAndWait(containerWithTopics+ ">div:nth-child("+index+")");
 	
 };
@@ -56,6 +56,7 @@ async function clickDeleteTopicButtonInPopup() {
 
 module.exports = {
 	isTopicInCourseInSection,
+	goToTopic,
 	clickAddNewTopicBtn,
 	clickAddNewTopicInCourse,
 	clickOnTopicDeleteTrashcanButton,

@@ -15,12 +15,14 @@ And teacher adds a topic with name '<topicName>'
 And teacher adds some Lerstore material with <lerstoreTopicName> to the course
 Then teacher must be redirected to content page
 When teacher searches for content <content>
-#Then teacher must see the right number of materials <content> 
+Then teacher must see the right number of materials <content> 
 When teacher clicks on content-card after request <content>
 And teacher clicks add-btn
 When teacher selects course <courseName> and topic <topicName>
 And teacher clicks on add content button
-When teacher goes to topic <topicName> of course <courseName>
+And teacher goes to courses page
+And teacher chooses course with name '<courseName>'
+When teacher clicks on topic with name '<topicName>'
 Then teacher should see added material
 Examples:
     | courseName          | topicName             | lerstoreTopicName | content |
