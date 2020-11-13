@@ -12,6 +12,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-7059 - DeletionConcept Tests
 - OPS-1297 - Added Changelog github action
+- SC-7571 - sendConsentFormEmail adjusted
 
 ## Changed
 
