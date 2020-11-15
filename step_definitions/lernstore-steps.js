@@ -11,7 +11,7 @@ When(/^teacher adds some Lerstore material with (.*) to the course$/, async func
 
 });
 Then(/^teacher must be redirected to content page$/, async function () {
-    await lernstorePage.wasRedirectedToContentPage();
+    await lernstorePage.isRedirectedToContentPage();
 
 });
 When(/^teacher searches for content (.*)$/, async function (searchRequest) {

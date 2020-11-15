@@ -26,7 +26,7 @@ async function switchToContentWindow() {
     await driver.switchToWindow(handle[1]);
 }
 
-async function redirectedToContentPage() {
+async function isRedirectedToContentPage() {
     await waitHelpers.waitUntilUrlContains(lernstoreUrl);
 }
 
@@ -46,13 +46,13 @@ async function rightNumberOfFoundContentDisplayed(request) {
 
 async function clickOnContentCard(request) {
     await elementHelpers.clickAndWait(selectorFirstElement)
-    await this.checkThatTheMaterialOnGUIAndAPIAreDisplayedCorrectly(request)
+    await isMaterialNameOnGUIAndAPIequal(request)
 }
 
 async function isMaterialNameOnGUIAndAPIequal(request) {
     let titleOnGUISelector = await driver.$(selectorTitleOfMaterialWhenClicked);
     let titleOnGUI = await elementHelpers.getElementText(titleOnGUISelector);
-    this.title = titleOnGUI;
+    title = titleOnGUI;
     let titleOnAPIRequest = await apiHelpers.getTheFirstElementNamePerRESTRequest(request);
     await expect(titleOnGUI).to.equal(titleOnAPIRequest);
 }
@@ -85,8 +85,8 @@ async function getIndexOfCourseOrTopicInDropdow(container, elementToSearch) {
 
 // params: courseName or TopicName, selector - container of topics or courses
 async function addToCourseAndTopic(course, topic) {
-    await this.addToCourseOrTopic(course, selectorCourseSelector);
-    await this.addToCourseOrTopic(topic, selectorTopicSelector);
+    await selectAttachmentToCourseOrTopicContentPage(course, selectorCourseSelector);
+    await selectAttachmentToCourseOrTopicContentPage(topic, selectorTopicSelector);
 }
 
 async function clickSubmitAddContentBtn() {
@@ -107,7 +107,7 @@ async function listOfAttachedMaterialsInTheTopic() {
 module.exports= {
     title, 
     switchToContentWindow,
-    redirectedToContentPage,
+    isRedirectedToContentPage,
     setSearchRequest,
     clickOnContentCard,
     isMaterialNameOnGUIAndAPIequal,
@@ -116,7 +116,8 @@ module.exports= {
     getIndexOfCourseOrTopicInDropdow,
     addToCourseAndTopic,
     clickSubmitAddContentBtn,
-    listOfAttachedMaterialsInTheTopic
+    listOfAttachedMaterialsInTheTopic,
+    rightNumberOfFoundContentDisplayed,
 
 }
 
