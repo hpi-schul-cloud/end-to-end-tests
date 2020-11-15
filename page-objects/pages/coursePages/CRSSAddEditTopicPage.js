@@ -209,6 +209,15 @@ async function setNewContentText(text, newText) {
 	await driver.keys(newText);
 }
 
+async function addLernstoreMaterial (name) {
+	await elementHelpers.click(lernstoreBtn);
+	let idContainer = await driver.$(selectorIDContainer);
+	let lernstoreSelector = await idContainer.$(".form-control");
+	await lernstoreSelector.setValue(name);
+	await elementHelpers.clickAndWait(btnAttachLernstoreMaterial);
+	await elementHelpers.click(btnAttachLernstoreMaterial);
+}
+
 module.exports = {
 	setTopicName,
 	clickSaveChanges,
@@ -227,4 +236,5 @@ module.exports = {
 	isContentDescriptionVisibleOnTheList,
 	setNewContentTitle,
 	setNewContentText,
+	addLernstoreMaterial,
 }
