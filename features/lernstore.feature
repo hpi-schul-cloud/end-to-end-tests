@@ -28,6 +28,5 @@ Examples:
     | courseName          | topicName             | lerstoreTopicName | content |
     | courseWithLernstore | Topic with Lernstore  | LernstoreTest     | Mathe   |
 
-#add one more testcase accessing lernstore as the first step
-# add test case clicking add btn
+
 
