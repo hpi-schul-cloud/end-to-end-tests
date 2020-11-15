@@ -31,7 +31,7 @@ const secondaryAddMaterialBtn = ".btn.btn-secondary.btn-add";
 const materialContainerSel = ".div.ajaxcontent > div";
 const btnContainerMaterial = ".fa.fa-plus-square";
 //etherpad:
-
+const lernstoreBtn = ".btn-group > button:nth-child(3)";
 const content = {
 	text: ".btn-group > button:nth-child(1)",
 	geoGebra: ".btn-group > button:nth-child(2)",
