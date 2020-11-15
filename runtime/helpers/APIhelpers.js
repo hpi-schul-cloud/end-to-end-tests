@@ -105,6 +105,19 @@ const Axios = require('axios');
 		let numberOfFoundMaterials = info.data.total;
 		return numberOfFoundMaterials;
 	};
+	async function getTheFirstElementNamePerRESTRequest (request) {
+		const cookie = await driver.getCookies(['jwt']);
+		const jwt = cookie[0].value;
+		const info = await Axios.request({
+			url:  `${SERVER.URL}`+"/edu-sharing?searchQuery="+`${request}`,
+			method: 'GET',
+			headers: {
+				Authorization: `${jwt}`
+			},
+		  });
+		let title = info.data.data[0].title;
+		return title;
+	};
 
 module.exports = {
 	apiCall,
@@ -113,4 +126,5 @@ module.exports = {
 	getInitials,
 	getUserRole,
 	getLernstoreMaterialsAfterRequest,
+	getTheFirstElementNamePerRESTRequest,
 };
