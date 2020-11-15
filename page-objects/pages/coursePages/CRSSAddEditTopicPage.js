@@ -30,6 +30,7 @@ const geoGebraIdInput = "input[placeholder^='GeoGebra']";
 const secondaryAddMaterialBtn = ".btn.btn-secondary.btn-add";
 const materialContainerSel = ".div.ajaxcontent > div";
 const btnContainerMaterial = ".fa.fa-plus-square";
+const selectorIDContainer = "#content-blocks";
 //etherpad:
 const lernstoreBtn = ".btn-group > button:nth-child(3)";
 const content = {
