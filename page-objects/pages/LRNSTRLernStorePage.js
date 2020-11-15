@@ -53,7 +53,7 @@ module.exports= {
     },
     checkThatTheMaterialOnGUIAndAPIAreDisplayedCorrectly: async function(request) {
         let titleOnGUISelector = await driver.$(selectorTitleOfMaterialWhenClicked);
-        let titleOnGUI = await titleOnGUISelector.getText();
+        let titleOnGUI = await elementHelpers.getElementText(titleOnGUISelector);
         this.title = titleOnGUI;
         let titleOnAPIRequest = await apiHelpers.getTheFirstElementNamePerRESTRequest(request);
         await expect(titleOnGUI).to.equal(titleOnAPIRequest);
@@ -68,7 +68,6 @@ module.exports= {
         const courseIndex = await this.getIndexOfCourseOrTopicInDropdown(courseOrTopicContainer, courseOrTopicName);
         let dropDownElementCourseOrTopic = await driver.$(`${courseOrTopicContainer} .multiselect__content-wrapper > ul > li:nth-child(${courseIndex}) > span`);
         await dropDownElementCourseOrTopic.click();
-       //await elementHelpers.clickAndWait(dropDownElementCourseOrTopic)
 
     },
     getIndexOfCourseOrTopicInDropdown: async function(container, elementToSearch) {
