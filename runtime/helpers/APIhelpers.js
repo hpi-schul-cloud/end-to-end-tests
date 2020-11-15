@@ -92,6 +92,19 @@ const Axios = require('axios');
 			throw error;
 		}
 	}
+	async function getLernstoreMaterialsAfterRequest (request) {
+		const cookie = await driver.getCookies(['jwt']);
+		const jwt = cookie[0].value;
+		const info = await Axios.request({
+			url:  `${SERVER.URL}`+"/edu-sharing?searchQuery="+`${request}`,
+			method: 'GET',
+			headers: {
+				Authorization: `${jwt}`
+			},
+	});
+		let numberOfFoundMaterials = info.data.total;
+		return numberOfFoundMaterials;
+	};
 
 module.exports = {
 	apiCall,
@@ -99,4 +112,5 @@ module.exports = {
 	getSchoolName,
 	getInitials,
 	getUserRole,
+	getLernstoreMaterialsAfterRequest,
 };
