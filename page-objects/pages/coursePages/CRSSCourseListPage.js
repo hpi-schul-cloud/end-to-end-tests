@@ -99,7 +99,6 @@ function getColourSelector(colourName) {
 }
 
 async function setCourseNameIntoSearchInputField(courseName) {
-	await goToCourses();
 	await waitHelpers.waitAndSetValue(searchCourseFiled, courseName);
 }
 
@@ -108,7 +107,7 @@ async function getCountOfDisplayedCoursesForSection(section) {
 	var numberOfDisplayedCourses = 0;
 	for (var i = 0; i < elem.length; i++) {
 		if ((await elem[i].isDisplayed()) == true) {
-			numberOfDisplayedCourses += 1;
+			numberOfDisplayedCourses ++;
 		}
 	}
 	return numberOfDisplayedCourses;

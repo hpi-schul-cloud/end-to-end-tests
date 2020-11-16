@@ -1,4 +1,5 @@
 @task
+@taskWithCourse
 Feature: create different types of task
 
 	Background:
@@ -123,3 +124,21 @@ Feature: create different types of task
 		Examples:
 			| userRole | courseName | studentName | taskName             | taskBody         |
 			| teacher  | Math       | Paula Meyer | private task example | text of the task |
+
+	@deleteTaskWithCourse
+	Scenario Outline: create a simple hometask and then delete it
+		When <userRole> creates course with name '<courseName>'
+		And <userRole> clicks Create-a-new-task-button in the course '<courseName>'
+		And <userRole> puts taskname '<taskName>' into name field
+		And <userRole> clicks on Enable-group-submission checkbox
+		And <userRole> sets accomplish time for the task
+		And <userRole> puts taskBody '<taskBody>' into body field
+		And <userRole> clicks submit-task-button
+		When <userRole> goes to tasks page
+		Then task with name '<taskName>' is visible on the list
+        And <userRole> should click 'Delete' button for task with name '[<courseName>] - <taskName>'
+		And <userRole> clicks on Delete task button
+		Then task with name '<taskName>' is not visible on the list
+		Examples:
+			| userRole | courseName					| taskName	| taskBody			|
+			| teacher  | test course with test task | test task	| text of test task |
