@@ -11,15 +11,15 @@ Feature: Copy a created course with different data
 		And <userRole> goes to courses page
 		When <userRole> creates course with name '<courseName>'
 		And <userRole> enters course name '<courseName>' into search field
-		Then <userRole> should see that amount of courses with name '<courseName>' is '1'
+		Then <userRole> should see that amount of courses with name '<courseName>' is '<amount>'
 		When <userRole> chooses course with name '<courseName>'
 		And <userRole> clicks Duplicate-course button
 		And <userRole> goes to courses page
 		Then <userRole> should see that cloned course with name '<courseName> - Kopie' is visible on the list
-		And <userRole> should see that amount of courses with name '<courseName> - Kopie' is '1'
+		And <userRole> should see that amount of courses with name '<courseName> - Kopie' is '<amount>'
 		Examples:
-			| userRole | courseName                 |
-			| teacher  | sample course to be cloned |
+			| userRole | courseName                 | amount |
+			| teacher  | sample course to be cloned | 1      |
 
 	@copyCourseWithDescription
 	Scenario Outline: As a user, I want to be able to copy course with certain text
@@ -48,7 +48,7 @@ Feature: Copy a created course with different data
 #		When <userRole> logs in
 #		And <userRole> performs first login actions: data protection acceptance
 #		And <userRole> goes to courses page
-#		Given <userRole> creates course with name '<courseName>'
+#		And <userRole> creates course with name '<courseName>'
 #		And <userRole> chooses course with name '<courseName>'
 #		And <userRole> adds a topic with name '<topicName>'
 #		When <userRole> adds content Material

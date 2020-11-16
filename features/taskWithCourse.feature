@@ -135,10 +135,10 @@ Feature: create different types of task
 		And <userRole> puts taskBody '<taskBody>' into body field
 		And <userRole> clicks submit-task-button
 		When <userRole> goes to tasks page
-		Then task with name '<taskName>' is visible on the list
-        And <userRole> should click 'Delete' button for task with name '[<courseName>] - <taskName>'
+		Then <userRole> sees that task with name '<taskName>' is visible on the list
+		And <userRole> should click 'Delete' button for task with name '[<courseName>] - <taskName>'
 		And <userRole> clicks on Delete task button
-		Then task with name '<taskName>' is not visible on the list
+		Then <userRole> sees that task with name '<taskName>' is not visible on the list
 		Examples:
-			| userRole | courseName					| taskName	| taskBody			|
-			| teacher  | test course with test task | test task	| text of test task |
+			| userRole | courseName                 | taskName  | taskBody          |
+			| teacher  | test course with test task | test task | text of test task |
