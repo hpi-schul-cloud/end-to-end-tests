@@ -4,16 +4,26 @@ Feature: teacher wants to search for a course
     Background: teacher is logged in and visits the course page
         Given user arrives on the Schul-Cloud homepage
 
-
-    Scenario Outline:
-        Given teacher logs in with email '<teacherUsername>' and password '<teacherPassword>'
-        Given teacher performs first login actions: data protection acceptance
-        Given teacher goes to courses page
-        When teacher enters course name '<coursename>' into search field
-        Then teacher should see that course list satisfies the search request '<coursename>'
+    @searchCourseAndFindOne
+    Scenario Outline: Search for courses and find them.
+        Given <userRole> logs in with email '<username>' and password '<password>'
+        Given <userRole> goes to courses page
+        When <userRole> enters course name '<courseName>' into search field
+		Then <userRole> should see that course with name '<courseName>' is visible on the list
 
         Examples:
-            | coursename   | teacherUsername            | teacherPassword |
-            | Biologie     | klara.fall@schul-cloud.org | Schulcloud1!    |
-            | DoesNotExist | klara.fall@schul-cloud.org | Schulcloud1!    |
-            | Mathe        | klara.fall@schul-cloud.org | Schulcloud1!    |
+            | userRole | username                           | password          | courseName    |
+            | teacher  | karl.teacher.qa@schul-cloud.org    | Schulcloud1qa!    | Mathe         |
+            | student  | amelia.strobl.qa@schul-cloud.org   | Schulcloud1qa!    | German        |
+
+    @searchCourseAndDontFindOne
+    Scenario Outline: Search for courses and don't find them.
+        Given <userRole> logs in with email '<username>' and password '<password>'
+        Given <userRole> goes to courses page
+        When <userRole> enters course name '<courseName>' into search field
+		Then <userRole> should see that course with name '<courseName>' is not visible on the list
+
+        Examples:
+            | userRole | username                           | password          | courseName    |
+            | teacher  | karl.teacher.qa@schul-cloud.org    | Schulcloud1qa!    | Mathematik    |
+            | student  | amelia.strobl.qa@schul-cloud.org   | Schulcloud1qa!    | Deutsch       |
