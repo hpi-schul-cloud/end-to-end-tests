@@ -6,14 +6,14 @@ Feature: Log in as an admin, as a teacher, as a student
 
 	@teacherAdminFirstLogin
 	Scenario Outline: As a user, I want to be able to log in
-		When <userRole> logs in with email '<adminUsername>' and password '<password>'
+		When <userRole> logs in with email '<username>' and password '<password>'
 		And <userRole> performs first login actions: data protection acceptance
 		Then <userRole> login is successful
 		And <userRole> should see that school name is correct
 		And <userRole> should see that user name and role is correct
 		And <userRole> should see that all menu items are visible: '<menuItems>'
 		Examples:
-			| userRole | adminUsername              | password     | menuItems                                                                                                                       |
+			| userRole | username                   | password     | menuItems                                                                                                                       |
 			| admin    | admin@schul-cloud.org      | Schulcloud1! | ÜBERSICHT, KURSE, TEAMS, AUFGABEN, MEINE DATEIEN, NEUIGKEITEN, TERMINE, LERN-STORE, ADD-ONS, HELPDESK, VERWALTUNG, HILFEBEREICH |
 			| teacher  | klara.fall@schul-cloud.org | Schulcloud1! | ÜBERSICHT, KURSE, TEAMS, AUFGABEN, MEINE DATEIEN, NEUIGKEITEN, TERMINE, LERN-STORE, ADD-ONS, VERWALTUNG, HILFEBEREICH           |
 
@@ -32,10 +32,10 @@ Feature: Log in as an admin, as a teacher, as a student
 
 	@wrongPasswordAdminLogin
 	Scenario Outline: As a user, I want to be able to log in with correct username but wrong password
-		When <userRole> logs in with email '<adminUsername>' and password '<wrongPassword>'
+		When <userRole> logs in with email '<username>' and password '<wrongPassword>'
 		Then <userRole> login must fail
         # doesn't work
         # Then the login-page should look like it looked before for '<adminUsername>'
 		Examples:
-			| userRole | adminUsername         | wrongPassword            |
+			| userRole | username              | wrongPassword            |
 			| admin    | admin@schul-cloud.org | wrongPasswordPlaceholder |

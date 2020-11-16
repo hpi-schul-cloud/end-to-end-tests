@@ -55,10 +55,10 @@ Feature: Create course with different data, edit and delete course
 
 	@createCourseWithStudent
 	Scenario Outline: As a user, I want to be able to create a course that student should see
-		When <userRole> logs in with email '<teachersUsername>' and password '<password>'
+		When <userRole> logs in with email '<username>' and password '<password>'
 		And <userRole> performs first login actions: data protection acceptance
 		And <userRole> creates course with name '<courseName>' and student '<studentName>'
-		And <userRole> sees that course with name '<courseName>' contains number of members '1'
+		And <userRole> sees that course with name '<courseName>' contains number of members '<membersNumber>'
 		And <userRole> clicks on members icon in course with name '<courseName>'
 		Then <userRole> should see that course members are visible on the list '<studentName>'
 		When <userRole> closes member modal window
@@ -68,8 +68,8 @@ Feature: Create course with different data, edit and delete course
 		And <userRole> goes to courses page
 		Then <userRole> should see that course with name '<courseName>' is visible on the list
 		Examples:
-			| userRole | courseName | studentName         | teachersUsername       | password     | studentLogin                        |
-			| teacher  | Sport      | Waldemar Wunderlich | lehrer@schul-cloud.org | Schulcloud1! | waldemar.wunderlich@schul-cloud.org |
+			| userRole | courseName | studentName         | username               | password     | studentLogin                        | membersNumber |
+			| teacher  | Sport      | Waldemar Wunderlich | lehrer@schul-cloud.org | Schulcloud1! | waldemar.wunderlich@schul-cloud.org | 1             |
 
 	@editCourse
 	Scenario Outline: As a user, I want to be able to edit a course
@@ -100,7 +100,6 @@ Feature: Create course with different data, edit and delete course
 		When <userRole> chooses course with name '<courseName>'
 		And <userRole> clicks on Edit-course button
 		And <userRole> clicks on Delete-course button
-		And <userRole> clicks on Delete-course-confirmation button
 		Then <userRole> should see that course with name '<courseName>' is not visible on the list
 		Examples:
 			| userRole | userName               | password     | courseName |

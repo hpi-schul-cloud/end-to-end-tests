@@ -6,7 +6,7 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 
 	@createTopic
 	Scenario Outline: As a user I want to be able to create a new topic in course
-		Given <userRole> logs in with email '<email>' and password '<password>'
+		When <userRole> logs in with email '<email>' and password '<password>'
 		And <userRole> performs first login actions: data protection acceptance
 		And <userRole> goes to courses page
 		And <userRole> chooses course with name '<courseName>'
@@ -21,7 +21,7 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 
 	@editTopic
 	Scenario Outline: As a user, I want to be able to edit a topic
-		Given <userRole> logs in with email '<email>' and password '<password>'
+		When <userRole> logs in with email '<email>' and password '<password>'
 		And <userRole> performs first login actions: data protection acceptance
 		When <userRole> goes to courses page
 		And <userRole> chooses course with name '<courseName>'
@@ -46,7 +46,7 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 
 	@deleteTopic
 	Scenario Outline: As a user, I want to be able to delete a topic
-		Given <userRole> logs in with email '<email>' and password '<password>'
+		When <userRole> logs in with email '<email>' and password '<password>'
 		And <userRole> performs first login actions: data protection acceptance
 		When <userRole> goes to courses page
 		And <userRole> chooses course with name '<courseName>'

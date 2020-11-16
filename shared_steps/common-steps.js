@@ -1,5 +1,5 @@
 'use strict';
-const {CLIENT} = require('../shared-objects/servers');
+const { CLIENT } = require('../shared-objects/servers');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
@@ -8,7 +8,7 @@ const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const schulCloudURL = `${CLIENT.URL}`;
 /*Login, Logout*/
 
-Given(/^user arrives on the Schul-Cloud homepage$/, async function () {
+Given(/^.*user arrives on the Schul-Cloud homepage$/, async function () {
 	return elementHelpers.loadPage(schulCloudURL);
 });
 
@@ -94,23 +94,23 @@ When(/^.* goes to user settings$/, async function () {
 
 /*first login*/
 Then(/^.* performs first login actions: data protection acceptance$/, async function () {
-	return loginPage.performLoginActions({shouldAcceptDataProtection: true, shouldSetOwnPassword: false});
+	return loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: false });
 });
 
 Then(/^.* performs first login actions: password change '([^']*)'$/, async function (newPassword) {
-	await loginPage.performLoginActions({shouldAcceptDataProtection: false, shouldSetOwnPassword: true, newPassword});
+	await loginPage.performLoginActions({ shouldAcceptDataProtection: false, shouldSetOwnPassword: true, newPassword });
 });
 
 Then(/^.* performs first login actions: data protection acceptance, password change '([^']*)'$/, async function (
 	newPassword
 ) {
-	await loginPage.performLoginActions({shouldAcceptDataProtection: true, shouldSetOwnPassword: true, newPassword});
+	await loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: true, newPassword });
 });
 
 Then(/^'([^']*)' performs first login actions$/, async function (userRole) {
 	if (userRole.toLowerCase() === 'student') {
-		await loginPage.performLoginActions({shouldAcceptDataProtection: true, shouldSetOwnPassword: true});
+		await loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: true });
 	} else {
-		await loginPage.performLoginActions({shouldAcceptDataProtection: true, shouldSetOwnPassword: false});
+		await loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: false });
 	}
 });

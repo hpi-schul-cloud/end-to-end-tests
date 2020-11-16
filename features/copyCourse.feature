@@ -2,7 +2,7 @@
 Feature: Copy a created course with different data
 
 	Background:
-		Given User arrives on the Schul-Cloud homepage
+		Given user arrives on the Schul-Cloud homepage
 
 	@simpleCopyCourse
 	Scenario Outline: As a user, I want to be able to copy an existing course

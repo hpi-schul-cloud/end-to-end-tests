@@ -6,7 +6,7 @@ Feature: check left navigation menu items
 
 	@teacherClicksLeftMenuItems
 	Scenario Outline: As a user, I want to be able to click the left menu items
-		When <userRole> logs in with email '<teacherUsername>' and password '<password>'
+		When <userRole> logs in with email '<username>' and password '<password>'
 		And '<userRole>' performs first login actions
 		Then <userRole> clicks left navigation item 'logo'
 		And <userRole> clicks left navigation item 'dashboard'
@@ -35,7 +35,7 @@ Feature: check left navigation menu items
 		#  therefor leave it for last page otherwise the other pages won't be found
 		And <userRole> clicks left navigation item 'content'
 		Examples:
-			| userRole | teacherUsername        | password     |
+			| userRole | username               | password     |
 			| teacher  | lehrer@schul-cloud.org | Schulcloud1! |
 			| admin    | admin@schul-cloud.org  | Schulcloud1! |
 
