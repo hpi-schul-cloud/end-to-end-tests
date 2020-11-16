@@ -1,4 +1,4 @@
-dist: focal
+dist: focal #ubuntu 20.04 travis use 16.04 as default (updated needed to get latest version of docker-compose)
 language: node_js
 node_js: '12'
 sudo: required
@@ -9,6 +9,7 @@ branches:
     - /^(?i:release|hotfix).*$/
 env:
   global:
+    - DOCKER_COMPOSE_VERSION=1.27.4
     - GIT_SHA=$( git rev-parse HEAD )
     - BRANCH_NAME=${TRAVIS_PULL_REQUEST_BRANCH:=$TRAVIS_BRANCH}
 jobs:
@@ -25,6 +26,10 @@ jobs:
         - docker
       before_install:
         - echo -e "machine github.com\n  login $CI_USER_TOKEN" > ~/.netrc
+        - sudo rm /usr/local/bin/docker-compose
+        - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+        - chmod +x docker-compose
+        - sudo mv docker-compose /usr/local/bin
       install:
         - echo "skipping install"
       before_cache:
