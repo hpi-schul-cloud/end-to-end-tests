@@ -3,9 +3,15 @@
 const ADMNSTRTNAdministrationOverviewPage = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministrationOverviewPage');
 const studentAdministration = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerStudentsPage');
 const studentEditPage = require('../page-objects/pages/administrationPages/ADMNSTRTNEditDeleteStudentPage');
+const teacherAdministration = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerTeachersPage');
+const teacherEditPage = require('../page-objects/pages/administrationPages/ADMNSTRTNEditDeleteTeacherPage');
 
 When(/^.* goes to students administration$/, function () {
 	return ADMNSTRTNAdministrationOverviewPage.goToAdministrateStudents();
+});
+
+When(/^.* goes to teachers administration$/, function () {
+	return ADMNSTRTNAdministrationOverviewPage.goToAdministrateTeachers();
 });
 
 When(/^.*set student firstname '([^']*)', lastname '([^']*)', email '([^']*)'$/, function (
@@ -30,12 +36,32 @@ When(/^.* clicks Edit-student button$/, async function () {
 	await studentAdministration.clickEditStudentBtn();
 });
 
+When(/^.* clicks Edit-student with '([^']*)' button$/, async function (email) {
+	await studentAdministration.clickEditStudentByMailBtn(email);
+});
+
+When(/^.* clicks Edit-teacher with '([^']*)' button$/, async function (email) {
+	await teacherAdministration.clickEditTeacherByMailBtn(email);
+});
+
+Then(/^.* user with email '([^']*)' is not visible on the list$/, async function (email) {
+	return studentAdministration.isStudentVisible(email, false);
+});
+
+When(/^.* clicks Delete button$/, async function () {
+	await studentEditPage.clickDeleteBtn();
+});
+
 When(/^.* clicks edit student Cancel button$/, async function () {
 	await studentEditPage.clickCancelButton();
 });
 
 When(/^.* clicks edit student Cancel button inside popup$/, async function () {
 	await studentEditPage.clickCancelInModal();
+});
+
+When(/^.* clicks Delete button inside popup$/, async function () {
+	await studentEditPage.clickDeleteInModal();
 });
 
 When(/^.* clicks edit student Discard-change button inside popup$/, async function () {
