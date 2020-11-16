@@ -1,3 +1,4 @@
+dist: focal
 language: node_js
 node_js: '12'
 sudo: required
@@ -8,7 +9,6 @@ branches:
     - /^(?i:release|hotfix).*$/
 env:
   global:
-    - DOCKER_COMPOSE_VERSION=1.27
     - GIT_SHA=$( git rev-parse HEAD )
     - BRANCH_NAME=${TRAVIS_PULL_REQUEST_BRANCH:=$TRAVIS_BRANCH}
 jobs:
