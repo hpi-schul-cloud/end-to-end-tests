@@ -122,7 +122,7 @@ async function areMembersOnTheListInCourseForSection(listOfMembers) {
 	let names = await getListOfCourseMembers();
 	listOfMembers = listOfMembers.split(',');
 	const msg = `Members: ${listOfMembers} are not visible on the list \n`;
-	const resultMsg = `Actual list of members: ${names}`;
+	const resultMsg = `Actual list of course members: ${names}`;
 	expect(names, msg + resultMsg).to.have.members(listOfMembers);
 }
 
@@ -219,15 +219,7 @@ async function clickPupilIconInCourseInSection(courseName, section) {
 async function goToTasksOfTheCourse(coursename, section) {
 	await goToCourses();
 	await clickOnCourseInSection(coursename, section);
-	await CRSSGeneralCoursePage.openHomeworksTab();
-}
-
-async function studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename, section) {
-	await navigationTopPage.performLogout();
-	await startPage.clickLoginBtn();
-	await loginPage.performLogin(username, password);
-	await loginPage.performLoginActions({shouldAcceptDataProtection: true, shouldSetOwnPassword: true, password});
-	await goToTasksOfTheCourse(coursename, section);
+	await CRSSGeneralCoursePage.openTasksTab();
 }
 
 async function isCountOfCourseMembers(courseName, expectedCountOfCourseMembers, section) {
@@ -297,7 +289,6 @@ module.exports = {
 	section,
 	goToCourses,
 	goToTasksOfTheCourse,
-	studentLogsInAndGoesToTasksOfTheCourse,
 	clickCreateCourseBtn,
 	clickOnCourseInSection,
 	clickPupilIconInCourseInSection,

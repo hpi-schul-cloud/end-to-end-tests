@@ -72,7 +72,7 @@ When(/^.* clicks on Delete-course button$/, async function () {
 	await CRSSEditCopyCoursePage.clickDeleteButton();
 });
 
-When(/^.* clicks on Delete-course-confirmation button$/, async function () {
+When(/^.* clicks on Delete-course-submit button$/, async function () {
 	await CRSSEditCopyCoursePage.clickConfirmDeleteButton();
 });
 

@@ -1,4 +1,4 @@
-#without creating a course
+#Creating a task with a course
 @task
 Feature: Create a task as a teacher
 
@@ -7,15 +7,15 @@ Feature: Create a task as a teacher
 
 	@createTask
 	Scenario Outline: As a user, I want to be able to create a simple task
-		When <userRole> logs in with email '<teacherEmail>' and password '<teacherPassword>'
+		When <userRole> logs in with email '<email>' and password '<password>'
 		And <userRole> performs first login actions: data protection acceptance
 		And <userRole> goes to tasks page
-		And <userRole> clicks create-task-button on task page
-		And <userRole> puts taskname '<taskName>' into name field
-		And <userRole> puts taskBody '<taskBody>' into body field
-		And <userRole> clicks submit-task-button on task-creation-form
+		And <userRole> clicks Add-task button
+		And <userRole> sets task name '<taskName>' in task form
+		And <userRole> sets task body '<taskBody>' in task form
+		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
-		Then <userRole> should see created task with name '<taskName>' is on task page
+		Then <userRole> should see task with name '<taskName>' is visible on the list
 		Examples:
-			| userRole | teacherEmail           | teacherPassword | taskName        | taskBody |
-			| teacher  | lehrer@schul-cloud.org | Schulcloud1!    | end-to-end-task | MyBody   |
+			| userRole | email                  | password     | taskName        | taskBody |
+			| teacher  | lehrer@schul-cloud.org | Schulcloud1! | end-to-end-task | MyBody   |

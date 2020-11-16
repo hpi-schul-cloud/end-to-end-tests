@@ -31,8 +31,8 @@ Feature: Create, edit and delete a topic in the course on the HPI SchulCloud pag
 		Then <userRole> should see that first topic with name '<topicName>' is visible on the list
 		When <userRole> clicks on Edit-topic-pencil icon in topic line with name '<topicName>'
 		And <userRole> changes topic name '<changedTopicName>'
-		And  <userRole> changes title of content from '<contentTitle>' to '<newContentTitle>'
-		And  <userRole> changes description of content from '<contentText>' to '<newContentText>'
+		And <userRole> changes title of content from '<contentTitle>' to '<newContentTitle>'
+		And <userRole> changes description of content from '<contentText>' to '<newContentText>'
 		And <userRole> clicks Save-changes button
 		Then <userRole> should see that topic title is '<changedTopicName>'
 		Then <userRole> should see that content text title is '<newContentTitle>'

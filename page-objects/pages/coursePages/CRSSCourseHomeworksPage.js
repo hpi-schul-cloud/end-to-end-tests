@@ -13,7 +13,7 @@ async function clickAddNewTaskBtn() {
 
 async function clickAddNewTaskInCourse(coursename) {
 	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
-	await coursePage.openHomeworksTab();
+	await coursePage.openTasksTab();
 	await clickAddNewTaskBtn();
 }
 
