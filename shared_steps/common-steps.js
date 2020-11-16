@@ -18,10 +18,13 @@ Given(/^.* logs in with email '([^']*)' and password '([^']*)'$/, async function
 	await loginPage.performLogin(username, password);
 });
 
-Then(/^.* logs in with email '([^']*)' and password genarated by admin during manual submission of consent$/, async function (username) {
-	await startPage.clickLoginBtn();
-	await studentAdministration.studentLogsInWithPasswordGenaratedByAdminDuringManualSubmission(username);
-});
+Then(
+	/^.* logs in with email '([^']*)' and password genarated by admin during manual submission of consent$/,
+	async function (username) {
+		await startPage.clickLoginBtn();
+		await studentAdministration.studentLogsInWithPasswordGenaratedByAdminDuringManualSubmission(username);
+	}
+);
 
 Given(/^teacher logs in$/, async function () {
 	await startPage.clickLoginBtn();
@@ -51,7 +54,10 @@ When(/^.* clicks 'Login' button on start page$/, async function () {
 	await startPage.clickLoginBtn();
 });
 
-When(/^.* is on LoginPage and logs in using email '([^']*)' and password '([^']*)'$/, async function (username, password) {
+When(/^.* is on LoginPage and logs in using email '([^']*)' and password '([^']*)'$/, async function (
+	username,
+	password
+) {
 	await loginPage.performLogin(username, password);
 });
 
@@ -96,15 +102,16 @@ Then(/^.* performs first login actions: password change '([^']*)'$/, async funct
 	await loginPage.performLoginActions({ shouldAcceptDataProtection: false, shouldSetOwnPassword: true, newPassword });
 });
 
-Then(/^.* performs first login actions: data protection acceptance, password change '([^']*)'$/, async function (newPassword) {
+Then(/^.* performs first login actions: data protection acceptance, password change '([^']*)'$/, async function (
+	newPassword
+) {
 	await loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: true, newPassword });
 });
 
 Then(/^'([^']*)' performs first login actions$/, async function (userRole) {
-	if (userRole.toLowerCase() === "student") {
-	await loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: true });
+	if (userRole.toLowerCase() === 'student') {
+		await loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: true });
 	} else {
-	await loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: false});
+		await loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: false });
 	}
-
 });

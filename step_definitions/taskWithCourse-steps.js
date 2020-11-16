@@ -80,6 +80,9 @@ When(/^.* clicks on task with name '(.*)'$/, async function (taskName) {
 When(/^.* clicks on Comment-Grading tab$/, async function () {
     await taskPage.clickOnCommentGradingTab();
 });
+When(/^.* clicks on Delete task button$/, async function () {
+	await taskListPage.clickDeleteTaskButtonInPopup();
+});
 
 Given(/^.* sets submission text '(.*)'$/, async function (submissionText) {
     await taskPage.setTextSubmision(submissionText);

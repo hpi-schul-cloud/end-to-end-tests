@@ -4,7 +4,7 @@ const navigationLeftPage = require('../page-objects/pages/NavigationLeftPage.js'
 const tasksListPage = require('../page-objects/pages/TASKListPage.js');
 const editHomeworkPage = require('../page-objects/pages/TASKAddEditTaskPage.js');
 
-Then(/^.* clicks '([^']*)' button for task with name '([^']*)'$/, async function (button, taskname) {
+Then(/^.* clicks on '([^']*)' button for task with name '([^']*)'$/, async function (button, taskname) {
 	await tasksListPage.clickOnTask(taskname, button)
 });
 

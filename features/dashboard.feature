@@ -1,12 +1,12 @@
-	@dashboard
-    Feature: dashboard test set
+@dashboard
+Feature: dashboard test set
 
 	Background: user logs in
 		Given user arrives on the Schul-Cloud homepage
-    
-    @showPrivateTaskOnDashboard
+
+	@showPrivateTaskOnDashboard
 	Scenario Outline: As a user I want to be able to see private homework on dashboard
-    	Given <userRole> logs in
+		Given <userRole> logs in
 		And <userRole> performs first login actions: data protection acceptance
 		And <userRole> goes to courses page
 		When <userRole> creates course with name '<courseName>' and student '<studentName>'

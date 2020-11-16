@@ -10,6 +10,7 @@ Feature: copy a created course with different data
     @simpleCopyCourse
     Scenario Outline: teacher can copy an existing course
         When teacher creates course with name '<courseName>'
+        And teacher goes to courses page
         And teacher enters course name '<courseName>' into search field
         Then teacher should see that amount of courses with name '<courseName>' is '1'
         When teacher chooses course with name '<courseName>'
