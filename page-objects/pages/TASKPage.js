@@ -3,46 +3,49 @@
 
 const waitHelpers = require('../../runtime/helpers/waitHelpers');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
-const textFieldSel = '.ck-content';
-const submitBtn = '.ckeditor-submit';
+const tableHelpers = require('../../runtime/helpers/tableHelpers');
+const gradingRemarksFieldSel = '.ck-content';
+const submitBtn = '.ckeditor-submit'; 
 const activeSubmissions = '.tab-content.section-homeworksubmissions.active';
 const gradeFilesListSel = '.list-group-files';
 const teacherSubmissionsTab = '#submissions-tab-link';
 const studentSubmissionTab = '#submission-tab-link';
-const submissionContainer = '.userinfo';
 const remoteFilePathInput = 'input[type=file][class=dz-hidden-input]';
 const commentBtn = '#comment-tab-link';
-const selectorTabFeedbackForSubmission = '#feedback-tab-link';
+const commentGradingTabSel = '#feedback-tab-link';
 const hometasksTabSel = 'button[data-testid="hometasks"]';
-const selectorEvaluationProcent = '[data-testid="evaluation_procent"]';
-const selectorEvaluationProcentStudentView = '.grade';
-const selectorSubmitFeedbackBtn = '.ckeditor-submit.btn.btn-primary'
+const taskRatingInput = '[data-testid="evaluation_procent"]';
+const ratingViewSel = '.grade';
+const remarkViewSel = '.ckcontent.comment';
+const submissionsTable = '#submissions table';
+const submissionRow = `${submissionsTable} tbody tr.userinfo`;
 let fileUrl; 
 const evaluation = 90;
 
+async function setTextSubmision(submissionText = "here is some text which I want to submit") {
+	await waitHelpers.waitAndSetValue(gradingRemarksFieldSel, submissionText);
+}
 
-async function submitSolutionForTheHometask() {
-	const assignmentText = 'here is some text which I want to submit';
-	await waitHelpers.waitAndSetValue(textFieldSel, assignmentText);
+async function clickSaveAndSendSubmissionBtn() {
 	await elementHelpers.clickAndWait(submitBtn);
 }
 
-async function studentEditsTextHomeworkAndSubmits() {
-	await clickStudentSubmissionTab();
-	await submitSolutionForTheHometask();
+async function clickSaveAndSendGradingBtn() {
+	await elementHelpers.clickAndWait(submitBtn);
 }
 
-async function clickOpenTeacherSubmissionsTab() {
+//teacher
+async function clickTeacherSubmissionsTab() {
 	await elementHelpers.clickAndWait(teacherSubmissionsTab);
 }
 
+//student
 async function clickStudentSubmissionTab() {
 	await elementHelpers.clickAndWait(studentSubmissionTab);
 }
 
-// teacher helpers
 async function isTaskSubmitted(studentname) {
-	await clickOpenTeacherSubmissionsTab();
+	await clickTeacherSubmissionsTab();
 	const listOfSubmisionStudentNames = await getListOfSubmisions();
 	const isSubbmitedByStudent = listOfSubmisionStudentNames.some(
 		async (element) =>
@@ -52,40 +55,37 @@ async function isTaskSubmitted(studentname) {
 	await expect(isSubbmitedByStudent).to.equal(true);
 }
 
-async function getListOfSubmisionStudentNames() {
-	return elementHelpers.getTextFromAllElements(submissionContainer);
-}
-
 async function getListOfSubmisions() {
-	return elementHelpers.getListOfAllElements(submissionContainer);
-}
-
-async function submitHomework() {
-	await clickStudentSubmissionTab();
-	await submitSolutionForTheHometask();
+	return elementHelpers.getListOfAllElements(submissionRow);
 }
 
 async function clickEvaluationTab() {
-	await clickOpenTeacherSubmissionsTab();
+	await clickTeacherSubmissionsTab();
 	await clickOnFirstSubmission();
 	await clickCommentBtn();
 }
 
+async function clickOnStudentSubmissionContains(studentLastName) {
+	const listOfSubmissions = await elementHelpers.getListOfAllElements(submissionRow);
+	const studentIndex = await tableHelpers.getIndexOfRowContainsText(submissionsTable, studentLastName);
+	const studentSubmission = listOfSubmissions[studentIndex];
+	await elementHelpers.clickAndWait(studentSubmission);
+}
+
 async function clickOnFirstSubmission() {
-	await elementHelpers.clickAndWait(submissionContainer);
+	await elementHelpers.clickAndWait(submissionRow);
 	await waitHelpers.waitUntilPageLoads(1500);
 }
 
 async function clickCommentBtn() {
-	await waitHelpers.waitUntilElementIsClickable(commentBtn);
 	await elementHelpers.clickAndWait(commentBtn);
 }
-async function clickTasksTab () {
+async function gotoTasksTab () {
 	await elementHelpers.clickAndWait(hometasksTabSel)
 	
 }
-async function clickOpenFeedbackTab () {
-	await elementHelpers.clickAndWait(selectorTabFeedbackForSubmission)
+async function clickOnCommentGradingTab () {
+	await elementHelpers.clickAndWait(commentGradingTabSel)
 }
 
 async function submitFileFeedback(file) {
@@ -125,38 +125,59 @@ async function isFileVisible(file) {
 	expect(await gradeFilesList.getText()).to.contain(file.name);
 }
 
+async function isTaskRating(rating) {
+	const actualRating = await elementHelpers.getElementText(ratingViewSel);
+	const expectedRating = rating + '%'
+	const msg = `Task rating ${expectedRating} is not correct \n`;
+	const resultMsg = 'Actual rating: ' + actualRating;
+	await expect(actualRating, msg + resultMsg).to.equal(expectedRating)
+}
+
+async function isTaskRemark(remark) {
+	const actualRemark = await elementHelpers.getElementText(remarkViewSel);
+	const msg = `Task remark: '${remark}' is not correct \n`;
+	const resultMsg = `Actual remark: ${actualRemark}`;
+	await expect(actualRemark, msg + resultMsg).to.equal(remark);
+}
+
 async function getCurrentTabUrl() {
 	const handles = await driver.getWindowHandles();
 	await driver.switchToWindow(handles[handles.length - 1]);
 	return new URL(await driver.getUrl());
 }
 
-async function evaluateTheTask() {
-	await waitHelpers.waitAndSetValue(selectorEvaluationProcent, evaluation);
-	await waitHelpers.waitAndSetValue(textFieldSel, 'good')
-	await elementHelpers.click(selectorSubmitFeedbackBtn);
+async function gradeTask({rating, gradingRemarks}) {
+	if (rating) setRating(rating);
+	if (gradingRemarks) setGradeRemarks(gradingRemarks);
 }
 
-async function getEvaluation() {
-	return await elementHelpers.getElementText(selectorEvaluationProcentStudentView)
+async function setRating(rating) {
+	await waitHelpers.waitAndSetValue(taskRatingInput, rating);
+}
+
+async function setGradeRemarks(gradingRemarks) {
+	await waitHelpers.waitAndSetValue(gradingRemarksFieldSel, gradingRemarks)
 }
 
 module.exports = {
-	openSubmissionsTab: clickOpenTeacherSubmissionsTab,
-	submitSolutionForTheHometask,
-	studentEditsTextHomeworkAndSubmits,
-	hasTheStudentSubmittedTheTask: isTaskSubmitted,
-	submitHomework,
-	submitFileFeedback,
-	isFileVisible,
-	getCurrentTabUrl,
-	gotoTasksTab: clickTasksTab,
+	gotoTasksTab,
+	clickTeacherSubmissionsTab,
+	clickStudentSubmissionTab,
+	clickSaveAndSendSubmissionBtn,
+	clickSaveAndSendGradingBtn,
+	clickOnStudentSubmissionContains,
+	clickOnCommentGradingTab,
 	clickEvaluationTab,
 	clickCommentBtn,
+	submitFileFeedback,
+	gradeTask,
+	setTextSubmision,
+	getCurrentTabUrl,
 	checkFileEvaluationStudent,
 	checkFileEvaluationTeacher,
-	clickOpenFeedbackTab,
-	evaluateTheTask,
-	getEvaluation,
+	isTaskRating,
+	isTaskRemark,
+	isTaskSubmitted,
+	isFileVisible,
 	evaluation,
 };

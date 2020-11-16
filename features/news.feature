@@ -1,4 +1,4 @@
-@news
+
 Feature: Different options for news. I would like to test whether users with different permissions can see my news
 
 	Background: I am logged in as a teacher and I create news
@@ -12,8 +12,8 @@ Feature: Different options for news. I would like to test whether users with dif
         And teacher logs out
         And student logs in with email '<studentUsername>' and password '<studentPassword>'
         And student performs first login actions: data protection acceptance, password change '<newStudentPassword>'
-        And clicks left navigation item 'news'
-        Then teacher should see that news with title '<newsTitle>' is visible on the list
+        And student clicks left navigation item 'news'
+        Then student should see that news with title '<newsTitle>' is visible on the list
 
         Examples:
             | teacherEmail               | teacherPassword | studentUsername             | studentPassword | newStudentPassword | newsTitle      | newsContent                               |
@@ -27,7 +27,7 @@ Feature: Different options for news. I would like to test whether users with dif
         And teacher logs out
         And student logs in with email '<studentUsername>' and password '<studentPassword>'
         And student performs first login actions: data protection acceptance, password change '<newStudentPassword>'
-        And clicks left navigation item 'news'
+        And student clicks left navigation item 'news'
         Then student should see that news with title '<newsTitle>' is not visible on the list
 
         Examples:
