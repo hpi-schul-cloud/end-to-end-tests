@@ -101,7 +101,7 @@ Feature: logging in as a teacher and create a new course
 		When teacher chooses course with name '<courseName>'
 		And teacher clicks on Edit-course button
 		And teacher clicks on Delete-course button
-		And teacher clicks on Delete-course-confirmation button
+		And teacher clicks on Delete-course-submit button
 		Then teacher should see that course with name '<courseName>' is not visible on the list
 		Examples:
 			| userName               | password     | courseName | courseColour |

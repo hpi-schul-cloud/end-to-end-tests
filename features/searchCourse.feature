@@ -1,13 +1,13 @@
 @searchCourse
-Feature: teacher wants to search for a course
+Feature: user wants to search for a course
 
-    Background: teacher is logged in and visits the course page
+    Background:
         Given user arrives on the Schul-Cloud homepage
 
     @searchCourseAndFindOne
-    Scenario Outline: Search for courses and find them.
+    Scenario Outline: Search for courses and find them
         Given <userRole> logs in with email '<username>' and password '<password>'
-        Given <userRole> goes to courses page
+        And <userRole> goes to courses page
         When <userRole> enters course name '<courseName>' into search field
 		Then <userRole> should see that course with name '<courseName>' is visible on the list
 
@@ -17,9 +17,9 @@ Feature: teacher wants to search for a course
             | student  | amelia.strobl.qa@schul-cloud.org   | Schulcloud1qa!    | German        |
 
     @searchCourseAndDontFindOne
-    Scenario Outline: Search for courses and don't find them.
+    Scenario Outline: Search for courses and don't find them
         Given <userRole> logs in with email '<username>' and password '<password>'
-        Given <userRole> goes to courses page
+        And <userRole> goes to courses page
         When <userRole> enters course name '<courseName>' into search field
 		Then <userRole> should see that course with name '<courseName>' is not visible on the list
 

@@ -1,5 +1,7 @@
 /*[url/courses]/add]*/
 'use strict';
+const dateTimeHelpers = require('../../../runtime/helpers/dateTimeHelpers.js');
+
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 const courseListPage = require('./CRSSCourseListPage');
 const navigationLeftPage = require('../NavigationLeftPage');
@@ -130,8 +132,6 @@ async function createCourse (courseName) {
 	await goToNextSection();
 	await clickGoToCourseListBtn();
 }
-
-
 
 //Course data section
 async function isCourseNameNotSet() {

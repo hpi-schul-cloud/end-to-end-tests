@@ -9,7 +9,7 @@ When(/^.*creates news with title '([^']*)', content '([^']*)' and current date$/
 });
 
 When(/^.*creates news with title '([^']*)', content '([^']*)' and a one-year delay$/, async function (newsTitle, newsContent) {
-	const getDate = dateTimeHelpers.getDate({day: 0, month: 0, year: +1, delimiter: '.', isOrderYearMonthDay: false});
+	const getDate = dateTimeHelpers.getCurrentFormattedDateWithOffset({years: +1, format: "mm/dd/yyyy"});
 	await newsAddEditNews.createNews({newsTitle: newsTitle, newsContent: newsContent, date: getDate});
 });
 
