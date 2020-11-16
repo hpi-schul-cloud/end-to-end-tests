@@ -6,7 +6,7 @@ Feature: Test set for sending emails
 
 	@sendConsentFormEmail
 	Scenario Outline: As a user, I want to be able to send emails to all students without a full declaration of consent.
-		When <userRole> logs in with email '<email>' and password '<password>'
+		When <userRole> logs in with email '<username>' and password '<password>'
 		And <userRole> performs first login actions: data protection acceptance
 		When <userRole> goes to administration
 		And <userRole> goes to students administration
@@ -14,5 +14,5 @@ Feature: Test set for sending emails
 		When <userRole> clicks Send-links-to-students'-e-mail-addresses button
 		Then email is sent to '<studentEmail>' students without a full declaration of consent
 		Examples:
-			| userRole | email                 | password     | firstName | secondName | studentEmail        |
+			| userRole | username              | password     | firstName | secondName | studentEmail        |
 			| admin    | admin@schul-cloud.org | Schulcloud1! | GGG       | DDD        | ggg@schul-cloud.org |
