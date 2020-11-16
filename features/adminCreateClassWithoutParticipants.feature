@@ -16,5 +16,5 @@ Scenario Outline:
 	When admin creates a class <className>
 	Then admin should see the class <sameClass> with <participants> participants.
 Examples:
-	|adminUsername        | adminPassword | className| sameClass| participants |
-	|admin@schul-cloud.org| Schulcloud1!  | 11c       | 11c       | 0            |
+	|adminUsername        | adminPassword |className| sameClass | participants |
+	|admin@schul-cloud.org| Schulcloud1!  |11c      | 11c       | 0            |

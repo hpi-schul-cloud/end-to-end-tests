@@ -2,40 +2,27 @@
 'use strict';
 
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
-const { CLIENT } = require("../../../shared-objects/servers");
+const waitHelpers = require('../../../runtime/helpers/waitHelpers');
 
-const containerBtn = '.modal.fade.add-member-modal.in';
-const submitBtn = 'button[type="submit"]';
+const addAttendeeSubmitBtn = '.add-member-modal  button.btn-submit';
 
-// team members buttons
-const addInternalMembers = 'button[data-testid="internal_team_members"]';
-/*data testid needs to be created
-const addExternalMembers = 'button[data-testid="needs_to_be_created"]';*/
+const addInternalAttendeesBtn = 'button.btn-add-member';
+const multipleChoiceSelectForTeamAttendees = '[data-testid="select_team_members_add"]';
 
-// team members internal options
-const multipleChoiceSelectForTeamMembers = '[data-testid="select_team_members_add"]';
-const selectTeamMembers = 'select[data-testid="select_team_members_add"]';
+async function clickAddInternalAttendeesBtn() {
+	await elementHelpers.clickAndWait(addInternalAttendeesBtn);
+}
 
+async function addTeamAttendee(lastname, firstname) {
+	await elementHelpers.selectOptionByText(multipleChoiceSelectForTeamAttendees, lastname + ', ' + firstname);
+}
+
+async function clickSubmitAddTeamAttendeeBtn() {
+	await elementHelpers.clickAndWait(addAttendeeSubmitBtn);
+}
 
 module.exports = {
-	clickAddInternalMembers: async function () {
-		let addBtn = await driver.$(addInternalMembers);
-		await addBtn.click();
-		await driver.pause(1500);
-	},
-	// add members to the team: steps in browser
-	addTeamMembersSteps: async function (fullname) {
-		return elementHelpers.selectOptionByText(multipleChoiceSelectForTeamMembers, fullname);
-	},
-	addTwoTeamMemebers: async function (teammember1, teammember2) {
-		await this.addTeamMembersSteps(teammember1);
-		await this.addTeamMembersSteps(teammember2);
-		await this.submitAddTeammemberAfterAllMemebersWereAdded();
-		await driver.pause(1500);
-	},
-	submitAddTeammemberAfterAllMemebersWereAdded: async function () {
-		let containerBtnElement = await driver.$(containerBtn);
-		let submitBtnElement = await containerBtnElement.$(submitBtn);
-		await submitBtnElement.click();
-	},
-}
+	clickAddInternalAttendeesBtn,
+	addTeamAttendee,
+	clickSubmitAddTeamAttendeeBtn,
+};

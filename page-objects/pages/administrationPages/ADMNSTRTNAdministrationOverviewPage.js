@@ -1,32 +1,35 @@
 /*[url/administration]*/
-'use strict';
-const { CLIENT } = require('../../../shared-objects/servers');
-const elementHelpers = require('../../../runtime/helpers/elementHelpers');
-const waitHelpers = require('../../../runtime/helpers/waitHelpers');
+"use strict"
 
-const urlAdministration = `${CLIENT.URL}/administration`;
-const administrateStudentsBtn = "div[data-testid='administrate_students']";
-const administrateTeachersBtn = "div[data-testid='administrate_teachers']";
-const administrateClassesBtn = "div[data-testid='administrate_classes']";
-const administrationsSubItems = "//*[@id='sidebar']/ul/li/ul//*/span";
+const elementHelpers = require("../../../runtime/helpers/elementHelpers")
+const waitHelpers = require("../../../runtime/helpers/waitHelpers")
+const navigationLeftPanel = require("../NavigationLeftPage");
+const administrateStudentsBtn = "div[data-testid='administrate_students']"
+const administrateTeachersBtn = "div[data-testid='administrate_teachers']"
+const administrateClassesBtn = "div[data-testid='administrate_classes']"
+const administrationsSubItems = "//*[@id='sidebar']/ul/li/ul//*/span"
 
-module.exports = {
-    goToAdministrationPage: async function () {
-        await elementHelpers.loadPage(urlAdministration, 10)
-    },
-    clickAdministrateStudents: async function () {
-        await waitHelpers.waitAndClick(administrateStudentsBtn);
-    },
-    clickAdministrateClasses: async function () {
-        await waitHelpers.waitAndClick(administrateClassesBtn);
-    },
-    clickAdministrateTeachers: async function () {
-        await waitHelpers.waitAndClick(administrateTeachersBtn);
-    },
-    getListOfAdministrationTabs: async function () {
-        let items = await driver.$$(administrationsSubItems);
-        return items;
-    }
+async function clickAdministrateStudents() {
+    await elementHelpers.clickAndWait(administrateStudentsBtn)
 }
 
+async function clickAdministrateClasses() {
+    await elementHelpers.clickAndWait(administrateClassesBtn)
+}
 
+async function clickAdministrateTeachers() {
+    await elementHelpers.clickAndWait(administrateTeachersBtn)
+}
+
+async function getListOfAdministrationTabs() {
+    await waitHelpers.waitUntilPageLoads();
+    let items = await driver.$$(administrationsSubItems)
+    return items
+}
+
+module.exports = {
+    clickAdministrateStudents,
+    clickAdministrateClasses,
+    clickAdministrateTeachers,
+    getListOfAdministrationTabs,
+}

@@ -15,12 +15,12 @@ Feature: Administrate pupils, classes and teachers
 		When admin accepts data protection
 		When admin goes to administration
 		When admin goes to students administration
-		And an admin puts in <firstName> and <secondName> and <studentEmail> of the new pupil
+		And admin set student firstname: <firstName>, lastname: <secondName>, email: <studentEmail>
 		And the admin should see new pupil with email <studentEmail> among his pupils
 		And admin manually submits a consent <studentEmail>
 		And admin logs out
 		Then new pupil <studentEmail> can log in with default password
-		Then student with full age accepts student's data protection with password <newPasswordStudent>
+		Then student should see that data protection is already accepted and set a new password <newPasswordStudent>
 
 		Examples:
 			| firstName | secondName | studentEmail              | adminsUsername        | adminsPassword | newPasswordStudent |

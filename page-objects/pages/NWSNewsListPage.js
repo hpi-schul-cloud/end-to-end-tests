@@ -1,28 +1,26 @@
 /*[url/news]*/
 'use strict';
-const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
-const { CLIENT } = require("../../shared-objects/servers");
-const url = `${CLIENT.URL}/news/`;
+const navigationLeftPage = require('./NavigationLeftPage')
+const selectorNewsElementInTheList = 'span.title';
 
-const element = 'span.title';
 
 module.exports = {
-	// URL HELPER
+
 	goToNews: async function() {
-		await elementHelpers.loadPage(url, 100);
+		await navigationLeftPage.clickNavItemNews();
     },
-    verifyWhetherVisible: async function() {
-		const listOfElements = await driver.$$(element);
+    getListOfNewNames: async function() {
+		const listOfElements = await driver.$$(selectorNewsElementInTheList);
 		const namePromises = listOfElements.map(async element => await element.getText());
 		const newsNames = await Promise.all(namePromises);
 		return newsNames;
 	},
-	shouldBeVisible: async function(name) {
-		let newsNames = await this.verifyWhetherVisible();
+	isNewsVisible: async function(name) {
+		let newsNames = await this.getListOfNewNames();
 		await expect(newsNames).to.include(name);
 	},
-	shouldNotBeVisible: async function(name) {
-		let newsNames = await this.verifyWhetherVisible();
+	isNewsNotVisible: async function(name) {
+		let newsNames = await this.getListOfNewNames();
 		await expect(newsNames).to.not.include(name);
 	}
 }
