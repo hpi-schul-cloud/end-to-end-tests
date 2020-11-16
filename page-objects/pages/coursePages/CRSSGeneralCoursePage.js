@@ -28,7 +28,7 @@ async function openTopicsTab() {
 	await elementHelpers.clickAndWait(tab.topics);
 }
 
-async function openHomeworksTab () {
+async function openTasksTab () {
 	await elementHelpers.clickAndWait(tab.tasks);
 }
 
@@ -82,7 +82,7 @@ async function clickDeleteTopicButtonInPopup() {
 
 module.exports = {
 	openTopicsTab,
-	openHomeworksTab,
+	openTasksTab,
 	openToolsTab,
 	openGroupsTab,
 	clickThreePointSettingsIcon,

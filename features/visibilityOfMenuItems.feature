@@ -8,7 +8,7 @@ Feature:
 	Scenario Outline:
         And <userRole> logs in
         And <userRole> performs first login actions: data protection acceptance
-        When clicks left navigation item 'administration'
+        When <userRole> clicks left navigation item 'administration'
         Then <userRole> should see that all sub menu items are visible: '<tabsList>'
 
         Examples:
