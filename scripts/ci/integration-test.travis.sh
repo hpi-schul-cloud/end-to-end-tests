@@ -58,6 +58,11 @@ install(){
 	sed -i "s/SECRET_ES_MERLIN_USERNAME.*/SECRET_ES_MERLIN_USERNAME=${SECRET_ES_MERLIN_USERNAME}/" docker-compose.end-to-end-tests.yml
 	sed -i "s/SECRET_ES_MERLIN_PW.*/SECRET_ES_MERLIN_PW=${SECRET_ES_MERLIN_PW}/" docker-compose.end-to-end-tests.yml
 
+	echo "ECHO SOME ENVS"
+	echo $IT_CLIENT_HOST
+	echo $IT_CLIENT_POST
+	echo "ECHO SOME ENVS DONE"
+
 	chmod 700 ./startup_end-to-end-tests.sh
 	echo "PULL CONTAINERS..."
 	./startup_end-to-end-tests.sh pull --ignore-pull-failures --include-deps --quiet
