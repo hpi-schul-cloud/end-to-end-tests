@@ -13,7 +13,7 @@ async function goToAdministrateClasses() {
 }
 
 async function goToAdministrateTeachers() {
-    await elementHelpers.clickAdministrateTeachers();
+    await NavigationLeftPage.clickNavItemAdminTeachers();
 }
 
 module.exports = {

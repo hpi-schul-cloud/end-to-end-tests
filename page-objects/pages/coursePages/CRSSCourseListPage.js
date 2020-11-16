@@ -110,7 +110,7 @@ async function getCountOfDisplayedCoursesForSection(section) {
 	var numberOfDisplayedCourses = 0;
 	for (var i = 0; i < elem.length; i++) {
 		if ((await elem[i].isDisplayed()) == true) {
-			numberOfDisplayedCourses += 1;
+			numberOfDisplayedCourses ++;
 		}
 	}
 	return numberOfDisplayedCourses;
