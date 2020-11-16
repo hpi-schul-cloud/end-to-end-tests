@@ -17,6 +17,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Changed
 
+- SC-7524-parametrization: adjust parametrization to existing feature files
 - IMP-160 rename repository
 - SC-7110 Refactoring: Improved terms in cucumber steps: Teams, Topics, Class
 
