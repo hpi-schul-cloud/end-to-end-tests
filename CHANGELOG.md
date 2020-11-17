@@ -7,6 +7,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
 ## Unpublished
+## Changed
+
+- SC-7524-parametrization: adjust parametrization to existing feature files
 
 ### Added
 
@@ -17,7 +20,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Changed
 
-- SC-7524-parametrization: adjust parametrization to existing feature files
 - IMP-160 rename repository
 - SC-7110 Refactoring: Improved terms in cucumber steps: Teams, Topics, Class
 
