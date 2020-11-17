@@ -8,20 +8,12 @@ When(/^.* adds a topic with name '([^']*)'$/, async function (topicname) {
 	await addEditTopicPage.setTopicName(topicname);
 });
 
-When(/^.* adds content Text with title '([^']*)' and description '([^']*)'$/, async function (contentTitle, description) {
-	await addEditTopicPage.addText(contentTitle, description);
-});
-
-When(/^.* adds content GeoGebraArbeitsblatt with id '([^']*)'$/, async function (geogebraID) {
-	await addEditTopicPage.addGeoGebra('GeoGebra', geogebraID);
+When(/^.* adds content ([^']*) with title '([^']*)' and description '([^']*)'$/, async function (contentType, contentTitle, description) {
+	await addEditTopicPage.addContent(contentType,contentTitle, description);
 });
 
 When(/^.* adds content Material$/, function () {
 	return addEditTopicPage.addMaterial();
-});
-
-When(/^.* adds content Etherpad with name '([^']*)' and description '([^']*)'$/, async function (etherpadName,etherpadDescription) {
-	await addEditTopicPage.addEtherpad(etherpadName, etherpadDescription);
 });
 
 When(/^.* clicks on Trashcan icon in topic with name '([^']*)'$/, async function (topicName) {
@@ -72,7 +64,7 @@ When(/^.* changes title of content from '([^']*)' to '([^']*)'$/, async function
 	await addEditTopicPage.setNewContentTitle(contentTitle, changeContentTitle);
 });
 
-When(/^.* changes description of content from '([^']*)' to '([^']*)'$/, async function (contentDescription,newContentDescription) {
+When(/^.* changes description of content from '([^']*)' to '([^']*)'$/, async function (contentDescription, newContentDescription) {
 	await addEditTopicPage.setNewContentText(contentDescription, newContentDescription);
 });
 

@@ -1,7 +1,5 @@
 "use strict";
-
 const leftNavigation = require('../page-objects/pages/NavigationLeftPage.js');
-
 const leftMenuItems = leftNavigation.navItemsEnum;
 
 Then(/^.*clicks left navigation item '([^']*)'$/, function (string) {

@@ -6,13 +6,13 @@ Feature: As administrator of a school I want to create a new class but without a
 		Given user arrives on the Schul-Cloud homepage
 
 	@createClassWithoutMembers
-	Scenario Outline:
-		Given admin logs in with email '<adminUsername>' and password '<adminPassword>'
-		And admin performs first login actions: data protection acceptance
-		And admin goes to administration
-		And admin goes to class administration
-		When admin creates class with custom name '<customClassName>'
-		Then admin should see that class with name '<customClassName>' and '0' members is visible
+	Scenario Outline: As a user, I want to be able to create class without a members
+		When <userRole> logs in with email '<username>' and password '<password>'
+		And <userRole> performs first login actions: data protection acceptance
+		And <userRole> goes to administration
+		And <userRole> goes to class administration
+		When <userRole> creates class with custom name '<customClassName>'
+		Then <userRole> should see that class with name '<customClassName>' and '<membersNumber>' members is visible
 		Examples:
-			| adminUsername         | adminPassword | customClassName | 
-			| admin@schul-cloud.org | Schulcloud1!  | 11c             | 
+			| userRole | username              | password     | customClassName | membersNumber |
+			| admin    | admin@schul-cloud.org | Schulcloud1! | 11c             | 0             |
