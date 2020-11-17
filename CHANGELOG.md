@@ -10,12 +10,16 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+- SC-7059 - DeletionConcept Tests
 - OPS-1297 - Added Changelog github action
+- SC-7571 - sendConsentFormEmail adjusted
+- SC-7733 - User can not login anymore, DeletionConcept Tests
 
 ## Changed
 
 - IMP-160 rename repository
 - SC-7110 Refactoring: Improved terms in cucumber steps: Teams, Topics, Class
+- SC-7524-parametrization: adjust parametrization to existing feature files
 
 ### Fixed
 

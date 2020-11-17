@@ -1,22 +1,21 @@
-#without creating a course
+#Creating a task with a course
 @task
-@createTask
-Feature: Creating a task as a teacher
+Feature: Create a task as a teacher
 
 	Background:
 		Given user arrives on the Schul-Cloud homepage
 
-	Scenario Outline: The user logs in as a teacher and creates a simple task
-		Given teacher logs in with email '<teacherEmail>' and password '<teacherPassword>'
-		And teacher performs first login actions: data protection acceptance
-		And teacher goes to tasks page
-		And teacher clicks create-task-button on task page
-		And teacher puts taskname '<taskName>' into name field
-		And teacher puts taskBody '<taskBody>' into body field
-		And teacher clicks submit-task-button on task-creation-form
-		And teacher goes to tasks page
-		Then teacher should see created task with name '<taskName>' is on task page
-
+	@createTask
+	Scenario Outline: As a user, I want to be able to create a simple task
+		When <userRole> logs in with email '<email>' and password '<password>'
+		And <userRole> performs first login actions: data protection acceptance
+		And <userRole> goes to tasks page
+		And <userRole> clicks Add-task button
+		And <userRole> sets task name '<taskName>' in task form
+		And <userRole> sets task body '<taskBody>' in task form
+		And <userRole> clicks Add-task-submit button
+		And <userRole> goes to tasks page
+		Then <userRole> should see task with name '<taskName>' is visible on the list
 		Examples:
-			| teacherEmail           | teacherPassword | taskName        | taskBody |
-			| lehrer@schul-cloud.org | Schulcloud1!    | end-to-end-task | MyBody   |
+			| userRole | email                  | password     | taskName        | taskBody |
+			| teacher  | lehrer@schul-cloud.org | Schulcloud1! | end-to-end-task | MyBody   |

@@ -1,19 +1,27 @@
 @searchCourse
-Feature: teacher wants to search for a course
+Feature: user wants to search for a course
 
-    Background: teacher is logged in and visits the course page
-        Given user arrives on the Schul-Cloud homepage
+	Background:
+		Given user arrives on the Schul-Cloud homepage
 
+	@searchCourseAndFindOne
+	Scenario Outline: As a user, I want to be able to search a course and find them.
+		When <userRole> logs in with email '<username>' and password '<password>'
+		And <userRole> goes to courses page
+		When <userRole> enters course name '<courseName>' into search field
+		Then <userRole> should see that course with name '<courseName>' is visible on the list
+		Examples:
+			| userRole | username                         | password       | courseName |
+			| teacher  | karl.teacher.qa@schul-cloud.org  | Schulcloud1qa! | Mathe      |
+			| student  | amelia.strobl.qa@schul-cloud.org | Schulcloud1qa! | German     |
 
-    Scenario Outline:
-        Given teacher logs in with email '<teacherUsername>' and password '<teacherPassword>'
-        Given teacher performs first login actions: data protection acceptance
-        Given teacher goes to courses page
-        When teacher enters course name '<coursename>' into search field
-        Then teacher should see that course list satisfies the search request '<coursename>'
-
-        Examples:
-            | coursename   | teacherUsername            | teacherPassword |
-            | Biologie     | klara.fall@schul-cloud.org | Schulcloud1!    |
-            | DoesNotExist | klara.fall@schul-cloud.org | Schulcloud1!    |
-            | Mathe        | klara.fall@schul-cloud.org | Schulcloud1!    |
+	@searchCourseAndDontFindOne
+	Scenario Outline: As a user, I want to be able to search a course and do not find them.
+		When <userRole> logs in with email '<username>' and password '<password>'
+		And <userRole> goes to courses page
+		When <userRole> enters course name '<courseName>' into search field
+		Then <userRole> should see that course with name '<courseName>' is not visible on the list
+		Examples:
+			| userRole | username                         | password       | courseName |
+			| teacher  | karl.teacher.qa@schul-cloud.org  | Schulcloud1qa! | Mathematik |
+			| student  | amelia.strobl.qa@schul-cloud.org | Schulcloud1qa! | Deutsch    |

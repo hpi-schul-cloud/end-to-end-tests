@@ -1,22 +1,19 @@
 @administration @class
-Feature: As teacher of a class
-	I want to edit a class
-	So that I can change school year and class description.
+Feature: I want to edit a class
 
 	Background:
 		Given user arrives on the Schul-Cloud homepage
 
 	@editClass
-	Scenario Outline:
-		Given teacher logs in with email '<teachersUsername>' and password '<teachersPassword>'
-		And teacher performs first login actions: data protection acceptance
-		And teacher goes to administration
-		And teacher goes to class administration
-		When teacher creates class with custom name '<customClassName>'
-		And teacher edits custom class name to '<newCustomClassName>'
-		And teacher opens classes tab with name '2020/21'
-		Then teacher should see that class with name '<newCustomClassName>' and teacher named 'Fall' is visible
-
+	Scenario Outline: As a user, I want to be able to edit a class
+		When <userRole> logs in with email '<username>' and password '<password>'
+		And <userRole> performs first login actions: data protection acceptance
+		And <userRole> goes to administration
+		And <userRole> goes to class administration
+		When <userRole> creates class with custom name '<customClassName>'
+		And <userRole> edits custom class name to '<newCustomClassName>'
+		And <userRole> opens classes tab with name '<className>'
+		Then <userRole> should see that class with name '<newCustomClassName>' and teacher named '<teacherName>' is visible
 		Examples:
-			| teachersUsername           | teachersPassword | customClassName |newCustomClassName |
-			| klara.fall@schul-cloud.org | Schulcloud1!     | 8a              |4d                 |
+			| userRole | username                   | password     | customClassName | newCustomClassName | className | teacherName |
+			| teacher  | klara.fall@schul-cloud.org | Schulcloud1! | 8a              | 4d                 | 2020/21   | Fall        |

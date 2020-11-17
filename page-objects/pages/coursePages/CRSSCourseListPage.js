@@ -20,8 +20,6 @@ const createCourseBtn = '[data-testid="create-course-btn"]';
 const listOfMembersSel = '#member-modal-body > ol > li';
 const popupMembers = ".member-modal.in[role='dialog']";
 const closeMemberModalBtn = ".member-modal button.close";
-
-
 const courseColour = {
 	grey: 'background:#ACACAC',
 	metallicGold: 'background:#ACACAC',
@@ -33,7 +31,6 @@ const courseColour = {
 	violetRed: 'background:#FF4081',
 	corn: 'background:#FFEE58',
 };
-
 const section = {
 	allCourses: '.section-courses',
 	activeCourses: '.section-activeCourses',
@@ -102,7 +99,6 @@ function getColourSelector(colourName) {
 }
 
 async function setCourseNameIntoSearchInputField(courseName) {
-	await goToCourses();
 	await waitHelpers.waitAndSetValue(searchCourseFiled, courseName);
 }
 
@@ -111,7 +107,7 @@ async function getCountOfDisplayedCoursesForSection(section) {
 	var numberOfDisplayedCourses = 0;
 	for (var i = 0; i < elem.length; i++) {
 		if ((await elem[i].isDisplayed()) == true) {
-			numberOfDisplayedCourses += 1;
+			numberOfDisplayedCourses ++;
 		}
 	}
 	return numberOfDisplayedCourses;
@@ -126,7 +122,7 @@ async function areMembersOnTheListInCourseForSection(listOfMembers) {
 	let names = await getListOfCourseMembers();
 	listOfMembers = listOfMembers.split(',');
 	const msg = `Members: ${listOfMembers} are not visible on the list \n`;
-	const resultMsg = `Actual list of members: ${names}`;
+	const resultMsg = `Actual list of course members: ${names}`;
 	expect(names, msg + resultMsg).to.have.members(listOfMembers);
 }
 
@@ -223,15 +219,7 @@ async function clickPupilIconInCourseInSection(courseName, section) {
 async function goToTasksOfTheCourse(coursename, section) {
 	await goToCourses();
 	await clickOnCourseInSection(coursename, section);
-	await CRSSGeneralCoursePage.openHomeworksTab();
-}
-
-async function studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename, section) {
-	await navigationTopPage.performLogout();
-	await startPage.clickLoginBtn();
-	await loginPage.performLogin(username, password);
-	await loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: true, password });
-	await goToTasksOfTheCourse(coursename, section);
+	await CRSSGeneralCoursePage.openTasksTab();
 }
 
 async function isCountOfCourseMembers(courseName, expectedCountOfCourseMembers, section) {
@@ -301,7 +289,6 @@ module.exports = {
 	section,
 	goToCourses,
 	goToTasksOfTheCourse,
-	studentLogsInAndGoesToTasksOfTheCourse,
 	clickCreateCourseBtn,
 	clickOnCourseInSection,
 	clickPupilIconInCourseInSection,

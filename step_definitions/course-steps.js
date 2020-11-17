@@ -16,8 +16,8 @@ When(/^.* goes to courses page$/, function () {
 	return courseListPage.goToCourses();
 });
 
-When(/^.* chooses course with name '([^']*)'$/, function (coursename) {
-	return courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
+When(/^.* chooses course with name '([^']*)'$/, function (courseName) {
+	return courseListPage.clickOnCourseInSection(courseName, courseListPage.section.activeCourses);
 });
 
 When(/^.* clicks on members icon in course with name '([^']*)'$/, async function (courseName) {
@@ -72,7 +72,7 @@ When(/^.* clicks on Delete-course button$/, async function () {
 	await CRSSEditCopyCoursePage.clickDeleteButton();
 });
 
-When(/^.* clicks on Delete-course-confirmation button$/, async function () {
+When(/^.* clicks on Delete-course-submit button$/, async function () {
 	await CRSSEditCopyCoursePage.clickConfirmDeleteButton();
 });
 
