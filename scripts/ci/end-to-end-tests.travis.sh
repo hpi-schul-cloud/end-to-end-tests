@@ -59,8 +59,8 @@ install(){
 	sed -i "s/SECRET_ES_MERLIN_PW.*/SECRET_ES_MERLIN_PW=${SECRET_ES_MERLIN_PW}/" docker-compose.end-to-end-tests.yml
 
 	echo "ECHO SOME ENVS"
-	echo $IT_CLIENT_HOST
-	echo $IT_CLIENT_POST
+	echo "IT_CLIENT_HOST" $IT_CLIENT_HOST
+	echo "IT_CLIENT_PORT" $IT_CLIENT_POST
 	echo "ECHO SOME ENVS DONE"
 
 	chmod 700 ./startup_end-to-end-tests.sh
