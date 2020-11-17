@@ -58,6 +58,9 @@ install(){
 	sed -i "s/SECRET_ES_MERLIN_USERNAME.*/SECRET_ES_MERLIN_USERNAME=${SECRET_ES_MERLIN_USERNAME}/" docker-compose.end-to-end-tests.yml
 	sed -i "s/SECRET_ES_MERLIN_PW.*/SECRET_ES_MERLIN_PW=${SECRET_ES_MERLIN_PW}/" docker-compose.end-to-end-tests.yml
 
+	export IT_CLIENT_HOST=nuxtclient
+	export IT_CLIENT_PORT=4000
+
 	chmod 700 ./startup_end-to-end-tests.sh
 	echo "PULL CONTAINERS..."
 	./startup_end-to-end-tests.sh pull --ignore-pull-failures --include-deps --quiet
@@ -68,8 +71,8 @@ install(){
 	cd ..
 
 	echo "ECHO SOME ENVS"
-	echo "IT_CLIENT_HOST" $IT_CLIENT_HOST
-	echo "IT_CLIENT_PORT" $IT_CLIENT_POST
+	echo "IT_CLIENT_HOST ${IT_CLIENT_HOST}"
+	echo "IT_CLIENT_PORT ${IT_CLIENT_POST}"
 	echo "ECHO SOME ENVS DONE"
 
 	cd schulcloud-server && npm ci && cd ..
