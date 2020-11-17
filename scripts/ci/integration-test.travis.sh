@@ -41,9 +41,6 @@ fetch(){
 	git clone https://github.com/hpi-schul-cloud/docker-compose.git docker-compose
 	switchBranch "docker-compose"
 
-	git clone https://github.com/hpi-schul-cloud/end-to-end-tests.git end-to-end-tests
-	switchBranch "end-to-end-tests"
-
 	git clone https://github.com/hpi-schul-cloud/node-notification-service.git node-notification-service
 	switchBranch "node-notification-service" "NOTIFICATION_SERVICE_DOCKER_TAG"
 }
@@ -75,17 +72,26 @@ install(){
 	echo "IT_CLIENT_PORT" $IT_CLIENT_PORT
 	echo "ECHO SOME ENVS DONE"
 
-	cd schulcloud-server && npm ci && cd ..
-	cd end-to-end-tests && npm ci && cd ..
 }
 
 before(){
+
+	# fetch later to use time while container bootstrap
+	git clone https://github.com/hpi-schul-cloud/end-to-end-tests.git end-to-end-tests
+	switchBranch "end-to-end-tests"
+
+	echo "INSTALL DEPENDNECIES..."
+	cd schulcloud-server && npm ci && cd ..
+	cd end-to-end-tests && npm ci && cd ..
+	echo "INSTALL DEPENDNECIES DONE"
+
 	cd schulcloud-server && npm run setup && npm run seed && cd ..
 
 	# wait for the nuxt client to be available
-	echo "waiting max 150s for nuxt to be available"
-	npx -p wait-on wait-on http://localhost:4000 -t 150000
+	echo "waiting max 4 minutes for nuxt to be available"
+	npx -p wait-on wait-on http://localhost:4000 -t 240000
 	echo "nuxt is now online"
+
 }
 
 main(){
