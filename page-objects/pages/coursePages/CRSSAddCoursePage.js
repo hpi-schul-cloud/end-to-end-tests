@@ -233,7 +233,6 @@ module.exports = {
 	isStudentNotSet,
 	areFinalButtonsVisible,
 	setCourseName,
-	setStudent,
 	setTeacher,
 	setCurrentUserAsTeacher,
 	setColour,

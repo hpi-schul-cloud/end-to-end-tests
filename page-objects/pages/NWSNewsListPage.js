@@ -14,11 +14,11 @@ async function getListOfNewNames () {
 
 async function isNewsVisible (newsTitle, expectedValue) {
 	const newsTitles = await getListOfNewNames();
-	const isNewskOnList = newsTitles.some((element) => element.includes(newsTitle));
+	const isNewsOnList = newsTitles.some((element) => element.includes(newsTitle));
 	const fillString = !expectedValue ? 'not' : '';
 	const msg = 'News with name is '+ fillString + 'visible on the list: \n';
 	const resultMsg = 'Expected: ' + newsTitle + ', Actual: ' + newsTitles;
-	await expect(isNewskOnList, msg + resultMsg).to.equal(expectedValue)
+	await expect(isNewsOnList, msg + resultMsg).to.equal(expectedValue)
 }
 
 module.exports = {

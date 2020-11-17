@@ -6,7 +6,7 @@ Feature: create different types of task
 
 	@createTaskInTheCourse
 	Scenario Outline: As a user, I want to be able to create a simple task
-		Given <userRole> logs in
+		When <userRole> logs in
 		And <userRole> performs first login actions: data protection acceptance
 		And <userRole> goes to courses page
 		When <userRole> creates course with name '<courseName>'
@@ -25,7 +25,7 @@ Feature: create different types of task
 
 	@createPrivateTaskInTheCourse
 	Scenario Outline: As a user, I want to be able to create a private task
-		Given <userRole> logs in
+		When <userRole> logs in
 		And <userRole> performs first login actions: data protection acceptance
 		And <userRole> goes to courses page
 		When <userRole> creates course with name '<courseName>' and student '<studentName>'
@@ -49,7 +49,7 @@ Feature: create different types of task
 
 	@submitTextTask
 	Scenario Outline: As a user, I want to be able to submit a task and teacher evaluates it
-		Given <userRole> logs in
+		When <userRole> logs in
 		And <userRole> performs first login actions: data protection acceptance
 		And <userRole> goes to courses page
 		And <userRole> creates course with name '<courseName>' and student '<studentFullName>'
@@ -91,7 +91,7 @@ Feature: create different types of task
 
 	#@gradeTaskWithFile
 	#Scenario Outline: As a user, I want to be able to grade a task submission by uploading a file
-	#Given <userRole> logs in
+	#When <userRole> logs in
 	#And <userRole> performs first login actions: data protection acceptance
 	#And <userRole> goes to courses page
 	#When <userRole> creates course with name '<courseName>' and student '<studentName>'
@@ -120,14 +120,13 @@ Feature: create different types of task
 	#And student clicks on task with name '<taskName>'
 	#And student clicks on Comment-Grading tab
 	#Then student should see that file evaluation is visible
-
 	#Examples:
 	#|userRole| userName                    | password     | newPasswordStudent | taskName              | studentName | courseName            |taskBody          |
 	#|teacher | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!      | task with file upload | Paula Meyer | course with file task |text of the task  |
 
 	@deleteTaskWithCourse
-	Scenario Outline: create a simple hometask and then delete it
-		Given <userRole> logs in
+	Scenario Outline: As a user, I want to be able to create a simple task and try to delete it
+		When <userRole> logs in
 		And <userRole> performs first login actions: data protection acceptance
 		And <userRole> goes to courses page
 		When <userRole> creates course with name '<courseName>'
