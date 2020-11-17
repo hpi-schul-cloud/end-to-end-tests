@@ -1,7 +1,7 @@
 'use strict';
 
 const navigationLeftPage = require('../../page-objects/pages/NavigationLeftPage.js');
-const addEditTaskPage = require('../../page-objects/pages/AddEditTASKPage.js');
+const addEditTaskPage = require('../../page-objects/pages/TASKAddEditTASKPage.js');
 const courseListPage = require('../../page-objects/pages/coursePages/CRSSCourseListPage');
 const TASKListPage = require('../../page-objects/pages/TASKListPage.js');
 const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers.js');
