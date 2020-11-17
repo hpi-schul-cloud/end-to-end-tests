@@ -40,6 +40,10 @@ When(/^.* chooses himself as a Course teacher$/, async function () {
 	return addCoursePage.setCurrentUserAsTeacher();
 });
 
+When(/^.* enters course name '([^']*)' into new course form$/, function (courseName) {
+	return addCoursePage.setCourseName(courseName);
+});
+
 When(/^.* chooses course colour '([^']*)'$/, function (courseColour) {
 	return addCoursePage.setColour(courseColour);
 });
