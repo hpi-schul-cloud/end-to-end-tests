@@ -1,9 +1,9 @@
 
 const navigationLeftPanel = require('../../page-objects/pages/NavigationLeftPage');
-const manageClasses = require('../../page-objects/pages/managmentPages/ManageClassesPage');
+const manageClasses = require('../../page-objects/pages/managementPages/ManageClassesPage');
 
-When(/^.* goes to managment$/, async function () {
-	await navigationLeftPanel.clickNavItemManagment();
+When(/^.* goes to management$/, async function () {
+	await navigationLeftPanel.clickNavItemManagement();
 });
 
 Given(/^.* goes to Manage classes$/, async function () {

@@ -3,7 +3,7 @@ const { CLIENT } = require('../shared-objects/servers');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
-const manageStudents = require('../page-objects/pages/managmentPages/ManageStudentsPage');
+const manageStudents = require('../page-objects/pages/managementPages/ManageStudentsPage');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const schulCloudURL = `${CLIENT.URL}`;
 /*Login, Logout*/

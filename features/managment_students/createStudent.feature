@@ -1,4 +1,4 @@
-@managment @managmentStudents @createStudent
+@management @managementStudents @createStudent
 Feature: Set of tests to create students
 	As an Schul-Cloud user I want to be able to create students
 
@@ -9,8 +9,8 @@ Feature: Set of tests to create students
 	Scenario Outline: As a user, I want to be able to create a student
 		Given <userRole> logs in with email '<username>' and password '<password>'
 		And '<userRole>' performs first login actions
-		And <userRole> goes to managment
-		And <userRole> goes to students managment
+		And <userRole> goes to management
+		And <userRole> goes to students management
 		When <userRole> set student firstname '<firstName>', lastname '<secondName>', email '<studentEmail>'
 		And <userRole> sees that student with email '<studentEmail>' is visible on the list
 		And <userRole> manually submits consent for user with e-mail '<studentEmail>', thus generates a random password for him

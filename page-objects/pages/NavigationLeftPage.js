@@ -58,13 +58,13 @@ const navItemCalendar = navItemStringDefault1stLevel.replace('XXX', 'Termine');
 const navItemLearnstore = navItemStringDefault1stLevel.replace('XXX', 'Lern-Store');
 const navItemAddons = navItemStringDefault1stLevel.replace('XXX', 'Add-ons');
 const navItemHelpDesk = navItemStringDefault1stLevel.replace('XXX', 'Helpdesk');
-const navItemManagment = navItemStringDefault1stLevel.replace('XXX', 'Verwaltung');
-const navItemManagmentStudents = navItemStringDefault2ndLevel.replace('XXX', 'Schüler');
-const navItemManagmentTeachers = navItemStringDefault2ndLevel.replace('XXX', 'Lehrer');
-const navItemManagmentCourses = navItemStringDefault2ndLevel.replace('XXX', 'Kurse');
-const navItemManagmentClasses = navItemStringDefault2ndLevel.replace('XXX', 'Klassen');
-const navItemManagmentTeams = navItemStringDefault2ndLevel.replace('XXX', 'Teams');
-const navItemManagmentSchool = navItemStringDefault2ndLevel.replace('XXX', 'Schule');
+const navItemManagement = navItemStringDefault1stLevel.replace('XXX', 'Verwaltung');
+const navItemManagementStudents = navItemStringDefault2ndLevel.replace('XXX', 'Schüler');
+const navItemManagementTeachers = navItemStringDefault2ndLevel.replace('XXX', 'Lehrer');
+const navItemManagementCourses = navItemStringDefault2ndLevel.replace('XXX', 'Kurse');
+const navItemManagementClasses = navItemStringDefault2ndLevel.replace('XXX', 'Klassen');
+const navItemManagementTeams = navItemStringDefault2ndLevel.replace('XXX', 'Teams');
+const navItemManagementSchool = navItemStringDefault2ndLevel.replace('XXX', 'Schule');
 const navItemHelparea = navItemStringDefault1stLevel.replace('XXX', 'Hilfebereich');
 const navItemHelparticles = navItemStringDefault2ndLevel.replace('XXX', 'Hilfeartikel');
 const navItemHelpTrainings = navItemStringDefault2ndLevel.replace('XXX', 'Fortbildungen');
@@ -144,32 +144,32 @@ async function clickNavItemAddons () {
 	await elementHelpers.clickAndWait(navItemAddons);
 }
 
-async function clickNavItemManagment () {
-	await elementHelpers.clickAndWait(navItemManagment);
+async function clickNavItemManagement () {
+	await elementHelpers.clickAndWait(navItemManagement);
 }
 
 async function clickNavItemManageStudents () {
-	await elementHelpers.clickAndWait(navItemManagmentStudents);
+	await elementHelpers.clickAndWait(navItemManagementStudents);
 }
 
 async function clickNavItemManageTeachers () {
-	await elementHelpers.clickAndWait(navItemManagmentTeachers);
+	await elementHelpers.clickAndWait(navItemManagementTeachers);
 }
 
 async function clickNavItemManageCourses () {
-	await elementHelpers.clickAndWait(navItemManagmentCourses);
+	await elementHelpers.clickAndWait(navItemManagementCourses);
 }
 
 async function clickNavItemManageClasses () {
-	await elementHelpers.clickAndWait(navItemManagmentClasses);
+	await elementHelpers.clickAndWait(navItemManagementClasses);
 }
 
 async function clickNavItemManageTeams () {
-	await elementHelpers.clickAndWait(navItemManagmentTeams);
+	await elementHelpers.clickAndWait(navItemManagementTeams);
 }
 
 async function clickNavItemManageSchool () {
-	await elementHelpers.clickAndWait(navItemManagmentSchool);
+	await elementHelpers.clickAndWait(navItemManagementSchool);
 }
 
 async function clickNavItemHelpDesk () {
@@ -245,7 +245,7 @@ module.exports = {
 	clickNavItemCalendar,
 	clickNavItemContent,
 	clickNavItemAddons,
-	clickNavItemManagment,
+	clickNavItemManagement,
 	clickNavItemManageStudents,
 	clickNavItemManageTeachers,
 	clickNavItemManageCourses,

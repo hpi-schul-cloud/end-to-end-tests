@@ -1,4 +1,4 @@
-@managment @managmentStudents @editStudent
+@management @managementStudents @editStudent
 Feature: Set of tests to edit students
     As an Schul-Cloud user I want to be able to edit students
 
@@ -9,8 +9,8 @@ Feature: Set of tests to edit students
     Scenario Outline: As a user, I want to be able to edit a student firstname, lastname, email and birthdate
         Given <userRole> logs in with email '<adminsUsername>' and password '<adminsPassword>'
         And '<userRole>' performs first login actions
-        And <userRole> goes to managment
-        And <userRole> goes to students managment
+        And <userRole> goes to management
+        And <userRole> goes to students management
         And <userRole> clicks Edit-student button
         When <userRole> changes student firstname to '<newFirstName>'
         And <userRole> changes student lastname to '<newLastName>'

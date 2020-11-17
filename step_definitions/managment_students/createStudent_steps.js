@@ -1,10 +1,10 @@
 'use strict';
 
-const manageStudentsPage = require('../../page-objects/pages/managmentPages/ManageStudentsPage.js');
+const manageStudentsPage = require('../../page-objects/pages/managementPages/ManageStudentsPage.js');
 const navigationLeftPanel = require('../../page-objects/pages/NavigationLeftPage');
 
 //WHEN
-When(/^.* goes to students managment$/, async function () {
+When(/^.* goes to students management$/, async function () {
 	return navigationLeftPanel.clickNavItemManageStudents();
 });
 

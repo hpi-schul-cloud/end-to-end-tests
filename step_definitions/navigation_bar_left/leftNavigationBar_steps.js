@@ -42,7 +42,7 @@ Then(/^.*clicks left navigation item '([^']*)'$/, function (string) {
         case leftMenuItems.HELPDESK:
             return leftNavigation.clickNavItemHelpDesk();
         case leftMenuItems.ADMINISTRATION:
-            return leftNavigation.clickNavItemManagment();
+            return leftNavigation.clickNavItemManagement();
         case leftMenuItems.ADMINSTUDENTS:
             return leftNavigation.clickNavItemManageStudents();
         case leftMenuItems.ADMINTEACHERS:

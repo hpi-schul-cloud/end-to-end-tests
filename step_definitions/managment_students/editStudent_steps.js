@@ -1,7 +1,7 @@
 'use strict';
 
-const manageStudents = require('../../page-objects/pages/managmentPages/ManageStudentsPage');
-const studentEditPage = require('../../page-objects/pages/managmentPages/ManageStudentEditDeletePage');
+const manageStudents = require('../../page-objects/pages/managementPages/ManageStudentsPage');
+const studentEditPage = require('../../page-objects/pages/managementPages/ManageStudentEditDeletePage');
 
 //WHEN
 When(/^.* clicks Edit-student button$/, async function () {

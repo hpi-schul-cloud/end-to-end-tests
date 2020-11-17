@@ -1,4 +1,4 @@
-@managment @managmentSchool @school
+@management @managementSchool @school
 Feature: Set of tests to manage school
 
 	Background: User opens Schul-cloud homepage Website

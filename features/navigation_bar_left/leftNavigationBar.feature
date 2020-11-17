@@ -70,11 +70,11 @@ Feature: Test set to check the left side menu items
             | studentUsername             | password     |
             | paula.meyer@schul-cloud.org | Schulcloud1! |
 
-    @visibilityOfManagmentSubMenuItems
-    Scenario Outline: As a user, I want to be able to check submenu items for managment
+    @visibilityOfManagementSubMenuItems
+    Scenario Outline: As a user, I want to be able to check submenu items for management
         Given <userRole> logs in
         And <userRole> performs first login actions: data protection acceptance
-        When <userRole> goes to managment
+        When <userRole> goes to management
         Then <userRole> should see that all sub menu items are visible: '<tabsList>'
         Examples:
             | userRole | tabsList                                       |
