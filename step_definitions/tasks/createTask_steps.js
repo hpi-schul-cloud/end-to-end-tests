@@ -1,12 +1,10 @@
 'use strict';
 
 const navigationLeftPage = require('../../page-objects/pages/NavigationLeftPage.js');
-const addEditTaskPage = require('../../page-objects/pages/TASKAddEditTASKPage.js');
+const addEditTaskPage = require('../../page-objects/pages/AddEditTASKPage.js');
 const courseListPage = require('../../page-objects/pages/coursePages/CRSSCourseListPage');
 const TASKListPage = require('../../page-objects/pages/TASKListPage.js');
-const taskPage = require('../../page-objects/pages/TASKPage');
 const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers.js');
-const editHomeworkPage = require('../../page-objects/pages/TASKAddEditTASKPage.js');
 const TASKPage = require('../../page-objects/pages/TASKPage');
 
 //WHEN
@@ -51,7 +49,7 @@ When(/^.* clicks on task with name '(.*)'$/, async function (taskName) {
 });
 
 Then(/^.* chooses task courses '([^']*)'$/, async function (listOfTaskCourses) {
-	await editHomeworkPage.setTaskCourses(listOfTaskCourses);
+	await addEditTaskPage.setTaskCourses(listOfTaskCourses);
 });
 
 When(/^.*sets task name '([^']*)' in task form$/, function (taskName) {
