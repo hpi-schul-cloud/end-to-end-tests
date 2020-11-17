@@ -1,4 +1,4 @@
-dist: focal #ubuntu 20.04 travis use 16.04 as default (updated needed to get latest version of docker-compose)
+#dist: focal #ubuntu 20.04 travis use 16.04 as default (updated needed to get latest version of docker-compose)
 language: node_js
 node_js: '12'
 sudo: required
