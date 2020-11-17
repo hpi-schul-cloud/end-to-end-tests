@@ -72,7 +72,7 @@ install(){
 
 	echo "ECHO SOME ENVS"
 	echo "IT_CLIENT_HOST" $IT_CLIENT_HOST
-	echo "IT_CLIENT_PORT" $IT_CLIENT_POST
+	echo "IT_CLIENT_PORT" $IT_CLIENT_PORT
 	echo "ECHO SOME ENVS DONE"
 
 	cd schulcloud-server && npm ci && cd ..
