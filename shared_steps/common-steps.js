@@ -3,7 +3,7 @@ const { CLIENT } = require('../shared-objects/servers');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
-const studentAdministration = require('../page-objects/pages/administrationPages/ADMNSTRTNAdministerStudentsPage');
+const manageStudents = require('../page-objects/pages/managmentPages/ManageStudentsPage');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
 const schulCloudURL = `${CLIENT.URL}`;
 /*Login, Logout*/
@@ -21,7 +21,7 @@ Then(
 	/^.* logs in with email '([^']*)' and password genarated by admin during manual submission of consent$/,
 	async function (username) {
 		await startPage.clickLoginBtn();
-		await studentAdministration.studentLogsInWithPasswordGenaratedByAdminDuringManualSubmission(username);
+		await manageStudents.studentLogsInWithPasswordGenaratedByAdminDuringManualSubmission(username);
 	}
 );
 
