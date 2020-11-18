@@ -55,6 +55,8 @@ install(){
 	sed -i "s/SECRET_ES_MERLIN_USERNAME.*/SECRET_ES_MERLIN_USERNAME=${SECRET_ES_MERLIN_USERNAME}/" docker-compose.end-to-end-tests.yml
 	sed -i "s/SECRET_ES_MERLIN_PW.*/SECRET_ES_MERLIN_PW=${SECRET_ES_MERLIN_PW}/" docker-compose.end-to-end-tests.yml
 
+	# do not take the envs from ./startup_end-to-end-tests.sh, so they have to set here
+	# Used by the tests to tell selenuium the address of nuxt-client (docker to docker communication)
 	export IT_CLIENT_HOST=nuxtclient
 	export IT_CLIENT_PORT=4000
 
@@ -63,7 +65,7 @@ install(){
 	./startup_end-to-end-tests.sh pull --ignore-pull-failures --include-deps --quiet
 	echo "PULL CONTAINERS DONE"
 	echo "BOOT CONTAINERS..."
-	./startup_end-to-end-tests.sh up -d # --no-recreate
+	./startup_end-to-end-tests.sh up -d
 	echo "BOOT CONTAINERS DONE"
 	cd ..
 
