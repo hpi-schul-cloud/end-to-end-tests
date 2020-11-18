@@ -1,15 +1,16 @@
 @dashboard @task
-Feature: Dashboard test set for task section
+Feature: dashboard test set
 
-	Background: User opens Schul-cloud homepage Website
+	Background: user logs in
 		Given user arrives on the Schul-Cloud homepage
 
 	@showPrivateTaskOnDashboard
 	Scenario Outline: As a user I want to be able to see private homework on dashboard
-		Given <userRole> logs in
-		And <userRole> performs first login actions: data protection acceptance
+		When <userRole> logs in
+		# And <userRole> performs first login actions: data protection acceptance
 		And <userRole> goes to courses page
-		And <userRole> creates course with name '<courseName>' and student '<studentName>'
+		When <userRole> chooses course with name '<courseName>'
+		# When <userRole> creates course with name '<courseName>' and student '<studentName>'
 		And <userRole> clicks Create-a-task button in the course '<courseName>'
 		And <userRole> sets task name '<taskName>' in task form
 		And <userRole> sets Task-visibility-start-date: today, 00:00
@@ -18,12 +19,12 @@ Feature: Dashboard test set for task section
 		And <userRole> clicks on Private-task checkbox
 		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
-		And <userRole> sees that task with name '<taskName>' is visible on the list
+		Then <userRole> sees that task with name '<taskName>' is visible on the list
 		When <userRole> clicks left navigation item 'dashboard'
 		Then <userRole> should see that Private tasks section is visible on dashboard
 		And <userRole> should see that task with name '<taskName>' and deadline for course '<courseName>' is visible on dashboard
 		And <userRole> should see that number of completed tasks is not visible for task '<taskName>'
 		And <userRole> should see that number of graded tasks is not visible for task '<taskName>'
 		Examples:
-			| userRole | courseName | studentName | taskName             | taskBody         |
-			| teacher  | Math       | Paula Meyer | private task example | text of the task |
+			| userRole | courseName | taskName             | taskBody         |
+			| teacher  | German     | private task example | text of the task |
