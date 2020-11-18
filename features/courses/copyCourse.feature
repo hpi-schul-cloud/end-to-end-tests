@@ -17,7 +17,7 @@ Feature: Copy a created course with different data
 			| userRole | courseName  |
 			| teacher  | Mathe       |
 
-	@copyCourseWithDescription
+    @copyCourseWithContent
 	Scenario Outline: As a user, I want to be able to copy course with certain text
 		When <userRole> logs in
 		And <userRole> goes to courses page
