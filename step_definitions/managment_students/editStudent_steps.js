@@ -2,10 +2,19 @@
 
 const manageStudents = require('../../page-objects/pages/managementPages/ManageStudentsPage');
 const studentEditPage = require('../../page-objects/pages/managementPages/ManageStudentEditDeletePage');
+const mailCatcher = require('../../runtime/helpers/mailCatcher.js');
 
 //WHEN
 When(/^.* clicks Edit-student button$/, async function () {
 	await manageStudents.clickEditStudentBtn();
+});
+
+Then(/^.* clicks Send-links-to-students'-e-mail-addresses button$/, async function () {
+	await manageStudents.clickSendConsentFormEmailsButton();
+});
+
+When(/^.* clicks Edit-student with '([^']*)' button$/, async function (email) {
+	await manageStudents.clickEditStudentByMailBtn(email);
 });
 
 When(/^.* changes student firstname to '([^']*)'$/, async function (firstName) {
@@ -38,4 +47,8 @@ Then(/^.* student email '([^']*)' is is visible on the list$/, async function (e
 
 Then(/^.* student birthdate is '([^']*)'$/, async function (birthdate) {
 	await studentEditPage.isStudentBirthdayCorrect(birthdate);
+});
+
+Then(/^email is sent to '([^']*)' students without a full declaration of consent$/, async function (studentEMail) {
+	await mailCatcher.isEmailReceived(studentEMail);
 });
