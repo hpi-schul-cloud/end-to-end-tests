@@ -213,8 +213,8 @@ const dateTimeHelpers = require('./runtime/helpers/dateTimeHelpers.js');
 /**
  *  adding global date function
  */
-global.date = dateTimeHelpers.currentDate();
-global.dateStringForFiles = dateTimeHelpers.getCurrentDateFormatted()
+global.date = dateTimeHelpers.getCurrentDateWithFormat("dd-mm-yyyy");
+global.dateStringForFiles = dateTimeHelpers.getDateStringForFiles()
 
 
 /**

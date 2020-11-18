@@ -50,7 +50,7 @@ global.log = log;
 /**
  * This is the Global date functionality
  */
-global.date = require('./helpers/dateTimeHelpers').currentDate();
+global.date = require('./helpers/dateTimeHelpers').getCurrentDateWithFormat("dd-mm-yyyy");
 
 /**
  * for all API test calls
@@ -252,7 +252,7 @@ const cucumberTimeout = process.env.CUCUMBER_TIMEOUT || 60000;
 setDefaultTimeout(cucumberTimeout);
 
 // start recording of the Test run time
-global.startDateTime = dateTimeHelpers.getStartDateTime();
+global.startDateTime = dateTimeHelpers.getCurrentDateWithFormat("dd/MM/yyyy HH:mm:ss");
 
 /**
  * create the driver before scenario if it's not instantiated
@@ -307,7 +307,7 @@ AfterAll(async () => {
 AfterAll(function(done) {
 	let driver = global.driver;
 	if (global.paths.reports && fs.existsSync(global.paths.reports)) {
-		global.endDateTime = dateTimeHelpers.getEndDateTime();
+		global.endDateTime = dateTimeHelpers.getCurrentDateWithFormat("dd/MM/yyyy HH:mm:ss");
 		let reportOptions = {
 			theme: 'bootstrap',
 			jsonFile: path.resolve(

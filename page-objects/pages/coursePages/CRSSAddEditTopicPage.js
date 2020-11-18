@@ -17,16 +17,6 @@ const pencilBtnSelector = ".fa-pencil";
 const blankContentTitleSel = '.card input[placeholder][value=""]';
 const contentTitleValue = '.section-course .content-block .h4';
 const textValue = '.section-course .content-block .row';
-
-const textField = ".ck-content[role='textbox']";
-const geogebraMaterialIdField = "input[name*='[materialId]']";
-const etherpadDescriptionField = "textarea[name*='[description]']";
-const taskUrlField =  ":not([type='hidden'])[name*='[url]']";
-
-//geoGebra:
-const geoGebraIdInput = "input[placeholder^='GeoGebra']";
-
-// material:
 const secondaryAddMaterialBtn = ".btn.btn-secondary.btn-add";
 const materialContainerSel = ".div.ajaxcontent > div";
 const btnContainerMaterial = ".fa.fa-plus-square";
@@ -36,6 +26,12 @@ const btnAttachLernstoreMaterial = "#content-blocks .btn-secondary.btn-add";
 const lernstoreBtn = ".btn-group > button:nth-child(3)";
 const selectorIDContainer = "#content-blocks";
 
+const contentDescription = {
+	text: ".ck-content[role='textbox']",
+	geoGebra: "input[name*='[materialId]']",
+	etherpad: "textarea[name*='[description]']",
+	task: ":not([type='hidden'])[name*='[url]']",
+};
 const content = {
 	text: ".btn-group > button:nth-child(1)",
 	geoGebra: ".btn-group > button:nth-child(2)",
@@ -50,16 +46,21 @@ function getContentSelector(contentName) {
 		case 'text':
 			btnSel = content.text;
 			break;
-		case 'geogebra': case 'geogebra worksheet': case ' geogebra arbeitsblatt':
+		case 'geogebra':
+		case 'geogebra worksheet':
+		case ' geogebra arbeitsblatt':
 			btnSel = content.geoGebra;
 			break;
-		case 'material': case 'learning material': case 'lern-material':
+		case 'material':
+		case 'learning material':
+		case 'lern-material':
 			btnSel = content.learningMaterial;
 			break;
 		case 'etherpad':
 			btnSel = content.etherpad;
 			break;
-		case 'task': case 'aufgabe':
+		case 'task':
+		case 'aufgabe':
 			btnSel = content.task;
 			break;
 		default:
@@ -67,7 +68,29 @@ function getContentSelector(contentName) {
 			break;
 	}
 	return btnSel;
-};
+}
+
+async function setContentDescriptionSelector(contentType) {
+	let descriptionSel = '';
+	switch (contentType.toLowerCase()) {
+		case 'text':
+			descriptionSel = contentDescription.text;
+			break;
+		case 'geogebra':
+			descriptionSel = contentDescription.geoGebra;
+			break;
+		case 'etherpad':
+			descriptionSel = contentDescription.etherpad;
+			break;
+		case 'task':
+			descriptionSel = contentDescription.task;
+			break;
+		default:
+			console.error(`This content: ${contentType} does not exist on the list of possible choices`);
+			break;
+	}
+	return descriptionSel;
+}
 
 async function setTopicName(topicName) {
 	await waitHelpers.waitAndSetValue(topicNameInput, topicName);
@@ -100,26 +123,14 @@ async function setContentTitle(contentTitle) {
 	await waitHelpers.waitAndSetValue(contentTitleSelector, contentTitle);
 }
 
-async function setContentText(contentText) {
-	await waitHelpers.waitAndSetValue(textField, contentText);
-}
-
-async function setGeogebraId(geogebraMaterialID) {
-	await waitHelpers.waitAndSetValue(geogebraMaterialIdField, geogebraMaterialID);
-}
-
-async function setEtherpadDescription(etherpadDescription) {
-	await waitHelpers.waitAndSetValue(etherpadDescriptionField, etherpadDescription);
-}
-
-async function setTaskUrl(taskUrl) {
-	await waitHelpers.waitAndSetValue(taskUrlField, taskUrl);
+async function setContentDescription(contentText, selector) {
+	await waitHelpers.waitAndSetValue(selector, contentText);
 }
 
 async function openLearningStoreAndAddMaterial() {
 	await clickSecondaryAddContentLearningMaterial();
 	await driver.pause(9000);
-	await driver.switchWindow(lernStoreUrl);
+	// await driver.switchWindow(lernStoreUrl);
 	let browsers = await driver.getWindowHandles();
 	await driver.switchWindow(browsers[1]);
 	let materialContainer = await waitHelpers.waitUntilElementIsPresent(materialContainerSel);
@@ -127,31 +138,18 @@ async function openLearningStoreAndAddMaterial() {
 	await btnContainer.clickAndWait();
 }
 
-async function addText(contentTitle, contentDescription) {
-	await clickAddContent("Text");
+async function addContent(contentType, contentTitle, contentDescription) {
+	await clickAddContent(contentType);
 	await waitHelpers.waitUntilElementIsPresent(blankContentTitleSel);
 	await setContentTitle(contentTitle);
-	await setContentText(contentDescription);
-}
-
-async function addGeoGebra(contentTitle, geogebraID) {
-	await clickAddContent("GeoGebra");
-	await waitHelpers.waitUntilElementIsPresent(blankContentTitleSel);
-	await setContentTitle(contentTitle);
-	await setGeogebraId(geogebraID);
+	let contentDescriptionSel = await setContentDescriptionSelector(contentType);
+	await setContentDescription(contentDescription, contentDescriptionSel);
 }
 
 async function addMaterial() {
 	await clickAddContent("Material");
 	await waitHelpers.waitUntilElementIsPresent(blankContentTitleSel);
 	await openLearningStoreAndAddMaterial();
-}
-
-async function addEtherpad(contentTitle, description) {
-	await clickAddContent("Etherpad");
-	await waitHelpers.waitUntilElementIsPresent(blankContentTitleSel);
-	await setContentTitle(contentTitle)
-	await setEtherpadDescription(description);
 }
 
 async function isFirstTopicAdded() {
@@ -179,9 +177,9 @@ async function isContentWithTitleVisibleOnTheList(contentTitle) {
 
 async function isTopicOnTheList(topicName, expectedValue = true) {
 	const allTopics = await getTopicTitleList();
-    const isTopicOnList = allTopics.some((element) => element.includes(topicName));
-    const fillString = !expectedValue ? 'not' : '';
-	const msg = "Topic with name is "+ fillString +" visible on the list: \n";
+	const isTopicOnList = allTopics.some((element) => element.includes(topicName));
+	const fillString = !expectedValue ? 'not' : '';
+	const msg = "Topic with name is " + fillString + " visible on the list: \n";
 	const resultMsg = 'Actual list of topisc: ' + allTopics;
 	await expect(isTopicOnList, msg + resultMsg).to.equal(expectedValue);
 }
@@ -207,7 +205,7 @@ async function setNewContentTitle(contentTitle, newContentTitle) {
 }
 
 async function setNewContentText(text, newText) {
-	const contentDescription = await waitHelpers.waitUntilElementIsEnabled('//p[contains(text(),"'+ text +'")]');
+	const contentDescription = await waitHelpers.waitUntilElementIsEnabled('//p[contains(text(),"' + text + '")]');
 	await contentDescription.clearValue();
 	await contentDescription.click();
 	await driver.keys(newText);
@@ -229,10 +227,7 @@ module.exports = {
 	clickOnTopicWithName,
 	clickOnTopicEditPencilButton,
 	clickCreateTopicButton,
-	addText,
-	addGeoGebra,
 	addMaterial,
-	addEtherpad,
 	isTopicOnTheList,
 	isFirstTopicAdded,
 	isCorrectTopicTitle,
@@ -241,4 +236,5 @@ module.exports = {
 	setNewContentTitle,
 	setNewContentText,
 	addLernstoreMaterial,
+	addContent,
 }
