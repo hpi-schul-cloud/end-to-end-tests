@@ -58,13 +58,13 @@ const navItemCalendar = navItemStringDefault1stLevel.replace('XXX', 'Termine');
 const navItemLearnstore = navItemStringDefault1stLevel.replace('XXX', 'Lern-Store');
 const navItemAddons = navItemStringDefault1stLevel.replace('XXX', 'Add-ons');
 const navItemHelpDesk = navItemStringDefault1stLevel.replace('XXX', 'Helpdesk');
-const navItemAdministration = navItemStringDefault1stLevel.replace('XXX', 'Verwaltung');
-const navItemAdministrationStudents = navItemStringDefault2ndLevel.replace('XXX', 'Schüler');
-const navItemAdministrationTeachers = navItemStringDefault2ndLevel.replace('XXX', 'Lehrer');
-const navItemAdministrationCourses = navItemStringDefault2ndLevel.replace('XXX', 'Kurse');
-const navItemAdministrationClasses = navItemStringDefault2ndLevel.replace('XXX', 'Klassen');
-const navItemAdministrationTeams = navItemStringDefault2ndLevel.replace('XXX', 'Teams');
-const navItemAdministrationSchool = navItemStringDefault2ndLevel.replace('XXX', 'Schule');
+const navItemManagement = navItemStringDefault1stLevel.replace('XXX', 'Verwaltung');
+const navItemManagementStudents = navItemStringDefault2ndLevel.replace('XXX', 'Schüler');
+const navItemManagementTeachers = navItemStringDefault2ndLevel.replace('XXX', 'Lehrer');
+const navItemManagementCourses = navItemStringDefault2ndLevel.replace('XXX', 'Kurse');
+const navItemManagementClasses = navItemStringDefault2ndLevel.replace('XXX', 'Klassen');
+const navItemManagementTeams = navItemStringDefault2ndLevel.replace('XXX', 'Teams');
+const navItemManagementSchool = navItemStringDefault2ndLevel.replace('XXX', 'Schule');
 const navItemHelparea = navItemStringDefault1stLevel.replace('XXX', 'Hilfebereich');
 const navItemHelparticles = navItemStringDefault2ndLevel.replace('XXX', 'Hilfeartikel');
 const navItemHelpTrainings = navItemStringDefault2ndLevel.replace('XXX', 'Fortbildungen');
@@ -144,32 +144,32 @@ async function clickNavItemAddons () {
 	await elementHelpers.clickAndWait(navItemAddons);
 }
 
-async function clickNavItemAdministration () {
-	await elementHelpers.clickAndWait(navItemAdministration);
+async function clickNavItemManagement () {
+	await elementHelpers.clickAndWait(navItemManagement);
 }
 
-async function clickNavItemAdminStudents () {
-	await elementHelpers.clickAndWait(navItemAdministrationStudents);
+async function clickNavItemManageStudents () {
+	await elementHelpers.clickAndWait(navItemManagementStudents);
 }
 
-async function clickNavItemAdminTeachers () {
-	await elementHelpers.clickAndWait(navItemAdministrationTeachers);
+async function clickNavItemManageTeachers () {
+	await elementHelpers.clickAndWait(navItemManagementTeachers);
 }
 
-async function clickNavItemAdminCourses () {
-	await elementHelpers.clickAndWait(navItemAdministrationCourses);
+async function clickNavItemManageCourses () {
+	await elementHelpers.clickAndWait(navItemManagementCourses);
 }
 
-async function clickNavItemAdminClasses () {
-	await elementHelpers.clickAndWait(navItemAdministrationClasses);
+async function clickNavItemManageClasses () {
+	await elementHelpers.clickAndWait(navItemManagementClasses);
 }
 
-async function clickNavItemAdminTeams () {
-	await elementHelpers.clickAndWait(navItemAdministrationTeams);
+async function clickNavItemManageTeams () {
+	await elementHelpers.clickAndWait(navItemManagementTeams);
 }
 
-async function clickNavItemAdminSchool () {
-	await elementHelpers.clickAndWait(navItemAdministrationSchool);
+async function clickNavItemManageSchool () {
+	await elementHelpers.clickAndWait(navItemManagementSchool);
 }
 
 async function clickNavItemHelpDesk () {
@@ -245,13 +245,13 @@ module.exports = {
 	clickNavItemCalendar,
 	clickNavItemContent,
 	clickNavItemAddons,
-	clickNavItemAdministration,
-	clickNavItemAdminStudents,
-	clickNavItemAdminTeachers,
-	clickNavItemAdminCourses,
-	clickNavItemAdminClasses,
-	clickNavItemAdminTeams,
-	clickNavItemAdminSchool,
+	clickNavItemManagement,
+	clickNavItemManageStudents,
+	clickNavItemManageTeachers,
+	clickNavItemManageCourses,
+	clickNavItemManageClasses,
+	clickNavItemManageTeams,
+	clickNavItemManageSchool,
 	clickNavItemHelpDesk,
 	clickNavItemHelpArea,
 	clickNavItemHelpArticles,
