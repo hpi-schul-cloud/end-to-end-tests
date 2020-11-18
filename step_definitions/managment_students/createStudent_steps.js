@@ -26,3 +26,7 @@ When(/^.*manually submits consent for user with e-mail '([^']*)', thus generates
 Then(/^.*student with email '([^']*)' is visible on the list$/, function (email) {
 	return manageStudentsPage.isStudentEmailOnTheList(email);
 });
+
+Then(/^.* user with email '([^']*)' is not visible on the list$/, async function (email) {
+	return manageStudentsPage.isStudentVisible(email, false);
+});
