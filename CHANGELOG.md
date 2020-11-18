@@ -21,6 +21,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7110 Refactoring: Improved terms in cucumber steps: Teams, Topics, Class
 - SC-7524-parametrization: adjust parametrization to existing feature files
 
+### Fixed
+
+- fixed github action changelog
+
 ## 25.0.1 - 2020-09-30
 
 ### Changed
