@@ -14,7 +14,7 @@ Feature: Set of tests to first login
         Examples:
             | userRole | username                         | password       | menuItems                                                                                                                       |
             | admin    | kai.admin.qa@schul-cloud.org     | Schulcloud1qa! | ÜBERSICHT, KURSE, TEAMS, AUFGABEN, MEINE DATEIEN, NEUIGKEITEN, TERMINE, LERN-STORE, ADD-ONS, HELPDESK, VERWALTUNG, HILFEBEREICH |
-            | teacher  | amelia.strobl.qa@schul-cloud.org | Schulcloud1qa! | ÜBERSICHT, KURSE, TEAMS, AUFGABEN, MEINE DATEIEN, NEUIGKEITEN, TERMINE, LERN-STORE, ADD-ONS, VERWALTUNG, HILFEBEREICH           |
+            | teacher  | karl.teacher.qa@schul-cloud.org  | Schulcloud1qa! | ÜBERSICHT, KURSE, TEAMS, AUFGABEN, MEINE DATEIEN, NEUIGKEITEN, TERMINE, LERN-STORE, ADD-ONS, VERWALTUNG, HILFEBEREICH           |
 
     @studentFirstLogin
     Scenario Outline: As a student I want to be able to log in
