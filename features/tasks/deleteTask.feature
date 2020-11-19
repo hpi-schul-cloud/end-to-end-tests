@@ -18,7 +18,6 @@ Feature: Set of tests to delete tasks
 	@deleteTaskWithCourse
 	Scenario Outline: As a user, I want to be able to create a simple task and try to delete it
 		When <userRole> logs in
-		And <userRole> performs first login actions: data protection acceptance
 		And <userRole> goes to courses page
 		When <userRole> creates course with name '<courseName>'
 		And <userRole> clicks Create-a-task button in the course '<courseName>'
