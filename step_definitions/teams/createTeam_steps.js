@@ -18,10 +18,14 @@ When(/^.*clicks Submit-add-team-member button$/, async function () {
 });
 
 When(/^.*clicks on Member icon in team with name '([^']*)'$/, async function (teamName) {
-	await TMSTeamListPage.clickMemberIconInTeam(teamName); 
+	await TMSTeamListPage.clickMemberIconInTeam(teamName);
 });
 
 //THEN
+Then(/^.* should see that user with first name '([^']*)' and last name '([^']*)' is not visible on team list$/, async function (userFirstName, userLastName) {
+	return TMSTeamMembersPage.isStudentinTeamVisible(userFirstName, userLastName, false);
+});
+
 Then(/^.*team with name '([^']*)' is be visible on the list$/, async function (teamName) {
 	await TMSTeamListPage.isTeamOnList(teamName);
 });
