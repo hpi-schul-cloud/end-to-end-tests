@@ -10,10 +10,10 @@ When(/^.* goes to students management$/, async function () {
 
 When(/^.*set student firstname '([^']*)', lastname '([^']*)', email '([^']*)'$/, function (
 	firstname,
-	secondname,
+	lastname,
 	email
 ) {
-	return manageStudentsPage.createNewPupil(firstname, secondname, email);
+	return manageStudentsPage.createNewPupil(firstname, lastname, email);
 });
 
 When(/^.*manually submits consent for user with e-mail '([^']*)', thus generates a random password for him$/, function (
