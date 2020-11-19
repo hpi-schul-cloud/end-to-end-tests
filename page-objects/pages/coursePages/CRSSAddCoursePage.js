@@ -1,5 +1,7 @@
 /*[url/courses]/add]*/
 'use strict';
+const dateTimeHelpers = require('../../../runtime/helpers/dateTimeHelpers.js');
+
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 const courseListPage = require('./CRSSCourseListPage');
 const navigationLeftPage = require('../NavigationLeftPage');
@@ -131,8 +133,6 @@ async function createCourse (courseName) {
 	await clickGoToCourseListBtn();
 }
 
-
-
 //Course data section
 async function isCourseNameNotSet() {
 	await isDefaultInputValue(courseNameInput, courseDefaultInputValue);
@@ -233,7 +233,6 @@ module.exports = {
 	isStudentNotSet,
 	areFinalButtonsVisible,
 	setCourseName,
-	setStudent,
 	setTeacher,
 	setCurrentUserAsTeacher,
 	setColour,

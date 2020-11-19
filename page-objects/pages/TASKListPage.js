@@ -65,7 +65,7 @@ async function clickCreateTaskButtonInTheCourse () {
     await elementHelpers.clickAndWait(selectorCreateTaskBtnInTheCourse)
 }
 
-async function sortHometasksLastEdited () {
+async function sortTasksLastEdited () {
     await elementHelpers.click(selectorSortBtn)
     await elementHelpers.click(select)
     await elementHelpers.click(lastedited)
@@ -141,12 +141,12 @@ async function clickDeleteTaskButtonInPopup() {
 
 module.exports = {
     clickCreateTaskButton,
-    sortHometasks: sortHometasksLastEdited,
+    sortTasksLastEdited,
     getListOfTaskTitles,
     getListOfTask,
     clickOnTask,
     isTaskVisible,
-    goToPrivateHomeworkArea: goToPrivateTasksArea,
+    goToPrivateTasksArea,
     clickOnTaskFromList,
     getTaskDescription,
     clickCreateTaskButtonInTheCourse,

@@ -35,6 +35,7 @@ const navItemsEnum = {
 	TRAININGS: 'trainings',
 	CONTACT: 'contact',
 };
+
 const navItemString1stLevel = "[data-testid='XXX']";
 const navItemString2ndLevel =  "li[data-testid='XXX']";
 const navItemLogo = navItemString1stLevel.replace('XXX', 'Startseite');
@@ -55,15 +56,16 @@ const navItemCalendar = navItemString1stLevel.replace('XXX', 'Termine');
 const navItemLearnstore = navItemString1stLevel.replace('XXX', 'Lern-Store');
 const navItemAddons = navItemString1stLevel.replace('XXX', 'Add-ons');
 const navItemHelpDesk = navItemString1stLevel.replace('XXX', 'Helpdesk');
-const navItemAdministration = navItemString1stLevel.replace('XXX', 'Verwaltung');
-const navItemAdministrationStudentsAdmin = navItemString2ndLevel.replace('XXX', 'Schüler');
-const navItemAdministrationStudentsTeacher = navItemString2ndLevel.replace('XXX', 'Schüler:innen');
-const navItemAdministrationTeachersTeacher = '[data-testid="global.sidebar.teacher"]';
-const navItemAdministrationCourses = navItemString2ndLevel.replace('XXX', 'Kurse');
-const navItemAdministrationClassesNuxt = '[data-testid="global.sidebar.classes"]';
-const navItemAdministrationClassesOld = navItemString2ndLevel.replace('XXX', 'Klassen');
-const navItemAdministrationTeams = navItemString2ndLevel.replace('XXX', 'Teams');
-const navItemAdministrationSchool = navItemString2ndLevel.replace('XXX', 'Schule');
+const navItemManagement = navItemString1stLevel.replace('XXX', 'Verwaltung');
+const navItemManagementStudentsAdmin = navItemString2ndLevel.replace('XXX', 'Schüler');
+const navItemManagementStudentsTeacher = navItemString2ndLevel.replace('XXX', 'Schüler:innen');
+const navItemManagementTeachersNuxt = navItemString2ndLevel.replace('XXX', 'Lehrer:innen');
+const navItemManagementTeachersOld = '[data-testid="global.sidebar.teacher"]';
+const navItemManagementCourses = navItemString2ndLevel.replace('XXX', 'Kurse');
+const navItemManagementClassesNuxt = '[data-testid="global.sidebar.classes"]';
+const navItemManagementClassesOld = navItemString2ndLevel.replace('XXX', 'Klassen');
+const navItemManagementTeams = navItemString2ndLevel.replace('XXX', 'Teams');
+const navItemManagementSchool = navItemString2ndLevel.replace('XXX', 'Schule');
 const navItemHelparea = navItemString1stLevel.replace('XXX', 'Hilfebereich');
 const navItemHelparticles = navItemString2ndLevel.replace('XXX', 'Hilfeartikel');
 const navItemHelpTrainings = navItemString2ndLevel.replace('XXX', 'Fortbildungen');
@@ -144,46 +146,47 @@ async function clickNavItemAddons () {
 	await elementHelpers.clickAndWait(navItemAddons);
 }
 
-async function clickNavItemAdministration () {
-	await elementHelpers.clickAndWait(navItemAdministration);
+async function clickNavItemManagement () {
+	await elementHelpers.clickAndWait(navItemManagement);
 }
 
-async function clickNavItemAdminStudents() {
+async function clickNavItemManageStudents () {
 	// For teachers it's called Schüler:innen for admins it's called Schüler
 	try {
-		await elementHelpers.click(navItemAdministrationStudentsAdmin);
+		await elementHelpers.clickAndWait(navItemManagementStudentsAdmin);
 	} catch (e) {
-		await elementHelpers.click(navItemAdministrationStudentsTeacher);
+		await elementHelpers.clickAndWait(navItemManagementStudentsTeacher);
 	}
 }
 
-async function clickNavItemAdminTeachers () {
-	await elementHelpers.clickAndWait(navItemAdministrationTeachersTeacher);
-}
-
-async function clickNavItemAdminCourses () {
-	await elementHelpers.clickAndWait(navItemAdministrationCourses);
-}
-
-async function clickNavItemAdminClasses () {
-	await elementHelpers.clickAndWait(navItemAdministrationClasses);
-}
-
-async function clickNavItemAdminClasses() {
+async function clickNavItemManageTeachers () {
 	// For nuxt and old client
 	try {
-		await elementHelpers.click(navItemAdministrationClassesNuxt);
+		await elementHelpers.clickAndWait(navItemManagementTeachersNuxt);
 	} catch (e) {
-		await elementHelpers.click(navItemAdministrationClassesOld);
+		await elementHelpers.click(navItemManagementTeachersOld);
+}
+}
+
+async function clickNavItemManageCourses () {
+	await elementHelpers.clickAndWait(navItemManagementCourses);
+}
+
+async function clickNavItemManageClasses() {
+	// For nuxt and old client
+	try {
+		await elementHelpers.click(navItemManagementClassesNuxt);
+	} catch (e) {
+		await elementHelpers.click(navItemManagementClassesOld);
 	}
 }
 
-async function clickNavItemAdminTeams () {
-	await elementHelpers.clickAndWait(navItemAdministrationTeams);
+async function clickNavItemManageTeams () {
+	await elementHelpers.clickAndWait(navItemManagementTeams);
 }
 
-async function clickNavItemAdminSchool () {
-	await elementHelpers.clickAndWait(navItemAdministrationSchool);
+async function clickNavItemManageSchool () {
+	await elementHelpers.clickAndWait(navItemManagementSchool);
 }
 
 async function clickNavItemHelpDesk () {
@@ -259,13 +262,13 @@ module.exports = {
 	clickNavItemCalendar,
 	clickNavItemContent,
 	clickNavItemAddons,
-	clickNavItemAdministration,
-	clickNavItemAdminStudents,
-	clickNavItemAdminTeachers,
-	clickNavItemAdminCourses,
-	clickNavItemAdminClasses,
-	clickNavItemAdminTeams,
-	clickNavItemAdminSchool,
+	clickNavItemManagement,
+	clickNavItemManageStudents,
+	clickNavItemManageTeachers,
+	clickNavItemManageCourses,
+	clickNavItemManageClasses,
+	clickNavItemManageTeams,
+	clickNavItemManageSchool,
 	clickNavItemHelpDesk,
 	clickNavItemHelpArea,
 	clickNavItemHelpArticles,

@@ -1,6 +1,5 @@
 /*[url/homework/new] | [url/homework/[homeworkId]/edit]*/
 'use strict';
-const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers.js');
 const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
 const waitHelpers = require('../../runtime/helpers/waitHelpers.js');
 const uploadBtn = '//*[@id="main-content"]/div/section[1]/div/div/div[1]/input';
@@ -37,9 +36,17 @@ async function clickTeamSubmissionsCheckbox() {
 	await elementHelpers.click(teamSubmissionsCheckbox);
 }
 
-async function selectFirstCourseOnTheList() {
-	let dropdown = await waitHelpers.waitUntilElementIsPresent(courseSelect);
-	await dropdown.selectByIndex(0);
+async function clickSubmitTaskBtn () {
+    await elementHelpers.clickAndWait(submitTaskBtn);
+}
+
+async function setTaskCourses(listOfCourses) {
+	const dropdown = await waitHelpers.waitUntilElementIsVisible(courseSelect);
+	if (listOfCourses == 'No assignment') {
+		await dropdown.selectByIndex(0);
+	} else {
+		await elementHelpers.selectOptionByText(courseSelect, listOfCourses);
+	}
 }
 
 async function setTaskName (taskName) {
@@ -50,17 +57,13 @@ async function setTaskText (text) {
     await waitHelpers.waitAndSetValue(taskTextArea, text);
 }
 
-async function setAccomplishTime() {
-	var begin = await dateTimeHelpers.dateToString();
-	var end = await dateTimeHelpers.randomDate();
-	await driver.execute(`document.querySelector("#availableDate").value="${begin}"`);
-	await driver.execute(`document.querySelector("#dueDate").value="${end}"`);
+async function setTaskVisibilityStartDate(dateString) {
+	await driver.execute(`document.querySelector("#availableDate").value="${dateString}"`);
 }
 
-async function clickSubmitTaskBtn () {
-    await elementHelpers.clickAndWait(submitTaskBtn);
+async function setTaskProcessingEndDate(dateString) {
+	await driver.execute(`document.querySelector("#dueDate").value="${dateString}"`);
 }
-
 
 async function uploadTask () {
     //making the upload-element visible to selenium
@@ -74,15 +77,14 @@ async function uploadTask () {
 }
 
 module.exports = {
-clickPrivateHomeworkCheckbox: clickPrivateTaskCheckbox ,
+clickPrivateTaskCheckbox,
 clickPublicSubmissionsCheckbox,
 clickTeamSubmissionsCheckbox,
-clickSubmitHomeworkBtn: clickSubmitTaskBtn,
-selectFirstCourseOnTheList,
-setHomeworkName: setTaskName,
-setHomeworkText: setTaskText,
-setAccomplishTime,
-uploadHomework: uploadTask,
+clickSubmitTaskBtn,
 setTaskName,
-
+setTaskText,
+setTaskCourses,
+setTaskVisibilityStartDate,
+setTaskProcessingEndDate,
+uploadTask,
 }

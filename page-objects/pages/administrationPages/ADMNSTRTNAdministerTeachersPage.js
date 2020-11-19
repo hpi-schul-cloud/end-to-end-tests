@@ -1,1 +1,0 @@
-/*[url/administration/teacher]*/

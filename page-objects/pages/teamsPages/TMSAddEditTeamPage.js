@@ -41,14 +41,14 @@ async function createTeamWithName(teamname, description) {
 	await clickCreateTeamSubmitButton();
 }
 
-async function createTeamAndGoToInternalMembersAdministration(teamname, description) {
+async function createTeamAndGoToInternalMembersManagement(teamname, description) {
 	await createTeamWithName(teamname, description);
 	await TMSGeneralTeamPage.clickSettings();
-	await TMSGeneralTeamPage.clickAdministrateTeamMembers();
+	await TMSGeneralTeamPage.clickManageTeamMembers();
 	await TMSTeamMembersPage.clickAddInternalAttendeesBtn();
 }
 
 module.exports = {
 	createTeamWithName,
-	createTeamAndGoToInternalMembersAdministration,
+	createTeamAndGoToInternalMembersManagement,
 };
