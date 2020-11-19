@@ -11,5 +11,5 @@ Feature: Set of tests to manage school
 		And <userRole> should not be able to get information about students from other schools on request
 		And <userRole> should be given a empty object
 		Examples:
-			| userRole | username                     | password       |
-			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! |
+			| userRole | username                         | password       |
+			| admin    | olivier.admin.qa@schul-cloud.org | Schulcloud1qa! |

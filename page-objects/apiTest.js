@@ -18,7 +18,7 @@ async function getJwt() {
 async function getStudentsFromSameSchoolAndVerify() {
     // fake user data can be found in schul-cloud-server repo
     // 'backup/setup/users.json'
-    const studentsFromSameSchool = ["Amelia", "Boris"]
+    const studentsFromSameSchool = ["Ole", "Stefan", "Polly", "Fabian"]
 
     const jwt = await getJwt()
     const allStudents = await Api.getStudentsAsAdmin(jwt)
