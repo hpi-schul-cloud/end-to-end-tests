@@ -17,6 +17,12 @@ Given(/^.* logs in with email '([^']*)' and password '([^']*)'$/, async function
 	await loginPage.performLogin(username, password);
 });
 
+Given(/^.* clicks on Forgot Password using email '([^']*)'$/, async function (email) {
+	await startPage.clickLoginBtn();
+	await loginPage.clickForgotPasswordBtn();
+	await loginPage.FillEmailInputAndReset(email);
+});
+
 Then(
 	/^.* logs in with email '([^']*)' and password genarated by admin during manual submission of consent$/,
 	async function (username) {
