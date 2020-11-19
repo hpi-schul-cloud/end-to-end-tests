@@ -1,7 +1,7 @@
 @courses @copyCourse
-Feature: Copy a created course with different data
+Feature: Set of tests to copy courses
 
-	Background:
+	Background: User opens Schul-cloud homepage Website
 		Given user arrives on the Schul-Cloud homepage
 
 	@simpleCopyCourse
