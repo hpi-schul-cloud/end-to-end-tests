@@ -7,10 +7,8 @@ Feature: dashboard test set
 	@showPrivateTaskOnDashboard
 	Scenario Outline: As a user I want to be able to see private homework on dashboard
 		When <userRole> logs in
-		# And <userRole> performs first login actions: data protection acceptance
 		And <userRole> goes to courses page
 		When <userRole> chooses course with name '<courseName>'
-		# When <userRole> creates course with name '<courseName>' and student '<studentName>'
 		And <userRole> clicks Create-a-task button in the course '<courseName>'
 		And <userRole> sets task name '<taskName>' in task form
 		And <userRole> sets Task-visibility-start-date: today, 00:00
