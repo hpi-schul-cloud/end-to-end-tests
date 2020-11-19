@@ -12,7 +12,7 @@ Feature: Set of tests to search courses
         Then <userRole> should see that course with name '<courseName>' is visible on the list
         Examples:
             | userRole | username                         | password       | courseName |
-            | teacher  | karl.teacher.qa@schul-cloud.org  | Schulcloud1qa! | Mathe      |
+            | teacher  | karl.teacher.qa@schul-cloud.org  | Schulcloud1qa! | Biologie   |
             | student  | amelia.strobl.qa@schul-cloud.org | Schulcloud1qa! | German     |
 
     @searchCourseAndDontFindOne
