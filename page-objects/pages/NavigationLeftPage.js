@@ -145,6 +145,7 @@ async function clickNavItemAddons () {
 }
 
 async function clickNavItemManagement () {
+	await waitHelpers.waitUntilPageLoads();
 	await elementHelpers.clickAndWait(navItemManagement);
 }
 

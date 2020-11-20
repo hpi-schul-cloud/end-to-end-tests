@@ -6,6 +6,7 @@ const waitHelpers = require('../../../runtime/helpers/waitHelpers');
 const navigationLeftPage = require('../NavigationLeftPage');
 const teamNameContainer = '.tasks .title';
 const addTeamBtn = "[data-testid='add-team-btn']";
+const addTeamWhenZeroTeamsBtn = "a.btn-add";
 const teamColor = 'background:#FFAD42';
 const teamWrapper = '.section-teams .sc-card-wrapper';
 const teamTitleSel = '.title';
@@ -18,12 +19,13 @@ const teamDescription = '.ckcontent';
 async function goToTeams() {
 	return navigationLeftPage.clickNavItemTeams();
 }
-async function clickOnFirstTeam() {
-	return elementHelpers.clickAndWait(teamWrapper);
-}
 
 async function clickAddTeamBtn() {
-	await elementHelpers.clickAndWait(addTeamBtn);
+	try {
+		await elementHelpers.clickAndWait(addTeamBtn);
+	} catch (e) {
+		await elementHelpers.clickAndWait(addTeamWhenZeroTeamsBtn);
+	}
 }
 
 async function getListOfTeamNames() {
@@ -137,5 +139,4 @@ module.exports = {
 	isTeamMemberNumber,
 	areMembersOnTheList: areTeamMembersOnTheList,
 	getTeamMemberIcon,
-	clickOnFirstTeam,
 };
