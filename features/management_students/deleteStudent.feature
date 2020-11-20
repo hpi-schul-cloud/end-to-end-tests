@@ -34,7 +34,7 @@ Feature: Set of tests to delete students
 		Then <userRole> should see that user with email '<studentUsername>' is not visible on the list
 		When <userRole> logs out
 		And <deletedUserRole> clicks on Forgot Password using email '<studentUsername>'
-		Then forgot password reset email was not sent to '<studentUsername>'
+		Then forgot password email was not sent to '<studentUsername>'
 		Examples:
 			| userRole | adminUsername                | adminPassword  | studentUsername                  |  deletedUserRole |
 			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | amelia.strobl.qa@schul-cloud.org |  student         |
