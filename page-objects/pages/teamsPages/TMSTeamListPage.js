@@ -116,12 +116,14 @@ async function getListOfTeamMembers() {
 	return elementHelpers.getTextFromAllElements(listOfMembersSel);
 }
 
-async function areTeamMembersOnTheList(listOfMembers) {
+async function areTeamMembersOnTheList(listOfMembers, expectedResult) {
 	let actualListOfTeamMembers = await getListOfTeamMembers();
 	listOfMembers = listOfMembers.split(',');
 	const msg = `Members: ${actualListOfTeamMembers} should be visible on the list \n`;
 	const resultMsg = `Actual list of team members: ${actualListOfTeamMembers}`;
-	expect(actualListOfTeamMembers, msg + resultMsg).to.have.members(listOfMembers);
+	expectedResult
+		? 	expect(actualListOfTeamMembers, msg + resultMsg).to.have.members(listOfMembers)
+		: 	expect(actualListOfTeamMembers, msg + resultMsg).to.not.have.members(listOfMembers);
 }
 
 async function clickMemberIconInTeam(teamName) {
@@ -137,6 +139,6 @@ module.exports = {
 	isTeamDescription,
 	isTeamOnList,
 	isTeamMemberNumber,
-	areMembersOnTheList: areTeamMembersOnTheList,
+	areTeamMembersOnTheList,
 	getTeamMemberIcon,
 };

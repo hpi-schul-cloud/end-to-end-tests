@@ -40,8 +40,14 @@ Then(/^.*team with name '([^']*)', colour '([^']*)' and  member number '([^']*)'
 	await TMSTeamListPage.isTeamMemberNumber(teamName, memberCount);
 });
 
-Then(
-	/^.*team members: '([^']*)' are listed$/,  async function (listOfMembers) {
-		await TMSTeamListPage.areMembersOnTheList(listOfMembers);
-	}
-);
+Then(/^.*team members: '([^']*)' are listed$/,  async function (listOfMembers) {
+		await TMSTeamListPage.areTeamMembersOnTheList(listOfMembers, true);
+});
+
+Then(/^.*team members: '([^']*)' are not listed$/,  async function (listOfMembers) {
+	await TMSTeamListPage.areTeamMembersOnTheList(listOfMembers, false);
+});
+
+Then(/^.* goes to Teams Page$/, async function () {
+	await TMSTeamListPage.goToTeams();
+});
