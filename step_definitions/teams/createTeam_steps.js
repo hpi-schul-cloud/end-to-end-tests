@@ -12,6 +12,13 @@ When(/^.*creates a new team with name '([^']*)' and description '([^']*)' and co
 When(/^.*adds a student to team with lastname: '([^']*)' and firstname: '([^']*)'$/, async function (lastname, firstname) {
 	await TMSTeamMembersPage.addTeamAttendee(lastname, firstname);
 });
+And(/^.* click on first Team$/, async function () {
+	await TMSTeamListPage.clickOnFirstTeam();
+});
+
+And(/^.* goes to Teams Page$/, async function () {
+	await TMSTeamListPage.goToTeams();
+});
 
 When(/^.*clicks Submit-add-team-member button$/, async function () {
 	await TMSTeamMembersPage.clickSubmitAddTeamAttendeeBtn();

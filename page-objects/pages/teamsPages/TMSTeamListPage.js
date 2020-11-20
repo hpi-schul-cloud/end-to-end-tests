@@ -18,6 +18,9 @@ const teamDescription = '.ckcontent';
 async function goToTeams() {
 	return navigationLeftPage.clickNavItemTeams();
 }
+async function clickOnFirstTeam() {
+	return elementHelpers.clickAndWait(teamWrapper);
+}
 
 async function clickAddTeamBtn() {
 	await elementHelpers.clickAndWait(addTeamBtn);
@@ -134,4 +137,5 @@ module.exports = {
 	isTeamMemberNumber,
 	areMembersOnTheList: areTeamMembersOnTheList,
 	getTeamMemberIcon,
+	clickOnFirstTeam,
 };
