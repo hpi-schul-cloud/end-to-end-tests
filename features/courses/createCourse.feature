@@ -7,7 +7,6 @@ Feature: Set of tests to create courses
     @createSimpleCourse
     Scenario Outline: As a user, I want to be able to create first course
         Given <userRole> logs in with email '<userName>' and password '<password>'
-        And <userRole> performs first login actions: data protection acceptance
         And <userRole> goes to courses page
         When <userRole> clicks Create-new-course button
         And <userRole> enters course name '<courseName>' into new course form
@@ -18,13 +17,12 @@ Feature: Set of tests to create courses
         And <userRole> clicks Go-to-course-list button
         Then <userRole> should see that course with name '<courseName>' is visible on the list
         Examples:
-            | userRole | userName                   | password     | courseName | courseColour |
-            | teacher  | klara.fall@schul-cloud.org | Schulcloud1! | Mathe      | corn         |
+            | userRole | userName                        | password       | courseName | courseColour |
+            | teacher  | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | Ballet     | corn         |
 
     @createCourseCorrectly
     Scenario Outline: As a user, I want to be able to submit compulsory fields by creating the course
         Given <userRole> logs in with email '<userName>' and password '<password>'
-        And <userRole> performs first login actions: data protection acceptance
         And <userRole> goes to courses page
         When <userRole> clicks Create-new-course button
         #Then teacher should see that his his/hers name is entered by default in teachers' field (to be restored after SC-7152)
@@ -47,13 +45,12 @@ Feature: Set of tests to create courses
         And <userRole> should see that course with name '<courseName>' is displayed correctly on the list
         And <userRole> should see that color of the course with name '<courseName>' is '<courseColour>' that was selected during the creation process
         Examples:
-            | userRole | userName                   | password     | courseName        | courseColour |
-            | teacher  | klara.fall@schul-cloud.org | Schulcloud1! | Mathe@Sport&Music | corn         |
+            | userRole | userName                        | password       | courseName        | courseColour |
+            | teacher  | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | Mathe@Sport&Music | corn         |
 
     @createCourseWithStudent
     Scenario Outline: As a user, I want to be able to create a course that student should see
         Given <userRole> logs in with email '<username>' and password '<password>'
-        And <userRole> performs first login actions: data protection acceptance
         And <userRole> creates course with name '<courseName>' and student '<studentName>'
         And <userRole> sees that course with name '<courseName>' contains number of members '<membersNumber>'
         And <userRole> clicks on members icon in course with name '<courseName>'
@@ -61,9 +58,8 @@ Feature: Set of tests to create courses
         When <userRole> closes member modal window
         And <userRole> logs out
         And <userRole> '<studentName>' logs in with email '<studentLogin>' and password '<password>'
-        And <userRole> performs first login actions: data protection acceptance
         And <userRole> goes to courses page
         Then <userRole> should see that course with name '<courseName>' is visible on the list
         Examples:
-            | userRole | courseName | studentName         | username               | password     | studentLogin                        | membersNumber |
-            | teacher  | Sport      | Waldemar Wunderlich | lehrer@schul-cloud.org | Schulcloud1! | waldemar.wunderlich@schul-cloud.org | 1             |
+            | userRole | courseName | studentName    | username                        | password       | studentLogin                     | membersNumber |
+            | teacher  | Ballet     | Amelia Strobl	 | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | amelia.strobl.qa@schul-cloud.org | 1             |

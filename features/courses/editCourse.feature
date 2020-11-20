@@ -7,7 +7,6 @@ Feature: Set of tests to edit courses
     @editSimpleCourse
     Scenario Outline: As a user, I want to be able to edit a course
         Given <userRole> logs in with email '<userName>' and password '<password>'
-        And <userRole> performs first login actions: data protection acceptance
         And <userRole> goes to courses page
         And <userRole> sees that course with name '<courseName>' is visible on the list
         When <userRole> chooses course with name '<courseName>'
@@ -21,5 +20,5 @@ Feature: Set of tests to edit courses
         And <userRole> should see that course name '<changeName>' with description correctly displayed '<description>'
         And <userRole> should see that course name '<changeName>' with color correctly displayed '<courseColour>'
         Examples:
-            | userRole | userName               | password     | courseName | courseColour | changeName | description |
-            | teacher  | lehrer@schul-cloud.org | Schulcloud1! | Mathe      | corn         | Biologie   | I LIKE BIO  |
+            | userRole | userName                        | password       | courseName | courseColour | changeName | description |
+            | teacher  | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | Mathe      | corn         | Sport      | I LIKE IT   |
