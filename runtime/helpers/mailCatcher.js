@@ -6,8 +6,7 @@ const waitHelpers = require('./waitHelpers.js');
 async function receiveEmails() {
 	let res = await axios.get(mailCatcherAPI)
 		.then(() => {
-			let data = res.data;
-			return data;
+			return res.data;
 		})
 		.catch(() => {
 			return [];
