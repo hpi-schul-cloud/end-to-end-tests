@@ -7,11 +7,8 @@ Feature: Set of tests to delete topics
     @deleteSimpleTopic
     Scenario Outline: As a user, I want to be able to delete a topic
         When <userRole> logs in with email '<username>' and password '<password>'
-        And <userRole> performs first login actions: data protection acceptance
         When <userRole> goes to courses page
         And <userRole> chooses course with name '<courseName>'
-        And <userRole> adds a topic with name '<topicName>'
-        And <userRole> clicks Save-changes button
         Then <userRole> should see that topic with name '<topicName>' is visible on the list
         When <userRole> adds a topic with name '<secondTopicName>'
         And <userRole> clicks Save-changes button
@@ -20,6 +17,6 @@ Feature: Set of tests to delete topics
         And <userRole> clicks on Delete topic button
         Then <userRole> should see that topic with name '<topicName>' is not visible on the list
         Examples:
-            | userRole | username               | password     | courseName | topicName      | secondTopicName | contentText     |
-            | teacher  | lehrer@schul-cloud.org | Schulcloud1! | Mathe      | Multiplication | Addition        | Math operations |
+            | userRole | username                        | password       | courseName | topicName      | secondTopicName |
+            | teacher  | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | English    | Grammatik      | Addition        |
 

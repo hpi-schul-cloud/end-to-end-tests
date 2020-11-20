@@ -18,7 +18,7 @@ async function getJwt() {
 async function getStudentsFromSameSchoolAndVerify() {
     // fake user data can be found in schul-cloud-server repo
     // 'backup/setup/users.json'
-    const studentsFromSameSchool = ["Marla", "Waldemar"]
+    const studentsFromSameSchool = ["Ole", "Stefan", "Polly", "Fabian"]
 
     const jwt = await getJwt()
     const allStudents = await Api.getStudentsAsAdmin(jwt)
@@ -46,7 +46,7 @@ async function requestForeignStudentAndVerify() {
     // fake user data can be found in schul-cloud-server repo
     // 'backup/setup/users.json'
 
-    const adminSchoolId = "5f2987e020834114b8efd6f8"
+    const adminSchoolId = "5fa318f2b229544f2c697a56"
     const jwt = await getJwt()
     const foreignStudentId = "59ae89b71f513506904e1cc9"
 
@@ -55,7 +55,7 @@ async function requestForeignStudentAndVerify() {
     expect(user2.data).to.deep.equal({})
 
     const newFakeUser = {
-        schoolId: '5f2987e020834114b8efd6f8',
+        schoolId: '5fa318f2b229544f2c697a56',
         roles: ['student'],
         firstName: 'Jarle',
         lastName: 'Moe',
