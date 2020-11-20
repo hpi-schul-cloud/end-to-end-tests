@@ -7,7 +7,6 @@ Feature: Set of tests to copy courses
     @createSimpleTopic
     Scenario Outline: As a user I want to be able to create a new topic in course
         Given <userRole> logs in with email '<username>' and password '<password>'
-        And <userRole> performs first login actions: data protection acceptance
         And <userRole> goes to courses page
         When <userRole> chooses course with name '<courseName>'
         And <userRole> adds a topic with name '<topicName>'
@@ -16,15 +15,13 @@ Feature: Set of tests to copy courses
         When <userRole> clicks on topic with name '<topicName>'
         Then <userRole> should see that topic title is '<topicName>'
         Examples:
-            | userRole | username               | password     | courseName | topicName |
-            | teacher  | lehrer@schul-cloud.org | Schulcloud1! | Mathe      | Division  |
+            | userRole | username                        | password       | courseName | topicName |
+            | teacher  | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | Mathe      | Division  |
 
     @createTopicWithContent
     Scenario Outline: As a user, I want to be able to copy course with certain text
         Given <userRole> logs in
-        And <userRole> performs first login actions: data protection acceptance
         And <userRole> goes to courses page
-        And <userRole> creates course with name '<courseName>'
         And <userRole> chooses course with name '<courseName>'
         When <userRole> adds a topic with name '<topicName>'
         And <userRole> adds content <contentType> with title '<contentTitle>' and description '<contentDescription>'
@@ -32,10 +29,10 @@ Feature: Set of tests to copy courses
         And <userRole> goes to courses page
         Then <userRole> should see that copied course with name '<courseName>' contains topic with name '<topicName>'
         Examples:
-            | userRole | courseName             | topicName         | contentType | contentTitle          | contentDescription        |
-            | teacher  | sample course          | sample topic name | Text        | test text content     | test description          |
-            | teacher  | sample course etherpad | etherpad topic    | Etherpad    | etherpad name         | etherpad description here |
-            | teacher  | sample course geo      | geo topic         | GeoGebra    | some sample text here | ucxngdjf                  |
+            | userRole | courseName | topicName         | contentType | contentTitle          | contentDescription        |
+            | teacher  | Mathe      | sample topic name | Text        | test text content     | test description          |
+            | teacher  | Mathe      | etherpad topic    | Etherpad    | etherpad name         | etherpad description here |
+            | teacher  | Mathe      | geo topic         | GeoGebra    | some sample text here | ucxngdjf                  |
 
 #	@createTopicWithMaterial
 #	Scenario Outline: As a user, I want to be able to copy course with certain Material
