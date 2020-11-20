@@ -21,11 +21,6 @@ async function clickSubmitAddTeamAttendeeBtn() {
 	await elementHelpers.clickAndWait(addAttendeeSubmitBtn);
 }
 
-async function getUsersDetailsList(whichCell) {
-	let names = await elementHelpers.getTextFromAllElements(whichCell);
-	return names;
-}
-
 module.exports = {
 	clickAddInternalAttendeesBtn,
 	addTeamAttendee,
