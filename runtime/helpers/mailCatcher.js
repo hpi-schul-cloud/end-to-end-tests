@@ -25,7 +25,7 @@ async function isEmailReceived(msg, expectedResult) {
 	}
 	expectedResult
 		? expect(recipientEmails, 'Received Emails').to.include(msg)
-		: expect(recipientEmails, 'Received Emails').to.not.include(msg);
+		: expect(email).to.be.equal([]);
 
 	await deleteAllEmails();
 }
