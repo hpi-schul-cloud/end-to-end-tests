@@ -22,6 +22,28 @@ Feature: Set of tests to delete students
             | userRole | adminUsername                | adminPassword  | studentUsername                  | studentPassword | deletedUserRole |
             | admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | amelia.strobl.qa@schul-cloud.org | Schulcloud1qa!  | student         |
 
+
+@deletedStudentIsNotVisibleInTeam
+	Scenario Outline: As an admin, I want to be able to delete the user and he will be no longer listed in team members
+		Given <userAdmin> logs in with email '<adminUsername>' and password '<adminPassword>'
+		And <userAdmin> login is successful
+		When <userAdmin> creates a new team with name '<teamName>' and description '<description>' and color orange
+		And <userAdmin> adds a student to team with lastname: '<lastName>' and firstname: '<firstName>'
+		And <userAdmin> clicks Submit-add-team-member button
+		Then <userAdmin> sees that team with name '<teamName>', colour '<orange>' and  member number '<number>' is visible on the list
+		And <userAdmin> goes to management
+		And <userAdmin> goes to students management
+		When <userAdmin> clicks Edit-student with '<studentUserName>' button
+		And <userAdmin> clicks Delete-user button
+		And <userAdmin> clicks Delete-user button inside popup
+		Then <userAdmin> goes to Teams Page
+		When <userAdmin> clicks on Member icon in team with name '<teamName>'
+		Then should see that team members: '<firstName> <lastName>' are not listed
+
+		Examples:
+			| userAdmin | adminUsername                | adminPassword  | studentUserName 				  | firstName | lastName | teamName  | description      | orange  | number |
+			| admin     | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | boris.wasser.qa@schul-cloud.org | Boris	  | Wasser   | test team | test description | #ffad42 | 2      |
+
 	@deletedStudentCanNotUseForgotPassword
 	Scenario Outline: As an admin, I want to be able to delete the user
 		Given <userRole> logs in with email '<adminUsername>' and password '<adminPassword>'
