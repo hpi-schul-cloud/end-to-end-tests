@@ -50,7 +50,7 @@ async function isElementOnTaskVisible(elementName, taskName, selector, expectedV
 	let elementOfTask = true;
 	const taskIndex = await getIndexOfTaskFromList(taskName);
 	const elementsOfTaskList = await elementHelpers.getListOfAllElements(selector);
-	elementsOfTaskList.length === 0 ? elementOfTask = false : elementOfTask = !!(await waitHelpers.waitUntilElementIsPresent(elementsOfTaskList[taskIndex]));
+	elementsOfTaskList.length === 0 || elementsOfTaskList.length <= taskIndex ? elementOfTask = false : elementOfTask = !!(await waitHelpers.waitUntilElementIsPresent(elementsOfTaskList[taskIndex]));
 
 	const msg = expectedValue
 		? `${defaultString} should be visible on the task`
