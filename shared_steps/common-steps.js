@@ -1,4 +1,6 @@
 'use strict';
+import * as mailCatcher from "../runtime/helpers/mailCatcher";
+
 const { CLIENT } = require('../shared-objects/servers');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
@@ -21,6 +23,10 @@ Given(/^.* clicks on Forgot Password using email '([^']*)'$/, async function (em
 	await startPage.clickLoginBtn();
 	await loginPage.clickForgotPasswordBtn();
 	await loginPage.FillEmailInputAndReset(email);
+});
+
+Then(/^forgot password reset email was not sent to '([^']*)'$/, async function (email) {
+	await mailCatcher.isEmailReceived(email, false);
 });
 
 Then(

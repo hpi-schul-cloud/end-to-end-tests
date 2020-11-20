@@ -14,7 +14,7 @@ async function deleteAllEmails() {
 	return res.status;
 }
 
-async function isEmailReceived(msg) {
+async function isEmailReceived(msg, expectedResult) {
 	await deleteAllEmails();
 	await waitHelpers.waitUntilEmailIsSent();
 	let email = await receiveEmails();
@@ -23,7 +23,10 @@ async function isEmailReceived(msg) {
 	for (let i = 0; i < email.length; i++) {
 		recipientEmails += email[i]['recipients'];
 	}
-	expect(recipientEmails, 'Received Emails').to.include(msg);
+	expectedResult
+		? expect(recipientEmails, 'Received Emails').to.include(msg)
+		: expect(recipientEmails, 'Received Emails').to.not.include(msg);
+
 	await deleteAllEmails();
 }
 

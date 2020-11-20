@@ -50,5 +50,5 @@ Then(/^.* student birthdate is '([^']*)'$/, async function (birthdate) {
 });
 
 Then(/^email is sent to '([^']*)' students without a full declaration of consent$/, async function (studentEMail) {
-	await mailCatcher.isEmailReceived(studentEMail);
+	await mailCatcher.isEmailReceived(studentEMail, true);
 });
