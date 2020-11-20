@@ -49,7 +49,7 @@ async function areImportAndCreateCourseBtnsVisible() {
 async function isCourseDisplayedCorrectlyInSection(courseName, section) {
 	const listOfCourseTitlesForSection = await getListOfCourseTitlesInSection(section);
 	const msg = "Course with name: '" + courseName + "' is not last on the list: " + listOfCourseTitlesForSection;
-	expect(listOfCourseTitlesForSection[listOfCourseTitlesForSection.length - 1], msg).to.equal(courseName);
+	expect(listOfCourseTitlesForSection , msg).to.includes(courseName);
 }
 
 async function isCourseOnListInSection(coursename, section) {

@@ -9,5 +9,5 @@ Feature: Set of tests to login with wrong password
 		When <userRole> logs in with email '<username>' and password '<wrongPassword>'
 		Then <userRole> login must fail
 		Examples:
-			| userRole | username              | wrongPassword            |
-			| admin    | admin@schul-cloud.org | wrongPasswordPlaceholder |
+			| userRole | username                     | wrongPassword            |
+			| admin    | kai.admin.qa@schul-cloud.org | wrongPasswordPlaceholder |
