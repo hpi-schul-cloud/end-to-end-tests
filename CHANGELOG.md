@@ -10,6 +10,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+- SC-7735 - Deleted User Tests for Removed user in not visible in team anymore
 - SC-7059 - DeletionConcept Tests
 - OPS-1297 - Added Changelog github action
 - SC-7571 - sendConsentFormEmail adjusted
