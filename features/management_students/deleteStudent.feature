@@ -31,7 +31,6 @@ Feature: Set of tests to delete students
 		When <userRole> clicks Edit-student with '<studentUsername>' button
 		And <userRole> clicks Delete-user button
 		And <userRole> clicks Delete-user button inside popup
-		Then <userRole> should see that user with email '<studentUsername>' is not visible on the list
 		When <userRole> logs out
 		And <deletedUserRole> clicks on Forgot Password using email '<studentUsername>'
 		Then forgot password email was not sent to '<studentUsername>'
