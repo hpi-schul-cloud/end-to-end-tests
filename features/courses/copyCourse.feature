@@ -21,7 +21,7 @@ Feature: Set of tests to copy courses
             | userRole | courseName                 |
             | teacher  | sample course to be cloned |
 
-    @copyCourseWithDescription
+    @copyCourseWithContent
     Scenario Outline: As a user, I want to be able to copy course with certain text
         Given <userRole> logs in
         And <userRole> performs first login actions: data protection acceptance

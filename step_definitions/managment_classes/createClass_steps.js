@@ -6,7 +6,7 @@ When(/^.* goes to management$/, async function () {
 	await navigationLeftPanel.clickNavItemManagement();
 });
 
-Given(/^.* goes to Manage classes$/, async function () {
+Given(/^.* goes to class management$/, async function () {
 	await navigationLeftPanel.clickNavItemManageClasses();
 });
 
