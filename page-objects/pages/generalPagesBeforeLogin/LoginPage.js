@@ -8,7 +8,7 @@ const usernameInput = 'section#loginarea input[data-testid="username"]';
 const passwordInput = 'section#loginarea input[data-testid="password"]';
 const loginBtn = 'input[data-testid="submit-login"]';
 const forgotPasswordBtn = 'a.submit-pwrecovery';
-const forgotPasswordEmailInput = '.modal-body > .form-group > input.form-control';
+const fillEmailInputResetPassword = '.modal-body input.form-control';
 const resetPasswordBtn = '.modal-footer > button.btn-submit';
 
 const nextSectionBtn = '#nextSection';
@@ -68,7 +68,7 @@ async function clickForgotPasswordBtn() {
 }
 
 async function FillEmailInputAndReset(email) {
-	await waitHelpers.waitAndSetValue(forgotPasswordEmailInput, email);
+	await waitHelpers.waitAndSetValue(fillEmailInputResetPassword, email);
 	await elementHelpers.clickAndWait(resetPasswordBtn)
 }
 
