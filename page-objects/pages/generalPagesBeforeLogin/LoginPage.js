@@ -14,26 +14,24 @@ const resetPasswordBtn = '.modal-footer > button.btn-submit';
 const nextSectionBtn = '#nextSection';
 const wrongLoginNotificationContainer = '.notification-content';
 
-const defaultPassword = 'Schulcloud1!';
+const defaultPassword = 'Schulcloud1qa!';
 const defaultNewPassword = 'NewPwSchulcloud1!';
 const users = {
 	teachers: {
-		klaraFallUsername: 'klara.fall@schul-cloud.org',
-		klaraFallPassword: defaultPassword,
-		cordCarlUsername: 'lehrer@schul-cloud.org',
-		cordCarlPassword: defaultPassword,
+		karlHerzogUsername: 'karl.teacher.qa@schul-cloud.org',
+		karlHerzogPassword: defaultPassword,
 	},
 
 	admins: {
-		thorstenTestUsername: 'admin@schul-cloud.org',
-		thorstenTestPassword: defaultPassword,
+		kaiPreetzUsername: 'kai.admin.qa@schul-cloud.org',
+		kaiPreetzPassword: defaultPassword,
 	},
 
 	students: {
 		fritzSchmidtUsername: 'demo-schueler@schul-cloud.org',
 		fritzSchmidtPassword: 'schulcloud',
-		paulaMayerUsername: 'paula.meyer@schul-cloud.org',
-		paulaMayerPassword: defaultPassword,
+		borisWasserUsername: 'boris.wasser.qa@schul-cloud.org',
+		borisWasserPassword: defaultPassword,
 	},
 };
 

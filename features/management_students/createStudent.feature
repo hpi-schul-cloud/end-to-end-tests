@@ -8,7 +8,6 @@ Feature: Set of tests to create students
 	@createNewStudent
 	Scenario Outline: As a user, I want to be able to create a student
 		Given <userRole> logs in with email '<username>' and password '<password>'
-		And '<userRole>' performs first login actions
 		And <userRole> goes to management
 		And <userRole> goes to students management
 		When <userRole> set student firstname '<firstName>', lastname '<secondName>', email '<studentEmail>'
@@ -18,5 +17,5 @@ Feature: Set of tests to create students
 		And student logs in with email '<studentEmail>' and password genarated by admin during manual submission of consent
 		Then student should see that data protection is already accepted and performs first login actions: password change '<newPasswordStudent>'
 		Examples:
-			| userRole | firstName | secondName | studentEmail              | username              | password     | newPasswordStudent |
-			| admin    | Georg     | Georgmann  | georgmann@schul-cloud.org | admin@schul-cloud.org | Schulcloud1! | Schulcloud1!!      |
+			| userRole | firstName | secondName | studentEmail              | username                     | password       | newPasswordStudent |
+			| admin    | Georg     | Georgmann  | georgmann@schul-cloud.org | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | Schulcloud1!!      |

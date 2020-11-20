@@ -40,24 +40,24 @@ Then(
 Given(/^teacher logs in$/, async function () {
 	await startPage.clickLoginBtn();
 	await loginPage.performLogin(
-		loginPage.users.teachers.klaraFallUsername,
-		loginPage.users.teachers.klaraFallPassword
+		loginPage.users.teachers.karlHerzogUsername,
+		loginPage.users.teachers.karlHerzogPassword
 	);
 });
 
 Given(/^admin logs in$/, async function () {
 	await startPage.clickLoginBtn();
 	await loginPage.performLogin(
-		loginPage.users.admins.thorstenTestUsername,
-		loginPage.users.admins.thorstenTestPassword
+		loginPage.users.admins.kaiPreetzUsername,
+		loginPage.users.admins.kaiPreetzPassword
 	);
 });
 
 Given(/^student logs in$/, async function () {
 	await startPage.clickLoginBtn();
 	await loginPage.performLogin(
-		loginPage.users.students.paulaMayerUsername,
-		loginPage.users.students.paulaMayerPassword
+		loginPage.users.students.borisWasserUsername,
+		loginPage.users.students.borisWasserPassword
 	);
 });
 

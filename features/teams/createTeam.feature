@@ -7,7 +7,6 @@ Feature: Set of tests to create teams
 	@createTeamWithTwoMembers
 	Scenario Outline: As a user, I want to be able to create a team with two new members
 		Given <userRole> logs in with email '<username>' and password '<password>'
-		And <userRole> performs first login actions: data protection acceptance
 		When <userRole> creates a new team with name '<teamName>' and description '<description>' and color orange
 		And <userRole> adds a student to team with lastname: '<lastName1>' and firstname: '<firstName1>'
 		And <userRole> adds a student to team with lastname: '<lastName2>' and firstname: '<firstName2>'
@@ -16,5 +15,5 @@ Feature: Set of tests to create teams
 		When <userRole> clicks on Member icon in team with name '<teamName>'
 		Then <userRole> should see that team members: '<teacherName>,<firstName1> <lastName1>,<firstName2> <lastName2>' are listed
 		Examples:
-			| userRole | username               | password     | teamName  | description      | teacherName | firstName1 | lastName1 | firstName2 | lastName2  | colour  | number |
-			| teacher  | lehrer@schul-cloud.org | Schulcloud1! | test team | test description | Cord Carl   | Marla      | Mathe     | Waldemar   | Wunderlich | #ffad42 | 3      |
+			| userRole | username               		 | password       | teamName  | description      | teacherName | firstName1 | lastName1 | firstName2 | lastName2  | colour  | number |
+			| teacher  | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | test team | test description | Karl Herzog | Boris      | Wasser    | Herbert    | Kraft      | #ffad42 | 3      |
