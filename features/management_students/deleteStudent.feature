@@ -36,10 +36,10 @@ Feature: Set of tests to delete students
 		And <userAdmin> clicks Delete-user button
 		And <userAdmin> clicks Delete-user button inside popup
 		Then <userAdmin> goes to Teams Page
-		When <userRole> clicks on Member icon in team with name '<teamName>'
+		When <userAdmin> clicks on Member icon in team with name '<teamName>'
 		Then should see that team members: '<firstName> <lastName>' are not listed
 
 		Examples:
 			| userAdmin | adminUsername                | adminPassword  | studentUserName 				  | firstName | lastName | teamName  | description      | orange  | number |
-			|admin      | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | boris.wasser.qa@schul-cloud.org | Boris	  | Wasser   | test team | test description | #ffad42 | 2      |
+			| admin     | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | boris.wasser.qa@schul-cloud.org | Boris	  | Wasser   | test team | test description | #ffad42 | 2      |
 
