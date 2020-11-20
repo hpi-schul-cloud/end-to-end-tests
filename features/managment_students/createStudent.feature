@@ -20,3 +20,8 @@ Feature: Set of tests to create students
 		Examples:
 			| userRole | firstName | secondName | studentEmail              | username              | password     | newPasswordStudent |
 			| admin    | Georg     | Georgmann  | georgmann@schul-cloud.org | admin@schul-cloud.org | Schulcloud1! | Schulcloud1!!      |
+
+	@createNewStudentU14
+	Scenario Outline: As a user, I want to create a student under 14 who can register with parents
+		Given <userRole> logs in with email '<username>' and password '<password>'
+		And '<userRole>' performs first login actions

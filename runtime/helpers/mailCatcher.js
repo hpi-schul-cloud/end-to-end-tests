@@ -15,7 +15,6 @@ async function deleteAllEmails() {
 }
 
 async function isEmailReceived(msg) {
-	await deleteAllEmails();
 	await waitHelpers.waitUntilEmailIsSent();
 	let email = await receiveEmails();
 	let recipientEmails = [];
