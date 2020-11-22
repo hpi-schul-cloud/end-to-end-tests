@@ -10,6 +10,8 @@ Scenario Outline: teacher can add material to topic of course from content detai
 When <userRole> logs in
 And <userRole> goes to courses page
 And <userRole> creates course with name '<courseName>'
+And <userRole> goes to courses page
+And <userRole> chooses course with name '<courseName>'
 And <userRole> adds a topic with name '<topicName>'
 And <userRole> adds some Lerstore material with <lerstoreTopicName> to the course
 Then <userRole> must be redirected to content page
