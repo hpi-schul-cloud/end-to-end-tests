@@ -4,17 +4,17 @@
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 
 const teamSettings = 'a[data-testid="team_settings"]';
-const administrateTeamMembers = 'a[data-testid="administrate_team_members"]';
+const manageTeamMembers = 'a[data-testid="administrate_team_members"]';
 
 async function clickSettings() {
 	await elementHelpers.clickAndWait(teamSettings);
 }
 
-async function clickAdministrateTeamMembers() {
-	await elementHelpers.clickAndWait(administrateTeamMembers);
+async function clickManageTeamMembers() {
+	await elementHelpers.clickAndWait(manageTeamMembers);
 }
 
 module.exports = {
 	clickSettings,
-	clickAdministrateTeamMembers,
+	clickManageTeamMembers,
 };

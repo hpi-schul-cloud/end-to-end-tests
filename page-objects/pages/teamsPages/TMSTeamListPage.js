@@ -6,6 +6,7 @@ const waitHelpers = require('../../../runtime/helpers/waitHelpers');
 const navigationLeftPage = require('../NavigationLeftPage');
 const teamNameContainer = '.tasks .title';
 const addTeamBtn = "[data-testid='add-team-btn']";
+const addTeamWhenZeroTeamsBtn = "a.btn-add";
 const teamColor = 'background:#FFAD42';
 const teamWrapper = '.section-teams .sc-card-wrapper';
 const teamTitleSel = '.title';
@@ -20,7 +21,11 @@ async function goToTeams() {
 }
 
 async function clickAddTeamBtn() {
-	await elementHelpers.clickAndWait(addTeamBtn);
+	try {
+		await elementHelpers.clickAndWait(addTeamBtn);
+	} catch (e) {
+		await elementHelpers.clickAndWait(addTeamWhenZeroTeamsBtn);
+	}
 }
 
 async function getListOfTeamNames() {
@@ -111,12 +116,14 @@ async function getListOfTeamMembers() {
 	return elementHelpers.getTextFromAllElements(listOfMembersSel);
 }
 
-async function areTeamMembersOnTheList(listOfMembers) {
+async function areTeamMembersOnTheList(listOfMembers, expectedResult) {
 	let actualListOfTeamMembers = await getListOfTeamMembers();
 	listOfMembers = listOfMembers.split(',');
 	const msg = `Members: ${actualListOfTeamMembers} should be visible on the list \n`;
 	const resultMsg = `Actual list of team members: ${actualListOfTeamMembers}`;
-	expect(actualListOfTeamMembers, msg + resultMsg).to.have.members(listOfMembers);
+	expectedResult
+		? 	expect(actualListOfTeamMembers, msg + resultMsg).to.have.members(listOfMembers)
+		: 	expect(actualListOfTeamMembers, msg + resultMsg).to.not.have.members(listOfMembers);
 }
 
 async function clickMemberIconInTeam(teamName) {
@@ -132,6 +139,6 @@ module.exports = {
 	isTeamDescription,
 	isTeamOnList,
 	isTeamMemberNumber,
-	areMembersOnTheList: areTeamMembersOnTheList,
+	areTeamMembersOnTheList,
 	getTeamMemberIcon,
 };
