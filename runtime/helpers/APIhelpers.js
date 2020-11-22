@@ -92,7 +92,8 @@ const Axios = require('axios');
 			throw error;
 		}
 	}
-	async function getLernstoreMaterialsAfterRequest (request) {
+
+	async function getLernstoreRequest (request) {
 		const cookie = await driver.getCookies(['jwt']);
 		const jwt = cookie[0].value;
 		const info = await Axios.request({
@@ -101,23 +102,21 @@ const Axios = require('axios');
 			headers: {
 				Authorization: `${jwt}`
 			},
-	});
-		let numberOfFoundMaterials = info.data.total;
-		return numberOfFoundMaterials;
+		});
+		return info;
 	};
 	async function getTheFirstElementNamePerRESTRequest (request) {
-		const cookie = await driver.getCookies(['jwt']);
-		const jwt = cookie[0].value;
-		const info = await Axios.request({
-			url:  `${SERVER.URL}`+"/edu-sharing?searchQuery="+`${request}`,
-			method: 'GET',
-			headers: {
-				Authorization: `${jwt}`
-			},
-		  });
+		const info = await getLernstoreRequest(request);
 		let title = info.data.data[0].title;
 		return title;
 	};
+
+	async function getLernstoreMaterialsAfterRequest(request) {
+		const info = await getLernstoreRequest(request);
+		const numberOfFoundMaterials = info.data.total;
+		return numberOfFoundMaterials;
+	}
+
 
 module.exports = {
 	apiCall,
@@ -125,6 +124,6 @@ module.exports = {
 	getSchoolName,
 	getInitials,
 	getUserRole,
-	getLernstoreMaterialsAfterRequest,
 	getTheFirstElementNamePerRESTRequest,
+	getLernstoreMaterialsAfterRequest,
 };
