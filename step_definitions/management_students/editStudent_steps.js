@@ -33,7 +33,6 @@ When(/^.* changes student birthdate to '([^']*)'$/, async function (birthdate) {
 	await studentEditPage.setStudentBirthday(birthdate);
 });
 
-
 //THEN
 Then(/^.* student firstname '([^']*)' is visible on the list$/, async function (firstname) {
 	await manageStudents.isStudentFirstnameOnTheList(firstname);
@@ -50,5 +49,5 @@ Then(/^.* student birthdate is '([^']*)'$/, async function (birthdate) {
 });
 
 Then(/^email is sent to '([^']*)' students without a full declaration of consent$/, async function (studentEMail) {
-	await mailCatcher.isEmailReceived(studentEMail);
+	await mailCatcher.isEmailReceived(studentEMail, true);
 });
