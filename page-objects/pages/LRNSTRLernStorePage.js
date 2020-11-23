@@ -12,7 +12,7 @@ let title;
 
 const selectorSearchField = ".input-active.search__container > input";
 const selectorNumberOfContentOnGUI = ".content__total";
-const selectorFirstElement = "div.content__container > div > section:nth-child(1)";
+const selectorFirstElement = ".grid>section .content";
 const selectorTitleOfMaterialWhenClicked = ".content .title > span";
 const selectorMaterialContainer = "[data-testid='lernStoreCardsContainer']"
 const selectorCourseTitles = "div.multiselect__content-wrapper > ul > li > span";
@@ -46,8 +46,7 @@ async function rightNumberOfFoundContentDisplayed(request) {
 }
 
 async function clickOnContentCard(request) {
-    const selector = selectorMaterialContainer+">section"
-    await elementHelpers.clickAndWait(selector)
+    await elementHelpers.clickAndWait(selectorFirstElement)
     // check selector and ASCII ('&amp') 
     //await isMaterialNameOnGUIAndAPIequal(request)
 }
