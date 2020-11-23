@@ -19,7 +19,9 @@ async function setEventTitle (eventTitle) {
 }
 
 async function setEventPublishStartDate (eventStartDate) {
-    await waitHelpers.waitAndSetValue(dateTimeStartSelector, eventStartDate);
+    await elementHelpers.click(dateTimeStartSelector);
+    await driver.execute(`document.querySelector("#startDate").value="${eventStartDate}"`);
+    //await waitHelpers.waitAndSetValue(dateTimeStartSelector, eventStartDate);
 }
 
 async function setEventPublishStartTime (eventStartTime) {

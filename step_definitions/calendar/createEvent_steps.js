@@ -16,8 +16,9 @@ When(/^.*adds title '([^']*)' in calendar$/, async function (eventTitle) {
 });
 
 When(/^.*adds start date in calendar$/, async function () {
-	const getDate = dateTimeHelpers.getCurrentFormattedDateWithOffset({format: "dd.mm.yyyy hh:mm"});
-	await calendarPage.setEventPublishStartDate(getDate);
+	//const getDate = dateTimeHelpers.getCurrentFormattedDateWithOffset({format: "dd.mm.yyyy hh:mm"});
+	var startDate = (await dateTimeHelpers.getCurrentFormattedDateWithOffset({ format: 'dd.MM.yyyy hh:mm' }));
+	await calendarPage.setEventPublishStartDate(startDate);
 });
 
 When(/^.*adds content '([^']*)' in calendar$/, async function (eventContent) {
