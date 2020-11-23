@@ -37,7 +37,7 @@ Then(/^.* user with email '([^']*)' is not visible on the list$/, async function
 });
 
 Then(/^.* receives email '([^']*)' with registration link$/, async function (email) {
-	return mailCatcher.isEmailReceived(`<${email}>`, false);
+	return mailCatcher.isEmailReceived(`<${email}>`, false, true);
 });
 
 Then(/^student clicks on registration link sent to '([^']*)'$/, async function (email) {
