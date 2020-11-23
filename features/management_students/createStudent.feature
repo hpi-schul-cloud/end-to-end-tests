@@ -27,7 +27,7 @@ Feature: Set of tests to create students
 		And <userRole> goes to students management
 		When <userRole> set student firstname '<firstName>', lastname '<secondName>', email '<studentEmail>', birthday '<birthday>'
 		And student receives email '<studentEmail>' with registration link
-		And student clicks on registration link sent to '<studentEmail>'
+		And student clicks on registration link
 		And student goes to next section
 		And student selects under 16 checkbox
 		And student clicks Next-section button
@@ -38,5 +38,5 @@ Feature: Set of tests to create students
 		And parent fills in pin and submits
 		And login data is received
 		Examples: 
-			| userRole | firstName | secondName | studentEmail 		    | birthday   | parentFirstname | parentLastname | parentEmail 		   | username                     | password       |
-			| admin	   | Hansi     | Flick      | hansi.flick@gmail.com | 19.11.2009 | Anna            | Flick          | anna.flick@gmail.com | kai.admin.qa@schul-cloud.org | Schulcloud1qa! |  
+			| userRole | firstName | secondName | studentEmail 		    	  | birthday   | parentFirstname | parentLastname | parentEmail 		   		 | username                     		| password       |
+			| admin	   | Hansi     | Flick      | hansi.flick@schul-cloud.org | 19.11.2009 | Anna            | Flick          | anna.flick@schul-cloud.org   | kai.admin.qa@schul-cloud.org 		| Schulcloud1qa! |  

@@ -40,7 +40,7 @@ Then(/^.* receives email '([^']*)' with registration link$/, async function (ema
 	return mailCatcher.isEmailReceived(`<${email}>`, false, true);
 });
 
-Then(/^student clicks on registration link sent to '([^']*)'$/, async function (email) {
+Then(/^student clicks on registration link$/, async function () {
 	const url = await mailCatcher.getEmailLink();
 
 	return elementHelpers.loadPage(url);
