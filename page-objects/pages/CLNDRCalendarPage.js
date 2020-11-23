@@ -3,7 +3,7 @@
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const waitHelpers = require('../../runtime/helpers/waitHelpers');
 const addEventBtn = '#calendar td.fc-day';
-const submitNewsBtn = 'div.modal.fade.create-event-modal.in button.btn-submit';
+const submitEventBtn = 'div.modal.fade.create-event-modal.in button.btn-submit';
 const titleField = 'div.modal.fade.create-event-modal.in [data-testid="team_event_name"]';
 const contentField = 'div.modal.fade.create-event-modal.in textarea';
 const dateTimeStartSelector = 'div.modal.fade.create-event-modal.in div:nth-child(3) [data-testid="form-datetime-input-startDate"]';
@@ -32,18 +32,22 @@ async function setEventContent (eventContent) {
 }
 
 async function clickCreateEventButton () {
-    await elementHelpers.clickAndWait(submitNewsBtn);
+    await elementHelpers.clickAndWait(submitEventBtn);
 }
 
 async function createEvent ({ eventTitle, eventContent, date, time}) {
     await clickInsideCalendar();
     if (eventTitle) await setEventTitle(eventTitle);
     if (date) await setEventPublishStartDate(date);
-    //if (time) await setEventPublishStartTime(time);
+    if (time) await setEventPublishStartTime(time);
     if (eventContent) await setEventContent(eventContent);
     await clickCreateEventButton();
 }
 
 module.exports = {
-    createEvent,
+    clickInsideCalendar,
+    setEventTitle,
+    setEventPublishStartDate,
+    setEventContent,
+    clickCreateEventButton,
 }

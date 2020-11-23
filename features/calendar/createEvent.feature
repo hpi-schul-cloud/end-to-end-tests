@@ -8,7 +8,13 @@ Feature: Set of tests to create a simple event in the calendar
     Scenario Outline: As a user, I want to be able to create a simple event in the calendar without course/team and check if it's displayed properly.
         Given <userRole> logs in with email '<username>' and password '<password>'
         And <userRole> clicks left navigation item 'calendar'
-        When <userRole> creates event with title '<eventTitle>', content '<eventContent>' in calendar
+        And <userRole> clicks inside event table
+        When <userRole> clicks create event button
+        #Then notification message is displayed
+        When <userRole> adds title '<eventTitle>' in calendar
+        When <userRole> adds start date in calendar
+        #When <userRole> adds end date in calendar
+        When <userRole> adds content '<eventContent>' in calendar
         #And <userRole> should see that event with name '<courseName>' is displayed correctly on the list
         Examples:
             | userRole | username                         | password       | eventTitle     | eventContent      |
