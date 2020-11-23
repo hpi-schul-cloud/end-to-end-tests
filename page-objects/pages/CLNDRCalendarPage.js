@@ -6,9 +6,8 @@ const addEventBtn = '#calendar td.fc-day';
 const submitEventBtn = 'div.modal.fade.create-event-modal.in button.btn-submit';
 const titleField = 'div.modal.fade.create-event-modal.in [data-testid="team_event_name"]';
 const contentField = 'div.modal.fade.create-event-modal.in textarea';
-const dateTimeStartSelector = 'div.modal.fade.create-event-modal.in div:nth-child(3) [data-testid="form-datetime-input-startDate"]';
-//const dateTimeStartSelector = '[data-testid="form-datetime-input-startDate"]';
-const dateTimeEndSelector = '[data-testid="form-datetime-input-endDate"]';
+const locationField = 'div.modal.fade.create-event-modal.in [data-testid="team_event_location"]';
+const eventTitleContainer = '#calendar span.fc-title';
 
 async function clickInsideCalendar () {
     await elementHelpers.clickAndWait(addEventBtn);
@@ -18,14 +17,12 @@ async function setEventTitle (eventTitle) {
     await waitHelpers.waitAndSetValue(titleField, eventTitle);
 }
 
-async function setEventPublishStartDate (eventStartDate) {
-    await elementHelpers.click(dateTimeStartSelector);
-    await driver.execute(`document.querySelector("#startDate").value="${eventStartDate}"`);
-    //await waitHelpers.waitAndSetValue(dateTimeStartSelector, eventStartDate);
+async function setEventPublishStartDateTime (eventStartDateTime) {
+    await driver.execute(`document.querySelector("div.modal.fade.create-event-modal.in div:nth-child(3) [data-testid='form-datetime-input-startDate']").value="${eventStartDateTime}"`);
 }
 
-async function setEventPublishStartTime (eventStartTime) {
-    await waitHelpers.waitAndSetValue(dateTimeStartSelector, eventStartTime);
+async function setEventPublishEndDateTime (eventEndDateTime) {
+    await driver.execute(`document.querySelector("div.modal.fade.create-event-modal.in div:nth-child(3) [data-testid='form-datetime-input-endDate']").value="${eventEndDateTime}"`);
 }
 
 async function setEventContent (eventContent) {
@@ -33,23 +30,38 @@ async function setEventContent (eventContent) {
     await waitHelpers.waitAndSetValue(contentField, eventContent);
 }
 
+async function setEventLocation (eventLocation) {
+    await elementHelpers.click(locationField);
+    await waitHelpers.waitAndSetValue(locationField, eventLocation);
+}
+
+
 async function clickCreateEventButton () {
     await elementHelpers.clickAndWait(submitEventBtn);
 }
 
-async function createEvent ({ eventTitle, eventContent, date, time}) {
-    await clickInsideCalendar();
-    if (eventTitle) await setEventTitle(eventTitle);
-    if (date) await setEventPublishStartDate(date);
-    if (time) await setEventPublishStartTime(time);
-    if (eventContent) await setEventContent(eventContent);
-    await clickCreateEventButton();
+async function getListOfEventTitles () {
+    await waitHelpers.waitUntilElementIsNotVisible(".loaded #MathJax_Message");
+    return elementHelpers.getTextFromAllElements(eventTitleContainer);
+}
+
+async function isEventVisible ({ eventTitle}) {
+    const allEvents = await getListOfEventTitles();
+    const isEventOnList = allEvents.some((element) => element.includes(eventTitle));
+    const fillString = !expectedValue ? 'not' : '';
+	const msg = `Event with name is ${fillString} visible on the list: \n`;
+	const resultMsg = 'Expected: ' + eventTitle + ', Actual: ' + allEvents;
+
+	await expect(isEventOnList, msg + resultMsg).to.equal(expectedValue)
 }
 
 module.exports = {
     clickInsideCalendar,
     setEventTitle,
-    setEventPublishStartDate,
+    setEventPublishStartDateTime,
+    setEventPublishEndDateTime,
     setEventContent,
+    setEventLocation,
     clickCreateEventButton,
+    isEventVisible,
 }
