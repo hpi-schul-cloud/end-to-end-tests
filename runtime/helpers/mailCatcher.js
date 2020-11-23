@@ -6,8 +6,7 @@ const message = 'http://localhost:1080/messages/1.plain';
 
 async function receiveEmails(url) {
 	let res = await axios.get(url);
-	let data = res.data;
-	return data;
+	return res.data;
 }
 
 async function deleteAllEmails() {
@@ -15,7 +14,7 @@ async function deleteAllEmails() {
 	return res.status;
 }
 
-async function isEmailReceived(msg, deleteEmails) {
+async function isEmailReceived(userEmail, deleteEmails, expectedResult) {
 	await waitHelpers.waitUntilEmailIsSent();
 	let email = await receiveEmails(mailCatcherAPI);
 	let recipientEmails = [];
@@ -23,7 +22,8 @@ async function isEmailReceived(msg, deleteEmails) {
 	for (let i = 0; i < email.length; i++) {
 		recipientEmails += email[i]['recipients'];
 	}
-	expect(recipientEmails, 'Received Emails').to.include(msg);
+	expectedResult ? expect(recipientEmails).to.include(userEmail) : expect(recipientEmails).to.not.include(userEmail);
+
 	if (deleteEmails) await deleteAllEmails();
 }
 
