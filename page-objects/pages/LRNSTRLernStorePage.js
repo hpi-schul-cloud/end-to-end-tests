@@ -46,7 +46,8 @@ async function rightNumberOfFoundContentDisplayed(request) {
 }
 
 async function clickOnContentCard(request) {
-    await elementHelpers.clickAndWait(selectorFirstElement)
+    const selector = selectorMaterialContainer+">section"
+    await elementHelpers.clickAndWait(selector)
     // check selector and ASCII ('&amp') 
     //await isMaterialNameOnGUIAndAPIequal(request)
 }
