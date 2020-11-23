@@ -48,7 +48,7 @@ async function setTeachers(listOfTeachers) {
 }
 
 async function editClass({schoolYear, teachers, classGrade, className, customClassName}) {
-    await ManageClassesPage.clickEditClassBtn()
+    await manageClassesPage.clickEditClassBtn()
     if (schoolYear) await setSchoolYear(schoolYear);
     if (teachers) await setTeachers(teachers);
     if (classGrade) await setClassGrade(classGrade);
