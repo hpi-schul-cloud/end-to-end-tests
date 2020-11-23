@@ -7,6 +7,9 @@ const loginFailureMessages = ['Login fehlgeschlagen.', 'Login failed.'];
 const usernameInput = 'section#loginarea input[data-testid="username"]';
 const passwordInput = 'section#loginarea input[data-testid="password"]';
 const loginBtn = 'input[data-testid="submit-login"]';
+const forgotPasswordBtn = 'a.submit-pwrecovery';
+const fillEmailInputResetPassword = '.modal-body input.form-control';
+const resetPasswordBtn = '.modal-footer > button.btn-submit';
 
 const nextSectionBtn = '#nextSection';
 const wrongLoginNotificationContainer = '.notification-content';
@@ -60,6 +63,15 @@ async function clickLoginBtn() {
 	await elementHelpers.clickAndWait(loginBtn);
 }
 
+async function clickForgotPasswordBtn() {
+	await elementHelpers.clickAndWait(forgotPasswordBtn);
+}
+
+async function FillEmailInputAndReset(email) {
+	await waitHelpers.waitAndSetValue(fillEmailInputResetPassword, email);
+	await elementHelpers.clickAndWait(resetPasswordBtn)
+}
+
 async function clickStartUsageOfSchulcloudBtn() {
 	await elementHelpers.clickAndWait(startUsageOfSchulcloudBtn);
 }
@@ -106,6 +118,8 @@ module.exports = {
 	defaultPassword,
 	defaultNewPassword,
 	users,
+	clickForgotPasswordBtn,
+	FillEmailInputAndReset,
 	performLogin,
 	performLoginActions,
 	clickOnDataProtectionBoxes,

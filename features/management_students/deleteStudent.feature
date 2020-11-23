@@ -22,7 +22,8 @@ Feature: Set of tests to delete students
             | userRole | adminUsername                | adminPassword  | studentUsername                  | studentPassword | deletedUserRole |
             | admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | amelia.strobl.qa@schul-cloud.org | Schulcloud1qa!  | student         |
 
-	@deletedStudentIsNotVisibleInTeam
+
+@deletedStudentIsNotVisibleInTeam
 	Scenario Outline: As an admin, I want to be able to delete the user and he will be no longer listed in team members
 		Given <userAdmin> logs in with email '<adminUsername>' and password '<adminPassword>'
 		And <userAdmin> login is successful
@@ -43,3 +44,18 @@ Feature: Set of tests to delete students
 			| userAdmin | adminUsername                | adminPassword  | studentUserName 				  | firstName | lastName | teamName  | description      | orange  | number |
 			| admin     | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | boris.wasser.qa@schul-cloud.org | Boris	  | Wasser   | test team | test description | #ffad42 | 2      |
 
+	@deletedStudentCanNotUseForgotPassword
+	Scenario Outline: As an admin, I want to be able to delete the user
+		Given <userRole> logs in with email '<adminUsername>' and password '<adminPassword>'
+		And <userRole> login is successful
+		And <userRole> goes to management
+		And <userRole> goes to students management
+		When <userRole> clicks Edit-student with '<studentUsername>' button
+		And <userRole> clicks Delete-user button
+		And <userRole> clicks Delete-user button inside popup
+		When <userRole> logs out
+		And <deletedUserRole> clicks on Forgot Password using email '<studentUsername>'
+		Then forgot password email was not sent to '<studentUsername>'
+		Examples:
+			| userRole | adminUsername                | adminPassword  | studentUsername                  |  deletedUserRole |
+			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | amelia.strobl.qa@schul-cloud.org |  student         |
