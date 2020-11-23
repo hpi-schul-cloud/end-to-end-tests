@@ -4,9 +4,8 @@ let mailCatcherAPI = 'http://localhost:1080/messages';
 const waitHelpers = require('./waitHelpers.js');
 
 async function receiveEmails() {
-	let res = await axios.get(mailCatcherAPI)
-		.then(() => res.data)
-		.catch(() => [])
+	let res = await axios.get(mailCatcherAPI);
+	return res.data;
 }
 
 async function deleteAllEmails() {
