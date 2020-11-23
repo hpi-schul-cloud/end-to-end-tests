@@ -36,6 +36,10 @@ Then(/^.* user with email '([^']*)' is not visible on the list$/, async function
 	return manageStudentsPage.isStudentVisible(email, false);
 });
 
+Then(/^all emails are deleted$/, async function () {
+	await mailCatcher.deleteAllEmails();
+});
+
 Then(/^.* receives email '([^']*)' with registration link$/, async function (email) {
 	return mailCatcher.isEmailReceived(`<${email}>`, false, true);
 });

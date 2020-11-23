@@ -25,6 +25,7 @@ Feature: Set of tests to create students
 		Given <userRole> logs in with email '<username>' and password '<password>'
 		And <userRole> goes to management
 		And <userRole> goes to students management
+		And all emails are deleted
 		When <userRole> set student firstname '<firstName>', lastname '<secondName>', email '<studentEmail>', birthday '<birthday>'
 		And student receives email '<studentEmail>' with registration link
 		And student clicks on registration link
