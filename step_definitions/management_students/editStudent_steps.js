@@ -1,7 +1,7 @@
 'use strict';
 
 const manageStudents = require('../../page-objects/pages/managementPages/ManageStudentsPage');
-const studentEditPage = require('../../page-objects/pages/managementPages/ManageStudentEditDeletePage');
+const manageStudent = require('../../page-objects/pages/managementPages/ManageStudentPage');
 const mailCatcher = require('../../runtime/helpers/mailCatcher.js');
 
 //WHEN
@@ -14,19 +14,19 @@ When(/^.* clicks Edit-student with '([^']*)' button$/, async function (email) {
 });
 
 When(/^.* changes student firstname to '([^']*)'$/, async function (firstName) {
-	await studentEditPage.setStudentFirstName(firstName);
+	await manageStudent.setStudentFirstName(firstName);
 });
 
 When(/^.* changes student lastname to '([^']*)'$/, async function (lastName) {
-	await studentEditPage.setStudentLastName(lastName);
+	await manageStudent.setStudentLastName(lastName);
 });
 
 When(/^.* changes student email to '([^']*)'$/, async function (email) {
-	await studentEditPage.setStudentEmail(email);
+	await manageStudent.setStudentEmail(email);
 });
 
 When(/^.* changes student birthdate to '([^']*)'$/, async function (birthdate) {
-	await studentEditPage.setStudentBirthday(birthdate);
+	await manageStudent.setStudentBirthday(birthdate);
 });
 
 //THEN
@@ -47,7 +47,7 @@ Then(/^.* student email '([^']*)' is is visible on the list$/, async function (e
 });
 
 Then(/^.* student birthdate is '([^']*)'$/, async function (birthdate) {
-	await studentEditPage.isStudentBirthdayCorrect(birthdate);
+	await manageStudent.isStudentBirthdayCorrect(birthdate);
 });
 
 Then(/^email is sent to '([^']*)' students without a full declaration of consent$/, async function (studentEMail) {

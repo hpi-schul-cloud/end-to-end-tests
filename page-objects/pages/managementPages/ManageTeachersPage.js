@@ -1,4 +1,4 @@
-/*[url/administration/teacher]*/
+/*[url/administration/teachers]*/
 'use strict';
 
 const waitHelpers = require('../../../runtime/helpers/waitHelpers');

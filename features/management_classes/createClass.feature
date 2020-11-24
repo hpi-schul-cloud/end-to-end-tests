@@ -1,4 +1,4 @@
-@management @managementClass @class @createClass
+@management @managementClass @createClass
 Feature: Set of tests to create classes
 
     Background: User opens Schul-cloud homepage Website
@@ -10,7 +10,7 @@ Feature: Set of tests to create classes
         And <userRole> goes to management
         And <userRole> goes to class management
         When <userRole> creates class with custom name '<customClassName>'
-        Then <userRole> should see that class with name '<customClassName>' and '<membersNumber>' members is visible
+        Then <userRole> should see that class with name '<customClassName>' and '0' members is visible
         Examples:
-            | userRole | username                         | password       | customClassName | membersNumber |
-            | admin    | olivier.admin.qa@schul-cloud.org | Schulcloud1qa! | 11c             | 0             |
+            | userRole | username                         | password       | customClassName |
+            | admin    | olivier.admin.qa@schul-cloud.org | Schulcloud1qa! | 11c             |
