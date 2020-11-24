@@ -11,10 +11,10 @@ Feature: Set of tests to create a simple event in the calendar
         Then <userRole> should see monthly calendar
         And <userRole> clicks inside event table
         When <userRole> clicks create event button
-        #Then notification message is displayed
+        #Then <userRole> can see the notification message
         When <userRole> adds title '<eventTitle>' in calendar
-        When <userRole> adds start date in calendar
-        When <userRole> adds end date in calendar
+        When <userRole> adds start date in calendar: today, 09:00
+        When <userRole> adds end date in calendar: today +14 days, 08:00
         When <userRole> adds content '<eventContent>' in calendar
         When <userRole> adds location '<eventLocation>' in calendar
         When <userRole> clicks create event button

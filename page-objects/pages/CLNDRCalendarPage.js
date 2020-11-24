@@ -13,6 +13,11 @@ async function clickInsideCalendar () {
     await elementHelpers.clickAndWait(addEventBtn);
 }
 
+async function checkNotificationMsg () {
+    await waitHelpers.waitUntilElementAttributeEquals("Füllen  dieses Feld aus.");
+    //await element.getAttribute("Füllen  dieses Feld aus.")
+}
+
 async function setEventTitle (eventTitle) {
     await waitHelpers.waitAndSetValue(titleField, eventTitle);
 }
@@ -35,7 +40,6 @@ async function setEventLocation (eventLocation) {
     await waitHelpers.waitAndSetValue(locationField, eventLocation);
 }
 
-
 async function clickCreateEventButton () {
     await elementHelpers.clickAndWait(submitEventBtn);
 }
@@ -57,11 +61,12 @@ async function isEventVisible (eventTitle, expectedValue) {
 
 module.exports = {
     clickInsideCalendar,
+    checkNotificationMsg,
+    clickCreateEventButton,
     setEventTitle,
     setEventPublishStartDateTime,
     setEventPublishEndDateTime,
     setEventContent,
     setEventLocation,
-    clickCreateEventButton,
     isEventVisible,
 }

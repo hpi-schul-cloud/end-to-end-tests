@@ -17,6 +17,16 @@ Given(/^.* logs in with email '([^']*)' and password '([^']*)'$/, async function
 	await loginPage.performLogin(username, password);
 });
 
+Given(/^.* clicks on Forgot Password using email '([^']*)'$/, async function (email) {
+	await startPage.clickLoginBtn();
+	await loginPage.clickForgotPasswordBtn();
+	await loginPage.FillEmailInputAndReset(email);
+});
+
+Then(/^forgot password email was not sent to '([^']*)'$/, async function (email) {
+	await mailCatcher.isEmailReceived(email, false, false);
+});
+
 Then(
 	/^.* logs in with email '([^']*)' and password genarated by admin during manual submission of consent$/,
 	async function (username) {
@@ -35,10 +45,7 @@ Given(/^teacher logs in$/, async function () {
 
 Given(/^admin logs in$/, async function () {
 	await startPage.clickLoginBtn();
-	await loginPage.performLogin(
-		loginPage.users.admins.kaiPreetzUsername,
-		loginPage.users.admins.kaiPreetzPassword
-	);
+	await loginPage.performLogin(loginPage.users.admins.kaiPreetzUsername, loginPage.users.admins.kaiPreetzPassword);
 });
 
 Given(/^student logs in$/, async function () {

@@ -30,9 +30,9 @@ Feature: Set of tests to edit students
 		When <userRole> logs in with email '<username>' and password '<password>'
 		When <userRole> goes to management
 		And <userRole> goes to students management
-		And <userRole> set student firstname '<firstName>', lastname '<secondName>', email '<studentEmail>'
+		And <userRole> set student firstname '<firstName>', lastname '<secondName>', email '<studentEmail>', birthday '<birthday>'
 		When <userRole> clicks Send-links-to-students'-e-mail-addresses button
 		Then email is sent to '<studentEmail>' students without a full declaration of consent
 		Examples:
-			| userRole | username                     | password       | firstName | secondName | studentEmail        |
-			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | GGG       | DDD        | ggg@schul-cloud.org |
+			| userRole | username                     | password       | firstName | secondName | studentEmail        | birthday
+			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | GGG       | DDD        | ggg@schul-cloud.org | 10.10.2000

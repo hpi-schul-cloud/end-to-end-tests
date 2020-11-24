@@ -12,18 +12,20 @@ When(/^.*clicks create event button$/, async function () {
 	await calendarPage.clickCreateEventButton();
 });
 
+Then(/^.*can see the notification message$/, async function () {
+	await calendarPage.checkNotificationMsg();
+});
+
 When(/^.*adds title '([^']*)' in calendar$/, async function (eventTitle) {
 	await calendarPage.setEventTitle(eventTitle);
 });
 
-When(/^.*adds start date in calendar$/, async function () {
-	//const getDate = dateTimeHelpers.getCurrentFormattedDateWithOffset({format: "dd.mm.yyyy hh:mm"});
+When(/^.*adds start date in calendar: today, 09:00$/, async function () {
 	var startDate = (await dateTimeHelpers.getCurrentFormattedDateWithOffset({ format: 'dd/MM/yyyy' })) + ' 09:00';
 	await calendarPage.setEventPublishStartDateTime(startDate);
 });
 
-When(/^.*adds end date in calendar$/, async function () {
-	//const getDate = dateTimeHelpers.getCurrentFormattedDateWithOffset({format: "dd.mm.yyyy hh:mm"});
+When(/^.*adds end date in calendar: today .14 days, 08:00$/, async function () {
 	var endDate = (await dateTimeHelpers.getCurrentFormattedDateWithOffset({ days: +14, format: 'dd/MM/yyyy' })) + ' 08:00';
 	await calendarPage.setEventPublishEndDateTime(endDate);
 });
