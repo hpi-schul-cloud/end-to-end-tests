@@ -45,7 +45,7 @@ async function getListOfEventTitles () {
     return elementHelpers.getTextFromAllElements(eventTitleContainer);
 }
 
-async function isEventVisible ({ eventTitle}) {
+async function isEventVisible (eventTitle, expectedValue) {
     const allEvents = await getListOfEventTitles();
     const isEventOnList = allEvents.some((element) => element.includes(eventTitle));
     const fillString = !expectedValue ? 'not' : '';

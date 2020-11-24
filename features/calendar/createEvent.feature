@@ -22,7 +22,7 @@ Feature: Set of tests to create a simple event in the calendar
         Examples:
             | userRole | username                         | password       | eventTitle     | eventContent      | eventLocation      |
             | admin    | kai.admin.qa@schul-cloud.org     | Schulcloud1qa! | Schulfrei      | Schule fällt aus! | Bei euch am PC!    |
-            | teacher  | karl.teacher.qa@schul-cloud.org  | Schulcloud1qa! | Coronafrei     | Wir haben frei!   | In Quarantäne?     |
+            | teacher  | karl.teacher.qa@schul-cloud.org  | Schulcloud1qa! | Es sind Ferien | Wir haben frei!   | Eure vier Wände?   |
             | student  | amelia.strobl.qa@schul-cloud.org | Schulcloud1qa! | Videospiele-AG | Zocken!           | Bei euch zuhause.  |
 
 
