@@ -118,7 +118,6 @@ async function selectAllStudents() {
 
 async function createNewPupil(firstname, lastname, email) {
 	await clickFABBtn();
-  async function createNewPupil(firstname, lastname, email, birthday) {
 	await clickAddStudentBtn();
 	await setStudentFirstName(firstname);
 	await setStudentLastName(lastname);
@@ -138,17 +137,6 @@ async function createNewPupil(firstname, lastname, email) {
 async function setStudentsBirthday(date) {
 	let dateField = await driver.$(birthdateInput);
 	await dateField.setValue(date);
-}
-
-async function getStudentsEmailList() {
-	await waitHelpers.waitUntilElementIsPresent(tableOfStudents);
-	let names = await driver.$$(tableOfStudents + ' > tr');
-	return Promise.all(
-		names.map(async (nameContainer) => {
-			const emailContainer = await nameContainer.$('td:nth-child(5)');
-			return emailContainer.getText();
-		})
-	);
 }
 
 // choose between email, firstname, lastname
