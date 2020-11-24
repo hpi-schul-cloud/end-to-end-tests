@@ -26,7 +26,7 @@ Given(/^.* clicks on Forgot Password using email '([^']*)'$/, async function (em
 });
 
 Then(/^forgot password email was not sent to '([^']*)'$/, async function (email) {
-	await mailCatcher.isEmailReceived(email, false);
+	await mailCatcher.isEmailReceived(email, false, false);
 });
 
 Then(
@@ -47,10 +47,7 @@ Given(/^teacher logs in$/, async function () {
 
 Given(/^admin logs in$/, async function () {
 	await startPage.clickLoginBtn();
-	await loginPage.performLogin(
-		loginPage.users.admins.kaiPreetzUsername,
-		loginPage.users.admins.kaiPreetzPassword
-	);
+	await loginPage.performLogin(loginPage.users.admins.kaiPreetzUsername, loginPage.users.admins.kaiPreetzPassword);
 });
 
 Given(/^student logs in$/, async function () {
