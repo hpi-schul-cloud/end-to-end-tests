@@ -37,9 +37,11 @@ When(/^.* changes student birthdate to '([^']*)'$/, async function (birthdate) {
 Then(/^.* student firstname '([^']*)' is visible on the list$/, async function (firstname) {
 	await manageStudents.isStudentFirstnameOnTheList(firstname);
 });
+
 Then(/^.* student lastname '([^']*)' is visible on the list$/, async function (lastname) {
 	await manageStudents.isStudentLastnameOnTheList(lastname);
 });
+
 Then(/^.* student email '([^']*)' is is visible on the list$/, async function (emailAddress) {
 	await manageStudents.isStudentEmailOnTheList(emailAddress);
 });
