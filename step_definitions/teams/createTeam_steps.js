@@ -18,7 +18,7 @@ When(/^.*clicks Submit-add-team-member button$/, async function () {
 });
 
 When(/^.*clicks on Member icon in team with name '([^']*)'$/, async function (teamName) {
-	await TMSTeamListPage.clickMemberIconInTeam(teamName); 
+	await TMSTeamListPage.clickMemberIconInTeam(teamName);
 });
 
 //THEN
@@ -40,8 +40,14 @@ Then(/^.*team with name '([^']*)', colour '([^']*)' and  member number '([^']*)'
 	await TMSTeamListPage.isTeamMemberNumber(teamName, memberCount);
 });
 
-Then(
-	/^.*team members: '([^']*)' are listed$/,  async function (listOfMembers) {
-		await TMSTeamListPage.areMembersOnTheList(listOfMembers);
-	}
-);
+Then(/^.*team members: '([^']*)' are listed$/,  async function (listOfMembers) {
+	await TMSTeamListPage.areTeamMembersOnTheList(listOfMembers, true);
+});
+
+Then(/^.*team members: '([^']*)' are not listed$/,  async function (listOfMembers) {
+await TMSTeamListPage.areTeamMembersOnTheList(listOfMembers, false);
+});
+
+Then(/^.* goes to Teams Page$/, async function () {
+await TMSTeamListPage.goToTeams();
+});

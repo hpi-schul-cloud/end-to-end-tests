@@ -16,7 +16,12 @@ async function deleteAllEmails() {
 
 async function isEmailReceived(userEmail, deleteEmails, expectedResult) {
 	await waitHelpers.waitUntilEmailIsSent();
+	let email = await receiveEmails(mailCatcherAPI);
+	let recipientEmails = [];
+
+	for (let i = 0; i < email.length; i++) {
 		recipientEmails += email[i]['recipients'];
+	}
 	expectedResult ? expect(recipientEmails).to.include(userEmail) : expect(recipientEmails).to.not.include(userEmail);
 
 	if (deleteEmails) await deleteAllEmails();

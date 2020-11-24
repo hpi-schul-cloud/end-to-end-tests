@@ -5,6 +5,7 @@ const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPa
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
 const manageStudents = require('../page-objects/pages/managementPages/ManageStudentsPage');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
+const mailCatcher = require('../runtime/helpers/mailCatcher');
 const schulCloudURL = `${CLIENT.URL}`;
 /*Login, Logout*/
 
