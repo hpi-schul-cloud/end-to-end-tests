@@ -12,20 +12,19 @@ When(/^.* goes to students management$/, async function () {
 	return navigationLeftPanel.clickNavItemManageStudents();
 });
 
-When(/^.*set student firstname '([^']*)', lastname '([^']*)', email '([^']*)', birthday '([^']*)'$/, function (
-	firstname,
-	secondname,
-	email,
-	birthday
-) {
-	return manageStudentsPage.createNewPupil(firstname, secondname, email, birthday);
-});
+When(
+	/^.*set student firstname '([^']*)', lastname '([^']*)', email '([^']*)', birthday '([^']*)'$/,
+	function (firstname, secondname, email, birthday) {
+		return manageStudentsPage.createNewPupil(firstname, secondname, email, birthday);
+	}
+);
 
-When(/^.*manually submits consent for user with e-mail '([^']*)', thus generates a random password for him$/, function (
-	email
-) {
-	return manageStudentsPage.submitConsent(email);
-});
+When(
+	/^.*manually submits consent for user with e-mail '([^']*)', thus generates a random password for him$/,
+	function (email) {
+		return manageStudentsPage.submitConsent(email);
+	}
+);
 
 //THEN
 Then(/^.*student with email '([^']*)' is visible on the list$/, function (email) {
@@ -61,13 +60,12 @@ Then(/^student selects under 16 checkbox$/, async function () {
 	return registrationPage.clickUnder16Btn();
 });
 
-Then(/^parents set parent firstname '([^']*)', lastname '([^']*)', email '([^']*)'$/, async function (
-	parentFirstName,
-	parentLastName,
-	parentEmail
-) {
-	return registrationPage.addParentData(parentFirstName, parentLastName, parentEmail);
-});
+Then(
+	/^parents set parent firstname '([^']*)', lastname '([^']*)', email '([^']*)'$/,
+	async function (parentFirstName, parentLastName, parentEmail) {
+		return registrationPage.addParentData(parentFirstName, parentLastName, parentEmail);
+	}
+);
 
 Then(/^parents accept all$/, async function () {
 	return registrationPage.acceptConsent();
