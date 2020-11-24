@@ -19,6 +19,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Changed
 
+- SC-6108 Adaptions to some E2E tests to make them work with the new admin tables
 - IMP-160 rename repository
 - SC-7110 Refactoring: Improved terms in cucumber steps: Teams, Topics, Class
 - SC-7524-parametrization: adjust parametrization to existing feature files
