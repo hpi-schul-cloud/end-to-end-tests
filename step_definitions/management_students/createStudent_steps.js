@@ -5,7 +5,9 @@ const navigationLeftPanel = require('../../page-objects/pages/NavigationLeftPage
 const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
 const mailCatcher = require('../../runtime/helpers/mailCatcher.js');
 const registrationPage = require('../../page-objects/pages/generalPagesBeforeLogin/RegistrationPage');
+const { Then } = require('cucumber');
 let pin;
+
 //WHEN
 When(/^.* goes to students management$/, async function () {
 	return navigationLeftPanel.clickNavItemManageStudents();

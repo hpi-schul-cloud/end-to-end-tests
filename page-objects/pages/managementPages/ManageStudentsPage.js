@@ -52,16 +52,15 @@ async function clickEditStudentBtn() {
 	}
 }
 
-
 async function clickEditStudentByMailBtn(userEmail) {
 	await waitHelpers.waitUntilElementIsVisible(tableOfStudentsColumn);
 	let studentsTable = await getStudentsDetailsList(emailCell);
 	let editsElements = await elementHelpers.getListOfAllElements(newAdminTablesEditButton);
 	for (let index = 1; index <= studentsTable.length; index++) {
-		let emailPromise = await driver.$(tableOfStudents + '> tr:nth-child('+index+') > td:nth-child(5)');
+		let emailPromise = await driver.$(tableOfStudents + '> tr:nth-child(' + index + ') > td:nth-child(5)');
 		let email = await emailPromise.getText();
 		if (email === userEmail) {
-			await elementHelpers.clickAndWait(editsElements[index-1]);
+			await elementHelpers.clickAndWait(editsElements[index - 1]);
 			break;
 		}
 	}
@@ -72,7 +71,7 @@ async function isStudentVisible(userEmail, expectedValue) {
 	let studentsTable = await getStudentsDetailsList(emailCell);
 		let isEmailExists = false;
 		for (let index = 1; index <= studentsTable.length; index++) {
-			let emailPromise = await driver.$(tableOfStudents + '> tr:nth-child('+index+') > td:nth-child(5)');
+			let emailPromise = await driver.$(tableOfStudents + '> tr:nth-child(' + index + ') > td:nth-child(5)');
 			let email = await emailPromise.getText();
 			email === userEmail ? isEmailExists = true : '';
 		}
@@ -119,6 +118,7 @@ async function selectAllStudents() {
 
 async function createNewPupil(firstname, lastname, email) {
 	await clickFABBtn();
+  async function createNewPupil(firstname, lastname, email, birthday) {
 	await clickAddStudentBtn();
 	await setStudentFirstName(firstname);
 	await setStudentLastName(lastname);

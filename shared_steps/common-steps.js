@@ -1,10 +1,12 @@
 'use strict';
+
 const { CLIENT } = require('../shared-objects/servers');
 const loginPage = require('../page-objects/pages/generalPagesBeforeLogin/LoginPage.js');
 const startPage = require('../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin.js');
 const navigationTopPage = require('../page-objects/pages/NavigationTopPage');
 const manageStudents = require('../page-objects/pages/managementPages/ManageStudentsPage');
 const elementHelpers = require('../runtime/helpers/elementHelpers.js');
+const mailCatcher = require('../runtime/helpers/mailCatcher');
 const schulCloudURL = `${CLIENT.URL}`;
 /*Login, Logout*/
 
@@ -15,6 +17,16 @@ Given(/^.*user arrives on the Schul-Cloud homepage$/, async function () {
 Given(/^.* logs in with email '([^']*)' and password '([^']*)'$/, async function (username, password) {
 	await startPage.clickLoginBtn();
 	await loginPage.performLogin(username, password);
+});
+
+Given(/^.* clicks on Forgot Password using email '([^']*)'$/, async function (email) {
+	await startPage.clickLoginBtn();
+	await loginPage.clickForgotPasswordBtn();
+	await loginPage.FillEmailInputAndReset(email);
+});
+
+Then(/^forgot password email was not sent to '([^']*)'$/, async function (email) {
+	await mailCatcher.isEmailReceived(email, false, false);
 });
 
 Then(
@@ -35,10 +47,7 @@ Given(/^teacher logs in$/, async function () {
 
 Given(/^admin logs in$/, async function () {
 	await startPage.clickLoginBtn();
-	await loginPage.performLogin(
-		loginPage.users.admins.kaiPreetzUsername,
-		loginPage.users.admins.kaiPreetzPassword
-	);
+	await loginPage.performLogin(loginPage.users.admins.kaiPreetzUsername, loginPage.users.admins.kaiPreetzPassword);
 });
 
 Given(/^student logs in$/, async function () {
