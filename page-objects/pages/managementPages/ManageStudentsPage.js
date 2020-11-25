@@ -89,12 +89,12 @@ async function submitStudentAddition() {
 	await elementHelpers.clickAndWait(addStudentSubmitBtn);
 }
 
-async function createNewPupil(firstname, lastname, email, birthday) {
+async function createNewPupil(firstname, lastname, email, birthday, addBirthday) {
 	await clickAddStudentBtn();
 	await setStudentFirstName(firstname);
 	await setStudentLastName(lastname);
 	await setStudentEmail(email);
-	await setStudentsBirthday(birthday);
+	if (addBirthday) await setStudentsBirthday(birthday);
 	await clickOnSendRegistrationLinkCheckbox();
 	await submitStudentAddition();
 }
