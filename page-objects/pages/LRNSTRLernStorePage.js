@@ -13,7 +13,7 @@ let title;
 const selectorSearchField = ".input-active.search__container > input";
 const selectorNumberOfContentOnGUI = ".content__total";
 const selectorFirstElement = ".grid > section:nth-child(1) .content";
-const selectorTitleOfMaterialWhenClicked = ".content .title > span";
+const selectorTitleOfMaterialWhenClicked = ".content-container > .title > span";
 const selectorMaterialContainer = "[data-testid='lernStoreCardsContainer']"
 const selectorCourseTitles = "div.multiselect__content-wrapper > ul > li > span";
 const selectorSubmitAddToCourseAndTopic = '[data-testid="modal_submit_btn"]';
