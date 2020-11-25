@@ -116,7 +116,7 @@ async function selectAllStudents() {
 	await elementHelpers.click(selectAllCheckbox);
 }
 
-async function createNewPupil(firstname, lastname, email) {
+async function createNewPupil(firstname, lastname, email, birthday, addBirthday) {
 	await clickFABBtn();
 	await clickAddStudentBtn();
 	await setStudentFirstName(firstname);
@@ -124,8 +124,9 @@ async function createNewPupil(firstname, lastname, email) {
 	await setStudentEmail(email);
 	//this function makes the birthday parameters in the feature file unrelevant
 	//ToDo: remove them or find a way to make it working with those parameters
-	let birthdate = dateTimeHelpers.getCurrentFormattedDateWithOffset({years: -14, format: "dd/mm/yyyy"});
-	await setStudentsBirthday(birthdate);
+	//let birthdate = dateTimeHelpers.getCurrentFormattedDateWithOffset({years: -14, format: "dd/mm/yyyy"});
+	//await setStudentsBirthday(birthdate);
+	if (addBirthday) await setStudentsBirthday(birthday);
 	await clickOnSendRegistrationLinkCheckbox();
 	await submitStudentAddition();
 }
