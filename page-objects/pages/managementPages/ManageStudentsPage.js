@@ -122,13 +122,9 @@ async function createNewPupil(firstname, lastname, email) {
 	await setStudentFirstName(firstname);
 	await setStudentLastName(lastname);
 	await setStudentEmail(email);
-	let birthdate = dateTimeHelpers.getDate({
-		day: 0,
-		month: 0,
-		year: -15,
-		delimiter: '.',
-		isOrderYearMonthDay: false,
-	});
+	//this function makes the birthday parameters in the feature file unrelevant
+	//ToDo: remove them or find a way to make it working with those parameters
+	let birthdate = dateTimeHelpers.getCurrentFormattedDateWithOffset({years: -14, format: "dd/mm/yyyy"});
 	await setStudentsBirthday(birthdate);
 	await clickOnSendRegistrationLinkCheckbox();
 	await submitStudentAddition();
