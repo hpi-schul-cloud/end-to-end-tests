@@ -33,11 +33,11 @@ Feature: Set of tests to create students
 		And student selects under 16 checkbox
 		And student clicks Next-section button
 		And parents set parent firstname '<parentFirstname>', lastname '<parentLastname>', email '<parentEmail>'
-		And parents accept all 
+		And parents accept all
 		And parents click on send pin code
 		Then parent email receives 4 digit pin code
 		And parent fills in pin and submits
 		And login data is received
-		Examples: 
+		Examples:
 			| userRole | firstName | lastName   | studentEmail 		    	  | birthday   | parentFirstname | parentLastname | parentEmail 		   		 | username                     		| password       |
-			| admin	   | Hansi     | Flick      | hansi.flick@schul-cloud.org | 19.11.2009 | Anna            | Flick          | anna.flick@schul-cloud.org   | kai.admin.qa@schul-cloud.org 		| Schulcloud1qa! |  
+			| admin	   | Hansi     | Flick      | hansi.flick@schul-cloud.org | 19.11.2009 | Anna            | Flick          | anna.flick@schul-cloud.org   | kai.admin.qa@schul-cloud.org 		| Schulcloud1qa! |

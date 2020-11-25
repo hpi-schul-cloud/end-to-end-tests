@@ -45,7 +45,8 @@ const navItemTasks = navItemString1stLevel.replace('XXX', 'Aufgaben');
 const navItemTasksAsked = navItemString2ndLevel.replace('XXX', 'Gestellte Aufgaben');
 const navItemTasksPrivate = navItemString2ndLevel.replace('XXX', 'Entwürfe');
 const navItemTasksArchive = navItemString2ndLevel.replace('XXX', 'Archiv');
-const navItemTeams = navItemString1stLevel.replace('XXX', 'Teams');
+const navItemTeamsOld = navItemString1stLevel.replace('XXX', 'Teams');
+const navItemTeamsNuxt = '#__layout aside div:nth-child(3)';
 const navItemFiles = navItemString1stLevel.replace('XXX', 'Meine Dateien');
 const navItemFilesMy = navItemString2ndLevel.replace('XXX', 'persönliche Dateien');
 const navItemFilesCourses = navItemString2ndLevel.replace('XXX', 'Kurse');
@@ -107,7 +108,12 @@ async function clickNavItemTasksArchive () {
 }
 
 async function clickNavItemTeams () {
-	await elementHelpers.clickAndWait(navItemTeams);
+	// For nuxt and old client
+	try {
+		await elementHelpers.clickAndWait(navItemTeamsNuxt);
+	} catch (e) {
+		await elementHelpers.click(navItemTeamsOld);
+	}
 }
 
 async function clickNavItemFiles () {
@@ -155,7 +161,7 @@ async function clickNavItemManageStudents () {
 	try {
 		await elementHelpers.clickAndWait(navItemManagementStudentsAdmin);
 	} catch (e) {
-		await elementHelpers.clickAndWait(navItemManagementStudentsTeacher);
+		await elementHelpers.click(navItemManagementStudentsTeacher);
 	}
 }
 
@@ -165,7 +171,7 @@ async function clickNavItemManageTeachers () {
 		await elementHelpers.clickAndWait(navItemManagementTeachersNuxt);
 	} catch (e) {
 		await elementHelpers.click(navItemManagementTeachersOld);
-}
+	}
 }
 
 async function clickNavItemManageCourses () {
@@ -175,7 +181,7 @@ async function clickNavItemManageCourses () {
 async function clickNavItemManageClasses() {
 	// For nuxt and old client
 	try {
-		await elementHelpers.click(navItemManagementClassesNuxt);
+		await elementHelpers.clickAndWait(navItemManagementClassesNuxt);
 	} catch (e) {
 		await elementHelpers.click(navItemManagementClassesOld);
 	}
