@@ -32,14 +32,13 @@ Then(/^teacher clicks add-btn$/, async function () {
 });
 Then(/^teacher selects course (.*) and topic (.*)$/, async function(course, topic) {
     await lernstorePage.addToCourseAndTopic(course, topic);
-});   
+});
 Then(/^teacher clicks on add content button$/, async function () {
     await lernstorePage.clickSubmitAddContentBtn();
 
 });
 Then(/^teacher should see added material$/, async function () {
-    let materials = (await lernstorePage.listOfAttachedMaterialsInTheTopic());
-    await expect(lernstorePage.title).to.be.oneOf(materials);
-
+    await lernstorePage.isTheNameOfAttachedMaterialCorrect();
+    
 });
 

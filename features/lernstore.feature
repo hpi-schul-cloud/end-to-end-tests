@@ -7,11 +7,9 @@ Given user arrives on the Schul-Cloud homepage
 
 @lernstoreAddMaterialFromContentDetailView
 Scenario Outline: teacher can add material to topic of course from content detail view
-When <userRole> logs in
+Given <userRole> logs in with email '<username>' and password '<password>'
 And <userRole> goes to courses page
-And <userRole> creates course with name '<courseName>'
-And <userRole> goes to courses page
-And <userRole> chooses course with name '<courseName>'
+When <userRole> chooses course with name '<courseName>'
 And <userRole> adds a topic with name '<topicName>'
 And <userRole> adds some Lerstore material with <lerstoreTopicName> to the course
 Then <userRole> must be redirected to content page
@@ -26,8 +24,8 @@ And <userRole> chooses course with name '<courseName>'
 And <userRole> clicks on topic with name '<topicName>'
 Then <userRole> should see added material
 Examples:
-    |userRole | courseName          | topicName             | lerstoreTopicName | contentName |
-    |teacher  | courseWithLernstore | Topic with Lernstore  | LernstoreTest     | Mathe       |
+    |userRole | courseName          | topicName             | lerstoreTopicName | contentName | username                           | password       |
+    |teacher  | Mathe               | Topic with Lernstore  | LernstoreTest     | Mathe       | karl.teacher.qa@schul-cloud.org    | Schulcloud1qa! |
 
 
 

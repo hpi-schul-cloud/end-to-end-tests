@@ -12,7 +12,7 @@ let title;
 
 const selectorSearchField = ".input-active.search__container > input";
 const selectorNumberOfContentOnGUI = ".content__total";
-const selectorFirstElement = ".grid>section .content";
+const selectorFirstElement = ".grid > section:nth-child(1) .content";
 const selectorTitleOfMaterialWhenClicked = ".content .title > span";
 const selectorMaterialContainer = "[data-testid='lernStoreCardsContainer']"
 const selectorCourseTitles = "div.multiselect__content-wrapper > ul > li > span";
@@ -47,8 +47,9 @@ async function rightNumberOfFoundContentDisplayed(request) {
 
 async function clickOnContentCard(request) {
     await elementHelpers.clickAndWait(selectorFirstElement)
+    await driver.pause(2000);
     // check selector and ASCII ('&amp') 
-    //await isMaterialNameOnGUIAndAPIequal(request)
+    await isMaterialNameOnGUIAndAPIequal(request)
 }
 
 async function isMaterialNameOnGUIAndAPIequal(request) {
@@ -67,7 +68,7 @@ async function clickAddContentBtn() {
 
 async function selectAttachmentToCourseOrTopicContentPage(courseOrTopicName, courseOrTopicContainer) {
     await elementHelpers.clickAndWait(courseOrTopicContainer+'> div');
-    const courseIndex = await this.getIndexOfCourseOrTopicInDropdown(courseOrTopicContainer, courseOrTopicName);
+    const courseIndex = await getIndexOfCourseOrTopicInDropdow(courseOrTopicContainer, courseOrTopicName);
     let dropDownElementCourseOrTopic = await driver.$(`${courseOrTopicContainer} .multiselect__content-wrapper > ul > li:nth-child(${courseIndex}) > span`);
     await dropDownElementCourseOrTopic.click();
 
@@ -87,8 +88,8 @@ async function getIndexOfCourseOrTopicInDropdow(container, elementToSearch) {
 
 // params: courseName or TopicName, selector - container of topics or courses
 async function addToCourseAndTopic(course, topic) {
-    await selectAttachmentToCourseOrTopicContentPage(course, selectorCourseSelector);
-    await selectAttachmentToCourseOrTopicContentPage(topic, selectorTopicSelector);
+    await selectAttachmentToCourseOrTopicContentPage(course, selectorTopicSelector);
+    await selectAttachmentToCourseOrTopicContentPage(topic, selectorCourseSelector);
 }
 
 async function clickSubmitAddContentBtn() {
@@ -105,9 +106,12 @@ async function listOfAttachedMaterialsInTheTopic() {
     return listOfAttachedMaterialsInTheTopic;
 }
 
+async function isTheNameOfAttachedMaterialCorrect() {
+    const materials = await listOfAttachedMaterialsInTheTopic();
+    await expect(materials).to.include(title);
+}
 
 module.exports= {
-    title, 
     switchToContentWindow,
     isRedirectedToContentPage,
     setSearchRequest,
@@ -120,6 +124,7 @@ module.exports= {
     clickSubmitAddContentBtn,
     listOfAttachedMaterialsInTheTopic,
     rightNumberOfFoundContentDisplayed,
+    isTheNameOfAttachedMaterialCorrect,
 
 }
 
