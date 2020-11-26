@@ -11,6 +11,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Added
 
 - SC-6814 - Delete class test
+- SC-5795 - CreateUser and send registration link
 - SC-7736 - Deleted User forgot password functionality
 - SC-7735 - Deleted User Tests for Removed user in not visible in team anymore
 - SC-7059 - DeletionConcept Tests
