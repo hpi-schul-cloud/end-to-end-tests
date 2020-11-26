@@ -74,7 +74,7 @@ async function clickAddClassConfirmation() {
 }
 
  async function clickOnClassesTab(tabText) {
-     const element = await elementHelpers.getElementByText(classesTabs, tabText);
+    const element = await elementHelpers.getElementByText(classesTabs, tabText);
      await elementHelpers.clickAndWait(element);
  }
 

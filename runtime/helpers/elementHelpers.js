@@ -118,7 +118,7 @@ async function getLink(selector) {
 }
 
 async function isElementDisplayed(selector) {
-	await driver.$(selector).isDisplayed();
+	return (await driver.$(selector)).isDisplayed();
 }
 
 async function isElementPresent(selector) {
@@ -187,18 +187,6 @@ async function getListOfAllElements(selector) {
 	return driver.$$(selector);
 }
 
-async function getIndexOfHeaderContainsText(tableSel, text) {
-	const textList = await getTextFromAllElements(tableSel + ' th');
-	var index = textList.indexOf(text);
-	return index;
-}
-
-async function getIndexOfRowContainsText(tableSel, text) {
-	const textList = await getTextFromAllElements(tableSel + ' tr');
-	var index = textList.indexOf(text);
-	return index;
-}
-
 async function isOptionSelected(selectSelector, text) {
 	text = text.trim();
 	const listOfSelectedOption = await getListOfSelectedOption(selectSelector);
@@ -224,6 +212,14 @@ async function getElementByText(selector, text) {
 	return listOfElements[index];
 }
 
+async function getElementIncludingText(selector, text) {
+	const listOfElements = await getListOfAllElements(selector);
+	const listOfElementTexts = await getTextListFromListOfElements(listOfElements);
+	text = text.trim();
+	const index = listOfElementTexts.findIndex(elem => elem.includes(text));
+	return listOfElements[index];
+}
+
 module.exports = {
 	click,
 	clickAndWait,
@@ -242,8 +238,6 @@ module.exports = {
 	getListOfAllElements,
 	getValueListFromListOfElements,
 	getListOfSelectedOption,
-	getIndexOfRowContainsText,
-	getIndexOfHeaderContainsText,
 	isElementDisplayed,
 	isElementPresent,
 	isElementClickable,
@@ -253,4 +247,5 @@ module.exports = {
 	clearAndSetValue,
 	getValueOfElement,
 	getElementByText,
+	getElementIncludingText,
 };
