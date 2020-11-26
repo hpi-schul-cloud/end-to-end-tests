@@ -76,7 +76,7 @@ async function isClassEdited(newClassName, teacherLastname, expectedResult) {
 		} catch (e) {
 			return true
 		}
-		} else {
+	} else {
 		try {
 			const allClassesContainer = await waitHelpers.waitUntilElementIsVisible(classListTable)
 			const allClassesContent = await allClassesContainer.getText()
