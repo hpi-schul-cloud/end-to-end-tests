@@ -72,7 +72,11 @@ async function createNewClass({schoolYear, teachers, classGrade, className, cust
 async function isClassEdited(newClassName, teacherLastname, expectedResult) {
 	if (!expectedResult) {
 		try {
-			await waitHelpers.waitUntilElementIsVisible(classListTable)
+			const allClassesContainer = await waitHelpers.waitUntilElementIsVisible(classListTable)
+			const allClassesContent = await allClassesContainer.getText()
+			const contentArray = allClassesContent.split(" ")
+			expect(contentArray[0]).not.to.equal(newClassName)
+			expect(contentArray[1]).not.to.equal(teacherLastname)
 		} catch (e) {
 			return true
 		}
