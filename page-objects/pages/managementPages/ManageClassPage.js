@@ -14,6 +14,8 @@ const schoolYearSelect = "select[name='schoolyear']"
 const teachersMultiSelect = "select[name='teacherIds[]']"
 const addClassConfirmBtn = "button[data-testId='confirmClassCreate']"
 const classListTable = "table [data-testid='students_names_container']"
+const deleteClassBtn = ".table-actions .btn-delete"
+const deleteButtonConfirmation = ".btn-submit"
 
 async function clickEditClassSaveChangesBtn() {
     await elementHelpers.clickAndWait(saveChangesBtn)
@@ -67,14 +69,30 @@ async function createNewClass({schoolYear, teachers, classGrade, className, cust
     if (customClassName) await setCustomClassName(customClassName);
     await clickAddClassConfirmation();
 }
-async function isClassEdited(newClassName, teacherLastname) {
-    const allClassesContainer = await waitHelpers.waitUntilElementIsVisible(classListTable)
-    const allClassesContent = await allClassesContainer.getText()
-    const contentArray = allClassesContent.split(" ")
+async function isClassEdited(newClassName, teacherLastname, expectedResult) {
+	if (!expectedResult) {
+		try {
+			await waitHelpers.waitUntilElementIsVisible(classListTable)
+		} catch (e) {
+			return true
+		}
+		} else {
+		try {
+			const allClassesContainer = await waitHelpers.waitUntilElementIsVisible(classListTable)
+			const allClassesContent = await allClassesContainer.getText()
+			const contentArray = allClassesContent.split(" ")
+			expect(contentArray.length).to.equal(4) // teacher is not empty and therefore not 3, but 4
+			expect(contentArray[0]).to.equal(newClassName)
+			expect(contentArray[1]).to.equal(teacherLastname)
+		} catch (e) {
+			return false
+		}
+	}
 
-    expect(contentArray.length).to.equal(4) // teacher is not empty and therefore not 3, but 4
-    expect(contentArray[0]).to.equal(newClassName)
-    expect(contentArray[1]).to.equal(teacherLastname)
+}
+async function deleteClass() {
+	await elementHelpers.click(deleteClassBtn);
+	await elementHelpers.clickAndWait(deleteButtonConfirmation);
 }
 
 async function isNewEmptyClassCreated(className, numOfStudents) {
@@ -94,4 +112,5 @@ module.exports = {
     createNewClass,
     isClassEdited,
     isNewEmptyClassCreated,
+	deleteClass,
 }
