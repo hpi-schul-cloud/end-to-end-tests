@@ -20,7 +20,7 @@ When(/^.*clicks Create-new-course button$/, function () {
 });
 
 When(/^.*chooses himself as a Course teacher$/, async function () {
-	return addCourse.setCurrentUserAsTeacher();
+	return addCourse.isTeachersNameSetByDefault();
 });
 
 When(/^.*enters course name (.*) into new course form$/, function (courseName) {
