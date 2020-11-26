@@ -1,8 +1,10 @@
 'use strict';
 
-const { section } = require('../../page-objects/pages/coursePages/CRSSCourseListPage');
 const dashboardPage = require('../../page-objects/pages/DashboardPage');
 
+//SCHEDULE
+
+//TASKS
 Then(/^.* '([^']*)' tasks section is visible on dashboard$/, async function (section) {
 	await dashboardPage.isTasksSectionVisible(section);
 });
@@ -49,16 +51,6 @@ Then(
 	}
 );
 
-//section:
-Then(
-	/^.* '([^']*)' task with name '([^']*)' and deadline for course '([^']*)' is visible on dashboard$/,
-	async function (section, taskName, courseName) {
-		await dashboardPage.isTaskWithNameVisible(taskName, section);
-		await dashboardPage.isTaskWithCourseVisible(taskName, section, courseName, true);
-		await dashboardPage.isElementOnTaskVisible('Deadline', taskName, section, true);
-	}
-);
-
 Then(/^.* '([^']*)' task with name '([^']*)' is visible on dashboard$/, async function (section, taskName) {
 	await dashboardPage.isTaskWithNameVisible(taskName, section);
 });
@@ -85,3 +77,5 @@ Then(
 		await dashboardPage.isTaskWithSubmissionDateSet(taskName, section, true);
 	}
 );
+
+//NEWS

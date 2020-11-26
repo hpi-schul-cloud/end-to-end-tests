@@ -3,7 +3,6 @@
 const waitHelpers = require('../../runtime/helpers/waitHelpers');
 const NavigationLeftPage = require('./NavigationLeftPage');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
-const { getElementByText } = require('../../runtime/helpers/elementHelpers');
 
 const taskElement = {
 	name: 'span[data-testid="task-name"]',
@@ -14,7 +13,7 @@ const taskElement = {
 };
 
 const taskSection = {
-	assigned: 'section[data-testid="assigned-tasks-section"]',
+	assigned: 'section[data-testid="published-tasks-section"]',
 	private: 'section[data-testid="private-tasks-section"]',
 };
 
@@ -48,7 +47,7 @@ function getTaskSectionSel(taskType) {
 	let btnSel = '';
 	taskType = taskType.toLowerCase();
 	switch (taskType) {
-		case 'assigned':
+		case 'published':
 			btnSel = taskSection.assigned;
 			break;
 		case 'private':

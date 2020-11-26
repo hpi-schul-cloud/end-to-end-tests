@@ -42,13 +42,13 @@ Feature: dashboard test set
 		And <userRole> goes to tasks page
 		When <userRole> sees that task with name '<taskName>' is visible on the list
 		And <userRole> clicks left navigation item 'dashboard'
-		Then <userRole> should see that 'assigned' tasks section is visible on dashboard
-		And <userRole> should see that 'assigned' task with name '<taskName>' assigned to course '<courseName>' is visible on dashboard
-		And <userRole> should see that 'assigned' task with name '<taskName>' with submission date is visible on dashboard
-		And <userRole> should see that number of submitted tasks is visible for task '<taskName>' in 'assigned' section
-		And <userRole> should see that 'assigned' task with name '<taskName>' has '0' submitted and '1' to be submitted tasks
-		And <userRole> should see that number of graded tasks is visible for task '<taskName>' in 'assigned' section
-		And <userRole> should see that 'assigned' task with name '<taskName>' has '0' graded and '0' to be graded tasks
+		Then <userRole> should see that 'published' tasks section is visible on dashboard
+		And <userRole> should see that 'published' task with name '<taskName>' assigned to course '<courseName>' is visible on dashboard
+		And <userRole> should see that 'published' task with name '<taskName>' with submission date is visible on dashboard
+		And <userRole> should see that number of submitted tasks is visible for task '<taskName>' in 'published' section
+		And <userRole> should see that 'published' task with name '<taskName>' has '0' submitted and '1' to be submitted tasks
+		And <userRole> should see that number of graded tasks is visible for task '<taskName>' in 'published' section
+		And <userRole> should see that 'published' task with name '<taskName>' has '0' graded and '0' to be graded tasks
 		Examples:
 			| userRole | courseName | studentName | taskName             | taskBody         |
 			| teacher  | German     | Paula Meyer | regular task example | text of the task |
