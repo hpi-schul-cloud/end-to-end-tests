@@ -10,7 +10,8 @@ const privateHomeworkCheckbox = "[data-testid='private-checkbox']";
 const publicSubmissionsCheckbox = "#publicSubmissionsCheckbox";
 const homeworkTitleInput = "input[placeholder='Titel']";
 const submitHomeworkBtn = ".btn-submit";
-const courseSelect = '#coursePicker';
+const courseSelectInput = '#coursePicker_chosen > a';
+const courseSelect ='#coursePicker_chosen li';
 const activatePublicSubmissionsDialog = '.modal.fade.dontShowAgainAlert-modal.in'
 const activatePublicSubmissionsButton = 'button[type="submit"]';
 
@@ -49,8 +50,16 @@ async function clickTeamSubmissionsCheckbox () {
 }
 
 async function selectFirstCourseOnTheList(){
-   let dropdown = await driver.$(courseSelect);
-   await dropdown.selectByIndex(0);
+    await elementHelpers.clickAndWait(courseSelectInput);
+    const listOfCurses = await driver.$$(courseSelect);
+   let keineZuordnung = 'Keine Zuordnung';
+   for(let i = 0 ; i < listOfCurses.length ; i++){
+       let item = await listOfCurses[i].getText();
+       if(keineZuordnung.includes(item)){
+           await listOfCurses[i].click();
+           break;
+       }
+   }
 }
 
 async function setHomeworkName (taskName) {
