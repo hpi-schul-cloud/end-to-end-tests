@@ -10,7 +10,7 @@ Feature: Set of tests to create courses
         And <userRole> goes to courses page
         When <userRole> clicks Create-new-course button
         And <userRole> enters course name '<courseName>' into new course form
-        And <userRole> chooses himself as a Course teacher
+        #And <userRole> sees his.hers name is entered by default in teachers' field
         And <userRole> chooses course colour '<courseColour>'
         And <userRole> clicks Next-section button
         And <userRole> clicks Next-section button
@@ -32,7 +32,7 @@ Feature: Set of tests to create courses
         And <userRole> clicks Next-section button
         Then <userRole> should see that '2' section can not be opened
         When <userRole> enters course name '<courseName>' into new course form
-        And <userRole> chooses himself as a Course teacher
+        #And <userRole> sees his.hers name is entered by default in teachers' field
         And <userRole> chooses course colour '<courseColour>'
         And <userRole> clicks Next-section button
         Then <userRole> should see that '2' section is opened

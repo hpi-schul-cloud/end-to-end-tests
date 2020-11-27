@@ -37,15 +37,11 @@ async function getSelectOptions(selectSelector) {
 		})
 	);
 }
-
+	
 async function selectOptionByText(selectSelector, text) {
 	const element = await waitHelpers.waitUntilElementIsVisible(selectSelector);
-	if (!(await isOptionSelected(selectSelector, text))) {
-		await driver.keys('Control');
-		await element.selectByVisibleText(text.trim());
-		await driver.keys('Control');
-	}
-}
+	await element.selectByVisibleText(text.trim());
+};	
 
 async function loadPage(url, timeout = LOAD_PAGE_TIMEOUT) {
 	await driver.url(url);
