@@ -10,7 +10,7 @@ Feature: Set of tests to create courses
         And <userRole> goes to courses page
         When <userRole> clicks Create-new-course button
         And <userRole> enters course name '<courseName>' into new course form
-        #And <userRole> sees his.hers name is entered by default in teachers' field
+        And <userRole> sees his.hers name is entered by default in teachers' field
         And <userRole> chooses course colour '<courseColour>'
         And <userRole> clicks Next-section button
         And <userRole> clicks Next-section button
@@ -25,14 +25,13 @@ Feature: Set of tests to create courses
         Given <userRole> logs in with email '<userName>' and password '<password>'
         And <userRole> goes to courses page
         When <userRole> clicks Create-new-course button
-        #Then teacher should see that his his/hers name is entered by default in teachers' field (to be restored after SC-7152)
         Then <userRole> should see that time span is already set
         When <userRole> should see that supply teacher is not set
         And <userRole> should see that course name is not set
         And <userRole> clicks Next-section button
         Then <userRole> should see that '2' section can not be opened
         When <userRole> enters course name '<courseName>' into new course form
-        #And <userRole> sees his.hers name is entered by default in teachers' field
+        And <userRole> sees his.hers name is entered by default in teachers' field
         And <userRole> chooses course colour '<courseColour>'
         And <userRole> clicks Next-section button
         Then <userRole> should see that '2' section is opened
