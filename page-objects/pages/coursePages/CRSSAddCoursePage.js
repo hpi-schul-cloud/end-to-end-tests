@@ -18,18 +18,19 @@ const section = {
 };
 const multipleChoiceSelectForStudents = 'select[data-testid="pupils"]';
 //Course data section
-const courseDefaultInputValue = 'z.B. Mathe 10a';
-const courseNameInput = '#nameOfTheCourse';
-const teacherSelect = '#courseTeacher';
-const teacherSubSelect = '#courseSubstitute';
-const colourPicker = '.color-picker__item';
+const courseDefaultInputValue = "z.B. Mathe 10a";
+const courseNameInput ='#nameOfTheCourse';
+const teacherSelect = 'li.search-choice > span';
+const teacherSubSelect ='#courseSubstitute_chosen > ul > li > input';
+const colourPicker = ".color-picker__item";
 const timeSpan = {
 	start: '[data-testid="date_start"]',
 	end: '#untilDate',
 };
-//Members section
-const classSelect = '#addClassesToCourse';
-const studentSelect = '#addStudentsToCourse';
+//Participants section
+const classSelect = '#addClassesToCourse_chosen  input';
+const studentSelect = '#addStudentsToCourse_chosen li.active-result';
+const studentInput = '#addStudentsToCourse_chosen  input';
 //Final section
 const createNewCourseBtn = '[data-testid="einen-weiteren-kurs-anlegen-btn"]';
 const goToCourseListBtn = '[data-testid="zur-uebersicht-btn"]';
@@ -115,7 +116,7 @@ function getSectionSelector(sectionNumber) {
 async function createCourseWithStudent(courseName, studentName = 'default') {
 	await goToAddCourses();
 	await setCourseName(courseName);
-	await setCurrentUserAsTeacher();
+	await isTeachersNameSetByDefault();
 	await goToNextSection();
 
 	if (studentName !== 'default') await setStudent(studentName);
@@ -127,10 +128,25 @@ async function createCourseWithStudent(courseName, studentName = 'default') {
 async function createCourse (courseName) {
 	await goToAddCourses();
 	await setCourseName(courseName);
-	await setCurrentUserAsTeacher();
+	await isTeachersNameSetByDefault();
 	await goToNextSection();
+	await elementHelpers.clickAndWait(studentInput);
+	const listOfMembers = await driver.$$(studentSelect);
+	for(let i = 0 ; i < listOfMembers.length ; i++){
+		let item = await listOfMembers[i].getText();
+		if(studentName.includes(item)){
+			await listOfMembers[i].click();
+			break;
+		}
+	}
 	await goToNextSection();
 	await clickGoToCourseListBtn();
+}
+
+async function isTeachersNameSetByDefault() {
+	const username = await APIhelpers.getUserName();
+	let listOfUsers = await elementHelpers.getTextFromAllElements(teacherSelect);
+	await expect(listOfUsers).to.includes(username);
 }
 
 //Course data section
@@ -167,16 +183,10 @@ async function setColour(colourName) {
 	await elementHelpers.click(element);
 }
 
-async function isTeachersNameSetByDefault() {
-	const username = await APIhelpers.getUserName();
-	const isSelected = await elementHelpers.isOptionSelected(teacherSelect, username);
-	await expect(isSelected).to.be.true;
-}
-
-async function isTeacherSubstituteNotSet() {
-	const list = await elementHelpers.getListOfSelectedOption(teacherSubSelect);
-	expect(list.length).to.equal(0);
-}
+async function isTeacherSubstituteNotSet () {
+		const list = await elementHelpers.getListOfSelectedOption(teacherSubSelect);
+		expect(list.length).to.equal(0);
+	}
 
 // could be extended with verifying the date is correct
 async function isTimeSpanSet() {
@@ -195,8 +205,8 @@ async function isClassNotSet() {
 	expect(list.length).to.equal(0);
 }
 
-async function isStudentNotSet() {
-	const list = await elementHelpers.getListOfSelectedOption(studentSelect);
+async function isStudentNotSet () {
+	const list = await elementHelpers.getListOfSelectedOption(studentInput);
 	expect(list.length).to.equal(0);
 }
 
