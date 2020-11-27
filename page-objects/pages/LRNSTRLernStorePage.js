@@ -46,10 +46,10 @@ async function rightNumberOfFoundContentDisplayed(request) {
 }
 
 async function clickOnContentCard(request) {
-    await elementHelpers.clickAndWait(selectorFirstElement)
+    await elementHelpers.clickAndWait('.content__container > div > section:nth-child(1) > div > div > a > div > div > div > div')
     await driver.pause(2000);
     // check selector and ASCII ('&amp') 
-    //await isMaterialNameOnGUIAndAPIequal(request)
+    await isMaterialNameOnGUIAndAPIequal(request)
 }
 
 async function isMaterialNameOnGUIAndAPIequal(request) {
