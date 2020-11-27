@@ -79,77 +79,85 @@ async function getComparisonOfNumberOfTasks(element) {
 	};
 }
 
-async function tryGetValue(func) {
-	try {
-		let val = await func();
-		return func();
-	} catch {
-		return undefined;
-	}
-}
-
-async function getTaskWithNameInSection(taskName, section) {
+async function getTaskCardElementInSection(taskName, section) {
 	const taskSectionSel = `${getTaskSectionSel(section)}`;
 	let element = await elementHelpers.getElementIncludingText(`${taskSectionSel} .card-block`, taskName);
-	const comparisonOfNumberOfSubmittedTasks = await tryGetValue(async () =>
-		getComparisonOfNumberOfTasks(await element.$(taskElement.submitted))
-	);
-	const comparisonOfNumberOfGradedTasks = await tryGetValue(async () =>
-		getComparisonOfNumberOfTasks(await element.$(taskElement.graded))
-	);
+	return element;
+}
 
+async function getListOfTasksInSection(section) {
+	const taskSectionSel = `${getTaskSectionSel(section)}`;
 	return {
-		element: element,
-		name: await tryGetValue(async () => (await element.$(taskElement.name)).getText()),
-		courseName: await tryGetValue(async () => await (await element.$(taskElement.courseName)).getText()),
-		deadline: await tryGetValue(async () => await (await element.$(taskElement.deadline)).getText()),
-		submitted: await tryGetValue(async () => comparisonOfNumberOfSubmittedTasks.current),
-		toBeSubmitted: await tryGetValue(async () => comparisonOfNumberOfSubmittedTasks.expected),
-		graded: await tryGetValue(async () => comparisonOfNumberOfGradedTasks.current),
-		toBeGraded: await tryGetValue(async () => comparisonOfNumberOfGradedTasks.expected),
-		index: element.index,
+		titles: await elementHelpers.getTextFromAllElements(`${taskSectionSel} ${taskElement.name}`),
+		courseNames: await elementHelpers.getTextFromAllElements(`${taskSectionSel} ${taskElement.courseName}`),
+		list: await elementHelpers.getListOfAllElements(`${taskSectionSel} .card-block`),
+	};
+}
+
+async function getTaskFullName(taskName, section) {
+	let element = await getTaskCardElementInSection(taskName, section);
+	element = await element.$(taskElement.name);
+	return element.getText();
+}
+
+async function getTaskCourseName(taskName, section) {
+	let element = await getTaskCardElementInSection(taskName, section);
+	element = await element.$(taskElement.courseName);
+	return element.getText();
+}
+
+async function getTaskDeadline(taskName, section) {
+	let element = await getTaskCardElementInSection(taskName, section);
+	element = await element.$(taskElement.deadline);
+	return element.getText();
+}
+
+async function getSubmittedValuePair(taskName, section) {
+	let element = await getTaskCardElementInSection(taskName, section);
+	element = await element.$(taskElement.submitted);
+	const comparisonOfNumberOfSubmittedTasks = await getComparisonOfNumberOfTasks(element);
+	return {
+		submitted: comparisonOfNumberOfSubmittedTasks.current,
+		toBeSubmitted: comparisonOfNumberOfSubmittedTasks.expected,
+	};
+}
+
+async function getGradedValuePair(taskName, section) {
+	let element = await getTaskCardElementInSection(taskName, section);
+	element = await element.$(taskElement.graded);
+	const comparisonOfNumberOfGradedTasks = await getComparisonOfNumberOfTasks(element);
+	return {
+		graded: comparisonOfNumberOfGradedTasks.current,
+		toBeGraded: comparisonOfNumberOfGradedTasks.expected,
 	};
 }
 
 async function isTaskWithSubmissionDateSet(taskName, section, expectedValue) {
-	const task = await getTaskWithNameInSection(taskName, section);
-	const deadline = task.deadline;
-	const isSubmissionDateSet = !(task.deadline.includes(`No submission date set` || `Kein Abgabedatum festgelegt`));
+	const deadline = await getTaskDeadline(taskName, section);
+	const isSubmissionDateSet = !deadline.includes(`No submission date set` || `Kein Abgabedatum festgelegt`);
 	const fillString = expectedValue ? '' : 'not';
 	const msg = `Submission date should ${fillString} be set. \nActual submission date: ${deadline} `;
 	return expect(isSubmissionDateSet, msg).to.equal(expectedValue);
 }
 
 async function isTaskWithGradedTasksInSection(taskName, section, graded, toBeGraded) {
-	const task = await getTaskWithNameInSection(taskName, section);
-	const actualGraded = task.graded;
-	const actualToBeGraded = task.toBeGraded;
+	const gradedValuePair = await getGradedValuePair(taskName, section);
+	const actualGraded = gradedValuePair.graded;
+	const actualToBeGraded = gradedValuePair.toBeGraded;
 	const msg = `Expected ${graded}/${toBeGraded}, \nActual: ${actualGraded}/${actualToBeGraded}`;
 	return expect(actualGraded, msg).to.equal(graded) && expect(actualToBeGraded, msg).to.equal(toBeGraded);
 }
 
 async function isTaskWithSubmittedTasksInSection(taskName, section, submitted, toBeSubmitted) {
-	const task = await getTaskWithNameInSection(taskName, section);
-	const actualSubmitted = task.submitted;
-	const actualToBeSubmitted = task.toBeSubmitted;
+	const submittedValuePair = await getSubmittedValuePair(taskName, section);
+	const actualSubmitted = submittedValuePair.submitted;
+	const actualToBeSubmitted = submittedValuePair.toBeSubmitted;
 	const msg = `Expected ${submitted}/${toBeSubmitted}, \nActual: ${actualSubmitted}/${actualToBeSubmitted}`;
 	return expect(actualSubmitted, msg).to.equal(submitted) && expect(actualToBeSubmitted, msg).to.equal(toBeSubmitted);
 }
 
-
-async function getListOfTasksInSection(section) {
-	return {
-		titles: await tryGetValue(
-			async () => await elementHelpers.getTextFromAllElements(`${getTaskSectionSel(section)} ${taskElement.name}`)),
-		courseNames: await tryGetValue(
-			async () => await elementHelpers.getTextFromAllElements(`${getTaskSectionSel(section)} ${taskElement.courseName}`)),
-		list: await tryGetValue(async () => await elementHelpers.getListOfAllElements(`${getTaskSectionSel(section)}`)),
-	};
-}
-
 async function isTaskWithCourseVisible(taskName, section, courseName, expectedValue) {
-	const task = await getTaskWithNameInSection(taskName, section);
-	const taskCourseName = task.courseName;
+	const taskCourseName = await getTaskCourseName(taskName, section);
 	const isTaskWithCourse = taskCourseName.includes(courseName);
 	const fillString = expectedValue ? 'not' : '';
 	const msg = `Task '${taskName}' with course is '${fillString}' visible on the list`;
@@ -157,17 +165,18 @@ async function isTaskWithCourseVisible(taskName, section, courseName, expectedVa
 }
 
 async function isTaskWithNameVisible(taskName, section) {
-	const task = await getTaskWithNameInSection(taskName, section);
-	const isTaskVisible = await task.element.isDisplayed();
+	const taskCard = await getTaskCardElementInSection(taskName, section);
+	const isTaskVisible = await taskCard.isDisplayed();
 	const msg = 'Task with name [' + taskName + '] is not visible on the list';
 	const resultMsg = 'List of Task titles: ' + (await getListOfTasksInSection(section)).titles;
-	return expect(isTaskVisible, msg + resultMsg).to.equal(true)
+	return expect(isTaskVisible, msg + resultMsg).to.equal(true);
 }
 
 async function isElementOnTaskVisible(elementName, taskName, section, expectedValue) {
-	const task = await getTaskWithNameInSection(taskName, section);
+	const taskCard = await getTaskCardElementInSection(taskName, section);
 	const elementSel = getTaskElementSel(elementName);
-	const isTaskWithElement = await (await task.element.$(elementSel)).isDisplayed();
+	const element = await taskCard.$(elementSel);
+	const isTaskWithElement = await element.isDisplayed();
 	const fillString = expectedValue ? 'not' : '';
 	const msg = `Task '${taskName}' with element '${elementName}' is ${fillString} visible`;
 	await expect(isTaskWithElement, msg).to.equal(expectedValue);
@@ -175,7 +184,6 @@ async function isElementOnTaskVisible(elementName, taskName, section, expectedVa
 
 module.exports = {
 	goToDashboard,
-	getTaskWithNameInSection,
 	getListOfTasksInSection,
 	isTaskWithSubmissionDateSet,
 	isTasksSectionVisible,

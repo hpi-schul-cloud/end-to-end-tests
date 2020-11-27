@@ -2,9 +2,6 @@
 
 const dashboardPage = require('../../page-objects/pages/DashboardPage');
 
-//SCHEDULE
-
-//TASKS
 Then(/^.* '([^']*)' tasks section is visible on dashboard$/, async function (section) {
 	await dashboardPage.isTasksSectionVisible(section);
 });
@@ -77,5 +74,3 @@ Then(
 		await dashboardPage.isTaskWithSubmissionDateSet(taskName, section, true);
 	}
 );
-
-//NEWS
