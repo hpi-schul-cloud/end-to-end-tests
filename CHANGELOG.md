@@ -38,6 +38,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-6945 skip @copyCourseWithText for hotfix
 - SC-5858 change selectors after removing chosen library in the old client
+- SC-7878 - dropdowns and multiselects
 
 ## 25.0.0
 
