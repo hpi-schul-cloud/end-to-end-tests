@@ -2,8 +2,8 @@
 
 const manageClass = require('../../page-objects/pages/managementPages/ManageClassPage');
 
-Then(/^.* clicks delete class with name '([^']*)'$/, function (ClassName) {
-	return manageClass.deleteClass(ClassName)
+When(/^.* clicks delete class$/, function () {
+	return manageClass.deleteClass()
 });
 
 Then(/^.* class with name '([^']*)' and teacher lastname '([^']*)' is not visible$/, function (newClassName, teacherLastname) {
