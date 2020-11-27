@@ -18,16 +18,16 @@ const multipleChoiceSelectForStudents ='select[data-testid="pupils"]';
 //Course data section
 const courseDefaultInputValue = "z.B. Mathe 10a";
 const courseNameInput ='#nameOfTheCourse';
-const teacherSelect = '#courseTeacher';
-const teacherSubSelect ='#courseSubstitute';
+const teacherSelect = '#courseTeacher_chosen';
+const teacherSubSelect ='#courseSubstitute_chosen';
 const colourPicker = ".color-picker__item";
 const timeSpan = {
 		start: '[data-testid="date_start"]',
 		end: "#untilDate",
 };
 //Participants section
-const classSelect = '#addClassesToCourse';
-const studentSelect = '#addStudentsToCourse';
+const classSelect = '#addClassesToCourse_chosen';
+const studentSelect = '#addStudentsToCourse_chosen';
 //Final section
 const createNewCourseBtn ='[data-testid="einen-weiteren-kurs-anlegen-btn"]';
 const goToCourseListBtn = '[data-testid="zur-uebersicht-btn"]';

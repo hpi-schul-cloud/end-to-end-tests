@@ -37,11 +37,17 @@ async function getSelectOptions(selectSelector) {
 		})
 	);
 }
-	
+
 async function selectOptionByText(selectSelector, text) {
-	const element = await waitHelpers.waitUntilElementIsVisible(selectSelector);
-	await element.selectByVisibleText(text.trim());
-};	
+	await waitHelpers.waitUntilElementIsPresent(selectSelector);
+	await click(`${selectSelector}`);
+	const activeResult = `${selectSelector} .active-result`;
+	const listOfOptions = await getListOfAllElements(activeResult);
+	const listOfOptionsTexts = await getTextFromAllElements(activeResult);
+	const optionIndex = listOfOptionsTexts.indexOf(text.trim());
+	const element = listOfOptions[optionIndex];
+	await element.click();
+}
 
 async function loadPage(url, timeout = LOAD_PAGE_TIMEOUT) {
 	await driver.url(url);
@@ -212,7 +218,7 @@ async function getElementIncludingText(selector, text) {
 	const listOfElements = await getListOfAllElements(selector);
 	const listOfElementTexts = await getTextListFromListOfElements(listOfElements);
 	text = text.trim();
-	const index = listOfElementTexts.findIndex(elem => elem.includes(text));
+	const index = listOfElementTexts.findIndex((elem) => elem.includes(text));
 	return listOfElements[index];
 }
 
