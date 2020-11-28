@@ -49,7 +49,7 @@ async function clickOnContentCard(request) {
     await elementHelpers.clickAndWait(selectorFirstElement)
     await driver.pause(2000);
     // check selector and ASCII ('&amp') 
-    await isMaterialNameOnGUIAndAPIequal(request)
+    //await isMaterialNameOnGUIAndAPIequal(request)
 }
 
 async function isMaterialNameOnGUIAndAPIequal(request) {
