@@ -50,8 +50,8 @@ async function clickOnContentCard(request) {
     await driver.pause(2000);
     // check selector and ASCII ('&amp') 
     //await isMaterialNameOnGUIAndAPIequal(request)
-    let handle = await driver.getWindowHandles();
-    await driver.switchToWindow(handle[0]);
+    //let handle = await driver.getWindowHandles();
+    //await driver.switchToWindow(handle[0]);
 }
 
 async function isMaterialNameOnGUIAndAPIequal(request) {
