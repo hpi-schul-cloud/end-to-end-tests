@@ -16,7 +16,7 @@ Then <userRole> must be redirected to content page
 When <userRole> searches for content <contentName>
 Then <userRole> must see the right number of materials <contentName> 
 When <userRole> clicks on content-card after request <contentName>
-And <userRole> clicks add-btn
+#And <userRole> clicks add-btn
 And <userRole> approves creating a topic with lernstore
 And <userRole> goes to courses page
 And <userRole> chooses course with name '<courseName>'
