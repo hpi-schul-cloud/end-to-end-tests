@@ -103,8 +103,12 @@ async function clickSubmitAddContentBtn() {
     await elementHelpers.clickAndWait(selectorSubmitAddToCourseAndTopic)
     await elementHelpers.clickAndWait(selectorSubmitBtnAfterMaterialWasAddedToCourseAndTopic);
     // return to main window
+    await swichToMainWindow();
+}
+
+async function swichToMainWindow() {
     let handle = await driver.getWindowHandles();
-    await driver.switchToWindow(handle[0]);
+    await driver.switchToWindow(handle[1]);
 }
 
 async function listOfAttachedMaterialsInTheTopic() {
@@ -132,7 +136,8 @@ module.exports= {
     listOfAttachedMaterialsInTheTopic,
     rightNumberOfFoundContentDisplayed,
     isTheNameOfAttachedMaterialCorrect,
-    getTitleOfTheFirstMaterial
+    getTitleOfTheFirstMaterial,
+    swichToMainWindow
 
 }
 

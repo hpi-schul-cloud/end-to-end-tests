@@ -46,3 +46,8 @@ Then(/^.* approves creating a topic with lernstore$/, async function () {
     
 });
 
+Then(/^.* switches to SC window$/, async function () {
+    await lernstorePage.swichToMainWindow();
+    
+});
+
