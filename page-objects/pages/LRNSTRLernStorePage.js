@@ -12,7 +12,7 @@ let title;
 
 const selectorSearchField = ".input-active.search__container > input";
 const selectorNumberOfContentOnGUI = ".content__total";
-const selectorFirstElement = ".grid > section:nth-child(1) .content";
+const selectorFirstElement = ".card.card:nth-child(1) .button.is-medium.is-text.is-icon";
 const selectorTitleOfMaterialWhenClicked = "div.title > span";
 const selectorMaterialContainer = "[data-testid='lernStoreCardsContainer']"
 const selectorCourseTitles = "div.multiselect__content-wrapper > ul > li > span";
