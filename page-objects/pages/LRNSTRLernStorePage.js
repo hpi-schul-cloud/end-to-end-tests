@@ -103,7 +103,7 @@ async function clickSubmitAddContentBtn() {
     await elementHelpers.clickAndWait(selectorSubmitAddToCourseAndTopic)
     await elementHelpers.clickAndWait(selectorSubmitBtnAfterMaterialWasAddedToCourseAndTopic);
     // return to main window
-    await swichToMainWindow();
+    //await swichToMainWindow();
 }
 
 async function swichToMainWindow() {

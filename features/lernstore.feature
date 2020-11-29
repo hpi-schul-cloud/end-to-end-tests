@@ -19,7 +19,7 @@ When <userRole> searches for content <contentName>
 Then <userRole> must see the right number of materials <contentName> 
 When <userRole> clicks on content-card after request <contentName>
 And <userRole> selects course <courseName> and topic <topicName>
-And <userRole> clicks on add content button
+#And <userRole> clicks on add content button
 #And <userRole> switches to SC window
 #And <userRole> clicks add-btn
 #And <userRole> approves creating a topic with lernstore
