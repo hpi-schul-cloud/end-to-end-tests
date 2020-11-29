@@ -8,6 +8,7 @@ const apiHelpers = require('../../runtime/helpers/APIhelpers');
 const stringHelpers= require('../../runtime/helpers/stringHelpers');
 const {CLIENT} = require("../../shared-objects/servers");
 const lernstoreUrl = `${CLIENT.URL}/content/?inline=1&isCourseGroupTopic=true`;
+const coursesUrl = `${CLIENT.URL}/courses`;
 let title;
 
 const selectorSearchField = ".input-active.search__container > input";
@@ -102,6 +103,7 @@ async function addToCourseAndTopic(course, topic) {
 async function clickSubmitAddContentBtn() {
     await elementHelpers.clickAndWait(selectorSubmitAddToCourseAndTopic)
     await elementHelpers.clickAndWait(selectorSubmitBtnAfterMaterialWasAddedToCourseAndTopic);
+    await elementHelpers.loadPage(coursesUrl)
     // return to main window
     //await swichToMainWindow();
 }
