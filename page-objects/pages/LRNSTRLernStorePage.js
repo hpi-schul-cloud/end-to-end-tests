@@ -48,10 +48,15 @@ async function rightNumberOfFoundContentDisplayed(request) {
 async function clickOnContentCard(request) {
     await elementHelpers.clickAndWait(selectorFirstElement)
     await driver.pause(2000);
+    title = await apiHelpers.getTheFirstElementNamePerRESTRequest(request);
     // check selector and ASCII ('&amp') 
     //await isMaterialNameOnGUIAndAPIequal(request)
     //let handle = await driver.getWindowHandles();
     //await driver.switchToWindow(handle[0]);
+}
+async function getTitleOfTheFirstMaterial(request) {
+    title = await apiHelpers.getTheFirstElementNamePerRESTRequest(request);
+
 }
 
 async function isMaterialNameOnGUIAndAPIequal(request) {
@@ -127,6 +132,7 @@ module.exports= {
     listOfAttachedMaterialsInTheTopic,
     rightNumberOfFoundContentDisplayed,
     isTheNameOfAttachedMaterialCorrect,
+    getTitleOfTheFirstMaterial
 
 }
 
