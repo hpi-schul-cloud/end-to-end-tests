@@ -7,7 +7,8 @@ const waitHelpers = require('../../../runtime/helpers/waitHelpers');
 const addAttendeeSubmitBtn = '.add-member-modal  button.btn-submit';
 
 const addInternalAttendeesBtn = 'button.btn-add-member';
-const multipleChoiceSelectForTeamAttendees = '[data-testid="select_team_members_add"]';
+const multipleChoiceSelectForTeamAttendees = 'div.form-group.form-users > div';
+const studentsList = '.active-result';
 
 async function clickAddInternalAttendeesBtn() {
 	await elementHelpers.clickAndWait(addInternalAttendeesBtn);
