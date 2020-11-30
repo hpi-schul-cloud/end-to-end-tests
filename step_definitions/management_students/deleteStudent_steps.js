@@ -1,12 +1,12 @@
 'use strict';
 
-const studentEditPage = require('../../page-objects/pages/managementPages/ManageStudentEditDeletePage');
+const manageStudent = require('../../page-objects/pages/managementPages/ManageStudentPage');
 
 When(/^.* clicks Delete-user button$/, async function () {
-	await studentEditPage.clickDeleteBtn();
+	await manageStudent.clickDeleteBtn();
 });
 
 When(/^.* clicks Delete-user button inside popup$/, async function () {
-	await studentEditPage.clickDeleteInModal();
+	await manageStudent.clickDeleteInModal();
 });
 

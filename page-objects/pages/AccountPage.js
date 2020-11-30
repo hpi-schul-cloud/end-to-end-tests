@@ -9,8 +9,7 @@ const newPasswordInput = 'input[data-testid="settings_password_new"]';
 const newPasswordConfInput = 'input[data-testid="settings_password_control"]';
 const submitAccountDataBtn = '[data-testid="submit_new_password_btn"]';
 
-const languageSelect = 'select#language';
-const languageOptions = 'option';
+const languageSelect = '#language_chosen';
 
 async function clickSubmitAccountDataBtn() {
     await elementHelpers.clickAndWait(submitAccountDataBtn);

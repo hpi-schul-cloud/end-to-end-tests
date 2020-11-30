@@ -13,7 +13,7 @@ const deleteButtonCancel = '.cancel-modal button.historyback';
 const deleteButtonConfirmation = '.delete-modal.in  button.btn-submit';
 
 async function clickDeleteBtn() {
-		await elementHelpers.click(deleteButton);
+	await elementHelpers.click(deleteButton);
 }
 async function clickCancelButton() {
 	await elementHelpers.clickAndWait(cancelButton);

@@ -10,10 +10,15 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+- SC-6814 - Delete class test
+- SC-5795 - CreateUser and send registration link
+- SC-7736 - Deleted User forgot password functionality
+- SC-7735 - Deleted User Tests for Removed user in not visible in team anymore
 - SC-7059 - DeletionConcept Tests
 - OPS-1297 - Added Changelog github action
 - SC-7571 - sendConsentFormEmail adjusted
 - SC-7733 - User can not login anymore, DeletionConcept Tests
+- SC-5797 - Added new test: showRegularTaskOnDashboard
 
 ## Changed
 
@@ -21,6 +26,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7110 Refactoring: Improved terms in cucumber steps: Teams, Topics, Class
 - SC-7524-parametrization: adjust parametrization to existing feature files
 - SC-7684-parametrization: feature and step definition file restructuring
+- SC-7329-Adjust QA TCs to initial DB
 
 ### Fixed
 

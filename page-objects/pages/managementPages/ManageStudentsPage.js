@@ -39,16 +39,15 @@ async function clickEditStudentBtn() {
 	}
 }
 
-
 async function clickEditStudentByMailBtn(userEmail) {
 	await waitHelpers.waitUntilElementIsVisible(tableOfStudentsColumn);
 	let studentsTable = await getStudentsDetailsList(emailCell);
 	let editsElements = await elementHelpers.getListOfAllElements(editElements);
 	for (let index = 1; index <= studentsTable.length; index++) {
-		let emailPromise = await driver.$(studentNameContainer + '> tr:nth-child('+index+') > td:nth-child(3)');
+		let emailPromise = await driver.$(studentNameContainer + '> tr:nth-child(' + index + ') > td:nth-child(3)');
 		let email = await emailPromise.getText();
 		if (email === userEmail) {
-			await elementHelpers.clickAndWait(editsElements[index-1]);
+			await elementHelpers.clickAndWait(editsElements[index - 1]);
 			break;
 		}
 	}
@@ -57,12 +56,12 @@ async function clickEditStudentByMailBtn(userEmail) {
 async function isStudentVisible(userEmail, expectedValue) {
 	await waitHelpers.waitUntilElementIsVisible(tableOfStudentsColumn);
 	let studentsTable = await getStudentsDetailsList(emailCell);
-		let isEmailExists = false;
-		for (let index = 1; index <= studentsTable.length; index++) {
-			let emailPromise = await driver.$(studentNameContainer + '> tr:nth-child('+index+') > td:nth-child(3)');
-			let email = await emailPromise.getText();
-			email === userEmail ? isEmailExists = true : '';
-		}
+	let isEmailExists = false;
+	for (let index = 1; index <= studentsTable.length; index++) {
+		let emailPromise = await driver.$(studentNameContainer + '> tr:nth-child(' + index + ') > td:nth-child(3)');
+		let email = await emailPromise.getText();
+		email === userEmail ? (isEmailExists = true) : '';
+	}
 	expect(isEmailExists).to.equal(expectedValue);
 }
 
@@ -90,12 +89,12 @@ async function submitStudentAddition() {
 	await elementHelpers.clickAndWait(addStudentSubmitBtn);
 }
 
-async function createNewPupil(firstname, lastname, email) {
+async function createNewPupil(firstname, lastname, email, birthday, addBirthday) {
 	await clickAddStudentBtn();
 	await setStudentFirstName(firstname);
 	await setStudentLastName(lastname);
 	await setStudentEmail(email);
-	await setStudentsBirthday('13.08.1990');
+	if (addBirthday) await setStudentsBirthday(birthday);
 	await clickOnSendRegistrationLinkCheckbox();
 	await submitStudentAddition();
 }
