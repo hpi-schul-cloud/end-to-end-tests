@@ -9,11 +9,13 @@ const saveChangesBtn = "button.btn.btn-primary"
 const moreOptionsBtn = "a[data-testid='classCreationExtraOptions']"
 const classNameInput = "input[name='classsuffix']"
 const customClassNameInput = "input[name='classcustom']"
-const classGradeSelect = "select[name='grade']"
-const schoolYearSelect = "select[name='schoolyear']"
-const teachersMultiSelect = "select[name='teacherIds[]']"
+const classGradeSelect = "select[name='grade'] + div.chosen-container"
+const schoolYearSelect = "select[name='schoolyear'] + div.chosen-container"
+const teachersMultiSelect = "select[name='teacherIds[]'] + div.chosen-container"
 const addClassConfirmBtn = "button[data-testId='confirmClassCreate']"
 const classListTable = "table [data-testid='students_names_container']"
+const deleteClassBtn = ".table-actions .btn-delete"
+const deleteButtonConfirmation = ".btn-submit"
 
 async function clickEditClassSaveChangesBtn() {
     await elementHelpers.clickAndWait(saveChangesBtn)
@@ -67,14 +69,34 @@ async function createNewClass({schoolYear, teachers, classGrade, className, cust
     if (customClassName) await setCustomClassName(customClassName);
     await clickAddClassConfirmation();
 }
-async function isClassEdited(newClassName, teacherLastname) {
-    const allClassesContainer = await waitHelpers.waitUntilElementIsVisible(classListTable)
-    const allClassesContent = await allClassesContainer.getText()
-    const contentArray = allClassesContent.split(" ")
+async function isClassEdited(newClassName, teacherLastname, expectedResult) {
+	if (!expectedResult) {
+		try {
+			const allClassesContainer = await waitHelpers.waitUntilElementIsVisible(classListTable)
+			const allClassesContent = await allClassesContainer.getText()
+			const contentArray = allClassesContent.split(" ")
+			expect(contentArray[0]).not.to.equal(newClassName)
+			expect(contentArray[1]).not.to.equal(teacherLastname)
+		} catch (e) {
+			return true
+		}
+	} else {
+		try {
+			const allClassesContainer = await waitHelpers.waitUntilElementIsVisible(classListTable)
+			const allClassesContent = await allClassesContainer.getText()
+			const contentArray = allClassesContent.split(" ")
+			expect(contentArray.length).to.equal(4) // teacher is not empty and therefore not 3, but 4
+			expect(contentArray[0]).to.equal(newClassName)
+			expect(contentArray[1]).to.equal(teacherLastname)
+		} catch (e) {
+			return false
+		}
+	}
 
-    expect(contentArray.length).to.equal(4) // teacher is not empty and therefore not 3, but 4
-    expect(contentArray[0]).to.equal(newClassName)
-    expect(contentArray[1]).to.equal(teacherLastname)
+}
+async function deleteClass() {
+	await elementHelpers.click(deleteClassBtn);
+	await elementHelpers.clickAndWait(deleteButtonConfirmation);
 }
 
 async function isNewEmptyClassCreated(className, numOfStudents) {
@@ -94,4 +116,5 @@ module.exports = {
     createNewClass,
     isClassEdited,
     isNewEmptyClassCreated,
+	deleteClass,
 }
