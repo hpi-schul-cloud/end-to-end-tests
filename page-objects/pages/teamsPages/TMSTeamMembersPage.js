@@ -15,16 +15,7 @@ async function clickAddInternalAttendeesBtn() {
 }
 
 async function addTeamAttendee(lastname, firstname) {
-	await elementHelpers.clickAndWait(multipleChoiceSelectForTeamAttendees);
-	const listOfMembers = await driver.$$(studentsList);
-	let fullName = lastname + ', ' + firstname;
-	for(let i = 0 ; i < listOfMembers.length ; i++){
-		let item = await listOfMembers[i].getText();
-		if(fullName.includes(item)){
-			await listOfMembers[i].click();
-			break;
-		}
-	}
+	await elementHelpers.selectOptionByText(multipleChoiceSelectForTeamAttendees, lastname + ', ' + firstname);
 }
 
 async function clickSubmitAddTeamAttendeeBtn() {
