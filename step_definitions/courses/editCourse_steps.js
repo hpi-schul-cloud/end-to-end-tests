@@ -32,7 +32,3 @@ Then(/^.* course name '([^']*)' with description correctly displayed '([^']*)'$/
 Then(/^.* course name '([^']*)' with color correctly displayed '([^']*)'$/, async function (courseName, colorCourse) {
 	await courseListPage.isCourseColour(courseName, colorCourse, courseListPage.section.activeCourses);
 });
-
-When(/^.* changes name of Course '([^']*)'$/, async function (changeName) {
-	await CRSSEditCopyCoursePage.setNewCourseName(changeName);
-});
