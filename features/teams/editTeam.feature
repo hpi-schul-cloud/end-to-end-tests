@@ -15,8 +15,8 @@ Feature: Set of tests to edit teams
         And <userRole> changes team description '<description>'
         And <userRole> chooses team colour '<colour>'
         And <userRole> clicks on Save-changes in team button
-        Then <userRole> goes to Teams Page
-        And <userRole> sees that team with name '<changeName>' is visible on the list
+        And <userRole> goes to Teams Page
+        Then <userRole> sees that team with name '<changeName>' is visible on the list
         And <userRole> should see that team name '<changeName>' with description correctly displayed '<description>'
         And <userRole> should see team with name '<changeName>' has colour '<colour>'
         Examples:

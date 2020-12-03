@@ -5,8 +5,8 @@ const TMSTeamListPage = require('../../page-objects/pages/teamsPages/TMSTeamList
 const TMSTeamMembersPage = require('../../page-objects/pages/teamsPages/TMSTeamMembersPage.js');
 
 //WHEN
-When(/^.*creates a new team with name '([^']*)' and description '([^']*)' and color '([^']*)'$/, function (teamName, description, color) {
-	return TMSAddEditTeamPage.createTeamAndGoToInternalMembersManagement(teamName, description, color);
+When(/^.*creates a new team with name '([^']*)' and description '([^']*)' and color '([^']*)'$/, function (teamName, description, colour) {
+	return TMSAddEditTeamPage.createTeamAndGoToInternalMembersManagement(teamName, description, colour);
 });
 
 When(/^.*adds a student to team with lastname: '([^']*)' and firstname: '([^']*)'$/, async function (lastname, firstname) {
@@ -23,7 +23,7 @@ When(/^.*clicks on Member icon in team with name '([^']*)'$/, async function (te
 
 //THEN
 Then(/^.*team with name '([^']*)' is be visible on the list$/, async function (teamName) {
-	await TMSTeamListPage.isTeamOnList(teamName);
+	await TMSTeamListPage.isTeamVisible(teamName, true);
 });
 
 Then(/^.*team with name '([^']*)' has colour '([^']*)'$/, async function (teamName, teamColour) {
@@ -35,7 +35,7 @@ Then(/^.*team with name '([^']*)' member number is '([^']*)'$/, async function (
 });
 
 Then(/^.*team with name '([^']*)', colour '([^']*)' and  member number '([^']*)' is visible on the list$/, async function (teamName, teamColour, memberCount) {
-	await TMSTeamListPage.isTeamOnList(teamName);
+	await TMSTeamListPage.isTeamVisible(teamName, true);
 	await TMSTeamListPage.isTeamColour(teamName, teamColour);
 	await TMSTeamListPage.isTeamMemberNumber(teamName, memberCount);
 });
@@ -61,7 +61,7 @@ Then(/^.* team with name '([^']*)' is visible on the list$/, async function (tea
 });
 
 When(/^.* chooses team colour '([^']*)'$/, function (teamColour) {
-	return TMSAddEditTeamPage.selectColour(teamColour);
+	return TMSAddEditTeamPage.setTeamColour(teamColour);
 });
 
 Then(/^.* team name '([^']*)' with description correctly displayed '([^']*)'$/, async function (

@@ -16,6 +16,8 @@ const teamColour = {
 	yellowColour: "span[data-color='rgb(255, 217, 90)']",
 
 };
+const createTeamBtn = 'button[data-testid="create_team_btn"]';
+const colourSelect = '.sp-dd';
 
 function getColourFromTable(colour){
 	let colourItem = '';
@@ -40,10 +42,6 @@ function getColourFromTable(colour){
 	return colourItem;
 }
 
-
-// submit button
-const createTeamBtn = 'button[data-testid="create_team_btn"]';
-
 async function setTeamName(name) {
 	await waitHelpers.waitAndSetValue(teamName, name);
 }
@@ -52,8 +50,7 @@ async function setTeamDescription(description) {
 	await waitHelpers.waitAndSetValue(teamDescription, description);
 }
 
-async function selectColour(colour) {
-	let colourSelect = await driver.$('.sp-dd');
+async function setTeamColour(colour) {
 	await elementHelpers.click(colourSelect);
 	let colourSelector = getColourFromTable(colour);
 	await elementHelpers.click(colourSelector);
@@ -68,7 +65,7 @@ async function createTeamWithName(teamname, description, colour) {
 	await TMSTeamListPage.clickAddTeamBtn();
 	await setTeamName(teamname);
 	await setTeamDescription(description);
-	await selectColour(colour);
+	await setTeamColour(colour);
 	await clickCreateTeamSubmitButton();
 }
 
@@ -84,6 +81,6 @@ module.exports = {
 	createTeamAndGoToInternalMembersManagement,
 	setTeamName,
 	setTeamDescription,
-	selectColour,
+	setTeamColour,
 	clickCreateTeamSubmitButton,
 };

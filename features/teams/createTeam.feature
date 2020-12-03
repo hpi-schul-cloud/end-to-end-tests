@@ -6,8 +6,8 @@ Feature: Set of tests to create teams
 
 	@createTeamWithTwoMembers
 	Scenario Outline: As a user, I want to be able to create a team with two new members
-		Given <userRole> logs in with email '<username>' and password '<password>'
-		When <userAdmin> creates a new team with name '<teamName>' and description '<description>' and color '<colour>'
+		Given <userRole> logs in with email '<userName>' and password '<password>'
+		When <userRole> creates a new team with name '<teamName>' and description '<description>' and color '<colour>'
 		And <userRole> adds a student to team with lastname: '<lastName1>' and firstname: '<firstName1>'
 		And <userRole> adds a student to team with lastname: '<lastName2>' and firstname: '<firstName2>'
 		And <userRole> clicks Submit-add-team-member button
@@ -16,5 +16,5 @@ Feature: Set of tests to create teams
 		When <userRole> clicks on Member icon in team with name '<teamName>'
 		Then <userRole> should see that team members: '<teacherName>,<firstName1> <lastName1>,<firstName2> <lastName2>' are listed
 		Examples:
-			| userRole | username               		 | password       | teamName  | description      | teacherName | firstName1 | lastName1 | firstName2 | lastName2  | colour  | number |
+			| userRole | userName               		 | password       | teamName  | description      | teacherName | firstName1 | lastName1 | firstName2 | lastName2  | colour  | number |
 			| teacher  | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | test team | test description | Karl Herzog | Boris      | Wasser    | Herbert    | Kraft      | green   | 3      |

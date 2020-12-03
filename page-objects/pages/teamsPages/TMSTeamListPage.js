@@ -64,12 +64,6 @@ async function getListOfTeamNames() {
 	return elementHelpers.getTextFromAllElements(teamNameContainer);
 }
 
-async function isTeamOnList(teamName) {
-	const listOfTeamNames = await getListOfTeamNames();
-	const msg = "Team with name: '" + teamName + "' is not visible on the list \n";
-	const resultMsg = 'Expected: ' + teamName + ', Actual: ' + listOfTeamNames;
-	expect(listOfTeamNames, msg + resultMsg).to.include(teamName);
-}
 async function getTeamMemberIcon(teamname) {
 	const teamMemberIcon = '.btn-member[' + teamname + ' Teilnehmer 3]';
 
@@ -192,7 +186,6 @@ module.exports = {
 	clickAddTeamBtn,
 	isTeamColour,
 	isTeamDescription,
-	isTeamOnList,
 	isTeamMemberNumber,
 	isTeamVisible,
 	areTeamMembersOnTheList,
