@@ -6,15 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
-## Unpublished
+## 25.3.0
 
 ### Added
 
+- SC-6814 - Delete class test
+- SC-5795 - CreateUser and send registration link
+- SC-7736 - Deleted User forgot password functionality
 - SC-7735 - Deleted User Tests for Removed user in not visible in team anymore
 - SC-7059 - DeletionConcept Tests
 - OPS-1297 - Added Changelog github action
 - SC-7571 - sendConsentFormEmail adjusted
 - SC-7733 - User can not login anymore, DeletionConcept Tests
+- SC-5797 - Added new test: showRegularTaskOnDashboard
 
 ## Changed
 
@@ -35,6 +39,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-6945 skip @copyCourseWithText for hotfix
 - SC-5858 change selectors after removing chosen library in the old client
+- SC-7878 - dropdowns and multiselects
 
 ## 25.0.0
 
