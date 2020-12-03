@@ -15,35 +15,35 @@ const listOfMembersSel = '#member-modal-body > ol > li';
 const teamHeader = '.sc-card-header';
 const teamDescription = '.ckcontent';
 
-const teamColourCSSS = {
-	orangeColor: "background:#FFAD42",
-	blueColor: "background:#1976D2",
-	greenColor: "background:#2E7D32",
-	yellowColor: "background:#FFD95A",
+const teamColourCSS = {
+	orangeColour: "background:#FFAD42",
+	blueColour: "background:#1976D2",
+	greenColour: "background:#2E7D32",
+	yellowColour: "background:#FFD95A",
 
 };
 
-function getColorCSS(color){
-	let colorItem = '';
-	switch(color){
+function getColourCSS(colour){
+	let colourItem = '';
+	switch(colour){
 		case 'orange':
-		colorItem = teamColourCSSS.orangeColor;
+		colourItem = teamColourCSS.orangeColour;
 		break;
 		case 'blue':
-		colorItem = teamColourCSSS.blueColor;
+		colourItem = teamColourCSS.blueColour;
 		break;
 		case 'green':
-		colorItem = teamColourCSSS.greenColor;
+		colourItem = teamColourCSS.greenColour;
 		break;
 		case 'yellow':
-		colorItem = teamColourCSSS.yellowColor;
+		colourItem = teamColourCSS.yellowColour;
 		break;
 		default:
-			console.error(`This color: ${color} does not exist on the list of possible choices`);
+			console.error(`This color: ${colour} does not exist on the list of possible choices`);
 			break;
 		
 	}
-	return colorItem;
+	return colourItem;
 }
 
 async function goToTeams() {
@@ -104,7 +104,7 @@ async function isTeamDescription(teamName, expectedDescription) {
 async function isTeamColour(teamName, expectedColour) {
 	const team = await getTeamWithName(teamName);
 	const actualColourNumber = team.teamColour;
-	const expectedColourNumber = getColorCSS(expectedColour);
+	const expectedColourNumber = getColourCSS(expectedColour);
 	const msg = `Team with name: ${teamName} has wrong colour. \n`;
 	const resultMsg = `Expected: ${expectedColour} , Actual: ${actualColourNumber}`;
 	expect(expectedColourNumber, msg + resultMsg).to.include(actualColourNumber);

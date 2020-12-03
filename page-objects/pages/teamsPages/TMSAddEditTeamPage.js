@@ -10,34 +10,34 @@ const elementHelpers = require('../../../runtime/helpers/elementHelpers.js');
 const teamName = 'input[data-testid="team_name"]';
 const teamDescription = '#teamDesc';
 const teamColour = {
-	orangeColor: "span[data-color='rgb(255, 173, 66)']",
-	blueColor: "span[data-color='rgb(25, 118, 210)']",
-	greenColor: "span[data-color='rgb(46, 125, 50)']",
-	yellowColor: "span[data-color='rgb(255, 217, 90)']",
+	orangeColour: "span[data-color='rgb(255, 173, 66)']",
+	blueColour: "span[data-color='rgb(25, 118, 210)']",
+	greenColour: "span[data-color='rgb(46, 125, 50)']",
+	yellowColour: "span[data-color='rgb(255, 217, 90)']",
 
 };
 
-function getColorFromTable(color){
-	let colorItem = '';
-	switch(color){
+function getColourFromTable(colour){
+	let colourItem = '';
+	switch(colour){
 		case 'orange':
-		colorItem = teamColour.orangeColor;
+		colourItem = teamColour.orangeColour;
 		break;
 		case 'blue':
-		colorItem = teamColour.blueColor;
+		colourItem = teamColour.blueColour;
 		break;
 		case 'green':
-		colorItem = teamColour.greenColor;
+		colourItem = teamColour.greenColour;
 		break;
 		case 'yellow':
-		colorItem = teamColour.yellowColor;
+		colourItem = teamColour.yellowColour;
 		break;
 		default:
-			console.error(`This color: ${color} does not exist on the list of possible choices`);
+			console.error(`This color: ${colour} does not exist on the list of possible choices`);
 			break;
 		
 	}
-	return colorItem;
+	return colourItem;
 }
 
 
@@ -52,28 +52,28 @@ async function setTeamDescription(description) {
 	await waitHelpers.waitAndSetValue(teamDescription, description);
 }
 
-async function selectColor(color) {
-	let colorSelect = await driver.$('.sp-dd');
-	await elementHelpers.click(colorSelect);
-	let colorSelector = getColorFromTable(color);
-	await elementHelpers.click(colorSelector);
+async function selectColour(colour) {
+	let colourSelect = await driver.$('.sp-dd');
+	await elementHelpers.click(colourSelect);
+	let colourSelector = getColourFromTable(colour);
+	await elementHelpers.click(colourSelector);
 }
 
 async function clickCreateTeamSubmitButton() {
 	await elementHelpers.clickAndWait(createTeamBtn);
 }
 
-async function createTeamWithName(teamname, description, color) {
+async function createTeamWithName(teamname, description, colour) {
 	await TMSTeamListPage.goToTeams();
 	await TMSTeamListPage.clickAddTeamBtn();
 	await setTeamName(teamname);
 	await setTeamDescription(description);
-	await selectColor(color);
+	await selectColour(colour);
 	await clickCreateTeamSubmitButton();
 }
 
-async function createTeamAndGoToInternalMembersManagement(teamname, description, color) {
-	await createTeamWithName(teamname, description, color);
+async function createTeamAndGoToInternalMembersManagement(teamname, description, colour) {
+	await createTeamWithName(teamname, description, colour);
 	await TMSGeneralTeamPage.clickSettings();
 	await TMSGeneralTeamPage.clickManageTeamMembers();
 	await TMSTeamMembersPage.clickAddInternalAttendeesBtn();
@@ -84,6 +84,6 @@ module.exports = {
 	createTeamAndGoToInternalMembersManagement,
 	setTeamName,
 	setTeamDescription,
-	selectColor,
+	selectColour,
 	clickCreateTeamSubmitButton,
 };

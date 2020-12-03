@@ -61,7 +61,7 @@ Then(/^.* team with name '([^']*)' is visible on the list$/, async function (tea
 });
 
 When(/^.* chooses team colour '([^']*)'$/, function (teamColour) {
-	return TMSAddEditTeamPage.selectColor(teamColour);
+	return TMSAddEditTeamPage.selectColour(teamColour);
 });
 
 Then(/^.* team name '([^']*)' with description correctly displayed '([^']*)'$/, async function (
