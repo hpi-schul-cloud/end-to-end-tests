@@ -5,8 +5,8 @@ const TMSTeamListPage = require('../../page-objects/pages/teamsPages/TMSTeamList
 const TMSTeamMembersPage = require('../../page-objects/pages/teamsPages/TMSTeamMembersPage.js');
 
 //WHEN
-When(/^.*creates a new team with name '([^']*)' and description '([^']*)' and color orange$/, function (teamName, description) {
-	return TMSAddEditTeamPage.createTeamAndGoToInternalMembersManagement(teamName, description);
+When(/^.*creates a new team with name '([^']*)' and description '([^']*)' and color '([^']*)'$/, function (teamName, description, color) {
+	return TMSAddEditTeamPage.createTeamAndGoToInternalMembersManagement(teamName, description, color);
 });
 
 When(/^.*adds a student to team with lastname: '([^']*)' and firstname: '([^']*)'$/, async function (lastname, firstname) {
@@ -50,4 +50,23 @@ Then(/^.*team members: '([^']*)' are not listed$/,  async function (listOfMember
 
 Then(/^.* goes to Teams Page$/, async function () {
 	await TMSTeamListPage.goToTeams();
+});
+
+When(/^.* chooses team with name '([^']*)'$/, function (teamName) {
+	return TMSTeamListPage.clickOnChosenTeam(teamName);
+});
+
+Then(/^.* team with name '([^']*)' is visible on the list$/, async function (teamName) {
+	return TMSTeamListPage.isTeamVisible(teamName, true);
+});
+
+When(/^.* chooses team colour '([^']*)'$/, function (teamColour) {
+	return TMSAddEditTeamPage.selectColor(teamColour);
+});
+
+Then(/^.* team name '([^']*)' with description correctly displayed '([^']*)'$/, async function (
+	teamName,
+	expectedDescription
+) {
+	await TMSTeamListPage.isTeamDescription(teamName, expectedDescription);
 });
