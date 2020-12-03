@@ -213,8 +213,8 @@ const dateTimeHelpers = require('./runtime/helpers/dateTimeHelpers.js');
 /**
  *  adding global date function
  */
-global.date = dateTimeHelpers.currentDate();
-global.dateStringForFiles = dateTimeHelpers.getCurrentDateFormatted()
+global.date = dateTimeHelpers.getCurrentDateWithFormat("dd-mm-yyyy");
+global.dateStringForFiles = dateTimeHelpers.getDateStringForFiles()
 
 
 /**
@@ -297,7 +297,7 @@ new Promise(async function(resolve, reject) {
 			}
 		});
 	} catch (err) {
-		console.log('cucumber integration has failed ' + err.message);
+		console.log('cucumber end-to-end-tests failed ' + err.message);
 		await reject(err);
 		throw err;
 	}

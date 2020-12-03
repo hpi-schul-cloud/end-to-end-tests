@@ -6,6 +6,8 @@ const waitHelpers = require('../../../runtime/helpers/waitHelpers');
 const startPage = require('../../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin');
 const loginPage = require('../../../page-objects/pages/generalPagesBeforeLogin/LoginPage');
 const navigationLeftPage = require('../NavigationLeftPage');
+const CRSSGeneralCoursePage = require('./CRSSGeneralCoursePage');
+const courseListPage = require('../../../page-objects/pages/coursePages/CRSSCourseListPage');
 
 const courseDescription = '.ckcontent';
 const courseHeader = '.sc-card-header';
@@ -13,16 +15,11 @@ const searchCourseFiled = '.input-group .search-field';
 const courseWrapper = '.sc-card-wrapper';
 const titleOfCourse = '.title';
 const memberBtn = '.btn-member';
-const homeworktab = '.tabs button[data-testid="hometasks"]';
 const importCourseBtn = '[data-testid="import-course-btn"]';
 const createCourseBtn = '[data-testid="create-course-btn"]';
-const createYourFirstCourseBtn = 'a.btn-primary.btn-add:not([data-testid="create-course-btn"])';
-const container_of_element = '[data-testid="container_of_element"]';
-const header_of_element = '[data-testid="header-of-element"]';
 const listOfMembersSel = '#member-modal-body > ol > li';
-const topicNameContainer = '#topic-list .card-header .topic-label';
 const popupMembers = ".member-modal.in[role='dialog']";
-
+const closeMemberModalBtn = ".member-modal button.close";
 const courseColour = {
 	grey: 'background:#ACACAC',
 	metallicGold: 'background:#ACACAC',
@@ -34,7 +31,6 @@ const courseColour = {
 	violetRed: 'background:#FF4081',
 	corn: 'background:#FFEE58',
 };
-
 const section = {
 	allCourses: '.section-courses',
 	activeCourses: '.section-activeCourses',
@@ -42,8 +38,8 @@ const section = {
 };
 
 async function goToCourses() {
-        await navigationLeftPage.clickNavItemCourses();
-};
+	await navigationLeftPage.clickNavItemCourses();
+}
 
 async function areImportAndCreateCourseBtnsVisible() {
 	await waitHelpers.waitUntilElementIsVisible(importCourseBtn);
@@ -53,7 +49,7 @@ async function areImportAndCreateCourseBtnsVisible() {
 async function isCourseDisplayedCorrectlyInSection(courseName, section) {
 	const listOfCourseTitlesForSection = await getListOfCourseTitlesInSection(section);
 	const msg = "Course with name: '" + courseName + "' is not last on the list: " + listOfCourseTitlesForSection;
-	expect(listOfCourseTitlesForSection[listOfCourseTitlesForSection.length - 1], msg).to.equal(courseName);
+	expect(listOfCourseTitlesForSection , msg).to.includes(courseName);
 }
 
 async function isCourseOnListInSection(coursename, section) {
@@ -103,7 +99,6 @@ function getColourSelector(colourName) {
 }
 
 async function setCourseNameIntoSearchInputField(courseName) {
-	await goToCourses();
 	await waitHelpers.waitAndSetValue(searchCourseFiled, courseName);
 }
 
@@ -112,25 +107,27 @@ async function getCountOfDisplayedCoursesForSection(section) {
 	var numberOfDisplayedCourses = 0;
 	for (var i = 0; i < elem.length; i++) {
 		if ((await elem[i].isDisplayed()) == true) {
-			numberOfDisplayedCourses += 1;
+			numberOfDisplayedCourses ++;
 		}
 	}
 	return numberOfDisplayedCourses;
 }
 
-async function getNamesOfMembers() {
+async function getListOfCourseMembers() {
 	await waitHelpers.waitUntilElementIsVisible(popupMembers);
-	await waitHelpers.waitUntilElementIsVisible(listOfMembersSel);
-	const listOfMembers = await driver.$$(listOfMembersSel);
-	return elementHelpers.getTextListFromListOfElements(listOfMembers);
+	return elementHelpers.getTextFromAllElements(listOfMembersSel);
 }
 
-async function areMembersOnTheListInCourseForSection(courseName, members, section) {
-	await clickPupilIconInCourseInSection(courseName, section);
-	let names = await getNamesOfMembers();
-	const msg = "Members: '" + names + "' should be visible on the list. \n";
-	const resultMsg = 'Actual list of members: ' + names;
-	expect(names, msg + resultMsg).to.have.members(members);
+async function areMembersOnTheListInCourseForSection(listOfMembers) {
+	let names = await getListOfCourseMembers();
+	listOfMembers = listOfMembers.split(',');
+	const msg = `Members: ${listOfMembers} are not visible on the list \n`;
+	const resultMsg = `Actual list of course members: ${names}`;
+	expect(names, msg + resultMsg).to.have.members(listOfMembers);
+}
+
+async function closeMemberModal() {
+	await elementHelpers.clickAndWait(closeMemberModalBtn);
 }
 
 async function isCorrectNumberOfMembersInCourseForSection(courseName, membersList, section) {
@@ -169,8 +166,8 @@ async function getCourseWithNameInSection(courseName, section) {
 async function getWrapperOfCourseInSection(courseName, section) {
 	var index = await getIndexOfGivenCourseInSection(courseName, section);
 	const list = await getListOfCoursesInSection(section);
-	const errorMsg = "Can't find course: " + courseName + ' in section: ' + section + "\n";
-	const resultMsg = "Actual list of courses: [" + list + "]"
+	const errorMsg = "Can't find course: '" + courseName + "' in section: " + section + '\n';
+	const resultMsg = 'Actual list of courses: [' + list + ']';
 	if (index == -1) throw errorMsg + resultMsg;
 	const element = list[index];
 	return element;
@@ -189,10 +186,20 @@ async function getCountOfCoursesWhichTitlesContainTextForSection(text, section) 
 
 async function clickOnCourseInSection(courseName, section) {
 	const courseIndex = await getIndexOfGivenCourseInSection(courseName, section);
-	if (courseIndex == -1) {
-		throw "Can't find course: " + courseName + ' in section: ' + section;
-	}
 	const courseList = await getListOfCoursesInSection(section);
+	if (courseIndex == -1) {
+		throw (
+			"Can't find course: '" +
+			courseName +
+			"' in section: " +
+			section +
+			'\n' +
+			'Actual list of courses: [' +
+			courseList +
+			']'
+		);
+	}
+
 	const element = courseList[courseIndex];
 	await elementHelpers.clickAndWait(element);
 }
@@ -212,31 +219,14 @@ async function clickPupilIconInCourseInSection(courseName, section) {
 async function goToTasksOfTheCourse(coursename, section) {
 	await goToCourses();
 	await clickOnCourseInSection(coursename, section);
-	await gotoTasksTab();
+	await CRSSGeneralCoursePage.openTasksTab();
 }
 
-async function studentLogsInAndGoesToTasksOfTheCourse(username, password, coursename) {
-        await navigationTopPage.performLogout();
-        await startPage.performLogin(username, password);
-        await loginPage.performLoginActions({shouldAcceptDataProtection: true, shouldSetOwnPassword: true, password});
-        await goToTasksOfTheCourse(coursename);
-};
-
-async function isTopicInCourseInSection(courseName, topicName, section) {
-	await clickOnCourseInSection(courseName, section);
-	await waitHelpers.waitUntilElementIsVisible(topicNameContainer);
-	const listOfTopics = await driver.$$(topicNameContainer);
-	const listOfTopicNames = await elementHelpers.getTextListFromListOfElements(listOfTopics);
-	const msg = "Topic with name: '" + courseName + "' is not visible on list \n";
-	const resultMsg = 'Expected: ' + topicName + ', Actual: ' + listOfTopicNames;
-	expect(listOfTopicNames, msg + resultMsg).to.include(topicName);
-}
-
-async function isCountOfCourseMemebrs(courseName, expectedCountOfCourseMembers, section) {
+async function isCountOfCourseMembers(courseName, expectedCountOfCourseMembers, section) {
 	const actualCountOfCourseMembers = await getCountOfMemebersInGivenCourseInSection(courseName, section);
 	const msg = 'Course with name: ' + courseName + ' has wrong members count. \n';
 	const resultMsg = 'Expected: ' + expectedCountOfCourseMembers + ', Actual: ' + actualCountOfCourseMembers;
-	expect(actualCountOfCourseMembers, msg + resultMsg).to.equal(expectedCountOfCourseMembers);
+	expect(actualCountOfCourseMembers, msg + resultMsg).to.equal(parseInt(expectedCountOfCourseMembers));
 }
 
 async function isCourseDescription(courseName, expectedDescription, section) {
@@ -276,28 +266,33 @@ async function isCountOfDisplayedCoursesForSection(expectedCount, section) {
 	expect(parseInt(expectedCount), msg + resultMsg).to.equal(actualCount);
 }
 
-async function isCourseVisible(courseName, section) {
-	const msg = "Course with name: '" + courseName + "' should be visible on the list. \n";
-	const resultMsg = 'Actual list of courses: ' + (await getListOfCourseTitlesInSection(section));
-	const isCourseOnList = await isCourseOnListInSection(courseName, section);
-	expect(isCourseOnList, msg + resultMsg).to.be.true;
-}
+/**
+ * Use this method to check the visiblity of a course
+ * set expectedValue = 'true' to check if visible
+ * set expectedValue = 'false' to check if invisible
+ */
 
-async function isCourseNotVisible(courseName, section) {
-	const msg = "Course with name: '" + courseName + "' should not be visible on the list. \n";
+async function isCourseVisible(courseName, section, expectedValue) {
+	const defaultString = `Course with name: ${courseName}`;
+
+	const msg = expectedValue
+		? `${defaultString} should be visible on the list`
+		: `${defaultString} should not be visible on the list`;
+
 	const resultMsg = 'Actual list of courses: ' + (await getListOfCourseTitlesInSection(section));
 	const isCourseOnList = await isCourseOnListInSection(courseName, section);
-	expect(isCourseOnList, msg + resultMsg).to.be.false;
+	expect(isCourseOnList, msg + resultMsg).to.equal(expectedValue);
+
 }
 
 module.exports = {
 	section,
 	goToCourses,
 	goToTasksOfTheCourse,
-	studentLogsInAndGoesToTasksOfTheCourse,
 	clickCreateCourseBtn,
 	clickOnCourseInSection,
 	clickPupilIconInCourseInSection,
+	closeMemberModal,
 	setCourseNameIntoSearchInputField,
 	areImportAndCreateCourseBtnsVisible,
 	areMembersOnTheListInCourseForSection,
@@ -306,11 +301,9 @@ module.exports = {
 	isCourseOnListInSection,
 	isCourseColour,
 	isCourseDescription,
-	isTopicInCourseInSection,
-	isCountOfCourseMemebrs,
+	isCountOfCourseMembers,
 	isCorrectNumberOfDisplayedResults,
 	isCountOfDisplayedCoursesForSection,
 	isCountOfCoursesWithNameOnList,
-	isCourseNotVisible,
 	isCourseVisible,
 };

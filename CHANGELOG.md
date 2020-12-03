@@ -6,6 +6,32 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
+## 25.3.0
+
+### Added
+
+- SC-6814 - Delete class test
+- SC-5795 - CreateUser and send registration link
+- SC-7736 - Deleted User forgot password functionality
+- SC-7735 - Deleted User Tests for Removed user in not visible in team anymore
+- SC-7059 - DeletionConcept Tests
+- OPS-1297 - Added Changelog github action
+- SC-7571 - sendConsentFormEmail adjusted
+- SC-7733 - User can not login anymore, DeletionConcept Tests
+- SC-5797 - Added new test: showRegularTaskOnDashboard
+
+## Changed
+
+- IMP-160 rename repository
+- SC-7110 Refactoring: Improved terms in cucumber steps: Teams, Topics, Class
+- SC-7524-parametrization: adjust parametrization to existing feature files
+- SC-7684-parametrization: feature and step definition file restructuring
+- SC-7329-Adjust QA TCs to initial DB
+
+### Fixed
+
+- fixed github action changelog
+
 ## 25.0.1 - 2020-09-30
 
 ### Changed
@@ -33,9 +59,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added in 23.5.0
 
-- Fix dependencies security vulnerabilities [SC-4534](https://github.com/schul-cloud/integration-tests/pull/78)
-- Add timestamps to filenames [NA](https://github.com/schul-cloud/integration-tests/pull/75)
-- Fix for failing test in @createSimpleHomework [NA](https://github.com/schul-cloud/integration-tests/pull/72)
+- Fix dependencies security vulnerabilities [SC-4534](https://github.com/hpi-schul-cloud/end-to-end-tests/pull/78)
+- Add timestamps to filenames [NA](https://github.com/hpi-schul-cloud/end-to-end-tests/pull/75)
+- Fix for failing test in @createSimpleHomework [NA](https://github.com/hpi-schul-cloud/end-to-end-tests/pull/72)
 
 ## [23.2.0] - 2020-06-29
 
@@ -48,6 +74,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Added in 23.0.0
 
 - copied in a basic mergify config to automerge PRs
-- added `npm ci` command to integration test ci setup to be able to execute new js seed script properly
+- added `npm ci` command to end-to-end-tests ci setup to be able to execute new js seed script properly
 - This changelog has been added
 

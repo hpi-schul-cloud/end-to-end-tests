@@ -8,8 +8,6 @@ const LOAD_PAGE_TIMEOUT = 10000;
 async function click(selectorOrElement) {
 	const element = await waitHelpers.waitUntilElementIsClickable(selectorOrElement);
 	await element.click();
-	//waitUntilPageLoads(); is temporary:
-	await waitHelpers.waitUntilPageLoads();
 }
 
 //This method should be used when we wait for element, click and wait page for reload
@@ -41,12 +39,14 @@ async function getSelectOptions(selectSelector) {
 }
 
 async function selectOptionByText(selectSelector, text) {
-	const element = await waitHelpers.waitUntilElementIsVisible(selectSelector);
-	if (!(await isOptionSelected(selectSelector, text))) {
-	await driver.keys('Control');
-	await element.selectByVisibleText(text.trim());
-	await driver.keys('Control');
-	}
+	await waitHelpers.waitUntilElementIsPresent(selectSelector);
+	await click(`${selectSelector}`);
+	const activeResult = `${selectSelector} .active-result`;
+	const listOfOptions = await getListOfAllElements(activeResult);
+	const listOfOptionsTexts = await getTextFromAllElements(activeResult);
+	const optionIndex = listOfOptionsTexts.indexOf(text.trim());
+	const element = listOfOptions[optionIndex];
+	await element.click();
 }
 
 async function loadPage(url, timeout = LOAD_PAGE_TIMEOUT) {
@@ -120,7 +120,7 @@ async function getLink(selector) {
 }
 
 async function isElementDisplayed(selector) {
-	await driver.$(selector).isDisplayed();
+	return (await driver.$(selector)).isDisplayed();
 }
 
 async function isElementPresent(selector) {
@@ -135,6 +135,12 @@ async function isElementClickable(selector) {
 	} catch (error) {
 		return false;
 	}
+}
+
+async function getPageTitle(selectorOfTitle) {
+	await waitHelpers.waitUntilPageLoads();
+	const title = await elementHelpers.getElementText(selectorOfTitle);
+	return title;
 }
 
 async function isUrlContaining(expectedUrl) {
@@ -155,8 +161,15 @@ async function getValueListFromListOfElements(listOfElements) {
 
 async function getListOfSelectedOption(selectSelector) {
 	await waitHelpers.waitUntilElementIsVisible(selectSelector);
-    const listOfSelectedOptions = await driver.$$(selectSelector + " option[selected='']");
-    return getTextListFromListOfElements(listOfSelectedOptions);
+	const listOfSelectedOptions = await driver.$$(selectSelector + " option[selected='']");
+	return getTextListFromListOfElements(listOfSelectedOptions);
+}
+
+async function getValueOfElement(selector) {
+	await waitHelpers.waitUntilElementIsVisible(selector);
+	const element = await driver.$(selector);
+	const value = await element.getValue();
+	return value;
 }
 
 async function getTextFromAllElements(selector) {
@@ -182,6 +195,33 @@ async function isOptionSelected(selectSelector, text) {
 	return listOfSelectedOption.includes(text);
 }
 
+/**
+ * Use this method to set text of inputfields
+ * textBox defines the input field
+ * text defines the input itself
+ */
+async function clearAndSetValue(selectorOrElement, value) {
+	await waitHelpers.waitUntilElementIsVisible(selectorOrElement);
+	const element = await waitHelpers.waitUntilElementIsEnabled(selectorOrElement);
+	await element.setValue(value);
+}
+
+async function getElementByText(selector, text) {
+	const listOfElements = await getListOfAllElements(selector);
+	const listOfElementTexts = await getTextListFromListOfElements(listOfElements);
+	text = text.trim();
+	const index = listOfElementTexts.indexOf(text);
+	return listOfElements[index];
+}
+
+async function getElementIncludingText(selector, text) {
+	const listOfElements = await getListOfAllElements(selector);
+	const listOfElementTexts = await getTextListFromListOfElements(listOfElements);
+	text = text.trim();
+	const index = listOfElementTexts.findIndex((elem) => elem.includes(text));
+	return listOfElements[index];
+}
+
 module.exports = {
 	click,
 	clickAndWait,
@@ -204,5 +244,10 @@ module.exports = {
 	isElementPresent,
 	isElementClickable,
 	isUrlContaining,
+	getPageTitle,
 	isOptionSelected,
+	clearAndSetValue,
+	getValueOfElement,
+	getElementByText,
+	getElementIncludingText,
 };

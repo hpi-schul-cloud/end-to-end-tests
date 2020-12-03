@@ -1,0 +1,2 @@
+/*[url/administration]*/
+"use strict"
