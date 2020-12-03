@@ -13,8 +13,8 @@ const taskElement = {
 };
 
 const taskSection = {
-	assigned: 'section[data-testid="published-tasks-section"]',
-	private: 'section[data-testid="private-tasks-section"]',
+	assigned: '#main-content > section:nth-child(3)',
+	private: '#main-content > section:nth-child(4)',
 };
 
 function getTaskElementSel(elementName) {
