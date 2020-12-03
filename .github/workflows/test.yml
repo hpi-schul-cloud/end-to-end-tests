@@ -19,6 +19,7 @@ jobs:
             ES_PASSWORD: ${{ secrets.ES_PASSWORD }}
             SECRET_ES_MERLIN_USERNAME: ${{ secrets.SECRET_ES_MERLIN_USERNAME }}
             SECRET_ES_MERLIN_PW: ${{ secrets.SECRET_ES_MERLIN_PW }}
+            SECRET_LDAP_PASSWORD: ${{ secrets.SECRET_LDAP_PASSWORD }}
       - uses: actions/upload-artifact@v1
         name: upload results
         if: always()

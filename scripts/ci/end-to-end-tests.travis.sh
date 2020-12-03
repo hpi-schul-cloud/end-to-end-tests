@@ -48,6 +48,7 @@ install(){
 	sed -i "s/ES_PASSWORD.*/ES_PASSWORD=${ES_PASSWORD}/" docker-compose.end-to-end-tests.yml
 	sed -i "s/SECRET_ES_MERLIN_USERNAME.*/SECRET_ES_MERLIN_USERNAME=${SECRET_ES_MERLIN_USERNAME}/" docker-compose.end-to-end-tests.yml
 	sed -i "s/SECRET_ES_MERLIN_PW.*/SECRET_ES_MERLIN_PW=${SECRET_ES_MERLIN_PW}/" docker-compose.end-to-end-tests.yml
+	sed -i "s/SECRET_LDAP_PASSWORD./SECRET_LDAP_PASSWORD=${SECRET_LDAP_PASSWORD}/" docker-compose.end-to-end-tests.yml
 
 	docker-compose -f docker-compose.end-to-end-tests.yml build --parallel
 	docker-compose -f docker-compose.end-to-end-tests.yml up -d

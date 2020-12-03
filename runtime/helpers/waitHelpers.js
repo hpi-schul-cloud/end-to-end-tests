@@ -75,7 +75,7 @@ async function waitUntilElementIsDisabled(selectorOrElement, timeout = elementIs
 
 async function waitUntilElementContainsText(selectorOrElement, expectedText, timeout = elementContainsTextTimeout) {
 	const element = await waitUntilElementIsPresent(selectorOrElement);
-	let textTimeoutMsg =`Text: ${expectedText} is not visible for element: ${element.selector} within time: ${timeout}`;
+	let textTimeoutMsg = `Text: ${expectedText} is not visible for element: ${element.selector} within time: ${timeout}`;
 	let actualText = '';
 	try {
 		await driver.waitUntil(
@@ -166,10 +166,21 @@ async function waitAndSetValue(selectorOrElement, value, timeout = setValueTimeo
 	const element = await waitUntilElementIsEnabled(selectorOrElement);
 	await element.setValue(value);
 }
+async function setValueAndWait(selectorOrElement, value, timeout = setValueTimeout) {
+	await waitUntilElementIsVisible(selectorOrElement);
+	const element = await waitUntilElementIsEnabled(selectorOrElement);
+	await element.setValue(value);
+	await driver.pause(500);
+}
 
-async function waitUntilElementAttributeEquals(selectorOrElement,attributeName,expectedValue,timeout = atributeTimeout) {
+async function waitUntilElementAttributeEquals(
+	selectorOrElement,
+	attributeName,
+	expectedValue,
+	timeout = atributeTimeout
+) {
 	const element = await waitUntilElementIsPresent(selectorOrElement);
-	let msg =`Element: ${element.selector} No attribute with name: ${attributeName} equals: ${expectedValue} within time: ${timeout}`;
+	let msg = `Element: ${element.selector} No attribute with name: ${attributeName} equals: ${expectedValue} within time: ${timeout}`;
 	let actualAttributeValue = '';
 	try {
 		await driver.waitUntil(
@@ -261,6 +272,7 @@ module.exports = {
 	waitUntilAjaxIsFinished,
 	waitUntilPageLoads,
 	waitAndSetValue,
+	setValueAndWait,
 	waitUntilElementAttributeEquals,
 	waitUntilElementAttributeContains,
 	waitUntilPageTitleContains,
