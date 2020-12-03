@@ -5,7 +5,7 @@ const TMSTeamListPage = require('../../page-objects/pages/teamsPages/TMSTeamList
 const TMSTeamMembersPage = require('../../page-objects/pages/teamsPages/TMSTeamMembersPage.js');
 
 //WHEN
-When(/^.*creates a new team with name '([^']*)' and description '([^']*)' and color '([^']*)'$/, function (teamName, description, colour) {
+When(/^.*creates a new team with name '([^']*)' and description '([^']*)' and color '([^']*)'$/, async function (teamName, description, colour) {
 	await TMSAddEditTeamPage.createTeamAndGoToInternalMembersManagement(teamName, description, colour);
 });
 
