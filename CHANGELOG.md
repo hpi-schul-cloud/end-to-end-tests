@@ -28,6 +28,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7524-parametrization: adjust parametrization to existing feature files
 - SC-7684-parametrization: feature and step definition file restructuring
 - SC-7329-Adjust QA TCs to initial DB
+- SC-6767-Chrome driver update 2.46 -> 87.0
 
 ### Fixed
 
