@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
-## Unpublished
+## 25.3.0
 
 ### Added
 
@@ -19,6 +19,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7571 - sendConsentFormEmail adjusted
 - SC-7733 - User can not login anymore, DeletionConcept Tests
 - SC-5797 - Added new test: showRegularTaskOnDashboard
+- SC-5780 - Added new test: editTeam
 
 ## Changed
 
