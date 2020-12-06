@@ -7,7 +7,6 @@ const navigationLeftPage = require('../NavigationLeftPage');
 const teamNameContainer = '.tasks .title';
 const addTeamBtn = "[data-testid='add-team-btn']";
 const addTeamWhenZeroTeamsBtn = "a.btn-add";
-const teamColor = 'background:#FFAD42';
 const teamWrapper = '.section-teams .sc-card-wrapper';
 const teamTitleSel = '.title';
 const memberBtn = '.btn-member';
@@ -15,6 +14,37 @@ const popupMembers = ".member-modal.in[role='dialog']";
 const listOfMembersSel = '#member-modal-body > ol > li';
 const teamHeader = '.sc-card-header';
 const teamDescription = '.ckcontent';
+
+const teamColourCSS = {
+	orangeColour: "background:#FFAD42",
+	blueColour: "background:#1976D2",
+	greenColour: "background:#2E7D32",
+	yellowColour: "background:#FFD95A",
+
+};
+
+function getColourCSS(colour){
+	let colourItem = '';
+	switch(colour){
+		case 'orange':
+		colourItem = teamColourCSS.orangeColour;
+		break;
+		case 'blue':
+		colourItem = teamColourCSS.blueColour;
+		break;
+		case 'green':
+		colourItem = teamColourCSS.greenColour;
+		break;
+		case 'yellow':
+		colourItem = teamColourCSS.yellowColour;
+		break;
+		default:
+			console.error(`This color: ${colour} does not exist on the list of possible choices`);
+			break;
+		
+	}
+	return colourItem;
+}
 
 async function goToTeams() {
 	return navigationLeftPage.clickNavItemTeams();
@@ -34,12 +64,6 @@ async function getListOfTeamNames() {
 	return elementHelpers.getTextFromAllElements(teamNameContainer);
 }
 
-async function isTeamOnList(teamName) {
-	const listOfTeamNames = await getListOfTeamNames();
-	const msg = "Team with name: '" + teamName + "' is not visible on the list \n";
-	const resultMsg = 'Expected: ' + teamName + ', Actual: ' + listOfTeamNames;
-	expect(listOfTeamNames, msg + resultMsg).to.include(teamName);
-}
 async function getTeamMemberIcon(teamname) {
 	const teamMemberIcon = '.btn-member[' + teamname + ' Teilnehmer 3]';
 
@@ -74,7 +98,7 @@ async function isTeamDescription(teamName, expectedDescription) {
 async function isTeamColour(teamName, expectedColour) {
 	const team = await getTeamWithName(teamName);
 	const actualColourNumber = team.teamColour;
-	const expectedColourNumber = teamColor;
+	const expectedColourNumber = getColourCSS(expectedColour);
 	const msg = `Team with name: ${teamName} has wrong colour. \n`;
 	const resultMsg = `Expected: ${expectedColour} , Actual: ${actualColourNumber}`;
 	expect(expectedColourNumber, msg + resultMsg).to.include(actualColourNumber);
@@ -131,14 +155,39 @@ async function clickMemberIconInTeam(teamName) {
 	let pupilIcon = await teamWrapper.$(memberBtn);
 	await elementHelpers.clickAndWait(pupilIcon);
 }
+
+async function clickOnChosenTeam(teamName) {
+	const element = await getWrapperOfTeam(teamName);
+	await elementHelpers.clickAndWait(element);
+}
+
+async function isTeamVisible(teamName, expectedValue) {
+	const defaultString = `Team with name: ${teamName}`;
+
+	const msg = expectedValue
+		? `${defaultString} should be visible on the list`
+		: `${defaultString} should not be visible on the list`;
+
+	const resultMsg = 'Actual list of teams: ' + (await getListOfTeamTitles());
+	const isTeam = await isTeamOnList(teamName);
+	expect(isTeam, msg + resultMsg).to.equal(expectedValue);
+
+}
+
+async function isTeamOnList(teamName) {
+	const allTeams = await getListOfTeamTitles();
+	return allTeams.includes(teamName);
+}
+
 module.exports = {
 	clickMemberIconInTeam,
+	clickOnChosenTeam,
 	goToTeams,
 	clickAddTeamBtn,
 	isTeamColour,
 	isTeamDescription,
-	isTeamOnList,
 	isTeamMemberNumber,
+	isTeamVisible,
 	areTeamMembersOnTheList,
 	getTeamMemberIcon,
 };

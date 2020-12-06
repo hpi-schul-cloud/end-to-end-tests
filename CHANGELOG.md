@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
-## Unpublished
+## 25.3.0
 
 ### Added
 
@@ -20,6 +20,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7733 - User can not login anymore, DeletionConcept Tests
 - SC-5473 - Lernstore Test Automation
 - SC-5797 - Added new test: showRegularTaskOnDashboard
+- SC-5780 - Added new test: editTeam
 
 ## Changed
 
@@ -28,6 +29,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7524-parametrization: adjust parametrization to existing feature files
 - SC-7684-parametrization: feature and step definition file restructuring
 - SC-7329-Adjust QA TCs to initial DB
+- SC-6767-Chrome driver update 2.46 -> 87.0
 
 ### Fixed
 
