@@ -35,12 +35,12 @@ Then(
 	}
 );
 
-Then(/^.* clicks manage class$/, async function () {
-	await manageClassesPage.clickManageClassBtn();
-});
-
 Then(/^.* adds '([^']*)' and '([^']*)' to class$/, async function (studentOne, studentTwo) {
 	await manageClassEditPage.setStudent(studentOne);
 	await manageClassEditPage.setStudent(studentTwo);
 	await manageClassEditPage.clickSubmitBtn();
+});
+
+Then(/^.* class with name '([^']*)' and '([^']*)' students is visible$/, async function (className, membersCount) {
+	await manageClassesPage.checkMembersInClass(className, membersCount);
 });

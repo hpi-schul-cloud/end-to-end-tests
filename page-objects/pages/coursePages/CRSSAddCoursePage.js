@@ -1,37 +1,35 @@
 /*[url/courses]/add]*/
-'use strict';
-const dateTimeHelpers = require('../../../runtime/helpers/dateTimeHelpers.js');
-
-const elementHelpers = require('../../../runtime/helpers/elementHelpers');
+"use strict";
+const elementHelpers = require("../../../runtime/helpers/elementHelpers");
 const courseListPage = require('./CRSSCourseListPage');
-const navigationLeftPage = require('../NavigationLeftPage');
-const waitHelpers = require('../../../runtime/helpers/waitHelpers');
-const { waitUntilElementIsPresent } = require('../../../runtime/helpers/waitHelpers');
-const APIhelpers = require('../../../runtime/helpers/APIhelpers');
+const navigationLeftPage= require('../NavigationLeftPage');
+const waitHelpers = require("../../../runtime/helpers/waitHelpers");
+const { waitUntilElementIsPresent } = require("../../../runtime/helpers/waitHelpers");
+const APIhelpers = require("../../../runtime/helpers/APIhelpers");
 //Sections
 
-const nextSectionBtn = '#nextSection';
+const nextSectionBtn = "#nextSection";
 const section = {
-	one: '[data-testid="section-1-area"]',
-	two: '[data-testid="section-2-area"]',
-	three: '[data-testid="section-3-area"]',
+		one: '[data-testid="section-1-area"]',
+		two: '[data-testid="section-2-area"]',
+		three: '[data-testid="section-3-area"]',
 };
-const multipleChoiceSelectForStudents = 'select[data-testid="pupils"]';
+const multipleChoiceSelectForStudents ='select[data-testid="pupils"]';
 //Course data section
-const courseDefaultInputValue = 'z.B. Mathe 10a';
-const courseNameInput = '#nameOfTheCourse';
-const teacherSelect = '#courseTeacher';
-const teacherSubSelect = '#courseSubstitute';
-const colourPicker = '.color-picker__item';
+const courseDefaultInputValue = "z.B. Mathe 10a";
+const courseNameInput ='#nameOfTheCourse';
+const teacherSelect = '#courseTeacher_chosen';
+const teacherSubSelect ='#courseSubstitute_chosen';
+const colourPicker = ".color-picker__item";
 const timeSpan = {
-	start: '[data-testid="date_start"]',
-	end: '#untilDate',
+		start: '[data-testid="date_start"]',
+		end: "#untilDate",
 };
-//Members section
-const classSelect = '#addClassesToCourse';
-const studentSelect = '#addStudentsToCourse';
+//Participants section
+const classSelect = '#addClassesToCourse_chosen';
+const studentSelect = '#addStudentsToCourse_chosen';
 //Final section
-const createNewCourseBtn = '[data-testid="einen-weiteren-kurs-anlegen-btn"]';
+const createNewCourseBtn ='[data-testid="einen-weiteren-kurs-anlegen-btn"]';
 const goToCourseListBtn = '[data-testid="zur-uebersicht-btn"]';
 
 const courseColour = [
@@ -115,11 +113,8 @@ function getSectionSelector(sectionNumber) {
 async function createCourseWithStudent(courseName, studentName = 'default') {
 	await goToAddCourses();
 	await setCourseName(courseName);
-	await setCurrentUserAsTeacher();
 	await goToNextSection();
-
 	if (studentName !== 'default') await setStudent(studentName);
-
 	await goToNextSection();
 	await clickGoToCourseListBtn();
 }
@@ -127,10 +122,15 @@ async function createCourseWithStudent(courseName, studentName = 'default') {
 async function createCourse (courseName) {
 	await goToAddCourses();
 	await setCourseName(courseName);
-	await setCurrentUserAsTeacher();
 	await goToNextSection();
 	await goToNextSection();
 	await clickGoToCourseListBtn();
+}
+
+async function isTeachersNameSetByDefault() {
+	const username = await APIhelpers.getUserName();
+	let listOfUsers = await elementHelpers.getTextFromAllElements(teacherSelect);
+	await expect(listOfUsers).to.includes(username);
 }
 
 //Course data section
@@ -167,16 +167,10 @@ async function setColour(colourName) {
 	await elementHelpers.click(element);
 }
 
-async function isTeachersNameSetByDefault() {
-	const username = await APIhelpers.getUserName();
-	const isSelected = await elementHelpers.isOptionSelected(teacherSelect, username);
-	await expect(isSelected).to.be.true;
-}
-
-async function isTeacherSubstituteNotSet() {
-	const list = await elementHelpers.getListOfSelectedOption(teacherSubSelect);
-	expect(list.length).to.equal(0);
-}
+async function isTeacherSubstituteNotSet () {
+		const list = await elementHelpers.getListOfSelectedOption(teacherSubSelect);
+		expect(list.length).to.equal(0);
+	}
 
 // could be extended with verifying the date is correct
 async function isTimeSpanSet() {
@@ -195,7 +189,7 @@ async function isClassNotSet() {
 	expect(list.length).to.equal(0);
 }
 
-async function isStudentNotSet() {
+async function isStudentNotSet () {
 	const list = await elementHelpers.getListOfSelectedOption(studentSelect);
 	expect(list.length).to.equal(0);
 }
