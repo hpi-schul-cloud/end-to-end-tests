@@ -20,6 +20,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7733 - User can not login anymore, DeletionConcept Tests
 - SC-5797 - Added new test: showRegularTaskOnDashboard
 - SC-5780 - Added new test: editTeam
+- SC-6816 - Added new test: editClass
 
 ## Changed
 
