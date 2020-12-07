@@ -23,16 +23,16 @@ Feature: I want to edit a class
 		And <userRole> goes to management
 		And <userRole> goes to class management
 		Then <userRole> should see that class with name '<className>' and teacher lastname '<teacher1Lastname>' is visible
-		When <userRole> chooses class with name '<className>' and click managemnt class
+		When <userRole> chooses class with name '<className>' clicks Class-management
 		And <userRole> adds a teacher to class with name '<teacher>'
 		And <userRole> adds a student to class with name '<student>'
 		And <userRole> clicks on Save-changes in class button
 		Then <userRole> should see that class with name '<className>' and teacher lastname '<teacher1Lastname>' is visible
 		Then <userRole> should see that class with name '<className>' and teacher lastname '<teacher2Lastname>' is visible
 		Then <userRole> should see that class with name '<className>' and '<numberOfStudents>' students is visible
-		When <userRole> chooses class with name '<className>' and click managemnt class
-		And <userRole> delete teacher '<teacher>' from class
-		And <userRole> delete student '<student>' from class
+		When <userRole> chooses class with name '<className>' clicks Class-management
+		And <userRole> deletes teacher '<teacher>' from class
+		And <userRole> deletes student '<student>' from class
 		And <userRole> clicks on Save-changes in class button
 		Then <userRole> should see that class with name '<className>' and teacher lastname '<teacher2Lastname>' is not visible
 		Then <userRole> should see that class with name '<className>' and '<numberOfStudentsAfterDelete>' students is visible

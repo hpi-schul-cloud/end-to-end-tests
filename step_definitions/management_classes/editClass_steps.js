@@ -11,7 +11,7 @@ Then(/^.* class with name '([^']*)' and teacher lastname '([^']*)' is visible$/,
     return manageClass.isClassEdited(newClassName, teacherLastname, true)
 });
 
-When(/^.* chooses class with name '([^']*)' and click managemnt class$/, function (className) {
+When(/^.* chooses class with name '([^']*)' clicks Class-management$/, function (className) {
 	return manageClassesPage.clickManagmentClassByNameBtn(className);
 });
 
@@ -27,10 +27,10 @@ When(/^.*clicks on Save-changes in class button$/, async function () {
 	await manageClass.clickEditClassSaveChangesBtn();
 });
 
-When(/^.* delete student '([^']*)' from class$/, async function (studentName) {
+When(/^.* deletes student '([^']*)' from class$/, async function (studentName) {
 	await manageClass.deleteStudentFromClass(studentName);
 });
 
-When(/^.* delete teacher '([^']*)' from class$/, async function (teacherName) {
+When(/^.* deletes teacher '([^']*)' from class$/, async function (teacherName) {
 	await manageClass.deleteTeacherFromClass(teacherName);
 });

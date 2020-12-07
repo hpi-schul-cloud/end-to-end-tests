@@ -53,8 +53,8 @@ async function checkMembersInClass(className, numberOfMembers) {
     }
 }
     // choose between className, teachers, students, schoolYear
- async function getClassDetailsList(whichCell) {
-	let names = await elementHelpers.getTextFromAllElements(whichCell);
+ async function getClassDetailsList(cell) {
+	let names = await elementHelpers.getTextFromAllElements(cell);
 	return names;
 }
 
