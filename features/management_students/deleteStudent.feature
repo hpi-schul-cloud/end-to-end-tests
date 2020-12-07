@@ -67,7 +67,7 @@ Feature: Set of tests to delete students
 		And <userRole> goes to management
 		And <userRole> goes to class management
 		When <userRole> creates class with custom name '<customClassName>'
-		And <userRole> clicks manage class
+		And <userRole> chooses class with name '<customClassName>' clicks Class-management
 		And <userRole> adds '<studentOne>' and '<studentTwo>' to class
 		Then <userRole> should see that not empty class '<customClassName>' and '<membersCount>' members is visible
 		When <userRole> goes to management

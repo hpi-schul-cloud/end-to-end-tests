@@ -36,8 +36,8 @@ Then(
 );
 
 Then(/^.* adds '([^']*)' and '([^']*)' to class$/, async function (studentOne, studentTwo) {
-	await manageClassEditPage.setStudent(studentOne);
-	await manageClassEditPage.setStudent(studentTwo);
+	await manageClass.setStudent(studentOne);
+	await manageClass.setStudent(studentTwo);
 	await manageClassEditPage.clickSubmitBtn();
 });
 

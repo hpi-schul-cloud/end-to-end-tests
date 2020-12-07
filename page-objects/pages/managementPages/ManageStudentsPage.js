@@ -108,11 +108,24 @@ async function submitStudentAddition() {
 	await elementHelpers.clickAndWait(addStudentSubmitBtn);
 }
 
+async function sendEmailsFromActionsDropdown() {
+	await elementHelpers.clickAndWait(sendEmailBtn);
+}
+
+async function selectAllStudents() {
+	await elementHelpers.click(selectAllCheckbox);
+}
+
 async function createNewPupil(firstname, lastname, email, birthday, addBirthday) {
+	await clickFABBtn();
 	await clickAddStudentBtn();
 	await setStudentFirstName(firstname);
 	await setStudentLastName(lastname);
 	await setStudentEmail(email);
+	//this function makes the birthday parameters in the feature file unrelevant
+	//ToDo: remove them or find a way to make it working with those parameters
+	//let birthdate = dateTimeHelpers.getCurrentFormattedDateWithOffset({years: -14, format: "dd/mm/yyyy"});
+	//await setStudentsBirthday(birthdate);
 	if (addBirthday) await setStudentsBirthday(birthday);
 	await clickOnSendRegistrationLinkCheckbox();
 	await submitStudentAddition();
