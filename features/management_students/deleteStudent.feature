@@ -5,7 +5,7 @@ Feature: Set of tests to delete students
     Background: User opens Schul-cloud homepage Website
         Given user arrives on the Schul-Cloud homepage
 
-    @deletedStudentCanNotLogin
+    @deletedStudentCanNotLogin @deletionConcept
     Scenario Outline: As an admin, I want to be able to delete the user
         Given <userRole> logs in with email '<adminUsername>' and password '<adminPassword>'
         And <userRole> login is successful
