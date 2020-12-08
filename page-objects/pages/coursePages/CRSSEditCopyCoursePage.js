@@ -30,9 +30,14 @@ async function setNewCourseDescription(courseDescription) {
 	await waitHelpers.waitAndSetValue(courseDescriptionInput, courseDescription);
 }
 
-async function checkThatTeacherIsVisible(courseTeacher, expectedResult) {
+async function isTeacherVisible(courseTeacher, expectedResult) {
 	let teachersNames = await elementHelpers.getTextFromAllElements(courseTeacherInput);
-	expectedResult ? expect(teachersNames).to.include(courseTeacher) : expect(teachersNames).to.not.include(courseTeacher);
+	const msg = `Teacher with name ${courseTeacher} is not visible on the list \n`;
+	const resultMsg = `List of teachersNames: ${teachersNames}`;
+	expectedResult
+		? expect(teachersNames).to.include(courseTeacher)
+		: expect(teachersNames).to.not.include(courseTeacher);
+	return expect(teachersNames, msg + resultMsg).to.not.include(courseTeacher);
 }
 
 module.exports = {
@@ -41,5 +46,5 @@ module.exports = {
 	clickDeleteButton,
 	setNewCourseName,
 	setNewCourseDescription,
-	checkThatTeacherIsVisible,
+	isTeacherVisible,
 };

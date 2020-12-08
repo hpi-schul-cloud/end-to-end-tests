@@ -23,5 +23,5 @@ Then(/^.* course with '([^']*)' has two teachers with names '([^']*)'$/, async f
 });
 
 Then(/^.* can not see deleted teacher with name '([^']*)' on the list of teachers$/, async function (teacherName) {
-	return editCopyCoursePage.checkThatTeacherIsVisible(teacherName, false)
+	return editCopyCoursePage.isTeacherVisible(teacherName, false);
 });

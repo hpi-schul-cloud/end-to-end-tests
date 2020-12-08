@@ -115,12 +115,14 @@ async function isStudentEmailOnTheList(email) {
 	const resultMsg = `List of emails ${emails}`;
 	await expect(emails, msg + resultMsg).to.include(email);
 }
+
 async function isStudentFirstnameOnTheList(firstname) {
 	let firstnames = await getStudentsDetailsList(firstNameCell);
 	const msg = `Student with firstname ${firstname} is not visible on the students firstname list \n`;
 	const resultMsg = `List of firstnames ${firstnames}`;
 	await expect(firstnames, msg + resultMsg).to.include(firstname);
 }
+
 async function isStudentLastnameOnTheList(lastname) {
 	let lastnames = await getStudentsDetailsList(lastNameCell);
 	const msg = `Student with lastname ${lastname} is not visible on the student lastname list \n`;
@@ -145,6 +147,7 @@ async function submitConsent(e_mail) {
 		}
 	}
 }
+
 async function studentLogsInWithPasswordGenaratedByAdminDuringManualSubmission(userName) {
 	await loginPage.performLogin(userName, oldPassword);
 }
