@@ -7,7 +7,7 @@ const dateTimeHelpers = require('../../../runtime/helpers/dateTimeHelpers');
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 let oldPassword;
 
-const fabBtn = "[data-testid='fab_button_students_table']";
+const floatingActionButtonBtn = "[data-testid='fab_button_students_table']";
 const addStudentBtn = "[data-testid='fab_button_add_students']";
 const importStudentBtn = "[data-testid='fab_button_import_students']";
 const firstNameInput = "input[data-testid='input_create-user_firstname']";
@@ -22,21 +22,17 @@ const addStudentSubmitBtn = "button[data-testid='button_create-user_submit']";
 const passwordInput = '#passwd';
 const createBirthday = '#birthday';
 const editStudentBtn = '.table-actions .btn .fa-edit';
-const newAdminTablesEditButton = 'a[data-testid="edit_student_button"]';
-//Might be obsolete. Maybe add here the selector from NAT, then use it?
-const tableOfStudentsColumn = 'tbody[data-testid="table-data-body"] > tr';
-// OLD const firstNameCell = 'td:nth-child(2) > div';
-const firstNameCell = '[data-testid="table-data-body"] td:nth-child(2)';
-// OLD const lastNameCell = 'td:nth-child(3) > div';
-const lastNameCell = '[data-testid="table-data-body"] td:nth-child(3)';
-// OLD const emailCell = 'td:nth-child(5) > div';
-const emailCell = '[data-testid="table-data-body"] td:nth-child(5)';
+const newAdminTablesEditButton = tableOfStudents + ' a[data-testid="edit_student_button"]';
+const tableOfStudentsRow = tableOfStudents + ' > tr';
+const firstNameCells = tableOfStudents + ' td:nth-child(2)';
+const lastNameCells = tableOfStudents + ' td:nth-child(3)';
+const emailCells = tableOfStudents + ' td:nth-child(5)';
 const selectAllCheckbox = 'th:nth-child(1) > div';
 const actionsBtn = '.actions > button';
 const sendEmailBtn = '.context-menu:nth-child(2)';
 
-async function clickFABBtn() {
-	await elementHelpers.clickAndWait(fabBtn);
+async function clickFloatingActionButtonBtn() {
+	await elementHelpers.clickAndWait(floatingActionButtonBtn);
 }
 
 async function clickAddStudentBtn() {
@@ -53,28 +49,27 @@ async function clickEditStudentBtn() {
 }
 
 async function clickEditStudentByMailBtn(userEmail) {
-	await waitHelpers.waitUntilElementIsVisible(tableOfStudentsColumn);
-	let studentsTable = await getStudentsDetailsList(emailCell);
+	await waitHelpers.waitUntilElementIsVisible(tableOfStudentsRow);
+	let studentsTable = await getStudentsDetailsList(emailCells);
 	let editsElements = await elementHelpers.getListOfAllElements(newAdminTablesEditButton);
-	for (let index = 1; index <= studentsTable.length; index++) {
-		let emailPromise = await driver.$(tableOfStudents + '> tr:nth-child(' + index + ') > td:nth-child(5)');
-		let email = await emailPromise.getText();
-		if (email === userEmail) {
-			await elementHelpers.clickAndWait(editsElements[index - 1]);
+	for (let index = 0; index < studentsTable.length; index++) {
+		if (studentsTable[index] === userEmail) {
+			await elementHelpers.clickAndWait(editsElements[index]);
 			break;
 		}
 	}
 }
 
 async function isStudentVisible(userEmail, expectedValue) {
-	await waitHelpers.waitUntilElementIsVisible(tableOfStudentsColumn);
-	let studentsTable = await getStudentsDetailsList(emailCell);
-		let isEmailExists = false;
-		for (let index = 1; index <= studentsTable.length; index++) {
-			let emailPromise = await driver.$(tableOfStudents + '> tr:nth-child(' + index + ') > td:nth-child(5)');
-			let email = await emailPromise.getText();
-			email === userEmail ? isEmailExists = true : '';
+	await waitHelpers.waitUntilElementIsVisible(tableOfStudentsRow);
+	let studentsTable = await getStudentsDetailsList(emailCells);
+	let isEmailExists = false;
+	for (let index = 0; index < studentsTable.length; index++) {
+		if (studentsTable[index] === userEmail) {
+			isEmailExists = true;
+			break;
 		}
+	}
 	expect(isEmailExists).to.equal(expectedValue);
 }
 
@@ -95,9 +90,9 @@ async function clickOnSendRegistrationLinkCheckbox() {
 }
 
 async function clickSendConsentFormEmailsButton() {
-	await selectAllStudents();
+	await clickSelectAllStudentsCheckbox();
 	await clickActionsButton();
-	await sendEmailsFromActionsDropdown();
+	await clickSendEmailsButton();
 }
 
 async function clickActionsButton() {
@@ -108,16 +103,16 @@ async function submitStudentAddition() {
 	await elementHelpers.clickAndWait(addStudentSubmitBtn);
 }
 
-async function sendEmailsFromActionsDropdown() {
+async function clickSendEmailsButton() {
 	await elementHelpers.clickAndWait(sendEmailBtn);
 }
 
-async function selectAllStudents() {
+async function clickSelectAllStudentsCheckbox() {
 	await elementHelpers.click(selectAllCheckbox);
 }
 
 async function createNewPupil(firstname, lastname, email, birthday, addBirthday) {
-	await clickFABBtn();
+	await clickFloatingActionButtonBtn();
 	await clickAddStudentBtn();
 	await setStudentFirstName(firstname);
 	await setStudentLastName(lastname);
@@ -133,7 +128,7 @@ async function createNewPupil(firstname, lastname, email, birthday, addBirthday)
 
 async function setStudentsBirthday(date) {
 	let dateField = await driver.$(birthdateInput);
-	await dateField.setValue(date);
+	await waitHelpers.waitAndSetValue(dateField, date);
 }
 
 // choose between email, firstname, lastname
@@ -143,29 +138,29 @@ async function getStudentsDetailsList(whichCell) {
 }
 
 async function isStudentEmailOnTheList(email) {
-	let emails = await getStudentsDetailsList(emailCell);
+	let emails = await getStudentsDetailsList(emailCells);
 	const msg = `Student with email ${email} is not visible on the students email list \n`;
 	const resultMsg = `List of emails ${emails}`;
 	await expect(emails, msg + resultMsg).to.include(email);
 }
 
 async function isStudentFirstnameOnTheList(firstname) {
-	let firstnames = await getStudentsDetailsList(firstNameCell);
+	let firstnames = await getStudentsDetailsList(firstNameCells);
 	const msg = `Student with firstname ${firstname} is not visible on the students firstname list \n`;
 	const resultMsg = `List of firstnames ${firstnames}`;
 	await expect(firstnames, msg + resultMsg).to.include(firstname);
 }
 
 async function isStudentLastnameOnTheList(lastname) {
-	let lastnames = await getStudentsDetailsList(lastNameCell);
+	let lastnames = await getStudentsDetailsList(lastNameCells);
 	const msg = `Student with lastname ${lastname} is not visible on the student lastname list \n`;
 	const resultMsg = `List of lastnames ${lastnames}`;
 	await expect(lastnames, msg + resultMsg).to.include(lastname);
 }
 
 async function submitConsent(e_mail) {
-	await waitHelpers.waitUntilElementIsVisible(tableOfStudentsColumn);
-	let names = await driver.$$(tableOfStudentsColumn);
+	await waitHelpers.waitUntilElementIsVisible(tableOfStudentsRow);
+	let names = await driver.$$(tableOfStudentsRow);
 	for (let i = 1; i <= names.length; i++) {
 		let emailPromise = await driver.$(tableOfStudents + ' > tr:nth-child(' + i + ') > td:nth-child(5)');
 		let email = await emailPromise.getText();
@@ -193,11 +188,11 @@ module.exports = {
 	clickSendConsentFormEmailsButton,
 	clickEditStudentBtn,
 	createNewPupil,
-	selectAllStudents,
+	clickSelectAllStudentsCheckbox,
 	clickActionsButton,
 	isStudentEmailOnTheList,
 	isStudentFirstnameOnTheList,
-	sendEmailsFromActionsDropdown,
+	clickSendEmailsButton,
 	isStudentLastnameOnTheList,
 	submitConsent,
 	studentLogsInWithPasswordGenaratedByAdminDuringManualSubmission,
