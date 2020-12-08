@@ -9,7 +9,7 @@ const publicSubmissionsCheckbox = '#publicSubmissionsCheckbox';
 const taskTitleInput = 'input[placeholder="Titel"]';
 const taskTextArea = '#homework-form .ck-content';
 const submitTaskBtn = '.btn-submit';
-const courseSelect = '#coursePicker';
+const courseSelect = '#coursePicker_chosen';
 const activatePublicSubmissionsDialog = '.modal.fade.dontShowAgainAlert-modal.in'
 const activatePublicSubmissionsButton = '.modal-dialog .modal-checkbox button.btn-submit';
 
@@ -41,9 +41,9 @@ async function clickSubmitTaskBtn () {
 }
 
 async function setTaskCourses(listOfCourses) {
-	const dropdown = await waitHelpers.waitUntilElementIsVisible(courseSelect);
 	if (listOfCourses == 'No assignment') {
-		await dropdown.selectByIndex(0);
+		await elementHelpers.click(`${courseSelect}`);
+		await elementHelpers.click(`${courseSelect} [data-option-array-index='0']`);
 	} else {
 		await elementHelpers.selectOptionByText(courseSelect, listOfCourses);
 	}
