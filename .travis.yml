@@ -1,5 +1,5 @@
 language: node_js
-node_js: '10'
+node_js: '12'
 sudo: required
 branches:
   only:
@@ -8,6 +8,7 @@ branches:
     - /^(?i:release|hotfix).*$/
 env:
   global:
+    - DOCKER_COMPOSE_VERSION=1.27.4
     - GIT_SHA=$( git rev-parse HEAD )
     - BRANCH_NAME=${TRAVIS_PULL_REQUEST_BRANCH:=$TRAVIS_BRANCH}
 jobs:
@@ -18,16 +19,16 @@ jobs:
         - echo $TRAVIS_BRANCH
         - echo $TRAVIS_TAG
         - curl "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/master/scripts/ci/fetch.travis.sh" | bash
-      name: "test:end-to-end"
-      env:
-        - IT_CLIENT_HOST=nuxtclient
-        - IT_CLIENT_PORT=4000
       git:
         clone: false
       services:
         - docker
       before_install:
         - echo -e "machine github.com\n  login $CI_USER_TOKEN" > ~/.netrc
+        - sudo rm /usr/local/bin/docker-compose
+        - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+        - chmod +x docker-compose
+        - sudo mv docker-compose /usr/local/bin
       install:
         - echo "skipping install"
       before_cache:
