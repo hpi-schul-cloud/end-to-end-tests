@@ -1,4 +1,5 @@
 #!/bin/bash
+set -a
 
 export BRANCH_NAME=${GITHUB_REF#refs/heads/}
 
@@ -64,8 +65,8 @@ install(){
 	./startup_end-to-end-tests.sh up -d
 	echo "BOOT CONTAINERS DONE"
 
-	set -a
-	source ./envs/end-to-end-tests.env
+	
+
 
 	cd ..
 
@@ -78,8 +79,8 @@ before(){
 	switchBranch "end-to-end-tests"
 
 	echo "IT_CLIENT ENVS..."
-	echo "IT_CLIENT_HOST=" $IT_CLIENT_HOST
-	echo "IT_CLIENT_PORT=" $IT_CLIENT_PORT
+	echo "IT_CLIENT_HOST="$IT_CLIENT_HOST
+	echo "IT_CLIENT_PORT="$IT_CLIENT_PORT
 	echo "IT_CLIENT ENVS DONE"
 
 	echo "INSTALL DEPENDNECIES..."
