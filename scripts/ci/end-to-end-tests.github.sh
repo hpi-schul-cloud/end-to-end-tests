@@ -1,5 +1,4 @@
 #!/bin/bash
-set -a
 
 export BRANCH_NAME=${GITHUB_REF#refs/heads/}
 
@@ -65,7 +64,8 @@ install(){
 	./startup_end-to-end-tests.sh up -d
 	echo "BOOT CONTAINERS DONE"
 
-	
+	set -a
+	source ./envs/end-to-end-tests.env
 
 
 	cd ..
