@@ -73,6 +73,11 @@ before(){
 	git clone https://github.com/hpi-schul-cloud/end-to-end-tests.git end-to-end-tests
 	switchBranch "end-to-end-tests"
 
+	echo "IT_CLIENT ENVS..."
+	echo "IT_CLIENT_HOST=" $IT_CLIENT_HOST
+	echo "IT_CLIENT_PORT=" $IT_CLIENT_PORT
+	echo "IT_CLIENT ENVS DONE"
+
 	echo "INSTALL DEPENDNECIES..."
 	cd schulcloud-server && npm ci && cd ..
 	cd end-to-end-tests && npm ci && cd ..
