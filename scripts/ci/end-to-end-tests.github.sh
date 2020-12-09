@@ -63,6 +63,10 @@ install(){
 	echo "BOOT CONTAINERS..."
 	./startup_end-to-end-tests.sh up -d
 	echo "BOOT CONTAINERS DONE"
+
+	set -a
+	source ./envs/end-to-end-tests.env
+
 	cd ..
 
 }
