@@ -20,7 +20,10 @@ _switchBranch(){
 }
 
 switchBranch(){
-	if [[ $BRANCH_NAME = release* || $BRANCH_NAME = hotfix* ]]
+	if [[ -n $TRAVIS_PULL_REQUEST_BRANCH]]
+	then
+		_switchBranch "$1" "$TRAVIS_BRANCH" "$2"
+	elif [[ $BRANCH_NAME = release* || $BRANCH_NAME = hotfix* ]]
 	then
 		_switchBranch "$1" "master" "$2"
 	fi
