@@ -9,8 +9,6 @@ const tableOfTeacherssColumn = 'tbody[data-testid="students_names_container"] > 
 const emailCell = '[data-testid="students_names_container"] td:nth-child(3)';
 const editElements = 'i.fa-edit';
 
-
-
 async function clickEditTeacherByMailBtn(userEmail) {
 	await waitHelpers.waitUntilElementIsVisible(tableOfTeacherssColumn);
 	let teachersTable = await getTeachersDetailsList(emailCell);

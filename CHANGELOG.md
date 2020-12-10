@@ -20,6 +20,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7571 - sendConsentFormEmail adjusted
 - SC-7733 - User can not login anymore, DeletionConcept Tests
 - SC-5797 - Added new test: showRegularTaskOnDashboard
+- SC-5780 - Added new test: editTeam
+- SC-6816 - Added new test: editClass
 
 ## Changed
 
@@ -28,6 +30,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7524-parametrization: adjust parametrization to existing feature files
 - SC-7684-parametrization: feature and step definition file restructuring
 - SC-7329-Adjust QA TCs to initial DB
+- SC-7474 pull docker container for tests if commit id exists on docker hub
+- SC-6767-Chrome driver update 2.46 -> 87.0
+
 
 ### Fixed
 
