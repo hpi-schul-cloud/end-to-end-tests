@@ -38,15 +38,18 @@ async function getSelectOptions(selectSelector) {
 	);
 }
 
-async function selectOptionByText(selectSelector, text) {
+async function selectOptionsByText(selectSelector, options) {
+	let listOfOptions = options.split(",");
 	await waitHelpers.waitUntilElementIsPresent(selectSelector);
+	for (const option of listOfOptions) {
 	await click(`${selectSelector}`);
 	const activeResult = `${selectSelector} .active-result`;
 	const listOfOptions = await getListOfAllElements(activeResult);
 	const listOfOptionsTexts = await getTextFromAllElements(activeResult);
-	const optionIndex = listOfOptionsTexts.indexOf(text.trim());
+	const optionIndex = listOfOptionsTexts.indexOf(option.trim());
 	const element = listOfOptions[optionIndex];
 	await element.click();
+	};
 }
 
 async function loadPage(url, timeout = LOAD_PAGE_TIMEOUT) {
@@ -228,7 +231,7 @@ module.exports = {
 	doubleClick,
 	doubleClickAndWait,
 	clickHiddenElement,
-	selectOptionByText,
+	selectOptionsByText,
 	loadPage,
 	hideElements,
 	showElements,

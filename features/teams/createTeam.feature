@@ -8,8 +8,8 @@ Feature: Set of tests to create teams
 	Scenario Outline: As a user, I want to be able to create a team with two new members
 		Given <userRole> logs in with email '<userName>' and password '<password>'
 		When <userRole> creates a new team with name '<teamName>' and description '<description>' and color '<colour>'
-		And <userRole> adds a student to team with lastname: '<lastName1>' and firstname: '<firstName1>'
-		And <userRole> adds a student to team with lastname: '<lastName2>' and firstname: '<firstName2>'
+		And <userRole> adds a student with lastname: '<lastName1>' and firstname: '<firstName1>' to the team
+		And <userRole> adds a student with lastname: '<lastName2>' and firstname: '<firstName2>' to the team
 		And <userRole> clicks Submit-add-team-member button
 		Then <userRole> goes to Teams Page
 		Then <userRole> sees that team with name '<teamName>', colour '<colour>' and  member number '<number>' is visible on the list

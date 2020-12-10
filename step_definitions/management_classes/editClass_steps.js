@@ -15,11 +15,16 @@ When(/^.* chooses class with name '([^']*)' clicks Class-management$/, function 
 	return manageClassesPage.clickManagmentClassByNameBtn(className);
 });
 
-When(/^.*adds a student to class with name '([^']*)'$/, async function (fullName) {
+When(/^.*adds a student with name '([^']*)' to the class$/, async function (fullName) {
 	await manageClass.setStudent(fullName);
 });
 
-When(/^.*adds a teacher to class with name '([^']*)'$/, async function (fullName) {
+When(/^.*adds a group of '([^']*)' students with firstname '([^']*)' and lastname '([^']*)' to the class$/, async function (numberOfStudents, firstname, lastname) {
+	let listOfStudents = manageClass.createListOfStudents(numberOfStudents, firstname, lastname);
+	await manageClass.setStudent(listOfStudents.join(","));
+});
+
+When(/^.*adds a teacher with name '([^']*)' to the class$/, async function (fullName) {
 	await manageClass.setTeacher(fullName);
 });
 

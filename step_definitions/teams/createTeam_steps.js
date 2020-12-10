@@ -9,7 +9,7 @@ When(/^.*creates a new team with name '([^']*)' and description '([^']*)' and co
 	await TMSAddEditTeamPage.createTeamAndGoToInternalMembersManagement(teamName, description, colour);
 });
 
-When(/^.*adds a student to team with lastname: '([^']*)' and firstname: '([^']*)'$/, async function (lastname, firstname) {
+When(/^.*adds a student with lastname: '([^']*)' and firstname: '([^']*)' to the team$/, async function (lastname, firstname) {
 	await TMSTeamMembersPage.addTeamAttendee(lastname, firstname);
 });
 
