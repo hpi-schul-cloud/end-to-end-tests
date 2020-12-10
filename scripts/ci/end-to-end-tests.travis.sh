@@ -23,6 +23,7 @@ switchBranch(){
 	if [[ -n $TRAVIS_PULL_REQUEST_BRANCH]]
 	then
 		_switchBranch "$1" "$TRAVIS_BRANCH" "$2"
+		echo "taget_branch=$TRAVIS_BRANCH"
 	elif [[ $BRANCH_NAME = release* || $BRANCH_NAME = hotfix* ]]
 	then
 		_switchBranch "$1" "master" "$2"
