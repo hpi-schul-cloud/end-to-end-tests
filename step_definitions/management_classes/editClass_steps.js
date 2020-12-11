@@ -21,7 +21,7 @@ When(/^.*adds a student with name '([^']*)' to the class$/, async function (full
 
 When(/^.*adds a group of '([^']*)' students with firstname '([^']*)' and lastname '([^']*)' to the class$/, async function (numberOfStudents, firstname, lastname) {
 	let listOfStudents = manageClass.createListOfStudents(numberOfStudents, firstname, lastname);
-	await manageClass.setStudent(listOfStudents.join(","));
+	await manageClass.setStudent(listOfStudents.join(";"));
 });
 
 When(/^.*adds a teacher with name '([^']*)' to the class$/, async function (fullName) {

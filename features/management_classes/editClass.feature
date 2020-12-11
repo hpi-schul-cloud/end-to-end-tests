@@ -35,7 +35,7 @@ Feature: I want to edit a class
 		And <userRole> deletes student '<student>' from class
 		And <userRole> clicks on Save-changes in class button
 		Then <userRole> should see that class with name '<className>' and teacher lastname '<teacher2Lastname>' is not visible
-		And <userRole> should see that number of students in class with name '<className>' is '<numberOfStudentsInClass>'
+		And <userRole> should see that number of students in class with name '<className>' is '<numberOfStudentsAfterDelete>'
 		Examples:
 			| userRole | className | teacher    | student       | teacher1Lastname | teacher2Lastname | numberOfStudents | numberOfStudentsAfterDelete |
 			| teacher  | 8a        | Lara Hande | Amelia Strobl | Herzog           | Hande            | 2                | 1                           |

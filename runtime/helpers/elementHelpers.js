@@ -39,7 +39,7 @@ async function getSelectOptions(selectSelector) {
 }
 
 async function selectOptionsByText(selectSelector, options) {
-	let listOfOptions = options.split(",");
+	let listOfOptions = options.split(";");
 	await waitHelpers.waitUntilElementIsPresent(selectSelector);
 	for (const option of listOfOptions) {
 	await click(`${selectSelector}`);
