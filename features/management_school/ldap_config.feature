@@ -21,7 +21,7 @@ Feature: Tests for the ldap config pages
       And <userRole> adds '<attributeUid>' to the attributeUid input
       And <userRole> adds '<attributeUuid>' to the attributeUuid input
       # And <userRole> adds '<roleAttribute>' to the roleAttribute input
-      And <userRole> clicks '<groupOption>' from the user roles
+      #And <userRole> clicks '<groupOption>' from the user roles
       And <userRole> adds '<studentAttribute>' to the studentAttribute input
       And <userRole> adds '<teacherAttribute>' to the teacherAttribute input
       And <userRole> adds '<adminAttribute>' to the adminAttribute input
