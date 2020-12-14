@@ -143,7 +143,7 @@ async function setCourseName(courseName) {
 }
 
 async function setTeacher(teacherFullname) {
-	await elementHelpers.selectOptionByText(teacherSelect, teacherFullname);
+	await elementHelpers.selectOptionsByText(teacherSelect, teacherFullname);
 }
 
 async function setCurrentUserAsTeacher() {
@@ -195,7 +195,7 @@ async function isStudentNotSet () {
 }
 
 async function setStudent(studentName) {
-	await elementHelpers.selectOptionByText(studentSelect, studentName);
+	await elementHelpers.selectOptionsByText(studentSelect, studentName);
 }
 
 async function clickCreateCourseAndContinueBtn() {
