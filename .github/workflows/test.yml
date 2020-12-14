@@ -7,6 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: test if var is set
+        run: echo on branch $TARGET_BRANCH
+        env:
+          TARGET_BRANCH: ${{ github.event.pull_request.base.ref }}
       - name: run git change
         run: |
           git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
@@ -15,11 +19,11 @@ jobs:
       - name: execute tests
         run: curl "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/develop/scripts/ci/fetch.github.sh" | bash
         env:
-            ES_USER: ${{ secrets.ES_USER }}
-            ES_PASSWORD: ${{ secrets.ES_PASSWORD }}
-            SECRET_ES_MERLIN_USERNAME: ${{ secrets.SECRET_ES_MERLIN_USERNAME }}
-            SECRET_ES_MERLIN_PW: ${{ secrets.SECRET_ES_MERLIN_PW }}
-            TARGET_BRANCH: ${{ github.event.pull_request.base.ref }}
+          ES_USER: ${{ secrets.ES_USER }}
+          ES_PASSWORD: ${{ secrets.ES_PASSWORD }}
+          SECRET_ES_MERLIN_USERNAME: ${{ secrets.SECRET_ES_MERLIN_USERNAME }}
+          SECRET_ES_MERLIN_PW: ${{ secrets.SECRET_ES_MERLIN_PW }}
+          TARGET_BRANCH: ${{ github.event.pull_request.base.ref }}
       - uses: actions/upload-artifact@v1
         name: upload results
         if: always()
