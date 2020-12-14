@@ -22,7 +22,7 @@ _switchBranch(){
 
 switchBranch(){
 	echo $TARGET_BRANCH
-	echo ${{ github.event.pull_request.base.ref }}
+	echo "target branch " ${{ github.event.pull_request.base.ref }}
 	if [ -n ${{ github.event.pull_request.base.ref }} ]
 	then
 		_switchBranch "$1" "${ github.event.pull_request.base.ref }" "$2"
