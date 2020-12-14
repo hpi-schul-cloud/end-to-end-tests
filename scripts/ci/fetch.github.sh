@@ -30,7 +30,6 @@ sudo apt install -y apt-transport-https ca-certificates curl git mongodb-org-too
 # set envs
 export BRANCH_NAME=${GITHUB_HEAD_REF:=GITHUB_REF#refs/heads/}
 
-echo "GITHUB_HEAD_REF: $GITHUB_HEAD_REF"
 echo "BRANCH: $BRANCH_NAME"
 
 # fetch default (develop) script
