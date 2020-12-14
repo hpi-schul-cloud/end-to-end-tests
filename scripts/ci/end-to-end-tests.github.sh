@@ -21,8 +21,11 @@ _switchBranch(){
 }
 
 switchBranch(){
-	echo $GITHUB_BASE_REF
-	if [[ $BRANCH_NAME = release* || $BRANCH_NAME = hotfix* ]]
+	
+	if [ -n ${ github.event.pull_request.base.ref } ]
+	then
+		_switchBranch "$1" "${ github.event.pull_request.base.ref }" "$2"
+	elif [[ $BRANCH_NAME = release* || $BRANCH_NAME = hotfix* ]]
 	then
 		_switchBranch "$1" "master" "$2"
 	fi
