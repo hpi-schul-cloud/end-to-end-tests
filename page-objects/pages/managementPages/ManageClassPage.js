@@ -69,21 +69,29 @@ async function setCustomClassName(customClassName) {
 }
 
 async function setClassGrade(classGrade) {
-    await elementHelpers.selectOptionByText(classGradeSelect, classGrade)
+    await elementHelpers.selectOptionsByText(classGradeSelect, classGrade)
 }
 
 async function setSchoolYear(schoolYear) {
-    await elementHelpers.selectOptionByText(schoolYearSelect, schoolYear)
+    await elementHelpers.selectOptionsByText(schoolYearSelect, schoolYear)
 }
 
 async function setTeacher(name) {
 	await waitHelpers.waitUntilAjaxIsFinished();
-	await elementHelpers.selectOptionByText(teachersMultiSelect, name);
+	await elementHelpers.selectOptionsByText(teachersMultiSelect, name);
 }
 
 async function setStudent(name) {
 	await waitHelpers.waitUntilAjaxIsFinished();
-	await elementHelpers.selectOptionByText(studentsMultiSelect, name);
+	await elementHelpers.selectOptionsByText(studentsMultiSelect, name);
+}
+
+function createListOfStudents(numberOfStudents, firstname, lastname) {
+	let listOfStudentNames = [];
+	for (let studentNumber = 1; studentNumber <= numberOfStudents; studentNumber++) {
+        listOfStudentNames.push(`${firstname}${studentNumber} ${lastname}${studentNumber}`)
+	}
+	return listOfStudentNames;
 }
 
 async function editClass({schoolYear, teachers, classGrade, className, customClassName}) {
@@ -136,7 +144,7 @@ async function deleteClass() {
 	await elementHelpers.clickAndWait(deleteButtonConfirmation);
 }
 
-async function isNewEmptyClassCreated(className, numOfStudents) {
+async function isNewClassCreated(className, numOfStudents) {
     const allClassesContainer = await waitHelpers.waitUntilElementIsVisible(classListTable)
     const allClassesContent = await allClassesContainer.getText()
     const contentArray = allClassesContent.split(" ")
@@ -153,9 +161,10 @@ module.exports = {
     editClass,
     createNewClass,
     isClassEdited,
-    isNewEmptyClassCreated,
+    isNewClassCreated,
     deleteClass,
     setStudent,
+    createListOfStudents,
     setTeacher,
     clickEditClassSaveChangesBtn,
     deleteStudentFromClass,
