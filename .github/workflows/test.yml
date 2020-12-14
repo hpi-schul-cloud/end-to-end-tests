@@ -1,17 +1,18 @@
 name: Test
 
-on: [pull_request]
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - develop
+      - release/**
 
 jobs:
   end-to-end-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: test if var is set
-        run: echo on branch $TARGET_BRANCH or $GITHUB_BASE_REF or $BASE_BRANCH
-        env:
-          TARGET_BRANCH: ${{ toJson(github) }}
-          BASE_BRANCH: ${{ github.event.base_ref }}
       - name: run git change
         run: |
           git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
