@@ -28,7 +28,7 @@ sudo apt update
 sudo apt install -y apt-transport-https ca-certificates curl git mongodb-org-tools
 
 # set envs
-export BRANCH_NAME=${GITHUB_REF}
+export BRANCH_NAME=${GITHUB_HEAD_REF:=GITHUB_REF#refs/heads/}
 
 echo "BRANCH: $BRANCH_NAME"
 
