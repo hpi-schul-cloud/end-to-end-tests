@@ -21,6 +21,7 @@ _switchBranch(){
 }
 
 switchBranch(){
+	echo $TARGET_BRANCH
 	echo ${{ github.event.pull_request.base.ref }}
 	if [ -n ${{ github.event.pull_request.base.ref }} ]
 	then
