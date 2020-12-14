@@ -97,4 +97,5 @@ When(/^.* clicks verify button$/, async function () {
 });
 When(/^.* is redirected to page with preview data$/, async function () {
 	await ldapAfterVerifyPage.isButtonPresent();
+	await ldapAfterVerifyPage.isUsersTablePresent();
 });
