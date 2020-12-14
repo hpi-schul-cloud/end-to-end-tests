@@ -20,7 +20,6 @@ _switchBranch(){
 }
 
 switchBranch(){
-	echo $TRAVIS_PULL_REQUEST_BRANCH
 	if [ -n $TRAVIS_PULL_REQUEST_BRANCH ]
 	then
 		_switchBranch "$1" "$TRAVIS_BRANCH" "$2"

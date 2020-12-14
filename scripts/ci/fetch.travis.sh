@@ -12,7 +12,11 @@ echo "try fetching script from default branch"
 curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/develop/scripts/ci/end-to-end-tests.travis.sh" || true
 
 # use master as default for releases & hotfixes
-if [[ $BRANCH_NAME = release* || $BRANCH_NAME = hotfix* ]];
+if [ -n $TRAVIS_PULL_REQUEST_BRANCH ]
+then
+	echo "try fetching script from $TRAVIS_BRANCH branch"
+	curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/$TRAVIS_BRANCH/scripts/ci/end-to-end-tests.travis.sh" || true
+elif [[ $BRANCH_NAME = release* || $BRANCH_NAME = hotfix* ]];
 then
 	echo "try fetching script from master branch"
 	curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/master/scripts/ci/end-to-end-tests.travis.sh" || true
