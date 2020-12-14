@@ -21,6 +21,7 @@ _switchBranch(){
 }
 
 switchBranch(){
+	echo $GITHUB_BASE_REF
 	if [[ $BRANCH_NAME = release* || $BRANCH_NAME = hotfix* ]]
 	then
 		_switchBranch "$1" "master" "$2"
