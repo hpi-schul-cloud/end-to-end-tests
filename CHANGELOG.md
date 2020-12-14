@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
+## unreleased
+
+### Changed
+
+- use base branch of pull request if test is triggered by pull request
+
 ## 25.3.0
 
 ### Added
