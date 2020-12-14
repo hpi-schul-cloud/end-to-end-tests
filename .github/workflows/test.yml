@@ -10,7 +10,7 @@ jobs:
       - name: test if var is set
         run: echo on branch $TARGET_BRANCH or $GITHUB_BASE_REF
         env:
-          TARGET_BRANCH: ${{ github.event }}
+          TARGET_BRANCH: ${{ toJson(github) }}
       - name: run git change
         run: |
           git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
