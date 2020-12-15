@@ -5,7 +5,6 @@ const navigationLeftPanel = require('../../page-objects/pages/NavigationLeftPage
 const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
 const mailCatcher = require('../../runtime/helpers/mailCatcher.js');
 const registrationPage = require('../../page-objects/pages/generalPagesBeforeLogin/RegistrationPage');
-const { Then } = require('cucumber');
 let pin;
 //WHEN
 When(/^.* goes to students management$/, async function () {
@@ -75,7 +74,11 @@ Then(
 );
 
 Then(/^parents accept all$/, async function () {
-	return registrationPage.acceptConsent();
+	return registrationPage.acceptConsent(true);
+});
+
+Then(/^student accept all$/, async function () {
+	return registrationPage.acceptConsent(false);
 });
 
 Then(/^parents click on send pin code$/, async function () {
@@ -93,4 +96,8 @@ Then(/^parent fills in pin and submits$/, async function () {
 
 Then(/^login data is received$/, async function () {
 	return registrationPage.getTitleText();
+});
+
+Then(/^student selects over 16 checkbox$/, async function () {
+	return registrationPage.clickOver16Btn();
 });
