@@ -68,10 +68,10 @@ Feature: Set of tests to create students
 		And student goes to next section
 		And student selects over 16 checkbox
 		And student clicks Next-section button
-		And student accept all 
-		And parents click on send pin code
-		Then parent email receives 4 digit pin code
-		And parent fills in pin and submits
+		And student accepts all 
+		And student click on send pin code
+		Then student email receives 4 digit pin code
+		And student fills in pin and submits
 		And login data is received
 		Examples: 
 			| userRole | firstName | lastName   | studentEmail 		    	  | birthday   | username                     		| password       |

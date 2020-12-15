@@ -77,20 +77,20 @@ Then(/^parents accept all$/, async function () {
 	return registrationPage.acceptConsent(true);
 });
 
-Then(/^student accept all$/, async function () {
+Then(/^student accepts all$/, async function () {
 	return registrationPage.acceptConsent(false);
 });
 
-Then(/^parents click on send pin code$/, async function () {
+Then(/^.* click on send pin code$/, async function () {
 	return registrationPage.clickRequestPin();
 });
 
-Then(/^parent email receives 4 digit pin code$/, async function () {
+Then(/^.* email receives 4 digit pin code$/, async function () {
 	pin = await mailCatcher.getEmailPin();
 	return pin;
 });
 
-Then(/^parent fills in pin and submits$/, async function () {
+Then(/^.* fills in pin and submits$/, async function () {
 	return registrationPage.addPin(pin);
 });
 
