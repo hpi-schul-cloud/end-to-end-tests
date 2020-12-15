@@ -28,14 +28,14 @@ async function clickEditClassBtn() {
 	await waitHelpers.waitUntilElementIsVisible(tableOfClasses);
 	let editsElements = await elementHelpers.getListOfAllElements(editElements);
 	let indexNameRow = await tableHelpers.getIndexOfRowContainsText(classTable, className);
-	await elementHelpers.clickAndWait(editsElements[indexNameRow-1]);
+	await elementHelpers.clickAndWait(editsElements[indexNameRow]);
 }
 
 async function isNumberOfMembersInClass(className, numberOfMembers) {
 	await waitHelpers.waitUntilElementIsVisible(tableOfClasses);
 	let indexRow = await tableHelpers.getIndexOfRowContainsText(classTable, className);
 	let indexColumn = await tableHelpers.getIndexOfHeaderContainsText(classTable, 'Schüler');
-	let numberOfStudents = await elementHelpers.getElementText('tr:nth-child('+ indexRow +') > td:nth-child('+ indexColumn +')');
+	let numberOfStudents = await elementHelpers.getElementText('tr:nth-child('+ (indexRow+1) +') > td:nth-child('+ (indexColumn+1) +')');
     expect(numberOfMembers).to.equal(numberOfStudents)
 }
     // choose between className, teachers, students, schoolYear

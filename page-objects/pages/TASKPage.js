@@ -50,7 +50,7 @@ async function clickEvaluationTab() {
 async function clickOnStudentSubmissionContains(studentLastName) {
 	const listOfSubmissions = await elementHelpers.getListOfAllElements(submissionRow);
 	const studentIndex = await tableHelpers.getIndexOfRowContainsText(submissionsTable, studentLastName);
-	const studentSubmission = listOfSubmissions[studentIndex-1];
+	const studentSubmission = listOfSubmissions[studentIndex];
 	await elementHelpers.clickAndWait(studentSubmission);
 }
 
