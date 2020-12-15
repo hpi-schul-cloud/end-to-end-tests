@@ -12,7 +12,7 @@ const teacherNamesCells = courseNameContainer + ' td:nth-child(3)';
 const editElements = courseNameContainer + ' i.fa-edit';
 
 async function setTeacher(teacherUsername) {
-	await elementHelpers.selectOptionByText(teacherSelect, teacherUsername);
+	await elementHelpers.selectOptionsByText(teacherSelect, teacherUsername);
 }
 
 async function clickEditCourseByNameBtn(courseName) {
