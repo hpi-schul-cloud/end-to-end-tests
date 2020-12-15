@@ -12,6 +12,8 @@ jobs:
   end-to-end-tests:
     runs-on: ubuntu-latest
     steps:
+      - name: test vars $GITHUB_BASE_REF and $GITHUB_HEAD_REF
+        run: echo test vars $GITHUB_BASE_REF and $GITHUB_HEAD_REF
       - uses: actions/checkout@v2
       - name: run git change
         run: |
