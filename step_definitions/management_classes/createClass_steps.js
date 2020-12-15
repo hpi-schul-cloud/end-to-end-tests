@@ -28,5 +28,5 @@ Then(/^.* class with name '([^']*)' and '([^']*)' members is visible$/, async fu
 });
 
 Then(/^.* number of students in class with name '([^']*)' is '([^']*)'$/, async function (className, membersCount) {
-	await manageClassesPage.checkMembersInClass(className, membersCount);
+	await manageClassesPage.isNumberOfMembersInClass(className, membersCount);
 });
