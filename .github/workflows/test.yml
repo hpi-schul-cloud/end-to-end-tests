@@ -12,8 +12,6 @@ jobs:
   end-to-end-tests:
     runs-on: ubuntu-latest
     steps:
-      - name: test vars $GITHUB_BASE_REF and $GITHUB_HEAD_REF
-        run: echo test vars $GITHUB_BASE_REF and $GITHUB_HEAD_REF
       - uses: actions/checkout@v2
       - name: run git change
         run: |
@@ -27,8 +25,6 @@ jobs:
           ES_PASSWORD: ${{ secrets.ES_PASSWORD }}
           SECRET_ES_MERLIN_USERNAME: ${{ secrets.SECRET_ES_MERLIN_USERNAME }}
           SECRET_ES_MERLIN_PW: ${{ secrets.SECRET_ES_MERLIN_PW }}
-          TARGET_BRANCH: $GITHUB_BASE_REF
-          HEAD_BRANCH: $GITHUB_HEAD_REF
       - uses: actions/upload-artifact@v1
         name: upload results
         if: always()
