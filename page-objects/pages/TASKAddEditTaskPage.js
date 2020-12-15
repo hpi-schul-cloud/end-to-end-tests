@@ -45,7 +45,7 @@ async function setTaskCourses(listOfCourses) {
 		await elementHelpers.click(`${courseSelect}`);
 		await elementHelpers.click(`${courseSelect} [data-option-array-index='0']`);
 	} else {
-		await elementHelpers.selectOptionByText(courseSelect, listOfCourses);
+		await elementHelpers.selectOptionsByText(courseSelect, listOfCourses);
 	}
 }
 

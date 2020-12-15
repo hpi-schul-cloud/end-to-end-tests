@@ -22,6 +22,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-5780 - Added new test: editTeam
 - SC-6816 - Added new test: editClass
 - SC-8119 - Added new test: created student older than 16 can register
+- SC-5286 - Added new test: editClass adGroupOfStudentsToTheClass
+
+
 
 ## Changed
 
