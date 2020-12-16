@@ -22,6 +22,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-5780 - Added new test: editTeam
 - SC-6816 - Added new test: editClass
 - SC-5286 - Added new test: editClass adGroupOfStudentsToTheClass
+- SC-8120 - Added new test: createClass createClassWith3Members
 
 ## Changed
 
