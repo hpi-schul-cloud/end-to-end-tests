@@ -20,9 +20,19 @@ const pinDigit2 = '.digit:nth-child(3)';
 const pinDigit3 = '.digit:nth-child(4)';
 const pinDigit4 = '.digit:nth-child(5)';
 const pinField = '.submit-page > div > div > input ';
+const generatedPassword = '.student-password';
+const loginButton = '.btn-primary';
 
 async function goToAgeSelection() {
 	await elementHelpers.click(showAgeSelectionBtn);
+}
+
+async function getGeneratedPassword() {
+	return await elementHelpers.getElementText(generatedPassword);
+}
+
+async function clickLoginButton() {
+	await elementHelpers.click(loginButton);
 }
 
 async function clickUnder16Btn() {
@@ -78,8 +88,10 @@ async function addPin(pin) {
 module.exports = {
 	addPin,
 	acceptConsent,
+	getGeneratedPassword,
 	getTitleText,
 	addParentData,
+	clickLoginButton,
 	clickRequestPin,
 	goToAgeSelection,
 	clickUnder16Btn,
