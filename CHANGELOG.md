@@ -36,6 +36,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7329-Adjust QA TCs to initial DB
 - SC-7474 pull docker container for tests if commit id exists on docker hub
 - SC-6767-Chrome driver update 2.46 -> 87.0
+- SC-8117 expanded createNewStudent16 to perform first login
 
 
 ### Fixed
