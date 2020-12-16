@@ -38,12 +38,17 @@ async function changePassword(oldPassword, newPassword) {
     await clickSubmitAccountDataBtn();
 }
 
+async function fillPassword(password) {
+	await setCurrentPassword(password);
+}
+
 async function changeLanguage(language) {
 	await setLanguage(language);
     await clickSubmitAccountDataBtn();
 }
 
 module.exports = {
+	fillPassword,
 	changePassword,
 	changeLanguage,
 };
