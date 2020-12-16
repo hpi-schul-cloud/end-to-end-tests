@@ -28,7 +28,7 @@ async function setNewPasswordConfirmation(newPassword = LoginPage.defaultNewPass
 }
 
 async function setLanguage(language) {
-    await elementHelpers.selectOptionByText(languageSelect, language);
+    await elementHelpers.selectOptionsByText(languageSelect, language);
 }
 
 async function changePassword(oldPassword, newPassword) {

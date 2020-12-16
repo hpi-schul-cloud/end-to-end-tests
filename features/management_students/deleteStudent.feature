@@ -5,7 +5,7 @@ Feature: Set of tests to delete students
     Background: User opens Schul-cloud homepage Website
         Given user arrives on the Schul-Cloud homepage
 
-    @deletedStudentCanNotLogin
+    @deletedStudentCanNotLogin @deletionConcept
     Scenario Outline: As an admin, I want to be able to delete the user
         Given <userRole> logs in with email '<adminUsername>' and password '<adminPassword>'
         And <userRole> login is successful
@@ -22,13 +22,12 @@ Feature: Set of tests to delete students
             | userRole | adminUsername                | adminPassword  | studentUsername                  | studentPassword | deletedUserRole |
             | admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | amelia.strobl.qa@schul-cloud.org | Schulcloud1qa!  | student         |
 
-
-@deletedStudentIsNotVisibleInTeam
+	@deletedStudentIsNotVisibleInTeam @deletionConcept
 	Scenario Outline: As an admin, I want to be able to delete the user and he will be no longer listed in team members
 		Given <userRole> logs in with email '<adminUsername>' and password '<adminPassword>'
 		And <userRole> login is successful
 		When <userRole> creates a new team with name '<teamName>' and description '<description>' and color '<color>'
-		And <userRole> adds a student to team with lastname: '<lastName>' and firstname: '<firstName>'
+		And <userRole> adds a student with lastname: '<lastName>' and firstname: '<firstName>' to the team 
 		And <userRole> clicks Submit-add-team-member button
 		Then <userRole> goes to Teams Page
 		Then <userRole> sees that team with name '<teamName>', colour '<color>' and  member number '<number>' is visible on the list
@@ -45,7 +44,26 @@ Feature: Set of tests to delete students
 			| userRole  | adminUsername                | adminPassword  | studentUserName 				  | firstName | lastName | teamName  | description      | color  | number |
 			| admin     | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | boris.wasser.qa@schul-cloud.org | Boris	  | Wasser   | test team | test description | orange | 2      |
 
-	@deletedStudentCanNotUseForgotPassword
+	@deletedStudentIsNotVisibleInCourse @deletionConcept
+	Scenario Outline: As an admin, I want to be able to delete the user and he will be no longer listed in course members
+		Given <userAdmin> logs in with email '<adminUsername>' and password '<password>'
+		And <userAdmin> login is successful
+		And <userAdmin> goes to management
+		And <userAdmin> goes to students management
+		When <userAdmin> clicks Edit-student with '<studentUserName>' button
+		And <userAdmin> clicks Delete-user button
+		And <userAdmin> clicks Delete-user button inside popup
+		And <userAdmin> logs out
+		And <userTeacher> logs in with email '<teacherUsername>' and password '<password>'
+		And <userTeacher> goes to courses page
+		Then <userTeacher> should see that course with name '<courseName>' is visible on the list
+		And <userTeacher> sees that course with name '<courseName>' contains number of members '<membersNumber>'
+
+		Examples:
+ 		| userAdmin | adminUsername				   | password		| studentUserName				  | firstName | lastName | userTeacher | teacherUsername				 | courseName					 | membersNumber |
+		| admin		| kai.admin.qa@schul-cloud.org | Schulcloud1qa! | boris.wasser.qa@schul-cloud.org | Boris	  | Wasser	 | teacher	   | karl.teacher.qa@schul-cloud.org | Course with subject and tasks | 1			 |
+
+	@deletedStudentCanNotUseForgotPassword @deletionConcept
 	Scenario Outline: As an admin, I want to be able to delete the user
 		Given <userRole> logs in with email '<adminUsername>' and password '<adminPassword>'
 		And <userRole> login is successful

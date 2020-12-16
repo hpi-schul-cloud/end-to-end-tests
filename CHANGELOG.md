@@ -21,6 +21,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-5473 - Lernstore Test Automation
 - SC-5797 - Added new test: showRegularTaskOnDashboard
 - SC-5780 - Added new test: editTeam
+- SC-6816 - Added new test: editClass
+- SC-8119 - Added new test: created student older than 16 can register
+- SC-5286 - Added new test: editClass adGroupOfStudentsToTheClass
+- SC-8120 - Added new test: createClass createClassWith3Members
+
+
 
 ## Changed
 
@@ -29,7 +35,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7524-parametrization: adjust parametrization to existing feature files
 - SC-7684-parametrization: feature and step definition file restructuring
 - SC-7329-Adjust QA TCs to initial DB
+- SC-7474 pull docker container for tests if commit id exists on docker hub
 - SC-6767-Chrome driver update 2.46 -> 87.0
+
 
 ### Fixed
 

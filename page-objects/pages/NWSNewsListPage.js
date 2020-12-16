@@ -8,12 +8,12 @@ async function goToNews () {
 	await navigationLeftPage.clickNavItemNews();
 }
 
-async function getListOfNewNames () {
+async function getListOfNewsNames () {
 	return elementHelpers.getTextFromAllElements(newNameSel);
 }
 
 async function isNewsVisible (newsTitle, expectedValue) {
-	const newsTitles = await getListOfNewNames();
+	const newsTitles = await getListOfNewsNames();
 	const isNewsOnList = newsTitles.some((element) => element.includes(newsTitle));
 	const fillString = !expectedValue ? 'not' : '';
 	const msg = 'News with name is '+ fillString + 'visible on the list: \n';
