@@ -9,11 +9,11 @@ Feature: Set of tests to create classes
         Given <userRole> logs in with email '<username>' and password '<password>'
         And <userRole> goes to management
         And <userRole> goes to class management
-        When <userRole> creates class with custom name '<customClassName>'
+        When <userRole> creates class with custom name '<customClassName>' and '<schoolYear>'
         Then <userRole> should see that class with name '<customClassName>' and '0' members is visible
         Examples:
-            | userRole | username                         | password       | customClassName |
-            | admin    | olivier.admin.qa@schul-cloud.org | Schulcloud1qa! | 11c             |
+            | userRole | username                         | password       | customClassName | schoolYear |
+            | admin    | olivier.admin.qa@schul-cloud.org | Schulcloud1qa! | 11c             | 2020/21	  |
 
     @createClassWith3Members
     Scenario Outline: As a user, I want to be able to create class without any members
