@@ -10,7 +10,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
-- SC-7203 - Create Event testcase added
+- SC-7203 - Added new test: ceateEvent
+- SC-7848 - Added new function, due to bugfix on client
 - SC-6814 - Delete class test
 - SC-5795 - CreateUser and send registration link
 - SC-7736 - Deleted User forgot password functionality
