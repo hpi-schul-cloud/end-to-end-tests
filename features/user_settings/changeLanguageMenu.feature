@@ -9,7 +9,8 @@ Feature: Test set for user settings
         Given <userRole> logs in with email '<username>' and password '<password>'
         And <userRole> login is successful
         And <userRole> goes to user settings
-        When <userRole> changes language to '<language>'
+		When <userRole> fill password in settings '<password>'
+		When <userRole> changes language to '<language>'
         Then <userRole> should see that all menu items are visible: '<menuItems>'
         Examples:
             | userRole | username                          | password       | language | menuItems                                                                                                 |
