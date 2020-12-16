@@ -2,7 +2,7 @@
 
 const AccountPage = require('../../page-objects/pages/AccountPage.js');
 
-And(/^.* changes language to '(\S*)'$/, function (language) {
+When(/^.* changes language to '(\S*)'$/, function (language) {
 	return AccountPage.changeLanguage(language);
 });
 
