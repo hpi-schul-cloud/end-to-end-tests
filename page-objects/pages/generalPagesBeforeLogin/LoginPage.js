@@ -69,7 +69,7 @@ async function clickForgotPasswordBtn() {
 
 async function FillEmailInputAndReset(email) {
 	await waitHelpers.waitAndSetValue(fillEmailInputResetPassword, email);
-	await elementHelpers.clickAndWait(resetPasswordBtn)
+	await elementHelpers.clickAndWait(resetPasswordBtn);
 }
 
 async function clickStartUsageOfSchulcloudBtn() {
@@ -89,7 +89,11 @@ async function performLogin(username, password) {
 	await clickLoginBtn();
 }
 
-async function performLoginActions({shouldAcceptDataProtection, shouldSetOwnPassword, newPassword=defaultPassword})  {
+async function performLoginActions({
+	shouldAcceptDataProtection,
+	shouldSetOwnPassword,
+	newPassword = defaultPassword,
+}) {
 	await clickNextSectionBtn();
 	await clickNextSectionBtn();
 	if (shouldAcceptDataProtection) await acceptDataProtection();
@@ -110,7 +114,12 @@ async function setNewPassword(newPassword) {
 
 async function isWrongLoginNotification() {
 	const actualLoginNotification = await elementHelpers.getElementText(wrongLoginNotificationContainer);
-	const errorMsg = 'Actual login notification: [' + actualLoginNotification + '] is not one of expected ones: ['+ loginFailureMessages +']';
+	const errorMsg =
+		'Actual login notification: [' +
+		actualLoginNotification +
+		'] is not one of expected ones: [' +
+		loginFailureMessages +
+		']';
 	expect(actualLoginNotification, errorMsg).to.be.oneOf(loginFailureMessages);
 }
 

@@ -73,6 +73,19 @@ Feature: Set of tests to create students
 		Then student email receives 4 digit pin code
 		And student fills in pin and submits
 		And login data is received
+		And login password is copied
+		When student clicks login button
+		And student clicks 'Login' button on start page
+		And student performs first login with generated password and email '<studentEmail>'
+		And student performs first login actions: password change '<newPasswordStudent>'
+		And student logs out
+		And student clicks 'Login' button on start page
+		And student performs first login with generated password and email '<studentEmail>'
+		And student login must fail
+		And student waits for next login
+		And student is on LoginPage and logs in using email '<studentEmail>' and password '<newPasswordStudent>'
+		Then login is successful
+
 		Examples: 
-			| userRole | firstName | lastName   | studentEmail 		    	  | birthday   | username                     		| password       |
-			| admin	   | Hansi     | Flick      | hansi.flick@schul-cloud.org | 19.11.2004 | kai.admin.qa@schul-cloud.org 		| Schulcloud1qa! |  
+			| userRole | firstName | lastName   | studentEmail 		    	  | birthday   | username                     		| password       | newPasswordStudent |
+			| admin	   | Hansi     | Flick      | hansi.flick@schul-cloud.org | 19.11.2004 | kai.admin.qa@schul-cloud.org 		| Schulcloud1qa! | SchulcloudTest1!	  |
