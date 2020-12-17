@@ -5,7 +5,9 @@ const navigationLeftPanel = require('../../page-objects/pages/NavigationLeftPage
 const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
 const mailCatcher = require('../../runtime/helpers/mailCatcher.js');
 const registrationPage = require('../../page-objects/pages/generalPagesBeforeLogin/RegistrationPage');
-let pin;
+const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage');
+let pin, password;
+
 //WHEN
 When(/^.* goes to students management$/, async function () {
 	return navigationLeftPanel.clickNavItemManageStudents();
@@ -100,4 +102,16 @@ Then(/^login data is received$/, async function () {
 
 Then(/^student selects over 16 checkbox$/, async function () {
 	return registrationPage.clickOver16Btn();
+});
+
+Then(/^login password is copied$/, async function () {
+	password = await registrationPage.getGeneratedPassword();
+});
+
+Then(/^.* clicks login button$/, async function () {
+	return registrationPage.clickLoginButton();
+});
+
+Then(/^.* performs first login with generated password and email '([^']*)'$/, async function (studentEmail) {
+	return loginPage.performLogin(studentEmail, password);
 });
