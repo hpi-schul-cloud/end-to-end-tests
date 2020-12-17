@@ -8,6 +8,7 @@ const courseNameInput = 'form > div:nth-child(3) > input';
 const courseDescriptionInput = 'textarea';
 const deleteButton = 'a.btn-delete-course';
 const deleteButtonConfirmation = '.modal-content button.btn-submit';
+const courseTeacherInput = "select[name='teacherIds[]'] + div.chosen-container  span";
 
 async function clickSubmitButton() {
 	await elementHelpers.clickAndWait(submitBtn);
@@ -29,10 +30,21 @@ async function setNewCourseDescription(courseDescription) {
 	await waitHelpers.waitAndSetValue(courseDescriptionInput, courseDescription);
 }
 
+async function isTeacherVisible(courseTeacher, expectedResult) {
+	let teachersNames = await elementHelpers.getTextFromAllElements(courseTeacherInput);
+	const msg = `Teacher with name ${courseTeacher} is not visible on the list \n`;
+	const resultMsg = `List of teachersNames: ${teachersNames}`;
+	expectedResult
+		? expect(teachersNames).to.include(courseTeacher)
+		: expect(teachersNames).to.not.include(courseTeacher);
+	return expect(teachersNames, msg + resultMsg).to.not.include(courseTeacher);
+}
+
 module.exports = {
 	clickSubmitButton,
 	clickConfirmDeleteButton,
 	clickDeleteButton,
 	setNewCourseName,
 	setNewCourseDescription,
+	isTeacherVisible,
 };

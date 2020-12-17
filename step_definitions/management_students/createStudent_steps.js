@@ -5,8 +5,8 @@ const navigationLeftPanel = require('../../page-objects/pages/NavigationLeftPage
 const elementHelpers = require('../../runtime/helpers/elementHelpers.js');
 const mailCatcher = require('../../runtime/helpers/mailCatcher.js');
 const registrationPage = require('../../page-objects/pages/generalPagesBeforeLogin/RegistrationPage');
-const { Then } = require('cucumber');
-let pin;
+const loginPage = require('../../page-objects/pages/generalPagesBeforeLogin/LoginPage');
+let pin, password;
 
 //WHEN
 When(/^.* goes to students management$/, async function () {
@@ -77,22 +77,42 @@ Then(
 );
 
 Then(/^parents accept all$/, async function () {
-	return registrationPage.acceptConsent();
+	return registrationPage.acceptConsent(true);
 });
 
-Then(/^parents click on send pin code$/, async function () {
+Then(/^student accepts all$/, async function () {
+	return registrationPage.acceptConsent(false);
+});
+
+Then(/^.* click on send pin code$/, async function () {
 	return registrationPage.clickRequestPin();
 });
 
-Then(/^parent email receives 4 digit pin code$/, async function () {
+Then(/^.* email receives 4 digit pin code$/, async function () {
 	pin = await mailCatcher.getEmailPin();
 	return pin;
 });
 
-Then(/^parent fills in pin and submits$/, async function () {
+Then(/^.* fills in pin and submits$/, async function () {
 	return registrationPage.addPin(pin);
 });
 
 Then(/^login data is received$/, async function () {
 	return registrationPage.getTitleText();
+});
+
+Then(/^student selects over 16 checkbox$/, async function () {
+	return registrationPage.clickOver16Btn();
+});
+
+Then(/^login password is copied$/, async function () {
+	password = await registrationPage.getGeneratedPassword();
+});
+
+Then(/^.* clicks login button$/, async function () {
+	return registrationPage.clickLoginButton();
+});
+
+Then(/^.* performs first login with generated password and email '([^']*)'$/, async function (studentEmail) {
+	return loginPage.performLogin(studentEmail, password);
 });

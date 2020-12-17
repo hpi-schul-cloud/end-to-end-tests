@@ -15,6 +15,10 @@ When(/^.* creates class with custom name '([^']*)'$/, async function (customClas
 	await manageClass.createNewClass({customClassName: customClassName});
 });
 
+When(/^.* creates class with custom name '([^']*)' and '([^']*)'$/, async function (customClassName, schoolYear) {
+	await manageClass.createNewClass({customClassName: customClassName, schoolYear: schoolYear});
+});
+
 When(/^.* creates a class with grade '([^']*)' and name '([^']*)'$/, async function (className, classGrade) {
 	await manageClass.createNewClass({className: className, classGrade: classGrade});
 });
@@ -24,5 +28,9 @@ When(/^.* opens classes tab with name '([^']*)'$/, async function (classesTabNam
 });
 
 Then(/^.* class with name '([^']*)' and '([^']*)' members is visible$/, async function (className, membersCount) {
-	await manageClass.isNewEmptyClassCreated(className, membersCount);
+	await manageClass.isNewClassCreated(className, membersCount);
+});
+
+Then(/^.* number of students in class with name '([^']*)' is '([^']*)'$/, async function (className, membersCount) {
+	await manageClassesPage.isNumberOfMembersInClass(className, membersCount);
 });

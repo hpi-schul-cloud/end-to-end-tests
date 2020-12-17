@@ -5,11 +5,11 @@ const TMSTeamListPage = require('../../page-objects/pages/teamsPages/TMSTeamList
 const TMSTeamMembersPage = require('../../page-objects/pages/teamsPages/TMSTeamMembersPage.js');
 
 //WHEN
-When(/^.*creates a new team with name '([^']*)' and description '([^']*)' and color orange$/, function (teamName, description) {
-	return TMSAddEditTeamPage.createTeamAndGoToInternalMembersManagement(teamName, description);
+When(/^.*creates a new team with name '([^']*)' and description '([^']*)' and color '([^']*)'$/, async function (teamName, description, colour) {
+	await TMSAddEditTeamPage.createTeamAndGoToInternalMembersManagement(teamName, description, colour);
 });
 
-When(/^.*adds a student to team with lastname: '([^']*)' and firstname: '([^']*)'$/, async function (lastname, firstname) {
+When(/^.*adds a student with lastname: '([^']*)' and firstname: '([^']*)' to the team$/, async function (lastname, firstname) {
 	await TMSTeamMembersPage.addTeamAttendee(lastname, firstname);
 });
 
@@ -23,7 +23,7 @@ When(/^.*clicks on Member icon in team with name '([^']*)'$/, async function (te
 
 //THEN
 Then(/^.*team with name '([^']*)' is be visible on the list$/, async function (teamName) {
-	await TMSTeamListPage.isTeamOnList(teamName);
+	await TMSTeamListPage.isTeamVisible(teamName, true);
 });
 
 Then(/^.*team with name '([^']*)' has colour '([^']*)'$/, async function (teamName, teamColour) {
@@ -35,7 +35,7 @@ Then(/^.*team with name '([^']*)' member number is '([^']*)'$/, async function (
 });
 
 Then(/^.*team with name '([^']*)', colour '([^']*)' and  member number '([^']*)' is visible on the list$/, async function (teamName, teamColour, memberCount) {
-	await TMSTeamListPage.isTeamOnList(teamName);
+	await TMSTeamListPage.isTeamVisible(teamName, true);
 	await TMSTeamListPage.isTeamColour(teamName, teamColour);
 	await TMSTeamListPage.isTeamMemberNumber(teamName, memberCount);
 });
@@ -50,4 +50,23 @@ Then(/^.*team members: '([^']*)' are not listed$/,  async function (listOfMember
 
 Then(/^.* goes to Teams Page$/, async function () {
 	await TMSTeamListPage.goToTeams();
+});
+
+When(/^.* chooses team with name '([^']*)'$/, function (teamName) {
+	return TMSTeamListPage.clickOnChosenTeam(teamName);
+});
+
+Then(/^.* team with name '([^']*)' is visible on the list$/, async function (teamName) {
+	return TMSTeamListPage.isTeamVisible(teamName, true);
+});
+
+When(/^.* chooses team colour '([^']*)'$/, function (teamColour) {
+	return TMSAddEditTeamPage.setTeamColour(teamColour);
+});
+
+Then(/^.* team name '([^']*)' with description correctly displayed '([^']*)'$/, async function (
+	teamName,
+	expectedDescription
+) {
+	await TMSTeamListPage.isTeamDescription(teamName, expectedDescription);
 });

@@ -28,7 +28,7 @@ async function setNewPasswordConfirmation(newPassword = LoginPage.defaultNewPass
 }
 
 async function setLanguage(language) {
-    await elementHelpers.selectOptionByText(languageSelect, language);
+    await elementHelpers.selectOptionsByText(languageSelect, language);
 }
 
 async function changePassword(oldPassword, newPassword) {
@@ -38,12 +38,17 @@ async function changePassword(oldPassword, newPassword) {
     await clickSubmitAccountDataBtn();
 }
 
+async function fillPassword(password) {
+	await setCurrentPassword(password);
+}
+
 async function changeLanguage(language) {
 	await setLanguage(language);
     await clickSubmitAccountDataBtn();
 }
 
 module.exports = {
+	fillPassword,
 	changePassword,
 	changeLanguage,
 };

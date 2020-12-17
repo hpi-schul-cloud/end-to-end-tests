@@ -29,8 +29,6 @@ sudo apt install -y apt-transport-https ca-certificates curl git mongodb-org-too
 
 # set envs
 export BRANCH_NAME=${GITHUB_REF#refs/heads/}
-export IT_CLIENT_HOST=nuxtclient
-export IT_CLIENT_PORT=4000
 
 echo "BRANCH: $BRANCH_NAME"
 
