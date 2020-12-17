@@ -13,8 +13,8 @@ const taskElement = {
 };
 
 const taskSection = {
-	assigned: '#main-content > section:nth-child(3)',
-	private: '#main-content > section:nth-child(4)',
+	published: 'section[data-testid="published-tasks-section"]',
+	private: 'section[data-testid="private-tasks-section"]',
 };
 
 function getTaskElementSel(elementName) {
@@ -48,7 +48,7 @@ function getTaskSectionSel(taskType) {
 	taskType = taskType.toLowerCase();
 	switch (taskType) {
 		case 'published':
-			btnSel = taskSection.assigned;
+			btnSel = taskSection.published;
 			break;
 		case 'private':
 			btnSel = taskSection.private;

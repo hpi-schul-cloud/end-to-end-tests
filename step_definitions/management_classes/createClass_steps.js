@@ -26,3 +26,7 @@ When(/^.* opens classes tab with name '([^']*)'$/, async function (classesTabNam
 Then(/^.* class with name '([^']*)' and '([^']*)' members is visible$/, async function (className, membersCount) {
 	await manageClass.isNewEmptyClassCreated(className, membersCount);
 });
+
+Then(/^.* class with name '([^']*)' and '([^']*)' students is visible$/, async function (className, membersCount) {
+	await manageClassesPage.checkMembersInClass(className, membersCount);
+});
