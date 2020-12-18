@@ -13,16 +13,11 @@ When <userRole> chooses course with name '<courseName>'
 And <userRole> adds a topic with name '<topicName>'
 And <userRole> clicks Save-changes button
 And <userRole> clicks left navigation item 'content'
-#And <userRole> adds some Lerstore material with <lerstoreTopicName> to the course
-#Then <userRole> must be redirected to content page
 When <userRole> searches for content <contentName>
 Then <userRole> must see the right number of materials <contentName> 
 When <userRole> clicks on content-card after request <contentName>
 And <userRole> selects course <courseName> and topic <topicName>
 And <userRole> clicks on add content button
-#And <userRole> switches to SC window
-#And <userRole> clicks add-btn
-#And <userRole> approves creating a topic with lernstore
 And <userRole> goes to courses page
 And <userRole> chooses course with name '<courseName>'
 And <userRole> clicks on topic with name '<topicName>'
