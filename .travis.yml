@@ -5,7 +5,7 @@ branches:
   only:
     - develop
     - master
-    - /^(?i:release|hotfix).*$/
+    - /^(?i:release|hotfix|master_).*$/
 env:
   global:
     - GIT_SHA=$( git rev-parse HEAD )
