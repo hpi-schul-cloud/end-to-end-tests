@@ -44,6 +44,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Fixed
 
 - fixed github action changelog
+- SC-7126 - Fix test of createClass due to bugfix on client
 
 ## 25.0.1 - 2020-09-30
 
