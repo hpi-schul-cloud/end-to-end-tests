@@ -49,6 +49,9 @@ fetch(){
 install(){
 	cd docker-compose
 
+	# authenticate against docker
+	bash ./scripts/dockerhub.login.sh
+
 	# add -e on mac, use ; as alternative separator
 	sed -i "s/ES_USER.*/ES_USER=${ES_USER}/" docker-compose.end-to-end-tests.yml
 	sed -i "s/ES_PASSWORD.*/ES_PASSWORD=${ES_PASSWORD}/" docker-compose.end-to-end-tests.yml

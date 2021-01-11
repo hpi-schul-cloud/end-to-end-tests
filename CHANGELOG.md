@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
+## Unreleased
+
+### Changed
+
+-   SC-8356 added docker authentication
+
 ## 25.3.0
 
 ### Added
@@ -31,6 +37,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Changed
 
+- SC-7688 Rename expected menuitem names
 - IMP-160 rename repository
 - SC-7110 Refactoring: Improved terms in cucumber steps: Teams, Topics, Class
 - SC-7524-parametrization: adjust parametrization to existing feature files
