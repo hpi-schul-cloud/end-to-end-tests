@@ -183,7 +183,7 @@ async function clickNavItemHelpDesk() {
 
 async function clickNavItemHelpArea() {
 	await elementHelpers.clickAndWait(navItemHelparea);
-	const link = await elementHelpers.getLink(navItemFiles);
+	const link = await elementHelpers.getLink(navItemHelparea);
 	await elementHelpers.loadPage(link);
 }
 
