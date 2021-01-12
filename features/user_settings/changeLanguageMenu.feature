@@ -14,6 +14,6 @@ Feature: Test set for user settings
         Then <userRole> should see that all menu items are visible: '<menuItems>'
         Examples:
             | userRole | username                          | password       | language | menuItems                                                                                                 |
-            | admin    | olivier.admin.qa@schul-cloud.org  | Schulcloud1qa! | English  | DASHBOARD,COURSES,TEAMS,TASKS,MY FILES,NEWS,CALENDAR,LERN-STORE,ADD-ONS,HELP DESK,MANAGEMENT,HELP SECTION |
-            | teacher  | dmitri.teacher.qa@schul-cloud.org | Schulcloud1qa! | English  | DASHBOARD,COURSES,TEAMS,TASKS,MY FILES,NEWS,CALENDAR,LERN-STORE,ADD-ONS,MANAGEMENT,HELP SECTION           |
-            | student  | ole.bart.qa@schul-cloud.org       | Schulcloud1qa! | English  | DASHBOARD,COURSES,TEAMS,TASKS,MY FILES,NEWS,CALENDAR,LERN-STORE,ADD-ONS,HELP SECTION |
+            | admin    | olivier.admin.qa@schul-cloud.org  | Schulcloud1qa! | English  | DASHBOARD,COURSES,TEAMS,TASKS,MY FILES,NEWS,CALENDAR,LEARNING STORE,ADD-ONS,HELP DESK,MANAGEMENT,HELP SECTION |
+            | teacher  | dmitri.teacher.qa@schul-cloud.org | Schulcloud1qa! | English  | DASHBOARD,COURSES,TEAMS,TASKS,MY FILES,NEWS,CALENDAR,LEARNING STORE,ADD-ONS,MANAGEMENT,HELP SECTION           |
+            | student  | ole.bart.qa@schul-cloud.org       | Schulcloud1qa! | English  | DASHBOARD,COURSES,TEAMS,TASKS,MY FILES,NEWS,CALENDAR,LEARNING STORE,ADD-ONS,HELP SECTION |
