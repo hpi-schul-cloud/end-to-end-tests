@@ -4,6 +4,11 @@ const { expect } = require('chai');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const waitHelpers = require('../../runtime/helpers/waitHelpers');
 
+async function loadPageFromNavigationItem(selector) {
+	const link = await elementHelpers.getLink(selector);
+	await elementHelpers.loadPage(link);
+}
+
 const navItemsEnum = {
 	LOGO: 'logo',
 	DASHBOARD: 'dashboard',
@@ -73,148 +78,147 @@ const navItemHelpContact = navItemStringDefault2ndLevel.replace('XXX', 'Kontakt'
 const item = '.sidebar-list .link-name';
 const subitem = '.subitem .link-name';
 
-async function clickNavItemLogo () {
-	await elementHelpers.clickAndWait(navItemLogo);
+async function clickNavItemLogo() {
+	await loadPageFromNavigationItem(navItemLogo);
 }
 
-async function clickNavItemDashboard () {
-	await elementHelpers.clickAndWait(navItemDashboard);
+async function clickNavItemDashboard() {
+	await loadPageFromNavigationItem(navItemDashboard);
 }
 
-
-async function clickNavItemCourses () {
-	await elementHelpers.clickAndWait(navItemCourses);
+async function clickNavItemCourses() {
+	await loadPageFromNavigationItem(navItemCourses);
 }
 
-async function clickNavItemTasks () {
-	await elementHelpers.clickAndWait(navItemTasks);
-	await waitHelpers.waitUntilAjaxIsFinished();
+async function clickNavItemTasks() {
+	await loadPageFromNavigationItem(navItemTasks);
 }
 
-async function clickNavItemTasksAsked () {
-	await elementHelpers.clickAndWait(navItemTasksAsked);
-	await waitHelpers.waitUntilAjaxIsFinished();
+async function clickNavItemTasksAsked() {
+	await loadPageFromNavigationItem(navItemTasksAsked);
 }
-async function clickNavItemTasksPrivate () {
-	await elementHelpers.clickAndWait(navItemTasksPrivate);
-	await waitHelpers.waitUntilAjaxIsFinished();
+async function clickNavItemTasksPrivate() {
+	await loadPageFromNavigationItem(navItemTasksPrivate);
 }
-async function clickNavItemTasksArchive () {
-	await elementHelpers.clickAndWait(navItemTasksArchive);
-	await waitHelpers.waitUntilAjaxIsFinished();
+async function clickNavItemTasksArchive() {
+	await loadPageFromNavigationItem(navItemTasksArchive);
 }
 
-async function clickNavItemTeams () {
-	await elementHelpers.clickAndWait(navItemTeams);
+async function clickNavItemTeams() {
+	await loadPageFromNavigationItem(navItemTeams);
 }
 
-async function clickNavItemFiles () {
-	await elementHelpers.clickAndWait(navItemFiles);
+async function clickNavItemFiles() {
+	await loadPageFromNavigationItem(navItemFiles);
 }
 
-async function clickNavItemFilesMy () {
-	await elementHelpers.clickAndWait(navItemFilesMy);
+async function clickNavItemFilesMy() {
+	await loadPageFromNavigationItem(navItemFilesMy);
 }
 
-async function clickNavItemFilesCourses () {
-	await elementHelpers.clickAndWait(navItemFilesCourses);
+async function clickNavItemFilesCourses() {
+	await loadPageFromNavigationItem(navItemFilesCourses);
 }
 
-async function clickNavItemFilesTeams () {
-	await elementHelpers.clickAndWait(navItemFilesTeams);
+async function clickNavItemFilesTeams() {
+	await loadPageFromNavigationItem(navItemFilesTeams);
 }
 
-async function clickNavItemFilesShared () {
-	await elementHelpers.clickAndWait(navItemFilesShared);
+async function clickNavItemFilesShared() {
+	await loadPageFromNavigationItem(navItemFilesShared);
 }
 
-async function clickNavItemNews () {
-	await elementHelpers.clickAndWait(navItemNews);
+async function clickNavItemNews() {
+	await loadPageFromNavigationItem(navItemNews);
 }
 
-async function clickNavItemCalendar () {
-	await elementHelpers.clickAndWait(navItemCalendar);
+async function clickNavItemCalendar() {
+	await loadPageFromNavigationItem(navItemCalendar);
 }
 
-async function clickNavItemContent () {
-	await elementHelpers.clickAndWait(navItemLearnstore);
+async function clickNavItemContent() {
+	await loadPageFromNavigationItem(navItemLearnstore);
 }
 
-async function clickNavItemAddons () {
-	await elementHelpers.clickAndWait(navItemAddons);
+async function clickNavItemAddons() {
+	await loadPageFromNavigationItem(navItemAddons);
 }
 
-async function clickNavItemManagement () {
-	await elementHelpers.clickAndWait(navItemManagement);
+async function clickNavItemManagement() {
+	await loadPageFromNavigationItem(navItemManagement);
 }
 
-async function clickNavItemManageStudents () {
-	await elementHelpers.clickAndWait(navItemManagementStudents);
+async function clickNavItemManageStudents() {
+	await loadPageFromNavigationItem(navItemManagementStudents);
 }
 
-async function clickNavItemManageTeachers () {
-	await elementHelpers.clickAndWait(navItemManagementTeachers);
+async function clickNavItemManageTeachers() {
+	await loadPageFromNavigationItem(navItemManagementTeachers);
 }
 
-async function clickNavItemManageCourses () {
-	await elementHelpers.clickAndWait(navItemManagementCourses);
+async function clickNavItemManageCourses() {
+	await loadPageFromNavigationItem(navItemManagementCourses);
 }
 
-async function clickNavItemManageClasses () {
-	await elementHelpers.clickAndWait(navItemManagementClasses);
+async function clickNavItemManageClasses() {
+	await loadPageFromNavigationItem(navItemManagementClasses);
 }
 
-async function clickNavItemManageTeams () {
-	await elementHelpers.clickAndWait(navItemManagementTeams);
+async function clickNavItemManageTeams() {
+	await loadPageFromNavigationItem(navItemManagementTeams);
 }
 
-async function clickNavItemManageSchool () {
-	await elementHelpers.clickAndWait(navItemManagementSchool);
+async function clickNavItemManageSchool() {
+	await loadPageFromNavigationItem(navItemManagementSchool);
 }
 
-async function clickNavItemHelpDesk () {
-	await elementHelpers.clickAndWait(navItemHelpDesk);
+async function clickNavItemHelpDesk() {
+	await loadPageFromNavigationItem(navItemHelpDesk);
 }
 
-async function clickNavItemHelpArea () {
-	await elementHelpers.clickAndWait(navItemHelparea);
+async function clickNavItemHelpArea() {
+	await loadPageFromNavigationItem(navItemHelparea);
 }
 
-async function clickNavItemHelpArticles () {
-	await elementHelpers.clickAndWait(navItemHelparticles);
+async function clickNavItemHelpArticles() {
+	await loadPageFromNavigationItem(navItemHelparticles);
 }
 
-async function clickNavItemHelpTrainings () {
-	await elementHelpers.clickAndWait(navItemHelpTrainings);
+async function clickNavItemHelpTrainings() {
+	await loadPageFromNavigationItem(navItemHelpTrainings);
 }
 
-async function clickNavItemHelpContact () {
-	await elementHelpers.clickAndWait(navItemHelpContact);
+async function clickNavItemHelpContact() {
+	await loadPageFromNavigationItem(navItemHelpContact);
 }
 
-async function getListOfAllItems () {
+async function getListOfAllItems() {
 	return elementHelpers.getTextFromAllElements(item);
 }
 
-async function getListOfSubItems () {
+async function getListOfSubItems() {
 	return elementHelpers.getTextFromAllElements(subitem);
 }
 
-async function areSubMenuItemsVisible (listOfExpectedSubItems) {
-	listOfExpectedSubItems = listOfExpectedSubItems.split(",").map(item => {return item.trim();});
+async function areSubMenuItemsVisible(listOfExpectedSubItems) {
+	listOfExpectedSubItems = listOfExpectedSubItems.split(',').map((item) => {
+		return item.trim();
+	});
 	const listOfSubItems = await getListOfSubItems();
 	const isSame =
 		listOfExpectedSubItems.length == listOfSubItems.length &&
 		listOfSubItems.every(function (element, index) {
-			return element  === listOfSubItems[index];
+			return element === listOfSubItems[index];
 		});
 	const msg = 'List of expected sub items does not match with the current one\n';
 	const resultMsg = 'Expected: ' + listOfExpectedSubItems + '\n  Actual: ' + listOfSubItems;
 	expect(isSame, msg + resultMsg).to.equal(true);
 }
 
-async function areMenuItemsVisible (listOfExpectedItems) {
-	listOfExpectedItems = listOfExpectedItems.split(",").map(item => {return item.trim();});
+async function areMenuItemsVisible(listOfExpectedItems) {
+	listOfExpectedItems = listOfExpectedItems.split(',').map((item) => {
+		return item.trim();
+	});
 	const listOfItems = await getListOfAllItems();
 	const isSame =
 		listOfExpectedItems.length == listOfItems.length &&
