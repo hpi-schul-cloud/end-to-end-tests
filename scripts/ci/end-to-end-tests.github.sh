@@ -53,13 +53,6 @@ install(){
 	chmod 700 ./scripts/dockerhub.login.sh
 	./scripts/dockerhub.login.sh
 
-	echo "REPLACE ENV VARS..."
-	# add -e on mac, use ; as alternative separator
-	sed -i "s/ES_USER.*/ES_USER=${ES_USER}/" docker-compose.end-to-end-tests.yml
-	sed -i "s/ES_PASSWORD.*/ES_PASSWORD=${ES_PASSWORD}/" docker-compose.end-to-end-tests.yml
-	sed -i "s/ES_MERLIN_USERNAME.*/ES_MERLIN_USERNAME=${ES_MERLIN_USERNAME}/" docker-compose.end-to-end-tests.yml
-	sed -i "s/SECRET_ES_MERLIN_PW.*/SECRET_ES_MERLIN_PW=${SECRET_ES_MERLIN_PW}/" docker-compose.end-to-end-tests.yml
-
 	chmod 700 ./startup_end-to-end-tests.sh
 	echo "PULL CONTAINERS..."
 	./startup_end-to-end-tests.sh pull --ignore-pull-failures --include-deps --quiet
