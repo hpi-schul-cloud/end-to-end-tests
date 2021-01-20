@@ -50,7 +50,7 @@ async function requestForeignStudentAndVerify() {
     const jwt = await getJwt()
     const foreignStudentId = "59ae89b71f513506904e1cc9"
 
-    // (GET) should fail to get student from foreign school 
+    // (GET) should fail to get student from foreign school
     const user2 = await Api.getStudentAsAdmin(jwt, foreignStudentId)
     expect(user2.data).to.deep.equal({})
 
@@ -79,7 +79,7 @@ async function requestForeignStudentAndVerify() {
         await Api.replaceStudent(jwt, foreignStudentId, {})
     }
     catch (err) {
-        expect(err.name).to.be.equal("MethodNotAllowed")
+        expect(err.title).to.be.equal("MethodNotAllowed")
         expect(err.code).to.be.equal(405)
         expect(err.message).to.be.equal("Provider \'rest\' can not call \'update\'. (disallow)")
     }
@@ -89,7 +89,7 @@ async function requestForeignStudentAndVerify() {
         await Api.editStudent(jwt, foreignStudentId, {})
     }
     catch (err) {
-        expect(err.name).to.be.equal("NotFound")
+        expect(err.title).to.be.equal("NotFound")
         expect(err.code).to.be.equal(404)
         expect(err.message).to.be.equal(`no record found for id '${foreignStudentId}'`)
     }
@@ -99,7 +99,7 @@ async function requestForeignStudentAndVerify() {
         await Api.deleteStudent(jwt, foreignStudentId, {})
     }
     catch (err) {
-        expect(err.name).to.be.equal("NotFound")
+        expect(err.title).to.be.equal("NotFound")
         expect(err.code).to.be.equal(404)
         expect(err.message).to.be.equal(`no record found for id '${foreignStudentId}'`)
     }
