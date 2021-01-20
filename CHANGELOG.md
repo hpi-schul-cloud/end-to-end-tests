@@ -10,6 +10,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+-   SC-8122 extended a test case
 -   SC-8356 added docker authentication
 -   SC-8213 error response format adjusted
 
