@@ -68,8 +68,8 @@ const navItemManagementStudentsTeacher = navItemString2ndLevel.replace('XXX', 'S
 const navItemManagementTeachersNuxt = navItemString2ndLevel.replace('XXX', 'Lehrer:innen');
 const navItemManagementTeachersOld = '[data-testid="global.sidebar.teacher"]';
 const navItemManagementCourses = navItemString2ndLevel.replace('XXX', 'Kurse');
-const navItemManagementClassesNuxt = '[data-testid="global.sidebar.classes"]';
-const navItemManagementClassesOld = navItemString2ndLevel.replace('XXX', 'Klassen');
+//const navItemManagementClassesNuxt = '[data-testid="global.sidebar.classes"]';
+const navItemManagementClasses = navItemString2ndLevel.replace('XXX', 'Klassen');
 const navItemManagementTeams = navItemString2ndLevel.replace('XXX', 'Teams');
 const navItemManagementSchool = navItemString2ndLevel.replace('XXX', 'Schule');
 const navItemHelparea = navItemString1stLevel.replace('XXX', 'Hilfebereich');
