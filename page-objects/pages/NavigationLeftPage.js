@@ -42,7 +42,7 @@ const navItemsEnum = {
 };
 
 const navItemString1stLevel = "[data-testid='XXX']";
-const navItemString2ndLevel = "li[data-testid='XXX']";
+const navItemString2ndLevel = "li[data-testid='XXX'] > a";
 const navItemLogo = navItemString1stLevel.replace('XXX', 'Startseite');
 const navItemDashboard = navItemString1stLevel.replace('XXX', 'Übersicht');
 const navItemCourses = navItemString1stLevel.replace('XXX', 'Kurse');
@@ -52,6 +52,7 @@ const navItemTasksPrivate = navItemString2ndLevel.replace('XXX', 'Entwürfe');
 const navItemTasksArchive = navItemString2ndLevel.replace('XXX', 'Archiv');
 const navItemTeamsOld = navItemString1stLevel.replace('XXX', 'Teams');
 const navItemTeamsNuxt = '#__layout aside div:nth-child(3)';
+const navItemTeams = navItemString1stLevel.replace('XXX', 'Teams');
 const navItemFiles = navItemString1stLevel.replace('XXX', 'Meine Dateien');
 const navItemFilesMy = navItemString2ndLevel.replace('XXX', 'persönliche Dateien');
 const navItemFilesCourses = navItemString2ndLevel.replace('XXX', 'Kurse');
@@ -63,15 +64,20 @@ const navItemLearnstore = navItemString1stLevel.replace('XXX', 'Lern-Store');
 const navItemAddons = navItemString1stLevel.replace('XXX', 'Add-ons');
 const navItemHelpDesk = navItemString1stLevel.replace('XXX', 'Helpdesk');
 const navItemManagement = navItemString1stLevel.replace('XXX', 'Verwaltung');
-const navItemManagementStudentsAdmin = navItemString2ndLevel.replace('XXX', 'Schüler');
-const navItemManagementStudentsTeacher = navItemString2ndLevel.replace('XXX', 'Schüler:innen');
-const navItemManagementTeachersNuxt = navItemString2ndLevel.replace('XXX', 'Lehrer:innen');
-const navItemManagementTeachersOld = '[data-testid="global.sidebar.teacher"]';
-const navItemManagementCourses = navItemString2ndLevel.replace('XXX', 'Kurse');
-//const navItemManagementClassesNuxt = '[data-testid="global.sidebar.classes"]';
-const navItemManagementClasses = navItemString2ndLevel.replace('XXX', 'Klassen');
-const navItemManagementTeams = navItemString2ndLevel.replace('XXX', 'Teams');
-const navItemManagementSchool = navItemString2ndLevel.replace('XXX', 'Schule');
+//const navItemManagementStudents = navItemString2ndLevel.replace('XXX', 'Schüler');
+const navItemManagementStudents = navItemString2ndLevel.replace('XXX', 'Schüler:innen');
+const navItemManagementStudentsOld = navItemString2ndLevel.replace('XXX', 'Schüler:innen');
+//const navItemManagementTeachers = navItemString2ndLevel.replace('XXX', 'Lehrkräfte');
+const navItemManagementTeachers = '[data-testid="global.sidebar.teacher"] > a';
+const navItemManagementTeachersOld = navItemString2ndLevel.replace('XXX', 'Lehrkräfte');
+const navItemManagementCourses = '[data-testid="global.sidebar.courses"] > a';
+const navItemManagementCoursesOld = navItemString2ndLevel.replace('XXX', 'Kurse');
+const navItemManagementTeams = '[data-testid="global.sidebar.teams"] > a';
+const navItemManagementTeamsOld = navItemString2ndLevel.replace('XXX', 'Teams');
+const navItemManagementClasses = '[data-testid="global.sidebar.classes"] > a';
+const navItemManagementClassesOld = navItemString2ndLevel.replace('XXX', 'Klassen');
+const navItemManagementSchool = '[data-testid="global.sidebar.school"] > a';
+const navItemManagementSchoolOld = navItemString2ndLevel.replace('XXX', 'Schule');
 const navItemHelparea = navItemString1stLevel.replace('XXX', 'Hilfebereich');
 const navItemHelparticles = navItemString2ndLevel.replace('XXX', 'Hilfeartikel');
 const navItemHelpTrainings = navItemString2ndLevel.replace('XXX', 'Fortbildungen');
@@ -151,27 +157,51 @@ async function clickNavItemManagement() {
 }
 
 async function clickNavItemManageStudents() {
-	await loadPageFromNavigationItem(navItemManagementStudents);
+	try {
+		await loadPageFromNavigationItem(navItemManagementStudentsOld);
+	} catch (e) {
+		await loadPageFromNavigationItem(navItemManagementStudents);
+	}
 }
 
 async function clickNavItemManageTeachers() {
-	await loadPageFromNavigationItem(navItemManagementTeachers);
+	try {
+		await loadPageFromNavigationItem(navItemManagementTeachersOld);
+	} catch (e) {
+		await loadPageFromNavigationItem(navItemManagementTeachers);
+	}
 }
 
 async function clickNavItemManageCourses() {
-	await loadPageFromNavigationItem(navItemManagementCourses);
+	try {
+		await loadPageFromNavigationItem(navItemManagementCoursesOld);
+	} catch (e) {
+		await loadPageFromNavigationItem(navItemManagementCourses);
+	}
 }
 
 async function clickNavItemManageClasses() {
-	await loadPageFromNavigationItem(navItemManagementClasses);
+	try {
+		await loadPageFromNavigationItem(navItemManagementClassesOld);
+	} catch (e) {
+		await loadPageFromNavigationItem(navItemManagementClasses);
+	}
 }
 
 async function clickNavItemManageTeams() {
-	await loadPageFromNavigationItem(navItemManagementTeams);
+	try {
+		await loadPageFromNavigationItem(navItemManagementTeamsOld);
+	} catch (e) {
+		await loadPageFromNavigationItem(navItemManagementTeams);
+	}
 }
 
 async function clickNavItemManageSchool() {
-	await loadPageFromNavigationItem(navItemManagementSchool);
+	try {
+		await loadPageFromNavigationItem(navItemManagementSchoolOld);
+	} catch (e) {
+		await loadPageFromNavigationItem(navItemManagementSchool);
+	}
 }
 
 async function clickNavItemHelpDesk() {
