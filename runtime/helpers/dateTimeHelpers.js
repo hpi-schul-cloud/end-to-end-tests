@@ -133,7 +133,7 @@ function getFormattedDate(date, format) {
 function getDate({date, tzOffset}) {
 	date = (!date ? new Date() : date);
 	if (tzOffset) {
-		var utc = date.getTime() + (date.getTimezoneOffset() * 60000); 
+		var utc = date.getTime() + (date.getTimezoneOffset() * 60000);
 		date = new Date(utc + 3600000 * tzOffset);
 	}
 	return date;
@@ -149,4 +149,5 @@ module.exports = {
 	getCurrentDateWithFormat,
 	getFormattedDateWithOffset,
 	getCurrentFormattedDateWithOffset,
+	getDate,
 };
