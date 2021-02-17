@@ -64,8 +64,8 @@ Feature: Test set to check the left side menu items
         #  therefor leave it for last page otherwise the other pages won't be found
         And <userRole> clicks left navigation item 'content'
         Examples:
-        | userRole |
-        | student  |
+            | userRole |
+            | student  |
 
     @visibilityOfManagementSubMenuItems
     Scenario Outline: As a user, I want to be able to check submenu items for management
