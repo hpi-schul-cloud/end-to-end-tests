@@ -27,7 +27,6 @@ const navItemsEnum = {
 	CALENDAR: 'calendar',
 	ADDONS: 'addons',
 	CONTENT: 'content',
-	HELPDESK: 'helpdesk',
 	ADMINISTRATION: 'administration',
 	ADMINSTUDENTS: 'admStudents',
 	ADMINTEACHERS: 'admTeachers',
@@ -62,7 +61,6 @@ const navItemNews = navItemStringDefault1stLevel.replace('XXX', 'Neuigkeiten');
 const navItemCalendar = navItemStringDefault1stLevel.replace('XXX', 'Termine');
 const navItemLearnstore = navItemStringDefault1stLevel.replace('XXX', 'Lern-Store');
 const navItemAddons = navItemStringDefault1stLevel.replace('XXX', 'Add-ons');
-const navItemHelpDesk = navItemStringDefault1stLevel.replace('XXX', 'Helpdesk');
 const navItemManagement = navItemStringDefault1stLevel.replace('XXX', 'Verwaltung');
 const navItemManagementStudents = navItemStringDefault2ndLevel.replace('XXX', 'Schüler');
 const navItemManagementTeachers = navItemStringDefault2ndLevel.replace('XXX', 'Lehrkräfte');
@@ -172,10 +170,6 @@ async function clickNavItemManageSchool() {
 	await loadPageFromNavigationItem(navItemManagementSchool);
 }
 
-async function clickNavItemHelpDesk() {
-	await loadPageFromNavigationItem(navItemHelpDesk);
-}
-
 async function clickNavItemHelpArea() {
 	await loadPageFromNavigationItem(navItemHelparea);
 }
@@ -256,7 +250,6 @@ module.exports = {
 	clickNavItemManageClasses,
 	clickNavItemManageTeams,
 	clickNavItemManageSchool,
-	clickNavItemHelpDesk,
 	clickNavItemHelpArea,
 	clickNavItemHelpArticles,
 	clickNavItemHelpTrainings,
