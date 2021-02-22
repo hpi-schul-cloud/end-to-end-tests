@@ -8,6 +8,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+- SC-8248 removed helpdesk
+
 ## 26.0.0
 
 ## 25.6.0 - 09-02-21
