@@ -39,8 +39,6 @@ Then(/^.*clicks left navigation item '([^']*)'$/, function (string) {
             return leftNavigation.clickNavItemContent();
         case leftMenuItems.ADDONS:
             return leftNavigation.clickNavItemAddons();
-        case leftMenuItems.HELPDESK:
-            return leftNavigation.clickNavItemHelpDesk();
         case leftMenuItems.ADMINISTRATION:
             return leftNavigation.clickNavItemManagement();
         case leftMenuItems.ADMINSTUDENTS:
