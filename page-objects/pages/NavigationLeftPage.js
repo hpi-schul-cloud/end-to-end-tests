@@ -33,45 +33,50 @@ const navItemsEnum = {
 	ADMINCLASSES: 'admClasses',
 	ADMINCOURSES: 'admCourses',
 	ADMINTEAMS: 'admTeams',
-	ADMINCSCHOOL: 'admSchool',
+	ADMINSCHOOL: 'admSchool',
 	HELPAREA: 'helparea',
 	HELPARTICLE: 'helparticle',
 	TRAININGS: 'trainings',
 	CONTACT: 'contact',
 };
-const navItemStringStart1stLevel = '/html/body/aside/nav/ul/li/a';
-const navItemStringStart2ndLevel = '/html/body/aside/nav/ul/li/ul/li/a';
-const stringContains = "[contains(@title,'XXX')]";
-const navItemStringDefault1stLevel = navItemStringStart1stLevel + stringContains;
-const navItemStringDefault2ndLevel = navItemStringStart2ndLevel + stringContains;
-const navItemLogo = navItemStringStart1stLevel + "[contains(@class,'sc-branding')]";
-const navItemDashboard = navItemStringDefault1stLevel.replace('XXX', 'Übersicht');
-const navItemCourses = navItemStringDefault1stLevel.replace('XXX', 'Kurse');
-const navItemTasks = navItemStringDefault1stLevel.replace('XXX', 'Aufgaben');
-const navItemTasksAsked = navItemStringDefault2ndLevel.replace('XXX', 'Gestellte Aufgaben');
-const navItemTasksPrivate = navItemStringDefault2ndLevel.replace('XXX', 'Entwürfe');
-const navItemTasksArchive = navItemStringDefault2ndLevel.replace('XXX', 'Archiv');
-const navItemTeams = navItemStringDefault1stLevel.replace('XXX', 'Teams');
-const navItemFiles = navItemStringDefault1stLevel.replace('XXX', 'Meine Dateien');
-const navItemFilesMy = navItemStringDefault2ndLevel.replace('XXX', 'persönliche Dateien');
-const navItemFilesCourses = navItemStringDefault2ndLevel.replace('XXX', 'Kurs');
-const navItemFilesTeams = navItemStringDefault2ndLevel.replace('XXX', 'Teams');
-const navItemFilesShared = navItemStringDefault2ndLevel.replace('XXX', 'geteilte Dateien');
-const navItemNews = navItemStringDefault1stLevel.replace('XXX', 'Neuigkeiten');
-const navItemCalendar = navItemStringDefault1stLevel.replace('XXX', 'Termine');
-const navItemLearnstore = navItemStringDefault1stLevel.replace('XXX', 'Lern-Store');
-const navItemAddons = navItemStringDefault1stLevel.replace('XXX', 'Add-ons');
-const navItemManagement = navItemStringDefault1stLevel.replace('XXX', 'Verwaltung');
-const navItemManagementStudents = navItemStringDefault2ndLevel.replace('XXX', 'Schüler');
-const navItemManagementTeachers = navItemStringDefault2ndLevel.replace('XXX', 'Lehrkräfte');
-const navItemManagementCourses = navItemStringDefault2ndLevel.replace('XXX', 'Kurse');
-const navItemManagementClasses = navItemStringDefault2ndLevel.replace('XXX', 'Klassen');
-const navItemManagementTeams = navItemStringDefault2ndLevel.replace('XXX', 'Teams');
-const navItemManagementSchool = navItemStringDefault2ndLevel.replace('XXX', 'Schule');
-const navItemHelparea = navItemStringDefault1stLevel.replace('XXX', 'Hilfebereich');
-const navItemHelparticles = navItemStringDefault2ndLevel.replace('XXX', 'Hilfeartikel');
-const navItemHelpTrainings = navItemStringDefault2ndLevel.replace('XXX', 'Fortbildungen');
-const navItemHelpContact = navItemStringDefault2ndLevel.replace('XXX', 'Kontakt');
+
+const navItemString1stLevel = "[data-testid='XXX']";
+const navItemString2ndLevel = "li[data-testid='XXX'] > a";
+const navItemLogo = navItemString1stLevel.replace('XXX', 'Startseite');
+const navItemDashboard = navItemString1stLevel.replace('XXX', 'Übersicht');
+const navItemCourses = navItemString1stLevel.replace('XXX', 'Kurse');
+const navItemTasks = navItemString1stLevel.replace('XXX', 'Aufgaben');
+const navItemTasksAsked = navItemString2ndLevel.replace('XXX', 'Gestellte Aufgaben');
+const navItemTasksPrivate = navItemString2ndLevel.replace('XXX', 'Entwürfe');
+const navItemTasksArchive = navItemString2ndLevel.replace('XXX', 'Archiv');
+const navItemTeams = navItemString1stLevel.replace('XXX', 'Teams');
+const navItemFiles = navItemString1stLevel.replace('XXX', 'Meine Dateien');
+const navItemFilesMy = navItemString2ndLevel.replace('XXX', 'persönliche Dateien');
+const navItemFilesCourses = navItemString2ndLevel.replace('XXX', 'Kurse');
+const navItemFilesTeams = navItemString2ndLevel.replace('XXX', 'Teams');
+const navItemFilesShared = navItemString2ndLevel.replace('XXX', 'geteilte Dateien');
+const navItemNews = navItemString1stLevel.replace('XXX', 'Neuigkeiten');
+const navItemCalendar = navItemString1stLevel.replace('XXX', 'Termine');
+const navItemLearnstore = navItemString1stLevel.replace('XXX', 'Lern-Store');
+const navItemAddons = navItemString1stLevel.replace('XXX', 'Add-ons');
+const navItemHelpDesk = navItemString1stLevel.replace('XXX', 'Helpdesk');
+const navItemManagement = navItemString1stLevel.replace('XXX', 'Verwaltung');
+const navItemManagementStudents = navItemString2ndLevel.replace('XXX', 'Schüler:innen');
+const navItemManagementStudentsOld = navItemString2ndLevel.replace('XXX', 'Schüler:innen');
+const navItemManagementTeachers = '[data-testid="global.sidebar.teacher"] > a';
+const navItemManagementTeachersOld = navItemString2ndLevel.replace('XXX', 'Lehrkräfte');
+const navItemManagementCourses = '[data-testid="global.sidebar.courses"] > a';
+const navItemManagementCoursesOld = navItemString2ndLevel.replace('XXX', 'Kurse');
+const navItemManagementTeams = '[data-testid="global.sidebar.teams"] > a';
+const navItemManagementTeamsOld = navItemString2ndLevel.replace('XXX', 'Teams');
+const navItemManagementClasses = '[data-testid="global.sidebar.classes"] > a';
+const navItemManagementClassesOld = navItemString2ndLevel.replace('XXX', 'Klassen');
+const navItemManagementSchool = '[data-testid="global.sidebar.school"] > a';
+const navItemManagementSchoolOld = navItemString2ndLevel.replace('XXX', 'Schule');
+const navItemHelparea = navItemString1stLevel.replace('XXX', 'Hilfebereich');
+const navItemHelparticles = navItemString2ndLevel.replace('XXX', 'Hilfeartikel');
+const navItemHelpTrainings = navItemString2ndLevel.replace('XXX', 'Fortbildungen');
+const navItemHelpContact = navItemString2ndLevel.replace('XXX', 'Kontakt');
 
 const item = '.sidebar-list .link-name';
 const subitem = '.subitem .link-name';
@@ -147,27 +152,51 @@ async function clickNavItemManagement() {
 }
 
 async function clickNavItemManageStudents() {
-	await loadPageFromNavigationItem(navItemManagementStudents);
+	try {
+		await loadPageFromNavigationItem(navItemManagementStudentsOld);
+	} catch (e) {
+		await loadPageFromNavigationItem(navItemManagementStudents);
+	}
 }
 
 async function clickNavItemManageTeachers() {
-	await loadPageFromNavigationItem(navItemManagementTeachers);
+	try {
+		await loadPageFromNavigationItem(navItemManagementTeachersOld);
+	} catch (e) {
+		await loadPageFromNavigationItem(navItemManagementTeachers);
+	}
 }
 
 async function clickNavItemManageCourses() {
-	await loadPageFromNavigationItem(navItemManagementCourses);
+	try {
+		await loadPageFromNavigationItem(navItemManagementCoursesOld);
+	} catch (e) {
+		await loadPageFromNavigationItem(navItemManagementCourses);
+	}
 }
 
 async function clickNavItemManageClasses() {
-	await loadPageFromNavigationItem(navItemManagementClasses);
+	try {
+		await loadPageFromNavigationItem(navItemManagementClassesOld);
+	} catch (e) {
+		await loadPageFromNavigationItem(navItemManagementClasses);
+	}
 }
 
 async function clickNavItemManageTeams() {
-	await loadPageFromNavigationItem(navItemManagementTeams);
+	try {
+		await loadPageFromNavigationItem(navItemManagementTeamsOld);
+	} catch (e) {
+		await loadPageFromNavigationItem(navItemManagementTeams);
+	}
 }
 
 async function clickNavItemManageSchool() {
-	await loadPageFromNavigationItem(navItemManagementSchool);
+	try {
+		await loadPageFromNavigationItem(navItemManagementSchoolOld);
+	} catch (e) {
+		await loadPageFromNavigationItem(navItemManagementSchool);
+	}
 }
 
 async function clickNavItemHelpArea() {
