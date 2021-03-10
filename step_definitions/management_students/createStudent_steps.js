@@ -36,7 +36,8 @@ When(
 
 //THEN
 Then(/^.*student with email '([^']*)' is visible on the list$/, function (email) {
-	return manageStudentsPage.isStudentEmailOnTheList(email);
+	//return manageStudentsPage.isStudentEmailOnTheList(email);
+	return manageStudentsPage.isStudentVisible(email, true);
 });
 
 Then(/^.* user with email '([^']*)' is not visible on the list$/, async function (email) {
