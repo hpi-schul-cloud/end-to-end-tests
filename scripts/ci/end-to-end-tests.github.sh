@@ -52,6 +52,10 @@ fetch(){
 install(){
 	cd docker-compose
 
+	# authenticate against docker
+	chmod 700 ./scripts/dockerhub.login.sh
+	./scripts/dockerhub.login.sh
+
 	echo "REPLACE ENV VARS..."
 	# add -e on mac, use ; as alternative separator
 	sed -i "s/ES_USER.*/ES_USER=${ES_USER}/" docker-compose.end-to-end-tests.yml

@@ -22,13 +22,3 @@ groups:
       - test-core
     reviews:
       required: 1  # number of approvals required from this group
-      request: 1  # request from all members a review
-      request_order: shuffle
-  test-team:
-    reviewers:
-      teams:
-      - test-team
-    reviews:
-      required: 1  # number of approvals required from this group
-      request: 1  # request from all members a review
-      request_order: shuffle

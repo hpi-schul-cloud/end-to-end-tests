@@ -22,7 +22,7 @@ Feature: Test set to check the left side menu items
         And <userRole> clicks left navigation item 'shared files'
         And <userRole> clicks left navigation item 'news'
         And <userRole> clicks left navigation item 'calendar'
-        And <userRole> clicks left navigation item 'addons'
+        #And <userRole> clicks left navigation item 'addons'
         And <userRole> clicks left navigation item 'administration'
         And <userRole> clicks left navigation item 'admStudents'
         And <userRole> clicks left navigation item 'admTeachers'
@@ -64,8 +64,8 @@ Feature: Test set to check the left side menu items
         #  therefor leave it for last page otherwise the other pages won't be found
         And <userRole> clicks left navigation item 'content'
         Examples:
-        | userRole |
-        | student  |
+            | userRole |
+            | student  |
 
     @visibilityOfManagementSubMenuItems
     Scenario Outline: As a user, I want to be able to check submenu items for management

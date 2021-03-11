@@ -118,8 +118,13 @@ async function getElementText(selectorOrElement) {
 	return text.trim();
 }
 
+/**
+ * Resolves a single element by selector and returns the value of it's href attribute.
+ * @param {*} selector
+ */
 async function getLink(selector) {
-	return driver.getAttribute(selector, 'href');
+	const element = await driver.$(selector);
+	return element.getAttribute('href');
 }
 
 async function isElementDisplayed(selector) {
