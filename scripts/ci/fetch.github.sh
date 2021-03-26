@@ -47,6 +47,6 @@ echo "try fetching script from $BRANCH_NAME branch"
 curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/$BRANCH_NAME/scripts/ci/end-to-end-tests-core.github.sh" || true
 
 ls -a
-chmod 700 end-to-end-tests.github.sh
-bash end-to-end-tests.github.sh
+chmod 700 end-to-end-tests-core.github.sh
+bash end-to-end-tests-core.github.sh
 set +e
