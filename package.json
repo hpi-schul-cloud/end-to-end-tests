@@ -30,6 +30,7 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "node index.js -d",
+		"test:core": "node index.js -d --tags e2eCore",
 		"test:dev": "node index.js -d -k",
 		"selenium": "npx selenium-standalone install && npx selenium-standalone start"
 	},

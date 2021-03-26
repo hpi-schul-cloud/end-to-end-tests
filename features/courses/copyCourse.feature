@@ -1,4 +1,4 @@
-@courses @copyCourse
+@courses @copyCourse @e2eCore
 Feature: Set of tests to copy courses
 
 	Background: User opens Schul-cloud homepage Website
