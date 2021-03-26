@@ -34,7 +34,7 @@ echo "BRANCH: $BRANCH_NAME"
 
 # fetch default (develop) script
 echo "try fetching script from default branch"
-curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/develop/scripts/ci/end-to-end-tests-core.github.sh" || true
+curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/$BRANCH_NAME/scripts/ci/end-to-end-tests-core.github.sh" || true
 
 # use master as default for releases & hotfixes
 if [[ $BRANCH_NAME = release* || $BRANCH_NAME = hotfix* ]];
