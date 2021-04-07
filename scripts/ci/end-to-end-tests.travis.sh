@@ -97,15 +97,20 @@ before(){
 
 }
 
+executeCore(){
+	if [[ $BRANCH_NAME = feature* ]]
+	then 
+		npm run test:core
+		echo "Exectuting core tests due to feature branch"
+	else 
+		npm run test
+		echo "Executing all tests due to branch naming"
+	fi
+}
+
 main(){
 	cd end-to-end-tests
-
-	if [[ $BRANCH_NAME = release* || $BRANCH_NAME = hotfix* ]]
-	then 
-		npm run test
-	else 
-		npm run test:core
-	fi
+	executeCore
 	cd ..
 }
 
