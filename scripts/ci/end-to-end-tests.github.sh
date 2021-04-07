@@ -101,20 +101,20 @@ before(){
 
 }
 
-executeCore(){
+executeE2ETests(){
 	if [[ $BRANCH_NAME = feature* ]]
 	then 
-		npm run test:core
 		echo "Exectuting core tests due to feature branch"
+		npm run test:core
 	else 
-		npm run test
 		echo "Executing all tests due to branch naming"
+		npm run test
 	fi
 }
 
 main(){
 	cd end-to-end-tests
-	executeCore
+	executeE2ETests
 	cd ..
 }
 
