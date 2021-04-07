@@ -99,7 +99,13 @@ before(){
 
 main(){
 	cd end-to-end-tests
-	npm run test
+
+	if [[ $BRANCH_NAME = release* || $BRANCH_NAME = hotfix* ]]
+	then 
+		npm run test
+	else 
+		npm run test:core
+	fi
 	cd ..
 }
 
