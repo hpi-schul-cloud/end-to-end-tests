@@ -1,4 +1,4 @@
-@management @managementTeams @teams
+@management @managementTeams @teams @e2eCore
 Feature: Set of tests to edit teams
 
     Background: User opens Schul-cloud homepage Website

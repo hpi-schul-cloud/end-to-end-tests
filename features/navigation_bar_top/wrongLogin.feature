@@ -1,4 +1,4 @@
-@topNavigationBar @wrongLogin
+@topNavigationBar @wrongLogin @e2eCore
 Feature: Set of tests to login with wrong password
 
     Background: User opens Schul-cloud homepage Website

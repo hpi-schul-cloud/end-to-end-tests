@@ -1,4 +1,4 @@
-@courseTopics @editTopic
+@courseTopics @editTopic @e2eCore
 Feature: Set of tests to edit topics
 
     Background: User opens Schul-cloud homepage Website
