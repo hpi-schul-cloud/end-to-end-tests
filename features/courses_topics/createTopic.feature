@@ -4,7 +4,7 @@ Feature: Set of tests to copy courses
     Background: User opens Schul-cloud homepage Website
         Given user arrives on the Schul-Cloud homepage
 
-    @createSimpleTopic
+    @createSimpleTopic @e2eCore
     Scenario Outline: As a user I want to be able to create a new topic in course
         Given <userRole> logs in with email '<username>' and password '<password>'
         And <userRole> goes to courses page

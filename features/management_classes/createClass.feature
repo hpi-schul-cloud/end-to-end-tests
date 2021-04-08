@@ -15,8 +15,8 @@ Feature: Set of tests to create classes
             | userRole | username                         | password       | customClassName | schoolYear |
             | admin    | olivier.admin.qa@schul-cloud.org | Schulcloud1qa! | 11c             | 2020/21	  |
 
-    @createClassWith3Members
-    Scenario Outline: As a user, I want to be able to create class without any members
+    @createClassWith3Members @e2eCore
+    Scenario Outline: As a user, I want to be able to create class with 3 members
         Given <userRole> logs in with email '<username>' and password '<password>'
         And <userRole> goes to management
         And <userRole> goes to class management

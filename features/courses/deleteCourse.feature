@@ -1,10 +1,10 @@
-@courses @deleteCourse
+@courses @deleteCourse @e2eCore
 Feature: Set of tests to delete courses
 
     Background: User opens Schul-cloud homepage Website
         Given user arrives on the Schul-Cloud homepage
 
-    @deleteSimpleCourse
+    @deleteSimpleCourse 
     Scenario Outline: As a user, I want to be able to delete a course
         Given <userRole> logs in with email '<userName>' and password '<password>'
         And <userRole> goes to courses page
