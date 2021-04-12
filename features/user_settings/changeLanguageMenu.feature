@@ -13,7 +13,10 @@ Feature: Test set for user settings
         And <userRole> changes language to '<language>'
         Then <userRole> should see that all menu items are visible: '<menuItems>'
         Examples:
-            | userRole | username                          | password       | language | menuItems                                                                                                     |
-            | admin    | olivier.admin.qa@schul-cloud.org  | Schulcloud1qa! | Englisch | DASHBOARD,COURSES,TEAMS,TASKS,MY FILES,NEWS,CALENDAR,LEARNING STORE,ADD-ONS,MANAGEMENT,HELP SECTION           |
-            | teacher  | dmitri.teacher.qa@schul-cloud.org | Schulcloud1qa! | Englisch | DASHBOARD,COURSES,TEAMS,TASKS,MY FILES,NEWS,CALENDAR,LEARNING STORE,ADD-ONS,MANAGEMENT,HELP SECTION           |
-            | student  | ole.bart.qa@schul-cloud.org       | Schulcloud1qa! | Englisch | DASHBOARD,COURSES,TEAMS,TASKS,MY FILES,NEWS,CALENDAR,LEARNING STORE,ADD-ONS,HELP SECTION                      |
+            | userRole | username                          | password       | language | menuItems                                                                                                                 |
+            | admin    | olivier.admin.qa@schul-cloud.org  | Schulcloud1qa! | Englisch | DASHBOARD,COURSES,TEAMS,TASKS,MY FILES,NEWS,CALENDAR,LEARNING STORE,ADD-ONS,MANAGEMENT,HELP SECTION                       |
+            | teacher  | dmitri.teacher.qa@schul-cloud.org | Schulcloud1qa! | Englisch | DASHBOARD,COURSES,TEAMS,TASKS,MY FILES,NEWS,CALENDAR,LEARNING STORE,ADD-ONS,MANAGEMENT,HELP SECTION                       |
+            | student  | ole.bart.qa@schul-cloud.org       | Schulcloud1qa! | Englisch | DASHBOARD,COURSES,TEAMS,TASKS,MY FILES,NEWS,CALENDAR,LEARNING STORE,ADD-ONS,HELP SECTION                                  |
+            | admin    | olivier.admin.qa@schul-cloud.org  | Schulcloud1qa! | Spanisch  | PANEL,CURSOS,EQUIPOS,TAREAS,MIS ARCHIVOS,NOTICIAS,CALENDARIO,LERN-STORE,ADD-ONS,ADMINISTRACIÓN,SECCIÓN DE AYUDA           |
+            | teacher  | dmitri.teacher.qa@schul-cloud.org | Schulcloud1qa! | Spanisch  | PANEL,CURSOS,EQUIPOS,TAREAS,MIS ARCHIVOS,NOTICIAS,CALENDARIO,LERN-STORE,ADD-ONS,ADMINISTRACIÓN,SECCIÓN DE AYUDA           |
+            | student  | ole.bart.qa@schul-cloud.org       | Schulcloud1qa! | Spanisch  | PANEL,CURSOS,EQUIPOS,TAREAS,MIS ARCHIVOS,NOTICIAS,CALENDARIO,LERN-STORE,ADD-ONS,SECCIÓN DE AYUDA                          |

@@ -4,7 +4,7 @@ Feature: Set of tests to copy courses
     Background: User opens Schul-cloud homepage Website
         Given user arrives on the Schul-Cloud homepage
 
-    @createSimpleTopic @e2eCore
+    @createSimpleTopic
     Scenario Outline: As a user I want to be able to create a new topic in course
         Given <userRole> logs in with email '<username>' and password '<password>'
         And <userRole> goes to courses page
@@ -18,7 +18,7 @@ Feature: Set of tests to copy courses
             | userRole | username                        | password       | courseName | topicName |
             | teacher  | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | Mathe      | Division  |
 
-    @createTopicWithContent
+    @createTopicWithContent @e2eCore
     Scenario Outline: As a user, I want to be able to copy course with certain text
         Given <userRole> logs in
         And <userRole> goes to courses page
@@ -26,7 +26,6 @@ Feature: Set of tests to copy courses
         When <userRole> adds a topic with name '<topicName>'
         And <userRole> adds content <contentType> with title '<contentTitle>' and description '<contentDescription>'
         And <userRole> clicks Save-changes button
-        And <userRole> goes to courses page
         Then <userRole> should see that copied course with name '<courseName>' contains topic with name '<topicName>'
         Examples:
             | userRole | courseName | topicName         | contentType | contentTitle          | contentDescription        |
