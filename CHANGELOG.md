@@ -10,6 +10,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-8248 removed helpdesk
 - SC-8846 add core test set functionality
+- refactoring tests
 
 ## 26.1.0
 
