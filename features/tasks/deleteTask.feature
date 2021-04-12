@@ -4,7 +4,7 @@ Feature: Set of tests to delete tasks
 	Background: User opens Schul-cloud homepage Website
 		Given user arrives on the Schul-Cloud homepage
 
-	@deleteSimpleTask
+	@deleteSimpleTask @e2eCore
 	Scenario Outline: As a user, I want to be able to log in and delete an existing task
 		When <userRole> logs in
 		And <userRole> goes to tasks page

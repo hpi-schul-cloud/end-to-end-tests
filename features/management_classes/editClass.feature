@@ -5,7 +5,7 @@ Feature: I want to edit a class
 		Given user arrives on the Schul-Cloud homepage
 
 	@editClassNameAndSchoolYear
-	Scenario Outline: As a user, I want to be able to edit a class
+	Scenario Outline: As a user, I want to be able to edit a classname and school year
 		When <userRole> logs in
 		And <userRole> goes to management
 		And <userRole> goes to class management
@@ -15,10 +15,10 @@ Feature: I want to edit a class
 		Then <userRole> should see that class with name '<newCustomClassName>' and teacher lastname '<teacherLastname>' is visible
 		Examples:
 			| userRole | customClassName | newCustomClassName | schoolYear | teacherLastname | schoolYearOld |
-			| teacher  | 8a              | 4d                 | 2021/22    | Herzog          | 2020/21 		 |
+			| teacher  | 8a              | 4d                 | 2021/22    | Herzog          | 2020/21       |
 
-	@editClassAddStudentTeacherAndDeleteStudentTeacher
-	Scenario Outline: As a user, I want to be able to edit a class
+	@editClassAddStudentTeacherAndDeleteStudentTeacher @e2eCore
+	Scenario Outline: As a user, I want to be able to edit a class and add teacher+student and then delete teacher+student
 		When <userRole> logs in
 		And <userRole> goes to management
 		And <userRole> goes to class management
@@ -41,7 +41,7 @@ Feature: I want to edit a class
 			| teacher  | 8a        | Lara Hande | Amelia Strobl | Herzog           | Hande            | 2                | 1                           |
 
 	@addGroupOfStudentsToTheClass
-	Scenario Outline: As a user, I want to be able to edit a class
+	Scenario Outline: As a user, I want to be able to edit a class and add a group of students
 		Given <userRole> logs in
 		And <userRole> goes to management
 		And <userRole> goes to class management

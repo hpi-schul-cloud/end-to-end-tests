@@ -8,10 +8,20 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+- SC-8248 removed helpdesk
+- SC-8846 add core test set functionality
+
+## 26.1.0
+
+## 26.0.0
+
+## 25.6.0 - 09-02-21
+
 ### Changed
 
 -   SC-8122 extended a test case
 -   SC-8356 added docker authentication
+-   SC-8213 error response format adjusted
 
 ## 25.3.0
 

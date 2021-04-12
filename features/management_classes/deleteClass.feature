@@ -1,4 +1,4 @@
-@management @managementClass @deleteClass
+@management @managementClass @deleteClass @e2eCore
 Feature: I want to delete a class
 
 	Background:

@@ -1,11 +1,11 @@
 @management @managementTeachers @deleteTeacher
 Feature: Set of tests to delete teachers
-    As an Schul-Cloud user I want to be able to delete teachers
+	As an Schul-Cloud user I want to be able to delete teachers
 
-    Background: User opens Schul-cloud homepage Website
-        Given user arrives on the Schul-Cloud homepage
+	Background: User opens Schul-cloud homepage Website
+		Given user arrives on the Schul-Cloud homepage
 
-	@deletedTeacherCanNotLogin @deletionConcept
+	@deletedTeacherCanNotLogin @deletionConcept @e2eCore
 	Scenario Outline: As an admin, I want to be able to delete the user
 		Given <userRole> logs in with email '<adminUsername>' and password '<adminPassword>'
 		And <userRole> login is successful
@@ -30,7 +30,7 @@ Feature: Set of tests to delete teachers
 		And <userRole> goes to course management
 		And <userRole> clicks Edit-course with '<courseName>' button
 		And <userRole> adds another teacher with '<teacherName>' to course
-        When <userRole> clicks on Save-changes in course button
+		When <userRole> clicks on Save-changes in course button
 		Then <userRole> should see that course with '<courseName>' has two teachers with names '<teacherNames>'
 		And <userRole> goes to teachers management
 		When <userRole> clicks Edit-teacher with '<teacherMailAddress>' button
@@ -41,10 +41,10 @@ Feature: Set of tests to delete teachers
 		And <checkUserRole> logs in with email '<teacherUsername>' and password '<adminPassword>'
 		And <checkUserRole> login is successful
 		And <checkUserRole> goes to courses page
-        And <checkUserRole> sees that course with name '<courseName>' is visible on the list
-        When <checkUserRole> chooses course with name '<courseName>'
-        And <checkUserRole> clicks on Edit-course button
+		And <checkUserRole> sees that course with name '<courseName>' is visible on the list
+		When <checkUserRole> chooses course with name '<courseName>'
+		And <checkUserRole> clicks on Edit-course button
 		Then <checkUserRole> can not see deleted teacher with name '<teacherName>' on the list of teachers
 		Examples:
-			| userRole | adminUsername                | adminPassword  | courseName					   | teacherName | teacherNames	 | teacherMailAddress			   | checkUserRole | teacherUsername				 |
-			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | Course with subject and tasks | Lara Hande	 | Herzog, Hande | lara.teacher.qa@schul-cloud.org | teacher	   | karl.teacher.qa@schul-cloud.org |
+			| userRole | adminUsername                | adminPassword  | courseName                    | teacherName | teacherNames  | teacherMailAddress              | checkUserRole | teacherUsername                 |
+			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | Course with subject and tasks | Lara Hande  | Herzog, Hande | lara.teacher.qa@schul-cloud.org | teacher       | karl.teacher.qa@schul-cloud.org |
