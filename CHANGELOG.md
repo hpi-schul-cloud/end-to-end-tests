@@ -11,6 +11,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-8248 removed helpdesk
 - SC-8846 add core test set functionality
 
+### Removed
+
+- remove the replace of envs in the docker-compose file. Envs will be direktly taken by the docker-file. (the changed docker-file is not used anyways) 
+
 ## 26.1.0
 
 ## 26.0.0
