@@ -4,7 +4,7 @@ Feature: Test set to check the left side menu items
     Background:
         Given user arrives on the Schul-Cloud homepage
 
-    @teacherClicksLeftMenuItems
+    @adminTeacherClicksLeftMenuItems @e2eCore
     Scenario Outline: As a user, I want to be able to click the left menu items
         Given <userRole> logs in
         Then <userRole> clicks left navigation item 'logo'
