@@ -17,7 +17,7 @@ Feature: I want to edit a class
 			| userRole | customClassName | newCustomClassName | schoolYear | teacherLastname | schoolYearOld |
 			| teacher  | 8a              | 4d                 | 2021/22    | Herzog          | 2020/21       |
 
-	@editClassAddStudentTeacherAndDeleteStudentTeacher
+	@editClassAddStudentTeacherAndDeleteStudentTeacher @e2eCore
 	Scenario Outline: As a user, I want to be able to edit a class and add teacher+student and then delete teacher+student
 		When <userRole> logs in
 		And <userRole> goes to management

@@ -9,6 +9,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## Unreleased
 
 - SC-8248 removed helpdesk
+- SC-8846 add core test set functionality
+
+## 26.1.0
 
 ## 26.0.0
 
@@ -41,9 +44,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 -   SC-5286 - Added new test: editClass adGroupOfStudentsToTheClass
 -   SC-8120 - Added new test: createClass createClassWith3Members
 
-### Changed
+## Changed
 
--   SC-6108 Adaptions to some E2E tests to make them work with the new admin tables
 -   SC-7688 Rename expected menuitem names
 -   IMP-160 rename repository
 -   SC-7110 Refactoring: Improved terms in cucumber steps: Teams, Topics, Class

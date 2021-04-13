@@ -4,7 +4,7 @@ Feature: Set of tests to create news. I would like to test whether users with di
     Background: User opens Schul-cloud homepage Website
         Given user arrives on the Schul-Cloud homepage
 
-    @createInstantNews
+    @createInstantNews @e2eCore
     Scenario Outline: As a user, I want to be able to create instant news with will be visible right after creation for recipients
         When <creatorUserRole> logs in with email '<email>' and password '<password>'
         When <creatorUserRole> creates news with title '<newsTitle>', content '<newsContent>' and current date
