@@ -9,6 +9,10 @@ When(/^.* clicks Edit-student button$/, async function () {
 	await manageStudents.clickEditStudentBtn();
 });
 
+Then(/^.* clicks Send-links-to-students'-e-mail-addresses button$/, async function () {
+	await manageStudents.clickSendConsentFormEmailsButton();
+});
+
 When(/^.* clicks Edit-student with '([^']*)' button$/, async function (email) {
 	await manageStudents.clickEditStudentByMailBtn(email);
 });
@@ -32,10 +36,6 @@ When(/^.* changes student birthdate to '([^']*)'$/, async function (birthdate) {
 //THEN
 Then(/^.* student firstname '([^']*)' is visible on the list$/, async function (firstname) {
 	await manageStudents.isStudentFirstnameOnTheList(firstname);
-});
-
-Then(/^.* clicks Send-links-to-students'-e-mail-addresses button$/, async function () {
-	await manageStudents.clickSendConsentFormEmailsButton();
 });
 
 Then(/^.* student lastname '([^']*)' is visible on the list$/, async function (lastname) {

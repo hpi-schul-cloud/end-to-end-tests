@@ -41,7 +41,7 @@ Then(/^.*team with name '([^']*)', colour '([^']*)' and  member number '([^']*)'
 });
 
 Then(/^.*team members: '([^']*)' are listed$/,  async function (listOfMembers) {
-		await TMSTeamListPage.areTeamMembersOnTheList(listOfMembers, true);
+	await TMSTeamListPage.areTeamMembersOnTheList(listOfMembers, true);
 });
 
 Then(/^.*team members: '([^']*)' are not listed$/,  async function (listOfMembers) {

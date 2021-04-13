@@ -6,7 +6,7 @@ const waitHelpers = require('../../../runtime/helpers/waitHelpers');
 const navigationLeftPage = require('../NavigationLeftPage');
 const teamNameContainer = '.tasks .title';
 const addTeamBtn = "[data-testid='add-team-btn']";
-const addTeamWhenZeroTeamsBtn = 'a.btn-add';
+const addTeamWhenZeroTeamsBtn = "a.btn-add";
 const teamWrapper = '.section-teams .sc-card-wrapper';
 const teamTitleSel = '.title';
 const memberBtn = '.btn-member';
@@ -16,30 +16,32 @@ const teamHeader = '.sc-card-header';
 const teamDescription = '.ckcontent';
 
 const teamColourCSS = {
-	orangeColour: 'background:#FFAD42',
-	blueColour: 'background:#1976D2',
-	greenColour: 'background:#2E7D32',
-	yellowColour: 'background:#FFD95A',
+	orangeColour: "background:#FFAD42",
+	blueColour: "background:#1976D2",
+	greenColour: "background:#2E7D32",
+	yellowColour: "background:#FFD95A",
+
 };
 
-function getColourCSS(colour) {
+function getColourCSS(colour){
 	let colourItem = '';
-	switch (colour) {
+	switch(colour){
 		case 'orange':
-			colourItem = teamColourCSS.orangeColour;
-			break;
+		colourItem = teamColourCSS.orangeColour;
+		break;
 		case 'blue':
-			colourItem = teamColourCSS.blueColour;
-			break;
+		colourItem = teamColourCSS.blueColour;
+		break;
 		case 'green':
-			colourItem = teamColourCSS.greenColour;
-			break;
+		colourItem = teamColourCSS.greenColour;
+		break;
 		case 'yellow':
-			colourItem = teamColourCSS.yellowColour;
-			break;
+		colourItem = teamColourCSS.yellowColour;
+		break;
 		default:
 			console.error(`This color: ${colour} does not exist on the list of possible choices`);
 			break;
+		
 	}
 	return colourItem;
 }
@@ -144,8 +146,8 @@ async function areTeamMembersOnTheList(listOfMembers, expectedResult) {
 	const msg = `Members: ${actualListOfTeamMembers} should be visible on the list \n`;
 	const resultMsg = `Actual list of team members: ${actualListOfTeamMembers}`;
 	expectedResult
-		? expect(actualListOfTeamMembers, msg + resultMsg).to.have.members(listOfMembers)
-		: expect(actualListOfTeamMembers, msg + resultMsg).to.not.have.members(listOfMembers);
+		? 	expect(actualListOfTeamMembers, msg + resultMsg).to.have.members(listOfMembers)
+		: 	expect(actualListOfTeamMembers, msg + resultMsg).to.not.have.members(listOfMembers);
 }
 
 async function clickMemberIconInTeam(teamName) {
@@ -169,6 +171,7 @@ async function isTeamVisible(teamName, expectedValue) {
 	const resultMsg = 'Actual list of teams: ' + (await getListOfTeamTitles());
 	const isTeam = await isTeamOnList(teamName);
 	expect(isTeam, msg + resultMsg).to.equal(expectedValue);
+
 }
 
 async function isTeamOnList(teamName) {

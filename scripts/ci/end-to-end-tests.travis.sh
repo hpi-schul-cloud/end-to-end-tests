@@ -56,12 +56,6 @@ install(){
 	# authenticate against docker
 	bash ./scripts/dockerhub.login.sh
 
-	# add -e on mac, use ; as alternative separator
-	sed -i "s/ES_USER.*/ES_USER=${ES_USER}/" docker-compose.end-to-end-tests.yml
-	sed -i "s/ES_PASSWORD.*/ES_PASSWORD=${ES_PASSWORD}/" docker-compose.end-to-end-tests.yml
-	sed -i "s/SECRET_ES_MERLIN_USERNAME.*/SECRET_ES_MERLIN_USERNAME=${SECRET_ES_MERLIN_USERNAME}/" docker-compose.end-to-end-tests.yml
-	sed -i "s/SECRET_ES_MERLIN_PW.*/SECRET_ES_MERLIN_PW=${SECRET_ES_MERLIN_PW}/" docker-compose.end-to-end-tests.yml
-
 	export IT_CLIENT_HOST=nuxtclient
 	export IT_CLIENT_PORT=4000
 
@@ -101,9 +95,20 @@ before(){
 
 }
 
+executeE2ETests(){
+	if [[ $BRANCH_NAME = feature* ]]
+	then 
+		echo "Exectuting core tests due to feature branch"
+		npm run test:core
+	else 
+		echo "Executing all tests due to branch naming"
+		npm run test
+	fi
+}
+
 main(){
 	cd end-to-end-tests
-	npm run test
+	executeE2ETests
 	cd ..
 }
 

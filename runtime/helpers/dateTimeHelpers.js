@@ -149,5 +149,4 @@ module.exports = {
 	getCurrentDateWithFormat,
 	getFormattedDateWithOffset,
 	getCurrentFormattedDateWithOffset,
-	getDate,
 };

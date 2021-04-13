@@ -20,7 +20,7 @@ Feature: Set of tests to create courses
             | userRole | userName                        | password       | courseName | courseColour |
             | teacher  | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | Ballet     | corn         |
 
-    @createCourseCorrectly
+    @createCourseCorrectly @e2eCore
     Scenario Outline: As a user, I want to be able to submit compulsory fields by creating the course
         Given <userRole> logs in with email '<userName>' and password '<password>'
         And <userRole> goes to courses page
@@ -47,7 +47,7 @@ Feature: Set of tests to create courses
             | userRole | userName                        | password       | courseName        | courseColour |
             | teacher  | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | Mathe@Sport&Music | corn         |
 
-    @createCourseWithStudent
+    @createCourseWithStudent @e2eCore
     Scenario Outline: As a user, I want to be able to create a course that student should see
         Given <userRole> logs in with email '<username>' and password '<password>'
         And <userRole> creates course with name '<courseName>' and student '<studentName>'
