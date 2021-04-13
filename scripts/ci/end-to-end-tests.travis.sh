@@ -52,12 +52,6 @@ install(){
 	# authenticate against docker
 	bash ./scripts/dockerhub.login.sh
 
-	# add -e on mac, use ; as alternative separator
-	sed -i "s/ES_USER.*/ES_USER=${ES_USER}/" docker-compose.end-to-end-tests.yml
-	sed -i "s/ES_PASSWORD.*/ES_PASSWORD=${ES_PASSWORD}/" docker-compose.end-to-end-tests.yml
-	sed -i "s/SECRET_ES_MERLIN_USERNAME.*/SECRET_ES_MERLIN_USERNAME=${SECRET_ES_MERLIN_USERNAME}/" docker-compose.end-to-end-tests.yml
-	sed -i "s/SECRET_ES_MERLIN_PW.*/SECRET_ES_MERLIN_PW=${SECRET_ES_MERLIN_PW}/" docker-compose.end-to-end-tests.yml
-
 	export IT_CLIENT_HOST=nuxtclient
 	export IT_CLIENT_PORT=4000
 
