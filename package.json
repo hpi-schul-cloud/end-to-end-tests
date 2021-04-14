@@ -36,7 +36,7 @@
 	},
 	"homepage": "https://github.com/hpi-schul-cloud/end-to-end-tests#readme",
 	"dependencies": {
-		"axios": "^0.19.2",
+		"axios": "^0.21.1",
 		"browserstack-local": "^1.3.7",
 		"chai": "^4.2.0",
 		"commander": "^3.0.1",

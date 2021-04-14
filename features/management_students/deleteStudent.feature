@@ -1,10 +1,9 @@
 @management @managementStudents @deleteStudent
 Feature: Set of tests to delete students
-    As an Schul-Cloud user I want to be able to delete students
+	As an Schul-Cloud user I want to be able to delete students
 
-    Background: User opens Schul-cloud homepage Website
-        Given user arrives on the Schul-Cloud homepage
-
+	Background: User opens Schul-cloud homepage Website
+		Given user arrives on the Schul-Cloud homepage
 
 	@deletedStudentCanNotLogin @deletionConcept @e2eCore
 	Scenario Outline: As an admin, I want to be able to delete the user
@@ -42,8 +41,8 @@ Feature: Set of tests to delete students
 		Then <userRole> should see that team members: '<firstName> <lastName>' are not listed
 
 		Examples:
-			| userRole  | adminUsername                | adminPassword  | studentUserName 				  | firstName | lastName | teamName  | description      | color  | number |
-			| admin     | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | boris.wasser.qa@schul-cloud.org | Boris	  | Wasser   | test team | test description | orange | 2      |
+			| userRole | adminUsername                | adminPassword  | studentUserName                 | firstName | lastName | teamName  | description      | color  | number |
+			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | boris.wasser.qa@schul-cloud.org | Boris     | Wasser   | test team | test description | orange | 2      |
 
 	@deletedStudentIsNotVisibleInCourse @deletionConcept
 	Scenario Outline: As an admin, I want to be able to delete the user and he will be no longer listed in course members
@@ -61,8 +60,8 @@ Feature: Set of tests to delete students
 		And <userTeacher> sees that course with name '<courseName>' contains number of members '<membersNumber>'
 
 		Examples:
- 		| userAdmin | adminUsername				   | password		| studentUserName				  | firstName | lastName | userTeacher | teacherUsername				 | courseName					 | membersNumber |
-		| admin		| kai.admin.qa@schul-cloud.org | Schulcloud1qa! | boris.wasser.qa@schul-cloud.org | Boris	  | Wasser	 | teacher	   | karl.teacher.qa@schul-cloud.org | Course with subject and tasks | 1			 |
+			| userAdmin | adminUsername                | password       | studentUserName                 | firstName | lastName | userTeacher | teacherUsername                 | courseName                    | membersNumber |
+			| admin     | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | boris.wasser.qa@schul-cloud.org | Boris     | Wasser   | teacher     | karl.teacher.qa@schul-cloud.org | Course with subject and tasks | 1             |
 
 	@deletedStudentCanNotUseForgotPassword @deletionConcept
 	Scenario Outline: As an admin, I want to be able to delete the user
@@ -77,5 +76,5 @@ Feature: Set of tests to delete students
 		And <deletedUserRole> clicks on Forgot Password using email '<studentUsername>'
 		Then forgot password email was not sent to '<studentUsername>'
 		Examples:
-			| userRole | adminUsername                | adminPassword  | studentUsername                  |  deletedUserRole |
-			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | amelia.strobl.qa@schul-cloud.org |  student         |
+			| userRole | adminUsername                | adminPassword  | studentUsername                  | deletedUserRole |
+			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | amelia.strobl.qa@schul-cloud.org | student         |

@@ -32,6 +32,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+-   SC-7203 - Added new test: ceateEvent
 -   SC-7126 - Fix test of createClass due to bugfix on client
 -   SC-7848 - Added new function, due to bugfix on client
 -   SC-6814 - Delete class test
@@ -63,7 +64,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
--   fixed github action changelog
+- fixed github action changelog
+- SC-7126 - Fix test of createClass due to bugfix on client
 
 ## 25.0.1 - 2020-09-30
 
