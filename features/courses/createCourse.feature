@@ -4,21 +4,6 @@ Feature: Set of tests to create courses
     Background: User opens Schul-cloud homepage Website
         Given user arrives on the Schul-Cloud homepage
 
-    @createSimpleCourse
-    Scenario Outline: As a user, I want to be able to create first course
-        Given <userRole> logs in with email '<userName>' and password '<password>'
-        And <userRole> goes to courses page
-        When <userRole> clicks Create-new-course button
-        And <userRole> enters course name '<courseName>' into new course form
-        And <userRole> sees his.hers name is entered by default in teachers' field
-        And <userRole> chooses course colour '<courseColour>'
-        And <userRole> clicks Next-section button
-        And <userRole> clicks Next-section button
-        And <userRole> clicks Go-to-course-list button
-        Then <userRole> should see that course with name '<courseName>' is visible on the list
-        Examples:
-            | userRole | userName                        | password       | courseName | courseColour |
-            | teacher  | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | Ballet     | corn         |
 
     @createCourseCorrectly @e2eCore
     Scenario Outline: As a user, I want to be able to submit compulsory fields by creating the course
