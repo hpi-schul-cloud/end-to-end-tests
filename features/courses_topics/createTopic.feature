@@ -18,8 +18,8 @@ Feature: Set of tests to copy courses
         Examples:
             | userRole | courseName | topicName         | contentType | contentTitle          | contentDescription        |
             | teacher  | Mathe      | sample topic name | Text        | test text content     | test description          |
-            | teacher  | Mathe      | etherpad topic    | Etherpad    | etherpad name         | etherpad description here |
             | teacher  | Mathe      | geo topic         | GeoGebra    | some sample text here | ucxngdjf                  |
+            # | teacher  | Mathe      | etherpad topic    | Etherpad    | etherpad name         | etherpad description here |
 
 #	@createTopicWithMaterial
 #	Scenario Outline: As a user, I want to be able to copy course with certain Material
