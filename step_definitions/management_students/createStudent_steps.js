@@ -54,7 +54,7 @@ Then(/^.* receives email '([^']*)' with registration link$/, async function (ema
 Then(/^student clicks on registration link$/, async function () {
 	const url = await mailCatcher.getEmailLink();
 	try {
-		return elementHelpers.loadPage(url);
+		return await elementHelpers.loadPage(url);
 	} catch (e) {
 		return `${e} + url was ${url}`;
 	}
