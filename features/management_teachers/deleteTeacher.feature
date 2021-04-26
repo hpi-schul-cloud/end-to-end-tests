@@ -10,6 +10,8 @@ Feature: Set of tests to delete teachers
 		Given <userRole> logs in with email '<adminUsername>' and password '<adminPassword>'
 		And <userRole> login is successful
 		And <userRole> goes to management
+		#The step below can be removed if /SC-8481 is done
+		And <userRole> goes to students management
 		And <userRole> goes to teachers management
 		When <userRole> clicks Edit-teacher with '<teacherUsername>' button
 		And <userRole> clicks Delete-user button
@@ -32,6 +34,8 @@ Feature: Set of tests to delete teachers
 		And <userRole> adds another teacher with '<teacherName>' to course
 		When <userRole> clicks on Save-changes in course button
 		Then <userRole> should see that course with '<courseName>' has two teachers with names '<teacherNames>'
+		#The step below can be removed if /SC-8481 is done
+		And <userRole> goes to students management
 		And <userRole> goes to teachers management
 		When <userRole> clicks Edit-teacher with '<teacherMailAddress>' button
 		And <userRole> clicks Delete-user button

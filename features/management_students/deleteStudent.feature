@@ -27,7 +27,7 @@ Feature: Set of tests to delete students
 		Given <userRole> logs in with email '<adminUsername>' and password '<adminPassword>'
 		And <userRole> login is successful
 		When <userRole> creates a new team with name '<teamName>' and description '<description>' and color '<color>'
-		And <userRole> adds a student with lastname: '<lastName>' and firstname: '<firstName>' to the team 
+		And <userRole> adds a student with lastname: '<lastName>' and firstname: '<firstName>' to the team
 		And <userRole> clicks Submit-add-team-member button
 		Then <userRole> goes to Teams Page
 		Then <userRole> sees that team with name '<teamName>', colour '<color>' and  member number '<number>' is visible on the list
@@ -36,6 +36,8 @@ Feature: Set of tests to delete students
 		When <userRole> clicks Edit-student with '<studentUserName>' button
 		And <userRole> clicks Delete-user button
 		And <userRole> clicks Delete-user button inside popup
+		#The step below can be removed if /SC-8481 is done
+		And <userRole> clicks left navigation item 'admClasses'
 		Then <userRole> goes to Teams Page
 		When <userRole> clicks on Member icon in team with name '<teamName>'
 		Then <userRole> should see that team members: '<firstName> <lastName>' are not listed
