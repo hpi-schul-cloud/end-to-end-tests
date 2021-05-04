@@ -81,7 +81,7 @@ Feature: Set of tests to delete students
 			| userRole | adminUsername                | adminPassword  | studentUsername                  | deletedUserRole |
 			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | amelia.strobl.qa@schul-cloud.org | student         |
 
-	@classWithTwoStudentsAndOneGetsDeleted @deletionConcept
+	@deletedStudentIsNotVisibleInClass @deletionConcept
 	Scenario Outline: As a user, I want to delete a student from a class and he will be no longer visible in class members
 		Given <userRole> logs in with email '<adminUsername>' and password '<password>'
 		And <userRole> goes to management

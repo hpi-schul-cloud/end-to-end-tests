@@ -53,6 +53,26 @@ async function getClassDetailsList(cell) {
 	return names;
 }
 
+async function areTeacherNamesEmpty(className) {
+	await waitHelpers.waitUntilElementIsVisible(tableOfClasses);
+	let classesNames = await getClassDetailsList(classNameCell);
+	let teacherNames = await getClassDetailsList(classTeacherCell);
+	let isTeacherNamesEmpty = false;
+	let classMsg = `Class with name: ${className} not found.`;
+	let teacherNamesMsg = '';
+	for (let index = 0; index < classesNames.length; index++) {
+		if (classesNames[index] === className) {
+			classMsg = `Class with name: ${className} found. \n`;
+			teacherNamesMsg = 'Expected: "", Actual: "' + teacherNames[index] + '"';
+			if (teacherNames[index] === '') {
+				isTeacherNamesEmpty = true;
+				teacherNamesMsg = 'TeacherNames is empty (that´s right)';
+			}
+		}
+	}
+	expect(isTeacherNamesEmpty, classMsg + teacherNamesMsg).to.equal(true);
+}
+
 async function isTeacherAssigned(teacherName) {
 	const teacherCell = await getClassDetailsList(classTeacherCell);
 	if (teacherCell[0] === '') {
@@ -69,4 +89,5 @@ module.exports = {
 	clickManagmentClassByNameBtn,
 	isNumberOfMembersInClass,
 	isTeacherAssigned,
+	areTeacherNamesEmpty,
 };

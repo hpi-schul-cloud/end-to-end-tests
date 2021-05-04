@@ -19,8 +19,12 @@ When(/^.* clicks Edit-course with '([^']*)' button$/, async function (courseName
 });
 
 //THEN
-Then(/^.* course with '([^']*)' has two teachers with names '([^']*)'$/, async function (courseName, teacherNames) {
-	return manageCourses.areTeacherNamesVisible(courseName, teacherNames);
+Then(/^.* course with '([^']*)' has teachers with name '([^']*)'$/, async function (courseName, teacherName) {
+	return manageCourses.areTeacherNamesVisible(courseName, teacherName);
+});
+
+Then(/^.* class with '([^']*)' has no teachers$/, async function (className) {
+	return manageClassesPage.areTeacherNamesEmpty(className);
 });
 
 Then(/^.* can not see deleted teacher with name '([^']*)' on the list of teachers$/, async function (teacherName) {

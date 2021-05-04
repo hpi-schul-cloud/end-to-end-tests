@@ -42,13 +42,11 @@ async function areTeacherNamesVisible(courseName, expectedTeacherNames) {
 	let teacherNamesMsg = '';
 	for (let index = 0; index < coursesNames.length; index++) {
 		if (coursesNames[index] === courseName) {
-			courseMsg = `Course with name: ${courseName} has teacher names. \n`;
+			courseMsg = `Course with name: ${courseName} found. \n`;
+			teacherNamesMsg = 'Expected: ' + expectedTeacherNames + ', Actual: ' + teacherNames[index];
 			if (teacherNames[index] === expectedTeacherNames) {
 				isTeacherNamesFound = true;
-				teacherNamesMsg = 'TeacherNames '+expectedTeacherNames +' found';
-			}
-			else {
-				teacherNamesMsg = 'Expected: '+ expectedTeacherNames + ', Actual: '+ teacherNames[index];
+				teacherNamesMsg = 'TeacherNames ' + expectedTeacherNames + ' found';
 			}
 		}
 	}
