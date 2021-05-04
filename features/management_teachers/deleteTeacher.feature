@@ -62,9 +62,9 @@ Feature: Set of tests to delete teachers
 		And <userRole> clicks Delete-user button
 		And <userRole> clicks Delete-user button inside popup
 		And <userRole> goes to class management
-		Then <userRole> should see that not empty class '<className>' and '<membersCount>' members is visible
+		Then <userRole> should see that number of students in class with name '<customClassName>' is '<numberOfStudentsInClass>'
 		Then <userRole> should see that teacher name '<teacherName>' is not assigned anymore
 
 		Examples:
-			| userRole | adminUsername                | password       | teacherUsername                 | teacherName | className | membersCount |
-			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | karl.teacher.qa@schul-cloud.org | Herzog      | 8a        | 1            |
+			| userRole | adminUsername                | password       | teacherUsername                 | teacherName | className | numberOfStudentsInClass |
+			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | karl.teacher.qa@schul-cloud.org | Herzog      | 8a        | 1                       |

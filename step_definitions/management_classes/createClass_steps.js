@@ -28,13 +28,6 @@ When(/^.* opens classes tab with name '([^']*)'$/, async function (classesTabNam
 	await manageClassesPage.clickOnClassesTab(classesTabName);
 });
 
-Then(
-	/^.* should see that not empty class '([^']*)' and '([^']*)' members is visible$/,
-	async function (className, membersCount) {
-		await manageClass.isNewClassCreated(className, membersCount);
-	}
-);
-
 Then(/^.* adds '([^']*)' and '([^']*)' to class$/, async function (studentOne, studentTwo) {
 	await manageClass.setStudent(studentOne);
 	await manageClass.setStudent(studentTwo);

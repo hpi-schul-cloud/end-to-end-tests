@@ -86,18 +86,18 @@ Feature: Set of tests to delete students
 		Given <userRole> logs in with email '<adminUsername>' and password '<password>'
 		And <userRole> goes to management
 		And <userRole> goes to class management
-		When <userRole> creates class with custom name '<customClassName>'
+		When <userRole> creates class with custom name '<customClassName>' and '<schoolYear>'
 		And <userRole> chooses class with name '<customClassName>' clicks Class-management
 		And <userRole> adds '<studentOne>' and '<studentTwo>' to class
-		Then <userRole> should see that not empty class '<customClassName>' and '<membersCount>' members is visible
+		Then <userRole> should see that number of students in class with name '<customClassName>' is '<numberOfStudentsInClass>'
 		When <userRole> goes to management
 		And <userRole> goes to students management
 		And <userRole> clicks Edit-student with '<studentUserName>' button
 		And <userRole> clicks Delete-user button
 		And <userRole> clicks Delete-user button inside popup
 		And <userRole> goes to class management
-		Then <userRole> should see that not empty class '<customClassName>' and '1' members is visible
+		Then <userRole> should see that number of students in class with name '<customClassName>' is '1'
 
 		Examples:
-			| userRole | adminUsername                | password       | studentUserName                 | customClassName | studentOne    | studentTwo   | membersCount |
-			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | boris.wasser.qa@schul-cloud.org | 7e              | Herbert Kraft | Boris Wasser | 2            |
+			| userRole | adminUsername                | password       | studentUserName                 | customClassName | schoolYear | studentOne    | studentTwo   | numberOfStudentsInClass |
+			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | boris.wasser.qa@schul-cloud.org | 7e              | 2020/21    | Herbert Kraft | Boris Wasser | 2                       |
