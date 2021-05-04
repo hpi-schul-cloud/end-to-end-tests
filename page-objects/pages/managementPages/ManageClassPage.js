@@ -114,6 +114,27 @@ async function createNewClass({ schoolYear, teachers, classGrade, className, cus
 	if (customClassName) await setCustomClassName(customClassName);
 	await clickAddClassConfirmation();
 }
+
+//not needed any,ore?
+async function isNewEmptyClassCreated(className, numOfStudents) {
+	const allClassesContainer = await waitHelpers.waitUntilElementIsVisible(classListTable);
+	const allClassesContent = await allClassesContainer.getText();
+	const contentArray = allClassesContent.split(' ');
+	const currentYear = new Date().getFullYear().toString().substring(2); // 20
+	expect(contentArray.length).to.equal(3); // teacher column should be empty and therefore not 4, but 3
+	expect(contentArray[0], 'Classname').to.equal(className);
+	expect(contentArray[1].includes(currentYear), 'Year').to.equal(true);
+	expect(contentArray[2], 'Num of students').to.equal(numOfStudents);
+}
+
+async function isNewClassCreated(className, numOfStudents) {
+	const allClassesContainer = await waitHelpers.waitUntilElementIsVisible(classListTable);
+	const allClassesContent = await allClassesContainer.getText();
+	const contentArray = allClassesContent.split('\n');
+	expect(contentArray[0], 'Classname').to.include(className);
+	expect(contentArray[0], 'Num Of students').to.include(numOfStudents);
+}
+
 async function isClassEdited(newClassName, teacherLastname, expectedResult) {
 	if (!expectedResult) {
 		try {
@@ -147,6 +168,8 @@ module.exports = {
 	editClass,
 	createNewClass,
 	isClassEdited,
+	isNewEmptyClassCreated,
+	isNewClassCreated,
 	deleteClass,
 	setStudent,
 	createListOfStudents,

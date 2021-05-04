@@ -8,7 +8,14 @@ const addClassBtn = "a[data-testid='createClass']";
 const classesTabs = 'a.tab span';
 const editClassBtn = "a[title='administration.classes.placeholer.change']";
 const tableOfClasses = 'tbody[data-testid="students_names_container"] > tr';
+//not needed anymore?
+const classNameCell = '[data-testid="students_names_container"] td:nth-child(1)';
+const classTeacherCell = 'tbody[data-testid="students_names_container"] td:nth-child(2)';
+//not needed anymore?
+const classMembersCell = '[data-testid="students_names_container"] td:nth-child(4)';
 const editElements = '.table-actions i.fa-users';
+//not needed anymore?
+const classNameContainer = "tbody[data-testid='students_names_container']";
 const classTable = 'table';
 
 async function clickCreateClassBtn() {
@@ -46,10 +53,20 @@ async function getClassDetailsList(cell) {
 	return names;
 }
 
+async function isTeacherAssigned(teacherName) {
+	const teacherCell = await getClassDetailsList(classTeacherCell);
+	if (teacherCell[0] === '') {
+		expect(teacherCell[0]).to.equal('');
+	} else {
+		expect(teacherCell[0]).to.equal(teacherName);
+	}
+}
+
 module.exports = {
 	clickCreateClassBtn,
 	clickEditClassBtn,
 	clickOnClassesTab,
 	clickManagmentClassByNameBtn,
 	isNumberOfMembersInClass,
+	isTeacherAssigned,
 };

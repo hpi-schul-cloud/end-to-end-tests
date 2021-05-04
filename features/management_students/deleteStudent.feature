@@ -80,3 +80,24 @@ Feature: Set of tests to delete students
 		Examples:
 			| userRole | adminUsername                | adminPassword  | studentUsername                  | deletedUserRole |
 			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | amelia.strobl.qa@schul-cloud.org | student         |
+
+	@classWithTwoStudentsAndOneGetsDeleted @deletionConcept
+	Scenario Outline: As a user, I want to delete a student from a class and he will be no longer visible in class members
+		Given <userRole> logs in with email '<adminUsername>' and password '<password>'
+		And <userRole> goes to management
+		And <userRole> goes to class management
+		When <userRole> creates class with custom name '<customClassName>'
+		And <userRole> chooses class with name '<customClassName>' clicks Class-management
+		And <userRole> adds '<studentOne>' and '<studentTwo>' to class
+		Then <userRole> should see that not empty class '<customClassName>' and '<membersCount>' members is visible
+		When <userRole> goes to management
+		And <userRole> goes to students management
+		And <userRole> clicks Edit-student with '<studentUserName>' button
+		And <userRole> clicks Delete-user button
+		And <userRole> clicks Delete-user button inside popup
+		And <userRole> goes to class management
+		Then <userRole> should see that not empty class '<customClassName>' and '1' members is visible
+
+		Examples:
+			| userRole | adminUsername                | password       | studentUserName                 | customClassName | studentOne    | studentTwo   | membersCount |
+			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | boris.wasser.qa@schul-cloud.org | 7e              | Herbert Kraft | Boris Wasser | 2            |
