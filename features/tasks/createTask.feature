@@ -4,7 +4,7 @@ Feature: Set of tests to create tasks
 	Background:
 		Given user arrives on the Schul-Cloud homepage
 
-	@createSimpleTask
+	@createSimpleTask @e2eCore
 	Scenario Outline: As a user, I want to be able to create a simple task without course
 		Given <userRole> logs in with email '<email>' and password '<password>'
 		And <userRole> goes to tasks page
@@ -35,8 +35,8 @@ Feature: Set of tests to create tasks
 		Examples:
 			| userRole | courseName  | taskName     | taskBody         |
 			| teacher  | Mathe       | task example | text of the task |
-
-	@createPrivateTaskInTheCourse
+ 
+	@createPrivateTaskInTheCourse @e2eCore
 	Scenario Outline: As a user, I want to be able to create a private task
 		When <userRole> logs in
 		And <userRole> goes to courses page

@@ -27,7 +27,6 @@ const navItemsEnum = {
 	CALENDAR: 'calendar',
 	ADDONS: 'addons',
 	CONTENT: 'content',
-	HELPDESK: 'helpdesk',
 	ADMINISTRATION: 'administration',
 	ADMINSTUDENTS: 'admStudents',
 	ADMINTEACHERS: 'admTeachers',
@@ -200,10 +199,6 @@ async function clickNavItemManageSchool() {
 	}
 }
 
-async function clickNavItemHelpDesk() {
-	await loadPageFromNavigationItem(navItemHelpDesk);
-}
-
 async function clickNavItemHelpArea() {
 	await loadPageFromNavigationItem(navItemHelparea);
 }
@@ -284,7 +279,6 @@ module.exports = {
 	clickNavItemManageClasses,
 	clickNavItemManageTeams,
 	clickNavItemManageSchool,
-	clickNavItemHelpDesk,
 	clickNavItemHelpArea,
 	clickNavItemHelpArticles,
 	clickNavItemHelpTrainings,

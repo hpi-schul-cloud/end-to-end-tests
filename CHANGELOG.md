@@ -8,6 +8,16 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## 26.2.0
+
+- SC-8248 removed helpdesk
+- SC-8846 add core test set functionality
+- refactoring tests
+
+### Removed
+
+- remove the replace of envs in the docker-compose file. Envs will be direktly taken by the docker-file. (the changed docker-file is not used anyways) 
+
 ## 26.1.0
 
 ## 26.0.0
@@ -24,6 +34,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+-   SC-7203 - Added new test: ceateEvent
 -   SC-7126 - Fix test of createClass due to bugfix on client
 -   SC-7848 - Added new function, due to bugfix on client
 -   SC-6814 - Delete class test
@@ -56,7 +67,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
--   fixed github action changelog
+- fixed github action changelog
+- SC-7126 - Fix test of createClass due to bugfix on client
 
 ## 25.0.1 - 2020-09-30
 

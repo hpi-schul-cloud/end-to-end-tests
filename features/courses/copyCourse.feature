@@ -4,7 +4,7 @@ Feature: Set of tests to copy courses
 	Background: User opens Schul-cloud homepage Website
 		Given user arrives on the Schul-Cloud homepage
 
-	@simpleCopyCourse
+	@simpleCopyCourse @e2eCore
 	Scenario Outline: As a user, I want to be able to copy an existing course
 		When <userRole> logs in
 		And <userRole> goes to courses page
