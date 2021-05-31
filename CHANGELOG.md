@@ -9,6 +9,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## Unreleased
 
 - adapt to sidebar changes
+
+## 26.2.0
+
 - SC-8248 removed helpdesk
 - SC-8846 add core test set functionality
 - refactoring tests
