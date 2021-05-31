@@ -45,7 +45,7 @@ const navItemString2ndLevel = "li[data-testid='XXX'] > a";
 const navItemLogo = navItemString1stLevel.replace('XXX', 'Startseite');
 const navItemDashboard = navItemString1stLevel.replace('XXX', 'Übersicht');
 const navItemCourses = navItemString1stLevel.replace('XXX', 'Kurse');
-const navItemTasks = navItemString1stLevel.replace('XXX', 'Alle Aufgaben');
+const navItemTasks = navItemString1stLevel.replace('XXX', 'Aufgaben');
 const navItemTasksAsked = navItemString2ndLevel.replace('XXX', 'Gestellte Aufgaben');
 const navItemTasksPrivate = navItemString2ndLevel.replace('XXX', 'Entwürfe');
 const navItemTasksArchive = navItemString2ndLevel.replace('XXX', 'Archiv');
