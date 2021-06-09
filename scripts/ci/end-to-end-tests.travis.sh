@@ -78,7 +78,7 @@ before(){
 	switchBranch "end-to-end-tests"
 
 	echo "INSTALL DEPENDNECIES..."
-	cd schulcloud-server && npm ci && cd ..
+	cd schulcloud-server && npm ci && npm run build && cd ..
 	cd end-to-end-tests && npm ci && cd ..
 	echo "INSTALL DEPENDNECIES DONE"
 
