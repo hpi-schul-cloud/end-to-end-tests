@@ -1,6 +1,8 @@
 const navigationLeftPanel = require('../../page-objects/pages/NavigationLeftPage');
 const manageClass = require('../../page-objects/pages/managementPages/ManageClassPage');
 const manageClassesPage = require('../../page-objects/pages/managementPages/ManageClassesPage');
+const manageClassEditPage = require('../../page-objects/pages/managementPages/ManageClassEditPage');
+const { Then } = require('cucumber');
 
 When(/^.* goes to management$/, async function () {
 	await navigationLeftPanel.clickNavItemManagement();
@@ -24,6 +26,12 @@ When(/^.* creates a class with grade '([^']*)' and name '([^']*)'$/, async funct
 
 When(/^.* opens classes tab with name '([^']*)'$/, async function (classesTabName) {
 	await manageClassesPage.clickOnClassesTab(classesTabName);
+});
+
+Then(/^.* adds '([^']*)' and '([^']*)' to class$/, async function (studentOne, studentTwo) {
+	await manageClass.setStudent(studentOne);
+	await manageClass.setStudent(studentTwo);
+	await manageClassEditPage.clickSubmitBtn();
 });
 
 Then(/^.* number of students in class with name '([^']*)' is '([^']*)'$/, async function (className, membersCount) {

@@ -114,6 +114,7 @@ async function createNewClass({ schoolYear, teachers, classGrade, className, cus
 	if (customClassName) await setCustomClassName(customClassName);
 	await clickAddClassConfirmation();
 }
+
 async function isClassEdited(newClassName, teacherLastname, expectedResult) {
 	if (!expectedResult) {
 		try {

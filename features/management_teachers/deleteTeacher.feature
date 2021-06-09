@@ -33,7 +33,7 @@ Feature: Set of tests to delete teachers
 		And <userRole> clicks Edit-course with '<courseName>' button
 		And <userRole> adds another teacher with '<teacherName>' to course
 		When <userRole> clicks on Save-changes in course button
-		Then <userRole> should see that course with '<courseName>' has two teachers with names '<teacherNames>'
+		Then <userRole> should see that course with '<courseName>' has teachers with name '<teacherNames>'
 		#The step below can be removed if /SC-8481 is done
 		And <userRole> goes to students management
 		And <userRole> goes to teachers management
@@ -52,3 +52,19 @@ Feature: Set of tests to delete teachers
 		Examples:
 			| userRole | adminUsername                | adminPassword  | courseName                    | teacherName | teacherNames  | teacherMailAddress              | checkUserRole | teacherUsername                 |
 			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | Course with subject and tasks | Lara Hande  | Herzog, Hande | lara.teacher.qa@schul-cloud.org | teacher       | karl.teacher.qa@schul-cloud.org |
+
+	@deletedTeacherIsNotVisibleInClass @deletionConcept
+	Scenario Outline: As a user, I want to delete a teacher from a class and he will be no longer visible as class teacher
+		Given <userRole> logs in with email '<adminUsername>' and password '<password>'
+		And <userRole> goes to management
+		And <userRole> goes to teachers management
+		When <userRole> clicks Edit-teacher with '<teacherUsername>' button
+		And <userRole> clicks Delete-user button
+		And <userRole> clicks Delete-user button inside popup
+		Then <userRole> should see that user with email '<teacherUsername>' is not visible on the list
+		And <userRole> goes to class management
+		Then <userRole> should see that class with '<className>' has no teachers
+
+		Examples:
+			| userRole | adminUsername                | password       | teacherUsername                 | className |
+			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | karl.teacher.qa@schul-cloud.org | 8a        |
