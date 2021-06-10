@@ -81,9 +81,6 @@ before(){
 	cd schulcloud-server && npm ci && npm run build && cd ..
 	cd end-to-end-tests && npm ci && cd ..
 	echo "INSTALL DEPENDNECIES DONE"
-
-	echo "waiting max 2 minutes for database to be available"
-	npx -p wait-on wait-on http://localhost:27017 -t 120000
 	cd schulcloud-server && npm run setup && npm run seed && cd ..
 
 	# wait for the nuxt client to be available
