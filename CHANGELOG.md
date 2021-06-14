@@ -8,6 +8,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+- remove github workflow update_version.yml
+
 ## 26.2.0
 
 - SC-8248 removed helpdesk
