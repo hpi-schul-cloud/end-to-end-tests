@@ -1,6 +1,6 @@
 {
 	"name": "sc-end-to-end-tests",
-	"version": "26.2.0",
+	"version": "26.4.0",
 	"description": "A platform independent debuggable BDD Javascript testing framework. It's simple, easy to use and not dependant to any other tool or library, using Nodejs, webdriverio and cucumber-js",
 	"license": "Apache-2.0",
 	"keywords": [
@@ -45,10 +45,10 @@
 		"cucumber-html-reporter": "^5.2.0",
 		"cucumber-pretty": "^6.0.0",
 		"fs-extra": "^7.0.1",
-		"merge": "^1.2.1",
+		"merge": "^2.1.1",
 		"node-dir": "^0.1.17",
 		"node-resemble-js": "^0.2.0",
-		"nodemailer": "^5.1.1",
+		"nodemailer": "^6.4.16",
 		"request": "^2.88.0",
 		"request-promise": "^4.2.4",
 		"require-dir": "^1.2.0",
