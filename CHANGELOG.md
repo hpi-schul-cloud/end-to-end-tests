@@ -10,6 +10,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - remove github workflow update_version.yml
 - fix fallbacks for features and notification services versions
+- execute changes for features in travis
 
 ## 26.4.0
 
