@@ -21,10 +21,16 @@ _switchBranch(){
 }
 
 switchBranch(){
-	if [[ $BRANCH_NAME = release* || $BRANCH_NAME = hotfix* ]]
+	if [[ $BRANCH_NAME =~ feature* ]]
+	then
+		_switchBranch "$1" "develop" "$2"
+	fi
+
+	if [[ $BRANCH_NAME =~ release* || $BRANCH_NAME =~ hotfix* ]]
 	then
 		_switchBranch "$1" "master" "$2"
 	fi
+
 	_switchBranch "$1" "$BRANCH_NAME" "$2"
 }
 
@@ -42,8 +48,10 @@ fetch(){
 	git clone https://github.com/hpi-schul-cloud/docker-compose.git docker-compose
 	switchBranch "docker-compose"
 
+	# the master version of notification is broken at the moment, we use all the time develop until it is fixed
 	git clone https://github.com/hpi-schul-cloud/node-notification-service.git node-notification-service
-	switchBranch "node-notification-service" "NOTIFICATION_SERVICE_DOCKER_TAG"
+	_switchBranch "node-notification-service" "develop" "NOTIFICATION_SERVICE_DOCKER_TAG"
+	# switchBranch "node-notification-service" "NOTIFICATION_SERVICE_DOCKER_TAG"
 }
 
 install(){
@@ -95,11 +103,11 @@ before(){
 }
 
 executeE2ETests(){
-	if [[ $BRANCH_NAME = feature* ]]
-	then 
+	if [[ $BRANCH_NAME =~ feature* ]]
+	then
 		echo "Exectuting core tests due to feature branch"
 		npm run test:core
-	else 
+	else
 		echo "Executing all tests due to branch naming"
 		npm run test
 	fi
