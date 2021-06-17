@@ -21,9 +21,9 @@ _switchBranch(){
 }
 
 switchBranch(){
-	if [[ $BRANCH_NAME = feature* ]]
+	if [[ $BRANCH_NAME =~ feature* ]]
 		_switchBranch "$1" "develop" "$2"
-	elif [[ $BRANCH_NAME = release* || $BRANCH_NAME = hotfix* ]]
+	elif [[ $BRANCH_NAME =~ release* || $BRANCH_NAME =~ hotfix* ]]
 	then
 		_switchBranch "$1" "master" "$2"
 	fi
@@ -99,11 +99,11 @@ before(){
 }
 
 executeE2ETests(){
-	if [[ $BRANCH_NAME = feature* ]]
-	then 
+	if [[ $BRANCH_NAME =~ feature* ]]
+	then
 		echo "Exectuting core tests due to feature branch"
 		npm run test:core
-	else 
+	else
 		echo "Executing all tests due to branch naming"
 		npm run test
 	fi
