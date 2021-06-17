@@ -9,6 +9,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## Unreleased
 
 - remove github workflow update_version.yml
+- fix fallbacks for features and notification services versions
 
 ## 26.4.0
 
