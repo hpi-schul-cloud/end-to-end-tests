@@ -23,10 +23,13 @@ switchBranch(){
 	if [[ $BRANCH_NAME =~ feature* ]]
 	then
 		_switchBranch "$1" "develop" "$2"
-	elif [[ $BRANCH_NAME =~ release* || $BRANCH_NAME =~ hotfix* ]]
+	fi
+
+	if [[ $BRANCH_NAME =~ release* || $BRANCH_NAME =~ hotfix* ]]
 	then
 		_switchBranch "$1" "master" "$2"
 	fi
+
 	_switchBranch "$1" "$BRANCH_NAME" "$2"
 }
 
