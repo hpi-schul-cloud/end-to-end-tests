@@ -20,19 +20,19 @@ Feature: Set of tests to create students
 			| userRole | firstName | lastName  | studentEmail              | username                     | password       | newPasswordStudent | birthday   |
 			| admin    | Georg     | Georgmann | georgmann@schul-cloud.org | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | Schulcloud1!!      | 10.10.1990 |
 
-	@createStudentAndSendLink
-	Scenario Outline: As a user, I want to invite a student to SC so that the student can register himself.
-		Given <userRole> logs in with email '<username>' and password '<password>'
-		And <userRole> goes to management
-		And <userRole> goes to students management
-		And all emails are deleted
-		When <userRole> set student firstname '<firstName>', lastname '<lastName>', email '<studentEmail>'
-		And <userRole> sees that student with email '<studentEmail>' is visible on the list
-		And student receives email '<studentEmail>' with registration link
-		And student clicks on registration link
-		Examples:
-			| userRole | firstName | lastName | studentEmail                 | username                     | password       |
-			| admin    | Peter     | Lustig   | peter.lustig@schul-cloud.org | kai.admin.qa@schul-cloud.org | Schulcloud1qa! |
+# @createStudentAndSendLink disabled until notification service is more stable
+# Scenario Outline: As a user, I want to invite a student to SC so that the student can register himself.
+# 	Given <userRole> logs in with email '<username>' and password '<password>'
+# 	And <userRole> goes to management
+# 	And <userRole> goes to students management
+# 	And all emails are deleted
+# 	When <userRole> set student firstname '<firstName>', lastname '<lastName>', email '<studentEmail>'
+# 	And <userRole> sees that student with email '<studentEmail>' is visible on the list
+# 	And student receives email '<studentEmail>' with registration link
+# 	And student clicks on registration link
+# 	Examples:
+# 		| userRole | firstName | lastName | studentEmail                 | username                     | password       |
+# 		| admin    | Peter     | Lustig   | peter.lustig@schul-cloud.org | kai.admin.qa@schul-cloud.org | Schulcloud1qa! |
 
 #	@createNewStudentU14
 #	Scenario Outline: As a user, I want to create a student u 14 who can register with parents
