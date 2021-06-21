@@ -17,6 +17,8 @@ const birthdateInput = 'input[data-testid="input_create-student_birthdate"]';
 const sendRegistrationLinkCheckbox = "label[data-testid='input_create-student_send-registration']";
 const tableOfStudents = "tbody[data-testid='table-data-body']";
 const skipConsentBtn = '.fa-check-square-o';
+const createLinkBtn = '.btn-invitation-link-with-hash';
+const cancelLinkModal = '.invitation-modal .btn-close';
 const consentSubmitBtn = "button[data-testid='submit_consent']";
 const addStudentSubmitBtn = "button[data-testid='button_create-user_submit']";
 const passwordInput = '#passwd';
@@ -122,7 +124,7 @@ async function createNewPupil(firstname, lastname, email, birthday, addBirthday)
 	//let birthdate = dateTimeHelpers.getCurrentFormattedDateWithOffset({years: -14, format: "dd/mm/yyyy"});
 	//await setStudentsBirthday(birthdate);
 	if (addBirthday) await setStudentsBirthday(birthday);
-	await clickOnSendRegistrationLinkCheckbox();
+//	await clickOnSendRegistrationLinkCheckbox(); disabled until notification service is reworked
 	await submitStudentAddition();
 }
 
@@ -167,6 +169,9 @@ async function submitConsent(e_mail) {
 		if (email === e_mail) {
 			let boxConsent = tableOfStudents + ' > tr:nth-child(' + i + ') > td:nth-child(9)';
 			await elementHelpers.click(boxConsent);
+			await elementHelpers.clickAndWait(createLinkBtn);
+			await elementHelpers.click(cancelLinkModal);
+			await driver.refresh();
 			await elementHelpers.clickAndWait(skipConsentBtn);
 			let passwordField = await waitHelpers.waitUntilElementIsPresent(passwordInput);
 			let password_old = await passwordField.getValue();
