@@ -8,7 +8,13 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Removed
+
+- disabled email tests
 - remove github workflow update_version.yml
+
+### Fixed
+
 - fix fallbacks for features and notification services versions
 - execute changes for features in travis
 
