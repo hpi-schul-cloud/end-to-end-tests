@@ -15,12 +15,12 @@ Given(/^.*user arrives on the Schul-Cloud homepage$/, async function () {
 });
 
 Given(/^.* logs in with email '([^']*)' and password '([^']*)'$/, async function (username, password) {
-	await startPage.clickLoginBtn();
+	//await startPage.clickLoginBtn();
 	await loginPage.performLogin(username, password);
 });
 
 Given(/^.* clicks on Forgot Password using email '([^']*)'$/, async function (email) {
-	await startPage.clickLoginBtn();
+	//await startPage.clickLoginBtn();
 	await loginPage.clickForgotPasswordBtn();
 	await loginPage.FillEmailInputAndReset(email);
 });
@@ -32,13 +32,13 @@ Then(/^forgot password email was not sent to '([^']*)'$/, async function (email)
 Then(
 	/^.* logs in with email '([^']*)' and password genarated by admin during manual submission of consent$/,
 	async function (username) {
-		await startPage.clickLoginBtn();
+		//await startPage.clickLoginBtn();
 		await manageStudents.studentLogsInWithPasswordGenaratedByAdminDuringManualSubmission(username);
 	}
 );
 
 Given(/^teacher logs in$/, async function () {
-	await startPage.clickLoginBtn();
+	//await startPage.clickLoginBtn();
 	await loginPage.performLogin(
 		loginPage.users.teachers.karlHerzogUsername,
 		loginPage.users.teachers.karlHerzogPassword
@@ -46,12 +46,12 @@ Given(/^teacher logs in$/, async function () {
 });
 
 Given(/^admin logs in$/, async function () {
-	await startPage.clickLoginBtn();
+	//await startPage.clickLoginBtn();
 	await loginPage.performLogin(loginPage.users.admins.kaiPreetzUsername, loginPage.users.admins.kaiPreetzPassword);
 });
 
 Given(/^student logs in$/, async function () {
-	await startPage.clickLoginBtn();
+	//await startPage.clickLoginBtn();
 	await loginPage.performLogin(
 		loginPage.users.students.borisWasserUsername,
 		loginPage.users.students.borisWasserPassword
@@ -62,12 +62,12 @@ When(/^.* clicks 'Login' button on start page$/, async function () {
 	await startPage.clickLoginBtn();
 });
 
-When(/^.* is on LoginPage and logs in using email '([^']*)' and password '([^']*)'$/, async function (
-	username,
-	password
-) {
-	await loginPage.performLogin(username, password);
-});
+When(
+	/^.* is on LoginPage and logs in using email '([^']*)' and password '([^']*)'$/,
+	async function (username, password) {
+		await loginPage.performLogin(username, password);
+	}
+);
 
 Then(/^.* logs out$/, async function () {
 	await navigationTopPage.performLogout();
@@ -110,11 +110,16 @@ Then(/^.* performs first login actions: password change '([^']*)'$/, async funct
 	await loginPage.performLoginActions({ shouldAcceptDataProtection: false, shouldSetOwnPassword: true, newPassword });
 });
 
-Then(/^.* performs first login actions: data protection acceptance, password change '([^']*)'$/, async function (
-	newPassword
-) {
-	await loginPage.performLoginActions({ shouldAcceptDataProtection: true, shouldSetOwnPassword: true, newPassword });
-});
+Then(
+	/^.* performs first login actions: data protection acceptance, password change '([^']*)'$/,
+	async function (newPassword) {
+		await loginPage.performLoginActions({
+			shouldAcceptDataProtection: true,
+			shouldSetOwnPassword: true,
+			newPassword,
+		});
+	}
+);
 
 Then(/^'([^']*)' performs first login actions$/, async function (userRole) {
 	if (userRole.toLowerCase() === 'student') {
