@@ -72,6 +72,7 @@ install(){
 	set -a
 	source ./envs/end-to-end-tests.env
 
+	docker-compose logs nuxt-client
 
 	cd ..
 
