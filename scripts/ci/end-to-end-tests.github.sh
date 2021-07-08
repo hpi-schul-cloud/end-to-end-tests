@@ -21,16 +21,9 @@ _switchBranch(){
 }
 
 switchBranch(){
-	if [[ $BRANCH_NAME =~ feature* ]]
-	then
-		_switchBranch "$1" "develop" "$2"
-	fi
+	_switchBranch "$1" "main" "$2"
 
-	if [[ $BRANCH_NAME =~ release* || $BRANCH_NAME =~ hotfix* ]]
-	then
-		_switchBranch "$1" "master" "$2"
-	fi
-
+	# if branch exists, try to switch to it
 	_switchBranch "$1" "$BRANCH_NAME" "$2"
 }
 
