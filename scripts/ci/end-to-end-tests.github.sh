@@ -63,7 +63,7 @@ install(){
 
 	chmod 700 ./startup_end-to-end-tests.sh
 	echo "PULL CONTAINERS..."
-	./startup_end-to-end-tests.sh pull --ignore-pull-failures --include-deps --quiet
+	./startup_end-to-end-tests.sh pull --ignore-pull-failures --include-deps # --quiet
 	echo "PULL CONTAINERS DONE"
 	echo "BOOT CONTAINERS..."
 	./startup_end-to-end-tests.sh up -d
@@ -72,7 +72,8 @@ install(){
 	set -a
 	source ./envs/end-to-end-tests.env
 
-	docker-compose logs nuxt-client
+	echo "CONTAINER STARTUP LOG"
+	docker-compose -f compose-files/docker-compose.yml logs
 
 	cd ..
 
