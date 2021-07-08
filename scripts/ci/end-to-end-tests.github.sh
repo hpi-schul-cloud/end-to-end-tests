@@ -72,9 +72,6 @@ install(){
 	set -a
 	source ./envs/end-to-end-tests.env
 
-	echo "CONTAINER STARTUP LOG"
-	docker-compose -f compose-files/docker-compose.yml logs
-
 	cd ..
 
 }
@@ -97,9 +94,14 @@ before(){
 
 	cd schulcloud-server && npm run setup && npm run seed && cd ..
 
+	echo "CONTAINER STARTUP LOG"
+	cd docker-compose
+	docker-compose -f compose-files/docker-compose.yml logs
+	cd ..
+
 	# wait for the nuxt client to be available
 	echo "waiting max 4 minutes for nuxt to be available"
-	npx -p wait-on wait-on http://localhost:4000 -t 240000
+	npx wait-on http://localhost:4000 -t 240000
 	echo "nuxt is now online"
 
 }
