@@ -40,11 +40,6 @@ fetch(){
 
 	git clone https://github.com/hpi-schul-cloud/docker-compose.git docker-compose
 	switchBranch "docker-compose"
-
-	# the master version of notification is broken at the moment, we use all the time develop until it is fixed
-	git clone https://github.com/hpi-schul-cloud/node-notification-service.git node-notification-service
-	_switchBranch "node-notification-service" "develop" "NOTIFICATION_SERVICE_DOCKER_TAG"
-	# switchBranch "node-notification-service" "NOTIFICATION_SERVICE_DOCKER_TAG"
 }
 
 install(){
