@@ -67,4 +67,4 @@ Feature: Set of tests to delete teachers
 
 		Examples:
 			| userRole | adminUsername                | password       | teacherUsername                 | className |
-			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | karl.teacher.qa@schul-cloud.org | 8a        |
+			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | karl.teacher.qa@schul-cloud.org | 9a        |
