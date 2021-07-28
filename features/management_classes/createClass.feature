@@ -13,7 +13,7 @@ Feature: Set of tests to create classes
         Then <userRole> should see that number of students in class with name '<customClassName>' is '<numberOfStudentsInClass>'
         Examples:
             | userRole | username                         | password       | customClassName | schoolYear | numberOfStudentsInClass |
-            | admin    | olivier.admin.qa@schul-cloud.org | Schulcloud1qa! | 11c             | 2020/21    | 0                       |
+            | admin    | olivier.admin.qa@schul-cloud.org | Schulcloud1qa! | 11c             | 2021/22    | 0                       |
 
     @createClassWith3Members
     Scenario Outline: As a user, I want to be able to create class with 3 members
@@ -26,5 +26,5 @@ Feature: Set of tests to create classes
         Then <userRole> should see that number of students in class with name '<customClassName>' is '<numberOfStudentsInClass>'
         Examples:
             | userRole | username                        | password       | customClassName | numberOfStudentsInClass | studentsFirstname | studentLastname | schoolYear |
-            | teacher  | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | 1C              | 3                       | Student           | LastName        | 2020/21    |
+            | teacher  | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | 1C              | 3                       | Student           | LastName        | 2021/22    |
 
