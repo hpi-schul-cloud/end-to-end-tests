@@ -134,7 +134,7 @@ HTML and JSON reports are automatically generated and stored in the default `./r
 
 You can register event handlers for the following events within the cucumber lifecycle.
 
-const {After, Before, AfterAll, BeforeAll} = require('cucumber');
+const {After, Before, AfterAll, BeforeAll} = require('@cucumber/cucumber');
 
 | Event     | Example                                                                    |
 | --------- | -------------------------------------------------------------------------- |
