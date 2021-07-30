@@ -234,11 +234,10 @@ process.argv.push(paths.featuresPath);
  */
 process.argv.push(
 	'-f',
-	'node_modules/cucumber-pretty',
+	'@cucumber/pretty-formatter',
 	'-f',
 	'json:' +
 		path.resolve(
-			
 			__dirname,
 			paths.reports,
 			settings.reportName.replace(/ /g, '') + '-' + global.dateStringForFiles + '.json'
