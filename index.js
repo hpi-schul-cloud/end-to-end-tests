@@ -260,11 +260,6 @@ if (program.tags) {
 }
 
 /**
- * add strict option (fail if there are any undefined or pending steps)
- */
-process.argv.push('-S');
-
-/**
  * Lets crash on unhandledRejection
  */
 process.on('unhandledRejection', up => { throw up })
