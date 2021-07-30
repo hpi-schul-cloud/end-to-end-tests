@@ -54,7 +54,7 @@
 		"require-dir": "^1.2.0",
 		"selenium-standalone": "^6.24.0",
 		"webdriverio": "^5.22.5",
-		"winston": "^3.2.1"
+		"winston": "^3.3.3"
 	},
 	"devDependencies": {
 		"chromedriver": "^87.0.0",
