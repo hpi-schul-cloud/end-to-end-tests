@@ -155,7 +155,7 @@ const {
 	And,
 	When,
 	Then
-} = require('cucumber');
+} = require('@cucumber/cucumber');
 
 global.Given = Given;
 global.When = When;
@@ -242,7 +242,7 @@ this.World = World;
 /**
  * set the default timeout for all tests
  */
-const { setDefaultTimeout } = require('cucumber');
+const { setDefaultTimeout } = require('@cucumber/cucumber');
 
 const dateTimeHelpers = require('./helpers/dateTimeHelpers.js');
 const emailHelpers = require('./helpers/emailHelpers.js');

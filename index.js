@@ -23,7 +23,7 @@ const path = require('path'),
 	program = require('commander'),
 	fs = require('fs-extra'),
 	pjson = require('./package.json'),
-	cucumber = require('cucumber');
+	cucumber = require('@cucumber/cucumber');
 
 function collectPaths(value, paths) {
 	paths.push(value);
@@ -234,11 +234,10 @@ process.argv.push(paths.featuresPath);
  */
 process.argv.push(
 	'-f',
-	'node_modules/cucumber-pretty',
+	'@cucumber/pretty-formatter',
 	'-f',
 	'json:' +
 		path.resolve(
-			
 			__dirname,
 			paths.reports,
 			settings.reportName.replace(/ /g, '') + '-' + global.dateStringForFiles + '.json'
@@ -260,11 +259,6 @@ if (program.tags) {
 }
 
 /**
- * add strict option (fail if there are any undefined or pending steps)
- */
-process.argv.push('-S');
-
-/**
  * Lets crash on unhandledRejection
  */
 process.on('unhandledRejection', up => { throw up })
@@ -274,7 +268,7 @@ process.on('unhandledRejection', up => { throw up })
  */
 global.cucumber = cucumber;
 
-let klassiCli = new (require('cucumber').Cli )({
+let klassiCli = new (require('@cucumber/cucumber').Cli )({
 	argv: process.argv,
 	cwd: process.cwd(),
 	stdout: process.stdout

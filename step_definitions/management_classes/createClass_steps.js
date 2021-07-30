@@ -2,7 +2,7 @@ const navigationLeftPanel = require('../../page-objects/pages/NavigationLeftPage
 const manageClass = require('../../page-objects/pages/managementPages/ManageClassPage');
 const manageClassesPage = require('../../page-objects/pages/managementPages/ManageClassesPage');
 const manageClassEditPage = require('../../page-objects/pages/managementPages/ManageClassEditPage');
-const { Then } = require('cucumber');
+const { Then } = require('@cucumber/cucumber');
 
 When(/^.* goes to management$/, async function () {
 	await navigationLeftPanel.clickNavItemManagement();
