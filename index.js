@@ -23,7 +23,7 @@ const path = require('path'),
 	program = require('commander'),
 	fs = require('fs-extra'),
 	pjson = require('./package.json'),
-	cucumber = require('cucumber');
+	cucumber = require('@cucumber/cucumber');
 
 function collectPaths(value, paths) {
 	paths.push(value);
@@ -274,7 +274,7 @@ process.on('unhandledRejection', up => { throw up })
  */
 global.cucumber = cucumber;
 
-let klassiCli = new (require('cucumber').Cli )({
+let klassiCli = new (require('@cucumber/cucumber').Cli )({
 	argv: process.argv,
 	cwd: process.cwd(),
 	stdout: process.stdout
