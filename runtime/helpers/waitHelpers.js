@@ -150,9 +150,10 @@ async function waitUntilPageLoads(timeout = pageLoadingTimeout) {
 }
 
 async function waitUntilScriptResultIsTrue(script, timeoutMsg, timeout = pageLoadingTimeout) {
+	let result = '';
 	await driver.waitUntil(
 		async () => {
-			const result = await driver.execute(script);
+			result = await driver.execute(script);
 			return result;
 		},
 		timeout,
