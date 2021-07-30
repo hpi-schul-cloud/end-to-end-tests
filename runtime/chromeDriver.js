@@ -35,6 +35,7 @@ module.exports = async function chromeDriver(options) {
 					"window-size=1920,1080"]
 			}
 		},
+		path: '/wd/hub',
 		maxInstances: 1, //should make no diffenrece
 	};
 
