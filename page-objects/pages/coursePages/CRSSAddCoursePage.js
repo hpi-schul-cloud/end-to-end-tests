@@ -62,7 +62,7 @@ async function isSectionDisplayed(sectionNumber) {
 	await waitHelpers.waitUntilPageLoads();
 	const element = await driver.$(getSectionSelector(sectionNumber));
 	const displayProperty = await element.getCSSProperty('display');
-	expect(displayProperty.value).to.not.equal('none');
+	expect(displayProperty.value).to.equal('block');
 }
 
 async function isSectionNotDisplayed(sectionNumber) {
