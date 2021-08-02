@@ -25,10 +25,10 @@ async function waitUntilElementIsPresent(selectorOrElement, timeout = elementIsP
 	let element = await sharedHelpers.getElement(selectorOrElement);
 	let msg = `Element is not present: ${element.selector} within time: ${timeout}`;
 	await element.waitForExist({
-        timeout: timeout,
-        reverse: false,
-        timeoutMsg: msg
-    });
+		timeout: timeout,
+		reverse: false,
+		timeoutMsg: msg,
+	});
 	return element;
 }
 
@@ -36,10 +36,10 @@ async function waitUntilElementIsNotPresent(selectorOrElement, timeout = element
 	let element = await sharedHelpers.getElement(selectorOrElement);
 	let msg = `Element should not be present: ${element.selector}  within time: ${timeout}`;
 	await element.waitForExist({
-        timeout: timeout,
-        reverse: true,
-        timeoutMsg: msg
-    });
+		timeout: timeout,
+		reverse: true,
+		timeoutMsg: msg,
+	});
 }
 
 async function waitUntilElementIsClickable(selectorOrElement, timeout = elementIsClickableTimeout) {
@@ -59,11 +59,11 @@ async function waitUntilElementIsVisible(selectorOrElement, timeout = elementIsV
 	const element = await waitUntilElementIsPresent(selectorOrElement);
 	const msg = `Element is present: ${element.selector}, but not displayed within time: ${timeout}`;
 	await element.waitForDisplayed({
-        timeout: timeout,
-        reverse: false,
-        timeoutMsg: msg,
-        interval: mediumInterval
-    });
+		timeout: timeout,
+		reverse: false,
+		timeoutMsg: msg,
+		interval: mediumInterval,
+	});
 	return element;
 }
 
@@ -71,22 +71,22 @@ async function waitUntilElementIsNotVisible(selectorOrElement, timeout = element
 	const element = await waitUntilElementIsPresent(selectorOrElement);
 	const msg = `Element: ${element.selector}, should not displayed within time: ${timeout}`;
 	await element.waitForDisplayed({
-        timeout: timeout,
-        reverse: true,
-        timeoutMsg: msg,
-        interval: mediumInterval
-    });
+		timeout: timeout,
+		reverse: true,
+		timeoutMsg: msg,
+		interval: mediumInterval,
+	});
 }
 
 async function waitUntilElementIsEnabled(selectorOrElement, timeout = elementIsEnabled) {
 	const element = await waitUntilElementIsPresent(selectorOrElement);
 	const msg = `Element is present: ${element.selector}, but not enabled within time: ${timeout}`;
 	await element.waitForEnabled({
-        timeout: timeout,
-        reverse: false,
-        timeoutMsg: msg,
-        interval: mediumInterval
-    });
+		timeout: timeout,
+		reverse: false,
+		timeoutMsg: msg,
+		interval: mediumInterval,
+	});
 	return element;
 }
 
@@ -94,26 +94,29 @@ async function waitUntilElementIsDisabled(selectorOrElement, timeout = elementIs
 	const element = await waitUntilElementIsPresent(selectorOrElement);
 	const msg = `Element is present: ${element.selector}, but not disabled within time: ${timeout}`;
 	await element.waitForEnabled({
-        timeout: timeout,
-        reverse: true,
-        timeoutMsg: msg,
-        interval: mediumInterval
-    });
+		timeout: timeout,
+		reverse: true,
+		timeoutMsg: msg,
+		interval: mediumInterval,
+	});
 }
 
 async function waitUntilElementContainsText(selectorOrElement, expectedText, timeout = elementContainsTextTimeout) {
 	const element = await waitUntilElementIsPresent(selectorOrElement);
-	let textTimeoutMsg =`Text: ${expectedText} is not visible for element: ${element.selector} within time: ${timeout}`;
+	let textTimeoutMsg = `Text: ${expectedText} is not visible for element: ${element.selector} within time: ${timeout}`;
 	let actualText = '';
 	try {
-		await driver.waitUntil(async () => {
-            actualText = await element.getText();
-            return actualText.includes(expectedText);
-        }, {
-            timeout: timeout,
-            timeoutMsg: textTimeoutMsg,
-            interval: mediumInterval
-        });
+		await driver.waitUntil(
+			async () => {
+				actualText = await element.getText();
+				return actualText.includes(expectedText);
+			},
+			{
+				timeout: timeout,
+				timeoutMsg: textTimeoutMsg,
+				interval: mediumInterval,
+			}
+		);
 	} catch (error) {
 		const msg = error.message + `\n Actual text: ${actualText}`;
 		throw msg;
@@ -129,15 +132,18 @@ async function waitUntilUrlContains(expectedUrlText, timeout = urlContainsTimeou
 	let textTimeoutMsg = `Url does not contains text ${expectedUrlText} within time: ${timeout}`;
 	let actualUrl = '';
 	try {
-		await driver.waitUntil(async () => {
-            actualUrl = await driver.getUrl();
-            const urlContainsText = actualUrl.includes(expectedUrlText);
-            return urlContainsText;
-        }, {
-            timeout: timeout,
-            timeoutMsg: textTimeoutMsg,
-            interval: mediumInterval
-        });
+		await driver.waitUntil(
+			async () => {
+				actualUrl = await driver.getUrl();
+				const urlContainsText = actualUrl.includes(expectedUrlText);
+				return urlContainsText;
+			},
+			{
+				timeout: timeout,
+				timeoutMsg: textTimeoutMsg,
+				interval: mediumInterval,
+			}
+		);
 	} catch (error) {
 		const msg = error.message + `\n Actual URL: ${actualUrl} `;
 		throw msg;
@@ -148,15 +154,18 @@ async function waitUntilUrlNotContains(notExpectedUrlText, timeout = urlContains
 	let textTimeoutMsg = `URL should not contains text: ${notExpectedUrlText}  within time: ${timeout}`;
 	let actualUrl = '';
 	try {
-		await driver.waitUntil(async () => {
-            actualUrl = await driver.getUrl();
-            const urlContainsText = actualUrl.includes(notExpectedUrlText);
-            return !urlContainsText;
-        }, {
-            timeout: timeout,
-            timeoutMsg: textTimeoutMsg,
-            interval: mediumInterval
-        });
+		await driver.waitUntil(
+			async () => {
+				actualUrl = await driver.getUrl();
+				const urlContainsText = actualUrl.includes(notExpectedUrlText);
+				return !urlContainsText;
+			},
+			{
+				timeout: timeout,
+				timeoutMsg: textTimeoutMsg,
+				interval: mediumInterval,
+			}
+		);
 	} catch (error) {
 		const msg = error.message + `\n Actual URL: ${actualUrl}`;
 		throw msg;
@@ -176,14 +185,17 @@ async function waitUntilPageLoads(timeout = pageLoadingTimeout) {
 
 async function waitUntilScriptResultIsTrue(script, timeoutMsg, timeout = pageLoadingTimeout) {
 	let result = '';
-	await driver.waitUntil(async () => {
-        result = await driver.execute(script);
-        return result;
-    }, {
-        timeout: timeout,
-        timeoutMsg: timeoutMsg + `\n Script: ${script} result: ${result}`,
-        interval: shortInterval
-    });
+	await driver.waitUntil(
+		async () => {
+			result = await driver.execute(script);
+			return result;
+		},
+		{
+			timeout: timeout,
+			timeoutMsg: timeoutMsg + `\n Script: ${script} result: ${result}`,
+			interval: shortInterval,
+		}
+	);
 }
 
 async function waitAndSetValue(selectorOrElement, value, timeout = setValueTimeout) {
@@ -192,18 +204,26 @@ async function waitAndSetValue(selectorOrElement, value, timeout = setValueTimeo
 	await element.setValue(value);
 }
 
-async function waitUntilElementAttributeEquals(selectorOrElement,attributeName,expectedValue,timeout = atributeTimeout) {
+async function waitUntilElementAttributeEquals(
+	selectorOrElement,
+	attributeName,
+	expectedValue,
+	timeout = atributeTimeout
+) {
 	const element = await waitUntilElementIsPresent(selectorOrElement);
-	let msg =`Element: ${element.selector} No attribute with name: ${attributeName} equals: ${expectedValue} within time: ${timeout}`;
+	let msg = `Element: ${element.selector} No attribute with name: ${attributeName} equals: ${expectedValue} within time: ${timeout}`;
 	let actualAttributeValue = '';
 	try {
-		await driver.waitUntil(async () => {
-            const actualAttributeValue = await element.getAttribute(attributeName);
-            return actualAttributeValue === expectedValue;
-        }, {
-            timeout: timeout,
-            timeoutMsg: msg
-        });
+		await driver.waitUntil(
+			async () => {
+				const actualAttributeValue = await element.getAttribute(attributeName);
+				return actualAttributeValue === expectedValue;
+			},
+			{
+				timeout: timeout,
+				timeoutMsg: msg,
+			}
+		);
 	} catch (error) {
 		throw error.message + `\n Actual value: ${actualAttributeValue}`;
 	}
@@ -220,13 +240,16 @@ async function waitUntilElementAttributeContains(
 	let msg = `Element: ${element.selector} No attribute with name: ${attributeName} contains: ${expectedValue} within time: ${timeout}`;
 	let actualAttributeValue = '';
 	try {
-		await driver.waitUntil(async () => {
-            const actualAttributeValue = await element.getAttribute(attributeName);
-            return actualAttributeValue.includes(expectedValue);
-        }, {
-            timeout: timeout,
-            timeoutMsg: msg
-        });
+		await driver.waitUntil(
+			async () => {
+				const actualAttributeValue = await element.getAttribute(attributeName);
+				return actualAttributeValue.includes(expectedValue);
+			},
+			{
+				timeout: timeout,
+				timeoutMsg: msg,
+			}
+		);
 	} catch (error) {
 		throw error.message + `\n Actual attribute value: ${actualAttributeValue}`;
 	}
@@ -237,13 +260,16 @@ async function waitUntilPageTitleContains(expectedTitle, timeout = titleTimeout)
 	let msg = `Page title is not containing: ${expectedTitle} within time: ${timeout}`;
 	let actualPageTitle = '';
 	try {
-		await driver.waitUntil(async () => {
-            const actualPageTitle = await driver.getTitle();
-            return actualPageTitle.includes(expectedTitle);
-        }, {
-            timeout: timeout,
-            timeoutMsg: msg
-        });
+		await driver.waitUntil(
+			async () => {
+				const actualPageTitle = await driver.getTitle();
+				return actualPageTitle.includes(expectedTitle);
+			},
+			{
+				timeout: timeout,
+				timeoutMsg: msg,
+			}
+		);
 	} catch (error) {
 		throw error.message + `\n Actual page title: ${actualPageTitle}`;
 	}
@@ -254,13 +280,16 @@ async function waitUntilPageTitleEquals(expectedTitle, timeout = titleTimeout) {
 	let msg = `Page title is not equal to: ${expectedTitle} within time: ${timeout}`;
 	let actualPageTitle = '';
 	try {
-		await driver.waitUntil(async () => {
-            const actualPageTitle = await driver.getTitle();
-            return actualPageTitle === expectedTitle;
-        }, {
-            timeout: timeout,
-            timeoutMsg: msg
-        });
+		await driver.waitUntil(
+			async () => {
+				const actualPageTitle = await driver.getTitle();
+				return actualPageTitle === expectedTitle;
+			},
+			{
+				timeout: timeout,
+				timeoutMsg: msg,
+			}
+		);
 	} catch (error) {
 		throw error.message + `\n Actual page title: ${actualPageTitle}`;
 	}
