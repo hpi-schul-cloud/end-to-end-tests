@@ -77,7 +77,7 @@ async function isSectionNotDisplayed(sectionNumber) {
 	await waitHelpers.waitUntilPageLoads();
 	const sectionToCheck = sectionNumber === 1 ? sectionNumber : sectionNumber - 1;
 	const element = await driver.$(getSectionSelector(sectionToCheck));
-	const hasChildren = (await element.$$('.//*').length) > 0;
+	const hasChildren = (await element.$$('.//*')).length > 0;
 	if (sectionNumber == 1) {
 		await expect(await elementHelpers.isElementPresent(sectionToCheck)).to.equal(false);
 	} else {
