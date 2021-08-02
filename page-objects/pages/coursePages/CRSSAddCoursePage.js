@@ -60,48 +60,29 @@ async function isDefaultInputValue(containerSelector, defaultText) {
 
 async function isSectionDisplayed(sectionNumber) {
 	await waitHelpers.waitUntilPageLoads();
-	const sectionToCheck = sectionNumber === 1 ? sectionNumber : sectionNumber - 1;
-	const selector = getSectionSelector(sectionToCheck);
-	const element = await waitHelpers.waitUntilElementIsPresent(selector);
-	const hasChildren = (await element.$$('.//*')).length > 0;
-
-	if (sectionNumber === 1) {
-		await expect(await elementHelpers.isElementPresent(selector)).to.equal(true);
-		await expect(hasChildren).to.equal(false);
-	} else {
-		await expect(hasChildren).to.equal(true);
-	}
+	const element = await driver.$(getSectionSelector(sectionNumber));
+	const displayProperty = await element.getCSSProperty('display');
+	expect(displayProperty.value).to.not.equal('none');
 }
 
 async function isSectionNotDisplayed(sectionNumber) {
 	await waitHelpers.waitUntilPageLoads();
-	const sectionToCheck = sectionNumber === 1 ? sectionNumber : sectionNumber - 1;
-	const element = await driver.$(getSectionSelector(sectionToCheck));
-	const hasChildren = (await element.$$('.//*')).length > 0;
-	if (sectionNumber == 1) {
-		await expect(await elementHelpers.isElementPresent(sectionToCheck)).to.equal(false);
-	} else {
-		await expect(hasChildren).to.equal(false);
-	}
+	const element = await driver.$(getSectionSelector(sectionNumber));
+	const displayProperty = await element.getCSSProperty('display');
+	expect(displayProperty.value).to.equal('none');
 }
 
 function getSectionSelector(sectionNumber) {
-	let selector;
-	switch (sectionNumber) {
-		case 1:
-			selector = section.one;
-			break;
-		case 2:
-			selector = section.two;
-			break;
-		case 3:
-			selector = section.three;
-			break;
-		default:
+	const sectionSelectors = {
+		1: section.one,
+		2: section.two,
+		3: section.three
+	};
+	if (!(sectionNumber in sectionSelectors)) {
 			console.error(`This section: ${sectionNumber} does not exist on the list of possible choices`);
-			break;
+			return undefined;
 	}
-	return selector;
+	return sectionSelectors[sectionNumber]
 }
 
 /**
