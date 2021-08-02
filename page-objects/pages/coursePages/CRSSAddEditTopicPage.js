@@ -147,7 +147,7 @@ async function addMaterial() {
 }
 
 async function isFirstTopicAdded() {
-	if (await getTopicTitleList().length === 1) {
+	if ((await getTopicTitleList().length) === 1) {
 		await waitHelpers.waitUntilElementIsVisible(topicSuccessTextSelector);
 	}
 }
