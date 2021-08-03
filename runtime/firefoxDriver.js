@@ -30,7 +30,8 @@ module.exports = async function firefoxDriver(options) {
 		logLevel: 'error',
 		capabilities: {
 			browserName: 'firefox'
-		}
+		},
+		path: '/wd/hub'
 	};
 
 	// Add proxy based on env var.

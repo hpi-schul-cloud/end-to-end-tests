@@ -48,7 +48,8 @@ module.exports = async function browserstackDriver(options, configType) {
 		waitforTimeout: 10000,
 		connectionRetryTimeout: 90000,
 		connectionRetryCount: 3,
-		host: 'hub.browserstack.com'
+		host: 'hub.browserstack.com',
+		path: '/wd/hub'
 	};
 	const extendedOptions = Object.assign(defaults, options);
 	if (config.logLevel) {

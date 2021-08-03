@@ -20,6 +20,7 @@
 'use strict';
 
 const wdio = require('webdriverio');
+const { CLIENT } = require('../shared-objects/servers');
 
 /**
  * create the web browser based on globals set in index.js
@@ -35,6 +36,8 @@ module.exports = async function chromeDriver(options) {
 					"window-size=1920,1080"]
 			}
 		},
+		path: '/wd/hub',
+		baseUrl: CLIENT.URL,
 		maxInstances: 1, //should make no diffenrece
 	};
 
