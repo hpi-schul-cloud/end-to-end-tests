@@ -188,7 +188,7 @@ if (programOptions.remoteService && programOptions.extraSettings) {
 }
 
 function getProjectPath(objectName) {
-	return path.resolve(settings.projectRoot + program.opts()[objectName]);
+	return path.resolve(settings.projectRoot + programOptions[objectName]);
 }
 
 let paths = {
