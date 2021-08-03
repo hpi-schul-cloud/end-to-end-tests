@@ -59,17 +59,13 @@ async function isDefaultInputValue(containerSelector, defaultText) {
 }
 
 async function isSectionDisplayed(sectionNumber) {
-	await waitHelpers.waitUntilPageLoads();
 	const element = await driver.$(getSectionSelector(sectionNumber));
-	const displayProperty = await element.getCSSProperty('display');
-	expect(displayProperty.value).to.equal('block');
+	await element.waitForDisplayed();
 }
 
 async function isSectionNotDisplayed(sectionNumber) {
-	await waitHelpers.waitUntilPageLoads();
 	const element = await driver.$(getSectionSelector(sectionNumber));
-	const displayProperty = await element.getCSSProperty('display');
-	expect(displayProperty.value).to.equal('none');
+	await element.waitForDisplayed({ reverse: true });
 }
 
 function getSectionSelector(sectionNumber) {
