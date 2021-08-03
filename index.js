@@ -159,46 +159,48 @@ program.on('--help', function() {
 	);
 });
 
+const programOptions = program.opts();
+
 let settings = {
-	projectRoot: program.context,
-	reportName: program.reportName,
-	browserName: program.browser,
-	disableReport: program.disableReport,
-	updateBaselineImage: program.updateBaselineImage,
+	projectRoot: programOptions.context,
+	reportName: programOptions.reportName,
+	browserName: programOptions.browser,
+	disableReport: programOptions.disableReport,
+	updateBaselineImage: programOptions.updateBaselineImage,
 	defaultTimeout: '300000 * 1000', // 5 mins
-	remoteService: program.remoteService,
-	keepOpenOnError: program.keepOpenOnError
+	remoteService: programOptions.remoteService,
+	keepOpenOnError: programOptions.keepOpenOnError
 };
 
-if (program.remoteService && program.extraSettings) {
-	let additionalSettings = parseRemoteArguments(program.extraSettings);
+if (programOptions.remoteService && programOptions.extraSettings) {
+	let additionalSettings = parseRemoteArguments(programOptions.extraSettings);
 	settings.remoteConfig = additionalSettings.config;
 	/* this approach supports a single string defining both the target config and tags
 		e.g. 'win10-chrome/@tag1,@tag2'
 	*/
 	if (additionalSettings.tags) {
-		if (program.tags) {
+		if (programOptions.tags) {
 			throw new Error('Cannot sent two types of tags - either use -x or -t');
 		}
 		// TODO: test this on multiple tags
-		program.tags = additionalSettings.tags;
+		programOptions.tags = additionalSettings.tags;
 	}
 }
 
 function getProjectPath(objectName) {
-	return path.resolve(settings.projectRoot + program[objectName]);
+	return path.resolve(settings.projectRoot + program.opts()[objectName]);
 }
 
 let paths = {
 	pageObjects: getProjectPath('pageObjects'),
 	reports: getProjectPath('reports'),
 	featuresPath: getProjectPath('featuresPath'),
-	sharedObjects: program.sharedObjects.map(function(item) {
+	sharedObjects: programOptions.sharedObjects.map(function(item) {
 		return path.resolve(settings.projectRoot + item);
 	})
 };
 
-global.browserName = program.browser;
+global.browserName = programOptions.browser;
 
 // expose settings and paths for global use
 global.settings = settings;
@@ -220,7 +222,7 @@ global.dateStringForFiles = dateTimeHelpers.getDateStringForFiles()
 /**
  * store EnvName globally (used within world.js when building driver)
  */
-global.envName = program.environment;
+global.envName = programOptions.environment;
 
 /** rewrite command line switches for cucumber
  */
@@ -250,12 +252,12 @@ process.argv.push('-r', path.resolve(__dirname, './runtime/world.js'));
 
 /** add path to import step definitions
  */
-process.argv.push('-r', path.resolve(program.steps));
+process.argv.push('-r', path.resolve(programOptions.steps));
 
 /** add tag to the scenarios
  */
-if (program.tags) {
-	process.argv.push('-t', program.tags);
+if (programOptions.tags) {
+	process.argv.push('-t', programOptions.tags);
 }
 
 /**
