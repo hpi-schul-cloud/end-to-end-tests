@@ -21,7 +21,7 @@ When(/^.* clicks Create-new-course button$/, function () {
 });
 
 When(/^.* clicks Next-section button$/, async function () {
-	return addCoursePage.goToNextSection();
+	await addCoursePage.goToNextSection();
 });
 
 When(/^.* clicks Go-to-course-list button$/, async function () {

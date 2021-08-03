@@ -51,14 +51,14 @@
 		"request": "^2.88.2",
 		"request-promise": "^4.2.6",
 		"require-dir": "^1.2.0",
-		"selenium-standalone": "^6.24.0",
-		"webdriverio": "^5.22.5",
+		"selenium-standalone": "^7.1.0",
+		"webdriverio": "^7.9.0",
 		"winston": "^3.3.3"
 	},
 	"devDependencies": {
-		"chromedriver": "^87.0.7",
+		"chromedriver": "^92.0.0",
 		"expect": "^1.20.2",
-		"geckodriver": "^1.22.3",
+		"geckodriver": "^2.0.1",
 		"glob": "^7.1.7",
 		"reuse-cucumber-scenarios": "^1.1.7",
 		"util-arity": "^1.1.0"
