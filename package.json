@@ -41,9 +41,9 @@
 		"axios": "^0.21.1",
 		"browserstack-local": "^1.4.8",
 		"chai": "^4.3.4",
-		"commander": "^3.0.2",
+		"commander": "^8.1.0",
 		"cucumber-html-reporter": "^5.4.0",
-		"fs-extra": "^7.0.1",
+		"fs-extra": "^10.0.0",
 		"merge": "^2.1.1",
 		"node-dir": "^0.1.17",
 		"node-resemble-js": "^0.2.0",
@@ -56,8 +56,7 @@
 		"winston": "^3.3.3"
 	},
 	"devDependencies": {
-		"chromedriver": "^92.0.0",
-		"expect": "^1.20.2",
+		"chromedriver": "^92.0.1",
 		"geckodriver": "^2.0.1",
 		"glob": "^7.1.7",
 		"reuse-cucumber-scenarios": "^1.1.7",
