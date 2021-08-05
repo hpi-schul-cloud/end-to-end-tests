@@ -10,10 +10,11 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Added
 
-- SC-9237 added E2E Test to check redirect
+- SC-9237 added E2E test to check redirect
 
 ### Removed
 
+- removed _travis.sh files
 - removed .travis.yml
 - disabled email tests
 - remove github workflow update_version.yml
