@@ -10,6 +10,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Added
 
+- reinstated that all tests are running
 - SC-9237 added E2E test to check redirect
 
 ### Removed
