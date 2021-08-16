@@ -1,6 +1,9 @@
 #!/bin/bash
 
-export BRANCH_NAME=${GITHUB_REF#refs/heads/}
+if [[ -z "$BRANCH_NAME" ]]; then
+    echo "Must provide BRANCH_NAME in environment"
+    exit 1
+fi
 
 _switchBranch(){
 	cd $1
