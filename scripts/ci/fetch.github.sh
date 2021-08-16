@@ -27,15 +27,19 @@ echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongod
 sudo apt update
 sudo apt install -y apt-transport-https ca-certificates curl git mongodb-org-tools
 
-echo "BRANCH: ${{ github.head_ref }}"
+if [[ -z "$BRANCH_NAME" ]]; then
+    echo "Must provide BRANCH_NAME in environment"
+    exit 1
+fi
+echo "BRANCH_NAME: $BRANCH_NAME"
 
 # fetch default (main) script
 echo "try fetching script from default branch"
 curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/main/scripts/ci/end-to-end-tests.github.sh" || true
 
 # use branch specific script if available
-echo "try fetching script from ${{ env.BRANCH_NAME }} branch"
-curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/${{ github.head_ref }}/scripts/ci/end-to-end-tests.github.sh" || true
+echo "try fetching script from $BRANCH_NAME branch"
+curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/$BRANCH_NAME/scripts/ci/end-to-end-tests.github.sh" || true
 
 ls -a
 chmod 700 end-to-end-tests.github.sh
