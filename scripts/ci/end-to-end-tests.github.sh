@@ -4,6 +4,7 @@ if [[ -z "$BRANCH_NAME" ]]; then
     echo "Must provide BRANCH_NAME in environment"
     exit 1
 fi
+echo "BRANCH_NAME: $BRANCH_NAME"
 
 _switchBranch(){
 	cd $1
