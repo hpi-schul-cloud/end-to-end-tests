@@ -28,8 +28,10 @@ sudo apt update
 sudo apt install -y apt-transport-https ca-certificates curl git mongodb-org-tools
 
 # set envs
-export BRANCH_NAME=${GITHUB_REF#refs/heads/}
-
+if [[ -z "$BRANCH_NAME" ]]; then
+    echo "Must provide BRANCH_NAME in environment"
+    exit 1
+fi
 echo "BRANCH: $BRANCH_NAME"
 
 # fetch default (main) script
