@@ -49,7 +49,7 @@ fetch(){
 log_docker() {
 	echo "CONTAINER STARTUP LOG"
 	cd docker-compose
-	docker-compose -f compose-files/docker-compose.yml logs
+	docker-compose -f compose-files/docker-compose.yml logs &
 	cd ..
 }
 
