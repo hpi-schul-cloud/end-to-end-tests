@@ -46,6 +46,13 @@ fetch(){
 	switchBranch "docker-compose"
 }
 
+log_docker() {
+	echo "CONTAINER STARTUP LOG"
+	cd docker-compose
+	docker-compose -f compose-files/docker-compose.yml logs
+	cd ..
+}
+
 install(){
 	cd docker-compose
 
@@ -86,9 +93,6 @@ before(){
 	sleep 15
 	docker-compose -f compose-files/docker-compose.yml up -d server client nuxtclient
 	cd ..	
-	
-
-
 
 	echo "INSTALL DEPENDNECIES..."
 	cd schulcloud-server && npm ci && cd ..
@@ -97,22 +101,18 @@ before(){
 
 	cd schulcloud-server && npm run setup && npm run seed && cd ..
 
-
-
 	# wait for the nuxt client to be available
 	echo "waiting max 4 minutes for nuxt to be available"
 	npx wait-on http://localhost:4000 -t 240000
 	echo "nuxt is now online"
 	
-	echo "CONTAINER STARTUP LOG"
-	cd docker-compose
-	docker-compose -f compose-files/docker-compose.yml logs
-	cd ..
+	log_docker
 }
 
 main(){
 	cd end-to-end-tests
 	npm run test
+	log_docker
 	cd ..
 }
 
