@@ -58,7 +58,18 @@ install(){
 	./startup_end-to-end-tests.sh pull --ignore-pull-failures --include-deps # --quiet
 	echo "PULL CONTAINERS DONE"
 	echo "BOOT CONTAINERS..."
-	./startup_end-to-end-tests.sh up --no-start
+	cd docker-compose
+	docker-compose -f compose-files/docker-compose.yml up -d mongodb mongodb-secondary mongodb-arbiter redis rabbit mailcatcher
+	docker-compose -f compose-files/docker-compose.end-to-end-tests.yml up -d selenium-hub 
+	sleep 10
+	docker-compose -f compose-files/docker-compose.yml -f compose-files/docker-compose.end-to-end-tests.yml up  -d chrome mongosetup maildrop
+	sleep 15
+	docker-compose -f compose-files/docker-compose.yml up -d server
+	sleep 15
+	docker-compose -f compose-files/docker-compose.yml up -d client
+	sleep 15
+	docker-compose -f compose-files/docker-compose.yml up -d nuxtclient
+	cd ..
 	echo "BOOT CONTAINERS DONE"
 
 	set -a
@@ -78,20 +89,6 @@ before(){
 	echo "IT_CLIENT_HOST="$IT_CLIENT_HOST
 	echo "IT_CLIENT_PORT="$IT_CLIENT_PORT
 	echo "IT_CLIENT ENVS DONE"
-
-	echo "CONTAINER STARTUP"
-	cd docker-compose
-	docker-compose -f compose-files/docker-compose.yml up -d mongodb mongodb-secondary mongodb-arbiter redis rabbit mailcatcher
-	docker-compose -f compose-files/docker-compose.end-to-end-tests.yml up selenium-hub 
-	sleep 10
-	docker-compose -f compose-files/docker-compose.yml -f compose-files/docker-compose.end-to-end-tests.yml up chrome mongosetup maildrop
-	sleep 15
-	docker-compose -f compose-files/docker-compose.yml up server
-	sleep 15
-	docker-compose -f compose-files/docker-compose.yml up client
-	sleep 15
-	docker-compose -f compose-files/docker-compose.yml up nuxtclient
-	cd ..
 	
 	echo "CONTAINER STARTUP LOG"
 	cd docker-compose
