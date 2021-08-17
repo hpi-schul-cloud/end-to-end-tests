@@ -87,10 +87,7 @@ before(){
 	docker-compose -f compose-files/docker-compose.yml up -d server client nuxtclient
 	cd ..	
 	
-	echo "CONTAINER STARTUP LOG"
-	cd docker-compose
-	docker-compose -f compose-files/docker-compose.yml logs
-	cd ..
+
 
 
 	echo "INSTALL DEPENDNECIES..."
@@ -106,7 +103,11 @@ before(){
 	echo "waiting max 4 minutes for nuxt to be available"
 	npx wait-on http://localhost:4000 -t 240000
 	echo "nuxt is now online"
-
+	
+	echo "CONTAINER STARTUP LOG"
+	cd docker-compose
+	docker-compose -f compose-files/docker-compose.yml logs
+	cd ..
 }
 
 main(){
