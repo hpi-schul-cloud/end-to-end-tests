@@ -85,15 +85,15 @@ before(){
 	
 	echo "CONTAINER STARTUP"
 	cd docker-compose
-	docker-compose -f compose-files/docker-compose.yml up -d mongodb mongodb-secondary mongodb-arbiter redis rabbit mailcatcher selenium-hub calendar-init
+	docker-compose -f compose-files/docker-compose.yml up mongodb mongodb-secondary mongodb-arbiter redis rabbit mailcatcher selenium-hub calendar-init
 	sleep 10
-	docker-compose -f compose-files/docker-compose.yml up -d chrome mongosetup maildrop calendar-postgres
+	docker-compose -f compose-files/docker-compose.yml up chrome mongosetup maildrop calendar-postgres
 	sleep 15
-	docker-compose -f compose-files/docker-compose.yml up -d calendar
+	docker-compose -f compose-files/docker-compose.yml up calendar
 	sleep 15
-	docker-compose -f compose-files/docker-compose.yml up -d server client nuxtclient
+	docker-compose -f compose-files/docker-compose.yml up server client nuxtclient
 	cd ..	
-
+	docker ps --no-trunc 
 	echo "INSTALL DEPENDNECIES..."
 	cd schulcloud-server && npm ci && cd ..
 	cd end-to-end-tests && npm ci && cd ..
