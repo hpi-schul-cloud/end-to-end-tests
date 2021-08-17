@@ -78,16 +78,13 @@ before(){
 	
 	echo "CONTAINER STARTUP"
 	cd docker-compose
-	docker-compose -f compose-files/docker-compose.yml up -d mongodb mongodb-secondary mongodb-arbiter redis rabbit mailcatcher
-	docker-compose -f compose-files/docker-compose.end-to-end-tests.yml up -d selenium-hub 
+	docker-compose -f compose-files/docker-compose.yml up -d mongodb mongodb-secondary mongodb-arbiter redis rabbit mailcatcher selenium-hub calendar-init
 	sleep 10
-	docker-compose -f compose-files/docker-compose.yml -f compose-files/docker-compose.end-to-end-tests.yml up -d chrome mongosetup maildrop
+	docker-compose -f compose-files/docker-compose.yml -f compose-files/docker-compose.yml up -d chrome mongosetup maildrop calendar-postgres
 	sleep 15
-	docker-compose -f compose-files/docker-compose.yml up -d server
+	docker-compose -f compose-files/docker-compose.yml -f compose-files/docker-compose.yml up -d calendar
 	sleep 15
-	docker-compose -f compose-files/docker-compose.yml up -d client
-	sleep 15
-	docker-compose -f compose-files/docker-compose.yml up -d nuxtclient
+	docker-compose -f compose-files/docker-compose.yml up -d server client nuxtclient
 	cd ..	
 	
 	echo "CONTAINER STARTUP LOG"
