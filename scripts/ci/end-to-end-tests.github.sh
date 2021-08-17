@@ -93,7 +93,7 @@ before(){
 	sleep 15
 	docker-compose -f compose-files/docker-compose.yml up server client nuxtclient &
 	cd ..	
-	docker ps --no-trunc 
+	docker ps &
 	echo "INSTALL DEPENDNECIES..."
 	cd schulcloud-server && npm ci && cd ..
 	cd end-to-end-tests && npm ci && cd ..
