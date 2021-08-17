@@ -58,7 +58,7 @@ install(){
 	./startup_end-to-end-tests.sh pull --ignore-pull-failures --include-deps # --quiet
 	echo "PULL CONTAINERS DONE"
 	echo "BOOT CONTAINERS..."
-	./startup_end-to-end-tests.sh up --no-start -d
+	./startup_end-to-end-tests.sh up --no-start
 	echo "BOOT CONTAINERS DONE"
 
 	set -a
