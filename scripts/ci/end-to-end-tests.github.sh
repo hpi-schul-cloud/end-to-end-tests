@@ -58,7 +58,7 @@ install(){
 	./startup_end-to-end-tests.sh pull --ignore-pull-failures --include-deps # --quiet
 	echo "PULL CONTAINERS DONE"
 	echo "BOOT CONTAINERS..."
-	./startup_end-to-end-tests.sh up --attach-dependencies
+	./startup_end-to-end-tests.sh up --no-start -d
 	echo "BOOT CONTAINERS DONE"
 
 	set -a
@@ -79,6 +79,21 @@ before(){
 	echo "IT_CLIENT_PORT="$IT_CLIENT_PORT
 	echo "IT_CLIENT ENVS DONE"
 
+	echo "CONTAINER STARTUP"
+	cd docker-compose
+	docker-compose start mongodb mongodb-secondary mongodb-arbiter redis rabbit mailcatcher
+	docker-compose start selenium-hub 
+	sleep 10
+	docker-compose start chrome mongosetup maildrop
+	sleep 15
+	docker-compose start server
+	sleep 15
+	docker-compose start client
+	sleep 15
+	docker-compose start nuxtclient
+	cd ..
+
+	
 	echo "INSTALL DEPENDNECIES..."
 	cd schulcloud-server && npm ci && cd ..
 	cd end-to-end-tests && npm ci && cd ..
