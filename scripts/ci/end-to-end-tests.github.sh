@@ -91,7 +91,7 @@ before(){
 	sleep 15
 	docker-compose -f compose-files/docker-compose.yml up -d calendar 
 	sleep 15
-	docker-compose -f compose-files/docker-compose.yml up -d server client nuxtclient 
+	docker-compose -f compose-files/docker-compose.yml up server client nuxtclient &
 	cd ..	
 	echo "INSTALL DEPENDNECIES..."
 	cd schulcloud-server && npm ci && cd ..
