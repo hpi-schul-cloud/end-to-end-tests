@@ -9,6 +9,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Set BRANCH_NAME
         run: |
+          echo ${{ toJson(github) }}
           echo ${{ github.head_ref }}
           branch_name=${{ github.head_ref }}
           echo "BRANCH_NAME=$branch_name" >> $GITHUB_ENV
