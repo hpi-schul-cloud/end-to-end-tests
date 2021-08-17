@@ -9,8 +9,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Set BRANCH_NAME
         run: |
-          echo ${GITHUB_REF#refs/heads/
-          branch_name=${GITHUB_REF#refs/heads/
+          echo ${GITHUB_REF#refs/heads/}
+          branch_name=${GITHUB_REF#refs/heads/}
           echo "BRANCH_NAME=$branch_name" >> $GITHUB_ENV
       - name: run git change
         run: |
