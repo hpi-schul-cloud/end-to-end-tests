@@ -81,21 +81,16 @@ before(){
 
 	echo "CONTAINER STARTUP"
 	cd docker-compose
-	docker-compose -f compose-files/docker-compose.yml start mongodb 
-	docker-compose -f compose-files/docker-compose.yml start mongodb-secondary 
-	docker-compose -f compose-files/docker-compose.yml start mongodb-arbiter 
-	docker-compose -f compose-files/docker-compose.yml start redis 
-	docker-compose -f compose-files/docker-compose.yml start rabbit 
-	docker-compose -f compose-files/docker-compose.yml start mailcatcher
-	docker-compose -f compose-files/docker-compose.end-to-end-tests.yml start selenium-hub 
+	docker-compose -f compose-files/docker-compose.yml up -d mongodb mongodb-secondary mongodb-arbiter redis rabbit mailcatcher
+	docker-compose -f compose-files/docker-compose.end-to-end-tests.yml up selenium-hub 
 	sleep 10
-	docker-compose -f compose-files/docker-compose.yml -f compose-files/docker-compose.end-to-end-tests.yml start chrome mongosetup maildrop
+	docker-compose -f compose-files/docker-compose.yml -f compose-files/docker-compose.end-to-end-tests.yml up chrome mongosetup maildrop
 	sleep 15
-	docker-compose -f compose-files/docker-compose.yml start server
+	docker-compose -f compose-files/docker-compose.yml up server
 	sleep 15
-	docker-compose -f compose-files/docker-compose.yml start client
+	docker-compose -f compose-files/docker-compose.yml up client
 	sleep 15
-	docker-compose -f compose-files/docker-compose.yml start nuxtclient
+	docker-compose -f compose-files/docker-compose.yml up nuxtclient
 	cd ..
 	
 	echo "CONTAINER STARTUP LOG"
