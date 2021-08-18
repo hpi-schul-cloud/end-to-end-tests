@@ -91,6 +91,10 @@ before(){
 	sleep 15
 	docker-compose -f compose-files/docker-compose.yml up -d calendar 
 	cd ..
+	echo "CONTAINER STARTUP SERVER CLIENT NUXTCLIENT"	
+	cd docker-compose	
+	docker-compose -f compose-files/docker-compose.yml up server client nuxtclient &
+	cd ..
 	
 	echo "INSTALL DEPENDNECIES..."
 	cd schulcloud-server && npm ci && cd ..
@@ -98,10 +102,7 @@ before(){
 	echo "INSTALL DEPENDNECIES DONE"
 
 	cd schulcloud-server && npm run setup && npm run seed && cd ..
-	echo "CONTAINER STARTUP SERVER CLIENT NUXTCLIENT"	
-	cd docker-compose	
-	docker-compose -f compose-files/docker-compose.yml up server client nuxtclient &
-	cd ..	
+	
 
 	# wait for the nuxt client to be available
 	echo "waiting max 4 minutes for nuxt to be available"
