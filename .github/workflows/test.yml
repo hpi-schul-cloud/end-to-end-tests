@@ -7,6 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Set BRANCH_NAME
+        run: |
+          echo ${GITHUB_REF#refs/heads/}
+          branch_name=${GITHUB_REF#refs/heads/}
+          echo "BRANCH_NAME=$branch_name" >> $GITHUB_ENV
       - name: run git change
         run: |
           git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"

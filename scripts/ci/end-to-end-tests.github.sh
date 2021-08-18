@@ -46,6 +46,13 @@ fetch(){
 	switchBranch "docker-compose"
 }
 
+log_docker() {
+	echo "CONTAINER STARTUP LOG"
+	cd docker-compose
+	docker-compose -f compose-files/docker-compose.yml logs -f &
+	cd ..
+}
+
 install(){
 	cd docker-compose
 
@@ -57,9 +64,6 @@ install(){
 	echo "PULL CONTAINERS..."
 	./startup_end-to-end-tests.sh pull --ignore-pull-failures --include-deps # --quiet
 	echo "PULL CONTAINERS DONE"
-	echo "BOOT CONTAINERS..."
-	./startup_end-to-end-tests.sh up -d
-	echo "BOOT CONTAINERS DONE"
 
 	set -a
 	source ./envs/end-to-end-tests.env
@@ -78,24 +82,33 @@ before(){
 	echo "IT_CLIENT_HOST="$IT_CLIENT_HOST
 	echo "IT_CLIENT_PORT="$IT_CLIENT_PORT
 	echo "IT_CLIENT ENVS DONE"
-
+	
+	echo "CONTAINER STARTUP"
+	cd docker-compose
+	docker-compose -f compose-files/docker-compose.yml up -d mongodb mongodb-secondary mongodb-arbiter redis rabbit mailcatcher selenium-hub calendar-init 
+	sleep 10
+	docker-compose -f compose-files/docker-compose.yml up -d chrome mongosetup maildrop calendar-postgres 
+	sleep 15
+	docker-compose -f compose-files/docker-compose.yml up -d calendar 
+	sleep 15	
+	docker-compose -f compose-files/docker-compose.yml up server client nuxtclient &
+	cd ..
+	
 	echo "INSTALL DEPENDNECIES..."
 	cd schulcloud-server && npm ci && cd ..
 	cd end-to-end-tests && npm ci && cd ..
 	echo "INSTALL DEPENDNECIES DONE"
 
 	cd schulcloud-server && npm run setup && npm run seed && cd ..
-
-	echo "CONTAINER STARTUP LOG"
-	cd docker-compose
-	docker-compose -f compose-files/docker-compose.yml logs
-	cd ..
+	
 
 	# wait for the nuxt client to be available
 	echo "waiting max 4 minutes for nuxt to be available"
-	npx wait-on http://localhost:4000 -t 240000
+	npx wait-on http://localhost:4000 -t 240000 --httpTimeout 250 --log
 	echo "nuxt is now online"
-
+	
+	log_docker
+	docker ps &
 }
 
 main(){
