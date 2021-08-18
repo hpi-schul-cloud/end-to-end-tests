@@ -45,3 +45,4 @@ ls -a
 chmod 700 end-to-end-tests.github.sh
 bash end-to-end-tests.github.sh
 set +e
+
