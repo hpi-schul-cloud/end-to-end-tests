@@ -104,7 +104,7 @@ before(){
 
 	# wait for the nuxt client to be available
 	echo "waiting max 4 minutes for nuxt to be available"
-	npx wait-on http://localhost:4000 -t 240000 -httpTimeout 250 --log
+	npx wait-on http://localhost:4000 -t 240000 --httpTimeout 250 --log
 	echo "nuxt is now online"
 	
 	log_docker
