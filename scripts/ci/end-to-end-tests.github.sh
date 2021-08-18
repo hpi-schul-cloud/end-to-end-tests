@@ -90,10 +90,9 @@ before(){
 	docker-compose -f compose-files/docker-compose.yml up -d chrome mongosetup maildrop calendar-postgres 
 	sleep 15
 	docker-compose -f compose-files/docker-compose.yml up -d calendar 
-	cd ..
-	echo "CONTAINER STARTUP SERVER CLIENT NUXTCLIENT"	
-	cd docker-compose	
+	sleep 15	
 	docker-compose -f compose-files/docker-compose.yml up server client nuxtclient &
+	sleep 150
 	cd ..
 	
 	echo "INSTALL DEPENDNECIES..."
