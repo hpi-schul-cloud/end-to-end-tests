@@ -204,7 +204,6 @@ async function waitAndSetValue(selectorOrElement, value, timeout = setValueTimeo
 	await element.setValue(' ' + value);
 }
 
-
 async function waitUntilElementAttributeEquals(
 	selectorOrElement,
 	attributeName,
