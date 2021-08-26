@@ -44,7 +44,7 @@ When(/^.* clicks on Student-submissions-visible-to-each-other checkbox$/, async 
 });
 
 When(/^.* clicks on task with name '(.*)'$/, async function (taskName) {
-    await TASKListPage.sortTasksLastEdited();
+    //await TASKListPage.sortTasksLastEdited(); // Don't know what's the function of this line here? @Denis && @Yulia
     await TASKListPage.clickOnTask(taskName, 'Task open');
 });
 
