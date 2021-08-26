@@ -295,8 +295,6 @@ async function waitUntilPageTitleEquals(expectedTitle, timeout = titleTimeout) {
 	}
 }
 
-
-
 module.exports = {
 	waitUntilElementIsPresent,
 	waitUntilElementIsNotPresent,
