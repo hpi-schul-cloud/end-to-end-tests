@@ -8,6 +8,11 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## Update
+
+- README.md file 
+- Update the waitHelpers.js file, waitAndSetValue(), It truncates the initials of the value
+
 ## Added
 
 - reinstated that all tests are running
