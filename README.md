@@ -42,6 +42,8 @@ npm run selenium
 npm run test
 # or run a specific test
 npm run test -- -t @teacherLogin
+# for Windows users try 
+npm run test -- -t "@teacherLogin"
 ```
 
 ### Options
