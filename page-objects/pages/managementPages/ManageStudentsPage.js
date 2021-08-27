@@ -116,6 +116,7 @@ async function clickSelectAllStudentsCheckbox() {
 async function createNewPupil(firstname, lastname, email, birthday, addBirthday) {
 	await clickFloatingActionButtonBtn();
 	await clickAddStudentBtn();
+	await waitHelpers.waitUntilPageLoads(1500);
 	await setStudentFirstName(firstname);
 	await setStudentLastName(lastname);
 	await setStudentEmail(email);
