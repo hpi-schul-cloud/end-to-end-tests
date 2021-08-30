@@ -24,6 +24,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - fix fallbacks for features and notification services versions
 - execute changes for features in travis
+- changed sidebar menu item CURRENT TASKS instead of OPEN TASKS
 
 ## 26.4.0
 
