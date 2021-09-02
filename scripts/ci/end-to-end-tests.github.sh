@@ -1,5 +1,5 @@
 #!/bin/bash
-BRANCH_NAME=main
+
 if [[ -z "$BRANCH_NAME" ]]; then
     echo "Must provide BRANCH_NAME in environment"
     exit 1
@@ -25,7 +25,7 @@ _switchBranch(){
 }
 
 switchBranch(){
-	_switchBranch "$1" "main" "$2"
+	#_switchBranch "$1" "main" "$2"
 
 	# if branch exists, try to switch to it
 	_switchBranch "$1" "$BRANCH_NAME" "$2"
