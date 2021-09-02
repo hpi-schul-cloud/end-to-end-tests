@@ -78,7 +78,7 @@ install(){
 	./startup_end-to-end-tests.sh pull --ignore-pull-failures --include-deps # --quiet
 	echo "PULL CONTAINERS DONE"
 
-    docker-compose images
+    docker-compose --env-file ./envs/end-to-end-tests.env -f compose-files/docker-compose.yml images
 	build_images schulcloud-server
 	build_images schulcloud-client
 	build_images nuxt-client
