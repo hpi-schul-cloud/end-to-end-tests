@@ -58,11 +58,6 @@ log_docker() {
 	cd ..
 }
 
-build_images(){
-   docker-compose --env-file ./envs/end-to-end-tests.env -f compose-files/docker-compose.yml images | grep $1 
-   docker-compose --env-file ./envs/end-to-end-tests.env -f compose-files/docker-compose.yml images | grep -c $1 
-}
-
 install(){
 	cd docker-compose
 
@@ -77,11 +72,6 @@ install(){
 	echo "PULL CONTAINERS..."
 	./startup_end-to-end-tests.sh pull --ignore-pull-failures --include-deps # --quiet
 	echo "PULL CONTAINERS DONE"
-
-    docker-compose --env-file ./envs/end-to-end-tests.env -f compose-files/docker-compose.yml images
-	build_images schulcloud-server
-	build_images schulcloud-client
-	build_images nuxt-client
 	
 	set -a
 	source ./envs/end-to-end-tests.env
@@ -108,6 +98,7 @@ before(){
 	docker-compose -f compose-files/docker-compose.yml up -d chrome mongosetup maildrop calendar-postgres
 	sleep 15
 	docker-compose -f compose-files/docker-compose.yml up -d calendar
+	docker-compose -f compose-files/docker-compose.yml up --no-start server client nuxtclient 
 	sleep 15
 	docker-compose -f compose-files/docker-compose.yml up server client nuxtclient &
 	cd ..
