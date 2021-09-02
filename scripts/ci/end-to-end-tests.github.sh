@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "current pwd"
+pwd
+
 if [[ -z "$BRANCH_NAME" ]]; then
     echo "Must provide BRANCH_NAME in environment"
     exit 1
@@ -32,6 +35,8 @@ switchBranch(){
 }
 
 fetch(){
+	echo "current pwd in fetch"
+    pwd
 	# clone all required repositories and try to switch to branch with same name as current one
 	git clone https://github.com/hpi-schul-cloud/nuxt-client.git nuxt-client
 	switchBranch "nuxt-client" "NUXT_DOCKER_TAG"
@@ -56,7 +61,8 @@ log_docker() {
 install(){
 	cd docker-compose
 
-	pwd
+	echo "current pwd in install"
+    pwd
 
 	# authenticate against docker
 	chmod 700 ./scripts/dockerhub.login.sh
