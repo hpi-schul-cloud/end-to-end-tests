@@ -1,5 +1,5 @@
 #!/bin/bash
-
+BRANCH_NAME=main
 if [[ -z "$BRANCH_NAME" ]]; then
     echo "Must provide BRANCH_NAME in environment"
     exit 1
@@ -56,6 +56,8 @@ log_docker() {
 install(){
 	cd docker-compose
 
+	pwd
+
 	# authenticate against docker
 	chmod 700 ./scripts/dockerhub.login.sh
 	./scripts/dockerhub.login.sh
@@ -82,31 +84,31 @@ before(){
 	echo "IT_CLIENT_HOST="$IT_CLIENT_HOST
 	echo "IT_CLIENT_PORT="$IT_CLIENT_PORT
 	echo "IT_CLIENT ENVS DONE"
-	
+
 	echo "CONTAINER STARTUP"
 	cd docker-compose
-	docker-compose -f compose-files/docker-compose.yml up -d mongodb mongodb-secondary mongodb-arbiter redis rabbit mailcatcher selenium-hub calendar-init 
+	docker-compose -f compose-files/docker-compose.yml up -d mongodb mongodb-secondary mongodb-arbiter redis rabbit mailcatcher selenium-hub calendar-init
 	sleep 10
-	docker-compose -f compose-files/docker-compose.yml up -d chrome mongosetup maildrop calendar-postgres 
+	docker-compose -f compose-files/docker-compose.yml up -d chrome mongosetup maildrop calendar-postgres
 	sleep 15
-	docker-compose -f compose-files/docker-compose.yml up -d calendar 
-	sleep 15	
+	docker-compose -f compose-files/docker-compose.yml up -d calendar
+	sleep 15
 	docker-compose -f compose-files/docker-compose.yml up server client nuxtclient &
 	cd ..
-	
+
 	echo "INSTALL DEPENDNECIES..."
 	cd schulcloud-server && npm ci && cd ..
 	cd end-to-end-tests && npm ci && cd ..
 	echo "INSTALL DEPENDNECIES DONE"
 
 	cd schulcloud-server && npm run setup && npm run seed && cd ..
-	
+
 
 	# wait for the nuxt client to be available
 	echo "waiting max 4 minutes for nuxt to be available"
 	npx wait-on http://localhost:4000 -t 240000 --httpTimeout 250 --log
 	echo "nuxt is now online"
-	
+
 	log_docker
 	docker ps &
 }
