@@ -58,6 +58,11 @@ log_docker() {
 	cd ..
 }
 
+build_images(){
+   docker-compose -f compose-files/docker-compose.yml images | grep $1 
+   docker-compose -f compose-files/docker-compose.yml images | grep -c $1 
+}
+
 install(){
 	cd docker-compose
 
@@ -73,6 +78,10 @@ install(){
 	./startup_end-to-end-tests.sh pull --ignore-pull-failures --include-deps # --quiet
 	echo "PULL CONTAINERS DONE"
 
+	 build_images schulcloud-server
+	 build_images schulcloud-client
+	 build_images nuxt-client
+	
 	set -a
 	source ./envs/end-to-end-tests.env
 
@@ -130,10 +139,12 @@ echo "FETCH..."
 fetch
 echo "FETCH DONE"
 
+set +e
 echo "INSTALL..."
 install
 echo "INSTALL DONE"
 
+set -e
 echo "BEFORE..."
 before
 echo "BEFORE DONE"
