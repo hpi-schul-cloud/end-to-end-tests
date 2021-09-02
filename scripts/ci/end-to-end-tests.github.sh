@@ -110,7 +110,16 @@ before(){
 
 	cd schulcloud-server && npm run setup && npm run seed && cd ..
 
+	# wait for the nuxt client to be available
+	echo "waiting max 4 minutes for Server to be available"
+	npx wait-on http://localhost:3030 -t 240000 --httpTimeout 250 --log
+	echo "Server is now online"
 
+	# wait for the nuxt client to be available
+	echo "waiting max 4 minutes for client to be available"
+	npx wait-on http://localhost:3100 -t 240000 --httpTimeout 250 --log
+	echo "client is now online"
+	
 	# wait for the nuxt client to be available
 	echo "waiting max 4 minutes for nuxt to be available"
 	npx wait-on http://localhost:4000 -t 240000 --httpTimeout 250 --log
