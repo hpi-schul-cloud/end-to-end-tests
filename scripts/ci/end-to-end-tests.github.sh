@@ -98,7 +98,6 @@ before(){
 	docker-compose -f compose-files/docker-compose.yml up -d chrome mongosetup maildrop calendar-postgres
 	sleep 15
 	docker-compose -f compose-files/docker-compose.yml up -d calendar
-	docker-compose -f compose-files/docker-compose.yml up --no-start server client nuxtclient 
 	sleep 15
 	docker-compose -f compose-files/docker-compose.yml up server client nuxtclient &
 	cd ..
