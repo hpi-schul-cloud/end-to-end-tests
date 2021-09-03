@@ -22,6 +22,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- BC-196 - fix "server manifest not found" on start on build 
 - fix fallbacks for features and notification services versions
 - execute changes for features in travis
 - changed sidebar menu item CURRENT TASKS instead of OPEN TASKS
