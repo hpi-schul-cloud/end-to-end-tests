@@ -1,8 +1,5 @@
 #!/bin/bash
 
-echo "current pwd"
-pwd
-
 if [[ -z "$BRANCH_NAME" ]]; then
     echo "Must provide BRANCH_NAME in environment"
     exit 1
@@ -35,8 +32,6 @@ switchBranch(){
 }
 
 fetch(){
-	echo "current pwd in fetch"
-    pwd
 	# clone all required repositories and try to switch to branch with same name as current one
 	git clone https://github.com/hpi-schul-cloud/nuxt-client.git nuxt-client
 	switchBranch "nuxt-client" "NUXT_DOCKER_TAG"
@@ -61,9 +56,6 @@ log_docker() {
 install(){
 	cd docker-compose
 
-	echo "current pwd in install"
-    pwd
-
 	# authenticate against docker
 	chmod 700 ./scripts/dockerhub.login.sh
 	./scripts/dockerhub.login.sh
@@ -72,12 +64,11 @@ install(){
 	echo "PULL CONTAINERS..."
 	./startup_end-to-end-tests.sh pull --ignore-pull-failures --include-deps # --quiet
 	echo "PULL CONTAINERS DONE"
-	
+
 	set -a
 	source ./envs/end-to-end-tests.env
 
 	cd ..
-
 }
 
 before(){
@@ -118,7 +109,7 @@ before(){
 	echo "waiting max 4 minutes for client to be available"
 	npx wait-on http://localhost:3100 -t 240000 --httpTimeout 250 --log
 	echo "client is now online"
-	
+
 	# wait for the nuxt client to be available
 	echo "waiting max 4 minutes for nuxt to be available"
 	npx wait-on http://localhost:4000 -t 240000 --httpTimeout 250 --log
