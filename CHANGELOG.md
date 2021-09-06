@@ -8,6 +8,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+##Added
+
+- BC-224 added testcase for nuxt client task page for student role
+
 ## Added
 
 - reinstated that all tests are running
