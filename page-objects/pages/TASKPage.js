@@ -14,7 +14,7 @@ const remoteFilePathInput = 'input[type=file][class=dz-hidden-input]';
 const commentBtn = '#comment-tab-link';
 const commentGradingTabSel = '#feedback-tab-link';
 const hometasksTabSel = 'button[data-testid="hometasks"]';
-const nuxtHometasksTabSel = '[data-testid="Offene Aufgaben"] > .link-name';
+const nuxtHometasksTabSel = '[data-testid="Aktuelle Aufgaben"] > .link-name';
 const taskRatingInput = '[data-testid="evaluation_procent"]';
 const ratingViewSel = '.grade';
 const remarkViewSel = '.ckcontent.comment';
