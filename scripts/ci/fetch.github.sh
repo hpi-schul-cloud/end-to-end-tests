@@ -33,11 +33,6 @@ if [[ -z "$BRANCH_NAME" ]]; then
 fi
 echo "BRANCH_NAME: $BRANCH_NAME"
 
-# fetch default (main) script
-echo "try fetching script from default branch"
-curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/main/scripts/ci/end-to-end-tests.github.sh" || true
-
-# use branch specific script if available
 echo "try fetching script from $BRANCH_NAME branch"
 curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/$BRANCH_NAME/scripts/ci/end-to-end-tests.github.sh" || true
 

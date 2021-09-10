@@ -1,49 +1,33 @@
 #!/bin/bash
-
 if [[ -z "$BRANCH_NAME" ]]; then
     echo "Must provide BRANCH_NAME in environment"
     exit 1
 fi
 echo "BRANCH_NAME: $BRANCH_NAME"
 
-_switchBranch(){
-	cd $1
-	echo "switching branch..."
-	git checkout $2 > /dev/null 2>&1 || true
-	echo "(new) active branch for $1:"
-	git branch | grep \* | cut -d ' ' -f2
-	if [ -z "$3" ]
+get_sha1(){
+	gitsha=$(git ls-remote https://github.com/hpi-schul-cloud/${1}.git refs/heads/${$BRANCH_NAME} | cut -f 1)
+	if [ -z "$gitsha" ]
 	then
-		echo "No docker tag set for ${1}"
-		echo $3
+		echo "no branch found ${1}"
+		gitsha=$(git ls-remote https://github.com/hpi-schul-cloud/${1}.git refs/heads/main | cut -f 1)
+	fi
+
+	if [ -z "$gitsha" ]
+	then
+		echo "no sha1 found for ${1} main"
+		exit 1
 	else
 		set -a
-		export $3=`git rev-parse HEAD`
-		printenv | grep $3
+		export $2=$gitsha
+		printenv | grep $2
 	fi
-	cd ..
 }
 
-switchBranch(){
-	#_switchBranch "$1" "main" "$2"
-
-	# if branch exists, try to switch to it
-	_switchBranch "$1" "$BRANCH_NAME" "$2"
-}
-
-fetch(){
-	# clone all required repositories and try to switch to branch with same name as current one
-	git clone https://github.com/hpi-schul-cloud/nuxt-client.git nuxt-client
-	switchBranch "nuxt-client" "NUXT_DOCKER_TAG"
-
-	git clone https://github.com/hpi-schul-cloud/schulcloud-client.git schulcloud-client
-	switchBranch "schulcloud-client" "CLIENT_DOCKER_TAG"
-
-	git clone https://github.com/hpi-schul-cloud/schulcloud-server.git schulcloud-server
-	switchBranch "schulcloud-server" "SERVER_DOCKER_TAG"
-
-	git clone https://github.com/hpi-schul-cloud/docker-compose.git docker-compose
-	switchBranch "docker-compose"
+setImageTags(){
+	get_sha1 "nuxt-client" "NUXT_DOCKER_TAG"
+	get_sha1 "schulcloud-client" "CLIENT_DOCKER_TAG"
+	get_sha1 "schulcloud-server" "SERVER_DOCKER_TAG"
 }
 
 log_docker() {
@@ -54,51 +38,36 @@ log_docker() {
 }
 
 install(){
-	cd docker-compose
+	git clone https://github.com/hpi-schul-cloud/end-to-end-tests.git end-to-end-tests
+	cd end-to-end-tests
+	git checkout "$BRANCH_NAME"
+	npm ci
+	cd ..
 
-	# authenticate against docker
+	git clone https://github.com/hpi-schul-cloud/docker-compose.git docker-compose
+	cd docker-compose
+	git checkout "$BRANCH_NAME"
+
+	# authenticate against docker hub
 	chmod 700 ./scripts/dockerhub.login.sh
 	./scripts/dockerhub.login.sh
 
-	chmod 700 ./startup_end-to-end-tests.sh
-	echo "PULL CONTAINERS..."
-	./startup_end-to-end-tests.sh pull --ignore-pull-failures --include-deps # --quiet
-	echo "PULL CONTAINERS DONE"
-
 	set -a
+	source ./envs/default.env
 	source ./envs/end-to-end-tests.env
+	[ -f ./envs/.env ] && source ./envs/.env
 
-	cd ..
+	docker-compose --verbose \
+		--env-file ./envs/end-to-end-tests.env \
+		-f ${COMPOSE_FILES_PATH}/docker-compose.yml \
+		pull --ignore-pull-failures --include-deps # --quiet
 }
 
-before(){
-
-	# fetch later to use time while container bootstrap
-	git clone https://github.com/hpi-schul-cloud/end-to-end-tests.git end-to-end-tests
-	switchBranch "end-to-end-tests"
-
-	echo "IT_CLIENT ENVS..."
-	echo "IT_CLIENT_HOST="$IT_CLIENT_HOST
-	echo "IT_CLIENT_PORT="$IT_CLIENT_PORT
-	echo "IT_CLIENT ENVS DONE"
-
-	echo "CONTAINER STARTUP"
-	cd docker-compose
+startContainer(){
 	docker-compose -f compose-files/docker-compose.yml up -d mongodb mongodb-secondary mongodb-arbiter redis rabbit mailcatcher selenium-hub calendar-init
-	sleep 10
 	docker-compose -f compose-files/docker-compose.yml up -d chrome mongosetup maildrop calendar-postgres
-	sleep 15
 	docker-compose -f compose-files/docker-compose.yml up -d calendar
-	sleep 15
 	docker-compose -f compose-files/docker-compose.yml up server client nuxtclient &
-	cd ..
-
-	echo "INSTALL DEPENDNECIES..."
-	cd schulcloud-server && npm ci && cd ..
-	cd end-to-end-tests && npm ci && cd ..
-	echo "INSTALL DEPENDNECIES DONE"
-
-	cd schulcloud-server && npm run setup && npm run seed && cd ..
 
 	# wait for the nuxt client to be available
 	echo "waiting max 4 minutes for Server to be available"
@@ -117,30 +86,31 @@ before(){
 
 	log_docker
 	docker ps &
+	cd ..
 }
 
-main(){
+run_tests(){
 	cd end-to-end-tests
 	npm run test
 	cd ..
 }
 
 set -e
-echo "FETCH..."
-fetch
-echo "FETCH DONE"
+echo "setImageTags..."
+setImageTags
+echo "setImageTags DONE"
 
 set +e
-echo "INSTALL..."
+echo "install..."
 install
-echo "INSTALL DONE"
+echo "install DONE"
 
 set -e
-echo "BEFORE..."
-before
-echo "BEFORE DONE"
+echo "startContainer..."
+startContainer
+echo "startContainer DONE"
 
-echo "MAIN..."
-main
-echo "MAIN DONE"
+echo "run tests..."
+run_tests
+echo "run tests DONE"
 set +e
