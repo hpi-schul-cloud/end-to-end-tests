@@ -1,4 +1,5 @@
 #!/bin/bash
+#BRANCH_NAME=feature/bc-68-e2e-build
 if [[ -z "$BRANCH_NAME" ]]; then
     echo "Must provide BRANCH_NAME in environment"
     exit 1
@@ -28,13 +29,6 @@ setImageTags(){
 	get_sha1 "nuxt-client" "NUXT_DOCKER_TAG"
 	get_sha1 "schulcloud-client" "CLIENT_DOCKER_TAG"
 	get_sha1 "schulcloud-server" "SERVER_DOCKER_TAG"
-}
-
-log_docker() {
-	echo "CONTAINER STARTUP LOG"
-	cd docker-compose
-	docker-compose -f compose-files/docker-compose.yml logs -f &
-	cd ..
 }
 
 install(){
@@ -67,7 +61,7 @@ startContainer(){
 	docker-compose -f compose-files/docker-compose.yml up -d mongodb mongodb-secondary mongodb-arbiter redis rabbit mailcatcher selenium-hub calendar-init
 	docker-compose -f compose-files/docker-compose.yml up -d chrome mongosetup maildrop calendar-postgres
 	docker-compose -f compose-files/docker-compose.yml up -d calendar
-	docker-compose -f compose-files/docker-compose.yml up server client nuxtclient &
+	docker-compose -f compose-files/docker-compose.yml up -d server client nuxtclient &
 
 	# wait for the nuxt client to be available
 	echo "waiting max 4 minutes for Server to be available"
@@ -84,12 +78,19 @@ startContainer(){
 	npx wait-on http://localhost:4000 -t 240000 --httpTimeout 250 --log
 	echo "nuxt is now online"
 
-	log_docker
-	docker ps &
+	#log docker
+	#docker-compose -f compose-files/docker-compose.yml logs -f &
+	#docker ps &
 	cd ..
 }
 
-run_tests(){
+reset_db(){
+	server_container=$(docker ps -aqf "name=schulcloud-server")
+	docker exec -it ${server_container} apk add mongodb-tools
+	docker exec -ti ${server_container} npm run setup
+}
+
+main(){
 	cd end-to-end-tests
 	npm run test
 	cd ..
@@ -100,17 +101,21 @@ echo "setImageTags..."
 setImageTags
 echo "setImageTags DONE"
 
-set +e
+#set +e
 echo "install..."
 install
 echo "install DONE"
 
-set -e
+#set -e
 echo "startContainer..."
 startContainer
 echo "startContainer DONE"
 
+echo "reset db..."
+reset_db
+echo "reset db DONE"
+
 echo "run tests..."
-run_tests
+main
 echo "run tests DONE"
 set +e

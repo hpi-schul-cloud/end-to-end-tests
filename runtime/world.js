@@ -276,7 +276,12 @@ Before(function(scenario) {
 			return Promise.resolve();
 		}
 		console.log('\n\nResetting the DB...');
-		const output = execSync('npm run setup', { cwd: '../schulcloud-server', stdio: 'pipe' });
+		const server_container = execSync('docker ps -aqf "name=schulcloud-server"');
+		console.log(server_container)
+		const reset_db = `docker exec -ti ${server_container} npm run setup`
+		console.log(reset_db);
+		execSync(reset_db);
+		//execSync('npm run setup', { cwd: '../schulcloud-server', stdio: 'pipe' });
 		console.log('Done.');
 } catch (err) {
 		console.error('Cannot reset the DB. Additional Info:')
@@ -361,7 +366,7 @@ After(async function(scenario) {
 			await driver.deleteSession();
 		} else if(!global.settings.keepOpenOnError){
 			await driver.deleteSession();
-		}	
+		}
 	}
 });
 
