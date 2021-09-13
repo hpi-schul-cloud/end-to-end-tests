@@ -1,5 +1,4 @@
 #!/bin/bash
-#BRANCH_NAME=feature/bc-68-e2e-build
 if [[ -z "$BRANCH_NAME" ]]; then
     echo "Must provide BRANCH_NAME in environment"
     exit 1
@@ -79,15 +78,15 @@ startContainer(){
 	echo "nuxt is now online"
 
 	#log docker
-	#docker-compose -f compose-files/docker-compose.yml logs -f &
-	#docker ps &
+	docker-compose -f compose-files/docker-compose.yml logs -f &
+	docker ps &
 	cd ..
 }
 
 reset_db(){
 	server_container=$(docker ps -aqf "name=schulcloud-server")
-	docker exec -it ${server_container} apk add mongodb-tools
-	docker exec -ti ${server_container} npm run setup
+	docker exec -i ${server_container} apk add mongodb-tools
+	docker exec -i ${server_container} npm run setup
 }
 
 main(){
