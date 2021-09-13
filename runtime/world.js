@@ -276,9 +276,9 @@ Before(function(scenario) {
 			return Promise.resolve();
 		}
 		console.log('\n\nResetting the DB...');
-		const server_container = execSync('docker ps -aqf "name=schulcloud-server"');
+		const server_container = execSync('docker ps -aqf "name=schulcloud-server"').trim();
 		console.log(server_container)
-		const reset_db = `docker exec -ti ${server_container} npm run setup`
+		const reset_db = `docker exec -i ${server_container} npm run setup`
 		console.log(reset_db);
 		execSync(reset_db);
 		//execSync('npm run setup', { cwd: '../schulcloud-server', stdio: 'pipe' });
