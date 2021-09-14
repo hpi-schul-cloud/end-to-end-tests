@@ -278,7 +278,6 @@ Before(function(scenario) {
 		console.log('\n\nResetting the DB...');
 		const server_container_id = execSync('docker ps -aqf "name=schulcloud-server"').toString().trim();
 		const reset_db = `docker exec -i ${server_container_id} npm run setup`
-		console.log(reset_db);
 		execSync(reset_db);
 		console.log('Done.');
 } catch (err) {
