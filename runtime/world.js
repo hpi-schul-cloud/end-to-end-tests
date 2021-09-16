@@ -34,7 +34,7 @@ const fs = require('fs'),
 	reporter = require('cucumber-html-reporter'),
 	rp = require('request-promise'),
 	program = require('commander');
-const { execSync, exec } = require('child_process');
+const { execSync } = require('child_process');
 
 const assert = chai.assert,
 	expect = chai.expect,
