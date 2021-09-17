@@ -10,35 +10,36 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Added
 
-- reinstated that all tests are running
-- SC-9237 added E2E test to check redirect
+-   BC-283 - added wait method to test step
+-   reinstated that all tests are running
+-   SC-9237 added E2E test to check redirect
 
 ### Removed
 
-- removed _travis.sh files
-- removed .travis.yml
-- disabled email tests
-- remove github workflow update_version.yml
+-   removed \_travis.sh files
+-   removed .travis.yml
+-   disabled email tests
+-   remove github workflow update_version.yml
 
 ### Fixed
 
-- fix fallbacks for features and notification services versions
-- execute changes for features in travis
-- changed sidebar menu item CURRENT TASKS instead of OPEN TASKS
+-   fix fallbacks for features and notification services versions
+-   execute changes for features in travis
+-   changed sidebar menu item CURRENT TASKS instead of OPEN TASKS
 
 ## 26.4.0
 
-- adapt to sidebar changes
+-   adapt to sidebar changes
 
 ## 26.2.0
 
-- SC-8248 removed helpdesk
-- SC-8846 add core test set functionality
-- refactoring tests
+-   SC-8248 removed helpdesk
+-   SC-8846 add core test set functionality
+-   refactoring tests
 
 ### Removed
 
-- remove the replace of envs in the docker-compose file. Envs will be direktly taken by the docker-file. (the changed docker-file is not used anyways) 
+-   remove the replace of envs in the docker-compose file. Envs will be direktly taken by the docker-file. (the changed docker-file is not used anyways)
 
 ## 26.1.0
 
@@ -89,8 +90,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
-- fixed github action changelog
-- SC-7126 - Fix test of createClass due to bugfix on client
+-   fixed github action changelog
+-   SC-7126 - Fix test of createClass due to bugfix on client
 
 ## 25.0.1 - 2020-09-30
 
