@@ -116,7 +116,7 @@ async function clickSelectAllStudentsCheckbox() {
 async function createNewPupil(firstname, lastname, email, birthday, addBirthday) {
 	await clickFloatingActionButtonBtn();
 	await clickAddStudentBtn();
-	await waitHelpers.waitUntilPageLoads(1500);
+	await waitHelpers.waitUntilPageLoads(2000);
 	await setStudentFirstName(firstname);
 	await setStudentLastName(lastname);
 	await setStudentEmail(email);
@@ -124,7 +124,7 @@ async function createNewPupil(firstname, lastname, email, birthday, addBirthday)
 	//ToDo: remove them or find a way to make it working with those parameters
 	//let birthdate = dateTimeHelpers.getCurrentFormattedDateWithOffset({years: -14, format: "dd/mm/yyyy"});
 	//await setStudentsBirthday(birthdate);
-	if (addBirthday) await setStudentsBirthday(birthday);
+	//if (addBirthday) await setStudentsBirthday(birthday);
 //	await clickOnSendRegistrationLinkCheckbox(); disabled until notification service is reworked
 	await submitStudentAddition();
 }
