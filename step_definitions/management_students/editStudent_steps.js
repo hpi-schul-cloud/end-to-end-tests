@@ -3,6 +3,7 @@
 const manageStudents = require('../../page-objects/pages/managementPages/ManageStudentsPage');
 const manageStudent = require('../../page-objects/pages/managementPages/ManageStudentPage');
 const mailCatcher = require('../../runtime/helpers/mailCatcher.js');
+const { waitUntilAjaxIsFinished } = require('../../runtime/helpers/waitHelpers');
 
 //WHEN
 When(/^.* clicks Edit-student button$/, async function () {
@@ -10,6 +11,7 @@ When(/^.* clicks Edit-student button$/, async function () {
 });
 
 Then(/^.* clicks Send-links-to-students'-e-mail-addresses button$/, async function () {
+	await waitUntilPageLoads();
 	await manageStudents.clickSendConsentFormEmailsButton();
 });
 
