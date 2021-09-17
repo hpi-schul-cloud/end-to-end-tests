@@ -3,7 +3,7 @@
 const manageStudents = require('../../page-objects/pages/managementPages/ManageStudentsPage');
 const manageStudent = require('../../page-objects/pages/managementPages/ManageStudentPage');
 const mailCatcher = require('../../runtime/helpers/mailCatcher.js');
-const { waitUntilAjaxIsFinished } = require('../../runtime/helpers/waitHelpers');
+const { waitUntilPageLoads } = require('../../runtime/helpers/waitHelpers');
 
 //WHEN
 When(/^.* clicks Edit-student button$/, async function () {
