@@ -16,7 +16,7 @@ When(/^.* goes to students management$/, async function () {
 When(
 	/^.*set student firstname '([^']*)', lastname '([^']*)', email '([^']*)', birthday '([^']*)'$/,
 	function (firstname, secondname, email, birthday) {
-		return manageStudentsPage.createNewPupil(firstname, secondname, email, birthday, false);
+		return manageStudentsPage.createNewPupil(firstname, secondname, email, birthday, true);
 	}
 );
 
