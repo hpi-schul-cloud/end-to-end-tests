@@ -42,6 +42,7 @@ const courseColour = [
 	'martini',
 	'violetRed',
 	'corn',
+	'finn',
 ];
 
 async function goToAddCourses() {
