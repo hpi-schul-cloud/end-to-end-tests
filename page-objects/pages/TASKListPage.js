@@ -5,7 +5,6 @@ const waitHelpers = require('../../runtime/helpers/waitHelpers');
 const navigationLeftPage = require('./NavigationLeftPage.js');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const { expect } = require('chai');
-const { default: $ } = require('webdriverio/build/commands/browser/$');
 
 const selectorCreateTaskButton = '.btn.btn-primary.btn-add.create';
 const selectorCreateTaskBtnInTheCourse = '.col-sm-12.add-button > a';
