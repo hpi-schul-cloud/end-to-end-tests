@@ -93,6 +93,7 @@ async function getListOfTask() {
 }
 
 async function clickOnTask(taskName, button) {
+	await waitHelpers.waitUntilPageLoads();
 	await waitHelpers.waitUntilAjaxIsFinished();
 	const taskList = await getListOfTask();
 	const taskIndex = await getTaskIndex(taskName);
