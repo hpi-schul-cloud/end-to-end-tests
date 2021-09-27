@@ -30,6 +30,8 @@ const courseColour = {
 	martini: 'background:#BCAAA4',
 	violetRed: 'background:#FF4081',
 	corn: 'background:#FFEE58',
+	finn: 'background: #455B6A',
+
 };
 const section = {
 	allCourses: '.section-courses',
@@ -91,6 +93,10 @@ function getColourSelector(colourName) {
 		case 'corn':
 			colourSelector = courseColour.corn;
 			break;
+		case 'finn':
+			colourSelector = courseColour.finn;
+			break;
+
 		default:
 			console.error(`This colour: ${colourName} does not exist on the list of possible choices`);
 			break;
