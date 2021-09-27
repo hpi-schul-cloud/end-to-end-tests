@@ -20,5 +20,5 @@ Feature: Set of tests to edit courses
         And <userRole> should see that course name '<changeName>' with description correctly displayed '<description>'
         And <userRole> should see that course name '<changeName>' with color correctly displayed '<courseColour>'
         Examples:
-            | userRole | userName                        | password       | courseName | courseColour | changeName | description |
-            | teacher  | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | Mathe      | corn         | Sport      | I LIKE IT   |
+            | userRole | userName                        | password       | courseName | courseColour   | changeName | description |
+            | teacher  | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | Mathe      | violet         | Sport      | I LIKE IT   |

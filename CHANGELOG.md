@@ -27,6 +27,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - execute changes for features in travis
 - changed sidebar menu item CURRENT TASKS instead of OPEN TASKS
 - fix createStudent scenario
+- fix course colour 
 
 
 ## 26.4.0
