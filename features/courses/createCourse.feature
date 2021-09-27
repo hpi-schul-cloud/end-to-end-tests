@@ -17,7 +17,7 @@ Feature: Set of tests to create courses
         Then <userRole> should see that '2' section can not be opened
         When <userRole> enters course name '<courseName>' into new course form
         And <userRole> sees his.hers name is entered by default in teachers' field
-        And <userRole> chooses course colour '<courseColour>'
+        #And <userRole> chooses course colour '<courseColour>'
         And <userRole> clicks Next-section button
         Then <userRole> should see that '2' section is opened
         And <userRole> should see that no class is set
@@ -27,10 +27,10 @@ Feature: Set of tests to create courses
         When <userRole> clicks Go-to-course-list button
         Then <userRole> should see that course with name '<courseName>' is visible on the list
         And <userRole> should see that course with name '<courseName>' is displayed correctly on the list
-        And <userRole> should see that color of the course with name '<courseName>' is '<courseColour>' that was selected during the creation process
+        #And <userRole> should see that color of the course with name '<courseName>' is '<courseColour>' that was selected during the creation process
         Examples:
-            | userRole | userName                        | password       | courseName        | courseColour |
-            | teacher  | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | Mathe@Sport&Music | corn         |
+            | userRole | userName                        | password       | courseName        | courseColour   |
+            | teacher  | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | Mathe@Sport&Music | violet         |
 
     @createCourseWithStudent @e2eCore
     Scenario Outline: As a user, I want to be able to create a course that student should see
