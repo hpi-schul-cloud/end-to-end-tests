@@ -20,8 +20,8 @@ const ratingViewSel = '.grade';
 const remarkViewSel = '.ckcontent.comment';
 const submissionsTable = '#submissions table';
 const submissionRow = `${submissionsTable} tbody tr.userinfo`;
-const withoutDueDateTask = '.v-expansion-panel--next-active > .v-expansion-panel-header';
-const completedTaskTab = '[aria-selected="false"]';
+const withoutDueDateTask = "//div[@aria-expanded='false']//button[@type='button']";
+const completedTaskTab = "//*[text()='Erledigte Aufgaben']";
 let fileUrl;
 
 async function gotoNuxtTasksTab() {

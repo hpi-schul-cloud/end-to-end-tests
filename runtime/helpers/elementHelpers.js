@@ -194,6 +194,7 @@ async function getListOfAllElements(selector) {
 	} catch (err) {
 		return [];
 	}
+	console.log('Seen the selector');
 	return driver.$$(selector);
 }
 
