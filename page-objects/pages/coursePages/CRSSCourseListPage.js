@@ -20,6 +20,7 @@ const createCourseBtn = '[data-testid="create-course-btn"]';
 const listOfMembersSel = '#member-modal-body > ol > li';
 const popupMembers = ".member-modal.in[role='dialog']";
 const closeMemberModalBtn = ".member-modal button.close";
+
 const courseColours = {
 	grey: 'background: #455B6A',
 	pink: 'background: #EC407A',
@@ -33,6 +34,7 @@ const courseColours = {
 	lila: 'background: #D500F9',
 	violet: 'background: #9C27B0',
 	brown: 'background: #795548',
+
 };
 const section = {
 	allCourses: '.section-courses',
@@ -102,6 +104,7 @@ function getColourSelector(colourName) {
 			break;
 		case 'brown': 
 			colourSelector = courseColours.brown;
+
 			break;
 
 		default:
