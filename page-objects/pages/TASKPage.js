@@ -22,6 +22,7 @@ const submissionsTable = '#submissions table';
 const submissionRow = `${submissionsTable} tbody tr.userinfo`;
 const withoutDueDateTask = "//div[@aria-expanded='false']//button[@type='button']";
 const completedTaskTab = "//*[text()='Erledigte Aufgaben']";
+const isGraded = "//div[@class='v-list-item__title' and text() = '1']";
 let fileUrl;
 
 async function gotoNuxtTasksTab() {
@@ -171,6 +172,11 @@ async function clickCompletedTab(){
 	await elementHelpers.clickAndWait(completedTaskTab);
 }
 
+async function isGradedTask(){
+	const actualResult = await elementHelpers.getElementText(isGraded);
+	await expect(actualResult).to.equal('1');
+}
+
 module.exports = {
 	gotoNuxtTasksTab,
 	gotoTasksTab,
@@ -194,4 +200,6 @@ module.exports = {
 	checkFileEvaluationTeacher,
 	taskWithoutDueDate,
 	clickCompletedTab,
+	gotoTeacherNuxtTaskTab,
+	isGradedTask,
 };
