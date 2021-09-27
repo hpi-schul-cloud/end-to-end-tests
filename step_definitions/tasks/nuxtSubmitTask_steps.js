@@ -29,6 +29,6 @@ When(/^.* clicks at ungraded task section$/, async function (){
     await TASKListPage.clickUngradedTaskSection();
 });
 
-When(/^.* clicks at Task 19$/, async function (){
+When(/^.* clicks at Task19$/, async function (){
     await TASKListPage.clickUngradedTask();
 });
