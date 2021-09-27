@@ -16,7 +16,7 @@ Feature: View the task in new nuxt task menu and submit it
         And <userRole> clicks the current task tab
         And <userRole> clicks completed task tab
         And <userRole> clicks at ungraded task section
-        Then <userRole> clicks at Task 19
+        Then <userRole> clicks at Task19
         Examples:
 			| userRole |
 			| student  |
