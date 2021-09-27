@@ -7,7 +7,7 @@ const startPage = require('../../../page-objects/pages/generalPagesBeforeLogin/S
 const loginPage = require('../../../page-objects/pages/generalPagesBeforeLogin/LoginPage');
 const navigationLeftPage = require('../NavigationLeftPage');
 const CRSSGeneralCoursePage = require('./CRSSGeneralCoursePage');
-const courseListPage = require('../../../page-objects/pages/coursePages/CRSSCourseListPage');
+
 
 const courseDescription = '.ckcontent';
 const courseHeader = '.sc-card-header';
@@ -20,18 +20,19 @@ const createCourseBtn = '[data-testid="create-course-btn"]';
 const listOfMembersSel = '#member-modal-body > ol > li';
 const popupMembers = ".member-modal.in[role='dialog']";
 const closeMemberModalBtn = ".member-modal button.close";
-const courseColour = {
-	grey: 'background:#ACACAC',
-	metallicGold: 'background:#ACACAC',
-	blue: 'background:#00E5FF',
-	green: 'background:#1DE9B6',
-	darkGrey: 'background:#546E7A',
-	goldenPoppy: 'background:#FFC400',
-	martini: 'background:#BCAAA4',
-	violetRed: 'background:#FF4081',
-	corn: 'background:#FFEE58',
-	finn: 'background: #455B6A',
-
+const courseColours = {
+	grey: 'background: #455B6A',
+	pink: 'background: #EC407A',
+	red: 'background: #D50000',
+	orange: 'background: #EF6C00',
+	moose: 'background: #827717',
+	grasgreen: 'background: #689F38',
+	seagreen: 'background: #009688',
+	skyblue: 'background: #0091EA',
+	blue: 'background: #304FFE',
+	lila: 'background: #D500F9',
+	violet: 'background: #9C27B0',
+	brown: 'background: #795548',
 };
 const section = {
 	allCourses: '.section-courses',
@@ -67,34 +68,40 @@ function getColourSelector(colourName) {
 	let colourSelector;
 	switch (colourName) {
 		case 'grey':
-			colourSelector = courseColour.grey;
+			colourSelector = courseColours.grey;
 			break;
-		case 'metallicGold':
-			colourSelector = courseColour.metallicGold;
+		case 'pink':
+			colourSelector = courseColours.pink;
+			break;
+		case 'red':
+			colourSelector = courseColours.red;
+			break;
+		case 'orange':
+			colourSelector = courseColours.orange;
+			break;
+		case 'moose':
+			colourSelector = courseColours.moose;
+			break;
+		case 'grasgreen':
+			colourSelector = courseColours.grasgreen;
+			break;
+		case 'seagreen':
+			colourSelector = courseColours.seagreen;
+			break;
+		case 'skyblue':
+			colourSelector = courseColours.skyblue;
 			break;
 		case 'blue':
-			colourSelector = courseColour.blue;
+			colourSelector = courseColours.blue;
 			break;
-		case 'green':
-			colourSelector = courseColour.green;
+		case 'lila': 
+			colourSelector = courseColours.lila;
 			break;
-		case 'darkGrey':
-			colourSelector = courseColour.darkGrey;
+		case 'violet': 
+			colourSelector = courseColours.violet;
 			break;
-		case 'goldenPoppy':
-			colourSelector = courseColour.goldenPoppy;
-			break;
-		case 'martini':
-			colourSelector = courseColour.martini;
-			break;
-		case 'violetRed':
-			colourSelector = courseColour.violetRed;
-			break;
-		case 'corn':
-			colourSelector = courseColour.corn;
-			break;
-		case 'finn':
-			colourSelector = courseColour.finn;
+		case 'brown': 
+			colourSelector = courseColours.brown;
 			break;
 
 		default:
@@ -299,6 +306,7 @@ module.exports = {
 	clickOnCourseInSection,
 	clickPupilIconInCourseInSection,
 	closeMemberModal,
+	courseColours,
 	setCourseNameIntoSearchInputField,
 	areImportAndCreateCourseBtnsVisible,
 	areMembersOnTheListInCourseForSection,
