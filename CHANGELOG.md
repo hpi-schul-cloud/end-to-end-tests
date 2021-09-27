@@ -8,7 +8,11 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-##Added
+## Added
+
+- BC-341 added testcases for nuxt client task page for teacher role
+
+## Added
 
 - BC-224 added testcase for nuxt client task page for student role
 
