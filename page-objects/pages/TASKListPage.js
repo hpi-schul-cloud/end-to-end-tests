@@ -5,7 +5,6 @@ const waitHelpers = require('../../runtime/helpers/waitHelpers');
 const navigationLeftPage = require('./NavigationLeftPage.js');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const { expect } = require('chai');
-const { default: $ } = require('webdriverio/build/commands/browser/$');
 
 const selectorCreateTaskButton = '.btn.btn-primary.btn-add.create';
 const selectorCreateTaskBtnInTheCourse = '.col-sm-12.add-button > a';
@@ -18,9 +17,9 @@ const taskTitleContainer = '.assignment.card .title';
 const taskDescriptionContainer = '.assignment .text-muted.ckcontent';
 const taskContainer = '.homework li.card';
 const deleteTaskButtonInPopup = '.delete-modal button.btn-submit';
-const clickWithoutDueDate = '[href="/homework/5fa3b9bea9c31a26f4d1da93"]';
-const ungradedTaskSection = '.v-window-item--active > section > .v-item-group > [aria-expanded="false"] > .v-expansion-panel-header';
-const ungradedTask = '.v-list-item__title';
+const clickWithoutDueDate = "//*[text()='Task19']";
+const ungradedTaskSection = "//div[@class ='v-expansion-panel']//button[@type='button']";
+const ungradedTask = "//div[@data-test-id='homeworkNameLabel' and text()='Task19']";
 
 const taskButton = {
 	archive: '.fa-archive',
@@ -145,8 +144,11 @@ async function clickTaskWithoutDuedate(){
 	await elementHelpers.clickAndWait(clickWithoutDueDate);
 }
 
-async function clickUngradedTask(){
+async function clickUngradedTaskSection(){
 	await elementHelpers.clickAndWait(ungradedTaskSection);
+}
+
+async function clickUngradedTask(){
 	await elementHelpers.clickAndWait(ungradedTask);
 }
 
@@ -163,5 +165,6 @@ module.exports = {
 	clickCreateTaskButtonInTheCourse,
 	clickDeleteTaskButtonInPopup,
 	clickTaskWithoutDuedate,
+	clickUngradedTaskSection,
 	clickUngradedTask,
 };
