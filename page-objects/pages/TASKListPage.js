@@ -19,7 +19,7 @@ const taskContainer = '.homework li.card';
 const deleteTaskButtonInPopup = '.delete-modal button.btn-submit';
 const clickWithoutDueDate = "//*[text()='Task19']";
 const ungradedTaskSection = "//div[@class ='v-expansion-panel']//button[@type='button']";
-const ungradedTask = "//div[@data-test-id='homeworkNameLabel' and text()='Task19']";
+const ungradedTask = "//div[text()='Task19']";
 
 const taskButton = {
 	archive: '.fa-archive',
