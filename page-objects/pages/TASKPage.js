@@ -200,6 +200,5 @@ module.exports = {
 	checkFileEvaluationTeacher,
 	taskWithoutDueDate,
 	clickCompletedTab,
-	gotoTeacherNuxtTaskTab,
 	isGradedTask,
 };
