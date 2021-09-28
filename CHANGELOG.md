@@ -28,6 +28,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - execute changes for features in travis
 - changed sidebar menu item CURRENT TASKS instead of OPEN TASKS
 - fix createStudent scenario
+- fix and adjust colours in accordance with BC-235
+
 
 
 ## 26.4.0
