@@ -1,4 +1,4 @@
-@dashboard @redirect
+@dashboard @redirect @extendedTest
 Feature: dashboard test set
 
 	Background: user is not logged in
