@@ -29,8 +29,10 @@
 	},
 	"main": "index.js",
 	"scripts": {
-		"test": "node index.js -d",
+		"test": "node index.js -d --tags @e2eCore @extendedTest",
 		"test:core": "node index.js -d --tags @e2eCore",
+		"test:extended": "node index.js -d --tags @extendedTest",
+		"test:unstable": "node index.js -d --tags @unstableTest",
 		"test:dev": "node index.js -d -k",
 		"selenium": "npx selenium-standalone install && npx selenium-standalone start"
 	},
