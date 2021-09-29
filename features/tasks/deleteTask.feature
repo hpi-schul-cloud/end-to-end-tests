@@ -15,7 +15,7 @@ Feature: Set of tests to delete tasks
 			| userRole | taskName    |
 			| teacher  | Biologie 7C |
 
-	@deleteTaskWithCourse
+	@deleteTaskWithCourse @extendedTest
 	Scenario Outline: As a user, I want to be able to create a simple task and try to delete it
 		When <userRole> logs in
 		And <userRole> goes to courses page
