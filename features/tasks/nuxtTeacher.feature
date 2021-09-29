@@ -27,7 +27,7 @@ Feature: View the tasks in new nuxt task menu and grade it
         And <userRole> clicks on Comment tab
 		And <userRole> grades task with rate '<taskRating>'% and remarks '<taskRemark>'
 		And <userRole> clicks Save-and-send grading button
-        And <userRole> clicks the current tasks tab
+        And <userRole> clicks the current task tab
         And <userRole> clicks on without duedate task section
         Then <userRole> student graded for Task19
         Examples:
