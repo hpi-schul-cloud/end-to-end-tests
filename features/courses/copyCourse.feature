@@ -17,7 +17,7 @@
 #			| userRole | courseName  |
 #			| teacher  | Mathe       |
 
-#   @copyCourseWithContent
+#   @copyCourseWithContent @extendedTest
 #	Scenario Outline: As a user, I want to be able to copy course with certain text
 #		When <userRole> logs in
 #		And <userRole> goes to courses page
@@ -37,7 +37,7 @@
 #			| teacher  | Mathe         | etherpad topic    | Etherpad    | etherpad name         | etherpad description here |
 #			| teacher  | Mathe         | geo topic         | GeoGebra    | some sample text here | ucxngdjf                  |
 
-#	@copyCourseWithMaterial
+#	@copyCourseWithMaterial @extendedTest
 #	Scenario Outline: As a user, I want to be able to copy course with certain Material
 #		When <userRole> logs in
 #		And <userRole> performs first login actions: data protection acceptance
@@ -57,7 +57,7 @@
 #			| userRole | courseName             | topicName      | text                  |
 #			| teacher  | sample course material | material topic | some sample text here |
 
-#	@copyCourseWithStudents
+#	@copyCourseWithStudents @extendedTest
 #	Scenario Outline: As a user, I want to be able to copy course with students
 #		When <userRole> logs in
 #		And <userRole> goes to courses page

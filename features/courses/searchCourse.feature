@@ -1,4 +1,4 @@
-@courses @searchCourse
+@courses @searchCourse @extendedTest
 Feature: Set of tests to search courses
 
     Background: User opens Schul-cloud homepage Website

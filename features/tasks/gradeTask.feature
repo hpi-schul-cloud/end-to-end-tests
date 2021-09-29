@@ -1,4 +1,4 @@
-#@task @gradeTask
+#@task @gradeTask @extendedTest
 #Feature: Set of tests to grade tasks
 
 	#Background: User opens Schul-cloud homepage Website

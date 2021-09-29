@@ -5,7 +5,7 @@ Feature: Set of tests to edit students
     Background: User opens Schul-cloud homepage Website
         Given user arrives on the Schul-Cloud homepage
 
-    @editStudentData @e2eCore
+    @editStudentData @unstableTest
     Scenario Outline: As a user, I want to be able to edit a student firstname, lastname, email and birthdate
         Given <userRole> logs in with email '<adminsUsername>' and password '<adminsPassword>'
         And <userRole> goes to management
@@ -25,7 +25,7 @@ Feature: Set of tests to edit students
             | userRole | newFirstName | newLastName | newEmail                    | adminsUsername               | adminsPassword   | newBirthdate | studentUsername                  |
             | admin    | Nils         | Nilsen      | nils.nilsen@schul-cloud.org | kai.admin.qa@schul-cloud.org | Schulcloud1qa!   | 24.12.2004   | amelia.strobl.qa@schul-cloud.org |
 
-    @sendConsentFormEmail
+    @sendConsentFormEmail @extendedTest
 	Scenario Outline: As a user, I want to be able to send emails to all students without a full declaration of consent.
 		When <userRole> logs in with email '<username>' and password '<password>'
 		When <userRole> goes to management

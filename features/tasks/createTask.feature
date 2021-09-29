@@ -18,7 +18,7 @@ Feature: Set of tests to create tasks
 			| userRole | email                  			 | password       | taskName        | taskBody |
 			| teacher  | lara.teacher.qa@schul-cloud.org	 | Schulcloud1qa! | end-to-end-task | MyBody   |
 
-	@createTaskInTheCourse
+	@createTaskInTheCourse @extendedTest
 	Scenario Outline: As a user, I want to be able to create a simple task
 		When <userRole> logs in
 		And <userRole> goes to courses page
@@ -35,7 +35,7 @@ Feature: Set of tests to create tasks
 		Examples:
 			| userRole | courseName  | taskName     | taskBody         |
 			| teacher  | Mathe       | task example | text of the task |
- 
+
 	@createPrivateTaskInTheCourse @e2eCore
 	Scenario Outline: As a user, I want to be able to create a private task
 		When <userRole> logs in
