@@ -14,9 +14,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Added
 
--   BC-283 - added wait method to test step
--   reinstated that all tests are running
--   SC-9237 added E2E test to check redirect
+- BC-324 - add extendedTest tag
+- BC-283 - added wait method to test step
+- reinstated that all tests are running
+- SC-9237 added E2E test to check redirect
 
 ### Removed
 
