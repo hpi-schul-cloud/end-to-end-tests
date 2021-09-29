@@ -5,7 +5,7 @@ Feature: Set of tests to edit students
     Background: User opens Schul-cloud homepage Website
         Given user arrives on the Schul-Cloud homepage
 
-    @editStudentData @e2eCore @unstableTests
+    @editStudentData @unstableTest
     Scenario Outline: As a user, I want to be able to edit a student firstname, lastname, email and birthdate
         Given <userRole> logs in with email '<adminsUsername>' and password '<adminsPassword>'
         And <userRole> goes to management
