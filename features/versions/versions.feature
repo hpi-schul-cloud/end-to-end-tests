@@ -1,4 +1,4 @@
-@versions
+@versions @extendedTest
 
 Feature: I want to be able to see the version of the deployed Schul-Cloud
 
