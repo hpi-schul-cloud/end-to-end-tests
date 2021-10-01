@@ -14,6 +14,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Added
 
+- BC-364 - add command to run unstable Tests on PR label `run unstable tests`
 - BC-324 - add extendedTest tag
 - BC-283 - added wait method to test step
 - reinstated that all tests are running

@@ -43,6 +43,6 @@ curl -fO "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/$BR
 
 ls -a
 chmod 700 end-to-end-tests.github.sh
-bash end-to-end-tests.github.sh
+bash end-to-end-tests.github.sh $1
 set +e
 
