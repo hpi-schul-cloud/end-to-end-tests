@@ -22,7 +22,7 @@ Feature: Set of tests to delete students
 			| userRole | adminUsername                | adminPassword  | studentUsername                  | studentPassword | deletedUserRole |
 			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | amelia.strobl.qa@schul-cloud.org | Schulcloud1qa!  | student         |
 
-	@deletedStudentIsNotVisibleInTeam @deletionConcept 
+	@deletedStudentIsNotVisibleInTeam @deletionConcept @unstableTest
 	Scenario Outline: As an admin, I want to be able to delete the user and he will be no longer listed in team members
 		Given <userRole> logs in with email '<adminUsername>' and password '<adminPassword>'
 		And <userRole> login is successful
