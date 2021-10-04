@@ -27,11 +27,13 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
--   fix fallbacks for features and notification services versions
--   execute changes for features in travis
--   changed sidebar menu item CURRENT TASKS instead of OPEN TASKS
--   fix createStudent scenario
--   fix/adjust colours in accordance with BC-235
+- BC-387 - fix command to run extended Test 
+- fix fallbacks for features and notification services versions
+- execute changes for features in travis
+- changed sidebar menu item CURRENT TASKS instead of OPEN TASKS
+- fix createStudent scenario
+- fix and adjust colours in accordance with BC-235
+
 ## 26.4.0
 
 -   adapt to sidebar changes
