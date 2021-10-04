@@ -6,7 +6,11 @@ const TMSTeamMembersPage = require('../../page-objects/pages/teamsPages/TMSTeamM
 
 //WHEN
 When(/^.*creates a new team with name '([^']*)' and description '([^']*)' and color '([^']*)'$/, async function (teamName, description, colour) {
-	await TMSAddEditTeamPage.createTeamAndGoToInternalMembersManagement(teamName, description, colour);
+	await TMSAddEditTeamPage.createTeamWithName(teamName, description, colour);
+});
+
+When(/^.*goes too the team member settings$/, async function () {
+	await TMSAddEditTeamPage.goToTeamMembersSettings();
 });
 
 When(/^.*adds a student with lastname: '([^']*)' and firstname: '([^']*)' to the team$/, async function (lastname, firstname) {

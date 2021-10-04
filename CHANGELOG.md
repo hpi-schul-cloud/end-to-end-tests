@@ -30,6 +30,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - changed sidebar menu item CURRENT TASKS instead of OPEN TASKS
 - fix createStudent scenario
 - fix and adjust colours in accordance with BC-235
+- fix createTeam test BC-281
 
 
 

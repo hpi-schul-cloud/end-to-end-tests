@@ -67,20 +67,21 @@ async function createTeamWithName(teamname, description, colour) {
 	await setTeamDescription(description);
 	await setTeamColour(colour);
 	await clickCreateTeamSubmitButton();
+	await waitHelpers.waitUntilPageLoads();
 }
 
-async function createTeamAndGoToInternalMembersManagement(teamname, description, colour) {
-	await createTeamWithName(teamname, description, colour);
+async function goToTeamMembersSettings() {
 	await TMSGeneralTeamPage.clickSettings();
 	await TMSGeneralTeamPage.clickManageTeamMembers();
 	await TMSTeamMembersPage.clickAddInternalAttendeesBtn();
+	await waitHelpers.waitUntilPageLoads();
 }
 
 module.exports = {
 	createTeamWithName,
-	createTeamAndGoToInternalMembersManagement,
 	setTeamName,
 	setTeamDescription,
 	setTeamColour,
 	clickCreateTeamSubmitButton,
+	goToTeamMembersSettings
 };
