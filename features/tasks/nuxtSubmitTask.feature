@@ -1,7 +1,7 @@
 @task @nuxtTask @nuxtSubmitandCompleteTask
 Feature: View the task in new nuxt task menu and submit it
 
-    Background: User submit the opened tasks and view the tasks in completed tab
+    Background: User submits the opened tasks and view the tasks in completed tab
         Given user arrives on the Schul-Cloud homepage
 
     @nuxtSubmitAndViewTask
