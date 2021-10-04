@@ -1,4 +1,4 @@
-@calendar @createEvent @extendedTest
+@calendar @createEvent @stableTest
 Feature: Set of tests to create a simple event in the calendar
 
     Background: User opens Schul-cloud homepage Website

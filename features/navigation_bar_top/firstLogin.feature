@@ -1,10 +1,10 @@
-@topNavigationBar @firstLogin @login
+@topNavigationBar @firstLogin @login @stableTest
 Feature: Set of tests to first login
 
     Background:
         Given user arrives on the Schul-Cloud homepage
 
-    @teacherAdminFirstLogin @extendedTest
+    @teacherAdminFirstLogin
     Scenario Outline: As a user, I want to be able to log in
         When <userRole> logs in with email '<username>' and password '<password>'
         Then <userRole> login is successful
@@ -15,7 +15,7 @@ Feature: Set of tests to first login
             | admin    | kai.admin.qa@schul-cloud.org     | Schulcloud1qa! |
             | teacher  | karl.teacher.qa@schul-cloud.org  | Schulcloud1qa! |
 
-    @studentFirstLogin @extendedTest
+    @studentFirstLogin
     Scenario Outline: As a student I want to be able to log in
         When student logs in with email '<studentUsername>' and password '<password>'
         And student performs first login actions: data protection acceptance
