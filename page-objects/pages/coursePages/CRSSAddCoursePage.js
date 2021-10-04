@@ -32,6 +32,8 @@ const studentSelect = '#addStudentsToCourse_chosen';
 const createNewCourseBtn ='[data-testid="einen-weiteren-kurs-anlegen-btn"]';
 const goToCourseListBtn = '[data-testid="zur-uebersicht-btn"]';
 
+const courseColour = ['grey', 'pink', 'red', 'orange', 
+'moose', 'grasgreen', 'seagreen', 'skyblue', 'blue', 'lila', 'violet', 'brown'];
 
 async function goToAddCourses() {
 	await navigationLeftPage.clickNavItemCourses();
@@ -118,8 +120,8 @@ async function setCurrentUserAsTeacher() {
 }
 
 async function getColourElement(colourName) {
-	const listOfColours = courseListPage.courseColours;
-	if (listOfColours.includes(colourName)) {
+	
+	if (courseColour.includes(colourName)) {
 		const childNumber = listOfColours.indexOf(colourName) + 1;
 		const colourElement = await waitUntilElementIsPresent(colourPicker + `:nth-child(${childNumber})`);
 		return colourElement;
