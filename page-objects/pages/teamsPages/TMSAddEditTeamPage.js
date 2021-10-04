@@ -67,7 +67,6 @@ async function createTeamWithName(teamname, description, colour) {
 	await setTeamDescription(description);
 	await setTeamColour(colour);
 	await clickCreateTeamSubmitButton();
-	await waitHelpers.waitUntilPageLoads();
 }
 
 async function goToTeamMembersSettings() {
