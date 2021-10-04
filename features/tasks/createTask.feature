@@ -1,4 +1,4 @@
-@task @createTask
+@task @createTask @stableTest
 Feature: Set of tests to create tasks
 
 	Background:
@@ -18,7 +18,7 @@ Feature: Set of tests to create tasks
 			| userRole | email                  			 | password       | taskName        | taskBody |
 			| teacher  | lara.teacher.qa@schul-cloud.org	 | Schulcloud1qa! | end-to-end-task | MyBody   |
 
-	@createTaskInTheCourse @extendedTest
+	@createTaskInTheCourse
 	Scenario Outline: As a user, I want to be able to create a simple task
 		When <userRole> logs in
 		And <userRole> goes to courses page

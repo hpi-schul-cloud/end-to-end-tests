@@ -1,4 +1,4 @@
-@task @deleteTask
+@task @deleteTask @stableTest
 Feature: Set of tests to delete tasks
 
 	Background: User opens Schul-cloud homepage Website

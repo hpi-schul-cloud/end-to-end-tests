@@ -25,6 +25,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- BC-387 - fix command to run extended Test 
 - fix fallbacks for features and notification services versions
 - execute changes for features in travis
 - changed sidebar menu item CURRENT TASKS instead of OPEN TASKS
