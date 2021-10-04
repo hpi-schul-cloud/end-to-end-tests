@@ -111,8 +111,8 @@ before(){
 	npx wait-on http://localhost:4000 -t 240000 --httpTimeout 250 --log
 	echo "nuxt is now online"
 
-	log_docker
-	docker ps &
+	#log_docker
+	#docker ps &
 }
 
 main(){
