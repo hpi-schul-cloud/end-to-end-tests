@@ -154,7 +154,7 @@ async function clickUngradedTask(){
 	await elementHelpers.clickAndWait(ungradedTask);
 }
 
-async function studentSubmittedtTask(){
+async function studentSubmittedTask(){
 	await elementHelpers.clickAndWait(studentSubmitTask);
 }
 
@@ -173,5 +173,5 @@ module.exports = {
 	clickTaskWithoutDuedate,
 	clickUngradedTaskSection,
 	clickUngradedTask,
-	studentSubmittedtTask,
+	studentSubmittedTask,
 };
