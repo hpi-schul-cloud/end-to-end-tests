@@ -15,6 +15,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - BC-283 - added wait method to test step
 - reinstated that all tests are running
 - SC-9237 added E2E test to check redirect
+- include course colour checks which were deactivated by merging BC-235 (see fix ticket BC-308)
 
 ### Removed
 
