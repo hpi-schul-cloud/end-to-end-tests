@@ -7,6 +7,7 @@ const waitHelpers = require('../../runtime/helpers/waitHelpers');
 async function loadPageFromNavigationItem(selector) {
 	const link = await elementHelpers.getLink(selector);
 	await elementHelpers.loadPage(link);
+	await waitHelpers.waitUntilPageLoads();
 }
 
 const navItemsEnum = {
