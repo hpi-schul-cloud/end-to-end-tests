@@ -37,7 +37,6 @@ function getColourFromTable(colour){
 		default:
 			console.error(`This color: ${colour} does not exist on the list of possible choices`);
 			break;
-		
 	}
 	return colourItem;
 }
