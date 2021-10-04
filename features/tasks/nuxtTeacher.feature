@@ -1,7 +1,7 @@
 @task @nuxtTask @nuxtSubmitandGradeTask
 Feature: View the tasks in new nuxt task menu and grade it
 
-    Background: User submit the opened tasks and view the tasks in completed tab
+    Background: User submits the opened tasks and view the tasks in completed tab
         Given user arrives on the Schul-Cloud homepage
 
     @nuxtGradeAndViewTask
