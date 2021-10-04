@@ -21,7 +21,6 @@ async function addTeamAttendee(lastname, firstname) {
 
 async function clickSubmitAddTeamAttendeeBtn() {
 	await elementHelpers.clickAndWait(addAttendeeSubmitBtn);
-	await waitHelpers.waitUntilPageLoads(); 
 }
 
 module.exports = {

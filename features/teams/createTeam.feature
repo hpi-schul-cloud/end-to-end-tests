@@ -10,7 +10,7 @@ Feature: Set of tests to create teams
 		When <userRole> creates a new team with name '<teamName>' and description '<description>' and color '<colour>'
 		When <userRole> goes too the team member settings
 		And <userRole> adds a student with lastname: '<lastName1>' and firstname: '<firstName1>' to the team
-		#And <userRole> adds a student with lastname: '<lastName2>' and firstname: '<firstName2>' to the team
+		And <userRole> adds a student with lastname: '<lastName2>' and firstname: '<firstName2>' to the team
 		And <userRole> clicks Submit-add-team-member button
 		Then <userRole> goes to Teams Page
 		Then <userRole> sees that team with name '<teamName>', colour '<colour>' and  member number '<number>' is visible on the list
