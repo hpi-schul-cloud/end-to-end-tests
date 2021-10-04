@@ -24,27 +24,27 @@ Feature: Set of tests to delete students
 
 	@deletedStudentIsNotVisibleInTeam @deletionConcept @unstableTest
 	Scenario Outline: As an admin, I want to be able to delete the user and he will be no longer listed in team members
-		Given <userRole> logs in with email '<adminUsername>' and password '<adminPassword>'
-		And <userRole> login is successful
-		When <userRole> creates a new team with name '<teamName>' and description '<description>' and color '<color>'
-		And <userRole> adds a student with lastname: '<lastName>' and firstname: '<firstName>' to the team
-		And <userRole> clicks Submit-add-team-member button
-		Then <userRole> goes to Teams Page
-		Then <userRole> sees that team with name '<teamName>', colour '<color>' and  member number '<number>' is visible on the list
-		And <userRole> goes to management
-		And <userRole> goes to students management
-		When <userRole> clicks Edit-student with '<studentUserName>' button
-		And <userRole> clicks Delete-user button
-		And <userRole> clicks Delete-user button inside popup
+		#Given <userRole> logs in with email '<adminUsername>' and password '<adminPassword>'
+		#And <userRole> login is successful
+		#When <userRole> creates a new team with name '<teamName>' and description '<description>' and color '<color>'
+		#And <userRole> adds a student with lastname: '<lastName>' and firstname: '<firstName>' to the team
+		#And <userRole> clicks Submit-add-team-member button
+		#Then <userRole> goes to Teams Page
+		#Then <userRole> sees that team with name '<teamName>', colour '<color>' and  member number '<number>' is visible on the list
+		#And <userRole> goes to management
+		#And <userRole> goes to students management
+		#When <userRole> clicks Edit-student with '<studentUserName>' button
+		#And <userRole> clicks Delete-user button
+		#And <userRole> clicks Delete-user button inside popup
 		#The step below can be removed if /SC-8481 is done
-		And <userRole> clicks left navigation item 'admClasses'
-		Then <userRole> goes to Teams Page
-		When <userRole> clicks on Member icon in team with name '<teamName>'
-		Then <userRole> should see that team members: '<firstName> <lastName>' are not listed
+		#And <userRole> clicks left navigation item 'admClasses'
+		#Then <userRole> goes to Teams Page
+		#When <userRole> clicks on Member icon in team with name '<teamName>'
+		#Then <userRole> should see that team members: '<firstName> <lastName>' are not listed
 
-		Examples:
-			| userRole | adminUsername                | adminPassword  | studentUserName                 | firstName | lastName | teamName  | description      | color  | number |
-			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | boris.wasser.qa@schul-cloud.org | Boris     | Wasser   | test team | test description | orange | 2      |
+		#Examples:
+		#	| userRole | adminUsername                | adminPassword  | studentUserName                 | firstName | lastName | teamName  | description      | color  | number |
+		#	| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | boris.wasser.qa@schul-cloud.org | Boris     | Wasser   | test team | test description | orange | 2      |
 
 	@deletedStudentIsNotVisibleInCourse @deletionConcept
 	Scenario Outline: As an admin, I want to be able to delete the user and he will be no longer listed in course members
