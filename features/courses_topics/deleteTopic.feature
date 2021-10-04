@@ -1,4 +1,4 @@
-@courseTopics @deleteTopic @e2eCore
+@courseTopics @deleteTopic @e2eCore @stableTest
 Feature: Set of tests to delete topics
 
     Background: User opens Schul-cloud homepage Website

@@ -1,4 +1,4 @@
-@userSettings @language @e2eCore
+@userSettings @language @e2eCore @stableTest
 Feature: Test set for user settings
 
     Background: User opens Schul-cloud homepage Website
