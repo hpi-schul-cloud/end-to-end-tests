@@ -1,4 +1,4 @@
-@management @managementClass @deleteClass @e2eCore
+@management @managementClass @deleteClass @e2eCore @stableTest
 Feature: I want to delete a class
 
 	Background:

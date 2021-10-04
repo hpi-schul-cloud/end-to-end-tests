@@ -1,4 +1,4 @@
-@courses @createCourse
+@courses @createCourse @stableTest
 Feature: Set of tests to create courses
 
     Background: User opens Schul-cloud homepage Website
