@@ -20,7 +20,7 @@ const courseDefaultInputValue = "z.B. Mathe 10a";
 const courseNameInput ='#nameOfTheCourse';
 const teacherSelect = '#courseTeacher_chosen';
 const teacherSubSelect ='#courseSubstitute_chosen';
-const colourPicker = ".color-picker__item";
+const colourPicker = '[data-testid="color-picker"]';
 const timeSpan = {
 		start: '[data-testid="date_start"]',
 		end: "#untilDate",
@@ -32,18 +32,6 @@ const studentSelect = '#addStudentsToCourse_chosen';
 const createNewCourseBtn ='[data-testid="einen-weiteren-kurs-anlegen-btn"]';
 const goToCourseListBtn = '[data-testid="zur-uebersicht-btn"]';
 
-const courseColour = [
-	'grey',
-	'metallicGold',
-	'blue',
-	'green',
-	'darkGrey',
-	'goldenPoppy',
-	'martini',
-	'violetRed',
-	'corn',
-	'finn',
-];
 
 async function goToAddCourses() {
 	await navigationLeftPage.clickNavItemCourses();
@@ -130,7 +118,7 @@ async function setCurrentUserAsTeacher() {
 }
 
 async function getColourElement(colourName) {
-	const listOfColours = courseColour;
+	const listOfColours = courseListPage.courseColours;
 	if (listOfColours.includes(colourName)) {
 		const childNumber = listOfColours.indexOf(colourName) + 1;
 		const colourElement = await waitUntilElementIsPresent(colourPicker + `:nth-child(${childNumber})`);
