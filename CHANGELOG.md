@@ -18,10 +18,11 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Removed
 
--   removed _travis.sh files
--   removed .travis.yml
--   disabled email tests
--   remove github workflow update_version.yml
+- docker log output
+- removed _travis.sh files
+- removed .travis.yml
+- disabled email tests
+- remove github workflow update_version.yml
 
 ### Fixed
 
