@@ -16,7 +16,7 @@ Feature: Set of tests to create news. I would like to test whether users with di
             | creatorUserRole | recipientUserRole | email                           | password       | studentUsername                  | studentPassword | newsTitle      | newsContent                               |
             | teacher         | student           | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | amelia.strobl.qa@schul-cloud.org | Schulcloud1qa!  | School day off | Here are some announcements for my pupils |
 
-    @createPostponedNews @extendedTest
+    @createPostponedNews
     Scenario Outline: As a user, I want to be able to create prosponed news with should not be visible before given date
         When <creatorUserRole> logs in with email '<username>' and password '<password>'
         When <creatorUserRole> creates news with title '<newsTitle>', content '<newsContent>' and a one-year delay

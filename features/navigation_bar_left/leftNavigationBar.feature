@@ -36,7 +36,7 @@ Feature: Test set to check the left side menu items
             | teacher  | SCHÜLER:INNEN, LEHRER:INNEN, KLASSEN               |
             | admin    | SCHÜLER, LEHRER, KURSE, KLASSEN, TEAMS, SCHULE     |
 
-    @studentClicksLeftMenuItems @extendedTest
+    @studentClicksLeftMenuItems
     Scenario Outline: As a user, I want to be able to click the left menu items
         Given student logs in
         Then <userRole> clicks left navigation item 'logo'

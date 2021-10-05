@@ -24,7 +24,7 @@ Feature: Set of tests to delete teachers
 			| userRole | adminUsername                | adminPassword  | teacherUsername                 | teacherPassword | deletedUserRole |
 			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | lara.teacher.qa@schul-cloud.org | Schulcloud1qa!  | teacher         |
 
-	@deletedTeacherIsNotVisibleInCourse @deletionConcept @extendedTest
+	@deletedTeacherIsNotVisibleInCourse @deletionConcept
 	Scenario Outline: As an admin, I want to be able to delete the user and he will be no longer listed in course members
 		Given <userRole> logs in with email '<adminUsername>' and password '<adminPassword>'
 		And <userRole> login is successful
@@ -53,7 +53,7 @@ Feature: Set of tests to delete teachers
 			| userRole | adminUsername                | adminPassword  | courseName                    | teacherName | teacherNames  | teacherMailAddress              | checkUserRole | teacherUsername                 |
 			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | Course with subject and tasks | Lara Hande  | Herzog, Hande | lara.teacher.qa@schul-cloud.org | teacher       | karl.teacher.qa@schul-cloud.org |
 
-	@deletedTeacherIsNotVisibleInClass @deletionConcept @extendedTest
+	@deletedTeacherIsNotVisibleInClass @deletionConcept
 	Scenario Outline: As a user, I want to delete a teacher from a class and he will be no longer visible as class teacher
 		Given <userRole> logs in with email '<adminUsername>' and password '<password>'
 		And <userRole> goes to management

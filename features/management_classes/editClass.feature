@@ -4,7 +4,7 @@ Feature: I want to edit a class
 	Background:
 		Given user arrives on the Schul-Cloud homepage
 
-	@editClassNameAndSchoolYear @extendedTest
+	@editClassNameAndSchoolYear
 	Scenario Outline: As a user, I want to be able to edit a classname and school year
 		When <userRole> logs in
 		And <userRole> goes to management
@@ -40,7 +40,7 @@ Feature: I want to edit a class
 			| userRole | className | teacher    | student       | teacher1Lastname | teacher2Lastname | numberOfStudents | numberOfStudentsAfterDelete |
 			| teacher  | 8a        | Lara Hande | Amelia Strobl | Herzog           | Hande            | 2                | 1                           |
 
-	@addGroupOfStudentsToTheClass @extendedTest
+	@addGroupOfStudentsToTheClass
 	Scenario Outline: As a user, I want to be able to edit a class and add a group of students
 		Given <userRole> logs in
 		And <userRole> goes to management
