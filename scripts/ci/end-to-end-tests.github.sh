@@ -93,11 +93,11 @@ before(){
 	cd ..
 
 	echo "INSTALL DEPENDNECIES..."
-	cd schulcloud-server && npm ci && cd ..
+	# cd schulcloud-server && npm ci && cd ..
 	cd end-to-end-tests && npm ci && cd ..
 	echo "INSTALL DEPENDNECIES DONE"
 
-	cd schulcloud-server && npm run setup && npm run seed && cd ..
+	# cd schulcloud-server && npm run setup && npm run seed && cd ..
 
 	echo "waiting max 4 minutes for server to be available"
 	npx wait-on http://localhost:3030 -t 240000 --httpTimeout 250 --log
