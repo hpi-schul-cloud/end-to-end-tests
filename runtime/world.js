@@ -246,6 +246,7 @@ const { setDefaultTimeout } = require('@cucumber/cucumber');
 
 const dateTimeHelpers = require('./helpers/dateTimeHelpers.js');
 const emailHelpers = require('./helpers/emailHelpers.js');
+const axios = require('axios');
 
 // Add timeout based on env var.
 const cucumberTimeout = process.env.CUCUMBER_TIMEOUT || 60000;
@@ -267,26 +268,26 @@ Before(async () => {
  * cleanup database before each scenario
  * can use @noDBReset in feature file, if you don't need cleanup database before some scenarios
  */
-Before(function(scenario) {
+Before(async function (scenario) {
 	try {
-		const {tags} = scenario.pickle;
+		const { tags } = scenario.pickle;
 		const tagNames = tags.map((tag) => tag.name);
-		if(tagNames.indexOf('@noDBReset') != -1){
+		if (tagNames.indexOf('@noDBReset') != -1) {
 			console.log('\n\nNo DB reset...');
-			return Promise.resolve();
+			return;
 		}
 		console.log('\n\nResetting the DB...');
-		const output = execSync('npm run setup', { cwd: '../schulcloud-server', stdio: 'pipe' });
+		const output = await axios.post('http://localhost:3333/api/management/database/seed');
 		console.log('Done.');
-} catch (err) {
-		console.error('Cannot reset the DB. Additional Info:')
+	} catch (err) {
+		console.error('Cannot reset the DB. Additional Info:');
 		console.warn('stdout: ', err.stdout.toString());
 		console.warn('stderr: ', err.stderr.toString());
 		console.log('signal: ', err.signal);
 		console.log('status: ', err.status);
-}
+	}
 	// access output via `output.toString()`
-	return Promise.resolve();
+	return;
 });
 
 /**
