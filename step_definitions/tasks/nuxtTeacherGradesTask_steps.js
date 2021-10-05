@@ -8,6 +8,6 @@ When(/^.* clicks on student submitted the task$/, async function (){
     await TASKListPage.studentSubmittedTask();
 });
 
-When(/^.* sees in Task19 an increment in graded column$/, async function(){
-    await TASKPage.isGradedTask();
+When(/^.* checks the graded column$/, async function(){
+    await TASKPage.isTaskGraded();
 })
