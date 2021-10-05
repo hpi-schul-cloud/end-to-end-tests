@@ -1,11 +1,11 @@
-@task @nuxtTask @nuxtSubmitandGradeTask
+@task @nuxtTask @nuxtTeacherGradeAndViewTask
 Feature: View the tasks in new nuxt task menu and grade it
 
-    Background: User submits the opened tasks and view the tasks in completed tab
+    Background: Student logs in and submit the task, after that teacher logs in and grade the task and view that the graded column increments
         Given user arrives on the Schul-Cloud homepage
 
-    @nuxtGradeAndViewTask
-    Scenario Outline: As a user, I want to see the open tasks in new nuxt tab, sumbit them
+    @nuxtTeacherGradeAndViewTask
+    Scenario Outline: As a user, I want to see the open tasks in new nuxt tab and sumbit them
         When <userRole> logs in
         And <userRole> clicks the current task tab
         And <userRole> clicks on without duedate task section
@@ -17,8 +17,8 @@ Feature: View the tasks in new nuxt task menu and grade it
 			| userRole |
 			| student  |
 
-    @nuxtGradeAndViewTask @noDBReset
-    Scenario Outline: As a user, I want to see the tasks in new nuxt tab, grade them and see it will show at graded task column
+    @nuxtTeacherGradeAndViewTask @noDBReset
+    Scenario Outline: As a user, I want to see the tasks in new nuxt tab, grade them and see it will show at graded task column for that task
         When <userRole> logs in
         And <userRole> clicks the current task tab
         And <userRole> clicks on without duedate task section
@@ -29,7 +29,7 @@ Feature: View the tasks in new nuxt task menu and grade it
 		And <userRole> clicks Save-and-send grading button
         And <userRole> clicks the current task tab
         And <userRole> clicks on without duedate task section
-        Then <userRole> student graded for Task19
+        Then <userRole> sees in Task19 an increment in graded column
         Examples:
 			| userRole |taskRating|taskRemark|
 			| teacher  |95        |good job  |

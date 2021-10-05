@@ -1,5 +1,4 @@
 @dashboard @redirect @stableTest
-
 Feature: dashboard test set
 
 	Background: user is not logged in

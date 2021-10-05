@@ -6,7 +6,7 @@ const TASKListPage = require("../../page-objects/pages/TASKListPage");
 
 
 When(/^.* clicks the current task tab$/, async function (){
-    await TASKPage.gotoNuxtTasksTab();
+    await TASKPage.goToNuxtTasksTab();
 });
 
 When(/^.* clicks on without duedate task section$/, async function (){
