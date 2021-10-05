@@ -77,10 +77,10 @@ Then(/^.* task body is '([^']*)'$/, async function (taskbody) {
 	await expect(descriptions.some((x) => x.includes(taskbody))).to.be.true;
 });
 
-Then(/^.*task with name '([^']*)' is not visible on the list$/, async function (taskName) {
+Then(/^.* task with name '([^']*)' is not visible on the list$/, async function (taskName) {
 	await TASKListPage.isTaskVisible(taskName, false);
 });
 
-Then(/^.*task with name '([^']*)' is visible on the list$/, async function (taskName) {
+Then(/^.* task with name '([^']*)' is visible on the list$/, async function (taskName) {
 	await TASKListPage.isTaskVisible(taskName, true);
 });

@@ -41,10 +41,10 @@ When(/^.* clicks on Comment-Grading tab$/, async function () {
 });
 
 //THEN
-Then(/^.*task rating is '([^']*)'%$/, async function (rating) {
+Then(/^.* task rating is '([^']*)'%$/, async function (rating) {
     await TASKPage.isTaskRating(rating);
 });
 
-Then(/^.*task remark is '([^']*)'$/, async function (remark) {
+Then(/^.* task remark is '([^']*)'$/, async function (remark) {
     await TASKPage.isTaskRemark(remark);
 });

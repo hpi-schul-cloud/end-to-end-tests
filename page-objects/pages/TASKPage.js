@@ -14,12 +14,19 @@ const remoteFilePathInput = 'input[type=file][class=dz-hidden-input]';
 const commentBtn = '#comment-tab-link';
 const commentGradingTabSel = '#feedback-tab-link';
 const hometasksTabSel = 'button[data-testid="hometasks"]';
+const nuxtHometasksTabSel = '[data-testid="Aktuelle Aufgaben"] > .link-name';
 const taskRatingInput = '[data-testid="evaluation_procent"]';
 const ratingViewSel = '.grade';
 const remarkViewSel = '.ckcontent.comment';
 const submissionsTable = '#submissions table';
 const submissionRow = `${submissionsTable} tbody tr.userinfo`;
+const withoutDueDateTask = "//div[@aria-expanded='false']//button[@type='button']";
+const completedTaskTab = "//*[text()='Erledigte Aufgaben']";
 let fileUrl;
+
+async function gotoNuxtTasksTab() {
+	await elementHelpers.clickAndWait(nuxtHometasksTabSel);
+}
 
 async function gotoTasksTab() {
 	await elementHelpers.clickAndWait(hometasksTabSel);
@@ -156,7 +163,16 @@ async function isTaskSubmitted(studentname) {
 	await expect(isSubbmitedByStudent).to.equal(true);
 }
 
+async function taskWithoutDueDate(){
+	await elementHelpers.clickAndWait(withoutDueDateTask);
+}
+
+async function clickCompletedTab(){
+	await elementHelpers.clickAndWait(completedTaskTab);
+}
+
 module.exports = {
+	gotoNuxtTasksTab,
 	gotoTasksTab,
 	clickTeacherSubmissionsTab,
 	clickStudentSubmissionTab,
@@ -176,4 +192,6 @@ module.exports = {
 	isFileVisible,
 	checkFileEvaluationStudent,
 	checkFileEvaluationTeacher,
+	taskWithoutDueDate,
+	clickCompletedTab,
 };
