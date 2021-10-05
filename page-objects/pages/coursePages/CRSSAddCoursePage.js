@@ -123,7 +123,7 @@ async function getColourElement(colourName) {
 	
 	if (courseColoursList.includes(colourName)) {
 		const childNumber = courseColoursList.indexOf(colourName) + 1;
-		const colourElement = await waitUntilElementIsPresent(colourPicker + `:nth-child(${childNumber})`);
+		const colourElement = await waitUntilElementIsPresent(colourPicker + `> nth-child(${childNumber})`);
 		return colourElement;
 	} else {
 		console.warn(`you did not insert a valid color. Must be ${courseColoursList},\n you inserted ${colourName}`);
