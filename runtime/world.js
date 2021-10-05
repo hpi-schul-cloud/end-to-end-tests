@@ -269,24 +269,15 @@ Before(async () => {
  * can use @noDBReset in feature file, if you don't need cleanup database before some scenarios
  */
 Before(async function (scenario) {
-	try {
-		const { tags } = scenario.pickle;
-		const tagNames = tags.map((tag) => tag.name);
-		if (tagNames.indexOf('@noDBReset') != -1) {
-			console.log('\n\nNo DB reset...');
-			return;
-		}
-		console.log('\n\nResetting the DB...');
-		const output = await axios.post('http://localhost:3333/api/management/database/seed');
-		console.log('Done.');
-	} catch (err) {
-		console.error('Cannot reset the DB. Additional Info:');
-		console.warn('stdout: ', err.stdout.toString());
-		console.warn('stderr: ', err.stderr.toString());
-		console.log('signal: ', err.signal);
-		console.log('status: ', err.status);
+	const { tags } = scenario.pickle;
+	const tagNames = tags.map((tag) => tag.name);
+	if (tagNames.indexOf('@noDBReset') != -1) {
+		console.log('\n\nNo DB reset...');
+		return;
 	}
-	// access output via `output.toString()`
+	console.log('\n\nResetting the DB...');
+	const output = await axios.post('http://localhost:3333/api/management/database/seed');
+	console.log('Done.');
 	return;
 });
 
