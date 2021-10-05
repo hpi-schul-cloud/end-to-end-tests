@@ -97,6 +97,8 @@ before(){
 	cd end-to-end-tests && npm ci && cd ..
 	echo "INSTALL DEPENDNECIES DONE"
 
+	cd schulcloud-server && npm run setup && cd ..
+
 	echo "waiting max 4 minutes for server-management to be available"
 	npx wait-on http://localhost:3333/api/docs -t 240000 --httpTimeout 250 --log
 	echo "server-management is now online"
