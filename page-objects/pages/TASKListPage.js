@@ -4,6 +4,7 @@
 const waitHelpers = require('../../runtime/helpers/waitHelpers');
 const navigationLeftPage = require('./NavigationLeftPage.js');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
+const { expect } = require('chai');
 
 const selectorCreateTaskButton = '.btn.btn-primary.btn-add.create';
 const selectorCreateTaskBtnInTheCourse = '.col-sm-12.add-button > a';
@@ -16,6 +17,9 @@ const taskTitleContainer = '.assignment.card .title';
 const taskDescriptionContainer = '.assignment .text-muted.ckcontent';
 const taskContainer = '.homework li.card';
 const deleteTaskButtonInPopup = '.delete-modal button.btn-submit';
+const clickWithoutDueDate = "//*[text()='Task19']";
+const ungradedTaskSection = "//div[@class ='v-expansion-panel']//button[@type='button']";
+const ungradedTask = "//div[text()='Task19']";
 
 const taskButton = {
 	archive: '.fa-archive',
@@ -137,6 +141,18 @@ async function clickDeleteTaskButtonInPopup() {
 	await waitHelpers.waitUntilAjaxIsFinished();
 }
 
+async function clickTaskWithoutDuedate(){
+	await elementHelpers.clickAndWait(clickWithoutDueDate);
+}
+
+async function clickUngradedTaskSection(){
+	await elementHelpers.clickAndWait(ungradedTaskSection);
+}
+
+async function clickUngradedTask(){
+	await elementHelpers.clickAndWait(ungradedTask);
+}
+
 module.exports = {
 	clickCreateTaskButton,
 	sortTasksLastEdited,
@@ -149,4 +165,7 @@ module.exports = {
 	getTaskDescription,
 	clickCreateTaskButtonInTheCourse,
 	clickDeleteTaskButtonInPopup,
+	clickTaskWithoutDuedate,
+	clickUngradedTaskSection,
+	clickUngradedTask,
 };
