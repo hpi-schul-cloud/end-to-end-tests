@@ -22,13 +22,15 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Removed
 
--   removed _travis.sh files
--   removed .travis.yml
--   disabled email tests
--   remove github workflow update_version.yml
+- docker log output
+- removed _travis.sh files
+- removed .travis.yml
+- disabled email tests
+- remove github workflow update_version.yml
 
 ### Fixed
 
+- BC-387 - fix command to run extended Test 
 - fix fallbacks for features and notification services versions
 - execute changes for features in travis
 - changed sidebar menu item CURRENT TASKS instead of OPEN TASKS
