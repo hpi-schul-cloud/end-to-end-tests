@@ -32,7 +32,7 @@ const studentSelect = '#addStudentsToCourse_chosen';
 const createNewCourseBtn ='[data-testid="einen-weiteren-kurs-anlegen-btn"]';
 const goToCourseListBtn = '[data-testid="zur-uebersicht-btn"]';
 
-const courseColour = ['grey', 'pink', 'red', 'orange', 
+const courseColoursList = ['grey', 'pink', 'red', 'orange', 
 'moose', 'grasgreen', 'seagreen', 'skyblue', 'blue', 'lila', 'violet', 'brown'];
 
 async function goToAddCourses() {
@@ -121,12 +121,12 @@ async function setCurrentUserAsTeacher() {
 
 async function getColourElement(colourName) {
 	
-	if (courseColour.includes(colourName)) {
-		const childNumber = listOfColours.indexOf(colourName) + 1;
+	if (courseColoursList.includes(colourName)) {
+		const childNumber = courseColoursList.indexOf(colourName) + 1;
 		const colourElement = await waitUntilElementIsPresent(colourPicker + `:nth-child(${childNumber})`);
 		return colourElement;
 	} else {
-		console.warn(`you did not insert a valid color. Must be ${listOfColours},\n you inserted ${colourName}`);
+		console.warn(`you did not insert a valid color. Must be ${courseColoursList},\n you inserted ${colourName}`);
 	}
 }
 
