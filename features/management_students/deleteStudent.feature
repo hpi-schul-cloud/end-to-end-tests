@@ -1,11 +1,11 @@
-@management @managementStudents @deleteStudent @stableTest
+@management @managementStudents @deleteStudent 
 Feature: Set of tests to delete students
 	As an Schul-Cloud user I want to be able to delete students
 
 	Background: User opens Schul-cloud homepage Website
 		Given user arrives on the Schul-Cloud homepage
 
-	@deletedStudentCanNotLogin @deletionConcept @e2eCore
+	@deletedStudentCanNotLogin @deletionConcept @e2eCore @stableTest
 	Scenario Outline: As an admin, I want to be able to delete the user
 		Given <userRole> logs in with email '<adminUsername>' and password '<adminPassword>'
 		And <userRole> login is successful
@@ -46,7 +46,7 @@ Feature: Set of tests to delete students
 			| userRole | adminUsername                | adminPassword  | studentUserName                 | firstName | lastName | teamName  | description      | color  | number |
 			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | boris.wasser.qa@schul-cloud.org | Boris     | Wasser   | test team | test description | orange | 2      |
 
-	@deletedStudentIsNotVisibleInCourse @deletionConcept
+	@deletedStudentIsNotVisibleInCourse @deletionConcept @stableTest
 	Scenario Outline: As an admin, I want to be able to delete the user and he will be no longer listed in course members
 		Given <userAdmin> logs in with email '<adminUsername>' and password '<password>'
 		And <userAdmin> login is successful
@@ -65,7 +65,7 @@ Feature: Set of tests to delete students
 			| userAdmin | adminUsername                | password       | studentUserName                 | firstName | lastName | userTeacher | teacherUsername                 | courseName                    | membersNumber |
 			| admin     | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | boris.wasser.qa@schul-cloud.org | Boris     | Wasser   | teacher     | karl.teacher.qa@schul-cloud.org | Course with subject and tasks | 1             |
 
-	@deletedStudentCanNotUseForgotPassword @deletionConcept
+	@deletedStudentCanNotUseForgotPassword @deletionConcept @stableTest
 	Scenario Outline: As an admin, I want to be able to delete the user
 		Given <userRole> logs in with email '<adminUsername>' and password '<adminPassword>'
 		And <userRole> login is successful
@@ -81,7 +81,7 @@ Feature: Set of tests to delete students
 			| userRole | adminUsername                | adminPassword  | studentUsername                  | deletedUserRole |
 			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | amelia.strobl.qa@schul-cloud.org | student         |
 
-	@deletedStudentIsNotVisibleInClass @deletionConcept
+	@deletedStudentIsNotVisibleInClass @deletionConcept @stableTest
 	Scenario Outline: As a user, I want to delete a student from a class and he will be no longer visible in class members
 		Given <userRole> logs in with email '<adminUsername>' and password '<password>'
 		And <userRole> goes to management
