@@ -98,7 +98,7 @@ before(){
 	echo "INSTALL DEPENDNECIES DONE"
 
 	echo "waiting max 4 minutes for server-management to be available"
-	npx wait-on http://localhost:3333 -t 240000 --httpTimeout 250 --log
+	npx wait-on http://localhost:3333/api/docs -t 240000 --httpTimeout 250 --log
 	echo "server-management is now online"
 	
 	echo "waiting max 4 minutes for server to be available"
