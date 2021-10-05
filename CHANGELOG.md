@@ -10,7 +10,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Added
 
-- BC-341 added testcases for nuxt client task page for teacher role
 - BC-224 added testcase for nuxt client task page for student role
 - BC-364 - add command to run unstable Tests on PR label `run unstable tests`
 - BC-324 - add extendedTest tag

@@ -25,7 +25,7 @@ const completedTaskTab = "//*[text()='Erledigte Aufgaben']";
 const isGraded = "//div[@class='v-list-item__title' and text() = '1']";
 let fileUrl;
 
-async function gotoNuxtTasksTab() {
+async function goToNuxtTasksTab() {
 	await elementHelpers.clickAndWait(nuxtHometasksTabSel);
 }
 
@@ -178,7 +178,7 @@ async function isGradedTask(){
 }
 
 module.exports = {
-	gotoNuxtTasksTab,
+	goToNuxtTasksTab,
 	gotoTasksTab,
 	clickTeacherSubmissionsTab,
 	clickStudentSubmissionTab,
