@@ -93,7 +93,7 @@ before(){
 	cd ..
 
 	echo "INSTALL DEPENDNECIES..."
-	# cd schulcloud-server && npm ci && cd ..
+	cd schulcloud-server && npm ci && cd ..
 	cd end-to-end-tests && npm ci && cd ..
 	echo "INSTALL DEPENDNECIES DONE"
 
