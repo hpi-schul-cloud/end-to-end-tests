@@ -11,22 +11,27 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Added
 
+
 - BC-224 added testcase for nuxt client task page for student role
+
+- BC-364 - add command to run unstable Tests on PR label `run unstable tests`
+
 - BC-324 - add extendedTest tag
 - BC-283 - added wait method to test step
 - reinstated that all tests are running
 - SC-9237 added E2E test to check redirect
 
-
 ### Removed
 
--   removed _travis.sh files
--   removed .travis.yml
--   disabled email tests
--   remove github workflow update_version.yml
+- docker log output
+- removed _travis.sh files
+- removed .travis.yml
+- disabled email tests
+- remove github workflow update_version.yml
 
 ### Fixed
 
+- BC-387 - fix command to run extended Test 
 - fix fallbacks for features and notification services versions
 - execute changes for features in travis
 - changed sidebar menu item CURRENT TASKS instead of OPEN TASKS

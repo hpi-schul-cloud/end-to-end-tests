@@ -1,4 +1,4 @@
-@management @managementClass @createClass
+@management @managementClass @createClass @stableTest
 Feature: Set of tests to create classes
 
     Background: User opens Schul-cloud homepage Website
@@ -15,7 +15,8 @@ Feature: Set of tests to create classes
             | userRole | username                         | password       | customClassName | schoolYear | numberOfStudentsInClass |
             | admin    | olivier.admin.qa@schul-cloud.org | Schulcloud1qa! | 11c             | 2021/22    | 0                       |
 
-    @createClassWith3Members @extendedTest
+
+    @createClassWith3Members @stableTest
     Scenario Outline: As a user, I want to be able to create class with 3 members
         Given <userRole> logs in with email '<username>' and password '<password>'
         And <userRole> goes to management

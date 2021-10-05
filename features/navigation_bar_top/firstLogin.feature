@@ -1,4 +1,4 @@
-@topNavigationBar @firstLogin @login
+@topNavigationBar @firstLogin @login @stableTest
 Feature: Set of tests to first login
 
     Background:

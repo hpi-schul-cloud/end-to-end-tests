@@ -1,4 +1,4 @@
-@management @managementTeachers @deleteTeacher
+@management @managementTeachers @deleteTeacher @stableTest
 Feature: Set of tests to delete teachers
 	As an Schul-Cloud user I want to be able to delete teachers
 

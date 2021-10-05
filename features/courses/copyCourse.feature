@@ -1,4 +1,4 @@
-#@courses @copyCourse
+#@courses @copyCourse @stableTest
 #Feature: Set of tests to copy courses
 
 #	Background: User opens Schul-cloud homepage Website

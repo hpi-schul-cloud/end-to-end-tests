@@ -1,4 +1,4 @@
-@management @managementClass @editClass
+@management @managementClass @editClass @stableTest
 Feature: I want to edit a class
 
 	Background:

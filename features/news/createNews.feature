@@ -1,4 +1,4 @@
-@news @createNews
+@news @createNews @stableTest
 Feature: Set of tests to create news. I would like to test whether users with different permissions can see my news
 
     Background: User opens Schul-cloud homepage Website

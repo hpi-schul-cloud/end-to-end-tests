@@ -1,4 +1,5 @@
-@dashboard @task @extendedTest
+@dashboard @task @stableTest
+
 Feature: dashboard test set
 
 	Background: user logs in
