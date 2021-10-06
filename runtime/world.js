@@ -236,7 +236,6 @@ const { setDefaultTimeout } = require('@cucumber/cucumber');
 
 const dateTimeHelpers = require('./helpers/dateTimeHelpers.js');
 const emailHelpers = require('./helpers/emailHelpers.js');
-const axios = require('axios');
 
 // Add timeout based on env var.
 const cucumberTimeout = process.env.CUCUMBER_TIMEOUT || 60000;
