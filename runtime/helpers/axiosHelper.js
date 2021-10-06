@@ -1,5 +1,5 @@
 'use strict';
-const { SERVER } = require('../../shared-objects/servers');
+const { SERVER, MANAGEMENT_SERVER } = require('../../shared-objects/servers');
 const axios = require('axios');
 
 const errHandler = (err) => {
@@ -66,7 +66,7 @@ class Api {
 
 class ManagementApi {
 	seedDatabase() {
-		return axios.post(`${SERVER.MANAGEMENT_URL}/database/seed`);
+		return axios.post(`${MANAGEMENT_SERVER.URL}/management/database/seed`);
 	}
 }
 
