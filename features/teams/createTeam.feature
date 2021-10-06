@@ -1,4 +1,4 @@
-@management @managementTeams @teams @createTeam
+@teams @createTeam @tasks_and_other
 Feature: Set of tests to create teams
 
 	Background: User opens Schul-cloud homepage Website

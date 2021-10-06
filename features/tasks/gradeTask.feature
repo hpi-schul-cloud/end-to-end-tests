@@ -1,4 +1,4 @@
-#@task @gradeTask @stableTest
+#@task @gradeTask @stableTest @tasks_and_other
 #Feature: Set of tests to grade tasks
 
 	#Background: User opens Schul-cloud homepage Website
@@ -38,4 +38,3 @@
 	#Examples:
 	#|userRole| userName                    | password     | newPasswordStudent | taskName              | studentName | courseName            |taskBody          |
 	#|teacher | paula.meyer@schul-cloud.org | Schulcloud1! | Schulcloud1!!      | task with file upload | Paula Meyer | course with file task |text of the task  |
-

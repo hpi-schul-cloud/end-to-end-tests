@@ -1,4 +1,4 @@
-@task @createTask @stableTest
+@task @createTask @stableTest @tasks_and_other
 Feature: Set of tests to create tasks
 
 	Background:

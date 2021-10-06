@@ -1,4 +1,4 @@
-@task @submitTask @e2eCore @stableTest
+@task @submitTask @e2eCore @stableTest @tasks_and_other
 Feature: Set of tests to submit tasks
 
     Background: User opens Schul-cloud homepage Website
@@ -41,5 +41,5 @@ Feature: Set of tests to submit tasks
 		Then student should see that task rating is '<taskRating>'%
 		And student should see that task remark is '<taskRemark>'
 		Examples:
-			| userRole | courseName   | taskName | studentUserName                   | password       | studentFullName | taskBody         | taskRating | taskRemark |
-			| teacher  | German       | task     | amelia.strobl.qa@schul-cloud.org  | Schulcloud1qa! | Amelia Strobl   | text of the task | 96         | good job   |
+			| userRole | courseName | taskName | studentUserName                   | password       | studentFullName | taskBody         | taskRating | taskRemark |
+			| teacher  | German     | task     | amelia.strobl.qa@schul-cloud.org  | Schulcloud1qa! | Amelia Strobl   | text of the task | 96         | good job   |

@@ -1,4 +1,4 @@
-@task @nuxtTask @nuxtSubmitandCompleteTask
+@task @nuxtTask @nuxtSubmitandCompleteTask @tasks_and_other
 Feature: View the task in new nuxt task menu and submit it
 
     Background: User submits the opened tasks and view the tasks in completed tab
