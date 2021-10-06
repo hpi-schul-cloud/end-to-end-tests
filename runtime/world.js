@@ -42,6 +42,8 @@ const assert = chai.assert,
 
 const getRemote = require('./getRemote.js');
 
+const { ManagementApi } = require('./helpers/axiosHelper');
+
 /**
  * Adding logging
  */
@@ -264,7 +266,7 @@ Before(async function (scenario) {
 		return;
 	}
 	console.log('\n\nResetting the DB...');
-	const output = await axios.post('http://localhost:3333/api/management/database/seed');
+	const output = await ManagementApi.seedDatabase();
 	console.log('Done:', output.data);
 	return;
 });

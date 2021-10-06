@@ -14,8 +14,13 @@ const config = {
 		PROTOCOLL: process.env.IT_SERVER_PROTOCOLL || 'http',
 		HOST: process.env.IT_SERVER_HOST || 'localhost',
 		PORT: process.env.IT_SERVER_PORT || '3030',
+		MANAGEMENT_PORT: process.env.IT_MANAGEMENT_SERVER_PORT || '3333',
+		MANAGEMENT_PATH: process.env.IT_MANAGEMENT_API_PATH || '/api/management',
 		get URL() {
 			return `${config.SERVER.PROTOCOLL}://${config.SERVER.HOST}:${config.SERVER.PORT}`
+		},
+		get MANAGEMENT_URL() {
+			return `${config.SERVER.PROTOCOLL}://${config.SERVER.HOST}:${config.SERVER.PORT}${config.SERVER.MANAGEMENT_PATH}`
 		}
 	}
 };

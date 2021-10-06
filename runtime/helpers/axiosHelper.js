@@ -64,4 +64,10 @@ class Api {
 	}
 }
 
-module.exports = { Api: new Api() };
+class ManagementApi {
+	seedDatabase() {
+		return axios.post(`${SERVER.MANAGEMENT_URL}/database/seed`);
+	}
+}
+
+module.exports = { Api: new Api(), ManagementApi: new ManagementApi() };
