@@ -20,7 +20,7 @@ const ratingViewSel = '.grade';
 const remarkViewSel = '.ckcontent.comment';
 const submissionsTable = '#submissions table';
 const submissionRow = `${submissionsTable} tbody tr.userinfo`;
-const withoutDueDateTask = "//div[@aria-expanded='false']//button[@type='button']";
+const withoutDueDateTask = "//button[@type='button' and contains(., 'Ohne Abgabefrist')]";
 const completedTaskTab = "//*[text()='Erledigte Aufgaben']";
 const gradedTask = "//div[@class='v-list-item__title' and text() = '1']";
 let fileUrl;
