@@ -1,10 +1,9 @@
 # BDD Testing for the HPI Schul-Cloud
 
-
 ## Available Tests
 
-| name               | description                            |
-| ------------------ | -------------------------------------- |
+| name                 | description                            |
+| -------------------- | -------------------------------------- |
 | `adminLogin`         | tests the login with an admin account  |
 | `teacherLogin`       | tests the login with a teacher account |
 | `pupilLogin`         | tests the login with a pupil account   |
@@ -20,17 +19,10 @@ This is the project against we run all the tests
 npm i
 ```
 
-The following directory structure is also required:
+## Database seeding
 
-```
-.
-├── end-to-end-tests (this repo)
-│   └── ...
-└── schulcloud-server (must be named exactly like that!)
-    └── ...
-```
-
-We need this structure in order to call `npm run seed` in the server directory to guarantee a clean test environment.
+During test execution the servers database will be resetted before test execution.
+For this, start the server management api in schulcloud-server using `npm run nest:start:management`. This application then will call `http://localhost:3333/api/management/database/seed` to reset the database.
 
 ## Usage
 
@@ -48,9 +40,9 @@ npm run test -- -t @teacherLogin
 
 #### Environment Variables
 
-key | description
----|---
-IT_CLIENT_URL | URL where the [schulcloud-client](https://github.com/hpi-schul-cloud/schulcloud-client) is running.
+| key           | description                                                                                         |
+| ------------- | --------------------------------------------------------------------------------------------------- |
+| IT_CLIENT_URL | URL where the [schulcloud-client](https://github.com/hpi-schul-cloud/schulcloud-client) is running. |
 
 #### Command Line Parameters
 
@@ -87,7 +79,7 @@ By default tests are run using Google Chrome, to run tests using another browser
 The following variables are available within the `Given()`, `When()` and `()` functions:
 
 | Variable      | Description                                                                                                      |
-| :------------ | :--------------------------------------------------------------------------------------------------------------- |
+| :------------ | :--------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `driver`      | an instance of [web driver](https://webdriver.io/docs/setuptypes.html) (_the browser_)                           |
 | `webdriverio` | the raw [webdriver](https://webdriver.io/docs/api.html) module, providing access to static properties/methods    |
 | `page`        | collection of **page** objects loaded from disk and keyed by filename                                            |
@@ -98,7 +90,7 @@ The following variables are available within the `Given()`, `When()` and `()` fu
 | `trace`       | handy trace method to log console output with increased visibility                                               |
 | `fs`          | exposes fs (file system) for use globally                                                                        |
 | `dir`         | exposes dir for getting an array of files, subdirectories or both                                                |
-| `request`     | exposes the request-promise for API testing                                                                      | `use for making API calls` |
+| `request`     | exposes the request-promise for API testing                                                                      | `use for making API calls`                                          |
 | `date`        | exposes the date method for logs and reports                                                                     |
 | `log`         | exposes the log method for output to files and emailing                                                          |
 | `envConfig`   | exposes the global environment configuration file                                                                | `for use when changing environment types (i.e. dev, test, preprod)` |
@@ -145,23 +137,23 @@ const {After, Before, AfterAll, BeforeAll} = require('@cucumber/cucumber');
 
 ## How to debug
 
-Most webdriverio methods return a [JavaScript Promise](https://spring.io/understanding/javascript-promises "view JavaScript promise introduction") that is resolved when the method completes. The easiest way to step in with a debugger is to add a `.then` method to a selenium function and place a `debugger` statement within it, for example:
+Most webdriverio methods return a [JavaScript Promise](https://spring.io/understanding/javascript-promises 'view JavaScript promise introduction') that is resolved when the method completes. The easiest way to step in with a debugger is to add a `.then` method to a selenium function and place a `debugger` statement within it, for example:
 
 ```js
-When(/^I search DuckDuckGo for "([^"]*)"$/, function(searchQuery, done) {
-  driver
-    .element("#search_form_input_homepage")
-    .then(function(input) {
-      expect(input).to.exist;
-      debugger; // <<- your IDE should step in at this point, with the browser open
-      return input;
-    })
-    .then(function(input) {
-      input.setValue(selector, searchQuery);
-      input.setValue(selector, "Enter");
+When(/^I search DuckDuckGo for "([^"]*)"$/, function (searchQuery, done) {
+	driver
+		.element('#search_form_input_homepage')
+		.then(function (input) {
+			expect(input).to.exist;
+			debugger; // <<- your IDE should step in at this point, with the browser open
+			return input;
+		})
+		.then(function (input) {
+			input.setValue(selector, searchQuery);
+			input.setValue(selector, 'Enter');
 
-      done(); // <<- let cucumber know you're done
-    });
+			done(); // <<- let cucumber know you're done
+		});
 });
 ```
 
@@ -188,8 +180,8 @@ You can use the framework without any command line arguments if your application
 
 ## Bugs
 
-Please raise framework related bugs via the [klassi-js issue tracker](https://github.com/larryg01/klassi-js/issues) and, if possible, please provide enough information to allow the bug to be 
-reproduced. 
+Please raise framework related bugs via the [klassi-js issue tracker](https://github.com/larryg01/klassi-js/issues) and, if possible, please provide enough information to allow the bug to be
+reproduced.
 
 ## Contributing to the framework
 
