@@ -1,0 +1,34 @@
+name: E2E navi & user settings
+
+on: [push]
+
+jobs:
+    e2e-navi_user_settings:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Set BRANCH_NAME
+              run: |
+                  echo ${GITHUB_REF#refs/heads/}
+                  branch_name=${GITHUB_REF#refs/heads/}
+                  echo "BRANCH_NAME=$branch_name" >> $GITHUB_ENV
+            - name: run git change
+              run: |
+                  git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
+                  git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "ssh://git@github.com/"
+                  git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "git@github.com:"
+            - name: execute tests
+              run: curl "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/main/scripts/ci/fetch.github.sh" | bash -s navi_user_settings
+              env:
+                  ES_USER: ${{ secrets.ES_USER }}
+                  ES_PASSWORD: ${{ secrets.ES_PASSWORD }}
+                  SECRET_ES_MERLIN_USERNAME: ${{ secrets.SECRET_ES_MERLIN_USERNAME }}
+                  SECRET_ES_MERLIN_PW: ${{ secrets.SECRET_ES_MERLIN_PW }}
+                  DOCKER_ID: ${{ secrets.DOCKER_ID }}
+                  MY_DOCKER_PASSWORD: ${{ secrets.MY_DOCKER_PASSWORD }}
+            - uses: actions/upload-artifact@v1
+              name: upload results
+              if: always()
+              with:
+                  name: report
+                  path: end-to-end-tests/reports

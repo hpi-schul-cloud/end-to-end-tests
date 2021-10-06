@@ -1,9 +1,9 @@
-name: Test unstable e2e
+name: E2E management
 
 on: [push]
 
 jobs:
-    end-to-end-tests-unstable:
+    e2e-management:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
@@ -18,7 +18,7 @@ jobs:
                   git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "ssh://git@github.com/"
                   git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "git@github.com:"
             - name: execute tests
-              run: curl "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/main/scripts/ci/fetch.github.sh" | bash -s unstable
+              run: curl "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/main/scripts/ci/fetch.github.sh" | bash -s management
               env:
                   ES_USER: ${{ secrets.ES_USER }}
                   ES_PASSWORD: ${{ secrets.ES_PASSWORD }}
@@ -32,4 +32,3 @@ jobs:
               with:
                   name: report
                   path: end-to-end-tests/reports
-
