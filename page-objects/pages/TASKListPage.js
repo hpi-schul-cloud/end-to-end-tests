@@ -143,8 +143,7 @@ async function clickDeleteTaskButtonInPopup() {
 }
 
 async function clickTaskWithoutDuedate(){
-	await elementHelpers.clickAndWait(clickWithoutDueDate);
-	await waitHelpers.waitUntilPageLoads();
+	await waitHelpers.waitUntilElementIsClickable(clickWithoutDueDate,);
 }
 
 async function clickUngradedTaskSection(){
