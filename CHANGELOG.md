@@ -8,7 +8,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-
 ## Added
 
 - BC-224 - added testcase for nuxt client task page for student role
@@ -18,24 +17,27 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - reinstated that all tests are running
 - SC-9237 - added E2E test to check redirect
 
+## Added
+
+-   BC-25 seed database changed to use management api call
+-   BC-224 added testcase for nuxt client task page for student role
+
 ### Removed
 
-- docker log output
-- removed _travis.sh files
-- removed .travis.yml
-- disabled email tests
-- remove github workflow update_version.yml
+-   docker log output
+-   removed \_travis.sh files
+-   removed .travis.yml
+-   disabled email tests
+-   remove github workflow update_version.yml
 
 ### Fixed
 
-- BC-387 - fix command to run extended Test 
-- fix fallbacks for features and notification services versions
-- execute changes for features in travis
-- changed sidebar menu item CURRENT TASKS instead of OPEN TASKS
-- fix createStudent scenario
-- fix and adjust colours in accordance with BC-235
-
-
+-   BC-387 - fix command to run extended Test
+-   fix fallbacks for features and notification services versions
+-   execute changes for features in travis
+-   changed sidebar menu item CURRENT TASKS instead of OPEN TASKS
+-   fix createStudent scenario
+-   fix and adjust colours in accordance with BC-235
 
 ## 26.4.0
 
