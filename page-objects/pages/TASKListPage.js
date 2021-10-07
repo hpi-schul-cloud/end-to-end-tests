@@ -18,7 +18,6 @@ const taskDescriptionContainer = '.assignment .text-muted.ckcontent';
 const taskContainer = '.homework li.card';
 const deleteTaskButtonInPopup = '.delete-modal button.btn-submit';
 const clickWithoutDueDate = "//*[text()='Task19']";
-const ungradedTaskSection = "//div[@class ='v-expansion-panel']//button[@type='button']";
 const ungradedTask = "//div[text()='Task19']";
 const studentSubmitTask = "//td[text()='Boris']";
 
@@ -143,11 +142,7 @@ async function clickDeleteTaskButtonInPopup() {
 }
 
 async function clickTaskWithoutDuedate(){
-	await waitHelpers.waitUntilElementIsClickable(clickWithoutDueDate,);
-}
-
-async function clickUngradedTaskSection(){
-	await elementHelpers.clickAndWait(ungradedTaskSection);
+	await elementHelpers.clickAndWait(clickWithoutDueDate);
 }
 
 async function clickUngradedTask(){
@@ -171,7 +166,6 @@ module.exports = {
 	clickCreateTaskButtonInTheCourse,
 	clickDeleteTaskButtonInPopup,
 	clickTaskWithoutDuedate,
-	clickUngradedTaskSection,
 	clickUngradedTask,
 	studentSubmittedTask,
 };

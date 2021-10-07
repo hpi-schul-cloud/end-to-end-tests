@@ -8,8 +8,7 @@ const gradingRemarksFieldSel = '.ck-content';
 const submitBtn = '.ckeditor-submit';
 const activeSubmissions = '.tab-content.section-homeworksubmissions.active';
 const gradeFilesListSel = '.list-group-files';
-const teacherSubmissionsTab = '#submissions-tab-link';
-const studentSubmissionTab = '#submission-tab-link';
+const submissionTab = "//a[@id='submission-tab-link' and contains(.,  'Abgabe')]";
 const remoteFilePathInput = 'input[type=file][class=dz-hidden-input]';
 const commentBtn = '#comment-tab-link';
 const commentGradingTabSel = '#feedback-tab-link';
@@ -20,7 +19,6 @@ const ratingViewSel = '.grade';
 const remarkViewSel = '.ckcontent.comment';
 const submissionsTable = '#submissions table';
 const submissionRow = `${submissionsTable} tbody tr.userinfo`;
-const withoutDueDateTask = "//button[@type='button' and contains(., 'Ohne Abgabefrist')]";
 const completedTaskTab = "//*[text()='Erledigte Aufgaben']";
 const gradedTask = "//div[@class='v-list-item__title' and text() = '1']";
 let fileUrl;
@@ -41,12 +39,8 @@ async function clickSaveAndSendGradingBtn() {
 	await elementHelpers.clickAndWait(submitBtn);
 }
 
-async function clickTeacherSubmissionsTab() {
-	await elementHelpers.clickAndWait(teacherSubmissionsTab);
-}
-
-async function clickStudentSubmissionTab() {
-	await elementHelpers.clickAndWait(studentSubmissionTab);
+async function clickSubmissionTab() {
+	await elementHelpers.clickAndWait(submissionTab);
 }
 
 async function clickEvaluationTab() {
@@ -164,10 +158,6 @@ async function isTaskSubmitted(studentname) {
 	await expect(isSubbmitedByStudent).to.equal(true);
 }
 
-async function taskWithoutDueDate(){
-	await elementHelpers.clickAndWait(withoutDueDateTask);
-}
-
 async function clickCompletedTab(){
 	await elementHelpers.clickAndWait(completedTaskTab);
 }
@@ -180,8 +170,7 @@ async function isTaskGraded(){
 module.exports = {
 	goToNuxtTasksTab,
 	gotoTasksTab,
-	clickTeacherSubmissionsTab,
-	clickStudentSubmissionTab,
+	clickSubmissionTab,
 	clickSaveAndSendSubmissionBtn,
 	clickSaveAndSendGradingBtn,
 	clickOnStudentSubmissionContains,
@@ -198,7 +187,6 @@ module.exports = {
 	isFileVisible,
 	checkFileEvaluationStudent,
 	checkFileEvaluationTeacher,
-	taskWithoutDueDate,
 	clickCompletedTab,
 	isTaskGraded,
 };
