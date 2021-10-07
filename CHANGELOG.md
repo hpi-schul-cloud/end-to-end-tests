@@ -10,7 +10,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Added
 
-- BC-224 - added testcase for nuxt client task page for student role
+- BC-183 - added testcase for nuxt client task page for teacher role
 - BC-364 - add command to run unstable Tests on PR label `run unstable tests`
 - BC-324 - add extendedTest tag
 - BC-283 - added wait method to test step
@@ -20,7 +20,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## Added
 
 -   BC-25 seed database changed to use management api call
--   BC-224 added testcase for nuxt client task page for student role
+-   BC-182 added testcase for nuxt client task page for student role
 
 ### Removed
 
