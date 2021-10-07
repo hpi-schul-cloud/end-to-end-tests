@@ -8,25 +8,26 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-##Added
+## Added
 
-- BC-224 added testcase for nuxt client task page for student role
+-   BC-25 seed database changed to use management api call
+-   BC-224 added testcase for nuxt client task page for student role
 
 ## Added
 
-- BC-364 - add command to run unstable Tests on PR label `run unstable tests`
-- BC-324 - add extendedTest tag
-- BC-283 - added wait method to test step
-- reinstated that all tests are running
-- SC-9237 added E2E test to check redirect
+-   BC-364 - add command to run unstable Tests on PR label `run unstable tests`
+-   BC-324 - add extendedTest tag
+-   BC-283 - added wait method to test step
+-   reinstated that all tests are running
+-   SC-9237 added E2E test to check redirect
 
 ### Removed
 
-- docker log output
-- removed _travis.sh files
-- removed .travis.yml
-- disabled email tests
-- remove github workflow update_version.yml
+-   docker log output
+-   removed \_travis.sh files
+-   removed .travis.yml
+-   disabled email tests
+-   remove github workflow update_version.yml
 
 ### Fixed
 
@@ -37,7 +38,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - fix createStudent scenario
 - fix and adjust colours in accordance with BC-235
 - fix createTeam test BC-281
-
 
 
 ## 26.4.0
