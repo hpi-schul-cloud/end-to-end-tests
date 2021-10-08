@@ -28,7 +28,7 @@ Feature: Set of tests to submit tasks
 		When <userRole> logs in
 		And <userRole> goes to tasks page
 		And <userRole> clicks on task with name '<taskName>'
-		And <userRole> clicks on Submission tab
+		And <userRole> clicks on Submissions tab
 		And <userRole> clicks student submission contains '<studentFullName>'
 		And <userRole> clicks on Comment tab
 		And <userRole> grades task with rate '<taskRating>'% and remarks '<taskRemark>'

@@ -8,7 +8,8 @@ const gradingRemarksFieldSel = '.ck-content';
 const submitBtn = '.ckeditor-submit';
 const activeSubmissions = '.tab-content.section-homeworksubmissions.active';
 const gradeFilesListSel = '.list-group-files';
-const submissionTab = "//a[@id='submission-tab-link' and contains(.,  'Abgabe')]";
+const teacherSubmissionsTab = '#submissions-tab-link';
+const studentSubmissionTab = "//a[@id='submission-tab-link' and contains(.,  'Abgabe')]";
 const remoteFilePathInput = 'input[type=file][class=dz-hidden-input]';
 const commentBtn = '#comment-tab-link';
 const commentGradingTabSel = '#feedback-tab-link';
@@ -39,8 +40,12 @@ async function clickSaveAndSendGradingBtn() {
 	await elementHelpers.clickAndWait(submitBtn);
 }
 
-async function clickSubmissionTab() {
-	await elementHelpers.clickAndWait(submissionTab);
+async function clickTeacherSubmissionsTab() {
+	await elementHelpers.clickAndWait(teacherSubmissionsTab);
+}
+
+async function clickStudentSubmissionTab() {
+	await elementHelpers.clickAndWait(studentSubmissionTab);
 }
 
 async function clickEvaluationTab() {
@@ -170,7 +175,8 @@ async function isTaskGraded(){
 module.exports = {
 	goToNuxtTasksTab,
 	gotoTasksTab,
-	clickSubmissionTab,
+	clickTeacherSubmissionsTab,
+	clickStudentSubmissionTab,
 	clickSaveAndSendSubmissionBtn,
 	clickSaveAndSendGradingBtn,
 	clickOnStudentSubmissionContains,

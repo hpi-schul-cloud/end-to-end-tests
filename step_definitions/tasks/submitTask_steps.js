@@ -5,7 +5,11 @@ const TASKPage = require("../../page-objects/pages/TASKPage");
 
 //WHEN
 When(/^.* clicks on Submission tab$/, async function () {
-    await TASKPage.clickSubmissionTab();
+    await TASKPage.clickStudentSubmissionTab();
+});
+
+When(/^.* clicks on Submissions tab$/, async function () {
+    await TASKPage.clickTeacherSubmissionsTab();
 });
 
 When(/^.* sets submission text '(.*)'$/, async function (submissionText) {
