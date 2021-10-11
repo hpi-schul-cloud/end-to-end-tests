@@ -4,7 +4,7 @@ Feature: Set of tests to submit tasks
     Background: User opens Schul-cloud homepage Website
         Given user arrives on the Schul-Cloud homepage
 
-    @submitTaskWithTextContent
+    @submitTaskWithTextContent @unstableTest
 	Scenario Outline: As a user, I want to be able to submit a task and teacher evaluates it
 		When <userRole> logs in
 		And <userRole> goes to courses page
