@@ -1,0 +1,14 @@
+---
+name: e2e courses and topics
+
+on:
+  push:
+    branches-ignore:
+      - dependabot/**
+
+jobs:
+  tag-courses_and_topics:
+    uses: hpi-schul-cloud/end-to-end-tests/.github/workflows/e2e.yml@feature/bc-409-split-tags #ToDo remove branch ref
+    with:
+      branch_name: ${GITHUB_REF#refs/*/}
+      e2e_tag: courses_and_topics
