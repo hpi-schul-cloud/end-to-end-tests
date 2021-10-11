@@ -28,7 +28,7 @@ Feature: Set of tests to delete tasks
 		And <userRole> sets task body '<taskBody>' in task form
 		And <userRole> clicks Add-task-submit button
 		When <userRole> goes to tasks page
-		#Then <userRole> should see that task with name '<taskName>' is visible on the list
+		Then <userRole> should see that task with name '<taskName>' is visible on the list
 		And <userRole> should clicks on 'Delete' button for task with name '[<courseName>] - <taskName>'
 		And <userRole> clicks on Delete task button
 		Then <userRole> should see that task with name '<taskName>' is not visible on the list
