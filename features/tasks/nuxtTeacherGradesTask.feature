@@ -26,7 +26,7 @@ Feature: View the tasks in new nuxt task menu and grade it
 		And <userRole> grades task with rate '<taskRating>'% and remarks '<taskRemark>'
 		And <userRole> clicks Save-and-send grading button
         And <userRole> clicks the current task tab
-        Then <userRole> checks the graded column
+        Then <userRole> sees that the task is graded
         Examples:
 			| userRole |taskRating|taskRemark|
 			| teacher  |95        |good job  |
