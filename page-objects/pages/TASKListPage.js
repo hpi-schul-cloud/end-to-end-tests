@@ -106,7 +106,6 @@ async function clickOnTask(taskName, button) {
 
 async function isTaskVisible(taskname, expectedValue) {
 	const allTasks = await getListOfTaskTitles();
-	console.log(allTasks);
 	const isTaskOnList = allTasks.some((element) => element.includes(taskname));
 	const fillString = !expectedValue ? 'not' : '';
 	const msg = `Task with name is ${fillString} visible on the list: \n`;
