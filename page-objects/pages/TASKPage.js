@@ -9,22 +9,22 @@ const submitBtn = '.ckeditor-submit';
 const activeSubmissions = '.tab-content.section-homeworksubmissions.active';
 const gradeFilesListSel = '.list-group-files';
 const teacherSubmissionsTab = '#submissions-tab-link';
-const studentSubmissionTab = '#submission-tab-link';
+const studentSubmissionTab = "//a[@id='submission-tab-link' and contains(.,  'Abgabe')]";
 const remoteFilePathInput = 'input[type=file][class=dz-hidden-input]';
 const commentBtn = '#comment-tab-link';
 const commentGradingTabSel = '#feedback-tab-link';
 const hometasksTabSel = 'button[data-testid="hometasks"]';
-const nuxtHometasksTabSel = '[data-testid="Aktuelle Aufgaben"] > .link-name';
+const nuxtHometasksTabSel = "//a[@data-testid = 'Aktuelle Aufgaben']";
 const taskRatingInput = '[data-testid="evaluation_procent"]';
 const ratingViewSel = '.grade';
 const remarkViewSel = '.ckcontent.comment';
 const submissionsTable = '#submissions table';
 const submissionRow = `${submissionsTable} tbody tr.userinfo`;
-const withoutDueDateTask = "//div[@aria-expanded='false']//button[@type='button']";
 const completedTaskTab = "//*[text()='Erledigte Aufgaben']";
+const gradedTask = "//div[@class='v-list-item__title' and text() = '1']";
 let fileUrl;
 
-async function gotoNuxtTasksTab() {
+async function goToNuxtTasksTab() {
 	await elementHelpers.clickAndWait(nuxtHometasksTabSel);
 }
 
@@ -163,16 +163,17 @@ async function isTaskSubmitted(studentname) {
 	await expect(isSubbmitedByStudent).to.equal(true);
 }
 
-async function taskWithoutDueDate(){
-	await elementHelpers.clickAndWait(withoutDueDateTask);
-}
-
 async function clickCompletedTab(){
 	await elementHelpers.clickAndWait(completedTaskTab);
 }
 
+async function isTaskGraded(){
+	const actualResult = await elementHelpers.getElementText(gradedTask);
+	await expect(actualResult).to.equal('1');
+}
+
 module.exports = {
-	gotoNuxtTasksTab,
+	goToNuxtTasksTab,
 	gotoTasksTab,
 	clickTeacherSubmissionsTab,
 	clickStudentSubmissionTab,
@@ -192,6 +193,6 @@ module.exports = {
 	isFileVisible,
 	checkFileEvaluationStudent,
 	checkFileEvaluationTeacher,
-	taskWithoutDueDate,
 	clickCompletedTab,
+	isTaskGraded,
 };
