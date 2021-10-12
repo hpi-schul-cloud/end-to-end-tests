@@ -6,11 +6,7 @@ const TASKListPage = require("../../page-objects/pages/TASKListPage");
 
 
 When(/^.* clicks the current task tab$/, async function (){
-    await TASKPage.gotoNuxtTasksTab();
-});
-
-When(/^.* clicks on without duedate task section$/, async function (){
-    await TASKPage.taskWithoutDueDate();
+    await TASKPage.goToNuxtTasksTab();
 });
 
 When(/^.* clicks task Task19$/, async function (){
@@ -23,10 +19,6 @@ When(/^.* clicks on submit button$/, async function (){
 
 When(/^.* clicks completed task tab$/, async function (){
     await TASKPage.clickCompletedTab();
-});
-
-When(/^.* clicks at ungraded task section$/, async function (){
-    await TASKListPage.clickUngradedTaskSection();
 });
 
 When(/^.* clicks at Task19$/, async function (){
