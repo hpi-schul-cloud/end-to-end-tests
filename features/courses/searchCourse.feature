@@ -15,7 +15,7 @@ Feature: Set of tests to search courses
             | teacher  | karl.teacher.qa@schul-cloud.org  | Schulcloud1qa! | Biologie   |
             | student  | amelia.strobl.qa@schul-cloud.org | Schulcloud1qa! | German     |
 
-    @searchCourseAndDontFindOne
+    @searchCourseAndDontFindOne @unstableTest
     Scenario Outline: As a user, I want to be able to search a course and do not find them.
         Given <userRole> logs in with email '<username>' and password '<password>'
         And <userRole> goes to courses page
