@@ -25,7 +25,7 @@ Feature: Set of tests to edit students
             | userRole | newFirstName | newLastName | newEmail                    | adminsUsername               | adminsPassword   | newBirthdate | studentUsername                  |
             | admin    | Nils         | Nilsen      | nils.nilsen@schul-cloud.org | kai.admin.qa@schul-cloud.org | Schulcloud1qa!   | 24.12.2004   | amelia.strobl.qa@schul-cloud.org |
 
-  @sendConsentFormEmail @stableTest
+  @sendConsentFormEmail @unstableTest
 	Scenario Outline: As a user, I want to be able to send emails to all students without a full declaration of consent.
 		When <userRole> logs in with email '<username>' and password '<password>'
 		When <userRole> goes to management
