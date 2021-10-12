@@ -7,8 +7,15 @@ on:
       - dependabot/**
 
 jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch_name;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
   tag-courses_and_topics:
-    uses: hpi-schul-cloud/end-to-end-tests/.github/workflows/e2e.yml@${{github.ref}}
+    uses: hpi-schul-cloud/end-to-end-tests/.github/workflows/e2e.yml@${{ steps.extract_branch.outputs.branch_name }}
     with:
       branch_name: ${GITHUB_REF#refs/*/}
       e2e_tag: courses_and_topics
