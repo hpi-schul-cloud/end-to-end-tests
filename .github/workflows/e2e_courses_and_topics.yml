@@ -8,7 +8,7 @@ on:
 
 jobs:
   tag-courses_and_topics:
-    uses: hpi-schul-cloud/end-to-end-tests/.github/workflows/e2e.yml
+    uses: hpi-schul-cloud/end-to-end-tests/.github/workflows/e2e.yml@${{github.ref}}
     with:
       branch_name: ${GITHUB_REF#refs/*/}
       e2e_tag: courses_and_topics
