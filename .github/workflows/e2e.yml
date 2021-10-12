@@ -15,6 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: ${{ inputs.branch_name }}
       - name: Set BRANCH_NAME on push
         run: |
           echo "BRANCH_NAME=${{ inputs.branch_name }}" >> $GITHUB_ENV
