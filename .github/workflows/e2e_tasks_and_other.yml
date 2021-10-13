@@ -10,6 +10,6 @@ jobs:
   tag-tasks_and_other:
     uses: hpi-schul-cloud/end-to-end-tests/.github/workflows/e2e.yml@feature/bc-409-split-tags #ToDo remove branch ref
     with:
-      branch_name: ${GITHUB_REF#refs/*/}
+      branch_name: ${{ github.ref }}
       e2e_tag: tasks_and_other
 

@@ -19,7 +19,8 @@ jobs:
           ref: ${{ inputs.branch_name }}
       - name: Set BRANCH_NAME on push
         run: |
-          echo "BRANCH_NAME=${{ inputs.branch_name }}" >> $GITHUB_ENV
+            branch_arg=${{ inputs.branch_name }}
+            echo "BRANCH_NAME=${branch_arg#refs/heads/}" >> $GITHUB_ENV
       - name: run git change
         run: |
           git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"

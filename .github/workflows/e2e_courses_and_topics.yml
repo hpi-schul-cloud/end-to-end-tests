@@ -17,5 +17,5 @@ jobs:
   tag-courses_and_topics:
     uses: hpi-schul-cloud/end-to-end-tests/.github/workflows/e2e.yml@${{ steps.extract_branch.outputs.branch_name }}
     with:
-      branch_name: ${GITHUB_REF#refs/*/}
+      branch_name: ${{ github.ref }}
       e2e_tag: courses_and_topics
