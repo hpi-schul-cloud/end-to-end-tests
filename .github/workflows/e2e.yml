@@ -3,7 +3,7 @@ name: E2E test
 on:
   workflow_call:
     inputs:
-      branch_name:
+      ref:
         required: true
         type: string
       e2e_tag:
@@ -16,10 +16,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: ${{ inputs.branch_name }}
+          ref: ${{ inputs.ref }}
       - name: Set BRANCH_NAME on push
         run: |
-            branch_arg=${{ inputs.branch_name }}
+            branch_arg=${{ inputs.ref }}
             echo "BRANCH_NAME=${branch_arg#refs/heads/}" >> $GITHUB_ENV
       - name: run git change
         run: |

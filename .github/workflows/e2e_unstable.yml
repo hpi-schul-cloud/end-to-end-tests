@@ -10,6 +10,6 @@ jobs:
   tag-unstable:
     uses: hpi-schul-cloud/end-to-end-tests/.github/workflows/e2e.yml@feature/bc-409-split-tags #ToDo remove branch ref
     with:
-      branch_name: ${{ github.ref }}
+      ref: ${{ github.ref }}
       e2e_tag: unstable
 
