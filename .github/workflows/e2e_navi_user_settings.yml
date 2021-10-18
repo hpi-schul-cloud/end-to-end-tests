@@ -1,0 +1,15 @@
+---
+name: e2e navi & user settings
+
+on:
+  push:
+    branches-ignore:
+      - dependabot/**
+
+jobs:
+  tag-navi_user_settings:
+    uses: hpi-schul-cloud/end-to-end-tests/.github/workflows/e2e.yml@main
+    with:
+      ref: ${{ github.ref }}
+      e2e_tag: navi_user_settings
+

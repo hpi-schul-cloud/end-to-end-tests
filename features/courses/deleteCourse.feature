@@ -1,4 +1,4 @@
-@courses @deleteCourse @e2eCore @stableTest
+@courses @deleteCourse @e2eCore @stableTest @courses_and_topics
 Feature: Set of tests to delete courses
 
     Background: User opens Schul-cloud homepage Website
