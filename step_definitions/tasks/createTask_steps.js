@@ -82,5 +82,6 @@ Then(/^.* task with name '([^']*)' is not visible on the list$/, async function 
 });
 
 Then(/^.* task with name '([^']*)' is visible on the list$/, async function (taskName) {
+	await TASKListPage.sortTasksLastEdited();
 	await TASKListPage.isTaskVisible(taskName, true);
 });
