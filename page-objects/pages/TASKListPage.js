@@ -81,7 +81,7 @@ async function getTaskIndex(taskName) {
 }
 
 async function getListOfTaskTitles() {
-	//await waitHelpers.waitUntilElementIsNotVisible('.loaded #MathJax_Message');
+	await waitHelpers.waitUntilElementIsNotVisible('.loaded #MathJax_Message');
 	return await elementHelpers.getTextFromAllElements(taskTitleContainer);
 }
 
@@ -108,7 +108,7 @@ async function isTaskVisible(taskname, expectedValue) {
 	console.log(allTasks);
 	const isTaskOnList = allTasks.some((element) => element.includes(taskname));
 	const fillString = !expectedValue ? ' not' : '';
-	const msg = `Task with name ${taskName} is${fillString} visible on the list: \n`;
+	const msg = `Task with name ${taskname} is${fillString} visible on the list: \n`;
 	const resultMsg = 'Expected: ' + taskname + ', Actual: ' + allTasks;
 	await expect(isTaskOnList, msg + resultMsg).to.equal(expectedValue);
 }
