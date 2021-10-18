@@ -1,4 +1,4 @@
-@dashboard @redirect @stableTest
+@dashboard @redirect @stableTest @tasks_and_other
 Feature: dashboard test set
 
 	Background: user is not logged in

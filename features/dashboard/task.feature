@@ -1,4 +1,4 @@
-@dashboard @task @stableTest
+@dashboard @task @stableTest @tasks_and_other
 Feature: dashboard test set
 
 	Background: user logs in
