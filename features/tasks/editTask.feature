@@ -1,4 +1,4 @@
-@task @editTask @e2eCore @stableTest
+@task @editTask @e2eCore @stableTest @tasks_and_other
 Feature: create different types of task
 
 	Background:
@@ -24,4 +24,3 @@ Feature: create different types of task
 		Examples:
 			| userRole | taskName    | newTaskName     | newTaskBody |
 			| teacher  | Biologie 7C | Aufgabe Algebra | Calculate   |
-
