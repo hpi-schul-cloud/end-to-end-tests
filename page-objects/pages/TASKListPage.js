@@ -10,8 +10,7 @@ const selectorCreateTaskButton = '.btn.btn-primary.btn-add.create';
 const selectorCreateTaskBtnInTheCourse = '.col-sm-12.add-button > a';
 const selectorSortBtn = '#filter .md-clickable > div';
 const select = '#selection-picker > div > div';
-const lastedited =
-	'body > div.md-select-menu.md-menu-content-bottom-start.md-menu-content-small.md-menu-content.md-theme-default > div > ul > li:nth-child(2) > button';
+const lastedited = 'body > div.md-select-menu.md-menu-content-bottom-start.md-menu-content-small.md-menu-content.md-theme-default > div > ul > li:nth-child(2) > button';
 const submitBtn = '.md-button.md-primary.md-theme-default > div > div';
 const taskTitleContainer = '.assignment.card .title';
 const taskDescriptionContainer = '.assignment .text-muted.ckcontent';
@@ -82,8 +81,8 @@ async function getTaskIndex(taskName) {
 }
 
 async function getListOfTaskTitles() {
-	await waitHelpers.waitUntilElementIsNotVisible('.loaded #MathJax_Message');
-	return elementHelpers.getTextFromAllElements(taskTitleContainer);
+	//await waitHelpers.waitUntilElementIsNotVisible('.loaded #MathJax_Message');
+	return await elementHelpers.getTextFromAllElements(taskTitleContainer);
 }
 
 async function getListOfTask() {
@@ -106,9 +105,10 @@ async function clickOnTask(taskName, button) {
 
 async function isTaskVisible(taskname, expectedValue) {
 	const allTasks = await getListOfTaskTitles();
+	console.log(allTasks);
 	const isTaskOnList = allTasks.some((element) => element.includes(taskname));
-	const fillString = !expectedValue ? 'not' : '';
-	const msg = `Task with name is ${fillString} visible on the list: \n`;
+	const fillString = !expectedValue ? ' not' : '';
+	const msg = `Task with name ${taskName} is${fillString} visible on the list: \n`;
 	const resultMsg = 'Expected: ' + taskname + ', Actual: ' + allTasks;
 	await expect(isTaskOnList, msg + resultMsg).to.equal(expectedValue);
 }
