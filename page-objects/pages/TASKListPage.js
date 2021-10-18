@@ -93,11 +93,7 @@ async function getTaskIndex(taskName) {
 }
 
 async function getListOfTaskTitles() {
-<<<<<<< HEAD
 	await waitHelpers.waitUntilElementIsNotVisible('.loaded #MathJax_Message');
-=======
-	//await waitHelpers.waitUntilElementIsNotVisible('.loaded #MathJax_Message');
->>>>>>> 5ea408e7 (Adding last edited sort)
 	return await elementHelpers.getTextFromAllElements(taskTitleContainer);
 }
 
