@@ -1,0 +1,15 @@
+---
+name: e2e tasks & other
+
+on:
+  push:
+    branches-ignore:
+      - dependabot/**
+
+jobs:
+  tag-tasks_and_other:
+    uses: hpi-schul-cloud/end-to-end-tests/.github/workflows/e2e.yml@main
+    with:
+      ref: ${{ github.ref }}
+      e2e_tag: tasks_and_other
+

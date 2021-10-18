@@ -1,4 +1,4 @@
-@courses @searchCourse @stableTest
+@courses @searchCourse @stableTest @courses_and_topics
 Feature: Set of tests to search courses
 
     Background: User opens Schul-cloud homepage Website

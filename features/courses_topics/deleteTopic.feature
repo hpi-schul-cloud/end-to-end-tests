@@ -1,4 +1,4 @@
-@courseTopics @deleteTopic @e2eCore @stableTest
+@courseTopics @deleteTopic @e2eCore @stableTest @courses_and_topics
 Feature: Set of tests to delete topics
 
     Background: User opens Schul-cloud homepage Website
@@ -17,6 +17,6 @@ Feature: Set of tests to delete topics
         And <userRole> clicks on Delete topic button
         Then <userRole> should see that topic with name '<topicName>' is not visible on the list
         Examples:
-            | userRole | username                        | password       | courseName | topicName      | secondTopicName |
-            | teacher  | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | English    | Grammatik      | Addition        |
+            | userRole | username                        | password       | courseName | topicName | secondTopicName |
+            | teacher  | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | English    | Grammatik | Addition        |
 
