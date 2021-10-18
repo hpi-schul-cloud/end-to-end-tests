@@ -138,7 +138,7 @@ async function clickOnTaskFromList(taskname) {
 
 async function clickDeleteTaskButtonInPopup() {
 	await elementHelpers.clickAndWait(deleteTaskButtonInPopup);
-	await waitHelpers.waitUntilAjaxIsFinished();
+	await waitHelpers.waitUntilPageLoads();
 }
 
 async function clickTaskWithoutDuedate(){
