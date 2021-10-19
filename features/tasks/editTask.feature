@@ -19,7 +19,7 @@ Feature: create different types of task
 		And <userRole> clicks on Student-submissions-visible-to-each-other checkbox
 		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
-		Then <userRole> should see that new task with name '<newTaskName>' is visible on the list
+		Then <userRole> see visible task '<newTaskName>'
 		And <userRole> should see that new task body is '<newTaskBody>'
 		Examples:
 			| userRole | taskName    | newTaskName     | newTaskBody |

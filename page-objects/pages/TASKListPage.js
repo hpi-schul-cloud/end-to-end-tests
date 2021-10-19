@@ -19,6 +19,9 @@ const deleteTaskButtonInPopup = '.delete-modal button.btn-submit';
 const clickWithoutDueDate = "//*[text()='Task19']";
 const ungradedTask = "//div[text()='Task19']";
 const studentSubmitTask = "//td[text()='Boris']";
+const filterSelect = "//i[text() = 'add' and @class='material-icons']";
+const kurseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
+const kurseCheckbox = "//label[contains(., 'test course with test task') and @class='md-checkbox-label']";
 
 const taskButton = {
 	archive: '.fa-archive',
@@ -72,6 +75,14 @@ async function sortTasksLastEdited() {
 	await elementHelpers.click(lastedited);
 	await elementHelpers.clickAndWait(submitBtn);
 	await waitHelpers.waitUntilAjaxIsFinished();
+}
+
+async function sortTasksKurse() {
+	await elementHelpers.click(filterSelect);
+	await elementHelpers.click(kurseSelect);
+	await elementHelpers.clickAndWait(kurseCheckbox);
+	await elementHelpers.clickAndWait(submitBtn);
+	await waitHelpers.waitUntilPageLoads();
 }
 
 async function getTaskIndex(taskName) {
@@ -168,4 +179,5 @@ module.exports = {
 	clickTaskWithoutDuedate,
 	clickUngradedTask,
 	studentSubmittedTask,
+	sortTasksKurse,
 };
