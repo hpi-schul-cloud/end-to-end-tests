@@ -1,4 +1,4 @@
-@task @nuxtTask @stableTest @teachertest
+@task @nuxtTask @teachertest
 Feature: View the tasks in new nuxt task menu and grade it
 
     Background: Student logs in and submit the task, after that teacher logs in and grade the task and view that the graded column increments
@@ -13,8 +13,8 @@ Feature: View the tasks in new nuxt task menu and grade it
         And <userRole> sets submission text 'Test submission text'
         Then <userRole> clicks on submit button
         Examples:
-			| userRole |
-			| student  |
+            | userRole |
+            | student  |
 
     @nuxtTeacherGradeAndViewTask @noDBReset
     Scenario Outline: As a teacher, I want to see the tasks in new nuxt tab, grade them and see it will show at graded task column for that task
@@ -23,10 +23,10 @@ Feature: View the tasks in new nuxt task menu and grade it
         And <userRole> clicks task Task19
         And <userRole> clicks on student submitted the task
         And <userRole> clicks on Comment tab
-		And <userRole> grades task with rate '<taskRating>'% and remarks '<taskRemark>'
-		And <userRole> clicks Save-and-send grading button
+        And <userRole> grades task with rate '<taskRating>'% and remarks '<taskRemark>'
+        And <userRole> clicks Save-and-send grading button
         And <userRole> clicks the current task tab
         Then <userRole> sees that the task is graded
         Examples:
-			| userRole |taskRating|taskRemark|
-			| teacher  |95        |good job  |
+            | userRole | taskRating | taskRemark |
+            | teacher  | 95         | good job   |

@@ -8,7 +8,7 @@ const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers.js');
 const TASKPage = require('../../page-objects/pages/TASKPage');
 
 //WHEN
-When(/^.*goes to tasks page$/, function () {
+When(/^.* goes to tasks page$/, function () {
 	return navigationLeftPage.clickNavItemTasks();
 });
 
@@ -23,11 +23,11 @@ Then(/^.* clicks on '([^']*)' button for task with name '([^']*)'$/, async funct
 	await TASKListPage.clickOnTask(taskname, button);
 });
 
-When(/^.*clicks Add-task button$/, function () {
+When(/^.* clicks Add-task button$/, function () {
 	return TASKListPage.clickCreateTaskButton();
 });
 
-When(/^.*clicks Add-task-submit button$/, function () {
+When(/^.* clicks Add-task-submit button$/, function () {
 	return addEditTaskPage.clickSubmitTaskBtn();
 });
 
@@ -56,7 +56,7 @@ When(/^.*sets task name '([^']*)' in task form$/, function (taskName) {
 	return addEditTaskPage.setTaskName(taskName);
 });
 
-When(/^.*sets task body '([^']*)' in task form$/, function (taskBody) {
+When(/^.* sets task body '([^']*)' in task form$/, function (taskBody) {
 	return addEditTaskPage.setTaskText(taskBody);
 });
 
