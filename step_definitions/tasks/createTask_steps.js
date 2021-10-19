@@ -78,16 +78,9 @@ Then(/^.* task body is '([^']*)'$/, async function (taskbody) {
 });
 
 Then(/^.* task with name '([^']*)' is not visible on the list$/, async function (taskName) {
-	await TASKListPage.sortTasksKurse();
 	await TASKListPage.isTaskVisible(taskName, false);
 });
 
 Then(/^.* task with name '([^']*)' is visible on the list$/, async function (taskName) {
-	await TASKListPage.sortTasksKurse();
-	await TASKListPage.isTaskVisible(taskName, true);
-});
-
-Then(/^.* see that new task '([^']*)' is visible on the list$/, async function (taskName) {
-	await TASKListPage.sortTasksLastEdited();
 	await TASKListPage.isTaskVisible(taskName, true);
 });

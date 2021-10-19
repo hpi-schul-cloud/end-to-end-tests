@@ -32,7 +32,7 @@ Feature: Set of tests to delete tasks
 		Then <userRole> should see that task with name '<taskName>' is visible on the list
 		And <userRole> should clicks on 'Delete' button for task with name '[<courseName>] - <taskName>'
 		And <userRole> clicks on Delete task button
-		Then <userRole> should see that task with name '<taskName>' is not visible on the list
+		Then <userRole> should not see task with name '<taskName>' visible
 		Examples:
 			| userRole | courseName                 | taskName  | taskBody          |
 			| teacher  | test course with test task | test task | text of test task |
