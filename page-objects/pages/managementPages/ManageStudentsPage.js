@@ -31,7 +31,7 @@ const lastNameCells = tableOfStudents + ' td:nth-child(3)';
 const emailCells = tableOfStudents + ' td:nth-child(5)';
 const selectAllCheckbox = 'th:nth-child(1) > div';
 const actionsBtn = '.actions > button';
-const sendEmailBtn = '.context-menu:nth-child(2)';
+const sendEmailBtn = 'button.context-menu__button:nth-child(2)';
 
 async function clickFloatingActionButtonBtn() {
 	await elementHelpers.clickAndWait(floatingActionButtonBtn);

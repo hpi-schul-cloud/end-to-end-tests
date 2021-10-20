@@ -62,17 +62,17 @@ const navItemAddons = navItemString1stLevel.replace('XXX', 'Add-ons');
 const navItemHelpDesk = navItemString1stLevel.replace('XXX', 'Helpdesk');
 const navItemManagement = navItemString1stLevel.replace('XXX', 'Verwaltung');
 const navItemManagementStudents = navItemString2ndLevel.replace('XXX', 'Schüler:innen');
-const navItemManagementStudentsOld = navItemString2ndLevel.replace('XXX', 'Schüler:innen');
-const navItemManagementTeachers = '[data-testid="global.sidebar.teacher"] > a';
-const navItemManagementTeachersOld = navItemString2ndLevel.replace('XXX', 'Lehrkräfte');
-const navItemManagementCourses = '[data-testid="global.sidebar.courses"] > a';
-const navItemManagementCoursesOld = navItemString2ndLevel.replace('XXX', 'Kurse');
-const navItemManagementTeams = '[data-testid="global.sidebar.teams"] > a';
-const navItemManagementTeamsOld = navItemString2ndLevel.replace('XXX', 'Teams');
-const navItemManagementClasses = '[data-testid="global.sidebar.classes"] > a';
-const navItemManagementClassesOld = navItemString2ndLevel.replace('XXX', 'Klassen');
-const navItemManagementSchool = '[data-testid="global.sidebar.school"] > a';
-const navItemManagementSchoolOld = navItemString2ndLevel.replace('XXX', 'Schule');
+//const navItemManagementStudentsOld = navItemString2ndLevel.replace('XXX', 'Schüler:innen');
+//const navItemManagementTeachers = '[data-testid="global.sidebar.teacher"] > a';
+const navItemManagementTeachers = navItemString2ndLevel.replace('XXX', 'Lehrkräfte');
+//const navItemManagementCourses = '[data-testid="global.sidebar.courses"] > a';
+const navItemManagementCourses = navItemString2ndLevel.replace('XXX', 'Kurse');
+//const navItemManagementTeams = '[data-testid="global.sidebar.teams"] > a';
+const navItemManagementTeams = navItemString2ndLevel.replace('XXX', 'Teams');
+//const navItemManagementClasses = '[data-testid="global.sidebar.classes"] > a';
+const navItemManagementClasses = navItemString2ndLevel.replace('XXX', 'Klassen');
+//const navItemManagementSchool = '[data-testid="global.sidebar.school"] > a';
+const navItemManagementSchool = navItemString2ndLevel.replace('XXX', 'Schule');
 const navItemHelparea = navItemString1stLevel.replace('XXX', 'Hilfebereich');
 const navItemHelparticles = navItemString2ndLevel.replace('XXX', 'Hilfeartikel');
 const navItemHelpTrainings = navItemString2ndLevel.replace('XXX', 'Fortbildungen');
@@ -149,54 +149,33 @@ async function clickNavItemAddons() {
 
 async function clickNavItemManagement() {
 	await loadPageFromNavigationItem(navItemManagement);
+	await waitHelpers.waitUntilPageLoads();
 }
 
 async function clickNavItemManageStudents() {
-	try {
-		await loadPageFromNavigationItem(navItemManagementStudentsOld);
-	} catch (e) {
-		await loadPageFromNavigationItem(navItemManagementStudents);
-	}
+	await loadPageFromNavigationItem(navItemManagementStudents);
+	await waitHelpers.waitUntilPageLoads();
 }
 
 async function clickNavItemManageTeachers() {
-	try {
-		await loadPageFromNavigationItem(navItemManagementTeachersOld);
-	} catch (e) {
-		await loadPageFromNavigationItem(navItemManagementTeachers);
-	}
+	await loadPageFromNavigationItem(navItemManagementTeachers);
+	await waitHelpers.waitUntilPageLoads();
 }
 
 async function clickNavItemManageCourses() {
-	try {
-		await loadPageFromNavigationItem(navItemManagementCoursesOld);
-	} catch (e) {
-		await loadPageFromNavigationItem(navItemManagementCourses);
-	}
+	await loadPageFromNavigationItem(navItemManagementCourses);
 }
 
 async function clickNavItemManageClasses() {
-	try {
-		await loadPageFromNavigationItem(navItemManagementClassesOld);
-	} catch (e) {
-		await loadPageFromNavigationItem(navItemManagementClasses);
-	}
+	await loadPageFromNavigationItem(navItemManagementClasses);
 }
 
 async function clickNavItemManageTeams() {
-	try {
-		await loadPageFromNavigationItem(navItemManagementTeamsOld);
-	} catch (e) {
-		await loadPageFromNavigationItem(navItemManagementTeams);
-	}
+	await loadPageFromNavigationItem(navItemManagementTeams);
 }
 
 async function clickNavItemManageSchool() {
-	try {
-		await loadPageFromNavigationItem(navItemManagementSchoolOld);
-	} catch (e) {
-		await loadPageFromNavigationItem(navItemManagementSchool);
-	}
+	await loadPageFromNavigationItem(navItemManagementSchool);
 }
 
 async function clickNavItemHelpArea() {

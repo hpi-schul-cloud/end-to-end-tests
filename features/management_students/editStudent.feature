@@ -1,11 +1,11 @@
-@management @managementStudents @editStudent
+@management @managementStudents @editStudent @stableTest
 Feature: Set of tests to edit students
     As an Schul-Cloud user I want to be able to edit students
 
     Background: User opens Schul-cloud homepage Website
         Given user arrives on the Schul-Cloud homepage
 
-    @editStudentData @unstableTest
+    @editStudentData
     Scenario Outline: As a user, I want to be able to edit a student firstname, lastname, email and birthdate
         Given <userRole> logs in with email '<adminsUsername>' and password '<adminsPassword>'
         And <userRole> goes to management
@@ -18,14 +18,14 @@ Feature: Set of tests to edit students
         And <userRole> clicks Save-changes button
         Then <userRole> should see that edited student firstname '<newFirstName>' is visible on the list
         And <userRole> should see that edited student lastname '<newLastName>' is visible on the list
-        And <userRole> should see that edited student email '<newEmail>' is is visible on the list
+        And <userRole> should see that edited student email '<newEmail>' is visible on the list
         When <userRole> clicks Edit-student with '<newEmail>' button
         Then <userRole> should see that student birthdate is '<newBirthdate>'
         Examples:
             | userRole | newFirstName | newLastName | newEmail                    | adminsUsername               | adminsPassword   | newBirthdate | studentUsername                  |
             | admin    | Nils         | Nilsen      | nils.nilsen@schul-cloud.org | kai.admin.qa@schul-cloud.org | Schulcloud1qa!   | 24.12.2004   | amelia.strobl.qa@schul-cloud.org |
 
-  @sendConsentFormEmail @stableTest
+  @sendConsentFormEmail
 	Scenario Outline: As a user, I want to be able to send emails to all students without a full declaration of consent.
 		When <userRole> logs in with email '<username>' and password '<password>'
 		When <userRole> goes to management
