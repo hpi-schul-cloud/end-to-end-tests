@@ -23,8 +23,7 @@ const consentSubmitBtn = "button[data-testid='submit_consent']";
 const addStudentSubmitBtn = "button[data-testid='button_create-user_submit']";
 const passwordInput = '#passwd';
 const createBirthday = '#birthday';
-const editStudentBtn = '.table-actions .btn .fa-edit';
-const newAdminTablesEditButton = tableOfStudents + ' a[data-testid="edit_student_button"]';
+const editStudentBtn = 'a[data-testid="edit_student_button"]';
 const tableOfStudentsRow = tableOfStudents + ' > tr';
 const firstNameCells = tableOfStudents + ' td:nth-child(2)';
 const lastNameCells = tableOfStudents + ' td:nth-child(3)';
@@ -42,18 +41,13 @@ async function clickAddStudentBtn() {
 }
 
 async function clickEditStudentBtn() {
-	// to make it work on new admin tables
-	try {
-		await elementHelpers.click(newAdminTablesEditButton);
-	} catch (e) {
-		await elementHelpers.click(editStudentBtn);
-	}
+	await elementHelpers.click(editStudentBtn);
 }
 
 async function clickEditStudentByMailBtn(userEmail) {
 	await waitHelpers.waitUntilElementIsVisible(tableOfStudentsRow);
 	let studentsTable = await getStudentsDetailsList(emailCells);
-	let editsElements = await elementHelpers.getListOfAllElements(newAdminTablesEditButton);
+	let editsElements = await elementHelpers.getListOfAllElements(editStudentBtn);
 	for (let index = 0; index < studentsTable.length; index++) {
 		if (studentsTable[index] === userEmail) {
 			await elementHelpers.clickAndWait(editsElements[index]);
