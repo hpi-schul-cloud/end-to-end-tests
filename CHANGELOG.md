@@ -12,6 +12,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- fixed default `npm run test` to run only stable tests
+
 ## [26.13.0] - 2021-10-19
 
 ### Added
