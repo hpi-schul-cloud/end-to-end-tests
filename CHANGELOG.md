@@ -43,15 +43,15 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
-- BC-326 - Improve E2E test: deleteTask.feature
-- BC-402 - split tests into 5 groups for parallel CI run
-- BC-183 - added testcase for nuxt client task page for teacher role
-- BC-364 - add command to run unstable Tests on PR label `run unstable tests`
-- BC-283 - added wait method to test step
-- reinstated that all tests are running
-- SC-9237 - added E2E test to check redirect
-- BC-25 seed database changed to use management api call
-- BC-182 added testcase for nuxt client task page for student role
+-   BC-326 - Improve E2E test: deleteTask.feature
+-   BC-402 - split tests into 5 groups for parallel CI run
+-   BC-183 - added testcase for nuxt client task page for teacher role
+-   BC-364 - add command to run unstable Tests on PR label `run unstable tests`
+-   BC-283 - added wait method to test step
+-   reinstated that all tests are running
+-   SC-9237 - added E2E test to check redirect
+-   BC-25 seed database changed to use management api call
+-   BC-182 added testcase for nuxt client task page for student role
 
 ### Removed
 
