@@ -20,8 +20,8 @@ const clickWithoutDueDate = "//*[text()='Task19']";
 const ungradedTask = "//div[text()='Task19']";
 const studentSubmitTask = "//td[text()='Boris']";
 const filterSelect = "//i[text() = 'add' and @class='material-icons']";
-const kurseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
-const kurseCheckbox = "//label[contains(., 'test course with test task') and @class='md-checkbox-label']";
+const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
+const courseCheckbox = "//label[contains(.,'";
 
 const taskButton = {
 	archive: '.fa-archive',
@@ -77,13 +77,13 @@ async function sortTasksLastEdited() {
 	await waitHelpers.waitUntilAjaxIsFinished();
 }
 
-async function sortTasksKurse() {
+async function sortTasksCourse(courseName) {
 	await elementHelpers.click(filterSelect);
-	await elementHelpers.click(kurseSelect);
-	await elementHelpers.clickAndWait(kurseCheckbox);
+	await elementHelpers.click(courseSelect);
+	let courseSelector = courseCheckbox+courseName+"')]";
+	await elementHelpers.clickAndWait(courseSelector);
 	await elementHelpers.clickAndWait(submitBtn);
 	await waitHelpers.waitUntilPageLoads();
-	await waitHelpers.waitUntilAjaxIsFinished();
 }
 
 async function getTaskIndex(taskName) {
@@ -122,6 +122,8 @@ async function isTaskVisible(taskname, expectedValue) {
 	const msg = `Task with name ${taskname} is${fillString} visible on the list: \n`;
 	const resultMsg = 'Expected: ' + taskname + ', Actual: ' + allTasks;
 	await expect(isTaskOnList, msg + resultMsg).to.equal(expectedValue);
+	await waitHelpers.waitUntilPageLoads();
+	await waitHelpers.waitUntilAjaxIsFinished();
 }
 
 async function getTaskDescription() {
@@ -150,6 +152,7 @@ async function clickOnTaskFromList(taskname) {
 async function clickDeleteTaskButtonInPopup() {
 	await elementHelpers.clickAndWait(deleteTaskButtonInPopup);
 	await waitHelpers.waitUntilPageLoads();
+	await waitHelpers.waitUntilAjaxIsFinished();
 }
 
 async function clickTaskWithoutDuedate(){
@@ -179,5 +182,5 @@ module.exports = {
 	clickTaskWithoutDuedate,
 	clickUngradedTask,
 	studentSubmittedTask,
-	sortTasksKurse,
+	sortTasksCourse,
 };
