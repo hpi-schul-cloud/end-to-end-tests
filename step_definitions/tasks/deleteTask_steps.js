@@ -9,6 +9,7 @@ When(/^.* clicks on Delete task button$/, async function () {
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 When(/^.* filter by '([^']*)'$/, async function (courseName){
 	await TASKListPage.sortTasksCourse(courseName);
 });
@@ -23,3 +24,8 @@ Then(/^.* should see task with name '([^']*)' visible$/, async function (taskNam
 	await TASKListPage.isTaskVisible(taskName, true);
 });
 >>>>>>> bb71405f (Updating deleteTask.feature)
+=======
+When(/^.* filter by '([^']*)'$/, async function (courseName){
+	await TASKListPage.sortTasksCourse(courseName);
+});
+>>>>>>> 25ab5c49 (Changes as per review)

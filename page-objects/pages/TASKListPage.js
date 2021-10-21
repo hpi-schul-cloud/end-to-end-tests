@@ -21,12 +21,17 @@ const ungradedTask = "//div[text()='Task19']";
 const studentSubmitTask = "//td[text()='Boris']";
 const filterSelect = "//i[text() = 'add' and @class='material-icons']";
 <<<<<<< HEAD
+<<<<<<< HEAD
 const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
 const courseCheckbox = "//label[contains(.,'";
 =======
 const kurseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
 const kurseCheckbox = "//label[contains(., 'test course with test task') and @class='md-checkbox-label']";
 >>>>>>> e7686b8a (Updating with new changes)
+=======
+const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
+const courseCheckbox = "//label[contains(.,'";
+>>>>>>> 25ab5c49 (Changes as per review)
 
 const taskButton = {
 	archive: '.fa-archive',
@@ -82,21 +87,13 @@ async function sortTasksLastEdited() {
 	await waitHelpers.waitUntilAjaxIsFinished();
 }
 
-<<<<<<< HEAD
 async function sortTasksCourse(courseName) {
 	await elementHelpers.click(filterSelect);
 	await elementHelpers.click(courseSelect);
 	let courseSelector = courseCheckbox+courseName+"')]";
 	await elementHelpers.clickAndWait(courseSelector);
-=======
-async function sortTasksKurse() {
-	await elementHelpers.click(filterSelect);
-	await elementHelpers.click(kurseSelect);
-	await elementHelpers.clickAndWait(kurseCheckbox);
->>>>>>> e7686b8a (Updating with new changes)
 	await elementHelpers.clickAndWait(submitBtn);
 	await waitHelpers.waitUntilPageLoads();
-	await waitHelpers.waitUntilAjaxIsFinished();
 }
 
 async function getTaskIndex(taskName) {
