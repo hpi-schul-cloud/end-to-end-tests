@@ -5,7 +5,7 @@ Feature: Set of tests to create students
 	Background: User opens Schul-cloud homepage Website
 		Given user arrives on the Schul-Cloud homepage
 
-	@createNewStudent @unstableTest
+	@createNewStudent
 	Scenario Outline: As a user, I want to be able to create a student
 		Given <userRole> logs in with email '<username>' and password '<password>'
 		And <userRole> goes to management
