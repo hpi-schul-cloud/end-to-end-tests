@@ -148,7 +148,7 @@ async function clickNavItemManagement() {
 
 async function clickNavItemManageStudents() {
 	await loadPageFromNavigationItem(navItemManagementStudents);
-	await waitHelpers.waitUntilPageLoads();
+	await waitHelpers.waitUntilPageTitleEquals("Schüler:innen verwalten");
 }
 
 async function clickNavItemManageTeachers() {
