@@ -1,11 +1,11 @@
-@management @managementStudents @editStudent
+@management @managementStudents @editStudent @stableTest
 Feature: Set of tests to edit students
     As an Schul-Cloud user I want to be able to edit students
 
     Background: User opens Schul-cloud homepage Website
         Given user arrives on the Schul-Cloud homepage
 
-    @editStudentData @unstableTest
+    @editStudentData
     Scenario Outline: As a user, I want to be able to edit a student firstname, lastname, email and birthdate
         Given <userRole> logs in with email '<adminsUsername>' and password '<adminsPassword>'
         And <userRole> goes to management
@@ -18,7 +18,7 @@ Feature: Set of tests to edit students
         And <userRole> clicks Save-changes button
         Then <userRole> should see that edited student firstname '<newFirstName>' is visible on the list
         And <userRole> should see that edited student lastname '<newLastName>' is visible on the list
-        And <userRole> should see that edited student email '<newEmail>' is is visible on the list
+        And <userRole> should see that edited student email '<newEmail>' is visible on the list
         When <userRole> clicks Edit-student with '<newEmail>' button
         Then <userRole> should see that student birthdate is '<newBirthdate>'
         Examples:
@@ -30,6 +30,7 @@ Feature: Set of tests to edit students
 		When <userRole> logs in with email '<username>' and password '<password>'
 		When <userRole> goes to management
 		And <userRole> goes to students management
+		And <userRole> goes to student creation form
 		And <userRole> set student firstname '<firstName>', lastname '<secondName>', email '<studentEmail>', birthday '<birthday>'
 		When <userRole> clicks Send-links-to-students'-e-mail-addresses button
 		Then email is sent to '<studentEmail>' students without a full declaration of consent

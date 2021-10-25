@@ -44,7 +44,7 @@ Then(/^.* student lastname '([^']*)' is visible on the list$/, async function (l
 	await manageStudents.isStudentLastnameOnTheList(lastname);
 });
 
-Then(/^.* student email '([^']*)' is is visible on the list$/, async function (emailAddress) {
+Then(/^.* student email '([^']*)' is visible on the list$/, async function (emailAddress) {
 	await manageStudents.isStudentEmailOnTheList(emailAddress);
 });
 
