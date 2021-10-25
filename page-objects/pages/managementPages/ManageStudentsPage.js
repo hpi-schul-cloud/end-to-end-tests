@@ -107,9 +107,13 @@ async function clickSelectAllStudentsCheckbox() {
 	await elementHelpers.click(selectAllCheckbox);
 }
 
-async function createNewPupil(firstname, lastname, email, birthday, addBirthday) {
+async function goToCreateForm() {
 	await clickFloatingActionButtonBtn();
 	await clickAddStudentBtn();
+	await waitHelpers.waitUntilPageLoads();
+}
+
+async function createNewPupil(firstname, lastname, email, birthday, addBirthday) {
 	await waitHelpers.waitUntilPageLoads();
 	await setStudentFirstName(firstname);
 	await setStudentLastName(lastname);
@@ -119,7 +123,7 @@ async function createNewPupil(firstname, lastname, email, birthday, addBirthday)
 	//let birthdate = dateTimeHelpers.getCurrentFormattedDateWithOffset({years: -14, format: "dd/mm/yyyy"});
 	//await setStudentsBirthday(birthdate);
 	if (addBirthday) await setStudentsBirthday(birthday);
-//	await clickOnSendRegistrationLinkCheckbox(); disabled until notification service is reworked
+	//	await clickOnSendRegistrationLinkCheckbox(); disabled until notification service is reworked
 	await submitStudentAddition();
 	await waitHelpers.waitUntilPageLoads();
 }
@@ -188,6 +192,7 @@ module.exports = {
 	clickEditStudentByMailBtn,
 	clickSendConsentFormEmailsButton,
 	clickEditStudentBtn,
+	goToCreateForm,
 	createNewPupil,
 	clickSelectAllStudentsCheckbox,
 	clickActionsButton,

@@ -143,17 +143,14 @@ async function clickNavItemAddons() {
 
 async function clickNavItemManagement() {
 	await loadPageFromNavigationItem(navItemManagement);
-	await waitHelpers.waitUntilPageLoads();
 }
 
 async function clickNavItemManageStudents() {
 	await loadPageFromNavigationItem(navItemManagementStudents);
-	await waitHelpers.waitUntilPageTitleEquals("Schüler:innen verwalten");
 }
 
 async function clickNavItemManageTeachers() {
 	await loadPageFromNavigationItem(navItemManagementTeachers);
-	await waitHelpers.waitUntilPageLoads();
 }
 
 async function clickNavItemManageCourses() {

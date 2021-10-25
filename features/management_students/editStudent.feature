@@ -30,6 +30,7 @@ Feature: Set of tests to edit students
 		When <userRole> logs in with email '<username>' and password '<password>'
 		When <userRole> goes to management
 		And <userRole> goes to students management
+		And <userRole> goes to student creation form
 		And <userRole> set student firstname '<firstName>', lastname '<secondName>', email '<studentEmail>', birthday '<birthday>'
 		When <userRole> clicks Send-links-to-students'-e-mail-addresses button
 		Then email is sent to '<studentEmail>' students without a full declaration of consent
