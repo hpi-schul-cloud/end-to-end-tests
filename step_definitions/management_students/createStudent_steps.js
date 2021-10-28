@@ -27,6 +27,10 @@ When(
 	}
 );
 
+When(/^.* goes to student creation form$/, async function () {
+	return manageStudentsPage.goToCreateForm();
+});
+
 When(
 	/^.*set student firstname '([^']*)', lastname '([^']*)', email '([^']*)'$/,
 	function (firstname, secondname, email) {

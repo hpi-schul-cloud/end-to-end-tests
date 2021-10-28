@@ -10,8 +10,7 @@ const selectorCreateTaskButton = '.btn.btn-primary.btn-add.create';
 const selectorCreateTaskBtnInTheCourse = '.col-sm-12.add-button > a';
 const selectorSortBtn = '#filter .md-clickable > div';
 const select = '#selection-picker > div > div';
-const lastedited =
-	'body > div.md-select-menu.md-menu-content-bottom-start.md-menu-content-small.md-menu-content.md-theme-default > div > ul > li:nth-child(2) > button';
+const lastedited = 'body > div.md-select-menu.md-menu-content-bottom-start.md-menu-content-small.md-menu-content.md-theme-default > div > ul > li:nth-child(2) > button';
 const submitBtn = '.md-button.md-primary.md-theme-default > div > div';
 const taskTitleContainer = '.assignment.card .title';
 const taskDescriptionContainer = '.assignment .text-muted.ckcontent';
@@ -20,6 +19,9 @@ const deleteTaskButtonInPopup = '.delete-modal button.btn-submit';
 const clickWithoutDueDate = "//*[text()='Task19']";
 const ungradedTask = "//div[text()='Task19']";
 const studentSubmitTask = "//td[text()='Boris']";
+const filterSelect = "//i[text() = 'add' and @class='material-icons']";
+const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
+const courseCheckbox = "//label[contains(.,'";
 
 const taskButton = {
 	archive: '.fa-archive',
@@ -75,6 +77,15 @@ async function sortTasksLastEdited() {
 	await waitHelpers.waitUntilAjaxIsFinished();
 }
 
+async function sortTasksCourse(courseName) {
+	await elementHelpers.click(filterSelect);
+	await elementHelpers.click(courseSelect);
+	let courseSelector = courseCheckbox+courseName+"')]";
+	await elementHelpers.clickAndWait(courseSelector);
+	await elementHelpers.clickAndWait(submitBtn);
+	await waitHelpers.waitUntilPageLoads();
+}
+
 async function getTaskIndex(taskName) {
 	const listOfTaskTitles = await getListOfTaskTitles();
 	var index = listOfTaskTitles.findIndex((element) => element.includes(taskName));
@@ -83,7 +94,7 @@ async function getTaskIndex(taskName) {
 
 async function getListOfTaskTitles() {
 	await waitHelpers.waitUntilElementIsNotVisible('.loaded #MathJax_Message');
-	return elementHelpers.getTextFromAllElements(taskTitleContainer);
+	return await elementHelpers.getTextFromAllElements(taskTitleContainer);
 }
 
 async function getListOfTask() {
@@ -107,10 +118,12 @@ async function clickOnTask(taskName, button) {
 async function isTaskVisible(taskname, expectedValue) {
 	const allTasks = await getListOfTaskTitles();
 	const isTaskOnList = allTasks.some((element) => element.includes(taskname));
-	const fillString = !expectedValue ? 'not' : '';
-	const msg = `Task with name is ${fillString} visible on the list: \n`;
+	const fillString = !expectedValue ? ' not' : '';
+	const msg = `Task with name ${taskname} is${fillString} visible on the list: \n`;
 	const resultMsg = 'Expected: ' + taskname + ', Actual: ' + allTasks;
 	await expect(isTaskOnList, msg + resultMsg).to.equal(expectedValue);
+	await waitHelpers.waitUntilPageLoads();
+	await waitHelpers.waitUntilAjaxIsFinished();
 }
 
 async function getTaskDescription() {
@@ -138,6 +151,7 @@ async function clickOnTaskFromList(taskname) {
 
 async function clickDeleteTaskButtonInPopup() {
 	await elementHelpers.clickAndWait(deleteTaskButtonInPopup);
+	await waitHelpers.waitUntilPageLoads();
 	await waitHelpers.waitUntilAjaxIsFinished();
 }
 
@@ -168,4 +182,5 @@ module.exports = {
 	clickTaskWithoutDuedate,
 	clickUngradedTask,
 	studentSubmittedTask,
+	sortTasksCourse,
 };
