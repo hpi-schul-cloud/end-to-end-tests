@@ -6,39 +6,51 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
-## Unreleased
+## [Unreleased]
 
-##Added
-
-- BC-224 added testcase for nuxt client task page for student role
-
-## Added
-
-- BC-364 - add command to run unstable Tests on PR label `run unstable tests`
-- BC-324 - add extendedTest tag
-- BC-283 - added wait method to test step
-- reinstated that all tests are running
-- SC-9237 added E2E test to check redirect
-- include course colour checks which were deactivated by merging BC-235 (see fix ticket BC-308)
+### Added
 
 ### Removed
 
-- docker log output
-- removed _travis.sh files
-- removed .travis.yml
-- disabled email tests
-- remove github workflow update_version.yml
+-   BC-379 removed local server installation
 
 ### Fixed
 
-- BC-387 - fix command to run extended Test 
-- fix fallbacks for features and notification services versions
-- execute changes for features in travis
-- changed sidebar menu item CURRENT TASKS instead of OPEN TASKS
-- fix createStudent scenario
-- fix and adjust colours in accordance with BC-235
+-   fixed default `npm run test` to run only stable tests
+
+## [26.13.0] - 2021-10-19
+
+## Added
 
 
+-   BC-326 - Improve E2E test: deleteTask.feature
+-   BC-402 - split tests into 5 groups for parallel CI run
+-   BC-183 - added testcase for nuxt client task page for teacher role
+-   BC-364 - add command to run unstable Tests on PR label `run unstable tests`
+-   BC-283 - added wait method to test step
+-   reinstated that all tests are running
+-   SC-9237 - added E2E test to check redirect
+-   BC-25 seed database changed to use management api call
+-   BC-182 added testcase for nuxt client task page for student role
+-   include course colour checks which were deactivated by merging BC-235 (see fix ticket BC-308)
+
+
+### Removed
+
+-   docker log output
+-   removed \_travis.sh files
+-   removed .travis.yml
+-   disabled email tests
+-   remove github workflow update_version.yml
+
+### Fixed
+
+-   BC-387 - fix command to run extended Test
+-   fix fallbacks for features and notification services versions
+-   execute changes for features in travis
+-   changed sidebar menu item CURRENT TASKS instead of OPEN TASKS
+-   fix createStudent scenario
+-   fix and adjust colours in accordance with BC-235
 
 ## 26.4.0
 

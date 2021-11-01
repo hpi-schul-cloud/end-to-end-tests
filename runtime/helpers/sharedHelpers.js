@@ -4,7 +4,7 @@
 
 async function getElement(selectorOrElement) {
 	if (typeof selectorOrElement === "string") {
-		return driver.$(selectorOrElement);
+		return await driver.$(selectorOrElement);
 	}
 	return selectorOrElement;
 };

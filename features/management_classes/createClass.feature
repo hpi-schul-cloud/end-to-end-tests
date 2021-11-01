@@ -27,4 +27,3 @@ Feature: Set of tests to create classes
         Examples:
             | userRole | username                        | password       | customClassName | numberOfStudentsInClass | studentsFirstname | studentLastname | schoolYear |
             | teacher  | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | 1C              | 3                       | Student           | LastName        | 2021/22    |
-

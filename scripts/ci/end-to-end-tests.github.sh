@@ -89,16 +89,19 @@ before(){
 	sleep 15
 	docker-compose -f compose-files/docker-compose.yml up -d calendar
 	sleep 15
-	docker-compose -f compose-files/docker-compose.yml up server client nuxtclient &
+	docker-compose -f compose-files/docker-compose.yml up server server-management client nuxtclient &
 	cd ..
 
 	echo "INSTALL DEPENDNECIES..."
-	cd schulcloud-server && npm ci && cd ..
 	cd end-to-end-tests && npm ci && cd ..
 	echo "INSTALL DEPENDNECIES DONE"
 
-	cd schulcloud-server && npm run setup && npm run seed && cd ..
+	echo "waiting max 4 minutes for server-management to be available"
+	npx wait-on http://localhost:3333/api/docs -t 240000 --httpTimeout 250 --log
+	echo "server-management is now online"
 
+	curl -X POST localhost:3333/api/management/database/seed
+	
 	echo "waiting max 4 minutes for server to be available"
 	npx wait-on http://localhost:3030 -t 240000 --httpTimeout 250 --log
 	echo "server is now online"

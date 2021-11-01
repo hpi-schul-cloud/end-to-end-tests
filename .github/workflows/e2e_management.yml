@@ -1,0 +1,15 @@
+---
+name: e2e management
+
+on:
+  push:
+    branches-ignore:
+      - dependabot/**
+
+jobs:
+  tag-managment:
+    uses: hpi-schul-cloud/end-to-end-tests/.github/workflows/e2e.yml@main
+    with:
+      ref: ${{ github.ref }}
+      e2e_tag: management
+

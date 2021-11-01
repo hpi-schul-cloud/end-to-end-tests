@@ -5,11 +5,12 @@ Feature: Set of tests to create students
 	Background: User opens Schul-cloud homepage Website
 		Given user arrives on the Schul-Cloud homepage
 
-	@createNewStudent @unstableTest
+	@createNewStudent @stableTest
 	Scenario Outline: As a user, I want to be able to create a student
 		Given <userRole> logs in with email '<username>' and password '<password>'
 		And <userRole> goes to management
 		And <userRole> goes to students management
+		And <userRole> goes to student creation form
 		When <userRole> set student firstname '<firstName>', lastname '<lastName>', email '<studentEmail>', birthday '<birthday>'
 		And <userRole> sees that student with email '<studentEmail>' is visible on the list
 		And <userRole> manually submits consent for user with e-mail '<studentEmail>', thus generates a random password for him

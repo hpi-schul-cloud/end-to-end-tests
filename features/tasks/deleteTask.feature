@@ -1,4 +1,4 @@
-@task @deleteTask @stableTest
+@task @deleteTask @stableTest @tasks_and_other
 Feature: Set of tests to delete tasks
 
 	Background: User opens Schul-cloud homepage Website
@@ -28,6 +28,7 @@ Feature: Set of tests to delete tasks
 		And <userRole> sets task body '<taskBody>' in task form
 		And <userRole> clicks Add-task-submit button
 		When <userRole> goes to tasks page
+		And <userRole> filter by '<courseName>'
 		Then <userRole> should see that task with name '<taskName>' is visible on the list
 		And <userRole> should clicks on 'Delete' button for task with name '[<courseName>] - <taskName>'
 		And <userRole> clicks on Delete task button
