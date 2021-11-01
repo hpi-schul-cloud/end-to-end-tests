@@ -11,6 +11,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Added
 
 -   BC-402 - Update e2e test so there is an new workflow to call by other repos
+-   added e2e test to delete a team
 
 ### Removed
 
