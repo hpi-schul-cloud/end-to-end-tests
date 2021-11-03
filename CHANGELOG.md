@@ -10,9 +10,16 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+-   BC-402 - Update e2e test so there is an new workflow to call by other repos
+-   added e2e test to delete a team
+
+### Removed
+
+-   BC-379 removed local server installation
+
 ### Fixed
 
-- fixed default `npm run test` to run only stable tests
+-   fixed default `npm run test` to run only stable tests
 
 ## [26.13.0] - 2021-10-19
 
