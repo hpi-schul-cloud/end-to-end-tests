@@ -7,7 +7,7 @@ const teamSettings = 'a[data-testid="team_settings"]';
 const manageTeamMembers = 'a[data-testid="administrate_team_members"]';
 const editTeam = 'i.fa-edit';
 const deleteTeam = 'i.fa-trash';
-const deleteButtonConfirmation = '[data-tesid="btn-submit-action"]';
+const deleteButtonConfirmation = '[data-testid="btn-submit-action"]';
 
 async function clickSettings() {
 	await elementHelpers.clickAndWait(teamSettings);
