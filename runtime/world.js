@@ -82,6 +82,7 @@ global.expect = expect;
  */
 let ChromeDriver = require('./chromeDriver'),
 	FirefoxDriver = require('./firefoxDriver'),
+	RemoteDriver = require('./remoteDriver'),
 	BrowserStackDriver = require('./browserStackDriver');
 let remoteService = getRemote(global.settings.remoteService);
 
@@ -99,6 +100,13 @@ async function getDriverInstance() {
 		assert.isString(configType, 'BrowserStack requires a config type e.g. win10-chrome');
 		driver = BrowserStackDriver(options, configType);
 		return driver;
+	} else if (remoteService) {
+		try {
+			driver = RemoteDriver(options);
+			return driver;
+		} catch (err) {
+			console.log('something failed' + err.message);
+		}
 	}
 	assert.isNotEmpty(browser, 'Browser must be defined');
 	switch (browser || '') {
@@ -236,6 +244,7 @@ const { setDefaultTimeout } = require('@cucumber/cucumber');
 
 const dateTimeHelpers = require('./helpers/dateTimeHelpers.js');
 const emailHelpers = require('./helpers/emailHelpers.js');
+const wdio = require("webdriverio");
 
 // Add timeout based on env var.
 const cucumberTimeout = process.env.CUCUMBER_TIMEOUT || 60000;
@@ -265,8 +274,8 @@ Before(async function (scenario) {
 		return;
 	}
 	console.log('\n\nResetting the DB...');
-	const output = await ManagementApi.seedDatabase();
-	console.log('Done:', output.data);
+	// const output = await ManagementApi.seedDatabase();
+	// console.log('Done:', output.data);
 	return;
 });
 
