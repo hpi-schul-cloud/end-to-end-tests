@@ -8,6 +8,9 @@ async function loadPageFromNavigationItem(selector) {
 	const link = await elementHelpers.getLink(selector);
 	await elementHelpers.loadPage(link);
 }
+async function clickElementFromNavigation(selector) {
+	await elementHelpers.clickAndWait(selector)
+}
 
 const navItemsEnum = {
 	LOGO: 'logo',
@@ -81,138 +84,139 @@ const navItemHelpContact = navItemString2ndLevel.replace('XXX', 'Kontakt');
 const item = '.sidebar-list .link-name';
 const subitem = '.subitem .link-name';
 
+
 async function clickNavItemLogo() {
-	await loadPageFromNavigationItem(navItemLogo);
+	await clickElementFromNavigation(navItemLogo);
 }
 
 async function clickNavItemDashboard() {
-	await loadPageFromNavigationItem(navItemDashboard);
+	await clickElementFromNavigation(navItemDashboard);
 }
 
 async function clickNavItemCourses() {
-	await loadPageFromNavigationItem(navItemCourses);
+	await clickElementFromNavigation(navItemCourses);
 }
 
 async function clickNavItemTasks() {
-	await loadPageFromNavigationItem(navItemTasks);
+	await clickElementFromNavigation(navItemTasks);
 }
 
 async function clickNavItemTasksAsked() {
-	await loadPageFromNavigationItem(navItemTasksAsked);
+	await clickElementFromNavigation(navItemTasksAsked);
 }
 async function clickNavItemTasksPrivate() {
-	await loadPageFromNavigationItem(navItemTasksPrivate);
+	await clickElementFromNavigation(navItemTasksPrivate);
 }
 async function clickNavItemTasksArchive() {
-	await loadPageFromNavigationItem(navItemTasksArchive);
+	await clickElementFromNavigation(navItemTasksArchive);
 }
 
 async function clickNavItemTeams() {
-	await loadPageFromNavigationItem(navItemTeams);
+	await clickElementFromNavigation(navItemTeams);
 }
 
 async function clickNavItemFiles() {
-	await loadPageFromNavigationItem(navItemFiles);
+	await clickElementFromNavigation(navItemFiles);
 }
 
 async function clickNavItemFilesMy() {
-	await loadPageFromNavigationItem(navItemFilesMy);
+	await clickElementFromNavigation(navItemFilesMy);
 }
 
 async function clickNavItemFilesCourses() {
-	await loadPageFromNavigationItem(navItemFilesCourses);
+	await clickElementFromNavigation(navItemFilesCourses);
 }
 
 async function clickNavItemFilesTeams() {
-	await loadPageFromNavigationItem(navItemFilesTeams);
+	await clickElementFromNavigation(navItemFilesTeams);
 }
 
 async function clickNavItemFilesShared() {
-	await loadPageFromNavigationItem(navItemFilesShared);
+	await clickElementFromNavigation(navItemFilesShared);
 }
 
 async function clickNavItemNews() {
-	await loadPageFromNavigationItem(navItemNews);
+	await clickElementFromNavigation(navItemNews);
 }
 
 async function clickNavItemCalendar() {
-	await loadPageFromNavigationItem(navItemCalendar);
+	await clickElementFromNavigation(navItemCalendar);
 }
 
 async function clickNavItemContent() {
-	await loadPageFromNavigationItem(navItemLearnstore);
+	await clickElementFromNavigation(navItemLearnstore);
 }
 
 async function clickNavItemAddons() {
-	await loadPageFromNavigationItem(navItemAddons);
+	await clickElementFromNavigation(navItemAddons);
 }
 
 async function clickNavItemManagement() {
-	await loadPageFromNavigationItem(navItemManagement);
+	await clickElementFromNavigation(navItemManagement);
 }
 
 async function clickNavItemManageStudents() {
 	try {
-		await loadPageFromNavigationItem(navItemManagementStudentsOld);
+		await clickElementFromNavigation(navItemManagementStudentsOld);
 	} catch (e) {
-		await loadPageFromNavigationItem(navItemManagementStudents);
+		await clickElementFromNavigation(navItemManagementStudents);
 	}
 }
 
 async function clickNavItemManageTeachers() {
 	try {
-		await loadPageFromNavigationItem(navItemManagementTeachersOld);
+		await clickElementFromNavigation(navItemManagementTeachersOld);
 	} catch (e) {
-		await loadPageFromNavigationItem(navItemManagementTeachers);
+		await clickElementFromNavigation(navItemManagementTeachers);
 	}
 }
 
 async function clickNavItemManageCourses() {
 	try {
-		await loadPageFromNavigationItem(navItemManagementCoursesOld);
+		await clickElementFromNavigation(navItemManagementCoursesOld);
 	} catch (e) {
-		await loadPageFromNavigationItem(navItemManagementCourses);
+		await clickElementFromNavigation(navItemManagementCourses);
 	}
 }
 
 async function clickNavItemManageClasses() {
 	try {
-		await loadPageFromNavigationItem(navItemManagementClassesOld);
+		await clickElementFromNavigation(navItemManagementClassesOld);
 	} catch (e) {
-		await loadPageFromNavigationItem(navItemManagementClasses);
+		await clickElementFromNavigation(navItemManagementClasses);
 	}
 }
 
 async function clickNavItemManageTeams() {
 	try {
-		await loadPageFromNavigationItem(navItemManagementTeamsOld);
+		await clickElementFromNavigation(navItemManagementTeamsOld);
 	} catch (e) {
-		await loadPageFromNavigationItem(navItemManagementTeams);
+		await clickElementFromNavigation(navItemManagementTeams);
 	}
 }
 
 async function clickNavItemManageSchool() {
 	try {
-		await loadPageFromNavigationItem(navItemManagementSchoolOld);
+		await clickElementFromNavigation(navItemManagementSchoolOld);
 	} catch (e) {
-		await loadPageFromNavigationItem(navItemManagementSchool);
+		await clickElementFromNavigation(navItemManagementSchool);
 	}
 }
 
 async function clickNavItemHelpArea() {
-	await loadPageFromNavigationItem(navItemHelparea);
+	await clickElementFromNavigation(navItemHelparea);
 }
 
 async function clickNavItemHelpArticles() {
-	await loadPageFromNavigationItem(navItemHelparticles);
+	await clickElementFromNavigation(navItemHelparticles);
 }
 
 async function clickNavItemHelpTrainings() {
-	await loadPageFromNavigationItem(navItemHelpTrainings);
+	await clickElementFromNavigation(navItemHelpTrainings);
 }
 
 async function clickNavItemHelpContact() {
-	await loadPageFromNavigationItem(navItemHelpContact);
+	await clickElementFromNavigation(navItemHelpContact);
 }
 
 async function getListOfAllItems() {
@@ -285,4 +289,5 @@ module.exports = {
 	clickNavItemHelpContact,
 	areSubMenuItemsVisible,
 	areMenuItemsVisible,
+	clickElementNavigation: clickElementFromNavigation
 };
