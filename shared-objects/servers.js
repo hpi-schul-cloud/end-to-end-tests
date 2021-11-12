@@ -7,7 +7,7 @@ const config = {
 		HOST: process.env.IT_CLIENT_HOST || 'localhost',
 		PORT: process.env.IT_CLIENT_PORT || '4000',
 		get URL() {
-			return 'https://nbc-main.cd.dbildungscloud.dev/login/';
+			return 'https://nbc-bc-485.cd.dbildungscloud.dev/login/';
 			//return `${config.CLIENT.PROTOCOLL}://${config.CLIENT.HOST}:${config.CLIENT.PORT}`;
 		},
 	},
