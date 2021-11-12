@@ -48,7 +48,8 @@ const newOwnPassword = {
 };
 
 async function setUsername(username) {
-	await waitHelpers.waitAndSetValue(usernameInput, username);
+	const displayedElement = await elementHelpers.getDisplayedElement(usernameInput)
+	await waitHelpers.waitAndSetValue(displayedElement, username);
 }
 
 async function setPassword(password) {
