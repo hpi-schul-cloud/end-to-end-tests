@@ -9,7 +9,7 @@ const LOAD_PAGE_TIMEOUT = 10000;
  * show displayed selector on the page matching with the id/class_name in the parameter.
  * useful in situations where a mobile and desktop versions are loaded at the same time, so there are multiple
  * elements on the page with the same id which are present, but not all of them are displayed.
- * @param {string} css selector used to locate the elements
+ * @param selector css selector used to locate the elements
  * @returns {Object} element
  * @example
  *    this.getDisplayedElements('section#loginarea input[data-testid="username"]')
@@ -18,16 +18,16 @@ const LOAD_PAGE_TIMEOUT = 10000;
 async function getDisplayedElement(selector){
 	let displayedElements = []; // initialize an array where displayed element(s) will be stored
 	const presentElements = await driver.$$(selector); // puts mathing elements in the array
-	for (let element in presentElements) {
-		let isDisplayed = await this.isElementDisplayed(element)
+	for (let element of presentElements) {
+		let isDisplayed = await element.isDisplayed()
 		if (isDisplayed) {
-		 isDisplayed.push(displayedElements)
+			displayedElements.push(element)
 		}
 	}
-	if (displayedElements.length!=1) {
+	if (displayedElements.length!==1) {
 		throw new SelectorConflictException('multiple/or none displayed selectors with the same identifier on the page!')
 	} else {
-		return driver.$(selector)
+		return displayedElements[0]
 	}
 }
 
@@ -257,9 +257,10 @@ async function getElementIncludingText(selector, text) {
 	return listOfElements[index];
 }
 
-function SelectorConflictException (message){
-	this.message=message;
-	this.name="SelectorConflictException";
+function SelectorConflictException (message) {
+	this.message = message;
+	this.name = "SelectorConflictException";
+}
 
 module.exports = {
 	click,
