@@ -54,7 +54,7 @@ async function setUsername(username) {
 
 async function setPassword(password) {
 	const displayedElement = await elementHelpers.getDisplayedElement(passwordInput)
-	await waitHelpers.waitAndSetValue(passwordInput, password);
+	await waitHelpers.waitAndSetValue(displayedElement, password);
 }
 
 async function clickNextSectionBtn() {
