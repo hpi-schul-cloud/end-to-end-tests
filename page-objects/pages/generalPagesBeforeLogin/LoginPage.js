@@ -62,7 +62,8 @@ async function clickNextSectionBtn() {
 }
 
 async function clickLoginBtn() {
-	await elementHelpers.clickAndWait(loginBtn);
+	const displayedElement = await elementHelpers.getDisplayedElement(loginBtn)
+	await elementHelpers.clickAndWait(displayedElement);
 }
 
 async function clickForgotPasswordBtn() {
