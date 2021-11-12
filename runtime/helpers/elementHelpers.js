@@ -4,6 +4,33 @@ const waitHelpers = require('./waitHelpers');
 
 const LOAD_PAGE_TIMEOUT = 10000;
 
+
+/**
+ * show displayed selector on the page matching with the id/class_name in the parameter.
+ * useful in situations where a mobile and desktop versions are loaded at the same time, so there are multiple
+ * elements on the page with the same id which are present, but not all of them are displayed.
+ * @param {string} css selector used to locate the elements
+ * @returns {Object} element
+ * @example
+ *    this.getDisplayedElements('section#loginarea input[data-testid="username"]')
+ */
+
+async function getDisplayedElement(selector){
+	let displayedElements = []; // initialize an array where displayed element(s) will be stored
+	const presentElements = await driver.$$(selector); // puts mathing elements in the array
+	for (let element in presentElements) {
+		let isDisplayed = await this.isElementDisplayed(element)
+		if (isDisplayed) {
+		 isDisplayed.push(displayedElements)
+		}
+	}
+	if (displayedElements.length!=1) {
+		throw new SelectorConflictException('multiple/or none displayed selectors with the same identifier on the page!')
+	} else {
+		return driver.$(selector)
+	}
+}
+
 //Wait for element and click (without waitUntilPageLoads)
 async function click(selectorOrElement) {
 	const element = await waitHelpers.waitUntilElementIsClickable(selectorOrElement);
@@ -230,6 +257,10 @@ async function getElementIncludingText(selector, text) {
 	return listOfElements[index];
 }
 
+function SelectorConflictException (message){
+	this.message=message;
+	this.name="SelectorConflictException";
+
 module.exports = {
 	click,
 	clickAndWait,
@@ -258,4 +289,5 @@ module.exports = {
 	getValueOfElement,
 	getElementByText,
 	getElementIncludingText,
+	getDisplayedElement,
 };
