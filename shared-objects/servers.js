@@ -16,7 +16,8 @@ const config = {
 		HOST: process.env.IT_SERVER_HOST || 'localhost',
 		PORT: process.env.IT_SERVER_PORT || '3030',
 		get URL() {
-			return `${config.SERVER.PROTOCOLL}://${config.SERVER.HOST}:${config.SERVER.PORT}`;
+			//return `${config.SERVER.PROTOCOLL}://${config.SERVER.HOST}:${config.SERVER.PORT}`;
+			return 'https://nbc-bc-485.cd.dbildungscloud.dev/api/v1'
 		},
 	},
 	MANAGEMENT_SERVER: {
