@@ -25,7 +25,7 @@ const config = {
 		HOST: process.env.IT_MANAGEMENT_SERVER_HOST || 'localhost',
 		PORT: process.env.IT_MANAGEMENT_SERVER_PORT || '3333',
 		get URL() {
-			return `${config.MANAGEMENT_SERVER.PROTOCOLL}://${config.MANAGEMENT_SERVER.HOST}:${config.MANAGEMENT_SERVER.PORT}/api`;
+			return 'http://mgmt-svc.nbc-bc-485.svc.cluster.local:3333/api/management/database/seed';
 		},
 	},
 };

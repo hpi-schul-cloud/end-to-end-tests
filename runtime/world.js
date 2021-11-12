@@ -245,6 +245,7 @@ const { setDefaultTimeout } = require('@cucumber/cucumber');
 const dateTimeHelpers = require('./helpers/dateTimeHelpers.js');
 const emailHelpers = require('./helpers/emailHelpers.js');
 const wdio = require("webdriverio");
+const {MANAGEMENT_SERVER} = require("../shared-objects/servers");
 
 // Add timeout based on env var.
 const cucumberTimeout = process.env.CUCUMBER_TIMEOUT || 60000;
@@ -274,7 +275,8 @@ Before(async function (scenario) {
 		return;
 	}
 	console.log('\n\nResetting the DB...');
-	// const output = await ManagementApi.seedDatabase();
+
+	await global.driver.url(`${MANAGEMENT_SERVER.URL}`);
 	// console.log('Done:', output.data);
 	return;
 });
