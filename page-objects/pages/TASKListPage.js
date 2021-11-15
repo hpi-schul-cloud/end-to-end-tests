@@ -22,6 +22,7 @@ const studentSubmitTask = "//td[text()='Boris']";
 const filterSelect = "//i[text() = 'add' and @class='material-icons']";
 const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
 const courseCheckbox = "//label[contains(.,'";
+const ajaxPageLoad = "//div[@class='modal-backdrop fade in']";
 
 const taskButton = {
 	archive: '.fa-archive',
@@ -150,8 +151,9 @@ async function clickOnTaskFromList(taskname) {
 }
 
 async function clickDeleteTaskButtonInPopup() {
+	await waitHelpers.waitUntilAjaxIsFinished();
+	await elementHelpers.isElementDisplayed(ajaxPageLoad);
 	await elementHelpers.clickAndWait(deleteTaskButtonInPopup);
-	await waitHelpers.waitUntilPageLoads();
 	await waitHelpers.waitUntilAjaxIsFinished();
 }
 
