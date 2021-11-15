@@ -151,10 +151,10 @@ async function clickOnTaskFromList(taskname) {
 }
 
 async function clickDeleteTaskButtonInPopup() {
-	await waitHelpers.waitUntilPageLoads();
+	await waitHelpers.waitUntilAjaxIsFinished();
 	await elementHelpers.isElementDisplayed(ajaxPageLoad);
 	await elementHelpers.clickAndWait(deleteTaskButtonInPopup);
-	await waitHelpers.waitUntilPageLoads();
+	await waitHelpers.waitUntilAjaxIsFinished();
 }
 
 async function clickTaskWithoutDuedate(){
