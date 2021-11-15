@@ -11,4 +11,3 @@ When(/^.* clicks on Delete task button$/, async function () {
 When(/^.* filter by '([^']*)'$/, async function (courseName){
 	await TASKListPage.sortTasksCourse(courseName);
 });
-
