@@ -8,6 +8,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## [Unreleased]
 
+### Added
+
+- added e2e tests to create and edit a teacher
+
 ### Changed
 
 - BC-155 rename tab for students in task overview page
