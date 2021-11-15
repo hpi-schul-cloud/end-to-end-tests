@@ -39,8 +39,7 @@ When(
 );
 
 //THEN
-Then(/^.*student with email '([^']*)' is visible on the list$/, function (email) {
-	//return manageStudentsPage.isStudentEmailOnTheList(email);
+Then(/^.* student with email '([^']*)' is visible on the list$/, function (email) {
 	return manageStudentsPage.isStudentVisible(email, true);
 });
 
