@@ -20,6 +20,7 @@ const atributeTimeout = 7000;
 const titleTimeout = 30000;
 const shortInterval = 50;
 const mediumInterval = 100;
+const ajaxElement = "//div[@id= 'MathJax_Message' and @style='display: none;']";
 
 async function waitUntilElementIsPresent(selectorOrElement, timeout = elementIsPresentTimeout) {
 	let element = await sharedHelpers.getElement(selectorOrElement);
@@ -173,9 +174,17 @@ async function waitUntilUrlNotContains(notExpectedUrlText, timeout = urlContains
 }
 
 async function waitUntilAjaxIsFinished(timeout = ajaxTimeout) {
-	const timeoutMsg = 'Ajax is not finished';
-	await waitUntilScriptResultIsTrue(() => jQuery.active == 0, timeoutMsg, timeout);
-	await waitUntilScriptResultIsTrue(() => jQuery.active == 0, timeoutMsg, timeout);
+	try{
+		const timeoutMsg = 'Ajax is not completely finished';
+		const ajaxScriptFinished = await waitUntilScriptResultIsTrue(() => (window.jQuery != null) && (jQuery.active == 0), timeoutMsg, timeout);
+		while(!ajaxScriptFinished){
+			await waitUntilElementIsPresent(ajaxElement);
+			break;
+		}
+	}catch(error){
+		const msg = error.message;
+		throw msg;
+	}
 }
 
 async function waitUntilPageLoads(timeout = pageLoadingTimeout) {

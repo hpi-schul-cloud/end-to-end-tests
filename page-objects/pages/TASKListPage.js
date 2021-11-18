@@ -22,7 +22,6 @@ const studentSubmitTask = "//td[text()='Boris']";
 const filterSelect = "//i[text() = 'add' and @class='material-icons']";
 const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
 const courseCheckbox = "//label[contains(.,'";
-const ajaxPageLoad = "//div[@class='modal-backdrop fade in']";
 
 const taskButton = {
 	archive: '.fa-archive',
@@ -104,7 +103,6 @@ async function getListOfTask() {
 }
 
 async function clickOnTask(taskName, button) {
-	await waitHelpers.waitUntilPageLoads();
 	await waitHelpers.waitUntilAjaxIsFinished();
 	const taskList = await getListOfTask();
 	const taskIndex = await getTaskIndex(taskName);
@@ -123,7 +121,6 @@ async function isTaskVisible(taskname, expectedValue) {
 	const msg = `Task with name ${taskname} is${fillString} visible on the list: \n`;
 	const resultMsg = 'Expected: ' + taskname + ', Actual: ' + allTasks;
 	await expect(isTaskOnList, msg + resultMsg).to.equal(expectedValue);
-	await waitHelpers.waitUntilPageLoads();
 	await waitHelpers.waitUntilAjaxIsFinished();
 }
 
@@ -151,8 +148,6 @@ async function clickOnTaskFromList(taskname) {
 }
 
 async function clickDeleteTaskButtonInPopup() {
-	await waitHelpers.waitUntilAjaxIsFinished();
-	await elementHelpers.isElementDisplayed(ajaxPageLoad);
 	await elementHelpers.clickAndWait(deleteTaskButtonInPopup);
 	await waitHelpers.waitUntilAjaxIsFinished();
 }
