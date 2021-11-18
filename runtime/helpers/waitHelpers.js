@@ -178,7 +178,7 @@ async function waitUntilAjaxIsFinished(timeout = ajaxTimeout) {
 		const timeoutMsg = 'Ajax is not completely finished';
 		const ajaxScriptFinished = await waitUntilScriptResultIsTrue(() => (window.jQuery != null) && (jQuery.active == 0), timeoutMsg, timeout);
 		while(!ajaxScriptFinished){
-			await waitUntilElementIsPresent(ajaxElement);
+			await driver.execute('document.readyState == "complete"');
 			break;
 		}
 	}catch(error){
