@@ -11,6 +11,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Added
 
 - added e2e tests to create and edit a teacher
+- BC-699 Reafctor waitUntilAjaxIsFinished method
 
 ### Changed
 
