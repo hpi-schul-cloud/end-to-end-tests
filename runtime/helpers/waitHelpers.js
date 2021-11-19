@@ -20,7 +20,6 @@ const atributeTimeout = 7000;
 const titleTimeout = 30000;
 const shortInterval = 50;
 const mediumInterval = 100;
-const ajaxElement = "//div[@id= 'MathJax_Message' and @style='display: none;']";
 
 async function waitUntilElementIsPresent(selectorOrElement, timeout = elementIsPresentTimeout) {
 	let element = await sharedHelpers.getElement(selectorOrElement);
