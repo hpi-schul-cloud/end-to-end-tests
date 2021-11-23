@@ -74,7 +74,7 @@ async function sortTasksLastEdited() {
 	await elementHelpers.click(select);
 	await elementHelpers.click(lastedited);
 	await elementHelpers.clickAndWait(submitBtn);
-	await waitHelpers.waitUntilAjaxIsFinished();
+	await waitHelpers.waitUntilPageLoads();
 }
 
 async function sortTasksCourse(courseName) {
@@ -103,7 +103,7 @@ async function getListOfTask() {
 }
 
 async function clickOnTask(taskName, button) {
-	await waitHelpers.waitUntilAjaxIsFinished();
+	await waitHelpers.waitUntilPageLoads();
 	const taskList = await getListOfTask();
 	const taskIndex = await getTaskIndex(taskName);
 	if (taskIndex == -1) {
@@ -121,11 +121,11 @@ async function isTaskVisible(taskname, expectedValue) {
 	const msg = `Task with name ${taskname} is${fillString} visible on the list: \n`;
 	const resultMsg = 'Expected: ' + taskname + ', Actual: ' + allTasks;
 	await expect(isTaskOnList, msg + resultMsg).to.equal(expectedValue);
-	await waitHelpers.waitUntilAjaxIsFinished();
+	await waitHelpers.waitUntilPageLoads();
 }
 
 async function getTaskDescription() {
-	await waitHelpers.waitUntilAjaxIsFinished();
+	await waitHelpers.waitUntilPageLoads();
 	const descriptionList = await elementHelpers.getTextFromAllElements(taskDescriptionContainer);
 	return descriptionList;
 }
@@ -149,7 +149,7 @@ async function clickOnTaskFromList(taskname) {
 
 async function clickDeleteTaskButtonInPopup() {
 	await elementHelpers.clickAndWait(deleteTaskButtonInPopup);
-	await waitHelpers.waitUntilAjaxIsFinished();
+	await waitHelpers.waitUntilPageLoads();
 }
 
 async function clickTaskWithoutDuedate(){

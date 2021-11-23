@@ -14,7 +14,6 @@ const elementContainsTextTimeout = 10000;
 const emailSendingTimeout = 10000;
 const urlContainsTimeout = 10000;
 const pageLoadingTimeout = 30000;
-const ajaxTimeout = 7000;
 const setValueTimeout = 7000;
 const atributeTimeout = 7000;
 const titleTimeout = 30000;
@@ -173,23 +172,18 @@ async function waitUntilUrlNotContains(notExpectedUrlText, timeout = urlContains
 	}
 }
 
-async function waitUntilAjaxIsFinished(timeout = ajaxTimeout) {
+async function waitUntilPageLoads(timeout = pageLoadingTimeout) {
 	try{
-		const pageLoadComplete = await waitUntilPageLoads();
+		const pageLoadComplete = await waitUntilScriptResultIsTrue(() => document.readyState.includes('complete'), timeoutMsg, timeout);
 		while(!pageLoadComplete){
 			await waitUntilElementIsPresent(pageLoadLegacy);
 			break;
 		}
 	}catch(error){
-		const timeoutMsg = 'Ajax is not completely finished';
+		const timeoutMsg = 'Page is not loaded';
 		const msg = error.message;
 		throw msg + '\n' + timeoutMsg;
 	}
-}
-
-async function waitUntilPageLoads(timeout = pageLoadingTimeout) {
-	const timeoutMsg = 'Page is not loaded';
-	await waitUntilScriptResultIsTrue(() => document.readyState.includes('complete'), timeoutMsg, timeout);
 }
 
 async function waitUntilScriptResultIsTrue(script, timeoutMsg, timeout = pageLoadingTimeout) {
@@ -317,7 +311,6 @@ module.exports = {
 	waitUntilEmailIsSent,
 	waitUntilUrlContains,
 	waitUntilUrlNotContains,
-	waitUntilAjaxIsFinished,
 	waitUntilPageLoads,
 	waitAndSetValue,
 	waitUntilElementAttributeEquals,

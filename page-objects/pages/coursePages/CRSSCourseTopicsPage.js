@@ -38,7 +38,7 @@ async function clickOnTopicDeleteTrashcanButton(name) {
 
 async function clickDeleteTopicButtonInPopup() {
 	await elementHelpers.clickAndWait(deleteTopicButtonInPopup);
-	await waitHelpers.waitUntilAjaxIsFinished();
+	await waitHelpers.waitUntilPageLoads();
 }
 
 module.exports = {

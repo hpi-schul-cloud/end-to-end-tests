@@ -57,7 +57,7 @@ async function clickAddTeamBtn() {
 }
 
 async function getListOfTeamNames() {
-	await waitHelpers.waitUntilAjaxIsFinished();
+	await waitHelpers.waitUntilPageLoads();
 	await goToTeams();
 	return elementHelpers.getTextFromAllElements(teamNameContainer);
 }
