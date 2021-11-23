@@ -19,7 +19,7 @@ const atributeTimeout = 7000;
 const titleTimeout = 30000;
 const shortInterval = 50;
 const mediumInterval = 100;
-const pageLoadLegacy = "//div[@id='MathJax_Message' and @style='display: none;']";
+const pageLoadLegacy = "//dl[@role='navigation']";
 
 async function waitUntilElementIsPresent(selectorOrElement, timeout = elementIsPresentTimeout) {
 	let element = await sharedHelpers.getElement(selectorOrElement);
@@ -174,15 +174,15 @@ async function waitUntilUrlNotContains(notExpectedUrlText, timeout = urlContains
 
 async function waitUntilPageLoads(timeout = pageLoadingTimeout) {
 	try{
+		const timeoutMsg = 'Page is not loaded';
 		const pageLoadComplete = await waitUntilScriptResultIsTrue(() => document.readyState.includes('complete'), timeoutMsg, timeout);
 		while(!pageLoadComplete){
 			await waitUntilElementIsPresent(pageLoadLegacy);
 			break;
 		}
 	}catch(error){
-		const timeoutMsg = 'Page is not loaded';
 		const msg = error.message;
-		throw msg + '\n' + timeoutMsg;
+		throw msg ;
 	}
 }
 
