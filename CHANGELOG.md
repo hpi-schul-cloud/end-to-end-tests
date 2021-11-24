@@ -11,11 +11,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Added
 
 - added e2e tests to create and edit a teacher
-- BC-699 - BC-581 - Refactor waitUntilAjaxIsFinished method
 
 ### Changed
 
-- BC-155 rename tab for students in task overview page
+- BC-699 - Removed waitUntilAjaxIsFinished method
+- BC-581 - Refactored waitUntilAjaxIsFinished method
+- BC-155 - rename tab for students in task overview page
 
 ## [26.16.0] - 2021-11-09
 
@@ -26,7 +27,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Removed
 
-- BC-379 removed local server installation
+- BC-379 - removed local server installation
 
 ### Fixed
 
@@ -43,8 +44,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - BC-283 - added wait method to test step
 - reinstated that all tests are running
 - SC-9237 - added E2E test to check redirect
-- BC-25 seed database changed to use management api call
-- BC-182 added testcase for nuxt client task page for student role
+- BC-25 - seed database changed to use management api call
+- BC-182 - added testcase for nuxt client task page for student role
 
 ### Removed
 
