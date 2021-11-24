@@ -19,7 +19,7 @@ const atributeTimeout = 7000;
 const titleTimeout = 30000;
 const shortInterval = 50;
 const mediumInterval = 100;
-const pageLoadLegacy = "//dl[@role='navigation']";
+const pageLoad = "html body";
 
 async function waitUntilElementIsPresent(selectorOrElement, timeout = elementIsPresentTimeout) {
 	let element = await sharedHelpers.getElement(selectorOrElement);
@@ -177,7 +177,7 @@ async function waitUntilPageLoads(timeout = pageLoadingTimeout) {
 		const timeoutMsg = 'Page is not loaded';
 		const pageLoadComplete = await waitUntilScriptResultIsTrue(() => document.readyState.includes('complete'), timeoutMsg, timeout);
 		while(!pageLoadComplete){
-			await waitUntilElementIsPresent(pageLoadLegacy);
+			await waitUntilElementIsPresent(pageLoad);
 			break;
 		}
 	}catch(error){
