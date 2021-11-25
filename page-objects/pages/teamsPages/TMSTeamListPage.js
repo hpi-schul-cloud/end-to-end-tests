@@ -45,6 +45,7 @@ function getColourCSS(colour) {
 }
 
 async function goToTeams() {
+	await waitHelpers.waitUntilPageLoads();
 	return navigationLeftPage.clickNavItemTeams();
 }
 
