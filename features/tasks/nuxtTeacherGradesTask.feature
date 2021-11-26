@@ -4,7 +4,7 @@ Feature: View the tasks in new nuxt task menu and grade it
     Background: Student logs in and submit the task, after that teacher logs in and grade the task and view that the graded column increments
         Given user arrives on the Schul-Cloud homepage
 
-    @nuxtStudentSubmitsTask @unstableTest
+    @nuxtStudentSubmitsTask
     Scenario Outline: As a student, I want to see the open tasks in new nuxt tab and sumbit them
         When <userRole> logs in
         And <userRole> clicks the current task tab
@@ -16,7 +16,7 @@ Feature: View the tasks in new nuxt task menu and grade it
             | userRole |
             | student  |
 
-    @nuxtTeacherGradeAndViewTask @noDBReset @unstableTest
+    @nuxtTeacherGradeAndViewTask @noDBReset
     Scenario Outline: As a teacher, I want to see the tasks in new nuxt tab, grade them and see it will show at graded task column for that task
         When <userRole> logs in
         And <userRole> clicks the current task tab

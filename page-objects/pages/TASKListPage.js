@@ -23,6 +23,7 @@ const filterSelect = "//i[text() = 'add' and @class='material-icons']";
 const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
 const courseCheckbox = "//label[contains(.,'";
 const ajaxPageLoad = "//div[@class='modal-backdrop fade in']";
+const nuxtClientPageLoad = "//div[@data-app='true' and @id='app']";
 
 const taskButton = {
 	archive: '.fa-archive',
@@ -158,6 +159,7 @@ async function clickDeleteTaskButtonInPopup() {
 }
 
 async function clickTaskWithoutDuedate(){
+	await waitHelpers.waitUntilElementIsPresent(nuxtClientPageLoad);
 	await elementHelpers.clickAndWait(clickWithoutDueDate);
 }
 
