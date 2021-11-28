@@ -8,6 +8,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## [Unreleased]
 
+### Fixed
+
+- BC-611 Improve E2E tests - nuxtTeacherGradesTask.feature
+
 ### Added
 
 - added e2e tests to create and edit a teacher
