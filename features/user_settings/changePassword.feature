@@ -1,4 +1,4 @@
-@userSettings @password @e2eCore @stableTest
+@userSettings @password @e2eCore @stableTest @navi_user_settings
 Feature: Test set to edit password
 
     Background: User opens Schul-cloud homepage Website

@@ -1,4 +1,4 @@
-@courseTopics @createTopic @stableTest
+@courseTopics @createTopic @stableTest @courses_and_topics
 Feature: Set of tests to copy courses
 
     Background: User opens Schul-cloud homepage Website

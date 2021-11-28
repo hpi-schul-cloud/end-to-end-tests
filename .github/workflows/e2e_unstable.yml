@@ -1,0 +1,15 @@
+---
+name: e2e unstable
+
+on:
+  push:
+    branches-ignore:
+      - dependabot/**
+
+jobs:
+  tag-unstable:
+    uses: hpi-schul-cloud/end-to-end-tests/.github/workflows/e2e.yml@main
+    with:
+      ref: ${{ github.ref }}
+      e2e_tag: unstable
+

@@ -1,10 +1,10 @@
-@task @nuxtTask @nuxtSubmitandCompleteTask
+@task @nuxtTask @nuxtSubmitandCompleteTask @tasks_and_other
 Feature: View the task in new nuxt task menu and submit it
 
     Background: User submits the opened tasks and view the tasks in completed tab
         Given user arrives on the Schul-Cloud homepage
 
-    @nuxtSubmitAndViewTask
+    @nuxtSubmitAndViewTask @unstableTest
     Scenario Outline: As a user, I want to see the open tasks in new nuxt tab, sumbit them and see it will show at Complete task tab
         When <userRole> logs in
         And <userRole> clicks the current task tab

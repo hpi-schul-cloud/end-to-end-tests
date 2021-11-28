@@ -1,4 +1,4 @@
-@leftNavigationBar @stableTest
+@leftNavigationBar @stableTest @navi_user_settings
 Feature: Test set to check the left side menu items
 
     Background:

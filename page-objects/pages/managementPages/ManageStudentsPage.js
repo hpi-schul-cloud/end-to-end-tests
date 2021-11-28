@@ -1,7 +1,7 @@
 /*[url/administration/students]*/
 'use strict';
-const loginPage = require('../generalPagesBeforeLogin/LoginPage');
 
+const loginPage = require('../generalPagesBeforeLogin/LoginPage');
 const waitHelpers = require('../../../runtime/helpers/waitHelpers');
 const dateTimeHelpers = require('../../../runtime/helpers/dateTimeHelpers');
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
@@ -23,15 +23,14 @@ const consentSubmitBtn = "button[data-testid='submit_consent']";
 const addStudentSubmitBtn = "button[data-testid='button_create-user_submit']";
 const passwordInput = '#passwd';
 const createBirthday = '#birthday';
-const editStudentBtn = '.table-actions .btn .fa-edit';
-const newAdminTablesEditButton = tableOfStudents + ' a[data-testid="edit_student_button"]';
+const editStudentBtn = 'a[data-testid="edit_student_button"]';
 const tableOfStudentsRow = tableOfStudents + ' > tr';
 const firstNameCells = tableOfStudents + ' td:nth-child(2)';
 const lastNameCells = tableOfStudents + ' td:nth-child(3)';
 const emailCells = tableOfStudents + ' td:nth-child(5)';
 const selectAllCheckbox = 'th:nth-child(1) > div';
 const actionsBtn = '.actions > button';
-const sendEmailBtn = '.context-menu:nth-child(2)';
+const sendEmailBtn = 'button.context-menu__button:nth-child(2)';
 
 async function clickFloatingActionButtonBtn() {
 	await elementHelpers.clickAndWait(floatingActionButtonBtn);
@@ -42,18 +41,13 @@ async function clickAddStudentBtn() {
 }
 
 async function clickEditStudentBtn() {
-	// to make it work on new admin tables
-	try {
-		await elementHelpers.click(newAdminTablesEditButton);
-	} catch (e) {
-		await elementHelpers.click(editStudentBtn);
-	}
+	await elementHelpers.click(editStudentBtn);
 }
 
 async function clickEditStudentByMailBtn(userEmail) {
 	await waitHelpers.waitUntilElementIsVisible(tableOfStudentsRow);
 	let studentsTable = await getStudentsDetailsList(emailCells);
-	let editsElements = await elementHelpers.getListOfAllElements(newAdminTablesEditButton);
+	let editsElements = await elementHelpers.getListOfAllElements(editStudentBtn);
 	for (let index = 0; index < studentsTable.length; index++) {
 		if (studentsTable[index] === userEmail) {
 			await elementHelpers.clickAndWait(editsElements[index]);
@@ -113,9 +107,13 @@ async function clickSelectAllStudentsCheckbox() {
 	await elementHelpers.click(selectAllCheckbox);
 }
 
-async function createNewPupil(firstname, lastname, email, birthday, addBirthday) {
+async function goToCreateForm() {
 	await clickFloatingActionButtonBtn();
 	await clickAddStudentBtn();
+	await waitHelpers.waitUntilPageLoads();
+}
+
+async function createNewStudent(firstname, lastname, email, birthday, addBirthday) {
 	await waitHelpers.waitUntilPageLoads();
 	await setStudentFirstName(firstname);
 	await setStudentLastName(lastname);
@@ -125,7 +123,7 @@ async function createNewPupil(firstname, lastname, email, birthday, addBirthday)
 	//let birthdate = dateTimeHelpers.getCurrentFormattedDateWithOffset({years: -14, format: "dd/mm/yyyy"});
 	//await setStudentsBirthday(birthdate);
 	if (addBirthday) await setStudentsBirthday(birthday);
-//	await clickOnSendRegistrationLinkCheckbox(); disabled until notification service is reworked
+	//	await clickOnSendRegistrationLinkCheckbox(); disabled until notification service is reworked
 	await submitStudentAddition();
 	await waitHelpers.waitUntilPageLoads();
 }
@@ -157,7 +155,7 @@ async function isStudentFirstnameOnTheList(firstname) {
 
 async function isStudentLastnameOnTheList(lastname) {
 	let lastnames = await getStudentsDetailsList(lastNameCells);
-	const msg = `Student with lastname ${lastname} is not visible on the student lastname list \n`;
+	const msg = `Student with lastname ${lastname} is not visible on the students lastname list \n`;
 	const resultMsg = `List of lastnames ${lastnames}`;
 	await expect(lastnames, msg + resultMsg).to.include(lastname);
 }
@@ -194,7 +192,8 @@ module.exports = {
 	clickEditStudentByMailBtn,
 	clickSendConsentFormEmailsButton,
 	clickEditStudentBtn,
-	createNewPupil,
+	goToCreateForm,
+	createNewStudent,
 	clickSelectAllStudentsCheckbox,
 	clickActionsButton,
 	isStudentEmailOnTheList,

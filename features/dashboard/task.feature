@@ -1,4 +1,4 @@
-@dashboard @task @stableTest
+@dashboard @task @stableTest @tasks_and_other
 Feature: dashboard test set
 
 	Background: user logs in
@@ -17,6 +17,7 @@ Feature: dashboard test set
 		And <userRole> clicks on Private-task checkbox
 		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
+		And <userRole> filter by '<courseName>'
 		When <userRole> sees that task with name '<taskName>' is visible on the list
 		And <userRole> clicks left navigation item 'dashboard'
 		Then <userRole> should see that 'private' tasks section is visible on dashboard
@@ -40,6 +41,7 @@ Feature: dashboard test set
 		And <userRole> sets task body '<taskBody>' in task form
 		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
+		And <userRole> filter by '<courseName>'
 		When <userRole> sees that task with name '<taskName>' is visible on the list
 		And <userRole> clicks left navigation item 'dashboard'
 		Then <userRole> should see that 'published' tasks section is visible on dashboard
