@@ -16,13 +16,14 @@ const taskTitleContainer = '.assignment.card .title';
 const taskDescriptionContainer = '.assignment .text-muted.ckcontent';
 const taskContainer = '.homework li.card';
 const deleteTaskButtonInPopup = '.delete-modal button.btn-submit';
-const clickWithoutDueDate = "//*[text()='Task19']";
-const ungradedTask = "//div[text()='Task19']";
+const clickWithoutDueDate = "//div[@data-testid = 'taskTitle' and text() = 'Task19']";
+const ungradedTask = "//div[@data-testid = 'taskTitle' and text() = 'Task19']";
 const studentSubmitTask = "//td[text()='Boris']";
 const filterSelect = "//i[text() = 'add' and @class='material-icons']";
 const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
 const courseCheckbox = "//label[contains(.,'";
 const ajaxPageLoad = "//div[@class='modal-backdrop fade in']";
+const nuxtClientLoad = "//div[@data-app = 'true' and @id = 'app']";
 
 const taskButton = {
 	archive: '.fa-archive',
@@ -158,6 +159,7 @@ async function clickDeleteTaskButtonInPopup() {
 }
 
 async function clickTaskWithoutDuedate(){
+	await elementHelpers.waitUntilNuxtClientLoads(nuxtClientLoad);
 	await elementHelpers.clickAndWait(clickWithoutDueDate);
 }
 
