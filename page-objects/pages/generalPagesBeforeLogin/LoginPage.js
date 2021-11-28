@@ -67,7 +67,8 @@ async function clickLoginBtn() {
 }
 
 async function clickForgotPasswordBtn() {
-	await elementHelpers.clickAndWait(forgotPasswordBtn);
+	const displayedElement = await elementHelpers.getDisplayedElement(forgotPasswordBtn)
+	await elementHelpers.clickAndWait(displayedElement);
 }
 
 async function FillEmailInputAndReset(email) {
