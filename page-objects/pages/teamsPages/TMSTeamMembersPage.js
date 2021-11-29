@@ -16,7 +16,7 @@ async function clickAddInternalAttendeesBtn() {
 
 async function addTeamAttendee(lastname, firstname) {
 	await waitHelpers.waitUntilPageLoads();
-	await elementHelpers.selectOptionsByText(studentsList, lastname + ', ' + firstname);
+	await elementHelpers.selectOptionsByText(multipleChoiceSelectForTeamAttendees, lastname + ', ' + firstname);
 }
 
 async function clickSubmitAddTeamAttendeeBtn() {
