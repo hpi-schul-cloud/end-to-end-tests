@@ -1,6 +1,6 @@
 {
 	"name": "sc-end-to-end-tests",
-	"version": "26.4.0",
+	"version": "26.13.0",
 	"description": "A platform independent debuggable BDD Javascript testing framework. It's simple, easy to use and not dependant to any other tool or library, using Nodejs, webdriverio and cucumber-js",
 	"license": "Apache-2.0",
 	"keywords": [
@@ -29,14 +29,15 @@
 	},
 	"main": "index.js",
 	"scripts": {
-		"test": "node index.js -d",
+		"test": "npm run test:stable",
+		"test:all": "node index.js -d",
+		"test:dev": "node index.js -d -k",
 		"test:courses_and_topics": "node index.js -d --tags @courses_and_topics",
 		"test:management": "node index.js -d --tags @management",
 		"test:tasks_and_other": "node index.js -d --tags @tasks_and_other",
 		"test:navi_user_settings": "node index.js -d --tags @navi_user_settings",
 		"test:stable": "node index.js -d --tags @stableTest",
 		"test:unstable": "node index.js -d --tags @unstableTest",
-		"test:dev": "node index.js -d -k",
 		"selenium": "npx selenium-standalone install && npx selenium-standalone start"
 	},
 	"homepage": "https://github.com/hpi-schul-cloud/end-to-end-tests#readme",

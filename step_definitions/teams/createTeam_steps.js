@@ -64,6 +64,10 @@ Then(/^.* team with name '([^']*)' is visible on the list$/, async function (tea
 	return TMSTeamListPage.isTeamVisible(teamName, true);
 });
 
+Then(/^.* team with name '([^']*)' is not visible on the list$/, async function (teamName) {
+	return TMSTeamListPage.isTeamVisible(teamName, false);
+});
+
 When(/^.* chooses team colour '([^']*)'$/, function (teamColour) {
 	return TMSAddEditTeamPage.setTeamColour(teamColour);
 });

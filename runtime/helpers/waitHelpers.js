@@ -295,6 +295,14 @@ async function waitUntilPageTitleEquals(expectedTitle, timeout = titleTimeout) {
 	}
 }
 
+async function waitUntilNuxtClientLoads(selector){
+	let nuxtPageLoad = false;
+	while(!nuxtPageLoad){
+		await waitUntilElementIsPresent(selector);
+		nuxtPageLoad = true;
+	}
+}
+
 module.exports = {
 	waitUntilElementIsPresent,
 	waitUntilElementIsNotPresent,
@@ -315,4 +323,5 @@ module.exports = {
 	waitUntilElementAttributeContains,
 	waitUntilPageTitleContains,
 	waitUntilPageTitleEquals,
+	waitUntilNuxtClientLoads,
 };

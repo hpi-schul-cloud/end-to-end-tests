@@ -16,7 +16,7 @@ When(/^.* goes to students management$/, async function () {
 When(
 	/^.*set student firstname '([^']*)', lastname '([^']*)', email '([^']*)', birthday '([^']*)'$/,
 	function (firstname, secondname, email, birthday) {
-		return manageStudentsPage.createNewPupil(firstname, secondname, email, birthday, true);
+		return manageStudentsPage.createNewStudent(firstname, secondname, email, birthday, true);
 	}
 );
 
@@ -27,16 +27,19 @@ When(
 	}
 );
 
+When(/^.* goes to student creation form$/, async function () {
+	return manageStudentsPage.goToCreateForm();
+});
+
 When(
 	/^.*set student firstname '([^']*)', lastname '([^']*)', email '([^']*)'$/,
 	function (firstname, secondname, email) {
-		return manageStudentsPage.createNewPupil(firstname, secondname, email, null, false);
+		return manageStudentsPage.createNewStudent(firstname, secondname, email, null, false);
 	}
 );
 
 //THEN
-Then(/^.*student with email '([^']*)' is visible on the list$/, function (email) {
-	//return manageStudentsPage.isStudentEmailOnTheList(email);
+Then(/^.* student with email '([^']*)' is visible on the list$/, function (email) {
 	return manageStudentsPage.isStudentVisible(email, true);
 });
 
