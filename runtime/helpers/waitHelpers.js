@@ -178,22 +178,26 @@ async function waitUntilPageLoads(timeout = pageLoadingTimeout) {
 }
 
 async function waitUntilLegacyPageLoads(timeout = pageLoadingTimeout) {
-	try{
+	try {
 		const timeoutMsg = 'Page is not loaded';
-		const pageLoadComplete = await waitUntilScriptResultIsTrue(() => document.readyState.includes('complete'), timeoutMsg, timeout);
-		while(!pageLoadComplete){
+		const pageLoadComplete = await waitUntilScriptResultIsTrue(
+			() => document.readyState.includes('complete'),
+			timeoutMsg,
+			timeout
+		);
+		while (!pageLoadComplete) {
 			await waitUntilElementIsPresent(pageLoadLegacy);
 			break;
 		}
-	}catch(error){
+	} catch (error) {
 		const msg = error.message;
-		throw msg ;
+		throw msg;
 	}
 }
 
-async function waitUntilNuxtClientLoads(selector){
+async function waitUntilNuxtClientLoads(selector) {
 	let nuxtPageLoad = false;
-	while(!nuxtPageLoad){
+	while (!nuxtPageLoad) {
 		await waitHelpers.waitUntilElementIsPresent(selector);
 		nuxtPageLoad = true;
 	}
@@ -324,6 +328,7 @@ module.exports = {
 	waitUntilEmailIsSent,
 	waitUntilUrlContains,
 	waitUntilUrlNotContains,
+	waitUntilPageLoads,
 	waitUntilLegacyPageLoads,
 	waitUntilNuxtClientLoads,
 	waitAndSetValue,
