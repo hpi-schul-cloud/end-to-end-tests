@@ -106,7 +106,7 @@ async function getDriverInstance() {
 //			return driver;
 //		} catch (err) {
 //			console.log('something failed' + err.message);
-		}
+//	}
 	}
 	assert.isNotEmpty(browser, 'Browser must be defined');
 	switch (browser || '') {
