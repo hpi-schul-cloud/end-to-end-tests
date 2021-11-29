@@ -19,6 +19,7 @@ Feature: Set of tests to submit tasks
 		And <userRole> filter by '<courseName>'
 		And <userRole> sees that task with name '<taskName>' is visible on the list
 		And <userRole> logs out
+        And user arrives on the Schul-Cloud homepage
 		And student logs in with email '<studentUserName>' and password '<password>'
 		And student goes to tasks page
 		And student filter by '<courseName>'
@@ -27,6 +28,7 @@ Feature: Set of tests to submit tasks
 		And student sets submission text 'Test submission text'
 		And student clicks Save-and-send submission button
 		And student logs out
+        And user arrives on the Schul-Cloud homepage
 		When <userRole> logs in
 		And <userRole> goes to tasks page
 		And <userRole> filter by '<courseName>'
@@ -37,6 +39,7 @@ Feature: Set of tests to submit tasks
 		And <userRole> grades task with rate '<taskRating>'% and remarks '<taskRemark>'
 		And <userRole> clicks Save-and-send grading button
 		And <userRole> logs out
+        And user arrives on the Schul-Cloud homepage
 		And student logs in with email '<studentUserName>' and password '<password>'
 		And student goes to tasks page
 		And student filter by '<courseName>'

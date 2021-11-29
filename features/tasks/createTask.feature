@@ -53,6 +53,7 @@ Feature: Set of tests to create tasks
 		And <userRole> filter by '<courseName>'
 		Then <userRole> should see that task with name '<taskName>' is visible on the list
 		When <userRole> logs out
+        And user arrives on the Schul-Cloud homepage
 		And student logs in with email '<studentUsername>' and password '<studentPassword>'
 		And student goes to tasks page
 		Then student should see that task with name '<taskName>' is not visible on the list
