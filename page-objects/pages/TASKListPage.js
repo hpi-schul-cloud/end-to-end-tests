@@ -159,7 +159,7 @@ async function clickDeleteTaskButtonInPopup() {
 }
 
 async function clickAtTask(){
-	await elementHelpers.waitUntilNuxtClientLoads(nuxtClientLoad);
+	await waitHelpers.waitUntilNuxtClientLoads(nuxtClientLoad);
 	await elementHelpers.clickAndWait(clickAtTaskTitle);
 }
 

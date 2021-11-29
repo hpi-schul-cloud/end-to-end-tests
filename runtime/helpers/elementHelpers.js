@@ -230,14 +230,6 @@ async function getElementIncludingText(selector, text) {
 	return listOfElements[index];
 }
 
-async function waitUntilNuxtClientLoads(selector){
-	let nuxtPageLoad = false;
-	while(!nuxtPageLoad){
-		await waitHelpers.waitUntilElementIsPresent(selector);
-		nuxtPageLoad = true;
-	}
-}
-
 module.exports = {
 	click,
 	clickAndWait,
@@ -266,5 +258,4 @@ module.exports = {
 	getValueOfElement,
 	getElementByText,
 	getElementIncludingText,
-	waitUntilNuxtClientLoads,
 };
