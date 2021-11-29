@@ -16,8 +16,8 @@ const taskTitleContainer = '.assignment.card .title';
 const taskDescriptionContainer = '.assignment .text-muted.ckcontent';
 const taskContainer = '.homework li.card';
 const deleteTaskButtonInPopup = '.delete-modal button.btn-submit';
-const clickWithoutDueDate = "//div[@data-testid = 'taskTitle' and text() = 'Task19']";
-const ungradedTask = "//div[@data-testid = 'taskTitle' and text() = 'Task19']";
+const clickWithoutDueDate = "//div[@data-testid = 'taskTitle']";
+const ungradedTask = "//div[@data-testid = 'taskTitle']";
 const studentSubmitTask = "//td[text()='Boris']";
 const filterSelect = "//i[text() = 'add' and @class='material-icons']";
 const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
@@ -164,7 +164,7 @@ async function clickTaskWithoutDuedate(){
 }
 
 async function clickUngradedTask(){
-	await elementHelpers.clickAndWait(ungradedTask);
+	await elementHelpers.isElementDisplayed(ungradedTask);
 }
 
 async function studentSubmittedTask(){
