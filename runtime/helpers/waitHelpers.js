@@ -19,7 +19,7 @@ const atributeTimeout = 7000;
 const titleTimeout = 30000;
 const shortInterval = 50;
 const mediumInterval = 100;
-const pageLoad = "html body";
+const pageLoadLegacy = "//dl[@role='navigation']";
 
 async function waitUntilElementIsPresent(selectorOrElement, timeout = elementIsPresentTimeout) {
 	let element = await sharedHelpers.getElement(selectorOrElement);
@@ -173,16 +173,29 @@ async function waitUntilUrlNotContains(notExpectedUrlText, timeout = urlContains
 }
 
 async function waitUntilPageLoads(timeout = pageLoadingTimeout) {
+	const timeoutMsg = 'Page is not loaded';
+	await waitUntilScriptResultIsTrue(() => document.readyState.includes('complete'), timeoutMsg, timeout);
+}
+
+async function waitUntilLegacyPageLoads(timeout = pageLoadingTimeout) {
 	try{
 		const timeoutMsg = 'Page is not loaded';
 		const pageLoadComplete = await waitUntilScriptResultIsTrue(() => document.readyState.includes('complete'), timeoutMsg, timeout);
 		while(!pageLoadComplete){
-			await waitUntilElementIsPresent(pageLoad);
+			await waitUntilElementIsPresent(pageLoadLegacy);
 			break;
 		}
 	}catch(error){
 		const msg = error.message;
 		throw msg ;
+	}
+}
+
+async function waitUntilNuxtClientLoads(selector){
+	let nuxtPageLoad = false;
+	while(!nuxtPageLoad){
+		await waitHelpers.waitUntilElementIsPresent(selector);
+		nuxtPageLoad = true;
 	}
 }
 
@@ -311,7 +324,8 @@ module.exports = {
 	waitUntilEmailIsSent,
 	waitUntilUrlContains,
 	waitUntilUrlNotContains,
-	waitUntilPageLoads,
+	waitUntilLegacyPageLoads,
+	waitUntilNuxtClientLoads,
 	waitAndSetValue,
 	waitUntilElementAttributeEquals,
 	waitUntilElementAttributeContains,

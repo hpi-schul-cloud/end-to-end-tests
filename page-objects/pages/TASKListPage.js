@@ -10,7 +10,8 @@ const selectorCreateTaskButton = '.btn.btn-primary.btn-add.create';
 const selectorCreateTaskBtnInTheCourse = '.col-sm-12.add-button > a';
 const selectorSortBtn = '#filter .md-clickable > div';
 const select = '#selection-picker > div > div';
-const lastedited = 'body > div.md-select-menu.md-menu-content-bottom-start.md-menu-content-small.md-menu-content.md-theme-default > div > ul > li:nth-child(2) > button';
+const lastedited =
+	'body > div.md-select-menu.md-menu-content-bottom-start.md-menu-content-small.md-menu-content.md-theme-default > div > ul > li:nth-child(2) > button';
 const submitBtn = '.md-button.md-primary.md-theme-default > div > div';
 const taskTitleContainer = '.assignment.card .title';
 const taskDescriptionContainer = '.assignment .text-muted.ckcontent';
@@ -80,7 +81,7 @@ async function sortTasksLastEdited() {
 async function sortTasksCourse(courseName) {
 	await elementHelpers.click(filterSelect);
 	await elementHelpers.click(courseSelect);
-	let courseSelector = courseCheckbox+courseName+"')]";
+	let courseSelector = courseCheckbox + courseName + "')]";
 	await elementHelpers.clickAndWait(courseSelector);
 	await elementHelpers.clickAndWait(submitBtn);
 	await waitHelpers.waitUntilPageLoads();
@@ -148,19 +149,19 @@ async function clickOnTaskFromList(taskname) {
 }
 
 async function clickDeleteTaskButtonInPopup() {
+	await waitHelpers.waitUntilLegacyPageLoads();
 	await elementHelpers.clickAndWait(deleteTaskButtonInPopup);
-	await waitHelpers.waitUntilPageLoads();
 }
 
-async function clickTaskWithoutDuedate(){
+async function clickTaskWithoutDuedate() {
 	await elementHelpers.clickAndWait(clickWithoutDueDate);
 }
 
-async function clickUngradedTask(){
+async function clickUngradedTask() {
 	await elementHelpers.clickAndWait(ungradedTask);
 }
 
-async function studentSubmittedTask(){
+async function studentSubmittedTask() {
 	await elementHelpers.clickAndWait(studentSubmitTask);
 }
 
