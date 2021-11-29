@@ -16,8 +16,8 @@ const taskTitleContainer = '.assignment.card .title';
 const taskDescriptionContainer = '.assignment .text-muted.ckcontent';
 const taskContainer = '.homework li.card';
 const deleteTaskButtonInPopup = '.delete-modal button.btn-submit';
-const clickWithoutDueDate = "//div[@data-testid = 'taskTitle']";
-const ungradedTask = "//div[@data-testid = 'taskTitle']";
+const clickAtTaskTitle = "//div[@data-testid = 'taskTitle']";
+const taskAtCompletedTab = "//div[@data-testid = 'taskTitle']";
 const studentSubmitTask = "//td[text()='Boris']";
 const filterSelect = "//i[text() = 'add' and @class='material-icons']";
 const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
@@ -158,13 +158,13 @@ async function clickDeleteTaskButtonInPopup() {
 	await waitHelpers.waitUntilAjaxIsFinished();
 }
 
-async function clickTaskWithoutDuedate(){
+async function clickAtTask(){
 	await elementHelpers.waitUntilNuxtClientLoads(nuxtClientLoad);
-	await elementHelpers.clickAndWait(clickWithoutDueDate);
+	await elementHelpers.clickAndWait(clickAtTaskTitle);
 }
 
-async function clickUngradedTask(){
-	await elementHelpers.isElementDisplayed(ungradedTask);
+async function taskInCompletedTabDisplayed(){
+	await elementHelpers.isElementDisplayed(taskAtCompletedTab);
 }
 
 async function studentSubmittedTask(){
@@ -183,8 +183,8 @@ module.exports = {
 	getTaskDescription,
 	clickCreateTaskButtonInTheCourse,
 	clickDeleteTaskButtonInPopup,
-	clickTaskWithoutDuedate,
-	clickUngradedTask,
+	clickAtTask,
+	taskInCompletedTabDisplayed,
 	studentSubmittedTask,
 	sortTasksCourse,
 };

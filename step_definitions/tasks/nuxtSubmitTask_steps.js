@@ -10,7 +10,7 @@ When(/^.* clicks the current task tab$/, async function (){
 });
 
 When(/^.* clicks at task$/, async function (){
-    await TASKListPage.clickTaskWithoutDuedate();
+    await TASKListPage.clickAtTask();
 });
 
 When(/^.* clicks on submit button$/, async function (){
@@ -21,6 +21,6 @@ When(/^.* clicks completed task tab$/, async function (){
     await TASKPage.clickCompletedTab();
 });
 
-When(/^.* clicks at ungraded task$/, async function (){
-    await TASKListPage.clickUngradedTask();
+When(/^.* sees task in completed tab$/, async function (){
+    await TASKListPage.taskInCompletedTabDisplayed();
 });
