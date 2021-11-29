@@ -38,7 +38,7 @@ Then(
 );
 
 Given(/^teacher logs in$/, async function () {
-	//await startPage.clickLoginBtn();
+	await startPage.clickLoginBtn();
 	await loginPage.performLogin(
 		loginPage.users.teachers.karlHerzogUsername,
 		loginPage.users.teachers.karlHerzogPassword
@@ -46,12 +46,12 @@ Given(/^teacher logs in$/, async function () {
 });
 
 Given(/^admin logs in$/, async function () {
-	//await startPage.clickLoginBtn();
+	await startPage.clickLoginBtn();
 	await loginPage.performLogin(loginPage.users.admins.kaiPreetzUsername, loginPage.users.admins.kaiPreetzPassword);
 });
 
 Given(/^student logs in$/, async function () {
-	//await startPage.clickLoginBtn();
+	await startPage.clickLoginBtn();
 	await loginPage.performLogin(
 		loginPage.users.students.borisWasserUsername,
 		loginPage.users.students.borisWasserPassword
