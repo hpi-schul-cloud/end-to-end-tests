@@ -9,7 +9,7 @@ When(/^.* clicks the current task tab$/, async function (){
     await TASKPage.goToNuxtTasksTab();
 });
 
-When(/^.* clicks task Task19$/, async function (){
+When(/^.* clicks at task$/, async function (){
     await TASKListPage.clickTaskWithoutDuedate();
 });
 
@@ -21,6 +21,6 @@ When(/^.* clicks completed task tab$/, async function (){
     await TASKPage.clickCompletedTab();
 });
 
-When(/^.* clicks at Task19$/, async function (){
+When(/^.* clicks at ungraded task$/, async function (){
     await TASKListPage.clickUngradedTask();
 });

@@ -8,7 +8,7 @@ Feature: View the tasks in new nuxt task menu and grade it
     Scenario Outline: As a student, I want to see the open tasks in new nuxt tab and sumbit them
         When <userRole> logs in
         And <userRole> clicks the current task tab
-        And <userRole> clicks task Task19
+        And <userRole> clicks at task
         And <userRole> clicks on Submission tab
         And <userRole> sets submission text 'Test submission text'
         Then <userRole> clicks on submit button
@@ -20,7 +20,7 @@ Feature: View the tasks in new nuxt task menu and grade it
     Scenario Outline: As a teacher, I want to see the tasks in new nuxt tab, grade them and see it will show at graded task column for that task
         When <userRole> logs in
         And <userRole> clicks the current task tab
-        And <userRole> clicks task Task19
+        And <userRole> clicks at task
         And <userRole> clicks on student submitted the task
         And <userRole> clicks on Comment tab
         And <userRole> grades task with rate '<taskRating>'% and remarks '<taskRemark>'
