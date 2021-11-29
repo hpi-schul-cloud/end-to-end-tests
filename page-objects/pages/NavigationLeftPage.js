@@ -7,7 +7,9 @@ const waitHelpers = require('../../runtime/helpers/waitHelpers');
 async function loadPageFromNavigationItem(selector) {
 	const link = await elementHelpers.getLink(selector);
 	await elementHelpers.loadPage(link);
-	await waitHelpers.waitUntilPageLoads();
+}
+async function clickElementFromNavigation(selector) {
+	await elementHelpers.clickAndWait(selector)
 }
 
 const navItemsEnum = {
@@ -63,17 +65,11 @@ const navItemAddons = navItemString1stLevel.replace('XXX', 'Add-ons');
 const navItemHelpDesk = navItemString1stLevel.replace('XXX', 'Helpdesk');
 const navItemManagement = navItemString1stLevel.replace('XXX', 'Verwaltung');
 const navItemManagementStudents = navItemString2ndLevel.replace('XXX', 'Schüler:innen');
-const navItemManagementStudentsOld = navItemString2ndLevel.replace('XXX', 'Schüler:innen');
-const navItemManagementTeachers = '[data-testid="global.sidebar.teacher"] > a';
-const navItemManagementTeachersOld = navItemString2ndLevel.replace('XXX', 'Lehrkräfte');
-const navItemManagementCourses = '[data-testid="global.sidebar.courses"] > a';
-const navItemManagementCoursesOld = navItemString2ndLevel.replace('XXX', 'Kurse');
-const navItemManagementTeams = '[data-testid="global.sidebar.teams"] > a';
-const navItemManagementTeamsOld = navItemString2ndLevel.replace('XXX', 'Teams');
-const navItemManagementClasses = '[data-testid="global.sidebar.classes"] > a';
-const navItemManagementClassesOld = navItemString2ndLevel.replace('XXX', 'Klassen');
-const navItemManagementSchool = '[data-testid="global.sidebar.school"] > a';
-const navItemManagementSchoolOld = navItemString2ndLevel.replace('XXX', 'Schule');
+const navItemManagementTeachers = navItemString2ndLevel.replace('XXX', 'Lehrkräfte');
+const navItemManagementCourses = navItemString2ndLevel.replace('XXX', 'Kurse');
+const navItemManagementTeams = navItemString2ndLevel.replace('XXX', 'Teams');
+const navItemManagementClasses = navItemString2ndLevel.replace('XXX', 'Klassen');
+const navItemManagementSchool = navItemString2ndLevel.replace('XXX', 'Schule');
 const navItemHelparea = navItemString1stLevel.replace('XXX', 'Hilfebereich');
 const navItemHelparticles = navItemString2ndLevel.replace('XXX', 'Hilfeartikel');
 const navItemHelpTrainings = navItemString2ndLevel.replace('XXX', 'Fortbildungen');
@@ -82,172 +78,141 @@ const navItemHelpContact = navItemString2ndLevel.replace('XXX', 'Kontakt');
 const item = '.sidebar-list .link-name';
 const subitem = '.subitem .link-name';
 
+
 async function clickNavItemLogo() {
-	await loadPageFromNavigationItem(navItemLogo);
-	await waitHelpers.waitUntilPageLoads();
+	await clickElementFromNavigation(navItemLogo);
 }
 
 async function clickNavItemDashboard() {
-	await loadPageFromNavigationItem(navItemDashboard);
-	await waitHelpers.waitUntilPageLoads();
+	await clickElementFromNavigation(navItemDashboard);
 }
 
 async function clickNavItemCourses() {
-	await loadPageFromNavigationItem(navItemCourses);
-	await waitHelpers.waitUntilPageLoads();
+	await clickElementFromNavigation(navItemCourses);
 }
 
 async function clickNavItemTasks() {
-	await loadPageFromNavigationItem(navItemTasks);
-	await waitHelpers.waitUntilPageLoads();
+	await clickElementFromNavigation(navItemTasks);
 }
 
 async function clickNavItemTasksAsked() {
-	await loadPageFromNavigationItem(navItemTasksAsked);
-	await waitHelpers.waitUntilPageLoads();
+	await clickElementFromNavigation(navItemTasksAsked);
 }
 async function clickNavItemTasksPrivate() {
-	await loadPageFromNavigationItem(navItemTasksPrivate);
-	await waitHelpers.waitUntilPageLoads();
+	await clickElementFromNavigation(navItemTasksPrivate);
 }
 async function clickNavItemTasksArchive() {
-	await loadPageFromNavigationItem(navItemTasksArchive);
-	await waitHelpers.waitUntilPageLoads();
+	await clickElementFromNavigation(navItemTasksArchive);
 }
 
 async function clickNavItemTeams() {
-	await loadPageFromNavigationItem(navItemTeams);
-	await waitHelpers.waitUntilPageLoads();
+	await clickElementFromNavigation(navItemTeams);
 }
 
 async function clickNavItemFiles() {
-	await loadPageFromNavigationItem(navItemFiles);
-	await waitHelpers.waitUntilPageLoads();
+	await clickElementFromNavigation(navItemFiles);
 }
 
 async function clickNavItemFilesMy() {
-	await loadPageFromNavigationItem(navItemFilesMy);
-	await waitHelpers.waitUntilPageLoads();
+	await clickElementFromNavigation(navItemFilesMy);
 }
 
 async function clickNavItemFilesCourses() {
-	await loadPageFromNavigationItem(navItemFilesCourses);
-	await waitHelpers.waitUntilPageLoads();
+	await clickElementFromNavigation(navItemFilesCourses);
 }
 
 async function clickNavItemFilesTeams() {
-	await loadPageFromNavigationItem(navItemFilesTeams);
-	await waitHelpers.waitUntilPageLoads();
+	await clickElementFromNavigation(navItemFilesTeams);
 }
 
 async function clickNavItemFilesShared() {
-	await loadPageFromNavigationItem(navItemFilesShared);
-	await waitHelpers.waitUntilPageLoads();
+	await clickElementFromNavigation(navItemFilesShared);
 }
 
 async function clickNavItemNews() {
-	await loadPageFromNavigationItem(navItemNews);
-	await waitHelpers.waitUntilPageLoads();
+	await clickElementFromNavigation(navItemNews);
 }
 
 async function clickNavItemCalendar() {
-	await loadPageFromNavigationItem(navItemCalendar);
-	await waitHelpers.waitUntilPageLoads();
+	await clickElementFromNavigation(navItemCalendar);
 }
 
 async function clickNavItemContent() {
-	await loadPageFromNavigationItem(navItemLearnstore);
-	await waitHelpers.waitUntilPageLoads();
+	await clickElementFromNavigation(navItemLearnstore);
 }
 
 async function clickNavItemAddons() {
-	await loadPageFromNavigationItem(navItemAddons);
-	await waitHelpers.waitUntilPageLoads();
+	await clickElementFromNavigation(navItemAddons);
 }
 
 async function clickNavItemManagement() {
-	await loadPageFromNavigationItem(navItemManagement);
-	await waitHelpers.waitUntilPageLoads();
+	await clickElementFromNavigation(navItemManagement);
 }
 
 async function clickNavItemManageStudents() {
+
 	try {
-		await loadPageFromNavigationItem(navItemManagementStudentsOld);
-		await waitHelpers.waitUntilPageLoads();
+		await clickElementFromNavigation(navItemManagementStudentsOld);
 	} catch (e) {
-		await loadPageFromNavigationItem(navItemManagementStudents);
-		await waitHelpers.waitUntilPageLoads();
+		await clickElementFromNavigation(navItemManagementStudents);
 	}
 }
 
 async function clickNavItemManageTeachers() {
 	try {
-		await loadPageFromNavigationItem(navItemManagementTeachersOld);
-		await waitHelpers.waitUntilPageLoads();
+		await clickElementFromNavigation(navItemManagementTeachersOld);
 	} catch (e) {
-		await loadPageFromNavigationItem(navItemManagementTeachers);
-		await waitHelpers.waitUntilPageLoads();
+		await clickElementFromNavigation(navItemManagementTeachers);
 	}
 }
 
 async function clickNavItemManageCourses() {
 	try {
-		await loadPageFromNavigationItem(navItemManagementCoursesOld);
-		await waitHelpers.waitUntilPageLoads();
+		await clickElementFromNavigation(navItemManagementCoursesOld);
 	} catch (e) {
-		await loadPageFromNavigationItem(navItemManagementCourses);
-		await waitHelpers.waitUntilPageLoads();
+		await clickElementFromNavigation(navItemManagementCourses);
 	}
 }
 
 async function clickNavItemManageClasses() {
 	try {
-		await loadPageFromNavigationItem(navItemManagementClassesOld);
-		await waitHelpers.waitUntilPageLoads();
+		await clickElementFromNavigation(navItemManagementClassesOld);
 	} catch (e) {
-		await loadPageFromNavigationItem(navItemManagementClasses);
-		await waitHelpers.waitUntilPageLoads();
+		await clickElementFromNavigation(navItemManagementClasses);
 	}
 }
 
 async function clickNavItemManageTeams() {
 	try {
-		await loadPageFromNavigationItem(navItemManagementTeamsOld);
-		await waitHelpers.waitUntilPageLoads();
+		await clickElementFromNavigation(navItemManagementTeamsOld);
 	} catch (e) {
-		await loadPageFromNavigationItem(navItemManagementTeams);
-		await waitHelpers.waitUntilPageLoads();
+		await clickElementFromNavigation(navItemManagementTeams);
 	}
 }
 
 async function clickNavItemManageSchool() {
 	try {
-		await loadPageFromNavigationItem(navItemManagementSchoolOld);
-		await waitHelpers.waitUntilPageLoads();
+		await clickElementFromNavigation(navItemManagementSchoolOld);
 	} catch (e) {
-		await loadPageFromNavigationItem(navItemManagementSchool);
-		await waitHelpers.waitUntilPageLoads();
+		await clickElementFromNavigation(navItemManagementSchool);
 	}
+
 }
 
 async function clickNavItemHelpArea() {
-	await loadPageFromNavigationItem(navItemHelparea);
-	await waitHelpers.waitUntilPageLoads();
+	await clickElementFromNavigation(navItemHelparea);
 }
 
 async function clickNavItemHelpArticles() {
-	await loadPageFromNavigationItem(navItemHelparticles);
-	await waitHelpers.waitUntilPageLoads();
+	await clickElementFromNavigation(navItemHelparticles);
 }
 
 async function clickNavItemHelpTrainings() {
-	await loadPageFromNavigationItem(navItemHelpTrainings);
-	await waitHelpers.waitUntilPageLoads();
+	await clickElementFromNavigation(navItemHelpTrainings);
 }
 
 async function clickNavItemHelpContact() {
-	await loadPageFromNavigationItem(navItemHelpContact);
-	await waitHelpers.waitUntilPageLoads();
+	await clickElementFromNavigation(navItemHelpContact);
 }
 
 async function getListOfAllItems() {
@@ -320,4 +285,5 @@ module.exports = {
 	clickNavItemHelpContact,
 	areSubMenuItemsVisible,
 	areMenuItemsVisible,
+	clickElementNavigation: clickElementFromNavigation
 };
