@@ -274,8 +274,8 @@ Before(async function (scenario) {
 		return;
 	}
 	console.log('\n\nResetting the DB...');
-	// const output = await ManagementApi.seedDatabase();
-	// console.log('Done:', output.data);
+	const output = await ManagementApi.seedDatabase();
+	console.log('Done:', output.data);
 	return;
 });
 
