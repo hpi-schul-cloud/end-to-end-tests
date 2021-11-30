@@ -2,12 +2,7 @@
 
 const { expect } = require('chai');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
-const waitHelpers = require('../../runtime/helpers/waitHelpers');
 
-async function loadPageFromNavigationItem(selector) {
-	const link = await elementHelpers.getLink(selector);
-	await elementHelpers.loadPage(link);
-}
 async function clickElementFromNavigation(selector) {
 	await elementHelpers.clickAndWait(selector)
 }
