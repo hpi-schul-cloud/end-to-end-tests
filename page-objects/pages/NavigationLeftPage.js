@@ -280,5 +280,4 @@ module.exports = {
 	clickNavItemHelpContact,
 	areSubMenuItemsVisible,
 	areMenuItemsVisible,
-	clickElementNavigation: clickElementFromNavigation
 };
