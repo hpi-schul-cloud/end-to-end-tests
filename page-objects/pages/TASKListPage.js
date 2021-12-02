@@ -16,12 +16,14 @@ const taskTitleContainer = '.assignment.card .title';
 const taskDescriptionContainer = '.assignment .text-muted.ckcontent';
 const taskContainer = '.homework li.card';
 const deleteTaskButtonInPopup = '.delete-modal button.btn-submit';
-const clickWithoutDueDate = "//*[text()='Task19']";
-const ungradedTask = "//div[text()='Task19']";
+const clickAtTaskTitle = "//div[@data-testid = 'taskTitle']";
+const taskAtCompletedTab = "//div[@data-testid = 'taskTitle']";
 const studentSubmitTask = "//td[text()='Boris']";
 const filterSelect = "//i[text() = 'add' and @class='material-icons']";
 const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
 const courseCheckbox = "//label[contains(.,'";
+const ajaxPageLoad = "//div[@class='modal-backdrop fade in']";
+const nuxtClientLoad = "//div[@data-app = 'true' and @id = 'app']";
 
 const taskButton = {
 	archive: '.fa-archive',
@@ -150,17 +152,19 @@ async function clickOnTaskFromList(taskname) {
 }
 
 async function clickDeleteTaskButtonInPopup() {
+	await waitHelpers.waitUntilAjaxIsFinished();
+	await elementHelpers.isElementDisplayed(ajaxPageLoad);
 	await elementHelpers.clickAndWait(deleteTaskButtonInPopup);
-	await waitHelpers.waitUntilPageLoads();
 	await waitHelpers.waitUntilAjaxIsFinished();
 }
 
-async function clickTaskWithoutDuedate(){
-	await elementHelpers.clickAndWait(clickWithoutDueDate);
+async function clickAtTask(){
+	await waitHelpers.waitUntilNuxtClientLoads(nuxtClientLoad);
+	await elementHelpers.clickAndWait(clickAtTaskTitle);
 }
 
-async function clickUngradedTask(){
-	await elementHelpers.clickAndWait(ungradedTask);
+async function taskInCompletedTabDisplayed(){
+	await elementHelpers.isElementDisplayed(taskAtCompletedTab);
 }
 
 async function studentSubmittedTask(){
@@ -179,8 +183,8 @@ module.exports = {
 	getTaskDescription,
 	clickCreateTaskButtonInTheCourse,
 	clickDeleteTaskButtonInPopup,
-	clickTaskWithoutDuedate,
-	clickUngradedTask,
+	clickAtTask,
+	taskInCompletedTabDisplayed,
 	studentSubmittedTask,
 	sortTasksCourse,
 };

@@ -1,7 +1,7 @@
 /*[url/administration/students]*/
 'use strict';
-const loginPage = require('../generalPagesBeforeLogin/LoginPage');
 
+const loginPage = require('../generalPagesBeforeLogin/LoginPage');
 const waitHelpers = require('../../../runtime/helpers/waitHelpers');
 const dateTimeHelpers = require('../../../runtime/helpers/dateTimeHelpers');
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
@@ -113,7 +113,7 @@ async function goToCreateForm() {
 	await waitHelpers.waitUntilPageLoads();
 }
 
-async function createNewPupil(firstname, lastname, email, birthday, addBirthday) {
+async function createNewStudent(firstname, lastname, email, birthday, addBirthday) {
 	await waitHelpers.waitUntilPageLoads();
 	await setStudentFirstName(firstname);
 	await setStudentLastName(lastname);
@@ -155,7 +155,7 @@ async function isStudentFirstnameOnTheList(firstname) {
 
 async function isStudentLastnameOnTheList(lastname) {
 	let lastnames = await getStudentsDetailsList(lastNameCells);
-	const msg = `Student with lastname ${lastname} is not visible on the student lastname list \n`;
+	const msg = `Student with lastname ${lastname} is not visible on the students lastname list \n`;
 	const resultMsg = `List of lastnames ${lastnames}`;
 	await expect(lastnames, msg + resultMsg).to.include(lastname);
 }
@@ -193,7 +193,7 @@ module.exports = {
 	clickSendConsentFormEmailsButton,
 	clickEditStudentBtn,
 	goToCreateForm,
-	createNewPupil,
+	createNewStudent,
 	clickSelectAllStudentsCheckbox,
 	clickActionsButton,
 	isStudentEmailOnTheList,
