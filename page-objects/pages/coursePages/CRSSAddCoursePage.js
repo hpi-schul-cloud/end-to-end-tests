@@ -1,39 +1,51 @@
 /*[url/courses]/add]*/
-"use strict";
-const elementHelpers = require("../../../runtime/helpers/elementHelpers");
+'use strict';
+const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 const courseListPage = require('./CRSSCourseListPage');
-const navigationLeftPage= require('../NavigationLeftPage');
-const waitHelpers = require("../../../runtime/helpers/waitHelpers");
-const { waitUntilElementIsPresent } = require("../../../runtime/helpers/waitHelpers");
-const APIhelpers = require("../../../runtime/helpers/APIhelpers");
+const navigationLeftPage = require('../NavigationLeftPage');
+const waitHelpers = require('../../../runtime/helpers/waitHelpers');
+const { waitUntilElementIsPresent } = require('../../../runtime/helpers/waitHelpers');
+const APIhelpers = require('../../../runtime/helpers/APIhelpers');
 //Sections
 
-const nextSectionBtn = "#nextSection";
+const nextSectionBtn = '#nextSection';
 const section = {
-		one: '[data-testid="section-1-area"]',
-		two: '[data-testid="section-2-area"]',
-		three: '[data-testid="section-3-area"]',
+	one: '[data-testid="section-1-area"]',
+	two: '[data-testid="section-2-area"]',
+	three: '[data-testid="section-3-area"]',
 };
-const multipleChoiceSelectForStudents ='select[data-testid="pupils"]';
+const multipleChoiceSelectForStudents = 'select[data-testid="pupils"]';
 //Course data section
-const courseDefaultInputValue = "z.B. Mathe 10a";
-const courseNameInput ='#nameOfTheCourse';
+const courseDefaultInputValue = 'z.B. Mathe 10a';
+const courseNameInput = '#nameOfTheCourse';
 const teacherSelect = '#courseTeacher_chosen';
-const teacherSubSelect ='#courseSubstitute_chosen';
+const teacherSubSelect = '#courseSubstitute_chosen';
 const colourPicker = '[data-testid="color-picker"]';
 const timeSpan = {
-		start: '[data-testid="date_start"]',
-		end: "#untilDate",
+	start: '[data-testid="date_start"]',
+	end: '#untilDate',
 };
 //Participants section
 const classSelect = '#addClassesToCourse_chosen';
 const studentSelect = '#addStudentsToCourse_chosen';
 //Final section
-const createNewCourseBtn ='[data-testid="einen-weiteren-kurs-anlegen-btn"]';
+const createNewCourseBtn = '[data-testid="einen-weiteren-kurs-anlegen-btn"]';
 const goToCourseListBtn = '[data-testid="zur-uebersicht-btn"]';
 
-const courseColoursList = ['grey', 'pink', 'red', 'orange', 
-'moose', 'grasgreen', 'seagreen', 'skyblue', 'blue', 'lila', 'violet', 'brown'];
+const courseColoursList = [
+	'grey',
+	'pink',
+	'red',
+	'orange',
+	'moose',
+	'grasgreen',
+	'seagreen',
+	'skyblue',
+	'blue',
+	'lila',
+	'violet',
+	'brown',
+];
 
 async function goToAddCourses() {
 	await navigationLeftPage.clickNavItemCourses();
@@ -63,13 +75,13 @@ function getSectionSelector(sectionNumber) {
 	const sectionSelectors = {
 		1: section.one,
 		2: section.two,
-		3: section.three
+		3: section.three,
 	};
 	if (!(sectionNumber in sectionSelectors)) {
-			console.error(`This section: ${sectionNumber} does not exist on the list of possible choices`);
-			return undefined;
+		console.error(`This section: ${sectionNumber} does not exist on the list of possible choices`);
+		return undefined;
 	}
-	return sectionSelectors[sectionNumber]
+	return sectionSelectors[sectionNumber];
 }
 
 /**
@@ -87,7 +99,7 @@ async function createCourseWithStudent(courseName, studentName = 'default') {
 	await clickGoToCourseListBtn();
 }
 
-async function createCourse (courseName) {
+async function createCourse(courseName) {
 	await goToAddCourses();
 	await setCourseName(courseName);
 	await goToNextSection();
@@ -120,13 +132,12 @@ async function setCurrentUserAsTeacher() {
 }
 
 async function getColourElement(colourName) {
-	
 	if (courseColoursList.includes(colourName)) {
 		const childNumber = courseColoursList.indexOf(colourName) + 1;
-		const colourElement = await waitUntilElementIsPresent(colourPicker + `> nth-child(${childNumber})`);
+		const colourElement = await waitUntilElementIsPresent(colourPicker + `>div:nth-child(${childNumber})`);
 		return colourElement;
 	} else {
-		console.warn(`you did not insert a valid color. Must be ${courseColoursList},\n you inserted ${colourName}`);
+		console.warn(`You did not insert a valid color. Must be ${courseColoursList},\n you inserted ${colourName}`);
 	}
 }
 
@@ -135,10 +146,10 @@ async function setColour(colourName) {
 	await elementHelpers.click(element);
 }
 
-async function isTeacherSubstituteNotSet () {
-		const list = await elementHelpers.getListOfSelectedOption(teacherSubSelect);
-		expect(list.length).to.equal(0);
-	}
+async function isTeacherSubstituteNotSet() {
+	const list = await elementHelpers.getListOfSelectedOption(teacherSubSelect);
+	expect(list.length).to.equal(0);
+}
 
 // could be extended with verifying the date is correct
 async function isTimeSpanSet() {
@@ -157,7 +168,7 @@ async function isClassNotSet() {
 	expect(list.length).to.equal(0);
 }
 
-async function isStudentNotSet () {
+async function isStudentNotSet() {
 	const list = await elementHelpers.getListOfSelectedOption(studentSelect);
 	expect(list.length).to.equal(0);
 }
@@ -200,6 +211,5 @@ module.exports = {
 	setColour,
 	createCourseWithStudent,
 	setStudent,
-	createCourse
+	createCourse,
 };
-
