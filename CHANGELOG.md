@@ -10,10 +10,11 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
-- BC-611 Improve E2E tests - nuxtTeacherGradesTask.feature
+- BC-611 - Improve E2E tests - nuxtTeacherGradesTask.feature
 
 ### Added
 
+- BC-308 - include course colour checks which were deactivated by merging BC-235
 - added e2e tests to create and edit a teacher
 
 ### Changed
@@ -66,7 +67,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - execute changes for features in travis
 - changed sidebar menu item CURRENT TASKS instead of OPEN TASKS
 - fix createStudent scenario
-- fix and adjust colours in accordance with BC-235
+- BC-235 - fix and adjust colours in courses
 
 ## 26.4.0
 
