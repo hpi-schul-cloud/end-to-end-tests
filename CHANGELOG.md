@@ -14,11 +14,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+- BC-308 - include course colour checks which were deactivated by merging BC-235
 - added e2e tests to create and edit a teacher
 
 ### Changed
 
-- BC-155 rename tab for students in task overview page
+- BC-155 - rename tab for students in task overview page
 
 ## [26.16.0] - 2021-11-09
 
@@ -46,8 +47,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - BC-283 - added wait method to test step
 - reinstated that all tests are running
 - SC-9237 - added E2E test to check redirect
-- BC-25 seed database changed to use management api call
-- BC-182 added testcase for nuxt client task page for student role
+- BC-25 - seed database changed to use management api call
+- BC-182 - added testcase for nuxt client task page for student role
 
 ### Removed
 
@@ -64,7 +65,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - execute changes for features in travis
 - changed sidebar menu item CURRENT TASKS instead of OPEN TASKS
 - fix createStudent scenario
-- fix and adjust colours in accordance with BC-235
+- BC-235 - fix and adjust colours in courses
 
 ## 26.4.0
 
