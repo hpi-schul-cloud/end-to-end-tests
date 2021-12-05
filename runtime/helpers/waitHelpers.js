@@ -195,11 +195,22 @@ async function waitUntilLegacyPageLoads(timeout = pageLoadingTimeout) {
 	}
 }
 
-async function waitUntilNuxtClientLoads(selector) {
-	let nuxtPageLoad = false;
-	while (!nuxtPageLoad) {
-		await waitHelpers.waitUntilElementIsPresent(selector);
-		nuxtPageLoad = true;
+async function waitUntilNuxtClientLoads(selector, timeout = pageLoadingTimeout) {
+	try {
+		let nuxtPageLoad = false;
+		const timeoutMsg = 'Page is not loaded';
+		const pageLoadComplete = await waitUntilScriptResultIsTrue(
+			() => document.readyState.includes('complete'),
+			timeoutMsg,
+			timeout
+		);
+		while (!nuxtPageLoad) {
+			await waitHelpers.waitUntilElementIsPresent(selector);
+			nuxtPageLoad = true;
+		}
+	} catch (error) {
+		const msg = error.message;
+		throw msg;
 	}
 }
 
@@ -315,9 +326,9 @@ async function waitUntilPageTitleEquals(expectedTitle, timeout = titleTimeout) {
 	}
 }
 
-async function waitUntilNuxtClientLoads(selector){
+async function waitUntilNuxtClientLoads(selector) {
 	let nuxtPageLoad = false;
-	while(!nuxtPageLoad){
+	while (!nuxtPageLoad) {
 		await waitUntilElementIsPresent(selector);
 		nuxtPageLoad = true;
 	}
