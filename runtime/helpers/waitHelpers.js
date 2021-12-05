@@ -20,6 +20,7 @@ const titleTimeout = 30000;
 const shortInterval = 50;
 const mediumInterval = 100;
 const pageLoadLegacy = "//dl[@role='navigation']";
+const pageLoadNuxt = "//div[@class = 'topbar']";
 
 async function waitUntilElementIsPresent(selectorOrElement, timeout = elementIsPresentTimeout) {
 	let element = await sharedHelpers.getElement(selectorOrElement);
@@ -195,17 +196,13 @@ async function waitUntilLegacyPageLoads(timeout = pageLoadingTimeout) {
 	}
 }
 
-async function waitUntilNuxtClientLoads(selector, timeout = pageLoadingTimeout) {
+async function waitUntilNuxtClientLoads(timeout = pageLoadingTimeout) {
 	try {
 		let nuxtPageLoad = false;
 		const timeoutMsg = 'Page is not loaded';
-		const pageLoadComplete = await waitUntilScriptResultIsTrue(
-			() => document.readyState.includes('complete'),
-			timeoutMsg,
-			timeout
-		);
+		await waitUntilScriptResultIsTrue(() => document.readyState.includes('complete'), timeoutMsg, timeout);
 		while (!nuxtPageLoad) {
-			await waitHelpers.waitUntilElementIsPresent(selector);
+			await waitHelpers.waitUntilElementIsPresent(pageLoadNuxt);
 			nuxtPageLoad = true;
 		}
 	} catch (error) {
@@ -326,14 +323,6 @@ async function waitUntilPageTitleEquals(expectedTitle, timeout = titleTimeout) {
 	}
 }
 
-async function waitUntilNuxtClientLoads(selector) {
-	let nuxtPageLoad = false;
-	while (!nuxtPageLoad) {
-		await waitUntilElementIsPresent(selector);
-		nuxtPageLoad = true;
-	}
-}
-
 module.exports = {
 	waitUntilElementIsPresent,
 	waitUntilElementIsNotPresent,
@@ -349,7 +338,6 @@ module.exports = {
 	waitUntilUrlNotContains,
 	waitUntilPageLoads,
 	waitUntilLegacyPageLoads,
-	waitUntilNuxtClientLoads,
 	waitAndSetValue,
 	waitUntilElementAttributeEquals,
 	waitUntilElementAttributeContains,
