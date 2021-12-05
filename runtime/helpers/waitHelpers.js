@@ -202,7 +202,7 @@ async function waitUntilNuxtClientLoads(timeout = pageLoadingTimeout) {
 		const timeoutMsg = 'Page is not loaded';
 		await waitUntilScriptResultIsTrue(() => document.readyState.includes('complete'), timeoutMsg, timeout);
 		while (!nuxtPageLoad) {
-			await waitHelpers.waitUntilElementIsPresent(pageLoadNuxt);
+			await waitUntilElementIsPresent(pageLoadNuxt);
 			nuxtPageLoad = true;
 		}
 	} catch (error) {
