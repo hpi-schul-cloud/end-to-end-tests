@@ -151,11 +151,11 @@ async function clickNavItemManagement() {
 }
 
 async function clickNavItemManageStudents() {
-	await loadPageFromNavigationItem(navItemManagementStudents);
+	await loadPageFromNavigationItemNuxtClient(navItemManagementStudents);
 }
 
 async function clickNavItemManageTeachers() {
-	await loadPageFromNavigationItem(navItemManagementTeachers);
+	await loadPageFromNavigationItemNuxtClient(navItemManagementTeachers);
 }
 
 async function clickNavItemManageCourses() {
