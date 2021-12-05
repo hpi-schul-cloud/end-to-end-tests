@@ -9,6 +9,11 @@ async function loadPageFromNavigationItem(selector) {
 	await elementHelpers.loadPage(link);
 }
 
+async function loadPageFromNavigationItemNuxtClient(selector) {
+	const link = await elementHelpers.getLink(selector);
+	await elementHelpers.loadPageNuxtClient(link);
+}
+
 const navItemsEnum = {
 	LOGO: 'logo',
 	DASHBOARD: 'dashboard',
@@ -134,7 +139,7 @@ async function clickNavItemCalendar() {
 }
 
 async function clickNavItemContent() {
-	await loadPageFromNavigationItem(navItemLearnstore);
+	await loadPageFromNavigationItemNuxtClient(navItemLearnstore);
 }
 
 async function clickNavItemAddons() {
