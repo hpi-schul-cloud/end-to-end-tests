@@ -52,7 +52,7 @@ async function selectOptionsByText(selectSelector, options) {
 	}
 }
 
-async function loadPage(url, timeout = LOAD_PAGE_TIMEOUT) {
+async function loadPageLegacyClient(url, timeout = LOAD_PAGE_TIMEOUT) {
 	await driver.url(url);
 	await waitHelpers.waitUntilLegacyPageLoads(timeout);
 }
@@ -242,7 +242,7 @@ module.exports = {
 	doubleClickAndWait,
 	clickHiddenElement,
 	selectOptionsByText,
-	loadPage,
+	loadPage: loadPageLegacyClient,
 	hideElements,
 	showElements,
 	getSelectOptions,
