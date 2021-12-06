@@ -54,7 +54,7 @@ async function selectOptionsByText(selectSelector, options) {
 
 async function loadPage(url, timeout = LOAD_PAGE_TIMEOUT) {
 	await driver.url(url);
-	await waitHelpers.waitUntilPageLoads(timeout);
+	await waitHelpers.waitUntilLegacyPageLoads(timeout);
 }
 
 async function loadPageNuxtClient(url, timeout = LOAD_PAGE_TIMEOUT) {
