@@ -25,7 +25,7 @@ Feature: Set of tests to delete students
 	@deletedStudentIsNotVisibleInTeam @deletionConcept @unstableTest
 	Scenario Outline: As an admin, I want to be able to delete the user and he will be no longer listed in team members
 		Given <userRole> logs in with email '<adminUsername>' and password '<adminPassword>'
-		#And <userRole> login is successful
+		And <userRole> login is successful
 		When <userRole> creates a new team with name '<teamName>' and description '<description>' and color '<color>'
 		And <userRole> adds a student with lastname: '<lastName>' and firstname: '<firstName>' to the team
 		And <userRole> clicks Submit-add-team-member button
