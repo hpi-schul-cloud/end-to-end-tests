@@ -10,7 +10,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
-- BC-611 Improve E2E tests - nuxtTeacherGradesTask.feature
+- BC-611 - Improve E2E tests - nuxtTeacherGradesTask.feature
 
 ### Added
 
@@ -19,6 +19,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+- BC-699 - Removed waitUntilAjaxIsFinished method
+- BC-581 - Refactored waitUntilAjaxIsFinished method
 - BC-155 - rename tab for students in task overview page
 
 ## [26.16.0] - 2021-11-09
@@ -30,7 +32,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Removed
 
-- BC-379 removed local server installation
+- BC-379 - removed local server installation
 
 ### Fixed
 

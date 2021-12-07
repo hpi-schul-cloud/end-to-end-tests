@@ -15,13 +15,13 @@ async function clickAddInternalAttendeesBtn() {
 }
 
 async function addTeamAttendee(lastname, firstname) {
-	await waitHelpers.waitUntilAjaxIsFinished();
+	await waitHelpers.waitUntilPageLoads();
 	await elementHelpers.selectOptionsByText(multipleChoiceSelectForTeamAttendees, lastname + ', ' + firstname);
 }
 
 async function clickSubmitAddTeamAttendeeBtn() {
 	await elementHelpers.clickAndWait(addAttendeeSubmitBtn);
-	await waitHelpers.waitUntilAjaxIsFinished();
+	await waitHelpers.waitUntilPageLoads();
 }
 
 module.exports = {
