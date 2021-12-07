@@ -14,14 +14,14 @@ When(/^.* goes to students management$/, async function () {
 });
 
 When(
-	/^.*set student firstname '([^']*)', lastname '([^']*)', email '([^']*)', birthday '([^']*)'$/,
+	/^.* set student firstname '([^']*)', lastname '([^']*)', email '([^']*)', birthday '([^']*)'$/,
 	function (firstname, secondname, email, birthday) {
 		return manageStudentsPage.createNewStudent(firstname, secondname, email, birthday, true);
 	}
 );
 
 When(
-	/^.*manually submits consent for user with e-mail '([^']*)', thus generates a random password for him$/,
+	/^.* manually submits consent for user with e-mail '([^']*)', thus generates a random password for him$/,
 	function (email) {
 		return manageStudentsPage.submitConsent(email);
 	}
@@ -32,7 +32,7 @@ When(/^.* goes to student creation form$/, async function () {
 });
 
 When(
-	/^.*set student firstname '([^']*)', lastname '([^']*)', email '([^']*)'$/,
+	/^.* set student firstname '([^']*)', lastname '([^']*)', email '([^']*)'$/,
 	function (firstname, secondname, email) {
 		return manageStudentsPage.createNewStudent(firstname, secondname, email, null, false);
 	}
