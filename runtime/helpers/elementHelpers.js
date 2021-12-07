@@ -39,22 +39,27 @@ async function getSelectOptions(selectSelector) {
 }
 
 async function selectOptionsByText(selectSelector, options) {
-	let listOfOptions = options.split(";");
+	let listOfOptions = options.split(';');
 	await waitHelpers.waitUntilElementIsPresent(selectSelector);
 	for (const option of listOfOptions) {
-	await click(`${selectSelector}`);
-	const activeResult = `${selectSelector} .active-result`;
-	const listOfOptions = await getListOfAllElements(activeResult);
-	const listOfOptionsTexts = await getTextFromAllElements(activeResult);
-	const optionIndex = listOfOptionsTexts.indexOf(option.trim());
-	const element = listOfOptions[optionIndex];
-	await element.click();
-	};
+		await click(`${selectSelector}`);
+		const activeResult = `${selectSelector} .active-result`;
+		const listOfOptions = await getListOfAllElements(activeResult);
+		const listOfOptionsTexts = await getTextFromAllElements(activeResult);
+		const optionIndex = listOfOptionsTexts.indexOf(option.trim());
+		const element = listOfOptions[optionIndex];
+		await element.click();
+	}
 }
 
-async function loadPage(url, timeout = LOAD_PAGE_TIMEOUT) {
+async function loadPageLegacyClient(url, timeout = LOAD_PAGE_TIMEOUT) {
 	await driver.url(url);
-	await waitHelpers.waitUntilPageLoads(timeout);
+	await waitHelpers.waitUntilLegacyPageLoads(timeout);
+}
+
+async function loadPageNuxtClient(url, timeout = LOAD_PAGE_TIMEOUT) {
+	await driver.url(url);
+	await waitHelpers.waitUntilNuxtClientLoads(timeout);
 }
 
 /**
@@ -237,7 +242,7 @@ module.exports = {
 	doubleClickAndWait,
 	clickHiddenElement,
 	selectOptionsByText,
-	loadPage,
+	loadPage: loadPageLegacyClient,
 	hideElements,
 	showElements,
 	getSelectOptions,
@@ -258,4 +263,5 @@ module.exports = {
 	getValueOfElement,
 	getElementByText,
 	getElementIncludingText,
+	loadPageNuxtClient,
 };

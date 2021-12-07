@@ -20,6 +20,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+- BC-699 - Removed waitUntilAjaxIsFinished method
+- BC-581 - Refactored waitUntilAjaxIsFinished method
 - BC-155 - rename tab for students in task overview page
 
 ## [26.16.0] - 2021-11-09

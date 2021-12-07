@@ -10,7 +10,8 @@ const selectorCreateTaskButton = '.btn.btn-primary.btn-add.create';
 const selectorCreateTaskBtnInTheCourse = '.col-sm-12.add-button > a';
 const selectorSortBtn = '#filter .md-clickable > div';
 const select = '#selection-picker > div > div';
-const lastedited = 'body > div.md-select-menu.md-menu-content-bottom-start.md-menu-content-small.md-menu-content.md-theme-default > div > ul > li:nth-child(2) > button';
+const lastedited =
+	'body > div.md-select-menu.md-menu-content-bottom-start.md-menu-content-small.md-menu-content.md-theme-default > div > ul > li:nth-child(2) > button';
 const submitBtn = '.md-button.md-primary.md-theme-default > div > div';
 const taskTitleContainer = '.assignment.card .title';
 const taskDescriptionContainer = '.assignment .text-muted.ckcontent';
@@ -76,13 +77,13 @@ async function sortTasksLastEdited() {
 	await elementHelpers.click(select);
 	await elementHelpers.click(lastedited);
 	await elementHelpers.clickAndWait(submitBtn);
-	await waitHelpers.waitUntilAjaxIsFinished();
+	await waitHelpers.waitUntilPageLoads();
 }
 
 async function sortTasksCourse(courseName) {
 	await elementHelpers.click(filterSelect);
 	await elementHelpers.click(courseSelect);
-	let courseSelector = courseCheckbox+courseName+"')]";
+	let courseSelector = courseCheckbox + courseName + "')]";
 	await elementHelpers.clickAndWait(courseSelector);
 	await elementHelpers.clickAndWait(submitBtn);
 	await waitHelpers.waitUntilPageLoads();
@@ -106,7 +107,6 @@ async function getListOfTask() {
 
 async function clickOnTask(taskName, button) {
 	await waitHelpers.waitUntilPageLoads();
-	await waitHelpers.waitUntilAjaxIsFinished();
 	const taskList = await getListOfTask();
 	const taskIndex = await getTaskIndex(taskName);
 	if (taskIndex == -1) {
@@ -125,11 +125,10 @@ async function isTaskVisible(taskname, expectedValue) {
 	const resultMsg = 'Expected: ' + taskname + ', Actual: ' + allTasks;
 	await expect(isTaskOnList, msg + resultMsg).to.equal(expectedValue);
 	await waitHelpers.waitUntilPageLoads();
-	await waitHelpers.waitUntilAjaxIsFinished();
 }
 
 async function getTaskDescription() {
-	await waitHelpers.waitUntilAjaxIsFinished();
+	await waitHelpers.waitUntilPageLoads();
 	const descriptionList = await elementHelpers.getTextFromAllElements(taskDescriptionContainer);
 	return descriptionList;
 }
@@ -152,10 +151,8 @@ async function clickOnTaskFromList(taskname) {
 }
 
 async function clickDeleteTaskButtonInPopup() {
-	await waitHelpers.waitUntilAjaxIsFinished();
-	await elementHelpers.isElementDisplayed(ajaxPageLoad);
+	await waitHelpers.waitUntilLegacyPageLoads();
 	await elementHelpers.clickAndWait(deleteTaskButtonInPopup);
-	await waitHelpers.waitUntilAjaxIsFinished();
 }
 
 async function clickAtTask(){
@@ -167,7 +164,7 @@ async function taskInCompletedTabDisplayed(){
 	await elementHelpers.isElementDisplayed(taskAtCompletedTab);
 }
 
-async function studentSubmittedTask(){
+async function studentSubmittedTask() {
 	await elementHelpers.clickAndWait(studentSubmitTask);
 }
 

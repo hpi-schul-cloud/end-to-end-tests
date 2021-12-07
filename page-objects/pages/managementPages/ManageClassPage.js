@@ -39,7 +39,7 @@ async function setClassName(className) {
 }
 
 async function deleteStudentFromClass(studentName) {
-	await waitHelpers.waitUntilAjaxIsFinished();
+	await waitHelpers.waitUntilPageLoads();
 	let studentsNames = await elementHelpers.getListOfAllElements(deleteNameStudent);
 	let deleteStudentIcons = await elementHelpers.getListOfAllElements(deleteStudentIcon);
 	for (let index = 0; index <= studentsNames.length; index++) {
@@ -52,7 +52,7 @@ async function deleteStudentFromClass(studentName) {
 }
 
 async function deleteTeacherFromClass(teacherName) {
-	await waitHelpers.waitUntilAjaxIsFinished();
+	await waitHelpers.waitUntilPageLoads();
 	let teachersNames = await elementHelpers.getListOfAllElements(deleteTeacherName);
 	let deleteTeacherIcons = await elementHelpers.getListOfAllElements(deleteTeacherIcon);
 	for (let index = 0; index <= teachersNames.length; index++) {
@@ -77,12 +77,12 @@ async function setSchoolYear(schoolYear) {
 }
 
 async function setTeacher(name) {
-	await waitHelpers.waitUntilAjaxIsFinished();
+	await waitHelpers.waitUntilPageLoads();
 	await elementHelpers.selectOptionsByText(teachersMultiSelect, name);
 }
 
 async function setStudent(name) {
-	await waitHelpers.waitUntilAjaxIsFinished();
+	await waitHelpers.waitUntilPageLoads();
 	await elementHelpers.selectOptionsByText(studentsMultiSelect, name);
 }
 
