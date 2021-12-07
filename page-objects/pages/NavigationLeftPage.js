@@ -140,7 +140,7 @@ async function clickNavItemCalendar() {
 async function clickNavItemContent() {
 
 	await clickElementFromNavigation(navItemLearnstore);
-
+}
 
 async function clickNavItemAddons() {
 	await clickElementFromNavigation(navItemAddons);
