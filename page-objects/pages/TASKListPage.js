@@ -24,7 +24,6 @@ const filterSelect = "//i[text() = 'add' and @class='material-icons']";
 const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
 const courseCheckbox = "//label[contains(.,'";
 const ajaxPageLoad = "//div[@class='modal-backdrop fade in']";
-const nuxtClientLoad = "//div[@data-app = 'true' and @id = 'app']";
 
 const taskButton = {
 	archive: '.fa-archive',
@@ -155,12 +154,12 @@ async function clickDeleteTaskButtonInPopup() {
 	await elementHelpers.clickAndWait(deleteTaskButtonInPopup);
 }
 
-async function clickAtTask(){
-	await waitHelpers.waitUntilNuxtClientLoads(nuxtClientLoad);
+async function clickAtTask() {
+	await waitHelpers.waitUntilNuxtClientLoads();
 	await elementHelpers.clickAndWait(clickAtTaskTitle);
 }
 
-async function taskInCompletedTabDisplayed(){
+async function taskInCompletedTabDisplayed() {
 	await elementHelpers.isElementDisplayed(taskAtCompletedTab);
 }
 
