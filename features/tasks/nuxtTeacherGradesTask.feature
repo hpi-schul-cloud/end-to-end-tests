@@ -1,4 +1,4 @@
-@task @nuxtTask @teachertest
+@task @nuxtTask @teachertest @stableTest
 Feature: View the tasks in new nuxt task menu and grade it
 
     Background: Student logs in and submit the task, after that teacher logs in and grade the task and view that the graded column increments
