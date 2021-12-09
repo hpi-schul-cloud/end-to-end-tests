@@ -31,7 +31,6 @@ Feature: Set of tests to delete students
 		And <userRole> adds a student with lastname: '<lastName>' and firstname: '<firstName>' to the team
 		And <userRole> clicks Submit-add-team-member button
 		Then <userRole> goes to Teams Page
-		Then <userRole> goes to Teams Page
 		Then <userRole> sees that team with name '<teamName>', colour '<color>' and  member number '<number>' is visible on the list
 		And <userRole> goes to management
 		And <userRole> goes to students management
