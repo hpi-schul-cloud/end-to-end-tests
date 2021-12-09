@@ -138,7 +138,10 @@ async function clickNavItemCalendar() {
 }
 
 async function clickNavItemContent() {
-
+	/*
+	* alternative await loadPageFromNavigationItemNuxtClient(navItemLearnstore);
+	* but in this case the page or the navigation is not clicked
+	*/
 	await clickElementFromNavigation(navItemLearnstore);
 }
 
@@ -151,46 +154,35 @@ async function clickNavItemManagement() {
 }
 
 async function clickNavItemManageStudents() {
-
-		await clickElementFromNavigation(navItemManagementStudents);
+	/*
+	* alternative await loadPageFromNavigationItemNuxtClient(navItemManagementStudents);
+	* but in this case the page or the navigation is not clicked
+	*/
+	await clickElementFromNavigation(navItemManagementStudents);
 }
 
 async function clickNavItemManageTeachers() {
-
-		await clickElementFromNavigation(navItemManagementTeachers);
-	}
+	/*
+	* alternative await loadPageFromNavigationItemNuxtClient(navItemManagementTeachers);
+	* but in this case the page or the navigation is not clicked
+	*/
+	await clickElementFromNavigation(navItemManagementTeachers);
+}
 
 async function clickNavItemManageCourses() {
-	try {
-		await clickElementFromNavigation(navItemManagementCoursesOld);
-	} catch (e) {
-		await clickElementFromNavigation(navItemManagementCourses);
-	}
+	await clickElementFromNavigation(navItemManagementCourses);
 }
 
 async function clickNavItemManageClasses() {
-	try {
-		await clickElementFromNavigation(navItemManagementClassesOld);
-	} catch (e) {
-		await clickElementFromNavigation(navItemManagementClasses);
-	}
+	await clickElementFromNavigation(navItemManagementClasses);
 }
 
 async function clickNavItemManageTeams() {
-	try {
-		await clickElementFromNavigation(navItemManagementTeamsOld);
-	} catch (e) {
-		await clickElementFromNavigation(navItemManagementTeams);
-	}
+	await clickElementFromNavigation(navItemManagementTeams);
 }
 
 async function clickNavItemManageSchool() {
-	try {
-		await clickElementFromNavigation(navItemManagementSchoolOld);
-	} catch (e) {
-		await clickElementFromNavigation(navItemManagementSchool);
-	}
-
+	await clickElementFromNavigation(navItemManagementSchool);
 }
 
 async function clickNavItemHelpArea() {
