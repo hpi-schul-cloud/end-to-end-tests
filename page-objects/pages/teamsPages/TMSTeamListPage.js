@@ -104,6 +104,7 @@ async function isTeamColour(teamName, expectedColour) {
 }
 
 async function isTeamMemberNumber(teamName, expectedNumber) {
+	await driver.refresh();
 	const team = await getTeamWithName(teamName);
 	const actualNum = team.teamMembersCount;
 	const msg = `Team with name: ${teamName} has wrong member number. \n`;
