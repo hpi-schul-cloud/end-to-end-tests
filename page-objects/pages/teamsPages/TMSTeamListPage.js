@@ -95,6 +95,7 @@ async function isTeamDescription(teamName, expectedDescription) {
 }
 
 async function isTeamColour(teamName, expectedColour) {
+	await driver.refresh();
 	const team = await getTeamWithName(teamName);
 	const actualColourNumber = team.teamColour;
 	const expectedColourNumber = getColourCSS(expectedColour);
@@ -163,6 +164,7 @@ async function clickOnChosenTeam(teamName) {
 
 async function isTeamVisible(teamName, expectedValue) {
 	const defaultString = `Team with name: ${teamName}`;
+	await driver.refresh();
 
 	const msg = expectedValue
 		? `${defaultString} should be visible on the list`
