@@ -100,13 +100,17 @@ async function getDriverInstance() {
 		assert.isString(configType, 'BrowserStack requires a config type e.g. win10-chrome');
 		driver = BrowserStackDriver(options, configType);
 		return driver;
-//	} else if (remoteService) {
-//		try {
-//			driver = RemoteDriver(options);
-//			return driver;
-//		} catch (err) {
-//			console.log('something failed' + err.message);
-//	}
+/**
+* needed when running the tests locally
+ 
+*	} else if (remoteService) {
+*		try {
+*			driver = RemoteDriver(options);
+*			return driver;
+*		} catch (err) {
+*			console.log('something failed' + err.message);
+*	}
+*/
 	}
 	assert.isNotEmpty(browser, 'Browser must be defined');
 	switch (browser || '') {
@@ -123,6 +127,7 @@ async function getDriverInstance() {
 	}
 	return driver;
 }
+ 
 
 /**
  * Global timeout
