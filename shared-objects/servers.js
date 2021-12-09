@@ -36,7 +36,7 @@ const config = {
 			return `${config.MANAGEMENT_SERVER.PROTOCOLL}://${config.MANAGEMENT_SERVER.HOST}:${config.MANAGEMENT_SERVER.PORT}/api`;
 			/**
 			* needed when running the tests locally
-			* return 'http://mgmt-svc.${instance}-${localBranchName}.svc.cluster.local:3333/api/management/database/seed';
+			* return `http://mgmt-svc.${instance}-${localBranchName}.svc.cluster.local:3333/api/management/database/seed`;
 			*/
 		},
 	},
