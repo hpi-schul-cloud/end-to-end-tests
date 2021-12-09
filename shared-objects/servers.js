@@ -1,4 +1,6 @@
 'use strict';
+const instance = 'nbc';
+const localBranchName = 'bc-485-yulia'
 
 // STATIC DATA FROM ENV + DEFAULTS
 const config = {
@@ -7,7 +9,10 @@ const config = {
 		HOST: process.env.IT_CLIENT_HOST || 'localhost',
 		PORT: process.env.IT_CLIENT_PORT || '4000',
 		get URL() {
-			//return 'https://nbc-bc-485-yulia.cd.dbildungscloud.dev';
+			/**
+			* needed when running the tests locally
+			* return `https://${instance}-${localBranchName}.cd.dbildungscloud.dev`
+			*/
 			return `${config.CLIENT.PROTOCOLL}://${config.CLIENT.HOST}:${config.CLIENT.PORT}`;
 		},
 	},
@@ -17,7 +22,10 @@ const config = {
 		PORT: process.env.IT_SERVER_PORT || '3030',
 		get URL() {
 			return `${config.SERVER.PROTOCOLL}://${config.SERVER.HOST}:${config.SERVER.PORT}`;
-			//return 'https://nbc-bc-485-yulia.cd.dbildungscloud.dev/api/v1'
+			/**
+			* needed when running the tests locally
+			* return `https://${instance}-${localBranchName}.cd.dbildungscloud.dev/api/v1`
+			*/
 		},
 	},
 	MANAGEMENT_SERVER: {
@@ -26,7 +34,10 @@ const config = {
 		PORT: process.env.IT_MANAGEMENT_SERVER_PORT || '3333',
 		get URL() {
 			return `${config.MANAGEMENT_SERVER.PROTOCOLL}://${config.MANAGEMENT_SERVER.HOST}:${config.MANAGEMENT_SERVER.PORT}/api`;
-		//	return 'http://mgmt-svc.nbc-bc-485-yulia.svc.cluster.local:3333/api/management/database/seed';
+			/**
+			* needed when running the tests locally
+			* return 'http://mgmt-svc.${instance}-${localBranchName}.svc.cluster.local:3333/api/management/database/seed';
+			*/
 		},
 	},
 };
