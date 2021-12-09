@@ -20,7 +20,6 @@ const ratingViewSel = '.grade';
 const remarkViewSel = '.ckcontent.comment';
 const submissionsTable = '#submissions table';
 const submissionRow = `${submissionsTable} tbody tr.userinfo`;
-
 const completedTaskTab = "//span[@data-testid = 'closedTasks']";
 const gradedTask = "//div[@data-testid='taskGraded' and text() = '1']";
 let fileUrl;

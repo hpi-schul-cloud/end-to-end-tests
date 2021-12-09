@@ -11,7 +11,7 @@ const config = {
 		get URL() {
 			/**
 			* needed when running the tests locally
-			* return `https://${instance}-${localBranchName}.cd.dbildungscloud.dev`
+			* return `https://${instance}-${localBranchName}.cd.dbildungscloud.dev`;
 			*/
 			return `${config.CLIENT.PROTOCOLL}://${config.CLIENT.HOST}:${config.CLIENT.PORT}`;
 		},
@@ -24,7 +24,7 @@ const config = {
 			return `${config.SERVER.PROTOCOLL}://${config.SERVER.HOST}:${config.SERVER.PORT}`;
 			/**
 			* needed when running the tests locally
-			* return `https://${instance}-${localBranchName}.cd.dbildungscloud.dev/api/v1`
+			* return `https://${instance}-${localBranchName}.cd.dbildungscloud.dev/api/v1`;
 			*/
 		},
 	},
@@ -36,6 +36,7 @@ const config = {
 			return `${config.MANAGEMENT_SERVER.PROTOCOLL}://${config.MANAGEMENT_SERVER.HOST}:${config.MANAGEMENT_SERVER.PORT}/api`;
 			/**
 			* needed when running the tests locally
+			* port forwarding needed
 			* return `http://mgmt-svc.${instance}-${localBranchName}.svc.cluster.local:3333/api/management/database/seed`;
 			*/
 		},

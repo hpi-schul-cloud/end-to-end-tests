@@ -18,6 +18,10 @@
  limitations under the License.
  */
 'use strict';
+/**
+ * needed when running the tests locally
+ * const {MANAGEMENT_SERVER} = require("../shared-objects/servers");
+ */
 
 /**
  * world.js is loaded by the cucumber framework before loading the step definitions and feature files
@@ -100,17 +104,16 @@ async function getDriverInstance() {
 		assert.isString(configType, 'BrowserStack requires a config type e.g. win10-chrome');
 		driver = BrowserStackDriver(options, configType);
 		return driver;
-/**
-* needed when running the tests locally
- 
-*	} else if (remoteService) {
-*		try {
-*			driver = RemoteDriver(options);
-*			return driver;
-*		} catch (err) {
-*			console.log('something failed' + err.message);
-*	}
-*/
+		/**
+		 * needed when running the tests locally
+		 *	} else if (remoteService) {
+		 *		try {
+		 *			driver = RemoteDriver(options);
+		 *			return driver;
+		 *		} catch (err) {
+		 *			console.log('something failed' + err.message);
+		 *	}
+		 */
 	}
 	assert.isNotEmpty(browser, 'Browser must be defined');
 	switch (browser || '') {
@@ -127,7 +130,6 @@ async function getDriverInstance() {
 	}
 	return driver;
 }
- 
 
 /**
  * Global timeout
@@ -249,7 +251,7 @@ const { setDefaultTimeout } = require('@cucumber/cucumber');
 
 const dateTimeHelpers = require('./helpers/dateTimeHelpers.js');
 const emailHelpers = require('./helpers/emailHelpers.js');
-const wdio = require("webdriverio");
+const wdio = require('webdriverio');
 
 // Add timeout based on env var.
 const cucumberTimeout = process.env.CUCUMBER_TIMEOUT || 60000;

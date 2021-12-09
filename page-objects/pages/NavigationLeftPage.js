@@ -7,11 +7,6 @@ async function clickElementFromNavigation(selector) {
 	await elementHelpers.clickAndWait(selector)
 }
 
-async function loadPageFromNavigationItemNuxtClient(selector) {
-	const link = await elementHelpers.getLink(selector);
-	await elementHelpers.loadPageNuxtClient(link);
-}
-
 const navItemsEnum = {
 	LOGO: 'logo',
 	DASHBOARD: 'dashboard',
@@ -138,10 +133,6 @@ async function clickNavItemCalendar() {
 }
 
 async function clickNavItemContent() {
-	/*
-	* alternative await loadPageFromNavigationItemNuxtClient(navItemLearnstore);
-	* but in this case the page or the navigation is not clicked
-	*/
 	await clickElementFromNavigation(navItemLearnstore);
 }
 
@@ -154,18 +145,10 @@ async function clickNavItemManagement() {
 }
 
 async function clickNavItemManageStudents() {
-	/*
-	* alternative await loadPageFromNavigationItemNuxtClient(navItemManagementStudents);
-	* but in this case the page or the navigation is not clicked
-	*/
 	await clickElementFromNavigation(navItemManagementStudents);
 }
 
 async function clickNavItemManageTeachers() {
-	/*
-	* alternative await loadPageFromNavigationItemNuxtClient(navItemManagementTeachers);
-	* but in this case the page or the navigation is not clicked
-	*/
 	await clickElementFromNavigation(navItemManagementTeachers);
 }
 

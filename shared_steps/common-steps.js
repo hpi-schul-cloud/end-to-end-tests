@@ -10,6 +10,11 @@ const mailCatcher = require('../runtime/helpers/mailCatcher');
 const schulCloudURL = `${CLIENT.URL}/login`;
 /*Login, Logout*/
 
+/**
+ * await startPage.clickLoginBtn(); is commented out, because it's not working within the dev-cluster
+ * needs to be refactored
+ */
+
 Given(/^.*user arrives on the Schul-Cloud homepage$/, async function () {
 	return elementHelpers.loadPage(schulCloudURL);
 });
@@ -32,8 +37,8 @@ Then(/^forgot password email was not sent to '([^']*)'$/, async function (email)
 Then(
 	/^.* logs in with email '([^']*)' and password genarated by admin during manual submission of consent$/,
 	async function (username) {
-		//await startPage.clickLoginBtn();
-		await manageStudents.studentLogsInWithPasswordGenaratedByAdminDuringManualSubmission(username);
+	//await startPage.clickLoginBtn();
+	await manageStudents.studentLogsInWithPasswordGenaratedByAdminDuringManualSubmission(username);
 	}
 );
 
