@@ -23,8 +23,6 @@ const studentSubmitTask = "//td[text()='Boris']";
 const filterSelect = "//i[text() = 'add' and @class='material-icons']";
 const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
 const courseCheckbox = "//label[contains(.,'";
-const ajaxPageLoad = "//div[@class='modal-backdrop fade in']";
-const nuxtClientLoad = "//div[@data-app = 'true' and @id = 'app']";
 
 const taskButton = {
 	archive: '.fa-archive',
@@ -153,10 +151,11 @@ async function clickOnTaskFromList(taskname) {
 async function clickDeleteTaskButtonInPopup() {
 	await waitHelpers.waitUntilLegacyPageLoads();
 	await elementHelpers.clickAndWait(deleteTaskButtonInPopup);
+	await driver.refresh();
 }
 
 async function clickAtTask(){
-	await waitHelpers.waitUntilNuxtClientLoads(nuxtClientLoad);
+	await waitHelpers.waitUntilNuxtClientLoads();
 	await elementHelpers.clickAndWait(clickAtTaskTitle);
 }
 

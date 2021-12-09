@@ -11,6 +11,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Fixed
 
 - BC-611 - Improve E2E tests - nuxtTeacherGradesTask.feature
+- Fixed the step in deleteTask.feature. Now it waits for the page to reload
 
 ### Added
 
