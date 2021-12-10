@@ -12,6 +12,10 @@ When(/^.* goes to tasks page$/, function () {
 	return navigationLeftPage.clickNavItemTasks();
 });
 
+When(/^.* clicks on drafts tab$/, function () {
+	return TASKPage.clickDraftsTab();
+});
+
 When(/^.* clicks Create-a-task button in the course '(.*)'$/, async function (coursename) {
 	await courseListPage.goToCourses();
 	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);

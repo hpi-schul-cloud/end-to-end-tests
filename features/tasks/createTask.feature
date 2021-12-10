@@ -13,6 +13,7 @@ Feature: Set of tests to create tasks
 		And <userRole> sets task body '<taskBody>' in task form
 		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
+		And <userRole> clicks on drafts tab
 		Then <userRole> should see task with name '<taskName>' is visible on the list
 		Examples:
 			| userRole | email                  			 | password       | taskName        | taskBody |

@@ -21,6 +21,7 @@ const remarkViewSel = '.ckcontent.comment';
 const submissionsTable = '#submissions table';
 const submissionRow = `${submissionsTable} tbody tr.userinfo`;
 const completedTaskTab = "//span[@data-testid = 'closedTasks']";
+const draftTaskTab = "//span[@data-testid = 'draftTasks']";
 const gradedTask = "//div[@data-testid='taskGraded' and text() = '1']";
 let fileUrl;
 
@@ -167,6 +168,10 @@ async function clickCompletedTab(){
 	await elementHelpers.clickAndWait(completedTaskTab);
 }
 
+async function clickDraftsTab(){
+	await elementHelpers.clickAndWait(draftTaskTab);
+}
+
 async function isTaskGraded(){
 	const actualResult = await elementHelpers.getElementText(gradedTask);
 	await expect(actualResult).to.equal('1');
@@ -194,5 +199,6 @@ module.exports = {
 	checkFileEvaluationStudent,
 	checkFileEvaluationTeacher,
 	clickCompletedTab,
+	clickDraftsTab,
 	isTaskGraded,
 };

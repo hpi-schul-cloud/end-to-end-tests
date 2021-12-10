@@ -93,7 +93,7 @@ async function clickNavItemCourses() {
 }
 
 async function clickNavItemTasks() {
-	await loadPageFromNavigationItem(navItemTasks);
+	await loadPageFromNavigationItemNuxtClient(navItemTasks);
 }
 
 async function clickNavItemTasksAsked() {
