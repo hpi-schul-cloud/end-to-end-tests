@@ -6,7 +6,7 @@ const navigationLeftPage = require('./NavigationLeftPage.js');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const { expect } = require('chai');
 
-const selectorCreateTaskButton = '.btn.btn-primary.btn-add.create';
+const selectorCreateTaskButton = '//a[@data-testid = "addTask"]';
 const selectorCreateTaskBtnInTheCourse = '.col-sm-12.add-button > a';
 const selectorSortBtn = '#filter .md-clickable > div';
 const select = '#selection-picker > div > div';
