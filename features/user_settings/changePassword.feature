@@ -10,6 +10,7 @@ Feature: Test set to edit password
 		And <userRole> goes to user settings
 		When <userRole> changes password from '<password>' to '<newPassword>'
 		And <userRole> logs out
+		And user arrives on the Schul-Cloud homepage
 		And <userRole> logs in with email '<username>' and password '<password>'
 		Then <userRole> login must fail
 		When <userRole> waits for next login

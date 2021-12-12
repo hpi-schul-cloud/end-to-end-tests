@@ -22,7 +22,7 @@ Feature: Test set to check the left side menu items
         And <userRole> clicks left navigation item 'shared files'
         And <userRole> clicks left navigation item 'news'
         And <userRole> clicks left navigation item 'calendar'
-        #And <userRole> clicks left navigation item 'addons'
+        And <userRole> clicks left navigation item 'addons'
         And <userRole> clicks left navigation item 'administration'
         And <userRole> should see that all sub menu items are visible: '<tabsList>'
         And <userRole> clicks left navigation item 'helparea'
@@ -32,9 +32,9 @@ Feature: Test set to check the left side menu items
         #  therefor leave it for last page otherwise the other pages won't be found
         And <userRole> clicks left navigation item 'content'
         Examples:
-            | userRole | tabsList                                           |
-            | teacher  | SCHÜLER:INNEN, LEHRER:INNEN, KLASSEN               |
-            | admin    | SCHÜLER, LEHRER, KURSE, KLASSEN, TEAMS, SCHULE     |
+            | userRole | tabsList                                       |
+            | teacher  | SCHÜLER:INNEN, LEHRER:INNEN, KLASSEN           |
+            | admin    | SCHÜLER, LEHRER, KURSE, KLASSEN, TEAMS, SCHULE |
 
     @studentClicksLeftMenuItems
     Scenario Outline: As a user, I want to be able to click the left menu items

@@ -48,11 +48,13 @@ const newOwnPassword = {
 };
 
 async function setUsername(username) {
-	await waitHelpers.waitAndSetValue(usernameInput, username);
+	const displayedElement = await elementHelpers.getDisplayedElement(usernameInput)
+	await waitHelpers.waitAndSetValue(displayedElement, username);
 }
 
 async function setPassword(password) {
-	await waitHelpers.waitAndSetValue(passwordInput, password);
+	const displayedElement = await elementHelpers.getDisplayedElement(passwordInput)
+	await waitHelpers.waitAndSetValue(displayedElement, password);
 }
 
 async function clickNextSectionBtn() {
@@ -60,11 +62,13 @@ async function clickNextSectionBtn() {
 }
 
 async function clickLoginBtn() {
-	await elementHelpers.clickAndWait(loginBtn);
+	const displayedElement = await elementHelpers.getDisplayedElement(loginBtn)
+	await elementHelpers.clickAndWait(displayedElement);
 }
 
 async function clickForgotPasswordBtn() {
-	await elementHelpers.clickAndWait(forgotPasswordBtn);
+	const displayedElement = await elementHelpers.getDisplayedElement(forgotPasswordBtn)
+	await elementHelpers.clickAndWait(displayedElement);
 }
 
 async function FillEmailInputAndReset(email) {
