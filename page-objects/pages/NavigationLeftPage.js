@@ -12,6 +12,11 @@ async function clickElementFromNavigation(selector) {
 	await elementHelpers.clickAndWait(selector)
 }
 
+async function loadPageFromNavigationItemNuxtClient(selector) {
+	const link = await elementHelpers.getLink(selector);
+	await elementHelpers.loadPageNuxtClient(link);
+}
+
 const navItemsEnum = {
 	LOGO: 'logo',
 	DASHBOARD: 'dashboard',
@@ -138,7 +143,7 @@ async function clickNavItemCalendar() {
 }
 
 async function clickNavItemContent() {
-	await clickElementFromNavigation(navItemLearnstore);
+	await loadPageFromNavigationItemNuxtClient(navItemLearnstore);
 }
 
 async function clickNavItemAddons() {
@@ -150,20 +155,11 @@ async function clickNavItemManagement() {
 }
 
 async function clickNavItemManageStudents() {
-
-	try {
-		await clickElementFromNavigation(navItemManagementStudentsOld);
-	} catch (e) {
-		await clickElementFromNavigation(navItemManagementStudents);
-	}
+  await loadPageFromNavigationItemNuxtClient(navItemManagementStudents);
 }
 
 async function clickNavItemManageTeachers() {
-	try {
-		await clickElementFromNavigation(navItemManagementTeachersOld);
-	} catch (e) {
-		await clickElementFromNavigation(navItemManagementTeachers);
-	}
+	await loadPageFromNavigationItemNuxtClient(navItemManagementTeachers);
 }
 
 async function clickNavItemManageCourses() {
