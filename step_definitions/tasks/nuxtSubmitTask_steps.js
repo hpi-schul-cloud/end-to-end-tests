@@ -9,8 +9,9 @@ When(/^.* clicks the current task tab$/, async function (){
     await TASKPage.goToNuxtTasksTab();
 });
 
-When(/^.* clicks at task$/, async function (){
-    await TASKListPage.clickAtTask();
+When(/^.* clicks at task '([^']*)'$/, async function (taskName){
+    await TASKListPage.getNuxtTaskList();
+    await TASKListPage.clickAtTask(taskName);
 });
 
 When(/^.* clicks on submit button$/, async function (){
@@ -21,6 +22,6 @@ When(/^.* clicks completed task tab$/, async function (){
     await TASKPage.clickCompletedTab();
 });
 
-When(/^.* sees task in completed tab$/, async function (){
+When(/^.* sees '([^']*)' in completed tab$/, async function (taskName){
     await TASKListPage.taskInCompletedTabDisplayed();
 });

@@ -17,12 +17,14 @@ const taskTitleContainer = '.assignment.card .title';
 const taskDescriptionContainer = '.assignment .text-muted.ckcontent';
 const taskContainer = '.homework li.card';
 const deleteTaskButtonInPopup = '.delete-modal button.btn-submit';
+const upperSection = "//button[@data-testid='upperTaskSection']"
 const clickAtTaskTitle = "//div[@data-testid = 'taskTitle']";
-const taskAtCompletedTab = "//div[@data-testid = 'taskTitle']";
+const submittedTask = "//a[@id='submissions-tab-link']";
 const studentSubmitTask = "//td[text()='Boris']";
 const filterSelect = "//i[text() = 'add' and @class='material-icons']";
 const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
 const courseCheckbox = "//label[contains(.,'";
+let listOfAllNuxtTasks = [];
 
 const taskButton = {
 	archive: '.fa-archive',
@@ -154,17 +156,34 @@ async function clickDeleteTaskButtonInPopup() {
 	await driver.refresh();
 }
 
-async function clickAtTask(){
+async function clickAtTask(taskName) {
 	await waitHelpers.waitUntilNuxtClientLoads();
-	await elementHelpers.clickAndWait(clickAtTaskTitle);
+	let clickOnThatTask = (await getTaskFromNuxtClient(taskName)).toString();
+	await elementHelpers.clickAndWait(clickOnThatTask);
 }
 
-async function taskInCompletedTabDisplayed(){
-	await elementHelpers.isElementDisplayed(taskAtCompletedTab);
+async function getTaskFromNuxtClient(taskName){
+	const taskIndex = listOfAllNuxtTasks.indexOf(taskName);
+	let clickOnTask = listOfAllNuxtTasks[taskIndex];
+	const taskInTheList = "//div[text() =" + "'" + clickOnTask + "'" + "]";
+	return taskInTheList;
+}
+
+async function taskInCompletedTabDisplayed(taskName) {
+	let completedTaskInTheList = (await getTaskFromNuxtClient(taskName)).toString();
+	await elementHelpers.isElementDisplayed(completedTaskInTheList);
 }
 
 async function studentSubmittedTask() {
+	await elementHelpers.clickAndWait(submittedTask);
 	await elementHelpers.clickAndWait(studentSubmitTask);
+}
+
+async function getNuxtTaskList() {
+	let elements = await driver.$(upperSection);
+	await elements.$$(clickAtTaskTitle).map(async function(element){
+		listOfAllNuxtTasks.push(await element.getText());
+	})
 }
 
 module.exports = {
@@ -183,4 +202,5 @@ module.exports = {
 	taskInCompletedTabDisplayed,
 	studentSubmittedTask,
 	sortTasksCourse,
+	getNuxtTaskList,
 };
