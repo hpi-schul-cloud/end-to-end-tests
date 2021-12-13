@@ -15,12 +15,6 @@ Then(/^.*clicks left navigation item '([^']*)'$/, function (string) {
 			return leftNavigation.clickNavItemTeams();
 		case leftMenuItems.TASKS:
 			return leftNavigation.clickNavItemTasks();
-		//case leftMenuItems.ASKEDHOMEWORK:
-		//	return leftNavigation.clickNavItemTasksAsked();
-		//case leftMenuItems.PRIVATEHOMEWORK:
-		//	return leftNavigation.clickNavItemTasksPrivate();
-		//case leftMenuItems.ARCHIVEDHOMEWORK:
-		//	return leftNavigation.clickNavItemTasksArchive();
 		case leftMenuItems.FILES:
 			return leftNavigation.clickNavItemFiles();
 		case leftMenuItems.MYFILES:
@@ -39,8 +33,6 @@ Then(/^.*clicks left navigation item '([^']*)'$/, function (string) {
 			return leftNavigation.clickNavItemContent();
 		case leftMenuItems.ADDONS:
 			return leftNavigation.clickNavItemAddons();
-		case leftMenuItems.HELPDESK:
-			return leftNavigation.clickNavItemHelpDesk();
 		case leftMenuItems.ADMINISTRATION:
 			return leftNavigation.clickNavItemManagement();
 		case leftMenuItems.ADMINSTUDENTS:

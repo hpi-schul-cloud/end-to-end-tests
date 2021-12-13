@@ -22,7 +22,7 @@ Feature: Test set to check the left side menu items
         And <userRole> clicks left navigation item 'shared files'
         And <userRole> clicks left navigation item 'news'
         And <userRole> clicks left navigation item 'calendar'
-        #And <userRole> clicks left navigation item 'addons'
+        And <userRole> clicks left navigation item 'addons'
         And <userRole> clicks left navigation item 'administration'
         And <userRole> should see that all sub menu items are visible: '<tabsList>'
         And <userRole> clicks left navigation item 'helparea'
