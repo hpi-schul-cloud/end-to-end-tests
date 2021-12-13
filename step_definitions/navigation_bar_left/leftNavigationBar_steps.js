@@ -13,14 +13,14 @@ Then(/^.*clicks left navigation item '([^']*)'$/, function (string) {
 			return leftNavigation.clickNavItemCourses();
 		case leftMenuItems.TEAMS:
 			return leftNavigation.clickNavItemTeams();
-		case leftMenuItems.HOMEWORK:
+		case leftMenuItems.TASKS:
 			return leftNavigation.clickNavItemTasks();
-		case leftMenuItems.ASKEDHOMEWORK:
-			return leftNavigation.clickNavItemTasksAsked();
-		case leftMenuItems.PRIVATEHOMEWORK:
-			return leftNavigation.clickNavItemTasksPrivate();
-		case leftMenuItems.ARCHIVEDHOMEWORK:
-			return leftNavigation.clickNavItemTasksArchive();
+		//case leftMenuItems.ASKEDHOMEWORK:
+		//	return leftNavigation.clickNavItemTasksAsked();
+		//case leftMenuItems.PRIVATEHOMEWORK:
+		//	return leftNavigation.clickNavItemTasksPrivate();
+		//case leftMenuItems.ARCHIVEDHOMEWORK:
+		//	return leftNavigation.clickNavItemTasksArchive();
 		case leftMenuItems.FILES:
 			return leftNavigation.clickNavItemFiles();
 		case leftMenuItems.MYFILES:

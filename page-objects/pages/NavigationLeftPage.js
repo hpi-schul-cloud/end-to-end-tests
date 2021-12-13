@@ -19,10 +19,10 @@ const navItemsEnum = {
 	DASHBOARD: 'dashboard',
 	COURSES: 'courses',
 	TEAMS: 'teams',
-	HOMEWORK: 'homework',
-	ASKEDHOMEWORK: 'asked homework',
-	PRIVATEHOMEWORK: 'private homework',
-	ARCHIVEDHOMEWORK: 'archived homework',
+	TASKS: 'tasks',
+	//ASKEDHOMEWORK: 'asked homework',
+	//PRIVATEHOMEWORK: 'private homework',
+	//ARCHIVEDHOMEWORK: 'archived homework',
 	FILES: 'files',
 	MYFILES: 'my files',
 	COURSEFILES: 'course files',
@@ -50,11 +50,11 @@ const navItemString2ndLevel = "li[data-testid='XXX'] > a";
 const navItemLogo = navItemString1stLevel.replace('XXX', 'Startseite');
 const navItemDashboard = navItemString1stLevel.replace('XXX', 'Übersicht');
 const navItemCourses = navItemString1stLevel.replace('XXX', 'Kurse');
-const navItemTasks = navItemString1stLevel.replace('XXX', 'Aufgaben');
-const navItemTasksAsked = navItemString2ndLevel.replace('XXX', 'Gestellte Aufgaben');
-const navItemTasksPrivate = navItemString2ndLevel.replace('XXX', 'Entwürfe');
-const navItemTasksArchive = navItemString2ndLevel.replace('XXX', 'Archiv');
 const navItemTeams = navItemString1stLevel.replace('XXX', 'Teams');
+const navItemTasks = navItemString1stLevel.replace('XXX', 'Aufgaben');
+//const navItemTasksAsked = navItemString2ndLevel.replace('XXX', 'Gestellte Aufgaben');
+//const navItemTasksPrivate = navItemString2ndLevel.replace('XXX', 'Entwürfe');
+//const navItemTasksArchive = navItemString2ndLevel.replace('XXX', 'Archiv');
 const navItemFiles = navItemString1stLevel.replace('XXX', 'Meine Dateien');
 const navItemFilesMy = navItemString2ndLevel.replace('XXX', 'persönliche Dateien');
 const navItemFilesCourses = navItemString2ndLevel.replace('XXX', 'Kurse');
