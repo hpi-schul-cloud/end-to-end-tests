@@ -16,21 +16,21 @@ Feature: Set of tests to submit tasks
 		And <userRole> sets task body '<taskBody>' in task form
 		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
-		And <userRole> filter by '<courseName>'
-		And <userRole> sees that task with name '<taskName>' is visible on the list
+		#And <userRole> filter by '<courseName>'
+		Then <userRole> sees '<taskName>' in the list
 		And <userRole> logs out
 		And student logs in with email '<studentUserName>' and password '<password>'
 		And student goes to tasks page
-		And student filter by '<courseName>'
-		And student clicks on task with name '<taskName>'
+		#And student filter by '<courseName>'
+		And <userRole> clicks at task '<taskName>'
 		And student clicks on Submission tab
 		And student sets submission text 'Test submission text'
 		And student clicks Save-and-send submission button
 		And student logs out
 		When <userRole> logs in
 		And <userRole> goes to tasks page
-		And <userRole> filter by '<courseName>'
-		And <userRole> clicks on task with name '<taskName>'
+		#And <userRole> filter by '<courseName>'
+		And <userRole> clicks at task '<taskName>'
 		And <userRole> clicks on Submissions tab
 		And <userRole> clicks student submission contains '<studentFullName>'
 		And <userRole> clicks on Comment tab
@@ -39,8 +39,8 @@ Feature: Set of tests to submit tasks
 		And <userRole> logs out
 		And student logs in with email '<studentUserName>' and password '<password>'
 		And student goes to tasks page
-		And student filter by '<courseName>'
-		And student clicks on task with name '<taskName>'
+		#And student filter by '<courseName>'
+		And <userRole> clicks at task '<taskName>'
 		And student clicks on Comment-Grading tab
 		Then student should see that task rating is '<taskRating>'%
 		And student should see that task remark is '<taskRemark>'

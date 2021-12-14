@@ -24,7 +24,7 @@ When(/^.* clicks Create-a-task button in the course '(.*)'$/, async function (co
 });
 
 Then(/^.* clicks on '([^']*)' button for task with name '([^']*)'$/, async function (button, taskname) {
-	await TASKListPage.clickOnTask(taskname, button);
+	await TASKListPage.clickOnTask(button);
 });
 
 When(/^.* clicks Add-task button$/, function () {

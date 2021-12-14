@@ -8,6 +8,7 @@ Feature: create different types of task
 	Scenario Outline: As a user, I want to be able to log in and edit an existing task
 		When <userRole> logs in
 		And <userRole> goes to tasks page
+		And <userRole> clicks at task '<taskName>'
 		When <userRole> clicks on 'Edit' button for task with name '<taskName>'
 		And <userRole> sets task name '<newTaskName>' in task form
 		And <userRole> sets task body '<newTaskBody>' in task form
@@ -19,8 +20,7 @@ Feature: create different types of task
 		And <userRole> clicks on Student-submissions-visible-to-each-other checkbox
 		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
-		Then <userRole> should see that new task with name '<newTaskName>' is visible on the list
-		And <userRole> should see that new task body is '<newTaskBody>'
+		Then <userRole> sees '<newTaskName>' in the list
 		Examples:
-			| userRole | taskName    | newTaskName     | newTaskBody |
-			| teacher  | Biologie 7C | Aufgabe Algebra | Calculate   |
+			| userRole | taskName | newTaskName     | newTaskBody |
+			| teacher  | Task12   | Aufgabe Algebra | Calculate   |

@@ -17,14 +17,14 @@ const taskTitleContainer = '.assignment.card .title';
 const taskDescriptionContainer = '.assignment .text-muted.ckcontent';
 const taskContainer = '.homework li.card';
 const deleteTaskButtonInPopup = '.delete-modal button.btn-submit';
-const upperSection = "//button[@data-testid='upperTaskSection']"
-const clickAtTaskTitle = "//div[@data-testid = 'taskTitle']";
+const upperSection = '.v-window-item--active';
+//const taskTitle = "//div[@data-testid = 'taskTitle']";
+const taskTitle = "//div[@data-testid = 'taskName']";
 const submittedTask = "//a[@id='submissions-tab-link']";
 const studentSubmitTask = "//td[text()='Boris']";
 const filterSelect = "//i[text() = 'add' and @class='material-icons']";
 const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
 const courseCheckbox = "//label[contains(.,'";
-let listOfAllNuxtTasks = [];
 
 const taskButton = {
 	archive: '.fa-archive',
@@ -105,15 +105,9 @@ async function getListOfTask() {
 	return elementHelpers.getListOfAllElements(taskContainer);
 }
 
-async function clickOnTask(taskName, button) {
+async function clickOnTask(button) {
 	await waitHelpers.waitUntilPageLoads();
-	const taskList = await getListOfTask();
-	const taskIndex = await getTaskIndex(taskName);
-	if (taskIndex == -1) {
-		throw "Can't find task: " + taskName + '\n Actual list of tasks: ' + (await getListOfTaskTitles());
-	}
-	const element = taskList[taskIndex];
-	const actionButton = await element.$(getTaskActionBtnSelector(button));
+	const actionButton = await driver.$(getTaskActionBtnSelector(button));
 	await elementHelpers.clickAndWait(actionButton);
 }
 
@@ -163,15 +157,21 @@ async function clickAtTask(taskName) {
 }
 
 async function getTaskFromNuxtClient(taskName){
-	const taskIndex = listOfAllNuxtTasks.indexOf(taskName);
-	let clickOnTask = listOfAllNuxtTasks[taskIndex];
+	const taskOverviewResult = await getNuxtTaskList();
+	const taskIndex = taskOverviewResult.indexOf(taskName);
+	let clickOnTask = taskOverviewResult[taskIndex];
 	const taskInTheList = "//div[text() =" + "'" + clickOnTask + "'" + "]";
 	return taskInTheList;
 }
 
-async function taskInCompletedTabDisplayed(taskName) {
-	let completedTaskInTheList = (await getTaskFromNuxtClient(taskName)).toString();
-	await elementHelpers.isElementDisplayed(completedTaskInTheList);
+async function taskDisplayed(taskName) {
+	let taskInTheList = (await getTaskFromNuxtClient(taskName)).toString();
+	await elementHelpers.isElementDisplayed(taskInTheList);
+}
+
+async function taskNotDisplayed(taskName) {
+	let taskInTheList = (await getTaskFromNuxtClient(taskName)).toString();
+	await waitHelpers.waitUntilElementIsNotPresent(taskInTheList);
 }
 
 async function studentSubmittedTask() {
@@ -180,10 +180,12 @@ async function studentSubmittedTask() {
 }
 
 async function getNuxtTaskList() {
+	const listOfAllNuxtTasks = [];
 	let elements = await driver.$(upperSection);
-	await elements.$$(clickAtTaskTitle).map(async function(element){
+	await elements.$$(taskTitle).map(async function(element){
 		listOfAllNuxtTasks.push(await element.getText());
-	})
+	});
+	return listOfAllNuxtTasks;
 }
 
 module.exports = {
@@ -199,7 +201,8 @@ module.exports = {
 	clickCreateTaskButtonInTheCourse,
 	clickDeleteTaskButtonInPopup,
 	clickAtTask,
-	taskInCompletedTabDisplayed,
+	taskDisplayed,
+	taskNotDisplayed,
 	studentSubmittedTask,
 	sortTasksCourse,
 	getNuxtTaskList,

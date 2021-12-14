@@ -17,8 +17,10 @@ Feature: dashboard test set
 		And <userRole> clicks on Private-task checkbox
 		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
-		And <userRole> filter by '<courseName>'
-		When <userRole> sees that task with name '<taskName>' is visible on the list
+		#And <userRole> filter by '<courseName>'
+		And <userRole> clicks on drafts tab
+		Then <userRole> sees '<taskName>' in the list
+		#When <userRole> sees that task with name '<taskName>' is visible on the list
 		And <userRole> clicks left navigation item 'dashboard'
 		Then <userRole> should see that 'private' tasks section is visible on dashboard
 		And <userRole> should see that 'private' task with name '<taskName>' assigned to course '<courseName>' is visible on dashboard
@@ -41,8 +43,10 @@ Feature: dashboard test set
 		And <userRole> sets task body '<taskBody>' in task form
 		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
-		And <userRole> filter by '<courseName>'
-		When <userRole> sees that task with name '<taskName>' is visible on the list
+		And <userRole> clicks on drafts tab
+		Then <userRole> sees '<taskName>' in the list
+		#And <userRole> filter by '<courseName>'
+		#When <userRole> sees that task with name '<taskName>' is visible on the list
 		And <userRole> clicks left navigation item 'dashboard'
 		Then <userRole> should see that 'published' tasks section is visible on dashboard
 		And <userRole> should see that 'published' task with name '<taskName>' assigned to course '<courseName>' is visible on dashboard

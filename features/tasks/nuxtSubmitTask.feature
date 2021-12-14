@@ -14,7 +14,7 @@ Feature: View the task in new nuxt task menu and submit it
         And <userRole> clicks on submit button
         And <userRole> clicks the current task tab
         And <userRole> clicks completed task tab
-        Then <userRole> sees '<taskName>' in completed tab
+        Then <userRole> sees '<taskName>' in the list
         Examples:
             | userRole | taskName |
             | student  | Task11   |
