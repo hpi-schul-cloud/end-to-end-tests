@@ -41,6 +41,7 @@ Feature: Set of tests to create courses
         Then <userRole> should see that course members are visible on the list '<studentName>'
         When <userRole> closes member modal window
         And <userRole> logs out
+        And user arrives on the Schul-Cloud homepage
         And <userRole> '<studentName>' logs in with email '<studentLogin>' and password '<password>'
         And <userRole> goes to courses page
         Then <userRole> should see that course with name '<courseName>' is visible on the list

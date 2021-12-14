@@ -18,6 +18,7 @@ Feature: Set of tests to delete teachers
 		And <userRole> clicks Delete-user button inside popup
 		Then <userRole> should see that user with email '<teacherUsername>' is not visible on the list
 		And <userRole> logs out
+        And user arrives on the Schul-Cloud homepage
 		When <deletedUserRole> logs in with email '<teacherUsername>' and password '<teacherPassword>'
 		Then <deletedUserRole> login must fail
 		Examples:
@@ -42,6 +43,7 @@ Feature: Set of tests to delete teachers
 		And <userRole> clicks Delete-user button inside popup
 		Then <userRole> should see that user with email '<teacherMailAddress>' is not visible on the list
 		And <userRole> logs out
+        And user arrives on the Schul-Cloud homepage
 		And <checkUserRole> logs in with email '<teacherUsername>' and password '<adminPassword>'
 		And <checkUserRole> login is successful
 		And <checkUserRole> goes to courses page

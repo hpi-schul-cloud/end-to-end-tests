@@ -55,6 +55,7 @@ Feature: Set of tests to create tasks
 		#And <userRole> filter by '<courseName>'
 		Then <userRole> sees '<taskName>' in the list
 		When <userRole> logs out
+        And user arrives on the Schul-Cloud homepage
 		And student logs in with email '<studentUsername>' and password '<studentPassword>'
 		And student goes to tasks page
 		Then student sees '<taskName>' not in the list

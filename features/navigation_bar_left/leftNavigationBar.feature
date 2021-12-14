@@ -32,9 +32,9 @@ Feature: Test set to check the left side menu items
         #  therefor leave it for last page otherwise the other pages won't be found
         And <userRole> clicks left navigation item 'content'
         Examples:
-            | userRole | tabsList                                           |
-            | teacher  | SCHÜLER:INNEN, LEHRER:INNEN, KLASSEN               |
-            | admin    | SCHÜLER, LEHRER, KURSE, KLASSEN, TEAMS, SCHULE     |
+            | userRole | tabsList                                       |
+            | teacher  | SCHÜLER:INNEN, LEHRER:INNEN, KLASSEN           |
+            | admin    | SCHÜLER, LEHRER, KURSE, KLASSEN, TEAMS, SCHULE |
 
     @studentClicksLeftMenuItems
     Scenario Outline: As a user, I want to be able to click the left menu items

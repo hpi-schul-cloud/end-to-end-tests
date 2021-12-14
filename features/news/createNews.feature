@@ -9,6 +9,7 @@ Feature: Set of tests to create news. I would like to test whether users with di
         When <creatorUserRole> logs in with email '<email>' and password '<password>'
         When <creatorUserRole> creates news with title '<newsTitle>', content '<newsContent>' and current date
         And <creatorUserRole> logs out
+        And user arrives on the Schul-Cloud homepage
         And <recipientUserRole> logs in with email '<studentUsername>' and password '<studentPassword>'
         And <recipientUserRole> clicks left navigation item 'news'
         Then <recipientUserRole> should see that news with title '<newsTitle>' is visible on the list
@@ -21,6 +22,7 @@ Feature: Set of tests to create news. I would like to test whether users with di
         When <creatorUserRole> logs in with email '<username>' and password '<password>'
         When <creatorUserRole> creates news with title '<newsTitle>', content '<newsContent>' and a one-year delay
         And <creatorUserRole> logs out
+        And user arrives on the Schul-Cloud homepage
         And <recipientUserRole> logs in with email '<studentUsername>' and password '<studentPassword>'
         And <recipientUserRole> clicks left navigation item 'news'
         Then <recipientUserRole> should see that news with title '<newsTitle>' is not visible on the list
