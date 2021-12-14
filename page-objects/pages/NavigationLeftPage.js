@@ -85,7 +85,7 @@ async function clickNavItemTeams() {
 }
 
 async function clickNavItemTasks() {
-	await loadPageFromNavigationItemNuxtClient(navItemTasks);
+	await clickElementFromNavigation(navItemTasks);
 }
 
 async function clickNavItemFiles() {
