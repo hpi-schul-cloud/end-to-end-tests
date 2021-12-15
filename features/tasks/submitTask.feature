@@ -43,7 +43,8 @@ Feature: Set of tests to submit tasks
 		And student logs in with email '<studentUserName>' and password '<password>'
 		And student goes to tasks page
 		#And student filter by '<courseName>'
-		And <userRole> clicks at task '<taskName>'
+		And student clicks completed task tab
+		And student clicks at task '<taskName>'
 		And student clicks on Comment-Grading tab
 		Then student should see that task rating is '<taskRating>'%
 		And student should see that task remark is '<taskRemark>'
