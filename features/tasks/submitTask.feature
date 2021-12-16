@@ -1,4 +1,4 @@
-@task @submitTask @e2eCore @stableTest @tasks_and_other
+@task @submitTask @e2eCore @tasks_and_other
 Feature: Set of tests to submit tasks
 
     Background: User opens Schul-cloud homepage Website
