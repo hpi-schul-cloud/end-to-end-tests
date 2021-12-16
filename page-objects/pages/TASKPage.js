@@ -14,7 +14,6 @@ const remoteFilePathInput = 'input[type=file][class=dz-hidden-input]';
 const commentBtn = '#comment-tab-link';
 const commentGradingTabSel = '#feedback-tab-link';
 const hometasksTabSel = 'button[data-testid="hometasks"]';
-const nuxtHometasksTabSel = "//a[@data-testid = 'Aufgaben']";
 const taskRatingInput = '[data-testid="evaluation_procent"]';
 const ratingViewSel = '.grade';
 const remarkViewSel = '.ckcontent.comment';
@@ -24,10 +23,6 @@ const completedTaskTab = "//span[@data-testid = 'closedTasks']";
 const draftTaskTab = "//span[@data-testid = 'draftTasks']";
 const gradedTask = "//div[@data-testid='taskGraded' and text() = '1']";
 let fileUrl;
-
-async function goToNuxtTasksTab() {
-	await elementHelpers.clickAndWait(nuxtHometasksTabSel);
-}
 
 async function gotoTasksTab() {
 	await elementHelpers.clickAndWait(hometasksTabSel);

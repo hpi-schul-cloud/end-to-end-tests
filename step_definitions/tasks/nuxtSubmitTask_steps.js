@@ -4,11 +4,6 @@ const { default: dragAndDrop } = require("webdriverio/build/commands/element/dra
 const TASKPage = require("../../page-objects/pages/TASKPage");
 const TASKListPage = require("../../page-objects/pages/TASKListPage");
 
-
-When(/^.* clicks the current task tab$/, async function (){
-    await TASKPage.goToNuxtTasksTab();
-});
-
 When(/^.* clicks at task '([^']*)'$/, async function (taskName){
     await TASKListPage.clickAtTask(taskName);
 });

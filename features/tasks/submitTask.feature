@@ -1,8 +1,23 @@
 @task @submitTask @e2eCore @tasks_and_other
-Feature: Set of tests to submit tasks
+Feature: Set of tests to view and submit tasks
 
     Background: User opens Schul-cloud homepage Website
         Given user arrives on the Schul-Cloud homepage
+
+    @submitAndViewTask
+    Scenario Outline: As a user, I want to see the open tasks in tasks tab, sumbit them and check that it is shown at completed tasks tab
+        When <userRole> logs in
+       And <userRole> goes to tasks page
+        And <userRole> clicks at task '<taskName>'
+        And <userRole> clicks on Submission tab
+        And <userRole> sets submission text 'Test submission text'
+        And <userRole> clicks on submit button
+       And <userRole> goes to tasks page
+        And <userRole> clicks completed task tab
+        Then <userRole> sees '<taskName>' in the list
+        Examples:
+            | userRole | taskName |
+            | student  | Task11   |
 
     @submitTaskWithTextContent @unstableTest
 	Scenario Outline: As a user, I want to be able to submit a task and teacher evaluates it
