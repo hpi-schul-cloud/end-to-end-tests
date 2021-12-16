@@ -157,10 +157,8 @@ async function clickAtTask(taskName) {
 
 async function getTaskFromNuxtClient(taskName){
 	const taskOverviewResult = await getNuxtTaskList();
-	console.log(taskOverviewResult);
 	const taskIndex = taskOverviewResult.indexOf(taskName);
 	let clickOnTask = taskOverviewResult[taskIndex];
-	console.log(clickOnTask);
 	const taskInTheList = "//div[text() =" + "'" + clickOnTask + "'" + "]";
 	return taskInTheList;
 }
