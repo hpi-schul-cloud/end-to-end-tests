@@ -158,6 +158,7 @@ async function clickAtTask(taskName) {
 
 async function getTaskFromNuxtClient(taskName){
 	await waitHelpers.waitUntilElementIsVisible(taskOverviewLoad);
+	await driver.pause(3000);
 	const taskOverviewResult = await getNuxtTaskList();
 	const taskIndex = taskOverviewResult.indexOf(taskName);
 	let clickOnTask = taskOverviewResult[taskIndex];
