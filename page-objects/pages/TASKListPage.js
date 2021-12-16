@@ -17,7 +17,7 @@ const taskTitleContainer = '.assignment.card .title';
 const taskDescriptionContainer = '.assignment .text-muted.ckcontent';
 const taskContainer = '.homework li.card';
 const deleteTaskButtonInPopup = '.delete-modal button.btn-submit';
-const taskSection = ".v-expansion-panel-header--active";
+const taskSection = '.v-window-item--active';
 const taskTitle = "//div[@data-testid = 'taskTitle']";
 const submittedTask = "//a[@id='submissions-tab-link']";
 const studentSubmitTask = "//td[text()='Boris']";

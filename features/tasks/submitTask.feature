@@ -11,8 +11,8 @@ Feature: Set of tests to submit tasks
 		And <userRole> chooses course with name '<courseName>'
 		And <userRole> clicks Create-a-task button in the course '<courseName>'
 		And <userRole> sets task name '<taskName>' in task form
-		And <userRole> sets Task-visibility-start-date: today, 00:00
-		And <userRole> sets Task-processing-end-date: today +1 day, 11:00
+		#And <userRole> sets Task-visibility-start-date: today, 00:00
+		#And <userRole> sets Task-processing-end-date: today +1 day, 11:00
 		And <userRole> sets task body '<taskBody>' in task form
 		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
