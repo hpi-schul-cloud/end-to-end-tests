@@ -27,8 +27,8 @@ Then(/^.* clicks on '([^']*)' button for task with name '([^']*)'$/, async funct
 	await TASKListPage.clickOnTask(button);
 });
 
-When(/^.* clicks Add-task button$/, function () {
-	return TASKListPage.clickCreateTaskButton();
+When(/^.* clicks Add-task button$/, async function () {
+	await TASKListPage.clickCreateTaskButton();
 });
 
 When(/^.* clicks Add-task-submit button$/, function () {
