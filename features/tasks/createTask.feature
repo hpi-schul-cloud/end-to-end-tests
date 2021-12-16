@@ -32,7 +32,7 @@ Feature: Set of tests to create tasks
 		And <userRole> sets task body '<taskBody>' in task form
 		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
-		And <userRole> filter by '<courseName>'
+		#And <userRole> filter by '<courseName>'
 		Then <userRole> sees '<taskName>' in the list
 		Examples:
 			| userRole | courseName  | taskName     | taskBody         |
@@ -52,7 +52,7 @@ Feature: Set of tests to create tasks
 		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
 		And <userRole> clicks on drafts tab
-		And <userRole> filter by '<courseName>'
+		#And <userRole> filter by '<courseName>'
 		Then <userRole> sees '<taskName>' in the list
 		When <userRole> logs out
         And user arrives on the Schul-Cloud homepage

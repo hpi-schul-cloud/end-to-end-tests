@@ -18,7 +18,7 @@ Feature: dashboard test set
 		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
 		And <userRole> clicks on drafts tab
-		And <userRole> filter by '<courseName>'
+		#And <userRole> filter by '<courseName>'
 		Then <userRole> sees '<taskName>' in the list
 		#When <userRole> sees that task with name '<taskName>' is visible on the list
 		And <userRole> clicks left navigation item 'dashboard'
@@ -45,7 +45,7 @@ Feature: dashboard test set
 		And <userRole> goes to tasks page
 		#there's no need here to go to the drafts page... it's a regular task
 		And <userRole> clicks on drafts tab
-		And <userRole> filter by '<courseName>'
+		#And <userRole> filter by '<courseName>'
 		Then <userRole> sees '<taskName>' in the list
 		#When <userRole> sees that task with name '<taskName>' is visible on the list
 		And <userRole> clicks left navigation item 'dashboard'

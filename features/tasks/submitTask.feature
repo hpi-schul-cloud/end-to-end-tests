@@ -16,13 +16,13 @@ Feature: Set of tests to submit tasks
 		And <userRole> sets task body '<taskBody>' in task form
 		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
-		And <userRole> filter by '<courseName>'
+		#And <userRole> filter by '<courseName>'
 		Then <userRole> sees '<taskName>' in the list
 		And <userRole> logs out
         And user arrives on the Schul-Cloud homepage
 		And student logs in with email '<studentUserName>' and password '<password>'
 		And student goes to tasks page
-		And student filter by '<courseName>'
+		#And student filter by '<courseName>'
 		And student clicks at task '<taskName>'
 		And student clicks on Submission tab
 		And student sets submission text 'Test submission text'
@@ -43,7 +43,7 @@ Feature: Set of tests to submit tasks
 		And student logs in with email '<studentUserName>' and password '<password>'
 		And student goes to tasks page
 		And student clicks completed task tab
-		And student filter by '<courseName>'
+		#And student filter by '<courseName>'
 		And student clicks at task '<taskName>'
 		And student clicks on Comment-Grading tab
 		Then student should see that task rating is '<taskRating>'%

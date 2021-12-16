@@ -30,7 +30,7 @@ Feature: Set of tests to delete tasks
 		And <userRole> sets task body '<taskBody>' in task form
 		And <userRole> clicks Add-task-submit button
 		When <userRole> goes to tasks page
-		And <userRole> filter by '<courseName>'
+		#And <userRole> filter by '<courseName>'
 		Then <userRole> sees '<taskName>' in the list
 		And <userRole> clicks at task '<taskName>'
 		#Then <userRole> should see that task with name '<taskName>' is visible on the list
