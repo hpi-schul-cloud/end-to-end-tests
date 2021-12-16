@@ -168,7 +168,7 @@ async function getTaskFromNuxtClient(taskName){
 
 async function taskDisplayed(taskName) {
 	let taskInTheList = (await getTaskFromNuxtClient(taskName)).toString();
-	await elementHelpers.isElementDisplayed(taskInTheList);
+	await waitHelpers.waitUntilElementIsPresent(taskInTheList);
 }
 
 async function taskNotDisplayed(taskName) {

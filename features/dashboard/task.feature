@@ -43,7 +43,6 @@ Feature: dashboard test set
 		And <userRole> sets task body '<taskBody>' in task form
 		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
-		And <userRole> clicks on drafts tab
 		Then <userRole> sees '<taskName>' in the list
 		#And <userRole> filter by '<courseName>'
 		#When <userRole> sees that task with name '<taskName>' is visible on the list

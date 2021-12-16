@@ -23,4 +23,4 @@ Feature: create different types of task
 		Then <userRole> sees '<newTaskName>' in the list
 		Examples:
 			| userRole | taskName | newTaskName     | newTaskBody |
-			| teacher  | Task11   | Aufgabe Algebra | Calculate   |
+			| teacher  | Task14   | Aufgabe Algebra | Calculate   |
