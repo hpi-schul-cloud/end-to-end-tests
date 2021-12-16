@@ -14,8 +14,8 @@ Feature: create different types of task
 		And <userRole> sets task body '<newTaskBody>' in task form
 		And <userRole> chooses task courses 'No assignment'
 		And <userRole> clicks on Enable-group-submission checkbox
-		And <userRole> sets Task-visibility-start-date: today, 00:00
-		And <userRole> sets Task-processing-end-date: today +1 day, 11:00
+		#And <userRole> sets Task-visibility-start-date: today, 00:00
+		#And <userRole> sets Task-processing-end-date: today +1 day, 11:00
 		And <userRole> clicks on Private-task checkbox
 		And <userRole> clicks on Student-submissions-visible-to-each-other checkbox
 		And <userRole> clicks Add-task-submit button

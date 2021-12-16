@@ -23,7 +23,7 @@ Feature: Set of tests to submit tasks
 		And student logs in with email '<studentUserName>' and password '<password>'
 		And student goes to tasks page
 		#And student filter by '<courseName>'
-		And <userRole> clicks at task '<taskName>'
+		And student clicks at task '<taskName>'
 		And student clicks on Submission tab
 		And student sets submission text 'Test submission text'
 		And student clicks Save-and-send submission button
