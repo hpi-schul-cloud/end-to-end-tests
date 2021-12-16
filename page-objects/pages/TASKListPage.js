@@ -24,6 +24,7 @@ const studentSubmitTask = "//td[text()='Boris']";
 const filterSelect = "//i[text() = 'add' and @class='material-icons']";
 const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
 const courseCheckbox = "//label[contains(.,'";
+const taskOverviewLoad = ".v-application--wrap";
 
 const taskButton = {
 	archive: '.fa-archive',
@@ -156,6 +157,7 @@ async function clickAtTask(taskName) {
 }
 
 async function getTaskFromNuxtClient(taskName){
+	await waitHelpers.waitUntilElementIsVisible(taskOverviewLoad);
 	const taskOverviewResult = await getNuxtTaskList();
 	const taskIndex = taskOverviewResult.indexOf(taskName);
 	let clickOnTask = taskOverviewResult[taskIndex];
