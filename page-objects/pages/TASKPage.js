@@ -173,7 +173,6 @@ async function isTaskGraded(){
 }
 
 module.exports = {
-	goToNuxtTasksTab,
 	gotoTasksTab,
 	clickTeacherSubmissionsTab,
 	clickStudentSubmissionTab,
