@@ -1,8 +1,23 @@
-@task @submitTask @e2eCore @stableTest @tasks_and_other
-Feature: Set of tests to submit tasks
+@task @submitTask @e2eCore @tasks_and_other
+Feature: Set of tests to view and submit tasks
 
     Background: User opens Schul-cloud homepage Website
         Given user arrives on the Schul-Cloud homepage
+
+    @submitAndViewTask
+    Scenario Outline: As a user, I want to see the open tasks in tasks tab, sumbit them and check that it is shown at completed tasks tab
+        When <userRole> logs in
+       And <userRole> goes to tasks page
+        And <userRole> clicks at task '<taskName>'
+        And <userRole> clicks on Submission tab
+        And <userRole> sets submission text 'Test submission text'
+        And <userRole> clicks on submit button
+       And <userRole> goes to tasks page
+        And <userRole> clicks completed task tab
+        Then <userRole> sees '<taskName>' in the list
+        Examples:
+            | userRole | taskName |
+            | student  | Task11   |
 
     @submitTaskWithTextContent @unstableTest
 	Scenario Outline: As a user, I want to be able to submit a task and teacher evaluates it
@@ -16,14 +31,14 @@ Feature: Set of tests to submit tasks
 		And <userRole> sets task body '<taskBody>' in task form
 		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
-		And <userRole> filter by '<courseName>'
-		And <userRole> sees that task with name '<taskName>' is visible on the list
+		#And <userRole> filter by '<courseName>'
+		Then <userRole> sees '<taskName>' in the list
 		And <userRole> logs out
         And user arrives on the Schul-Cloud homepage
 		And student logs in with email '<studentUserName>' and password '<password>'
 		And student goes to tasks page
-		And student filter by '<courseName>'
-		And student clicks on task with name '<taskName>'
+		#And student filter by '<courseName>'
+		And student clicks at task '<taskName>'
 		And student clicks on Submission tab
 		And student sets submission text 'Test submission text'
 		And student clicks Save-and-send submission button
@@ -31,8 +46,8 @@ Feature: Set of tests to submit tasks
         And user arrives on the Schul-Cloud homepage
 		When <userRole> logs in
 		And <userRole> goes to tasks page
-		And <userRole> filter by '<courseName>'
-		And <userRole> clicks on task with name '<taskName>'
+		#And <userRole> filter by '<courseName>'
+		And <userRole> clicks at task '<taskName>'
 		And <userRole> clicks on Submissions tab
 		And <userRole> clicks student submission contains '<studentFullName>'
 		And <userRole> clicks on Comment tab
@@ -42,8 +57,9 @@ Feature: Set of tests to submit tasks
         And user arrives on the Schul-Cloud homepage
 		And student logs in with email '<studentUserName>' and password '<password>'
 		And student goes to tasks page
-		And student filter by '<courseName>'
-		And student clicks on task with name '<taskName>'
+		And student clicks completed task tab
+		#And student filter by '<courseName>'
+		And student clicks at task '<taskName>'
 		And student clicks on Comment-Grading tab
 		Then student should see that task rating is '<taskRating>'%
 		And student should see that task remark is '<taskRemark>'

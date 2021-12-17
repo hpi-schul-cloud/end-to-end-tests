@@ -12,10 +12,7 @@ const navItemsEnum = {
 	DASHBOARD: 'dashboard',
 	COURSES: 'courses',
 	TEAMS: 'teams',
-	HOMEWORK: 'homework',
-	ASKEDHOMEWORK: 'asked homework',
-	PRIVATEHOMEWORK: 'private homework',
-	ARCHIVEDHOMEWORK: 'archived homework',
+	TASKS: 'tasks',
 	FILES: 'files',
 	MYFILES: 'my files',
 	COURSEFILES: 'course files',
@@ -23,6 +20,7 @@ const navItemsEnum = {
 	SHAREDFILES: 'shared files',
 	NEWS: 'news',
 	CALENDAR: 'calendar',
+	CONTENT: 'content',
 	ADDONS: 'addons',
 	CONTENT: 'content',
 	ADMINISTRATION: 'administration',
@@ -43,11 +41,8 @@ const navItemString2ndLevel = "li[data-testid='XXX'] > a";
 const navItemLogo = navItemString1stLevel.replace('XXX', 'Startseite');
 const navItemDashboard = navItemString1stLevel.replace('XXX', 'Übersicht');
 const navItemCourses = navItemString1stLevel.replace('XXX', 'Kurse');
-const navItemTasks = navItemString1stLevel.replace('XXX', 'Aufgaben');
-const navItemTasksAsked = navItemString2ndLevel.replace('XXX', 'Gestellte Aufgaben');
-const navItemTasksPrivate = navItemString2ndLevel.replace('XXX', 'Entwürfe');
-const navItemTasksArchive = navItemString2ndLevel.replace('XXX', 'Archiv');
 const navItemTeams = navItemString1stLevel.replace('XXX', 'Teams');
+const navItemTasks = navItemString1stLevel.replace('XXX', 'Aufgaben');
 const navItemFiles = navItemString1stLevel.replace('XXX', 'Meine Dateien');
 const navItemFilesMy = navItemString2ndLevel.replace('XXX', 'persönliche Dateien');
 const navItemFilesCourses = navItemString2ndLevel.replace('XXX', 'Kurse');
@@ -57,7 +52,6 @@ const navItemNews = navItemString1stLevel.replace('XXX', 'Neuigkeiten');
 const navItemCalendar = navItemString1stLevel.replace('XXX', 'Termine');
 const navItemLearnstore = navItemString1stLevel.replace('XXX', 'Lern-Store');
 const navItemAddons = navItemString1stLevel.replace('XXX', 'Add-ons');
-const navItemHelpDesk = navItemString1stLevel.replace('XXX', 'Helpdesk');
 const navItemManagement = navItemString1stLevel.replace('XXX', 'Verwaltung');
 const navItemManagementStudents = navItemString2ndLevel.replace('XXX', 'Schüler:innen');
 const navItemManagementTeachers = navItemString2ndLevel.replace('XXX', 'Lehrkräfte');
@@ -86,22 +80,12 @@ async function clickNavItemCourses() {
 	await clickElementFromNavigation(navItemCourses);
 }
 
-async function clickNavItemTasks() {
-	await clickElementFromNavigation(navItemTasks);
-}
-
-async function clickNavItemTasksAsked() {
-	await clickElementFromNavigation(navItemTasksAsked);
-}
-async function clickNavItemTasksPrivate() {
-	await clickElementFromNavigation(navItemTasksPrivate);
-}
-async function clickNavItemTasksArchive() {
-	await clickElementFromNavigation(navItemTasksArchive);
-}
-
 async function clickNavItemTeams() {
 	await clickElementFromNavigation(navItemTeams);
+}
+
+async function clickNavItemTasks() {
+	await clickElementFromNavigation(navItemTasks);
 }
 
 async function clickNavItemFiles() {
@@ -227,11 +211,8 @@ module.exports = {
 	clickNavItemLogo,
 	clickNavItemDashboard,
 	clickNavItemCourses,
-	clickNavItemTasks,
-	clickNavItemTasksAsked,
-	clickNavItemTasksPrivate,
-	clickNavItemTasksArchive,
 	clickNavItemTeams,
+	clickNavItemTasks,
 	clickNavItemFiles,
 	clickNavItemFilesMy,
 	clickNavItemFilesCourses,
