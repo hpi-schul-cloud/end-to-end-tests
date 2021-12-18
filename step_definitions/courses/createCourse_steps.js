@@ -2,6 +2,7 @@
 
 const courseListPage = require('../../page-objects/pages/coursePages/CRSSCourseListPage');
 const addCoursePage = require('../../page-objects/pages/coursePages/CRSSAddCoursePage');
+const roomsOverviewPage = require('../../page-objects/pages/RoomsOverviewPage');
 
 //WHEN
 When(/^.* creates course with name '([^']*)'$/, function (coursename) {
@@ -15,6 +16,11 @@ When(/^.* creates course with name '([^']*)' and student '([^']*)'$/, function (
 When(/^.* goes to courses page$/, function () {
 	return courseListPage.goToCourses();
 });
+
+When(/^.* goes to rooms-overview$/, function () {
+	return roomsOverviewPage.goToRoomsOverview();
+});
+
 
 When(/^.* clicks Create-new-course button$/, function () {
 	return courseListPage.clickCreateCourseBtn();
