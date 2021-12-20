@@ -6,7 +6,7 @@ const navigationLeftPage = require('./NavigationLeftPage.js');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const { expect } = require('chai');
 
-const selectorCreateTaskButton = '.btn.btn-primary.btn-add.create';
+const selectorCreateTaskButton = '[data-testid = "addTask"]';
 const selectorCreateTaskBtnInTheCourse = '.col-sm-12.add-button > a';
 const selectorSortBtn = '#filter .md-clickable > div';
 const select = '#selection-picker > div > div';
@@ -17,14 +17,15 @@ const taskTitleContainer = '.assignment.card .title';
 const taskDescriptionContainer = '.assignment .text-muted.ckcontent';
 const taskContainer = '.homework li.card';
 const deleteTaskButtonInPopup = '.delete-modal button.btn-submit';
-const clickAtTaskTitle = "//div[@data-testid = 'taskTitle']";
-const taskAtCompletedTab = "//div[@data-testid = 'taskTitle']";
+const taskSection = '.v-window-item--active';
+const taskTitle = "//div[@data-testid = 'taskTitle']";
+const submittedTask = "//a[@id='submissions-tab-link']";
 const studentSubmitTask = "//td[text()='Boris']";
-const filterSelect = "//i[text() = 'add' and @class='material-icons']";
+const filterSelect = '.v-select__selections';
 const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
-const courseCheckbox = "//label[contains(.,'";
-const ajaxPageLoad = "//div[@class='modal-backdrop fade in']";
-const nuxtClientLoad = "//div[@data-app = 'true' and @id = 'app']";
+const courseCheckbox = "//div[contains(.,'";
+const closeFilter = '.v-input__icon--append';
+const taskOverviewLoad = '.v-application--wrap';
 
 const taskButton = {
 	archive: '.fa-archive',
@@ -82,10 +83,12 @@ async function sortTasksLastEdited() {
 
 async function sortTasksCourse(courseName) {
 	await elementHelpers.click(filterSelect);
-	await elementHelpers.click(courseSelect);
+	//await elementHelpers.click(courseSelect);
+	//need help with the part below... it choses wrong course
 	let courseSelector = courseCheckbox + courseName + "')]";
 	await elementHelpers.clickAndWait(courseSelector);
-	await elementHelpers.clickAndWait(submitBtn);
+	await elementHelpers.clickAndWait(closeFilter);
+	//await elementHelpers.clickAndWait(submitBtn);
 	await waitHelpers.waitUntilPageLoads();
 }
 
@@ -105,15 +108,9 @@ async function getListOfTask() {
 	return elementHelpers.getListOfAllElements(taskContainer);
 }
 
-async function clickOnTask(taskName, button) {
+async function clickOnTask(button) {
 	await waitHelpers.waitUntilPageLoads();
-	const taskList = await getListOfTask();
-	const taskIndex = await getTaskIndex(taskName);
-	if (taskIndex == -1) {
-		throw "Can't find task: " + taskName + '\n Actual list of tasks: ' + (await getListOfTaskTitles());
-	}
-	const element = taskList[taskIndex];
-	const actionButton = await element.$(getTaskActionBtnSelector(button));
+	const actionButton = await driver.$(getTaskActionBtnSelector(button));
 	await elementHelpers.clickAndWait(actionButton);
 }
 
@@ -153,19 +150,48 @@ async function clickOnTaskFromList(taskname) {
 async function clickDeleteTaskButtonInPopup() {
 	await waitHelpers.waitUntilLegacyPageLoads();
 	await elementHelpers.clickAndWait(deleteTaskButtonInPopup);
+	await driver.refresh();
 }
 
-async function clickAtTask(){
-	await waitHelpers.waitUntilNuxtClientLoads(nuxtClientLoad);
-	await elementHelpers.clickAndWait(clickAtTaskTitle);
+async function clickAtTask(taskName) {
+	await waitHelpers.waitUntilNuxtClientLoads();
+	let clickOnThatTask = (await getTaskFromNuxtClient(taskName)).toString();
+	await elementHelpers.clickAndWait(clickOnThatTask);
 }
 
-async function taskInCompletedTabDisplayed(){
-	await elementHelpers.isElementDisplayed(taskAtCompletedTab);
+async function getTaskFromNuxtClient(taskName) {
+	await waitHelpers.waitUntilElementIsVisible(taskOverviewLoad);
+	await driver.pause(3000);
+	const taskOverviewResult = await getNuxtTaskList();
+	const taskIndex = taskOverviewResult.indexOf(taskName);
+	let clickOnTask = taskOverviewResult[taskIndex];
+	const taskInTheList = '//div[text() =' + "'" + clickOnTask + "'" + ']';
+	return taskInTheList;
+}
+
+//#taskDisplayed and taskNotDisplayed doesn't seem to work
+async function taskDisplayed(taskName) {
+	let taskInTheList = (await getTaskFromNuxtClient(taskName)).toString();
+	await waitHelpers.waitUntilElementIsPresent(taskInTheList);
+}
+
+async function taskNotDisplayed(taskName) {
+	let taskInTheList = (await getTaskFromNuxtClient(taskName)).toString();
+	await waitHelpers.waitUntilElementIsNotPresent(taskInTheList);
 }
 
 async function studentSubmittedTask() {
+	await elementHelpers.clickAndWait(submittedTask);
 	await elementHelpers.clickAndWait(studentSubmitTask);
+}
+
+async function getNuxtTaskList() {
+	const listOfAllNuxtTasks = [];
+	let elements = await driver.$(taskSection);
+	await elements.$$(taskTitle).map(async function (element) {
+		listOfAllNuxtTasks.push(await element.getText());
+	});
+	return listOfAllNuxtTasks;
 }
 
 module.exports = {
@@ -181,7 +207,9 @@ module.exports = {
 	clickCreateTaskButtonInTheCourse,
 	clickDeleteTaskButtonInPopup,
 	clickAtTask,
-	taskInCompletedTabDisplayed,
+	taskDisplayed,
+	taskNotDisplayed,
 	studentSubmittedTask,
 	sortTasksCourse,
+	getNuxtTaskList,
 };

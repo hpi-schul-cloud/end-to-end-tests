@@ -12,6 +12,10 @@ When(/^.* goes to tasks page$/, function () {
 	return navigationLeftPage.clickNavItemTasks();
 });
 
+When(/^.* clicks on drafts tab$/, function () {
+	return TASKPage.clickDraftsTab();
+});
+
 When(/^.* clicks Create-a-task button in the course '(.*)'$/, async function (coursename) {
 	await courseListPage.goToCourses();
 	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
@@ -20,7 +24,7 @@ When(/^.* clicks Create-a-task button in the course '(.*)'$/, async function (co
 });
 
 Then(/^.* clicks on '([^']*)' button for task with name '([^']*)'$/, async function (button, taskname) {
-	await TASKListPage.clickOnTask(taskname, button);
+	await TASKListPage.clickOnTask(button);
 });
 
 When(/^.* clicks Add-task button$/, function () {

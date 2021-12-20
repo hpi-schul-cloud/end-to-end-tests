@@ -14,19 +14,15 @@ const remoteFilePathInput = 'input[type=file][class=dz-hidden-input]';
 const commentBtn = '#comment-tab-link';
 const commentGradingTabSel = '#feedback-tab-link';
 const hometasksTabSel = 'button[data-testid="hometasks"]';
-const nuxtHometasksTabSel = "//a[@data-testid = 'Aktuelle Aufgaben']";
 const taskRatingInput = '[data-testid="evaluation_procent"]';
 const ratingViewSel = '.grade';
 const remarkViewSel = '.ckcontent.comment';
 const submissionsTable = '#submissions table';
 const submissionRow = `${submissionsTable} tbody tr.userinfo`;
 const completedTaskTab = "//span[@data-testid = 'closedTasks']";
+const draftTaskTab = "//span[@data-testid = 'draftTasks']";
 const gradedTask = "//div[@data-testid='taskGraded' and text() = '1']";
 let fileUrl;
-
-async function goToNuxtTasksTab() {
-	await elementHelpers.clickAndWait(nuxtHometasksTabSel);
-}
 
 async function gotoTasksTab() {
 	await elementHelpers.clickAndWait(hometasksTabSel);
@@ -167,13 +163,16 @@ async function clickCompletedTab(){
 	await elementHelpers.clickAndWait(completedTaskTab);
 }
 
+async function clickDraftsTab(){
+	await elementHelpers.clickAndWait(draftTaskTab);
+}
+
 async function isTaskGraded(){
 	const actualResult = await elementHelpers.getElementText(gradedTask);
 	await expect(actualResult).to.equal('1');
 }
 
 module.exports = {
-	goToNuxtTasksTab,
 	gotoTasksTab,
 	clickTeacherSubmissionsTab,
 	clickStudentSubmissionTab,
@@ -194,5 +193,6 @@ module.exports = {
 	checkFileEvaluationStudent,
 	checkFileEvaluationTeacher,
 	clickCompletedTab,
+	clickDraftsTab,
 	isTaskGraded,
 };
