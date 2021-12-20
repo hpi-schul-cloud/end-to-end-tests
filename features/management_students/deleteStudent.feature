@@ -1,4 +1,4 @@
-@management @managementStudents @deleteStudent 
+@management @managementStudents @deleteStudent
 Feature: Set of tests to delete students
 	As an Schul-Cloud user I want to be able to delete students
 

@@ -6,6 +6,7 @@ const elementHelpers = require('../../runtime/helpers/elementHelpers');
 async function clickElementFromNavigation(selector) {
 	await elementHelpers.clickAndWait(selector)
 }
+
 async function clickElementFromNavigation(selector) {
 	await elementHelpers.clickAndWait(selector)
 }
@@ -237,6 +238,5 @@ module.exports = {
 	clickNavItemHelpTrainings,
 	clickNavItemHelpContact,
 	areSubMenuItemsVisible,
-	areMenuItemsVisible,
-	clickElementNavigation: clickElementFromNavigation
+	areMenuItemsVisible
 };

@@ -9,7 +9,7 @@ When(/^.*creates a new team with name '([^']*)' and description '([^']*)' and co
 	await TMSAddEditTeamPage.createTeamWithName(teamName, description, colour);
 });
 
-When(/^.*goes too the team member settings$/, async function () {
+When(/^.*goes to the team member settings$/, async function () {
 	await TMSAddEditTeamPage.goToTeamMembersSettings();
 });
 
