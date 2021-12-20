@@ -170,6 +170,7 @@ async function isContentWithTitleVisibleOnTheList(contentTitle) {
 }
 
 async function isTopicOnTheList(topicName, expectedValue = true) {
+	await driver.pause(3000);
 	const allTopics = await getTopicTitleList();
 	const isTopicOnList = allTopics.some((element) => element.includes(topicName));
 	const fillString = !expectedValue ? '' : 'not';
