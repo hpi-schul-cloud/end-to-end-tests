@@ -3,6 +3,7 @@
 const courseListPage = require('../../page-objects/pages/coursePages/CRSSCourseListPage');
 const addCoursePage = require('../../page-objects/pages/coursePages/CRSSAddCoursePage');
 const roomsOverviewPage = require('../../page-objects/pages/RoomsOverviewPage');
+const leftNavigationBar = require('../../page-objects/pages/NavigationLeftPage');
 
 //WHEN
 When(/^.* creates course with name '([^']*)'$/, function (coursename) {
@@ -14,7 +15,8 @@ When(/^.* creates course with name '([^']*)' and student '([^']*)'$/, function (
 });
 
 When(/^.* goes to rooms-overview$/, function () {
-	return roomsOverviewPage.goToRoomsOverview();
+	return leftNavigationBar.loadNavItemRoomsOverview();
+	/* follow-up: change to: return roomsOverviewPage.goToRoomsOverview()*/ 
 });
 
 
