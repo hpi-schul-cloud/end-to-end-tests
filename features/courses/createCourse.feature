@@ -8,7 +8,7 @@ Feature: Set of tests to create courses
     @createCourseCorrectly @e2eCore
     Scenario Outline: As a user, I want to be able to submit compulsory fields by creating the course
         Given <userRole> logs in with email '<userName>' and password '<password>'
-        And <userRole> goes to courses page
+        And <userRole> goes to rooms-overview
         When <userRole> clicks Create-new-course button
         Then <userRole> should see that time span is already set
         When <userRole> should see that supply teacher is not set
@@ -43,7 +43,7 @@ Feature: Set of tests to create courses
         And <userRole> logs out
         And user arrives on the Schul-Cloud homepage
         And <userRole> '<studentName>' logs in with email '<studentLogin>' and password '<password>'
-        And <userRole> goes to courses page
+        And <userRole> goes to rooms-overview
         Then <userRole> should see that course with name '<courseName>' is visible on the list
         Examples:
             | userRole | courseName | studentName    | username                        | password       | studentLogin                     | membersNumber |

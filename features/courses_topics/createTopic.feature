@@ -7,7 +7,7 @@ Feature: Set of tests to copy courses
     @createTopicWithContent @e2eCore
     Scenario Outline: As a user, I want to be able to copy course with certain text
         Given <userRole> logs in
-        And <userRole> goes to courses page
+        And <userRole> goes to rooms-overview
         And <userRole> chooses course with name '<courseName>'
         When <userRole> adds a topic with name '<topicName>'
         And <userRole> adds content <contentType> with title '<contentTitle>' and description '<contentDescription>'
@@ -25,13 +25,13 @@ Feature: Set of tests to copy courses
 #	Scenario Outline: As a user, I want to be able to copy course with certain Material
 #		Given <userRole> logs in
 #		And <userRole> performs first login actions: data protection acceptance
-#		And <userRole> goes to courses page
+#		And <userRole> goes to rooms-overview
 #		And <userRole> creates course with name '<courseName>'
 #		And <userRole> chooses course with name '<courseName>'
 #		When <userRole> adds a topic with name '<topicName>'
 #		And <userRole> adds content Material
 #		And <userRole> clicks Save-changes button
-#		And <userRole> goes to courses page
+#		And <userRole> goes to rooms-overview
 #		And <userRole> should see that copied course with name '<courseName>' contains topic with name '<topicName>'
 #		Examples:
 #			| userRole | courseName             | topicName      | text                  |

@@ -13,10 +13,6 @@ When(/^.* creates course with name '([^']*)' and student '([^']*)'$/, function (
 	return addCoursePage.createCourseWithStudent(coursename, studentNameList);
 });
 
-When(/^.* goes to courses page$/, function () {
-	return courseListPage.goToCourses();
-});
-
 When(/^.* goes to rooms-overview$/, function () {
 	return roomsOverviewPage.goToRoomsOverview();
 });

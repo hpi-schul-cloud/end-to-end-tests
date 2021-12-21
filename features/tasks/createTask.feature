@@ -22,7 +22,7 @@ Feature: Set of tests to create tasks
 	@createTaskInTheCourse
 	Scenario Outline: As a user, I want to be able to create a simple task
 		When <userRole> logs in
-		And <userRole> goes to courses page
+		And <userRole> goes to rooms-overview
 		And <userRole> chooses course with name '<courseName>'
 		And <userRole> clicks Create-a-task button in the course '<courseName>'
 		And <userRole> sets task name '<taskName>' in task form
@@ -41,7 +41,7 @@ Feature: Set of tests to create tasks
 	@createPrivateTaskInTheCourse @e2eCore
 	Scenario Outline: As a user, I want to be able to create a private task
 		When <userRole> logs in
-		And <userRole> goes to courses page
+		And <userRole> goes to rooms-overview
 		And <userRole> chooses course with name '<courseName>'
 		And <userRole> clicks Create-a-task button in the course '<courseName>'
 		And <userRole> sets task name '<taskName>' in task form

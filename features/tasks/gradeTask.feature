@@ -35,7 +35,7 @@ Feature: Set of tests to submit and grade tasks
 	#Scenario Outline: As a user, I want to be able to grade a task submission by uploading a file
 	#When <userRole> logs in
 	#And <userRole> performs first login actions: data protection acceptance
-	#And <userRole> goes to courses page
+	#And <userRole> goes to rooms-overview
 	#When <userRole> creates course with name '<courseName>' and student '<studentName>'
 	#And <userRole> clicks Create-a-task button in the course '<courseName>'
 	#And <userRole> sets task name '<taskName>' in task form
