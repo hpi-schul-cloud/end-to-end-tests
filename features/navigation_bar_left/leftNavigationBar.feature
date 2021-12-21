@@ -9,9 +9,9 @@ Feature: Test set to check the left side menu items
         Given <userRole> logs in
         Then <userRole> clicks left navigation item 'logo'
         And <userRole> clicks left navigation item 'dashboard'
+        And <userRole> clicks left navigation item 'courses'
         And <userRole> clicks left navigation item 'teams'
         And <userRole> clicks left navigation item 'homework'
-        # TODO  And <userRole> clicks left navigation item 'rooms-overview'
         And <userRole> clicks left navigation item 'asked homework'
         And <userRole> clicks left navigation item 'private homework'
         And <userRole> clicks left navigation item 'archived homework'
@@ -41,7 +41,7 @@ Feature: Test set to check the left side menu items
         Given student logs in
         Then <userRole> clicks left navigation item 'logo'
         And <userRole> clicks left navigation item 'dashboard'
-        # TODO  And <userRole> clicks left navigation item 'rooms-overview'
+        And <userRole> clicks left navigation item 'courses'
         And <userRole> clicks left navigation item 'teams'
         And <userRole> clicks left navigation item 'homework'
         And <userRole> clicks left navigation item 'asked homework'

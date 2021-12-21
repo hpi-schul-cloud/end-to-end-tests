@@ -12,6 +12,7 @@ async function clickElementFromNavigation(selector) {
 const navItemsEnum = {
 	LOGO: 'logo',
 	DASHBOARD: 'dashboard',
+	COURSES: 'courses',
 	/*add value here*/  ROOMS_OVERVIEW: 'add_the_data-testid',
 	TEAMS: 'teams',
 	TASKS: 'tasks',
@@ -43,6 +44,7 @@ const navItemString1stLevel = "[data-testid='XXX']";
 const navItemString2ndLevel = "li[data-testid='XXX'] > a";
 const navItemLogo = navItemString1stLevel.replace('XXX', 'Startseite');
 const navItemDashboard = navItemString1stLevel.replace('XXX', 'Übersicht');
+const navItemCourses = navItemString1stLevel.replace('XXX', 'Kurse');
 const navItemRoomsOverview = navItemString1stLevel.replace('XXX', 'Rooms-Overview');
 const navItemTeams = navItemString1stLevel.replace('XXX', 'Teams');
 const navItemTasks = navItemString1stLevel.replace('XXX', 'Aufgaben');
@@ -77,6 +79,11 @@ async function clickNavItemLogo() {
 
 async function clickNavItemDashboard() {
 	await clickElementFromNavigation(navItemDashboard);
+}
+
+/* to be deleted after the rooms-implementation logic  */
+async function clickNavItemCourses() {
+	await clickElementFromNavigation(navItemCourses)
 }
 
 /* temporarily used before switching to rooms-overview logic, to be deleted later! */
@@ -219,6 +226,7 @@ module.exports = {
 	navItemsEnum,
 	clickNavItemLogo,
 	clickNavItemDashboard,
+	clickNavItemCourses,
 	clickNavItemTeams,
 	clickNavItemTasks,
 	clickNavItemFiles,
