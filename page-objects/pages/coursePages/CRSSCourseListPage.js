@@ -16,7 +16,7 @@ const courseWrapper = '.sc-card-wrapper';
 const titleOfCourse = '.title';
 const memberBtn = '.btn-member';
 const importCourseBtn = '[data-testid="import-course-btn"]';
-const createCourseBtn = '[data-testid="create-course-btn"]';
+const createCourseBtn = '[data-testid="add-course-button"]';
 const listOfMembersSel = '#member-modal-body > ol > li';
 const popupMembers = ".member-modal.in[role='dialog']";
 const closeMemberModalBtn = ".member-modal button.close";
