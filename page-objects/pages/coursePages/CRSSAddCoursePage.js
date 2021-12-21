@@ -48,7 +48,7 @@ const courseColoursList = [
 ];
 
 async function goToAddCourses() {
-	await navigationLeftPage.clickNavItemCourses();
+	await navigationLeftPage.clickNavItemRoomsOverview();
 	await courseListPage.clickCreateCourseBtn();
 }
 
