@@ -82,8 +82,7 @@ async function clickNavItemDashboard() {
 
 /* temporarily used before switching to rooms-overview logic, to be deleted later! */
 async function loadNavItemRoomsOverview() {
-	await driver.url(navItemRoomsOverviewUrl);
-	await waitHelpers.waitUntilPageLoads();
+	await elementHelpers.loadPageNuxtClient(navItemRoomsOverviewUrl);
 }
 
 /* to be used after switching to rooms-overview logic */
