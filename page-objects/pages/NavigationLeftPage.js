@@ -83,7 +83,6 @@ async function clickNavItemDashboard() {
 /* temporarily used before switching to rooms-overview logic, to be deleted later! */
 async function loadNavItemRoomsOverview() {
 	await driver.url(navItemRoomsOverviewUrl);
-	await expect(navItemRoomsOverviewUrl).to.equal('https://default-main.cd.dbildungscloud.dev/rooms-overview')
 	await waitHelpers.waitUntilPageLoads();
 }
 
