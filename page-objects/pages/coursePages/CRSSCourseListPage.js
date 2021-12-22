@@ -11,7 +11,7 @@ const CRSSGeneralCoursePage = require('./CRSSGeneralCoursePage');
 
 const courseDescription = '.ckcontent';
 const courseHeader = '.sc-card-header';
-const searchCourseFiled = '#input-83';
+const searchCourseFiled = '[data-testid="search-field"]';;
 const courseWrapper = '.sc-card-wrapper';
 const titleOfCourse = '.title';
 const memberBtn = '.btn-member';
