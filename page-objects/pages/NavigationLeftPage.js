@@ -2,6 +2,7 @@
 
 const { expect } = require('chai');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
+const waitHelpers = require('../../runtime/helpers/waitHelpers');
 const { CLIENT } = require('../../shared-objects/servers');
 
 async function clickElementFromNavigation(selector) {
@@ -82,6 +83,7 @@ async function clickNavItemDashboard() {
 /* temporarily used before switching to rooms-overview logic, to be deleted later! */
 async function loadNavItemRoomsOverview() {
 	await driver.url(navItemRoomsOverviewUrl);
+	await waitHelpers.waitUntilPageLoads();
 }
 
 /* to be used after switching to rooms-overview logic */
