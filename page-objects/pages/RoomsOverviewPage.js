@@ -18,7 +18,7 @@ async function getListOfElementsRoomsOverview() {
     for (var i=0; i<=rows; i++) {
         let currentRow = `${rowsSelector}: nth-child(${i})`;
         let columns = await driver.$$(`${currentRow} > ${columsSelector}`);
-        for (vaj=0; j<=columns; j++ ) {
+        for (var j=0; j<=columns; j++ ) {
             let nameOfCurrentElementSel = `${rowsSelector}:nth-child(${i}) > div:nth-child(${j}) > ${nameOfTheCourseSelector}`;
             let nameOfCurrentElement = await nameOfCurrentElementSel.getText();
             coursesOnThePage.push(nameOfCurrentElement)
@@ -27,7 +27,7 @@ async function getListOfElementsRoomsOverview() {
     return coursesOnThePage;
 }
 
-async function isCourseNameDisplayedOnTheList(name){
+async function isCourseNameDisplayedOnTheList(name) {
     let allCourseNamesOnTheRoomsOverview = await getListOfElementsRoomsOverview();
     expect(allCourseNamesOnTheRoomsOverview).to.include(name)
 }
