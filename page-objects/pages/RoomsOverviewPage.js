@@ -14,7 +14,7 @@ async function goToRoomsOverview() {
 /* returns array of strings, also empty */
 async function getListOfElementsRoomsOverview() {
     const rows = await getNumberOfRowsRoomsOverview();
-    let coursesOnThePage = [],
+    let coursesOnThePage = [];
     for (var i=0; i<=rows; i++) {
         let currentRow = `${rowsSelector}: nth-child(${i})`;
         let columns = await driver.$$(`${currentRow} > ${columsSelector}`);
