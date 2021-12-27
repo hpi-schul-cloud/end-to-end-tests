@@ -3,12 +3,42 @@
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const navigationLeftPage = require('./NavigationLeftPage');
 
+const rowsSelector = '.room-overview-row'
+const columsSelector = ".room-overview-col"
+const nameOfTheCourseSelector = ".justify-center.mt-1.sub-title"
+
 async function goToRoomsOverview() {
 	await navigationLeftPage.loadNavItemRoomsOverview();
 }
 
-/*
-* to be commented in after implementation of rooms-overview logic
+/* returns array of strings, also empty */
+async function getListOfElementsRoomsOverview() {
+    const rows = await getNumberOfRowsRoomsOverview();
+    let coursesOnThePage = [],
+    for (var i=0; i<=rows; i++) {
+        let currentRow = `${rowsSelector}: nth-child(${i})`;
+        let columns = await driver.$$(`${currentRow} > ${columsSelector}`);
+        for (vaj=0; j<=columns; j++ ) {
+            let nameOfCurrentElementSel = `${rowsSelector}:nth-child(${i}) > div:nth-child(${j}) > ${nameOfTheCourseSelector}`;
+            let nameOfCurrentElement = await nameOfCurrentElementSel.getText();
+            coursesOnThePage.push(nameOfCurrentElement)
+        }
+    }
+    return coursesOnThePage;
+}
+
+async function isCourseNameDisplayedOnTheList(name){
+    let allCourseNamesOnTheRoomsOverview = await getListOfElementsRoomsOverview();
+    expect(allCourseNamesOnTheRoomsOverview).to.include(name)
+}
+
+/* private helper method which counts the number of rows on the page and therefore the number of "subcontainers" of the elements */
+
+async function getNumberOfRowsRoomsOverview() {
+	await elementHelpers.getListOfAllElements(rowsSelector);
+}
+
+/* to be commented in after implementation of rooms-overview logic
 async function goToRoomsOverview() {
     await navigationLeftPage.clickNavItemRoomsOverview();
 }
@@ -16,4 +46,7 @@ async function goToRoomsOverview() {
 
 module.exports = {
     goToRoomsOverview,
+    getListOfElementsRoomsOverview,
+    isCourseNameDisplayedOnTheList
+
 }

@@ -51,12 +51,6 @@ async function areImportAndCreateCourseBtnsVisible() {
 	await waitHelpers.waitUntilElementIsVisible(createCourseBtn);
 }
 
-async function isCourseDisplayedCorrectlyInSection(courseName, section) {
-	const listOfCourseTitlesForSection = await getListOfCourseTitlesInSection(section);
-	const msg = "Course with name: '" + courseName + "' is not last on the list: " + listOfCourseTitlesForSection;
-	expect(listOfCourseTitlesForSection , msg).to.includes(courseName);
-}
-
 async function isCourseOnListInSection(coursename, section) {
 	const allCourses = await getListOfCourseTitlesInSection(section);
 	return allCourses.includes(coursename);
@@ -96,13 +90,13 @@ function getColourSelector(colourName) {
 		case 'blue':
 			colourSelector = courseColours.blue;
 			break;
-		case 'lila': 
+		case 'lila':
 			colourSelector = courseColours.lila;
 			break;
-		case 'violet': 
+		case 'violet':
 			colourSelector = courseColours.violet;
 			break;
-		case 'brown': 
+		case 'brown':
 			colourSelector = courseColours.brown;
 
 			break;
@@ -314,7 +308,6 @@ module.exports = {
 	areImportAndCreateCourseBtnsVisible,
 	areMembersOnTheListInCourseForSection,
 	isCorrectNumberOfMembersInCourseForSection,
-	isCourseDisplayedCorrectlyInSection,
 	isCourseOnListInSection,
 	isCourseColour,
 	isCourseDescription,

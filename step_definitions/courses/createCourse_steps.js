@@ -74,7 +74,7 @@ Then(/^.* course with name '([^']*)' is not visible on the list$/, async functio
 });
 
 Then(/^.* course with name '([^']*)' is displayed correctly on the list$/, async function (courseName) {
-	await courseListPage.isCourseDisplayedCorrectlyInSection(courseName, courseListPage.section.activeCourses);
+	return roomsOverviewPage.isCourseNameDisplayedOnTheList(courseName);
 });
 
 Then(/^.* course with name '([^']*)' contains number of members '([^']*)'$/, async function (courseName, membersCount) {
