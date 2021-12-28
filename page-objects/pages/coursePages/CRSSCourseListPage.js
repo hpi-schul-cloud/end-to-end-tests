@@ -36,6 +36,20 @@ const courseColours = {
 	brown: 'background: #795548',
 
 };
+const roomsOverviewAvatarColours = {
+	grey: 'rgb(84, 97, 110)',
+	pink: 'rgb(236, 64, 122)',
+	red: 'rgb(213, 0, 0)',
+	orange: 'rgb(239, 108, 0)',
+	moose: 'rgb(130, 119, 23)',
+	grasgreen: 'rgb(104, 159, 56)',
+	seagreen: 'rgb(0, 150, 136)',
+	skyblue: 'rgb(0, 145, 234)',
+	blue: 'rgb(48, 79, 254)',
+	lila: 'rgb(213, 0, 249)',
+	violet: 'rgb(156, 39, 176)',
+	brown: 'rgb(121, 85, 72)',
+}
 const section = {
 	allCourses: '.section-courses',
 	activeCourses: '.section-activeCourses',
@@ -316,4 +330,5 @@ module.exports = {
 	isCountOfDisplayedCoursesForSection,
 	isCountOfCoursesWithNameOnList,
 	isCourseVisible,
+	roomsOverviewAvatarColours
 };
