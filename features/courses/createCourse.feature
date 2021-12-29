@@ -24,13 +24,14 @@ Feature: Set of tests to create courses
         And <userRole> should see that no student is set
         When <userRole> clicks Next-section button
         Then <userRole> should see that '3' section is opened
-        When <userRole> clicks Go-to-course-list button
-        Then <userRole> should see that course with name '<courseName>' is visible on the list
+        #When <userRole> clicks Go-to-course-list button
+        When <userRole> goes to rooms-overview
+        #Then <userRole> should see that course with name '<courseName>' is visible on the list
         And <userRole> should see that course with name '<courseName>' is displayed correctly on the list
         And <userRole> should see that color of the course with name '<courseName>' is '<courseColour>' that was selected during the creation process
         Examples:
             | userRole | userName                        | password       | courseName        | courseColour   |
-            | teacher  | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | Mathe@Sport&Music | violet         |
+            | teacher  | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | Music             | violet         |
 
     @createCourseWithStudent @e2eCore
     Scenario Outline: As a user, I want to be able to create a course that student should see
