@@ -1,5 +1,6 @@
 /*[url/rooms-overview*/
 'use strict';
+const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const sharedHelpers = require('../../runtime/helpers/sharedHelpers');
 const navigationLeftPage = require('./NavigationLeftPage');
 
@@ -51,8 +52,11 @@ async function isCourseNameDisplayedOnTheList(name) {
     expect(allCourseNamesOnTheRoomsOverview).to.include(name)
 }
 
-async function getSelectorOfTheCourseColourByName(nameOfCourse) {
-    const rows = await getNumberOfRowsRoomsOverview();
+/* returns a string (selector) of the element stated in parameted on the 2nd place ("property"), eg.:
+course(for the whole ements),
+colour (selector where the colour of the course is defined) */
+async function getSelectorOfTheCoursePropertyByName(nameOfCourse, property) {
+	const rows = await getNumberOfRowsRoomsOverview();
     for (var i=1; i<=rows; i++) {
         let currentRow = `${rowsSelector}:nth-child(${i})`;
         let columnsEls = await driver.$$(`${elementsContainer} > ${currentRow} > ${columsSelector}`);
@@ -62,7 +66,12 @@ async function getSelectorOfTheCourseColourByName(nameOfCourse) {
             let nameOfCurrentElementSel = await sharedHelpers.getElement(`${elementsContainer} > ${rowsSelector}:nth-child(${i}) > ${columsSelector}:nth-child(${j}) > div div:nth-child(2)`);
             let nameOfCurrentElement = await nameOfCurrentElementSel.getText();
             if (nameOfCurrentElement==nameOfCourse) {
-                return `${elementsContainer} > ${rowsSelector}:nth-child(${i}) > ${columsSelector}:nth-child(${j})  > div > span > div.v-avatar`;
+				if (property=="colour") {
+					return `${elementsContainer} > ${rowsSelector}:nth-child(${i}) > ${columsSelector}:nth-child(${j})  > div > span > div.v-avatar`;
+				}
+				if (property=="courseSel") {
+					return `${elementsContainer} > ${rowsSelector}:nth-child(${i}) > ${columsSelector}:nth-child(${j})`;
+				}
             }
         }
     }
@@ -71,11 +80,16 @@ async function getSelectorOfTheCourseColourByName(nameOfCourse) {
 }
 
 async function isCourseColour(courseName, colour) {
-	const courseColourSelString = await getSelectorOfTheCourseColourByName(courseName);
+	const courseColourSelString = await getSelectorOfTheCoursePropertyByName(courseName, colour);
 	const courseColourSel = await sharedHelpers.getElement(courseColourSelString);
 	const colourIdInTheSelector = await courseColourSel.getAttribute("style");
 	const colourId = await getColourId(colour);
 	expect(colourIdInTheSelector).to.include(colourId);
+}
+
+async function clickOnTheElementWithName(courseName) {
+	let selectorOfTheCourseStr = await getSelectorOfTheCoursePropertyByName(name, courseSel);
+	await elementHelpers.clickAndWait(selectorOfTheCourseStr);
 }
 
 async function getColourId(colourName) {
@@ -144,6 +158,7 @@ module.exports = {
     goToRoomsOverview,
     getListOfElementsRoomsOverview,
     isCourseNameDisplayedOnTheList,
-    isCourseColour
+	isCourseColour,
+	clickOnTheElementWithName
 
 }

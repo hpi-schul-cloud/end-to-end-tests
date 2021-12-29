@@ -37,7 +37,7 @@ When(/^.* clicks on members icon in course with name '([^']*)'$/, async function
 });
 
 When(/^.* chooses course with name '([^']*)'$/, function (courseName) {
-	return courseListPage.clickOnCourseInSection(courseName, courseListPage.section.activeCourses);
+	return roomsOverviewPage.clickOnTheElementWithName(courseName);
 });
 
 When(/^.* chooses himself as a Course teacher$/, async function () {
