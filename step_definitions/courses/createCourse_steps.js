@@ -66,15 +66,11 @@ Then(/^.* buttons: Import-course, Create-new-course are visible$/, function () {
 });
 
 Then(/^.* course with name '([^']*)' is visible on the list$/, async function (courseName) {
-	return courseListPage.isCourseVisible(courseName, courseListPage.section.activeCourses, true);
+	return  roomsOverviewPage.isCourseNameDisplayedOnTheList(courseName);
 });
 
 Then(/^.* course with name '([^']*)' is not visible on the list$/, async function (courseName) {
 	return courseListPage.isCourseVisible(courseName, courseListPage.section.activeCourses, false);
-});
-
-Then(/^.* course with name '([^']*)' is displayed correctly on the list$/, async function (courseName) {
-	return roomsOverviewPage.isCourseNameDisplayedOnTheList(courseName);
 });
 
 Then(/^.* course with name '([^']*)' contains number of members '([^']*)'$/, async function (courseName, membersCount) {
