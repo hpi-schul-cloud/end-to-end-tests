@@ -35,10 +35,10 @@ Feature: Set of tests to create courses
     Scenario Outline: As a user, I want to be able to create a course that student should see
         Given <userRole> logs in with email '<username>' and password '<password>'
         And <userRole> creates course with name '<courseName>' and student '<studentName>'
-        And <userRole> sees that course with name '<courseName>' contains number of members '<membersNumber>'
-        And <userRole> clicks on members icon in course with name '<courseName>'
-        Then <userRole> should see that course members are visible on the list '<studentName>'
-        When <userRole> closes member modal window
+        # And <userRole> sees that course with name '<courseName>' contains number of members '<membersNumber>'
+        # And <userRole> clicks on members icon in course with name '<courseName>'
+        # Then <userRole> should see that course members are visible on the list '<studentName>'
+        # When <userRole> closes member modal window
         And <userRole> logs out
         And user arrives on the Schul-Cloud homepage
         And <userRole> '<studentName>' logs in with email '<studentLogin>' and password '<password>'
