@@ -115,7 +115,7 @@ Then(/^.* '([^']*)' section is opened$/, async function (sectionNumber) {
 });
 
 Then(/^.* color of the course with name '([^']*)' is '([^\']*)' [^\']*$/, async function (courseName, courseColour) {
-	await courseListPage.isCourseColour(courseName, courseColour, courseListPage.section.activeCourses);
+	await roomsOverviewPage.isCourseColour(courseName, courseColour);
 });
 
 Then(/^.* his.hers name is entered by default in teachers' field$/, async function () {
