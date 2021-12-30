@@ -1,6 +1,7 @@
 'use strict';
 
 const courseTopicsPage = require('../../page-objects/pages/coursePages/CRSSCourseTopicsPage');
+const leftNavigation = require('../../page-objects/pages/NavigationLeftPage');
 const addEditTopicPage = require('../../page-objects/pages/coursePages/CRSSAddEditTopicPage');
 const CRSSCourseTopicsPage = require('../../page-objects/pages/coursePages/CRSSCourseTopicsPage');
 const CRSSCourseListPage = require('../../page-objects/pages/coursePages/CRSSCourseListPage');
@@ -61,7 +62,7 @@ Then(/^.* content text contains text '([^']*)'$/, async function (contentText) {
 });
 
 Then(/^.* course with name '([^']*)' contains topic with name '([^']*)'$/, async function (coursename, topicname) {
-	await CRSSCourseListPage.goToCourses();
+	await leftNavigation.loadNavItemRoomsOverview();
 	await CRSSCourseTopicsPage.isTopicInCourseInSection(
 		coursename,
 		topicname,

@@ -6,6 +6,7 @@ const elementHelpers = require("../../../runtime/helpers/elementHelpers");
 const CRSSCourseListPage = require("./CRSSCourseListPage");
 
 const courseSettingsBtn = ".fa.fa-ellipsis-v.i-cog";
+const courseDescriptionSel = '#courseDescription';
 const topicSelector = '#topic-list .card';
 const trashcanBtnSelector = ".fa-trash-o";
 const deleteTopicButtonInPopup = "body > div.modal.fade.delete-modal.in > div > div > div.modal-footer > button.btn.btn-primary.btn-submit";
@@ -92,4 +93,5 @@ module.exports = {
 	copyCourseWithName,
 	clickOnTopicDeleteTrashcanButton,
 	clickDeleteTopicButtonInPopup,
+	courseDescriptionSel,
 };

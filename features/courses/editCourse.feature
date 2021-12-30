@@ -16,9 +16,9 @@ Feature: Set of tests to edit courses
         And <userRole> chooses course colour '<courseColour>'
         And <userRole> clicks on Save-changes in course button
         And <userRole> goes to rooms-overview
-        Then <userRole> should see that course with name '<changeName>' is displayed correctly on the list
+        Then <userRole> should see that course with name '<changeName>' is visible on the list
         And <userRole> should see that course name '<changeName>' with description correctly displayed '<description>'
-        And <userRole> should see that course name '<changeName>' with color correctly displayed '<courseColour>'
+        And <userRole> should see that color of the course with name '<courseName>' is '<courseColour>' that was selected during the creation process
         Examples:
             | userRole | userName                        | password       | courseName                    | courseColour | changeName | description |
             | teacher  | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | Course with subject and tasks | brown        | Sport      | I LIKE IT   |

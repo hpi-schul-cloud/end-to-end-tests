@@ -1,12 +1,12 @@
 /*[url/courses]*/
 'use strict';
-const navigationTopPage = require('../NavigationTopPage');
+
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 const waitHelpers = require('../../../runtime/helpers/waitHelpers');
-const startPage = require('../../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin');
-const loginPage = require('../../../page-objects/pages/generalPagesBeforeLogin/LoginPage');
+const sharedHelpers = require('../../../runtime/helpers/sharedHelpers');
 const navigationLeftPage = require('../NavigationLeftPage');
-const CRSSGeneralCoursePage = require('./CRSSGeneralCoursePage');
+const generalCoursePage = require('./CRSSGeneralCoursePage');
+const roomsOverview = require('../RoomsOverviewPage');
 
 
 const courseDescription = '.ckcontent';
@@ -36,20 +36,7 @@ const courseColours = {
 	brown: 'background: #795548',
 
 };
-const roomsOverviewAvatarColours = {
-	grey: 'rgb(84, 97, 110)',
-	pink: 'rgb(236, 64, 122)',
-	red: 'rgb(213, 0, 0)',
-	orange: 'rgb(239, 108, 0)',
-	moose: 'rgb(130, 119, 23)',
-	grasgreen: 'rgb(104, 159, 56)',
-	seagreen: 'rgb(0, 150, 136)',
-	skyblue: 'rgb(0, 145, 234)',
-	blue: 'rgb(48, 79, 254)',
-	lila: 'rgb(213, 0, 249)',
-	violet: 'rgb(156, 39, 176)',
-	brown: 'rgb(121, 85, 72)',
-}
+
 const section = {
 	allCourses: '.section-courses',
 	activeCourses: '.section-activeCourses',
@@ -243,7 +230,7 @@ async function clickPupilIconInCourseInSection(courseName, section) {
 async function goToTasksOfTheCourse(coursename, section) {
 	await goToCourses();
 	await clickOnCourseInSection(coursename, section);
-	await CRSSGeneralCoursePage.openTasksTab();
+	await generalCoursePage.openTasksTab();
 }
 
 async function isCountOfCourseMembers(courseName, expectedCountOfCourseMembers, section) {
@@ -253,9 +240,11 @@ async function isCountOfCourseMembers(courseName, expectedCountOfCourseMembers, 
 	expect(actualCountOfCourseMembers, msg + resultMsg).to.equal(parseInt(expectedCountOfCourseMembers));
 }
 
-async function isCourseDescription(courseName, expectedDescription, section) {
-	const course = await getCourseWithNameInSection(courseName, section);
-	const actualDescription = course.courseDescription;
+async function isCourseDescription(courseName, expectedDescription) {
+	await roomsOverview.clickOnTheElementWithName(courseName)
+	await generalCoursePage.clickEditCourse();
+	const descriptionElement = await sharedHelpers.getElement(generalCoursePage.courseDescriptionSel);
+	const actualDescription = await descriptionElement.getText();
 	const msg = 'Course with name: ' + courseName + ' has wrong description. \n';
 	const resultMsg = 'Expected: ' + expectedDescription + ', Actual: ' + actualDescription;
 	expect(actualDescription, msg + resultMsg).to.equal(expectedDescription);
@@ -330,5 +319,4 @@ module.exports = {
 	isCountOfDisplayedCoursesForSection,
 	isCountOfCoursesWithNameOnList,
 	isCourseVisible,
-	roomsOverviewAvatarColours
 };
