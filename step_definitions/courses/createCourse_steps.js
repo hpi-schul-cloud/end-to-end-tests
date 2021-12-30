@@ -19,7 +19,6 @@ When(/^.*goes to rooms-overview$/, function () {
 	/* follow-up: change to: return roomsOverviewPage.goToRoomsOverview()*/
 });
 
-
 When(/^.* clicks Create-new-course button$/, function () {
 	return courseListPage.clickCreateCourseBtn();
 });
