@@ -48,9 +48,17 @@ async function getListOfElementsRoomsOverview() {
     return coursesOnThePage;
 }
 
-async function isCourseNameDisplayedOnTheList(name) {
-    let allCourseNamesOnTheRoomsOverview = await getListOfElementsRoomsOverview();
-    expect(allCourseNamesOnTheRoomsOverview).to.include(name)
+async function isCourseNameDisplayedOnTheList(courseName, expectedValue) {
+	let allCourseNamesOnTheRoomsOverview = await getListOfElementsRoomsOverview();
+	const defaultString = `Course with name: ${courseName}`;
+
+	const msg = expectedValue
+		? `${defaultString} should be visible on the list`
+		: `${defaultString} should not be visible on the list`;
+
+	const resultMsg = 'Actual list of courses: ' + allCourseNamesOnTheRoomsOverview;
+	const isCourseOnList = await allCourseNamesOnTheRoomsOverview.includes(courseName);
+	expect(isCourseOnList, msg + resultMsg).to.equal(expectedValue);
 }
 
 
