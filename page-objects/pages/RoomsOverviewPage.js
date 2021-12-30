@@ -8,7 +8,6 @@ const elementsContainer = ".rooms-container"
 const rowsSelector = '.room-overview-row'
 const columsSelector = ".room-overview-col"
 const createCourseBtn = '[data-testid="add-course-button"]';
-const searchFieldSelector = '[data-testid="search-field"]';
 
 
 
@@ -162,10 +161,6 @@ async function getNumberOfRowsRoomsOverview() {
 	return numberOfRowsRoomsOverview.length;
 }
 
-async function setCourseNameIntoSearchInputField(courseName) {
-	await waitHelpers.waitAndSetValue(searchFieldSelector, courseName);
-}
-
 
 /* to be commented in after implementation of rooms-overview logic
 async function goToRoomsOverview() {
@@ -180,5 +175,4 @@ module.exports = {
 	isCourseColour,
 	clickOnTheElementWithName,
 	clickCreateCourseBtn,
-	setCourseNameIntoSearchInputField
 }
