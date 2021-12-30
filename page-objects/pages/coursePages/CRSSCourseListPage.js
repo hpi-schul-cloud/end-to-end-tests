@@ -109,10 +109,6 @@ function getColourSelector(colourName) {
 	return colourSelector;
 }
 
-async function setCourseNameIntoSearchInputField(courseName) {
-	await waitHelpers.waitAndSetValue(searchCourseFiled, courseName);
-}
-
 async function getCountOfDisplayedCoursesForSection(section) {
 	const elem = await getListOfCoursesInSection(section);
 	var numberOfDisplayedCourses = 0;
