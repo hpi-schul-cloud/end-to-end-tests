@@ -11,7 +11,10 @@ const courseDescriptionSel = '#courseDescription';
 const topicSelector = '#topic-list .card';
 const trashcanBtnSelector = ".fa-trash-o";
 const deleteTopicButtonInPopup = "body > div.modal.fade.delete-modal.in > div > div > div.modal-footer > button.btn.btn-primary.btn-submit";
-const courseMembersSelector = "#studentsId_chosen  chosen-drop chosen-results > li"
+const courseMembersSelector = "#studentsId_chosen > ul .search-choice"
+
+
+
 
 const setting = {
 	editCourse: '.btn-course-edit',
@@ -84,15 +87,8 @@ async function clickDeleteTopicButtonInPopup() {
 }
 
 async function getNumberOfCourseMembers() {
-	const studentOptionsArray = await driver.$$(courseMembersSelector);
-	let selectedOptions=0;
-	for (var i=1; i<=studentOptionsArray.length; i++) {
-		let elementSelector = await sharedHelpers.getElement(`${courseMembersSelector}:nth-child${i}`);
-		if((elementSelector.getAttribute('class'))=="result-selected") {
-			selectedOptions=selectedOptions+1
-		}
-	}
-	return selectedOptions;
+	const selectedOptions = await driver.$$(courseMembersSelector);
+	return selectedOptions.length
 }
 
 module.exports = {

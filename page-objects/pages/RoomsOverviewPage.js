@@ -168,10 +168,12 @@ async function goToallCourses() {
 }
 
 async function isNumberOfCourseMembers(courseName, expectedNumberOfMembers) {
+	await navigationLeftPage.loadNavItemRoomsOverview()
 	await clickOnTheElementWithName(courseName);
 	await generalCoursePage.clickEditCourse();
 	const numOfMembers = await generalCoursePage.getNumberOfCourseMembers();
-	expect(numOfMembers).to.equal(expectedNumberOfMembers);
+	const membersToString = numOfMembers.toString();
+	expect(membersToString).to.equal(expectedNumberOfMembers);
 
 }
 
