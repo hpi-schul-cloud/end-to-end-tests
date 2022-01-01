@@ -9,7 +9,7 @@ Feature: Set of tests to search courses
         Given <userRole> logs in with email '<username>' and password '<password>'
         And <userRole> goes to rooms-overview
         When <userRole> enters course name '<courseName>' into search field
-        And <userRole> should see that course with name '<courseName>' is displayed correctly on the list
+        And <userRole> should see that course with name '<courseName>' is visible on the list
         Examples:
             | userRole | username                         | password       | courseName |
             | teacher  | karl.teacher.qa@schul-cloud.org  | Schulcloud1qa! | Biologie   |
