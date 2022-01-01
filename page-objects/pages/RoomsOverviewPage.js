@@ -3,6 +3,7 @@
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const sharedHelpers = require('../../runtime/helpers/sharedHelpers');
 const navigationLeftPage = require('./NavigationLeftPage');
+const generalCoursePage = require('../pages/coursePages/CRSSGeneralCoursePage');
 
 const elementsContainer = ".rooms-container"
 const rowsSelector = '.room-overview-row'
@@ -166,6 +167,13 @@ async function goToallCourses() {
 	await elementHelpers.clickAndWait(goToallCourses)
 }
 
+async function isNumberOfCourseMembers(courseName, expectedNumberOfMembers) {
+	await clickOnTheElementWithName(courseName);
+	await generalCoursePage.clickEditCourse();
+	const numOfMembers = await generalCoursePage.getNumberOfCourseMembers();
+	expect(numOfMembers).to.equal(expectedNumberOfMembers);
+
+}
 
 /* to be commented in after implementation of rooms-overview logic
 async function goToRoomsOverview() {
@@ -181,4 +189,5 @@ module.exports = {
 	clickOnTheElementWithName,
 	clickCreateCourseBtn,
 	goToallCourses,
+	isNumberOfCourseMembers,
 }

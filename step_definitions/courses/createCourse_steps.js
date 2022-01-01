@@ -73,8 +73,7 @@ Then(/^.* course with name '([^']*)' is not visible on the list$/, async functio
 });
 
 Then(/^.* course with name '([^']*)' contains number of members '([^']*)'$/, async function (courseName, membersCount) {
-	await courseListPage.goToCourses();
-	await courseListPage.isCountOfCourseMembers(courseName, membersCount, courseListPage.section.activeCourses);
+	await roomsOverviewPage.isNumberOfCourseMembers(courseName, membersCount);
 });
 
 Then(/^.* course members are visible on the list '([^']*)'$/, async function (listOfStudentNames) {
