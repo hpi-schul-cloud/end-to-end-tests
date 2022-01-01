@@ -102,11 +102,12 @@ async function createCourseWithStudent(courseName, studentName = 'default') {
 }
 
 async function createCourse(courseName) {
-	await goToAddCourses();
+	await navigationLeftPage.loadNavItemRoomsOverview();
+	await roomsOverview.clickCreateCourseBtn()
 	await setCourseName(courseName);
 	await goToNextSection();
 	await goToNextSection();
-	await clickGoToCourseListBtn();
+	await navigationLeftPage.loadNavItemRoomsOverview();
 }
 
 async function isTeachersNameSetByDefault() {
