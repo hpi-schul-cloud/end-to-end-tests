@@ -31,6 +31,7 @@ When(/^.* clicks Go-to-course-list button$/, async function () {
 	await addCoursePage.clickGoToCourseListBtn();
 });
 
+/* Unused step. Consider removing it! */
 When(/^.* clicks on members icon in course with name '([^']*)'$/, async function (courseName) {
 	await courseListPage.clickPupilIconInCourseInSection(courseName, courseListPage.section.activeCourses);
 });
@@ -51,6 +52,7 @@ When(/^.* chooses course colour '([^']*)'$/, function (courseColour) {
 	return addCoursePage.setColour(courseColour);
 });
 
+/* Unused step. Consider removing it! */
 When(/^.* closes member modal window$/, async function () {
 	await courseListPage.closeMemberModal();
 });
@@ -76,6 +78,7 @@ Then(/^.* course with name '([^']*)' contains number of members '([^']*)'$/, asy
 	await roomsOverviewPage.isNumberOfCourseMembers(courseName, membersCount);
 });
 
+/* Unused step. Consider removing it! */
 Then(/^.* course members are visible on the list '([^']*)'$/, async function (listOfStudentNames) {
 	await courseListPage.areMembersOnTheListInCourseForSection(listOfStudentNames);
 });
