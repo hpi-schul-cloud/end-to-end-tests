@@ -4,7 +4,6 @@ Feature: Set of tests to create courses
     Background: User opens Schul-cloud homepage Website
         Given user arrives on the Schul-Cloud homepage
 
-
     @createCourseCorrectly @e2eCore
     Scenario Outline: As a user, I want to be able to submit compulsory fields by creating the course
         Given <userRole> logs in with email '<userName>' and password '<password>'
@@ -28,8 +27,8 @@ Feature: Set of tests to create courses
         Then <userRole> should see that course with name '<courseName>' is visible on the list
         And <userRole> should see that color of the course with name '<courseName>' is '<courseColour>' that was selected during the creation process
         Examples:
-            | userRole | userName                        | password       | courseName        | courseColour   |
-            | teacher  | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | Music             | violet         |
+            | userRole | userName                        | password       | courseName | courseColour |
+            | teacher  | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | Music      | violet       |
 
     @createCourseWithStudent @e2eCore
     Scenario Outline: As a user, I want to be able to create a course that student should see
@@ -45,5 +44,5 @@ Feature: Set of tests to create courses
         And <userRole> goes to rooms-overview
         Then <userRole> should see that course with name '<courseName>' is visible on the list
         Examples:
-            | userRole | courseName | studentName    | username                        | password       | studentLogin                     | membersNumber |
-            | teacher  | Ballet     | Amelia Strobl	 | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | amelia.strobl.qa@schul-cloud.org | 1             |
+            | userRole | courseName | studentName   | username                        | password       | studentLogin                     | membersNumber |
+            | teacher  | Ballet     | Amelia Strobl | karl.teacher.qa@schul-cloud.org | Schulcloud1qa! | amelia.strobl.qa@schul-cloud.org | 1             |

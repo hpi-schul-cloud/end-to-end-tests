@@ -4,14 +4,11 @@ const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const sharedHelpers = require('../../runtime/helpers/sharedHelpers');
 const navigationLeftPage = require('./NavigationLeftPage');
 const generalCoursePage = require('../pages/coursePages/CRSSGeneralCoursePage');
-
 const elementsContainer = ".rooms-container"
 const rowsSelector = '.room-overview-row'
 const columsSelector = ".room-overview-col"
 const createCourseBtn = '[data-testid="add-course-button"]';
-const toAllCoursesSelector = '[data-testid="go-to-all-courses"]';
-
-
+const toAllCourses = '[data-testid="go-to-all-courses"]';
 
 const roomsOverviewAvatarColours = {
 	grey: 'rgb(84, 97, 110)',
@@ -27,7 +24,6 @@ const roomsOverviewAvatarColours = {
 	violet: 'rgb(156, 39, 176)',
 	brown: 'rgb(121, 85, 72)',
 }
-
 
 async function goToRoomsOverview() {
 	await navigationLeftPage.loadNavItemRoomsOverview();
@@ -63,9 +59,7 @@ async function isCourseNameDisplayedOnTheList(courseName, expectedValue) {
 	expect(isCourseOnList, msg + resultMsg).to.equal(expectedValue);
 }
 
-
 /* returns a string (basic selector) of the element matching the name in the parameter. Can be modified to get more precise information.*/
-
 async function getBasicSelectorOfTheCourseByName(nameOfCourse) {
 	const rows = await getNumberOfRowsRoomsOverview();
     for (var i=1; i<=rows; i++) {
@@ -88,7 +82,6 @@ async function getBasicSelectorOfTheCourseByName(nameOfCourse) {
 async function getCourseColourSel(courseName) {
 	let basicSel = await getBasicSelectorOfTheCourseByName(courseName);
 	return `${basicSel} > div > span > div.v-avatar`
-
 }
 
 async function isCourseColour(courseName, colour) {
@@ -146,25 +139,22 @@ async function getColourId(colourName) {
 			break;
 		case 'brown':
 			colourId =roomsOverviewAvatarColours.brown;
-
 			break;
-
 		default:
-			console.error(`This colour: ${colourName} does not exist on the list of possible choices`);
+			console.error(`This colour: ${colourName} does not exist on the list of possible choices!`);
 			break;
 	}
 	return colourId;
 }
 
 /* private helper method which counts the number of rows on the page and therefore the number of "subcontainers" of the elements */
-
 async function getNumberOfRowsRoomsOverview() {
     let numberOfRowsRoomsOverview = await driver.$$(rowsSelector);
 	return numberOfRowsRoomsOverview.length;
 }
 
 async function goToallCourses() {
-	await elementHelpers.clickAndWait(goToallCourses)
+	await elementHelpers.clickAndWait(toAllCourses)
 }
 
 async function isNumberOfCourseMembers(courseName, expectedNumberOfMembers) {
@@ -174,7 +164,6 @@ async function isNumberOfCourseMembers(courseName, expectedNumberOfMembers) {
 	const numOfMembers = await generalCoursePage.getNumberOfCourseMembers();
 	const membersToString = numOfMembers.toString();
 	expect(membersToString).to.equal(expectedNumberOfMembers);
-
 }
 
 /* to be commented in after implementation of rooms-overview logic

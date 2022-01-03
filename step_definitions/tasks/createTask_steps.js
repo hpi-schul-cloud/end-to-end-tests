@@ -1,5 +1,4 @@
 'use strict';
-
 const navigationLeftPage = require('../../page-objects/pages/NavigationLeftPage.js');
 const roomsOverview = require('../../page-objects/pages/RoomsOverviewPage.js');
 const addEditTaskPage = require('../../page-objects/pages/TASKAddEditTaskPage.js');

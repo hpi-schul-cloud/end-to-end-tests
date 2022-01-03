@@ -1,15 +1,13 @@
 /*[url/courses]*/
 'use strict';
-
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 const waitHelpers = require('../../../runtime/helpers/waitHelpers');
 const sharedHelpers = require('../../../runtime/helpers/sharedHelpers');
 const navigationLeftPage = require('../NavigationLeftPage');
 const generalCoursePage = require('./CRSSGeneralCoursePage');
 const roomsOverview = require('../RoomsOverviewPage');
-
-
 const courseDescription = '.ckcontent';
+const courseDescriptionSel = '#courseDescription';
 const courseHeader = '.sc-card-header';
 const searchCourseFiled = '[data-testid="search-field"]';;
 const courseWrapper = '.sc-card-wrapper';
@@ -34,7 +32,6 @@ const courseColours = {
 	lila: 'background: #D500F9',
 	violet: 'background: #9C27B0',
 	brown: 'background: #795548',
-
 };
 
 const section = {
@@ -99,9 +96,7 @@ function getColourSelector(colourName) {
 			break;
 		case 'brown':
 			colourSelector = courseColours.brown;
-
 			break;
-
 		default:
 			console.error(`This colour: ${colourName} does not exist on the list of possible choices`);
 			break;
@@ -243,7 +238,7 @@ async function isCountOfCourseMembers(courseName, expectedCountOfCourseMembers, 
 async function isCourseDescription(courseName, expectedDescription) {
 	await roomsOverview.clickOnTheElementWithName(courseName)
 	await generalCoursePage.clickEditCourse();
-	const descriptionElement = await sharedHelpers.getElement(generalCoursePage.courseDescriptionSel);
+	const descriptionElement = await sharedHelpers.getElement(courseDescriptionSel);
 	const actualDescription = await descriptionElement.getText();
 	const msg = 'Course with name: ' + courseName + ' has wrong description. \n';
 	const resultMsg = 'Expected: ' + expectedDescription + ', Actual: ' + actualDescription;
