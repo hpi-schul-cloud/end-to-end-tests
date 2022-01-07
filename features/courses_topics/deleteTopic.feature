@@ -7,7 +7,7 @@ Feature: Set of tests to delete topics
     @deleteSimpleTopic
     Scenario Outline: As a user, I want to be able to delete a topic
         When <userRole> logs in with email '<username>' and password '<password>'
-        When <userRole> goes to courses page
+        When <userRole> goes to rooms-overview
         And <userRole> chooses course with name '<courseName>'
         Then <userRole> should see that topic with name '<topicName>' is visible on the list
         When <userRole> adds a topic with name '<secondTopicName>'

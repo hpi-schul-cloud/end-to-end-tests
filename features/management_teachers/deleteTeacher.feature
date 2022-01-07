@@ -46,7 +46,7 @@ Feature: Set of tests to delete teachers
         And user arrives on the Schul-Cloud homepage
 		And <checkUserRole> logs in with email '<teacherUsername>' and password '<adminPassword>'
 		And <checkUserRole> login is successful
-		And <checkUserRole> goes to courses page
+		And <checkUserRole> goes to rooms-overview
 		And <checkUserRole> sees that course with name '<courseName>' is visible on the list
 		When <checkUserRole> chooses course with name '<courseName>'
 		And <checkUserRole> clicks on Edit-course button

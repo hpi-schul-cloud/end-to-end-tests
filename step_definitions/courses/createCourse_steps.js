@@ -2,6 +2,8 @@
 
 const courseListPage = require('../../page-objects/pages/coursePages/CRSSCourseListPage');
 const addCoursePage = require('../../page-objects/pages/coursePages/CRSSAddCoursePage');
+const roomsOverviewPage = require('../../page-objects/pages/RoomsOverviewPage');
+const leftNavigationBar = require('../../page-objects/pages/NavigationLeftPage');
 
 //WHEN
 When(/^.* creates course with name '([^']*)'$/, function (coursename) {
@@ -12,8 +14,9 @@ When(/^.* creates course with name '([^']*)' and student '([^']*)'$/, function (
 	return addCoursePage.createCourseWithStudent(coursename, studentNameList);
 });
 
-When(/^.* goes to courses page$/, function () {
-	return courseListPage.goToCourses();
+When(/^.*goes to rooms-overview$/, function () {
+	return leftNavigationBar.loadNavItemRoomsOverview();
+	/* follow-up: change to: return roomsOverviewPage.goToRoomsOverview()*/
 });
 
 When(/^.* clicks Create-new-course button$/, function () {
@@ -28,12 +31,13 @@ When(/^.* clicks Go-to-course-list button$/, async function () {
 	await addCoursePage.clickGoToCourseListBtn();
 });
 
+/* Unused step. Consider removing it! */
 When(/^.* clicks on members icon in course with name '([^']*)'$/, async function (courseName) {
 	await courseListPage.clickPupilIconInCourseInSection(courseName, courseListPage.section.activeCourses);
 });
 
 When(/^.* chooses course with name '([^']*)'$/, function (courseName) {
-	return courseListPage.clickOnCourseInSection(courseName, courseListPage.section.activeCourses);
+	return roomsOverviewPage.clickOnTheElementWithName(courseName);
 });
 
 When(/^.* chooses himself as a Course teacher$/, async function () {
@@ -48,6 +52,7 @@ When(/^.* chooses course colour '([^']*)'$/, function (courseColour) {
 	return addCoursePage.setColour(courseColour);
 });
 
+/* Unused step. Consider removing it! */
 When(/^.* closes member modal window$/, async function () {
 	await courseListPage.closeMemberModal();
 });
@@ -62,22 +67,18 @@ Then(/^.* buttons: Import-course, Create-new-course are visible$/, function () {
 });
 
 Then(/^.* course with name '([^']*)' is visible on the list$/, async function (courseName) {
-	return courseListPage.isCourseVisible(courseName, courseListPage.section.activeCourses, true);
+	return  roomsOverviewPage.isCourseNameDisplayedOnTheList(courseName, true);
 });
 
 Then(/^.* course with name '([^']*)' is not visible on the list$/, async function (courseName) {
-	return courseListPage.isCourseVisible(courseName, courseListPage.section.activeCourses, false);
-});
-
-Then(/^.* course with name '([^']*)' is displayed correctly on the list$/, async function (courseName) {
-	await courseListPage.isCourseDisplayedCorrectlyInSection(courseName, courseListPage.section.activeCourses);
+	return roomsOverviewPage.isCourseNameDisplayedOnTheList(courseName, false);
 });
 
 Then(/^.* course with name '([^']*)' contains number of members '([^']*)'$/, async function (courseName, membersCount) {
-	await courseListPage.goToCourses();
-	await courseListPage.isCountOfCourseMembers(courseName, membersCount, courseListPage.section.activeCourses);
+	await roomsOverviewPage.isNumberOfCourseMembers(courseName, membersCount);
 });
 
+/* Unused step. Consider removing it! */
 Then(/^.* course members are visible on the list '([^']*)'$/, async function (listOfStudentNames) {
 	await courseListPage.areMembersOnTheListInCourseForSection(listOfStudentNames);
 });
@@ -111,7 +112,7 @@ Then(/^.* '([^']*)' section is opened$/, async function (sectionNumber) {
 });
 
 Then(/^.* color of the course with name '([^']*)' is '([^\']*)' [^\']*$/, async function (courseName, courseColour) {
-	await courseListPage.isCourseColour(courseName, courseColour, courseListPage.section.activeCourses);
+	await roomsOverviewPage.isCourseColour(courseName, courseColour);
 });
 
 Then(/^.* his.hers name is entered by default in teachers' field$/, async function () {

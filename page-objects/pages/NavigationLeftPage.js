@@ -2,6 +2,7 @@
 
 const { expect } = require('chai');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
+const { CLIENT } = require('../../shared-objects/servers');
 
 async function clickElementFromNavigation(selector) {
 	await elementHelpers.clickAndWait(selector)
@@ -10,7 +11,7 @@ async function clickElementFromNavigation(selector) {
 const navItemsEnum = {
 	LOGO: 'logo',
 	DASHBOARD: 'dashboard',
-	COURSES: 'courses',
+	ROOMS_OVERVIEW: 'Course-Overview',
 	TEAMS: 'teams',
 	TASKS: 'tasks',
 	FILES: 'files',
@@ -35,12 +36,13 @@ const navItemsEnum = {
 	TRAININGS: 'trainings',
 	CONTACT: 'contact',
 };
+const navItemRoomsOverviewUrl = `${CLIENT.URL}/rooms-overview`;
 
 const navItemString1stLevel = "[data-testid='XXX']";
 const navItemString2ndLevel = "li[data-testid='XXX'] > a";
 const navItemLogo = navItemString1stLevel.replace('XXX', 'Startseite');
 const navItemDashboard = navItemString1stLevel.replace('XXX', 'Übersicht');
-const navItemCourses = navItemString1stLevel.replace('XXX', 'Kurse');
+const navItemRoomsOverview = navItemString1stLevel.replace('XXX', 'Course-Overview');
 const navItemTeams = navItemString1stLevel.replace('XXX', 'Teams');
 const navItemTasks = navItemString1stLevel.replace('XXX', 'Aufgaben');
 const navItemFiles = navItemString1stLevel.replace('XXX', 'Meine Dateien');
@@ -76,8 +78,14 @@ async function clickNavItemDashboard() {
 	await clickElementFromNavigation(navItemDashboard);
 }
 
-async function clickNavItemCourses() {
-	await clickElementFromNavigation(navItemCourses);
+/* temporarily used before switching to rooms-overview logic, to be deleted later! */
+async function loadNavItemRoomsOverview() {
+	await elementHelpers.loadPageNuxtClient(navItemRoomsOverviewUrl);
+}
+
+/* to be used after switching to rooms-overview logic */
+async function clickNavItemRoomsOverview() {
+	await clickElementFromNavigation(navItemRoomsOverview);
 }
 
 async function clickNavItemTeams() {
@@ -210,7 +218,6 @@ module.exports = {
 	navItemsEnum,
 	clickNavItemLogo,
 	clickNavItemDashboard,
-	clickNavItemCourses,
 	clickNavItemTeams,
 	clickNavItemTasks,
 	clickNavItemFiles,
@@ -235,4 +242,7 @@ module.exports = {
 	clickNavItemHelpContact,
 	areSubMenuItemsVisible,
 	areMenuItemsVisible,
+	loadNavItemRoomsOverview,
+	clickNavItemRoomsOverview,
+
 };

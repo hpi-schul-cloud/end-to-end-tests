@@ -6,6 +6,7 @@ const navigationLeftPage = require('../NavigationLeftPage');
 const waitHelpers = require('../../../runtime/helpers/waitHelpers');
 const { waitUntilElementIsPresent } = require('../../../runtime/helpers/waitHelpers');
 const APIhelpers = require('../../../runtime/helpers/APIhelpers');
+const roomsOverview = require('../RoomsOverviewPage');
 //Sections
 
 const nextSectionBtn = '#nextSection';
@@ -48,7 +49,7 @@ const courseColoursList = [
 ];
 
 async function goToAddCourses() {
-	await navigationLeftPage.clickNavItemCourses();
+	await navigationLeftPage.clickNavItemRoomsOverview();
 	await courseListPage.clickCreateCourseBtn();
 }
 
@@ -91,20 +92,22 @@ function getSectionSelector(sectionNumber) {
  */
 
 async function createCourseWithStudent(courseName, studentName = 'default') {
-	await goToAddCourses();
+	await navigationLeftPage.loadNavItemRoomsOverview()
+	await roomsOverview.clickCreateCourseBtn()
 	await setCourseName(courseName);
 	await goToNextSection();
 	if (studentName !== 'default') await setStudent(studentName);
 	await goToNextSection();
-	await clickGoToCourseListBtn();
+	await navigationLeftPage.loadNavItemRoomsOverview()
 }
 
 async function createCourse(courseName) {
-	await goToAddCourses();
+	await navigationLeftPage.loadNavItemRoomsOverview();
+	await roomsOverview.clickCreateCourseBtn()
 	await setCourseName(courseName);
 	await goToNextSection();
 	await goToNextSection();
-	await clickGoToCourseListBtn();
+	await navigationLeftPage.loadNavItemRoomsOverview();
 }
 
 async function isTeachersNameSetByDefault() {

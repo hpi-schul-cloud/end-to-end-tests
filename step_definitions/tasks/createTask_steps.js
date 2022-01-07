@@ -1,8 +1,7 @@
 'use strict';
-
 const navigationLeftPage = require('../../page-objects/pages/NavigationLeftPage.js');
+const roomsOverview = require('../../page-objects/pages/RoomsOverviewPage.js');
 const addEditTaskPage = require('../../page-objects/pages/TASKAddEditTaskPage.js');
-const courseListPage = require('../../page-objects/pages/coursePages/CRSSCourseListPage');
 const TASKListPage = require('../../page-objects/pages/TASKListPage.js');
 const dateTimeHelpers = require('../../runtime/helpers/dateTimeHelpers.js');
 const TASKPage = require('../../page-objects/pages/TASKPage');
@@ -17,8 +16,8 @@ When(/^.* clicks on drafts tab$/, function () {
 });
 
 When(/^.* clicks Create-a-task button in the course '(.*)'$/, async function (coursename) {
-	await courseListPage.goToCourses();
-	await courseListPage.clickOnCourseInSection(coursename, courseListPage.section.activeCourses);
+	await navigationLeftPage.loadNavItemRoomsOverview();
+	await roomsOverview.clickOnTheElementWithName(coursename);
 	await TASKPage.gotoTasksTab();
 	await TASKListPage.clickCreateTaskButtonInTheCourse();
 });
