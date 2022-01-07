@@ -92,22 +92,22 @@ function getSectionSelector(sectionNumber) {
  */
 
 async function createCourseWithStudent(courseName, studentName = 'default') {
-	await navigationLeftPage.loadNavItemRoomsOverview()
+	await navigationLeftPage.clickNavItemRoomsOverview()
 	await roomsOverview.clickCreateCourseBtn()
 	await setCourseName(courseName);
 	await goToNextSection();
 	if (studentName !== 'default') await setStudent(studentName);
 	await goToNextSection();
-	await navigationLeftPage.loadNavItemRoomsOverview()
+	await navigationLeftPage.clickNavItemRoomsOverview()
 }
 
 async function createCourse(courseName) {
-	await navigationLeftPage.loadNavItemRoomsOverview();
+	await navigationLeftPage.clickNavItemRoomsOverview();
 	await roomsOverview.clickCreateCourseBtn()
 	await setCourseName(courseName);
 	await goToNextSection();
 	await goToNextSection();
-	await navigationLeftPage.loadNavItemRoomsOverview();
+	await navigationLeftPage.clickNavItemRoomsOverview();
 }
 
 async function isTeachersNameSetByDefault() {

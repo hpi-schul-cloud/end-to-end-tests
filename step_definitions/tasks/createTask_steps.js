@@ -16,7 +16,7 @@ When(/^.* clicks on drafts tab$/, function () {
 });
 
 When(/^.* clicks Create-a-task button in the course '(.*)'$/, async function (coursename) {
-	await navigationLeftPage.loadNavItemRoomsOverview();
+	await navigationLeftPage.clickNavItemRoomsOverview();
 	await roomsOverview.clickOnTheElementWithName(coursename);
 	await TASKPage.gotoTasksTab();
 	await TASKListPage.clickCreateTaskButtonInTheCourse();

@@ -2,7 +2,6 @@
 
 const { expect } = require('chai');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
-const { CLIENT } = require('../../shared-objects/servers');
 
 async function clickElementFromNavigation(selector) {
 	await elementHelpers.clickAndWait(selector)
@@ -36,7 +35,6 @@ const navItemsEnum = {
 	TRAININGS: 'trainings',
 	CONTACT: 'contact',
 };
-const navItemRoomsOverviewUrl = `${CLIENT.URL}/rooms-overview`;
 
 const navItemString1stLevel = "[data-testid='XXX']";
 const navItemString2ndLevel = "li[data-testid='XXX'] > a";
@@ -78,12 +76,6 @@ async function clickNavItemDashboard() {
 	await clickElementFromNavigation(navItemDashboard);
 }
 
-/* temporarily used before switching to rooms-overview logic, to be deleted later! */
-async function loadNavItemRoomsOverview() {
-	await elementHelpers.loadPageNuxtClient(navItemRoomsOverviewUrl);
-}
-
-/* to be used after switching to rooms-overview logic */
 async function clickNavItemRoomsOverview() {
 	await clickElementFromNavigation(navItemRoomsOverview);
 }
@@ -242,7 +234,5 @@ module.exports = {
 	clickNavItemHelpContact,
 	areSubMenuItemsVisible,
 	areMenuItemsVisible,
-	loadNavItemRoomsOverview,
 	clickNavItemRoomsOverview,
-
 };
