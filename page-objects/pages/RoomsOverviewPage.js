@@ -47,6 +47,7 @@ async function getListOfElementsRoomsOverview() {
 }
 
 async function isCourseNameDisplayedOnTheList(courseName, expectedValue) {
+	await driver.pause(3000);
 	let allCourseNamesOnTheRoomsOverview = await getListOfElementsRoomsOverview();
 	const defaultString = `Course with name: ${courseName}`;
 
@@ -149,6 +150,7 @@ async function getColourId(colourName) {
 
 /* private helper method which counts the number of rows on the page and therefore the number of "subcontainers" of the elements */
 async function getNumberOfRowsRoomsOverview() {
+	await driver.pause(3000);
     let numberOfRowsRoomsOverview = await driver.$$(rowsSelector);
 	return numberOfRowsRoomsOverview.length;
 }

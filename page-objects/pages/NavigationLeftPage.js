@@ -2,18 +2,16 @@
 
 const { expect } = require('chai');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
-const waitHelpers = require('../../runtime/helpers/waitHelpers');
 const { CLIENT } = require('../../shared-objects/servers');
 
 async function clickElementFromNavigation(selector) {
 	await elementHelpers.clickAndWait(selector)
 }
 
-
 const navItemsEnum = {
 	LOGO: 'logo',
 	DASHBOARD: 'dashboard',
-	/*add value here*/  ROOMS_OVERVIEW: 'add_the_data-testid',
+	ROOMS_OVERVIEW: 'Course-Overview',
 	TEAMS: 'teams',
 	TASKS: 'tasks',
 	FILES: 'files',
@@ -44,7 +42,7 @@ const navItemString1stLevel = "[data-testid='XXX']";
 const navItemString2ndLevel = "li[data-testid='XXX'] > a";
 const navItemLogo = navItemString1stLevel.replace('XXX', 'Startseite');
 const navItemDashboard = navItemString1stLevel.replace('XXX', 'Übersicht');
-const navItemRoomsOverview = navItemString1stLevel.replace('XXX', 'Rooms-Overview');
+const navItemRoomsOverview = navItemString1stLevel.replace('XXX', 'Course-Overview');
 const navItemTeams = navItemString1stLevel.replace('XXX', 'Teams');
 const navItemTasks = navItemString1stLevel.replace('XXX', 'Aufgaben');
 const navItemFiles = navItemString1stLevel.replace('XXX', 'Meine Dateien');
