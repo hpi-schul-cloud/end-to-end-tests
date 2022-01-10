@@ -26,7 +26,7 @@ const roomsOverviewAvatarColours = {
 }
 
 async function goToRoomsOverview() {
-	await navigationLeftPage.loadNavItemRoomsOverview();
+    await navigationLeftPage.clickNavItemRoomsOverview();
 }
 
 /* returns array of strings, also empty */
@@ -160,19 +160,13 @@ async function goToallCourses() {
 }
 
 async function isNumberOfCourseMembers(courseName, expectedNumberOfMembers) {
-	await navigationLeftPage.loadNavItemRoomsOverview()
+	await navigationLeftPage.clickNavItemRoomsOverview()
 	await clickOnTheElementWithName(courseName);
 	await generalCoursePage.clickEditCourse();
 	const numOfMembers = await generalCoursePage.getNumberOfCourseMembers();
 	const membersToString = numOfMembers.toString();
 	expect(membersToString).to.equal(expectedNumberOfMembers);
 }
-
-/* to be commented in after implementation of rooms-overview logic
-async function goToRoomsOverview() {
-    await navigationLeftPage.clickNavItemRoomsOverview();
-}
-*/
 
 module.exports = {
     goToRoomsOverview,

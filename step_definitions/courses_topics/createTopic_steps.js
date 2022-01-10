@@ -62,7 +62,7 @@ Then(/^.* content text contains text '([^']*)'$/, async function (contentText) {
 });
 
 Then(/^.* course with name '([^']*)' contains topic with name '([^']*)'$/, async function (coursename, topicname) {
-	await leftNavigation.loadNavItemRoomsOverview();
+	await leftNavigation.clickNavItemRoomsOverview();
 	await CRSSCourseTopicsPage.isTopicInCourseInSection(
 		coursename,
 		topicname,
