@@ -25,12 +25,6 @@ const roomsOverviewAvatarColours = {
 	brown: 'rgb(121, 85, 72)',
 }
 
-/* to be removed after implementation of rooms-overview logic
-async function goToRoomsOverview() {
-	await navigationLeftPage.loadNavItemRoomsOverview();
-}
-*/
-
 async function goToRoomsOverview() {
     await navigationLeftPage.clickNavItemRoomsOverview();
 }
