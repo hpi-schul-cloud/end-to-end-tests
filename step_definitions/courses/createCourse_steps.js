@@ -15,8 +15,8 @@ When(/^.* creates course with name '([^']*)' and student '([^']*)'$/, function (
 });
 
 When(/^.*goes to rooms-overview$/, function () {
-	return leftNavigationBar.clickNavItemRoomsOverview();
-	/* follow-up: change to: return roomsOverviewPage.goToRoomsOverview()*/
+	//return leftNavigationBar.clickNavItemRoomsOverview();
+	return roomsOverviewPage.goToRoomsOverview();
 });
 
 When(/^.* clicks Create-new-course button$/, function () {

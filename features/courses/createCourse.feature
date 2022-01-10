@@ -23,7 +23,7 @@ Feature: Set of tests to create courses
         And <userRole> should see that no student is set
         When <userRole> clicks Next-section button
         Then <userRole> should see that '3' section is opened
-        When <userRole> goes to rooms-overview
+        When <userRole> clicks Go-to-course-list button
         Then <userRole> should see that course with name '<courseName>' is visible on the list
         And <userRole> should see that color of the course with name '<courseName>' is '<courseColour>' that was selected during the creation process
         Examples:
