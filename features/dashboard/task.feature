@@ -7,7 +7,7 @@ Feature: dashboard test set
 	@showPrivateTaskOnDashboard
 	Scenario Outline: As a user I want to be able to see private homework on dashboard
 		Given <userRole> logs in
-		And <userRole> goes to courses page
+		And <userRole> goes to rooms-overview
 		And <userRole> chooses course with name '<courseName>'
 		When <userRole> clicks Create-a-task button in the course '<courseName>'
 		And <userRole> sets task name '<taskName>' in task form
@@ -34,7 +34,7 @@ Feature: dashboard test set
 	@showRegularTaskOnDashboard
 	Scenario Outline: As a user I want to be able to see regular task on dashboard
 		Given <userRole> logs in
-		And <userRole> goes to courses page
+		And <userRole> goes to rooms-overview
 		And <userRole> chooses course with name '<courseName>'
 		When <userRole> clicks Create-a-task button in the course '<courseName>'
 		And <userRole> sets task name '<taskName>' in task form

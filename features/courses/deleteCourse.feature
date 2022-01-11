@@ -7,7 +7,7 @@ Feature: Set of tests to delete courses
     @deleteSimpleCourse
     Scenario Outline: As a user, I want to be able to delete a course
         Given <userRole> logs in with email '<userName>' and password '<password>'
-        And <userRole> goes to courses page
+        And <userRole> goes to rooms-overview
         And <userRole> sees that course with name '<courseName>' is visible on the list
         When <userRole> chooses course with name '<courseName>'
         And <userRole> clicks on Edit-course button

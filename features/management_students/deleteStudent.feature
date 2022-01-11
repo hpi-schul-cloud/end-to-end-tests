@@ -59,7 +59,7 @@ Feature: Set of tests to delete students
 		And <userAdmin> logs out
         And user arrives on the Schul-Cloud homepage
 		And <userTeacher> logs in with email '<teacherUsername>' and password '<password>'
-		And <userTeacher> goes to courses page
+		And <userTeacher> goes to rooms-overview
 		Then <userTeacher> should see that course with name '<courseName>' is visible on the list
 		And <userTeacher> sees that course with name '<courseName>' contains number of members '<membersNumber>'
 

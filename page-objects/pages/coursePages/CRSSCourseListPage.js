@@ -1,22 +1,20 @@
 /*[url/courses]*/
 'use strict';
-const navigationTopPage = require('../NavigationTopPage');
 const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 const waitHelpers = require('../../../runtime/helpers/waitHelpers');
-const startPage = require('../../../page-objects/pages/generalPagesBeforeLogin/StartPageBeforeLogin');
-const loginPage = require('../../../page-objects/pages/generalPagesBeforeLogin/LoginPage');
+const sharedHelpers = require('../../../runtime/helpers/sharedHelpers');
 const navigationLeftPage = require('../NavigationLeftPage');
-const CRSSGeneralCoursePage = require('./CRSSGeneralCoursePage');
-
-
+const generalCoursePage = require('./CRSSGeneralCoursePage');
+const roomsOverview = require('../RoomsOverviewPage');
 const courseDescription = '.ckcontent';
+const courseDescriptionSel = '#courseDescription';
 const courseHeader = '.sc-card-header';
-const searchCourseFiled = '.input-group .search-field';
+const searchCourseFiled = '[data-testid="search-field"]';;
 const courseWrapper = '.sc-card-wrapper';
 const titleOfCourse = '.title';
 const memberBtn = '.btn-member';
 const importCourseBtn = '[data-testid="import-course-btn"]';
-const createCourseBtn = '[data-testid="create-course-btn"]';
+const createCourseBtn = '[data-testid="add-course-button"]';
 const listOfMembersSel = '#member-modal-body > ol > li';
 const popupMembers = ".member-modal.in[role='dialog']";
 const closeMemberModalBtn = ".member-modal button.close";
@@ -34,8 +32,8 @@ const courseColours = {
 	lila: 'background: #D500F9',
 	violet: 'background: #9C27B0',
 	brown: 'background: #795548',
-
 };
+
 const section = {
 	allCourses: '.section-courses',
 	activeCourses: '.section-activeCourses',
@@ -49,12 +47,6 @@ async function goToCourses() {
 async function areImportAndCreateCourseBtnsVisible() {
 	await waitHelpers.waitUntilElementIsVisible(importCourseBtn);
 	await waitHelpers.waitUntilElementIsVisible(createCourseBtn);
-}
-
-async function isCourseDisplayedCorrectlyInSection(courseName, section) {
-	const listOfCourseTitlesForSection = await getListOfCourseTitlesInSection(section);
-	const msg = "Course with name: '" + courseName + "' is not last on the list: " + listOfCourseTitlesForSection;
-	expect(listOfCourseTitlesForSection , msg).to.includes(courseName);
 }
 
 async function isCourseOnListInSection(coursename, section) {
@@ -96,17 +88,15 @@ function getColourSelector(colourName) {
 		case 'blue':
 			colourSelector = courseColours.blue;
 			break;
-		case 'lila': 
+		case 'lila':
 			colourSelector = courseColours.lila;
 			break;
-		case 'violet': 
+		case 'violet':
 			colourSelector = courseColours.violet;
 			break;
-		case 'brown': 
+		case 'brown':
 			colourSelector = courseColours.brown;
-
 			break;
-
 		default:
 			console.error(`This colour: ${colourName} does not exist on the list of possible choices`);
 			break;
@@ -235,7 +225,7 @@ async function clickPupilIconInCourseInSection(courseName, section) {
 async function goToTasksOfTheCourse(coursename, section) {
 	await goToCourses();
 	await clickOnCourseInSection(coursename, section);
-	await CRSSGeneralCoursePage.openTasksTab();
+	await generalCoursePage.openTasksTab();
 }
 
 async function isCountOfCourseMembers(courseName, expectedCountOfCourseMembers, section) {
@@ -245,9 +235,11 @@ async function isCountOfCourseMembers(courseName, expectedCountOfCourseMembers, 
 	expect(actualCountOfCourseMembers, msg + resultMsg).to.equal(parseInt(expectedCountOfCourseMembers));
 }
 
-async function isCourseDescription(courseName, expectedDescription, section) {
-	const course = await getCourseWithNameInSection(courseName, section);
-	const actualDescription = course.courseDescription;
+async function isCourseDescription(courseName, expectedDescription) {
+	await roomsOverview.clickOnTheElementWithName(courseName)
+	await generalCoursePage.clickEditCourse();
+	const descriptionElement = await sharedHelpers.getElement(courseDescriptionSel);
+	const actualDescription = await descriptionElement.getText();
 	const msg = 'Course with name: ' + courseName + ' has wrong description. \n';
 	const resultMsg = 'Expected: ' + expectedDescription + ', Actual: ' + actualDescription;
 	expect(actualDescription, msg + resultMsg).to.equal(expectedDescription);
@@ -314,7 +306,6 @@ module.exports = {
 	areImportAndCreateCourseBtnsVisible,
 	areMembersOnTheListInCourseForSection,
 	isCorrectNumberOfMembersInCourseForSection,
-	isCourseDisplayedCorrectlyInSection,
 	isCourseOnListInSection,
 	isCourseColour,
 	isCourseDescription,

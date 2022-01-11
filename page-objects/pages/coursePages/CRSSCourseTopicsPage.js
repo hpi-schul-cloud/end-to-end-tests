@@ -1,5 +1,6 @@
 "use strict";
 const courseListPage = require("../../../page-objects/pages/coursePages/CRSSCourseListPage");
+const roomsOverview = require("../../../page-objects/pages/RoomsOverviewPage");
 const coursePage = require("../../../page-objects/pages/coursePages/CRSSGeneralCoursePage");
 const elementHelpers = require('../../../runtime/helpers/elementHelpers.js');
 const waitHelpers = require("../../../runtime/helpers/waitHelpers");
@@ -20,8 +21,8 @@ async function clickAddNewTopicInCourse (coursename) {
 	await clickAddNewTopicBtn();
 }
 
-async function isTopicInCourseInSection(courseName, topicName, section) {
-	await courseListPage.clickOnCourseInSection(courseName, section);
+async function isTopicInCourseInSection(courseName, topicName) {
+	await roomsOverview.clickOnTheElementWithName(courseName);
 	await waitHelpers.waitUntilElementIsVisible(topicNameContainer);
 	const listOfTopics = await driver.$$(topicNameContainer);
 	const listOfTopicNames = await elementHelpers.getTextListFromListOfElements(listOfTopics);
