@@ -4,7 +4,7 @@ Feature: Set of tests to submit and grade tasks
 	Background: User opens Schul-cloud homepage Website
 		Given user arrives on the Schul-Cloud homepage
 
-    @studentSubmitsTask @stableTest
+    @studentSubmitsTask @unstableTest
     Scenario Outline: As a student, I want to see the open tasks in in tasks tab and sumbit them
         When <userRole> logs in
         And <userRole> goes to tasks page
