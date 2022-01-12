@@ -7,6 +7,10 @@ async function clickElementFromNavigation(selector) {
 	await elementHelpers.clickAndWait(selector)
 }
 
+async function clickElementFromNavigation(selector) {
+	await elementHelpers.clickAndWait(selector)
+}
+
 const navItemsEnum = {
 	LOGO: 'logo',
 	DASHBOARD: 'dashboard',
@@ -210,6 +214,7 @@ module.exports = {
 	navItemsEnum,
 	clickNavItemLogo,
 	clickNavItemDashboard,
+	clickNavItemRoomsOverview,
 	clickNavItemTeams,
 	clickNavItemTasks,
 	clickNavItemFiles,
@@ -234,5 +239,4 @@ module.exports = {
 	clickNavItemHelpContact,
 	areSubMenuItemsVisible,
 	areMenuItemsVisible,
-	clickNavItemRoomsOverview,
 };

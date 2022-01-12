@@ -16,18 +16,19 @@ Feature: Set of tests to delete students
 		And <userRole> clicks Delete-user button inside popup
 		Then <userRole> should see that user with email '<studentUsername>' is not visible on the list
 		When <userRole> logs out
-        And user arrives on the Schul-Cloud homepage
+		And user arrives on the Schul-Cloud homepage
 		And <deletedUserRole> logs in with email '<studentUsername>' and password '<studentPassword>'
 		Then <deletedUserRole> login must fail
 		Examples:
 			| userRole | adminUsername                | adminPassword  | studentUsername                  | studentPassword | deletedUserRole |
 			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | amelia.strobl.qa@schul-cloud.org | Schulcloud1qa!  | student         |
 
-	@deletedStudentIsNotVisibleInTeam @deletionConcept @unstableTest
+	@deletedStudentIsNotVisibleInTeam @deletionConcept @stableTest
 	Scenario Outline: As an admin, I want to be able to delete the user and he will be no longer listed in team members
 		Given <userRole> logs in with email '<adminUsername>' and password '<adminPassword>'
 		And <userRole> login is successful
 		When <userRole> creates a new team with name '<teamName>' and description '<description>' and color '<color>'
+		When <userRole> goes to the team member settings
 		And <userRole> adds a student with lastname: '<lastName>' and firstname: '<firstName>' to the team
 		And <userRole> clicks Submit-add-team-member button
 		Then <userRole> goes to Teams Page
@@ -37,8 +38,6 @@ Feature: Set of tests to delete students
 		When <userRole> clicks Edit-student with '<studentUserName>' button
 		And <userRole> clicks Delete-user button
 		And <userRole> clicks Delete-user button inside popup
-		#The step below can be removed if /SC-8481 is done
-		And <userRole> clicks left navigation item 'admClasses'
 		Then <userRole> goes to Teams Page
 		When <userRole> clicks on Member icon in team with name '<teamName>'
 		Then <userRole> should see that team members: '<firstName> <lastName>' are not listed
@@ -57,7 +56,7 @@ Feature: Set of tests to delete students
 		And <userAdmin> clicks Delete-user button
 		And <userAdmin> clicks Delete-user button inside popup
 		And <userAdmin> logs out
-        And user arrives on the Schul-Cloud homepage
+		And user arrives on the Schul-Cloud homepage
 		And <userTeacher> logs in with email '<teacherUsername>' and password '<password>'
 		And <userTeacher> goes to rooms-overview
 		Then <userTeacher> should see that course with name '<courseName>' is visible on the list
@@ -77,7 +76,7 @@ Feature: Set of tests to delete students
 		And <userRole> clicks Delete-user button
 		And <userRole> clicks Delete-user button inside popup
 		When <userRole> logs out
-        And user arrives on the Schul-Cloud homepage
+		And user arrives on the Schul-Cloud homepage
 		And <deletedUserRole> clicks on Forgot Password using email '<studentUsername>'
 		Then forgot password email was not sent to '<studentUsername>'
 		Examples:
