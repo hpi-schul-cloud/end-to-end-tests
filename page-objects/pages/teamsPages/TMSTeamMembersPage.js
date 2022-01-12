@@ -15,6 +15,7 @@ async function clickAddInternalAttendeesBtn() {
 }
 
 async function addTeamAttendee(lastname, firstname) {
+	await driver.pause(3000);
 	await waitHelpers.waitUntilPageLoads();
 	await elementHelpers.selectOptionsByText(multipleChoiceSelectForTeamAttendees, lastname + ', ' + firstname);
 }
