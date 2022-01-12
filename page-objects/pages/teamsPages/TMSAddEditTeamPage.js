@@ -37,7 +37,6 @@ function getColourFromTable(colour){
 		default:
 			console.error(`This color: ${colour} does not exist on the list of possible choices`);
 			break;
-		
 	}
 	return colourItem;
 }
@@ -69,18 +68,18 @@ async function createTeamWithName(teamname, description, colour) {
 	await clickCreateTeamSubmitButton();
 }
 
-async function createTeamAndGoToInternalMembersManagement(teamname, description, colour) {
-	await createTeamWithName(teamname, description, colour);
+async function goToTeamMembersSettings() {
 	await TMSGeneralTeamPage.clickSettings();
 	await TMSGeneralTeamPage.clickManageTeamMembers();
 	await TMSTeamMembersPage.clickAddInternalAttendeesBtn();
+	await waitHelpers.waitUntilPageLoads();
 }
 
 module.exports = {
 	createTeamWithName,
-	createTeamAndGoToInternalMembersManagement,
 	setTeamName,
 	setTeamDescription,
 	setTeamColour,
 	clickCreateTeamSubmitButton,
+	goToTeamMembersSettings
 };
