@@ -7,7 +7,7 @@ Feature: Set of tests to edit topics
     @editSimpleTopic
     Scenario Outline: As a user, I want to be able to edit a topic
         Given <userRole> logs in with email '<username>' and password '<password>'
-        And <userRole> goes to courses page
+        And <userRole> goes to rooms-overview
         And <userRole> chooses course with name '<courseName>'
         And <userRole> sees that first topic with name '<topicName>' is visible on the list
         When <userRole> clicks on Edit-topic-pencil icon in topic line with name '<topicName>'
@@ -18,7 +18,7 @@ Feature: Set of tests to edit topics
         Then <userRole> should see that topic title is '<changedTopicName>'
         And <userRole> should see that content text title is '<newContentTitle>'
         And <userRole> should see that content text contains text '<newContentText>'
-        When <userRole> goes to courses page
+        When <userRole> goes to rooms-overview
         And <userRole> chooses course with name '<courseName>'
         Then <userRole> should see that edited topic with name '<changedTopicName>' is visible on the list
         Examples:

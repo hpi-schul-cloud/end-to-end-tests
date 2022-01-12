@@ -10,7 +10,7 @@ async function clickElementFromNavigation(selector) {
 const navItemsEnum = {
 	LOGO: 'logo',
 	DASHBOARD: 'dashboard',
-	COURSES: 'courses',
+	ROOMS_OVERVIEW: 'Course-Overview',
 	TEAMS: 'teams',
 	TASKS: 'tasks',
 	FILES: 'files',
@@ -40,7 +40,7 @@ const navItemString1stLevel = "[data-testid='XXX']";
 const navItemString2ndLevel = "li[data-testid='XXX'] > a";
 const navItemLogo = navItemString1stLevel.replace('XXX', 'Startseite');
 const navItemDashboard = navItemString1stLevel.replace('XXX', 'Übersicht');
-const navItemCourses = navItemString1stLevel.replace('XXX', 'Kurse');
+const navItemRoomsOverview = navItemString1stLevel.replace('XXX', 'Course-Overview');
 const navItemTeams = navItemString1stLevel.replace('XXX', 'Teams');
 const navItemTasks = navItemString1stLevel.replace('XXX', 'Aufgaben');
 const navItemFiles = navItemString1stLevel.replace('XXX', 'Meine Dateien');
@@ -76,8 +76,8 @@ async function clickNavItemDashboard() {
 	await clickElementFromNavigation(navItemDashboard);
 }
 
-async function clickNavItemCourses() {
-	await clickElementFromNavigation(navItemCourses);
+async function clickNavItemRoomsOverview() {
+	await clickElementFromNavigation(navItemRoomsOverview);
 }
 
 async function clickNavItemTeams() {
@@ -210,7 +210,6 @@ module.exports = {
 	navItemsEnum,
 	clickNavItemLogo,
 	clickNavItemDashboard,
-	clickNavItemCourses,
 	clickNavItemTeams,
 	clickNavItemTasks,
 	clickNavItemFiles,
@@ -235,4 +234,5 @@ module.exports = {
 	clickNavItemHelpContact,
 	areSubMenuItemsVisible,
 	areMenuItemsVisible,
+	clickNavItemRoomsOverview,
 };

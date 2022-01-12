@@ -3,6 +3,7 @@
 const CRSSEditCopyCoursePage = require('../../page-objects/pages/coursePages/CRSSEditCopyCoursePage');
 const CRSSGeneralCoursePage = require('../../page-objects/pages/coursePages/CRSSGeneralCoursePage');
 const courseListPage = require('../../page-objects/pages/coursePages/CRSSCourseListPage');
+const roomsOverview = require('../../page-objects/pages/RoomsOverviewPage');
 
 //WHEN
 When(/^.* clicks on Edit-course button$/, async function () {
@@ -29,6 +30,3 @@ Then(/^.* course name '([^']*)' with description correctly displayed '([^']*)'$/
 	await courseListPage.isCourseDescription(courseName, expectedDescription, courseListPage.section.activeCourses);
 });
 
-Then(/^.* course name '([^']*)' with color correctly displayed '([^']*)'$/, async function (courseName, colourCourse) {
-	await courseListPage.isCourseColour(courseName, colourCourse, courseListPage.section.activeCourses);
-});

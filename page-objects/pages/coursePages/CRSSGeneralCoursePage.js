@@ -1,14 +1,14 @@
 /*[url/courses]/[courseId]]*/
 "use strict";
-
 const editCopyCoursePage = require("../../../page-objects/pages/coursePages/CRSSEditCopyCoursePage");
 const elementHelpers = require("../../../runtime/helpers/elementHelpers");
+const sharedHelpers = require("../../../runtime/helpers/sharedHelpers");
 const CRSSCourseListPage = require("./CRSSCourseListPage");
-
 const courseSettingsBtn = ".fa.fa-ellipsis-v.i-cog";
 const topicSelector = '#topic-list .card';
 const trashcanBtnSelector = ".fa-trash-o";
 const deleteTopicButtonInPopup = "body > div.modal.fade.delete-modal.in > div > div > div.modal-footer > button.btn.btn-primary.btn-submit";
+const courseMembersSelector = "#studentsId_chosen > ul .search-choice"
 
 const setting = {
 	editCourse: '.btn-course-edit',
@@ -80,6 +80,11 @@ async function clickDeleteTopicButtonInPopup() {
 	await elementHelpers.clickAndWait(deleteTopicButtonInPopup);
 }
 
+async function getNumberOfCourseMembers() {
+	const selectedOptions = await driver.$$(courseMembersSelector);
+	return selectedOptions.length
+}
+
 module.exports = {
 	openTopicsTab,
 	openTasksTab,
@@ -92,4 +97,5 @@ module.exports = {
 	copyCourseWithName,
 	clickOnTopicDeleteTrashcanButton,
 	clickDeleteTopicButtonInPopup,
+	getNumberOfCourseMembers,
 };

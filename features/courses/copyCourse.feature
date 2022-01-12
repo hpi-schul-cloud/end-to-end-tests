@@ -7,10 +7,10 @@
 #	@simpleCopyCourse @e2eCore
 #	Scenario Outline: As a user, I want to be able to copy an existing course
 #		When <userRole> logs in
-#		And <userRole> goes to courses page
+#		And <userRole> goes to rooms-overview
 #		When <userRole> chooses course with name '<courseName>'
 #		And <userRole> clicks Duplicate-course button
-#		And <userRole> goes to courses page
+#		And <userRole> goes to rooms-overview
 #		Then <userRole> should see that cloned course with name '<courseName> - Kopie' is visible on the list
 #		And <userRole> should see that amount of courses with name '<courseName> - Kopie' is '1'
 #		Examples:
@@ -20,15 +20,15 @@
 #   @copyCourseWithContent
 #	Scenario Outline: As a user, I want to be able to copy course with certain text
 #		When <userRole> logs in
-#		And <userRole> goes to courses page
+#		And <userRole> goes to rooms-overview
 #		And <userRole> chooses course with name '<courseName>'
 #		And <userRole> adds a topic with name '<topicName>'
 #		And <userRole> adds content <contentType> with title '<contentTitle>' and description '<contentDescription>'
 #		And <userRole> clicks Save-changes button
-#		And <userRole> goes to courses page
+#		And <userRole> goes to rooms-overview
 #		And <userRole> chooses course with name '<courseName>'
 #		And <userRole> clicks Duplicate-course button
-#		And <userRole> goes to courses page
+#		And <userRole> goes to rooms-overview
 #		Then <userRole> should see that course with name '<courseName> - Kopie' is visible on the list
 #		And <userRole> should see that copied course with name '<courseName> - Kopie' contains topic with name '<topicName>'
 #		Examples:
@@ -41,16 +41,16 @@
 #	Scenario Outline: As a user, I want to be able to copy course with certain Material
 #		When <userRole> logs in
 #		And <userRole> performs first login actions: data protection acceptance
-#		And <userRole> goes to courses page
+#		And <userRole> goes to rooms-overview
 #		And <userRole> creates course with name '<courseName>'
 #		And <userRole> chooses course with name '<courseName>'
 #		And <userRole> adds a topic with name '<topicName>'
 #		When <userRole> adds content Material
 #		And <userRole> clicks Save-changes button
-#		And <userRole> goes to courses page
+#		And <userRole> goes to rooms-overview
 #		And <userRole> chooses course with name '<courseName>'
 #		And <userRole> clicks Duplicate-course button
-#		And <userRole> goes to courses page
+#		And <userRole> goes to rooms-overview
 #		Then <userRole> should see that copied course with name '<courseName> - Kopie' is visible on the list
 #		And <userRole> should see that copied course with name '<courseName> - Kopie' contains topic with name '<topicName>'
 #		Examples:
@@ -60,10 +60,10 @@
 #	@copyCourseWithStudents
 #	Scenario Outline: As a user, I want to be able to copy course with students
 #		When <userRole> logs in
-#		And <userRole> goes to courses page
+#		And <userRole> goes to rooms-overview
 #		And <userRole> chooses course with name '<courseName>'
 #		And <userRole> clicks Duplicate-course button
-#		And <userRole> goes to courses page
+#		And <userRole> goes to rooms-overview
 #		Then <userRole> should see that cloned course with name '<courseName> - Kopie' is visible on the list
 #		And <userRole> should see that cloned course with name '<courseName> - Kopie' contains number of members '<membersCount>'
 #		Examples:

@@ -22,7 +22,7 @@ Feature: Set of tests to view and submit tasks
     @submitTaskWithTextContent @unstableTest
 	Scenario Outline: As a user, I want to be able to submit a task and teacher evaluates it
 		When <userRole> logs in
-		And <userRole> goes to courses page
+		And <userRole> goes to rooms-overview
 		And <userRole> chooses course with name '<courseName>'
 		And <userRole> clicks Create-a-task button in the course '<courseName>'
 		And <userRole> sets task name '<taskName>' in task form
