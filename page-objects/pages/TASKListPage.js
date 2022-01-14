@@ -26,6 +26,9 @@ const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-con
 const courseCheckbox = "//div[contains(.,'";
 const closeFilter = '.v-input__icon--append';
 const taskOverviewLoad = '.v-application--wrap';
+const hoverOverTaskSel = "//div[@data-testid = 'taskTitle' and text()='";
+const clickOnHoverOverFunctionSel = "//button[@data-testid='task-menu-";
+const clickOnEditButtonSel = "//*[text()[contains(.,'Bearbeiten')]]";
 
 const taskButton = {
 	archive: '.fa-archive',
@@ -194,6 +197,17 @@ async function getNuxtTaskList() {
 	return listOfAllNuxtTasks;
 }
 
+async function hoverOverTask(taskName){
+	await driver.$(hoverOverTaskSel + taskName + "']").moveTo();
+	await driver.pause(3000);
+	await elementHelpers.click(clickOnHoverOverFunctionSel + taskName +"']");
+	await driver.pause(3000);
+}
+
+async function taskHoverOverFunctions(){
+	await elementHelpers.selectHoverOverMenuOptions(clickOnEditButtonSel);
+}
+
 module.exports = {
 	clickCreateTaskButton,
 	sortTasksLastEdited,
@@ -212,4 +226,6 @@ module.exports = {
 	studentSubmittedTask,
 	sortTasksCourse,
 	getNuxtTaskList,
+	hoverOverTask,
+	taskHoverOverFunctions,
 };
