@@ -26,9 +26,9 @@ const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-con
 const courseCheckbox = "//div[contains(.,'";
 const closeFilter = '.v-input__icon--append';
 const taskOverviewLoad = '.v-application--wrap';
-const hoverOverTaskSel = "//div[@data-testid = 'taskTitle' and text()='";
-const clickOnHoverOverFunctionSel = "//button[@data-testid='task-menu-";
-const clickOnEditButtonSel = "//*[text()[contains(.,'Bearbeiten')]]";
+const hoverOverTask = "//div[@data-testid = 'taskTitle' and text()='";
+const clickOnHoverOverFunction = "//button[@data-testid='task-menu-";
+const clickOnEditButton = "//*[text()[contains(.,'Bearbeiten')]]";
 
 const taskButton = {
 	archive: '.fa-archive',
@@ -198,14 +198,14 @@ async function getNuxtTaskList() {
 }
 
 async function hoverOverTask(taskName){
-	await driver.$(hoverOverTaskSel + taskName + "']").moveTo();
+	await driver.$(hoverOverTask + taskName + "']").moveTo();
 	await driver.pause(3000);
-	await elementHelpers.click(clickOnHoverOverFunctionSel + taskName +"']");
+	await elementHelpers.click(clickOnHoverOverFunction + taskName +"']");
 	await driver.pause(3000);
 }
 
 async function taskHoverOverFunctions(){
-	await elementHelpers.selectHoverOverMenuOptions(clickOnEditButtonSel);
+	await elementHelpers.selectHoverOverMenuOptions(clickOnEditButton);
 }
 
 module.exports = {
