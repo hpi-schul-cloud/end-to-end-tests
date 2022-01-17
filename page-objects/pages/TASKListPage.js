@@ -197,7 +197,7 @@ async function getNuxtTaskList() {
 	return listOfAllNuxtTasks;
 }
 
-async function hoverOverTask(taskName){
+async function hoverOverAtTask(taskName){
 	await driver.$(hoverOverTask + taskName + "']").moveTo();
 	await driver.pause(3000);
 	await elementHelpers.click(clickOnHoverOverFunction + taskName +"']");
@@ -226,6 +226,6 @@ module.exports = {
 	studentSubmittedTask,
 	sortTasksCourse,
 	getNuxtTaskList,
-	hoverOverTask,
+	hoverOverAtTask,
 	taskHoverOverFunctions,
 };
