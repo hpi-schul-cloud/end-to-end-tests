@@ -2,7 +2,7 @@
 
 const TASKListPage = require("../../page-objects/pages/TASKListPage");
 
-Then(/^.* hover over at task '([^']*)'$/, async function(taskName){
+Then(/^.* hover over task '([^']*)'$/, async function(taskName){
     await TASKListPage.hoverOverTask(taskName);
 })
 
