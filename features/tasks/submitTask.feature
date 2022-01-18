@@ -1,10 +1,10 @@
-@task @submitTask @e2eCore @tasks_and_other
+@task @submitTask @e2eCore
 Feature: Set of tests to view and submit tasks
 
     Background: User opens Schul-cloud homepage Website
         Given user arrives on the Schul-Cloud homepage
 
-    @submitAndViewTask
+    @submitAndViewTask @tasks_and_other
     Scenario Outline: As a user, I want to see the open tasks in tasks tab, sumbit them and check that it is shown at completed tasks tab
         When <userRole> logs in
        And <userRole> goes to tasks page
