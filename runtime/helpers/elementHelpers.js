@@ -267,6 +267,12 @@ function SelectorConflictException (message) {
 	this.name = "SelectorConflictException";
 }
 
+async function hoverOverMenuOptions(selectorOrElement){
+	await driver.$(selectorOrElement).moveTo();
+	await driver.pause(3000);
+	await click(selectorOrElement);
+}
+
 module.exports = {
 	click,
 	clickAndWait,
@@ -296,5 +302,6 @@ module.exports = {
 	getElementByText,
 	getElementIncludingText,
 	getDisplayedElement,
-  loadPageNuxtClient,
+  	loadPageNuxtClient,
+	hoverOverMenuOptions,
 };

@@ -8,8 +8,8 @@ Feature: create different types of task
 	Scenario Outline: As a user, I want to be able to log in and edit an existing task
 		When <userRole> logs in
 		And <userRole> goes to tasks page
-		And <userRole> clicks at task '<taskName>'
-		When <userRole> clicks on 'Edit' button for task with name '<taskName>'
+		And <userRole> hover over task '<taskName>'
+		And <userRole> edit the task '<taskName>'
 		And <userRole> sets task name '<newTaskName>' in task form
 		And <userRole> sets task body '<newTaskBody>' in task form
 		And <userRole> chooses task courses 'No assignment'
@@ -24,4 +24,4 @@ Feature: create different types of task
 		Then <userRole> sees '<newTaskName>' in the list
 		Examples:
 			| userRole | taskName | newTaskName     | newTaskBody |
-			| teacher  | Task14   | Aufgabe Algebra | Calculate   |
+			| teacher  | Task20   | Aufgabe Algebra | Calculate   |
