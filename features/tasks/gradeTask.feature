@@ -1,4 +1,4 @@
-@task @gradeTask @tasks_and_other @unstableTest
+@task @gradeTask @unstableTest #@tasks_and_other
 Feature: Set of tests to submit and grade tasks
 
 	Background: User opens Schul-cloud homepage Website

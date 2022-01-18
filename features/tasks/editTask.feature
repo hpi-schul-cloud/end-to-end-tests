@@ -1,4 +1,4 @@
-@task @editTask @e2eCore @tasks_and_other @unstableTest
+@task @editTask @e2eCore @unstableTest #@tasks_and_other
 Feature: create different types of task
 
 	Background:
