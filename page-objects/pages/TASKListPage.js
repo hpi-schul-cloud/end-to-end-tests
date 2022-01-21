@@ -202,9 +202,9 @@ async function getNuxtTaskList() {
 
 async function hoverOverTaskAndClickMenu(taskName){
 	await driver.$(taskTitleText + taskName + "']").moveTo();
-	await driver.pause(3000);
+	await driver.pause(10000);
 	await elementHelpers.click(taskActionMenu + taskName +"']");
-	await driver.pause(3000);
+	await driver.pause(10000);
 }
 
 async function clickTaskEditAction(){
