@@ -161,7 +161,7 @@ async function clickAtTask(taskName) {
 	let clickOnThatTask = (await getTaskFromNuxtClient(taskName)).toString();
 	let scrollToTask = await driver.$(clickOnThatTask);
 	await scrollToTask.scrollIntoView();
-	await driver.pause(3000);
+	await driver.pause(10000);
 	await elementHelpers.clickAndWait(clickOnThatTask);
 }
 
