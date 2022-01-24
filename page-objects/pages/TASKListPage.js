@@ -159,9 +159,7 @@ async function clickDeleteTaskButtonInPopup() {
 async function clickAtTask(taskName) {
 	await waitHelpers.waitUntilNuxtClientLoads();
 	let clickOnThatTask = (await getTaskFromNuxtClient(taskName)).toString();
-	let scrollToTask = await driver.$(clickOnThatTask);
-	await scrollToTask.scrollIntoView();
-	await driver.pause(10000);
+	await elementHelpers.scrollIntoView(clickOnThatTask);
 	await elementHelpers.clickAndWait(clickOnThatTask);
 }
 
@@ -231,4 +229,5 @@ module.exports = {
 	getNuxtTaskList,
 	hoverOverTaskAndClickMenu,
 	clickTaskEditAction,
+	scrollIntoView,
 };
