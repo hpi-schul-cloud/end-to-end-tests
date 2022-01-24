@@ -1,10 +1,10 @@
-@task @deleteTask @unstableTest #@tasks_and_other
+@task @deleteTask @stableTest #@tasks_and_other
 Feature: Set of tests to delete tasks
 
 	Background: User opens Schul-cloud homepage Website
 		Given user arrives on the Schul-Cloud homepage
 
-	@deleteSimpleTask @e2eCore @unstableTest
+	@deleteSimpleTask @e2eCore
 	Scenario Outline: As a user, I want to be able to log in and delete an existing task
 		When <userRole> logs in
 		And <userRole> goes to tasks page
@@ -17,7 +17,7 @@ Feature: Set of tests to delete tasks
 			| userRole | taskName |
 			| teacher  | Task14   |
 
-	@deleteTaskWithCourse @unstableTest
+	@deleteTaskWithCourse
 	Scenario Outline: As a user, I want to be able to create a simple task and try to delete it
 		When <userRole> logs in
 		And <userRole> goes to rooms-overview
