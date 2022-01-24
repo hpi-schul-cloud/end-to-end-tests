@@ -159,6 +159,7 @@ async function clickDeleteTaskButtonInPopup() {
 async function clickAtTask(taskName) {
 	await waitHelpers.waitUntilNuxtClientLoads();
 	let clickOnThatTask = (await getTaskFromNuxtClient(taskName)).toString();
+	await elementHelpers.scrollToElement(clickOnThatTask);
 	await elementHelpers.clickAndWait(clickOnThatTask);
 }
 
@@ -199,7 +200,7 @@ async function getNuxtTaskList() {
 
 async function hoverOverTaskAndClickMenu(taskName){
 	await driver.$(taskTitleText + taskName + "']").moveTo();
-	await driver.pause(3000);
+	await driver.pause(5000);
 	await elementHelpers.click(taskActionMenu + taskName +"']");
 	await driver.pause(3000);
 }
