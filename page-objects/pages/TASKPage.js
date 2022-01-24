@@ -170,7 +170,7 @@ async function clickDraftsTab(){
 async function isTaskGraded(){
 	await driver.pause(3000);
 	const actualResult = await elementHelpers.getElementText(gradedTask);
-	await elementHelpers.scrollIntoView(gradedTask);
+	await elementHelpers.scrollToElement(gradedTask);
 	await expect(actualResult).to.equal('1');
 	await driver.pause(3000);
 }

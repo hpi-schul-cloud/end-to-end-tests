@@ -159,7 +159,7 @@ async function clickDeleteTaskButtonInPopup() {
 async function clickAtTask(taskName) {
 	await waitHelpers.waitUntilNuxtClientLoads();
 	let clickOnThatTask = (await getTaskFromNuxtClient(taskName)).toString();
-	await elementHelpers.scrollIntoView(clickOnThatTask);
+	await elementHelpers.scrollToElement(clickOnThatTask);
 	await elementHelpers.clickAndWait(clickOnThatTask);
 }
 

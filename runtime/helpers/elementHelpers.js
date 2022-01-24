@@ -273,9 +273,9 @@ async function hoverOverMenuOptions(selectorOrElement){
 	await click(selectorOrElement);
 }
 
-async function scrollIntoView(selector){
-	let scrollToTask = await driver.$(selector);
-	await scrollToTask.scrollIntoView();
+async function scrollToElement(selector){
+	let scrollToElement = await driver.$(selector);
+	await scrollToElement.scrollIntoView();
 	await driver.pause(10000);
 }
 
@@ -310,5 +310,5 @@ module.exports = {
 	getDisplayedElement,
   	loadPageNuxtClient,
 	hoverOverMenuOptions,
-	scrollIntoView,
+	scrollToElement,
 };
