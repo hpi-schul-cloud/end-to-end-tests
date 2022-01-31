@@ -4,6 +4,7 @@
 const waitHelpers = require('../../runtime/helpers/waitHelpers');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const tableHelpers = require('../../runtime/helpers/tableHelpers');
+const mod_extsprintf = require ('extsprintf');
 const gradingRemarksFieldSel = '.ck-content';
 const submitBtn = '.ckeditor-submit';
 const activeSubmissions = '.tab-content.section-homeworksubmissions.active';
@@ -22,8 +23,7 @@ const submissionRow = `${submissionsTable} tbody tr.userinfo`;
 const openTasksTab = "//span[@data-testid = 'openTasks']";
 const completedTasksTab = "//span[@data-testid = 'closedTasks']";
 const draftTasksTab = "//span[@data-testid = 'draftTasks']";
-const taskToBeGraded = "//div[@data-testid = 'taskTitle' and text() = '";
-const gradedTask = "//div[@data-testid='taskGraded' and text() > '0']";
+const taskGrading = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]/section/div/div[@data-testid='taskGraded' and text() > '0']";
 let fileUrl;
 
 async function gotoTasksTab() {
@@ -175,10 +175,7 @@ async function clickDraftTasksTab(){
 
 async function isTaskGraded(taskName){
 	await driver.pause(3000);
-	let taskLocator = await driver.$(taskToBeGraded + taskName + "']");
-	let taskText = await taskLocator.getText();
-	const actualResult = await elementHelpers.getElementText(gradedTask);
-	await expect(taskText).to.equal(taskName);
+	const actualResult = await elementHelpers.getElementText(mod_extsprintf.sprintf(taskGrading, taskName));
 	await expect(actualResult).to.equal('1');
 	await driver.pause(3000);
 }

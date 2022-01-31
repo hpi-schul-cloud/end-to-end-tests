@@ -183,8 +183,6 @@ async function getTaskFromNuxtClient(taskName) {
 	return taskInTheList;
 }
 
-//#taskDisplayed and taskNotDisplayed doesn't seem to work
-// It works used in the below function, taskNotDisplayed(taskName), It was failing as its either be present or not at the same time
 async function taskDisplayed(taskName) {
 	let taskInTheList = (await getTaskFromNuxtClient(taskName)).toString();
 	await waitHelpers.waitUntilElementIsPresent(taskInTheList);
@@ -209,14 +207,17 @@ async function getNuxtTaskList() {
 	return listOfAllNuxtTasks;
 }
 
-async function hoverOverTaskAndClickMenu(taskName){
+async function hoverOverTaskAndClickMenu(taskName) {
+	await driver.pause(5000);
+	// to be refactored, we shouldn't create selectors like that, we should try to use mod_extsprintf as in TASKPage
 	await driver.$(taskTitleText + taskName + "']").moveTo();
 	await driver.pause(5000);
-	await elementHelpers.click(taskActionMenu + taskName +"']");
+	// to be refactored, we shouldn't create selectors like that, we should try to use mod_extsprintf as in TASKPage
+	await elementHelpers.click(taskActionMenu + taskName + "']");
 	await driver.pause(3000);
 }
 
-async function clickTaskEditAction(){
+async function clickTaskEditAction() {
 	await elementHelpers.hoverOverMenuOptions(editButton);
 }
 
