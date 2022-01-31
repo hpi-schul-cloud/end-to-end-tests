@@ -105,11 +105,11 @@ async function sortTasksCourse(courseName) {
 	await waitHelpers.waitUntilPageLoads();
 }*/
 
-async function getTaskIndex(taskName) {
+/*async function getTaskIndex(taskName) {
 	const listOfTaskTitles = await getListOfTaskTitles();
 	var index = listOfTaskTitles.findIndex((element) => element.includes(taskName));
 	return index;
-}
+}*/
 
 async function getListOfTaskTitles() {
 	await waitHelpers.waitUntilElementIsNotVisible('.loaded #MathJax_Message');
@@ -184,6 +184,7 @@ async function getTaskFromNuxtClient(taskName) {
 }
 
 //#taskDisplayed and taskNotDisplayed doesn't seem to work
+// It works used in the below function, taskNotDisplayed(taskName), It was failing as its either be present or not at the same time
 async function taskDisplayed(taskName) {
 	let taskInTheList = (await getTaskFromNuxtClient(taskName)).toString();
 	await waitHelpers.waitUntilElementIsPresent(taskInTheList);
