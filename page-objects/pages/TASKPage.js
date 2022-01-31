@@ -21,7 +21,8 @@ const submissionsTable = '#submissions table';
 const submissionRow = `${submissionsTable} tbody tr.userinfo`;
 const completedTaskTab = "//span[@data-testid = 'closedTasks']";
 const draftTaskTab = "//span[@data-testid = 'draftTasks']";
-const gradedTask = "//div[@data-testid='taskGraded' and text() = '1']";
+const taskToBeGraded = "//div[@data-testid = 'taskTitle' and text() = '";
+const gradedTask = "//div[@data-testid='taskGraded' and text() > '0']";
 let fileUrl;
 
 async function gotoTasksTab() {
@@ -167,10 +168,12 @@ async function clickDraftsTab(){
 	await elementHelpers.clickAndWait(draftTaskTab);
 }
 
-async function isTaskGraded(){
+async function isTaskGraded(taskName){
 	await driver.pause(3000);
+	let taskLocator = await driver.$(taskToBeGraded + taskName + "']");
+	let taskText = await taskLocator.getText();
 	const actualResult = await elementHelpers.getElementText(gradedTask);
-	await elementHelpers.scrollToElement(gradedTask);
+	await expect(taskText).to.equal(taskName);
 	await expect(actualResult).to.equal('1');
 	await driver.pause(3000);
 }

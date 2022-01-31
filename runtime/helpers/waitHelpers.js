@@ -11,7 +11,6 @@ const elementIsNotVisibleTimeout = 5000;
 const elementIsEnabled = 5000;
 const elementIsDisabled = 5000;
 const elementContainsTextTimeout = 10000;
-const emailSendingTimeout = 10000;
 const urlContainsTimeout = 10000;
 const pageLoadingTimeout = 30000;
 const setValueTimeout = 7000;

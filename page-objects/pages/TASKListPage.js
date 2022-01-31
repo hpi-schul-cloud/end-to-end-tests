@@ -21,10 +21,11 @@ const taskSection = '.v-window-item--active';
 const taskTitle = "//div[@data-testid = 'taskTitle']";
 const submittedTask = "//a[@id='submissions-tab-link']";
 const studentSubmitTask = "//td[text()='Boris']";
-const filterSelect = '.v-select__selections';
-const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
-const courseCheckbox = "//div[contains(.,'";
-const closeFilter = '.v-input__icon--append';
+//const filterSelect = "//input[@data-testid='courseFilter']";
+//const filterSelect = ".v-select__selections";
+//const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
+//const courseCheckbox = "//div[contains(.,'";
+//const closeFilter = '.v-input__icon--append';
 const taskOverviewLoad = '.v-application--wrap';
 const taskTitleText = "//div[@data-testid = 'taskTitle' and text()='";
 const taskActionMenu = "//button[@data-testid='task-menu-";
@@ -84,16 +85,25 @@ async function sortTasksLastEdited() {
 	await waitHelpers.waitUntilPageLoads();
 }
 
+/*
+Already tried these three options:
+
+- Get the list of array ---> Check course is in the list or not ---> Problem: Course name also adds  '(x)'
+- Used the waiterHeplers method waitAndSetValue but its not working due to wrapper of div's and the selector is not accessible
+- Tried to type using javascript command using execute API in webdriver.io but its also not working. 
+
+
 async function sortTasksCourse(courseName) {
 	await elementHelpers.click(filterSelect);
-	//await elementHelpers.click(courseSelect);
+	await elementHelpers.click(courseSelect);
 	//need help with the part below... it choses wrong course
 	let courseSelector = courseCheckbox + courseName + "')]";
 	await elementHelpers.clickAndWait(courseSelector);
 	await elementHelpers.clickAndWait(closeFilter);
-	//await elementHelpers.clickAndWait(submitBtn);
+	await elementHelpers.clickAndWait(check);
+	await elementHelpers.clickAndWait(submitBtn);
 	await waitHelpers.waitUntilPageLoads();
-}
+}*/
 
 async function getTaskIndex(taskName) {
 	const listOfTaskTitles = await getListOfTaskTitles();
@@ -225,7 +235,6 @@ module.exports = {
 	taskDisplayed,
 	taskNotDisplayed,
 	studentSubmittedTask,
-	sortTasksCourse,
 	getNuxtTaskList,
 	hoverOverTaskAndClickMenu,
 	clickTaskEditAction,
