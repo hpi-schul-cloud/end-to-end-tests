@@ -50,7 +50,7 @@ When(/^.* clicks on submit button$/, async function (){
 });
 
 When(/^.* clicks completed task tab$/, async function (){
-    await TASKPage.clickCompletedTab();
+    await TASKPage.clickCompletedTasksTab();
 });
 
 When(/^.* sees '([^']*)' in the list$/, async function (taskName){

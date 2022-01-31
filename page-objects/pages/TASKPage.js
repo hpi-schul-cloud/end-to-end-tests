@@ -19,8 +19,9 @@ const ratingViewSel = '.grade';
 const remarkViewSel = '.ckcontent.comment';
 const submissionsTable = '#submissions table';
 const submissionRow = `${submissionsTable} tbody tr.userinfo`;
-const completedTaskTab = "//span[@data-testid = 'closedTasks']";
-const draftTaskTab = "//span[@data-testid = 'draftTasks']";
+const openTasksTab = "//span[@data-testid = 'openTasks']";
+const completedTasksTab = "//span[@data-testid = 'closedTasks']";
+const draftTasksTab = "//span[@data-testid = 'draftTasks']";
 const taskToBeGraded = "//div[@data-testid = 'taskTitle' and text() = '";
 const gradedTask = "//div[@data-testid='taskGraded' and text() > '0']";
 let fileUrl;
@@ -160,12 +161,16 @@ async function isTaskSubmitted(studentname) {
 	await expect(isSubbmitedByStudent).to.equal(true);
 }
 
-async function clickCompletedTab(){
-	await elementHelpers.clickAndWait(completedTaskTab);
+async function clickOpenTasksTab(){
+	await elementHelpers.clickAndWait(openTasksTab);
 }
 
-async function clickDraftsTab(){
-	await elementHelpers.clickAndWait(draftTaskTab);
+async function clickCompletedTasksTab(){
+	await elementHelpers.clickAndWait(completedTasksTab);
+}
+
+async function clickDraftTasksTab(){
+	await elementHelpers.clickAndWait(draftTasksTab);
 }
 
 async function isTaskGraded(taskName){
@@ -198,7 +203,8 @@ module.exports = {
 	isFileVisible,
 	checkFileEvaluationStudent,
 	checkFileEvaluationTeacher,
-	clickCompletedTab,
-	clickDraftsTab,
+	clickOpenTasksTab,
+	clickCompletedTasksTab,
+	clickDraftTasksTab,
 	isTaskGraded,
 };
