@@ -84,22 +84,24 @@ async function sortTasksLastEdited() {
 	await waitHelpers.waitUntilPageLoads();
 }
 
+/*
+Already tried these three options:
+
+- Get the list of array ---> Check course is in the list or not ---> Problem: Course name also adds  '(x)'
+- Used the waiterHeplers method waitAndSetValue but its not working due to wrapper of div's and the selector is not accessible
+- Tried to type using javascript command using execute API in webdriver.io but its also not working.
+
 async function sortTasksCourse(courseName) {
 	await elementHelpers.click(filterSelect);
-	//await elementHelpers.click(courseSelect);
+	await elementHelpers.click(courseSelect);
 	//need help with the part below... it choses wrong course
 	let courseSelector = courseCheckbox + courseName + "')]";
 	await elementHelpers.clickAndWait(courseSelector);
 	await elementHelpers.clickAndWait(closeFilter);
-	//await elementHelpers.clickAndWait(submitBtn);
+	await elementHelpers.clickAndWait(check);
+	await elementHelpers.clickAndWait(submitBtn);
 	await waitHelpers.waitUntilPageLoads();
-}
-
-async function getTaskIndex(taskName) {
-	const listOfTaskTitles = await getListOfTaskTitles();
-	var index = listOfTaskTitles.findIndex((element) => element.includes(taskName));
-	return index;
-}
+}*/
 
 async function getListOfTaskTitles() {
 	await waitHelpers.waitUntilElementIsNotVisible('.loaded #MathJax_Message');
@@ -173,7 +175,6 @@ async function getTaskFromNuxtClient(taskName) {
 	return taskInTheList;
 }
 
-//#taskDisplayed and taskNotDisplayed doesn't seem to work
 async function taskDisplayed(taskName) {
 	let taskInTheList = (await getTaskFromNuxtClient(taskName)).toString();
 	await waitHelpers.waitUntilElementIsPresent(taskInTheList);
@@ -198,14 +199,17 @@ async function getNuxtTaskList() {
 	return listOfAllNuxtTasks;
 }
 
-async function hoverOverTaskAndClickMenu(taskName){
+async function hoverOverTaskAndClickMenu(taskName) {
+	await driver.pause(5000);
+	// to be refactored, we shouldn't create selectors like that, we should try to use mod_extsprintf as in TASKPage function isTaskGraded
 	await driver.$(taskTitleText + taskName + "']").moveTo();
 	await driver.pause(5000);
-	await elementHelpers.click(taskActionMenu + taskName +"']");
+	// to be refactored, we shouldn't create selectors like that, we should try to use mod_extsprintf as in TASKPage function isTaskGraded
+	await elementHelpers.click(taskActionMenu + taskName + "']");
 	await driver.pause(3000);
 }
 
-async function clickTaskEditAction(){
+async function clickTaskEditAction() {
 	await elementHelpers.hoverOverMenuOptions(editButton);
 }
 
@@ -225,7 +229,6 @@ module.exports = {
 	taskDisplayed,
 	taskNotDisplayed,
 	studentSubmittedTask,
-	sortTasksCourse,
 	getNuxtTaskList,
 	hoverOverTaskAndClickMenu,
 	clickTaskEditAction,

@@ -26,7 +26,7 @@ Feature: Set of tests to submit and grade tasks
 		And <userRole> grades task with rate '<taskRating>'% and remarks '<taskRemark>'
 		And <userRole> clicks Save-and-send grading button
 		And <userRole> goes to tasks page
-		Then <userRole> sees that the task is graded
+		Then <userRole> sees that the task '<taskName>' is graded
 		Examples:
 			| userRole | taskRating | taskRemark | taskName |
 			| teacher  | 95         | good job   | Task11   |

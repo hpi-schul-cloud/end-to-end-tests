@@ -12,7 +12,7 @@ When(/^.* goes to tasks page$/, function () {
 });
 
 When(/^.* clicks on drafts tab$/, function () {
-	return TASKPage.clickDraftsTab();
+	return TASKPage.clickDraftTasksTab();
 });
 
 When(/^.* clicks Create-a-task button in the course '([^'].*)'$/, async function (coursename) {

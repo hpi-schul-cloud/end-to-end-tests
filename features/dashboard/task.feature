@@ -20,7 +20,6 @@ Feature: dashboard test set
 		And <userRole> clicks on drafts tab
 		#And <userRole> filter by '<courseName>'
 		Then <userRole> sees '<taskName>' in the list
-		#When <userRole> sees that task with name '<taskName>' is visible on the list
 		And <userRole> clicks left navigation item 'dashboard'
 		Then <userRole> should see that 'private' tasks section is visible on dashboard
 		And <userRole> should see that 'private' task with name '<taskName>' assigned to course '<courseName>' is visible on dashboard

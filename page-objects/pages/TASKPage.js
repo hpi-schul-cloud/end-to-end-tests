@@ -4,6 +4,7 @@
 const waitHelpers = require('../../runtime/helpers/waitHelpers');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const tableHelpers = require('../../runtime/helpers/tableHelpers');
+const mod_extsprintf = require ('extsprintf');
 const gradingRemarksFieldSel = '.ck-content';
 const submitBtn = '.ckeditor-submit';
 const activeSubmissions = '.tab-content.section-homeworksubmissions.active';
@@ -19,9 +20,10 @@ const ratingViewSel = '.grade';
 const remarkViewSel = '.ckcontent.comment';
 const submissionsTable = '#submissions table';
 const submissionRow = `${submissionsTable} tbody tr.userinfo`;
-const completedTaskTab = "//span[@data-testid = 'closedTasks']";
-const draftTaskTab = "//span[@data-testid = 'draftTasks']";
-const gradedTask = "//div[@data-testid='taskGraded' and text() = '1']";
+const openTasksTab = "//span[@data-testid = 'openTasks']";
+const completedTasksTab = "//span[@data-testid = 'closedTasks']";
+const draftTasksTab = "//span[@data-testid = 'draftTasks']";
+const taskGrading = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]/section/div/div[@data-testid='taskGraded' and text() > '0']";
 let fileUrl;
 
 async function gotoTasksTab() {
@@ -159,18 +161,21 @@ async function isTaskSubmitted(studentname) {
 	await expect(isSubbmitedByStudent).to.equal(true);
 }
 
-async function clickCompletedTab(){
-	await elementHelpers.clickAndWait(completedTaskTab);
+async function clickOpenTasksTab(){
+	await elementHelpers.clickAndWait(openTasksTab);
 }
 
-async function clickDraftsTab(){
-	await elementHelpers.clickAndWait(draftTaskTab);
+async function clickCompletedTasksTab(){
+	await elementHelpers.clickAndWait(completedTasksTab);
 }
 
-async function isTaskGraded(){
+async function clickDraftTasksTab(){
+	await elementHelpers.clickAndWait(draftTasksTab);
+}
+
+async function isTaskGraded(taskName){
 	await driver.pause(3000);
-	const actualResult = await elementHelpers.getElementText(gradedTask);
-	await elementHelpers.scrollToElement(gradedTask);
+	const actualResult = await elementHelpers.getElementText(mod_extsprintf.sprintf(taskGrading, taskName));
 	await expect(actualResult).to.equal('1');
 	await driver.pause(3000);
 }
@@ -195,7 +200,8 @@ module.exports = {
 	isFileVisible,
 	checkFileEvaluationStudent,
 	checkFileEvaluationTeacher,
-	clickCompletedTab,
-	clickDraftsTab,
+	clickOpenTasksTab,
+	clickCompletedTasksTab,
+	clickDraftTasksTab,
 	isTaskGraded,
 };
