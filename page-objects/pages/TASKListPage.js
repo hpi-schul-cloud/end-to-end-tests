@@ -21,11 +21,6 @@ const taskSection = '.v-window-item--active';
 const taskTitle = "//div[@data-testid = 'taskTitle']";
 const submittedTask = "//a[@id='submissions-tab-link']";
 const studentSubmitTask = "//td[text()='Boris']";
-//const filterSelect = "//input[@data-testid='courseFilter']";
-//const filterSelect = ".v-select__selections";
-//const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
-//const courseCheckbox = "//div[contains(.,'";
-//const closeFilter = '.v-input__icon--append';
 const taskOverviewLoad = '.v-application--wrap';
 const taskTitleText = "//div[@data-testid = 'taskTitle' and text()='";
 const taskActionMenu = "//button[@data-testid='task-menu-";
@@ -103,12 +98,6 @@ async function sortTasksCourse(courseName) {
 	await elementHelpers.clickAndWait(check);
 	await elementHelpers.clickAndWait(submitBtn);
 	await waitHelpers.waitUntilPageLoads();
-}*/
-
-/*async function getTaskIndex(taskName) {
-	const listOfTaskTitles = await getListOfTaskTitles();
-	var index = listOfTaskTitles.findIndex((element) => element.includes(taskName));
-	return index;
 }*/
 
 async function getListOfTaskTitles() {
