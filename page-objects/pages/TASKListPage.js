@@ -21,6 +21,10 @@ const taskSection = '.v-window-item--active';
 const taskTitle = "//div[@data-testid = 'taskTitle']";
 const submittedTask = "//a[@id='submissions-tab-link']";
 const studentSubmitTask = "//td[text()='Boris']";
+const filterSelect = '.v-select__selections';
+const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
+const courseCheckbox = "//div[contains(.,'";
+const closeFilter = '.v-input__icon--append';
 const taskOverviewLoad = '.v-application--wrap';
 const taskTitleText = "//div[@data-testid = 'taskTitle' and text()='";
 const taskActionMenu = "//button[@data-testid='task-menu-";
@@ -85,8 +89,7 @@ Already tried these three options:
 
 - Get the list of array ---> Check course is in the list or not ---> Problem: Course name also adds  '(x)'
 - Used the waiterHeplers method waitAndSetValue but its not working due to wrapper of div's and the selector is not accessible
-- Tried to type using javascript command using execute API in webdriver.io but its also not working. 
-
+- Tried to type using javascript command using execute API in webdriver.io but its also not working.
 
 async function sortTasksCourse(courseName) {
 	await elementHelpers.click(filterSelect);
@@ -198,10 +201,10 @@ async function getNuxtTaskList() {
 
 async function hoverOverTaskAndClickMenu(taskName) {
 	await driver.pause(5000);
-	// to be refactored, we shouldn't create selectors like that, we should try to use mod_extsprintf as in TASKPage
+	// to be refactored, we shouldn't create selectors like that, we should try to use mod_extsprintf as in TASKPage function isTaskGraded
 	await driver.$(taskTitleText + taskName + "']").moveTo();
 	await driver.pause(5000);
-	// to be refactored, we shouldn't create selectors like that, we should try to use mod_extsprintf as in TASKPage
+	// to be refactored, we shouldn't create selectors like that, we should try to use mod_extsprintf as in TASKPage function isTaskGraded
 	await elementHelpers.click(taskActionMenu + taskName + "']");
 	await driver.pause(3000);
 }
