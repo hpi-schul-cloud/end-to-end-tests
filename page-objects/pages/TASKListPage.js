@@ -204,7 +204,7 @@ async function getNuxtTaskList() {
 
 async function hoverOverTaskAndClickMenu(taskName) {
 	await driver.pause(5000);
-	let taskTitle = taskTitleSelector(taskName);
+	let taskTitle = await taskTitleSelector(taskName);
 	await taskTitle.scrollIntoView(false);
 	if (await taskTitle.isDisplayedInViewport()){
 		let xOffset = await taskTitle.getLocation('x');
