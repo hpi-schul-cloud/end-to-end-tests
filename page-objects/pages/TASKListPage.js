@@ -211,7 +211,6 @@ async function hoverOverTaskAndClickMenu(taskName) {
 		let yOffset = await taskTitle.getLocation('y');
 		taskTitle.moveTo(xOffset, yOffset);
 		await driver.pause(5000);
-		console.log('Passed second wait');
 		await elementHelpers.click(mod_extsprintf.sprintf(taskActionMenu, taskName));
 		await driver.pause(3000);
 	}
