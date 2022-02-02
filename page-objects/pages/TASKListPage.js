@@ -204,10 +204,18 @@ async function getNuxtTaskList() {
 
 async function hoverOverTaskAndClickMenu(taskName) {
 	await driver.pause(5000);
-	await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName)).moveTo();
-	await driver.pause(5000);
-	await elementHelpers.click(mod_extsprintf.sprintf(taskActionMenu, taskName));
-	await driver.pause(3000);
+	console.log('Passed first wait');
+	let taskTitle = await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName));
+	await taskTitle.scrollIntoView(false);
+	if (await taskTitle.isDisplayedInViewport()){
+		let xOffset = await taskTitle.getLocation('x');
+		let yOffset = await taskTitle.getLocation('y');
+		taskTitle.moveTo(xOffset, yOffset);
+		await driver.pause(5000);
+		console.log('Passed second wait');
+		await elementHelpers.click(mod_extsprintf.sprintf(taskActionMenu, taskName));
+		await driver.pause(3000);
+	}
 }
 
 async function clickTaskEditAction() {
