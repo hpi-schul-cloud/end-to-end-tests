@@ -204,7 +204,7 @@ async function getNuxtTaskList() {
 
 async function hoverOverTaskAndClickMenu(taskName) {
 	await driver.pause(5000);
-	let taskTitle = await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName));
+	let taskTitle = taskTitleSelector(taskName);
 	await taskTitle.scrollIntoView(false);
 	if (await taskTitle.isDisplayedInViewport()){
 		let xOffset = await taskTitle.getLocation('x');
@@ -218,6 +218,11 @@ async function hoverOverTaskAndClickMenu(taskName) {
 
 async function clickTaskEditAction() {
 	await elementHelpers.hoverOverMenuOptions(editButton);
+}
+
+async function taskTitleSelector(taskName){
+	await driver.pause(3000);
+	return (await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName)));
 }
 
 module.exports = {
@@ -239,4 +244,5 @@ module.exports = {
 	getNuxtTaskList,
 	hoverOverTaskAndClickMenu,
 	clickTaskEditAction,
+	taskTitleSelector,
 };

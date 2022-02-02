@@ -4,6 +4,7 @@
 const waitHelpers = require('../../runtime/helpers/waitHelpers');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const tableHelpers = require('../../runtime/helpers/tableHelpers');
+const TASKListPage = require('./TASKListPage');
 const mod_extsprintf = require ('extsprintf');
 const gradingRemarksFieldSel = '.ck-content';
 const submitBtn = '.ckeditor-submit';
@@ -175,7 +176,9 @@ async function clickDraftTasksTab(){
 
 async function isTaskGraded(taskName){
 	await driver.pause(3000);
-	const actualResult = await elementHelpers.getElementText(mod_extsprintf.sprintf(taskGrading, taskName));
+	let taskTitle = await TASKListPage.taskTitleSelector(taskName);
+	await elementHelpers.scrollToElement(taskTitle);
+	let actualResult = await elementHelpers.getElementText(mod_extsprintf.sprintf(taskGrading, taskName));
 	await expect(actualResult).to.equal('1');
 	await driver.pause(3000);
 }

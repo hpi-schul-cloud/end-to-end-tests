@@ -276,7 +276,7 @@ async function hoverOverMenuOptions(selectorOrElement){
 async function scrollToElement(selector){
 	await driver.pause(5000);
 	let scrollToElement = await driver.$(selector);
-	await scrollToElement.scrollIntoView();
+	await scrollToElement.scrollIntoView(false);
 }
 
 module.exports = {
