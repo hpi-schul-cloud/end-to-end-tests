@@ -204,7 +204,6 @@ async function getNuxtTaskList() {
 
 async function hoverOverTaskAndClickMenu(taskName) {
 	await driver.pause(5000);
-	console.log('Passed first wait');
 	let taskTitle = await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName));
 	await taskTitle.scrollIntoView(false);
 	if (await taskTitle.isDisplayedInViewport()){
