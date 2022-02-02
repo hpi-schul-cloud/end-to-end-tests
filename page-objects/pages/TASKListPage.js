@@ -5,7 +5,7 @@ const waitHelpers = require('../../runtime/helpers/waitHelpers');
 const navigationLeftPage = require('./NavigationLeftPage.js');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const { expect } = require('chai');
-const mod_extsprintf = require ('extsprintf');
+const mod_extsprintf = require('extsprintf');
 
 const selectorCreateTaskButton = '[data-testid = "addTask"]';
 const selectorCreateTaskBtnInTheCourse = '.col-sm-12.add-button > a';
@@ -28,7 +28,8 @@ const courseCheckbox = "//div[contains(.,'";
 const closeFilter = '.v-input__icon--append';
 const taskOverviewLoad = '.v-application--wrap';
 const taskTitleText = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]";
-const taskActionMenu = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]/div/button[starts-with(@data-testid,'task-menu')]";
+const taskActionMenu =
+	"//a[div/div[@data-testid='taskTitle' and text() = '%s']]/div/button[starts-with(@data-testid,'task-menu')]";
 const editButton = "//*[text()[contains(.,'Bearbeiten')]]";
 
 const taskButton = {
@@ -167,6 +168,7 @@ async function clickAtTask(taskName) {
 }
 
 async function getTaskFromNuxtClient(taskName) {
+	await driver.pause(3000);
 	await waitHelpers.waitUntilElementIsVisible(taskOverviewLoad);
 	await driver.pause(3000);
 	const taskOverviewResult = await getNuxtTaskList();
