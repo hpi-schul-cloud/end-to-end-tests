@@ -162,6 +162,7 @@ async function clickDeleteTaskButtonInPopup() {
 
 async function clickAtTask(taskName) {
 	await waitHelpers.waitUntilNuxtClientLoads();
+	await driver.pause(5000);
 	let clickOnThatTask = (await getTaskFromNuxtClient(taskName)).toString();
 	await elementHelpers.scrollToElement(clickOnThatTask);
 	await elementHelpers.clickAndWait(clickOnThatTask);
