@@ -63,7 +63,7 @@ Feature: Set of tests to create tasks
 			| userRole | courseName   | taskName             | studentUsername             		| studentPassword | taskBody  |
 			| teacher  | German       | private task example | amelia.strobl.qa@schul-cloud.org | Schulcloud1qa!  | task body |
 
-	@showTaskInCompletedTab @e2eCore
+	@showTaskInFinishedTab @e2eCore
 	Scenario Outline: As a user, I want to be able to create a task and mark them completed
 		When <userRole> logs in
 		And <userRole> goes to rooms-overview
@@ -80,11 +80,6 @@ Feature: Set of tests to create tasks
 		And <userRole> clicks on finished tab
 		#And <userRole> filter by '<courseName>'
 		Then <userRole> sees '<taskName>' in the list
-		When <userRole> logs out
-        And user arrives on the Schul-Cloud homepage
-		And student logs in with email '<studentUsername>' and password '<studentPassword>'
-		And student goes to tasks page
-		Then student sees '<taskName>' in the list
 		Examples:
 			| userRole | courseName   | taskName             | studentUsername             		| studentPassword | taskBody  |
 			| teacher  | German       | private task example | amelia.strobl.qa@schul-cloud.org | Schulcloud1qa!  | task body |
