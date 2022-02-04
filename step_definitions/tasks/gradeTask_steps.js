@@ -30,6 +30,6 @@ Then(/^.* file evaluation is visible$/, async function () {
     await TASKPage.checkFileEvaluationStudent(file)
 });
 
-Then(/^.* sees that the task is graded$/, async function(){
-    await TASKPage.isTaskGraded();
+Then(/^.* sees that the task '([^']*)' is graded$/, async function(taskName){
+    await TASKPage.isTaskGraded(taskName);
 });

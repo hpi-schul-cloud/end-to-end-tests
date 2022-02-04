@@ -1,10 +1,10 @@
-@dashboard @task @stableTest @tasks_and_other
+@dashboard @task @stableTest
 Feature: dashboard test set
 
 	Background: user logs in
 		Given user arrives on the Schul-Cloud homepage
 
-	@showPrivateTaskOnDashboard
+	@showPrivateTaskOnDashboard @tasks_and_other
 	Scenario Outline: As a user I want to be able to see private homework on dashboard
 		Given <userRole> logs in
 		And <userRole> goes to rooms-overview
@@ -20,7 +20,6 @@ Feature: dashboard test set
 		And <userRole> clicks on drafts tab
 		#And <userRole> filter by '<courseName>'
 		Then <userRole> sees '<taskName>' in the list
-		#When <userRole> sees that task with name '<taskName>' is visible on the list
 		And <userRole> clicks left navigation item 'dashboard'
 		Then <userRole> should see that 'private' tasks section is visible on dashboard
 		And <userRole> should see that 'private' task with name '<taskName>' assigned to course '<courseName>' is visible on dashboard
@@ -31,7 +30,7 @@ Feature: dashboard test set
 			| userRole | courseName | taskName             | taskBody         |
 			| teacher  | German     | private task example | text of the task |
 
-	@showRegularTaskOnDashboard
+	@showRegularTaskOnDashboard @tasks_and_other
 	Scenario Outline: As a user I want to be able to see regular task on dashboard
 		Given <userRole> logs in
 		And <userRole> goes to rooms-overview

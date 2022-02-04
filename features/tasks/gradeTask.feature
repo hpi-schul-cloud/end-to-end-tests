@@ -1,10 +1,10 @@
-@task @gradeTask @unstableTest #@tasks_and_other
+@task @gradeTask @stableTest
 Feature: Set of tests to submit and grade tasks
 
 	Background: User opens Schul-cloud homepage Website
 		Given user arrives on the Schul-Cloud homepage
 
-	@studentSubmitsTask @unstableTest
+	@studentSubmitsTask @tasks_and_other
 	Scenario Outline: As a student, I want to see the open tasks in in tasks tab and sumbit them
 		When <userRole> logs in
 		And <userRole> goes to tasks page
@@ -16,7 +16,7 @@ Feature: Set of tests to submit and grade tasks
 			| userRole | taskName |
 			| student  | Task11   |
 
-	@teacherGradesAndViewsTask @noDBReset @unstableTest
+	@teacherGradesAndViewsTask @noDBReset @tasks_and_other
 	Scenario Outline: As a teacher, I want to see the task in tasks tab, grade it and check that it is shown at graded tasks tab
 		When <userRole> logs in
 		And <userRole> goes to tasks page
@@ -26,7 +26,7 @@ Feature: Set of tests to submit and grade tasks
 		And <userRole> grades task with rate '<taskRating>'% and remarks '<taskRemark>'
 		And <userRole> clicks Save-and-send grading button
 		And <userRole> goes to tasks page
-		Then <userRole> sees that the task is graded
+		Then <userRole> sees that the task '<taskName>' is graded
 		Examples:
 			| userRole | taskRating | taskRemark | taskName |
 			| teacher  | 95         | good job   | Task11   |

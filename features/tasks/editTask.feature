@@ -1,10 +1,10 @@
-@task @editTask @e2eCore @unstableTest #@tasks_and_other
+@task @editTask @e2eCore
 Feature: create different types of task
 
 	Background:
 		Given user arrives on the Schul-Cloud homepage
 
-	@editTask @unstableTest
+	@editTask @unstableTests #@tasks_and_other
 	Scenario Outline: As a user, I want to be able to log in and edit an existing task
 		When <userRole> logs in
 		And <userRole> goes to tasks page

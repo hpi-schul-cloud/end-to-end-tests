@@ -1,10 +1,10 @@
-@task @deleteTask @unstableTest #@tasks_and_other
+@task @deleteTask @stableTest
 Feature: Set of tests to delete tasks
 
 	Background: User opens Schul-cloud homepage Website
 		Given user arrives on the Schul-Cloud homepage
 
-	@deleteSimpleTask @e2eCore @unstableTest
+	@deleteSimpleTask @e2eCore @tasks_and_other
 	Scenario Outline: As a user, I want to be able to log in and delete an existing task
 		When <userRole> logs in
 		And <userRole> goes to tasks page
@@ -12,12 +12,11 @@ Feature: Set of tests to delete tasks
 		And <userRole> clicks on 'Delete' button for task with name '<taskName>'
 		And <userRole> clicks on Delete task button
 		Then <userRole> sees '<taskName>' not in the list
-		#Then <userRole> should see that task with name '<taskName>' is not visible on the list
 		Examples:
 			| userRole | taskName |
 			| teacher  | Task14   |
 
-	@deleteTaskWithCourse @unstableTest
+	@deleteTaskWithCourse @tasks_and_other
 	Scenario Outline: As a user, I want to be able to create a simple task and try to delete it
 		When <userRole> logs in
 		And <userRole> goes to rooms-overview
@@ -33,12 +32,10 @@ Feature: Set of tests to delete tasks
 		#And <userRole> filter by '<courseName>'
 		Then <userRole> sees '<taskName>' in the list
 		And <userRole> clicks at task '<taskName>'
-		#Then <userRole> should see that task with name '<taskName>' is visible on the list
 		And <userRole> should clicks on 'Delete' button for task with name '[<courseName>] - <taskName>'
 		And <userRole> clicks on Delete task button
 		When <userRole> goes to tasks page
 		Then <userRole> sees '<taskName>' not in the list
-		#Then <userRole> should see that task with name '<taskName>' is not visible on the list
 		Examples:
 			| userRole | courseName                 | taskName  | taskBody          |
 			| teacher  | test course with test task | test task | text of test task |

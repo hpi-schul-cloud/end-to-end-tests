@@ -1,4 +1,4 @@
-@task @submitTask @e2eCore
+@task @submitTask @e2eCore @stableTest
 Feature: Set of tests to view and submit tasks
 
     Background: User opens Schul-cloud homepage Website
@@ -19,7 +19,7 @@ Feature: Set of tests to view and submit tasks
             | userRole | taskName |
             | student  | Task11   |
 
-    @submitTaskWithTextContent @unstableTest
+    @submitTaskWithTextContent @tasks_and_other
 	Scenario Outline: As a user, I want to be able to submit a task and teacher evaluates it
 		When <userRole> logs in
 		And <userRole> goes to rooms-overview
