@@ -17,7 +17,7 @@ Feature: dashboard test set
 		And <userRole> clicks on Private-task checkbox
 		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
-		And <userRole> clicks on 'Drafts' tab
+		And <userRole> clicks 'Draft' task tab
 		#And <userRole> filter by '<courseName>'
 		Then <userRole> sees '<taskName>' in the list
 		And <userRole> clicks left navigation item 'dashboard'

@@ -27,7 +27,7 @@ const taskActionMenuButton = {
 	finished: "//span[@data-testid = 'finishedTasks']",
 	open: "//span[@data-testid = 'openTasks']",
 	completed:"//span[@data-testid = 'closedTasks']",
-	drafts: "//span[@data-testid = 'draftTasks']",
+	draft: "//span[@data-testid = 'draftTasks']",
 };
 
 function getTaskActionMenuBtnSelector(buttonAction) {
@@ -43,8 +43,8 @@ function getTaskActionMenuBtnSelector(buttonAction) {
 		case 'completed':
 			btnSel = taskActionMenuButton.completed;
 			break;
-		case 'drafts':
-			btnSel = taskActionMenuButton.drafts;
+		case 'draft':
+			btnSel = taskActionMenuButton.draft;
 			break;
 		default:
 			console.error(`This action button: ${buttonAction} does not exist on the list of possible choices`);

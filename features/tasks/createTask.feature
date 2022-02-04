@@ -13,14 +13,14 @@ Feature: Set of tests to create tasks
 		And <userRole> sets task body '<taskBody>' in task form
 		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
-		And <userRole> clicks on 'Drafts' tab
+		And <userRole> clicks 'Draft' task tab
 		Then <userRole> sees '<taskName>' in the list
 		Examples:
 			| userRole | email                  			 | password       | taskName        | taskBody |
 			| teacher  | lara.teacher.qa@schul-cloud.org	 | Schulcloud1qa! | end-to-end-task | MyBody   |
 
 	@createTaskInTheCourse
-	Scenario Outline: As a user, I want to be able to create a simple task
+	Scenario Outline: As a user, I want to be able to create a simple task, archive and unarchive it
 		When <userRole> logs in
 		And <userRole> goes to rooms-overview
 		And <userRole> chooses course with name '<courseName>'
@@ -34,7 +34,7 @@ Feature: Set of tests to create tasks
 		And <userRole> goes to tasks page
 		And <userRole> hover over task '<taskName>'
 		And <userRole> 'Archive' task '<taskName>'
-		And <userRole> clicks on 'Finished' tab
+		And <userRole> clicks 'Finished' task tab
 		#And <userRole> filter by '<courseName>'
 		Then <userRole> sees '<taskName>' in the list
 		And <userRole> hover over task '<taskName>'
@@ -57,7 +57,7 @@ Feature: Set of tests to create tasks
 		And <userRole> clicks on Private-task checkbox
 		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
-		And <userRole> clicks on 'Drafts' tab
+		And <userRole> clicks 'Draft' task tab
 		#And <userRole> filter by '<courseName>'
 		Then <userRole> sees '<taskName>' in the list
 		When <userRole> logs out
