@@ -23,6 +23,7 @@ const submissionRow = `${submissionsTable} tbody tr.userinfo`;
 const openTasksTab = "//span[@data-testid = 'openTasks']";
 const completedTasksTab = "//span[@data-testid = 'closedTasks']";
 const draftTasksTab = "//span[@data-testid = 'draftTasks']";
+const finishedTasksTab = "//span[@data-testid = 'finishedTasks']";
 const taskGrading = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]/section/div/div[@data-testid='taskGraded' and text() > '0']";
 let fileUrl;
 
@@ -169,6 +170,10 @@ async function clickCompletedTasksTab(){
 	await elementHelpers.clickAndWait(completedTasksTab);
 }
 
+async function clickFinishedTasksTab(){
+	await elementHelpers.clickAndWait(finishedTasksTab);
+}
+
 async function clickDraftTasksTab(){
 	await elementHelpers.clickAndWait(draftTasksTab);
 }
@@ -203,5 +208,6 @@ module.exports = {
 	clickOpenTasksTab,
 	clickCompletedTasksTab,
 	clickDraftTasksTab,
+	clickFinishedTasksTab,
 	isTaskGraded,
 };

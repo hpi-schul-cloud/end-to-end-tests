@@ -9,3 +9,7 @@ Then(/^.* hover over task '([^']*)'$/, async function(taskName){
 Then(/^.* edit the task '([^']*)'$/, async function(taskName){
     await TASKListPage.clickTaskEditAction();
 })
+
+Then(/^.* mark task '([^']*)' completed$/, async function(taskName){
+    await TASKListPage.clickTaskCompletedAction();
+})

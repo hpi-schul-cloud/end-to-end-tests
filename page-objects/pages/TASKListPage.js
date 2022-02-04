@@ -5,6 +5,7 @@ const waitHelpers = require('../../runtime/helpers/waitHelpers');
 const navigationLeftPage = require('./NavigationLeftPage.js');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const { expect } = require('chai');
+const mod_extsprintf = require('extsprintf');
 
 const selectorCreateTaskButton = '[data-testid = "addTask"]';
 const selectorCreateTaskBtnInTheCourse = '.col-sm-12.add-button > a';
@@ -26,9 +27,10 @@ const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-con
 const courseCheckbox = "//div[contains(.,'";
 const closeFilter = '.v-input__icon--append';
 const taskOverviewLoad = '.v-application--wrap';
-const taskTitleText = "//div[@data-testid = 'taskTitle' and text()='";
-const taskActionMenu = "//button[@data-testid='task-menu-";
+const taskTitleText = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]";
+const taskActionMenu = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]/div/button[starts-with(@data-testid,'task-menu')]";
 const editButton = "//*[text()[contains(.,'Bearbeiten')]]";
+const completedButton = "//*[text()[contains(.,'Abschließen')]]";
 
 const taskButton = {
 	archive: '.fa-archive',
@@ -201,16 +203,24 @@ async function getNuxtTaskList() {
 
 async function hoverOverTaskAndClickMenu(taskName) {
 	await driver.pause(5000);
-	// to be refactored, we shouldn't create selectors like that, we should try to use mod_extsprintf as in TASKPage function isTaskGraded
-	await driver.$(taskTitleText + taskName + "']").moveTo();
-	await driver.pause(5000);
-	// to be refactored, we shouldn't create selectors like that, we should try to use mod_extsprintf as in TASKPage function isTaskGraded
-	await elementHelpers.click(taskActionMenu + taskName + "']");
-	await driver.pause(3000);
+	let taskTitle = await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName));
+	await taskTitle.scrollIntoView(false);
+	if (await taskTitle.isDisplayedInViewport()){
+		let xOffset = await taskTitle.getLocation('x');
+		let yOffset = await taskTitle.getLocation('y');
+		taskTitle.moveTo(xOffset, yOffset);
+		await driver.pause(5000);
+		await elementHelpers.click(mod_extsprintf.sprintf(taskActionMenu, taskName));
+		await driver.pause(3000);
+	}
 }
 
 async function clickTaskEditAction() {
 	await elementHelpers.hoverOverMenuOptions(editButton);
+}
+
+async function clickTaskCompletedAction() {
+	await elementHelpers.hoverOverMenuOptions(completedButton);
 }
 
 module.exports = {
@@ -232,4 +242,5 @@ module.exports = {
 	getNuxtTaskList,
 	hoverOverTaskAndClickMenu,
 	clickTaskEditAction,
+	clickTaskCompletedAction,
 };
