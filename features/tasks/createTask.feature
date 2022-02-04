@@ -13,7 +13,7 @@ Feature: Set of tests to create tasks
 		And <userRole> sets task body '<taskBody>' in task form
 		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
-		And <userRole> clicks on drafts tab
+		And <userRole> clicks on 'Drafts' tab
 		Then <userRole> sees '<taskName>' in the list
 		Examples:
 			| userRole | email                  			 | password       | taskName        | taskBody |
@@ -32,8 +32,14 @@ Feature: Set of tests to create tasks
 		And <userRole> sets task body '<taskBody>' in task form
 		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
+		And <userRole> hover over task '<taskName>'
+		And <userRole> 'Archive' task '<taskName>'
+		And <userRole> clicks on 'Finished' tab
 		#And <userRole> filter by '<courseName>'
 		Then <userRole> sees '<taskName>' in the list
+		And <userRole> hover over task '<taskName>'
+		And <userRole> 'Unarchive' task '<taskName>'
+		Then <userRole> sees '<taskName>' not in the list
 		Examples:
 			| userRole | courseName  | taskName     | taskBody         |
 			| teacher  | Mathe       | task example | text of the task |
@@ -51,7 +57,7 @@ Feature: Set of tests to create tasks
 		And <userRole> clicks on Private-task checkbox
 		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
-		And <userRole> clicks on drafts tab
+		And <userRole> clicks on 'Drafts' tab
 		#And <userRole> filter by '<courseName>'
 		Then <userRole> sees '<taskName>' in the list
 		When <userRole> logs out
@@ -59,27 +65,6 @@ Feature: Set of tests to create tasks
 		And student logs in with email '<studentUsername>' and password '<studentPassword>'
 		And student goes to tasks page
 		Then student sees '<taskName>' not in the list
-		Examples:
-			| userRole | courseName   | taskName             | studentUsername             		| studentPassword | taskBody  |
-			| teacher  | German       | private task example | amelia.strobl.qa@schul-cloud.org | Schulcloud1qa!  | task body |
-
-	@showTaskInFinishedTab @e2eCore
-	Scenario Outline: As a user, I want to be able to create a task and mark them completed
-		When <userRole> logs in
-		And <userRole> goes to rooms-overview
-		And <userRole> chooses course with name '<courseName>'
-		And <userRole> clicks Create-a-task button in the course '<courseName>'
-		And <userRole> sets task name '<taskName>' in task form
-		And <userRole> sets task body '<taskBody>' in task form
-		And <userRole> sets Task-visibility-start-date: today, 00:00
-		And <userRole> sets Task-processing-end-date: today +1 day, 11:00
-		And <userRole> clicks Add-task-submit button
-		And <userRole> goes to tasks page
-		And <userRole> hover over task '<taskName>'
-		And <userRole> mark task '<taskName>' completed
-		And <userRole> clicks on finished tab
-		#And <userRole> filter by '<courseName>'
-		Then <userRole> sees '<taskName>' in the list
 		Examples:
 			| userRole | courseName   | taskName             | studentUsername             		| studentPassword | taskBody  |
 			| teacher  | German       | private task example | amelia.strobl.qa@schul-cloud.org | Schulcloud1qa!  | task body |

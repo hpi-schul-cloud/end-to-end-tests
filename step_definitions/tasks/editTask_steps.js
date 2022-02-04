@@ -6,10 +6,6 @@ Then(/^.* hover over task '([^']*)'$/, async function(taskName){
     await TASKListPage.hoverOverTaskAndClickMenu(taskName);
 })
 
-Then(/^.* edit the task '([^']*)'$/, async function(taskName){
-    await TASKListPage.clickTaskEditAction();
-})
-
-Then(/^.* mark task '([^']*)' completed$/, async function(taskName){
-    await TASKListPage.clickTaskCompletedAction();
+Then(/^.* '([^']*)' task '([^']*)'$/, async function(button, taskName){
+    await TASKListPage.clickTaskOnActionMenu(button);
 })

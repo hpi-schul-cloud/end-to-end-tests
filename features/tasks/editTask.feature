@@ -9,7 +9,7 @@ Feature: create different types of task
 		When <userRole> logs in
 		And <userRole> goes to tasks page
 		And <userRole> hover over task '<taskName>'
-		And <userRole> edit the task '<taskName>'
+		And <userRole> 'Edit' the task '<taskName>'
 		And <userRole> sets task name '<newTaskName>' in task form
 		And <userRole> sets task body '<newTaskBody>' in task form
 		And <userRole> chooses task courses 'No assignment'
@@ -20,7 +20,7 @@ Feature: create different types of task
 		And <userRole> clicks on Student-submissions-visible-to-each-other checkbox
 		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
-		And <userRole> clicks on drafts tab
+		And <userRole> clicks on 'Drafts' tab
 		Then <userRole> sees '<newTaskName>' in the list
 		Examples:
 			| userRole | taskName | newTaskName     | newTaskBody |

@@ -11,12 +11,8 @@ When(/^.* goes to tasks page$/, function () {
 	return navigationLeftPage.clickNavItemTasks();
 });
 
-When(/^.* clicks on drafts tab$/, function () {
-	return TASKPage.clickDraftTasksTab();
-});
-
-When(/^.* clicks on finished tab$/, function () {
-	return TASKPage.clickFinishedTasksTab();
+When(/^.* clicks on '([^'].*)' tab$/, function (button) {
+	return TASKPage.clickOnTaskOverviewMenuOptions(button);
 });
 
 When(/^.* clicks Create-a-task button in the course '([^'].*)'$/, async function (coursename) {
