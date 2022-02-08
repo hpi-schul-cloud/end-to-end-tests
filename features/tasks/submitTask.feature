@@ -13,7 +13,7 @@ Feature: Set of tests to view and submit tasks
         And <userRole> sets submission text 'Test submission text'
         And <userRole> clicks on submit button
        And <userRole> goes to tasks page
-        And <userRole> clicks completed task tab
+        And <userRole> clicks 'Completed' task tab
         Then <userRole> sees '<taskName>' in the list
         Examples:
             | userRole | taskName |
@@ -57,7 +57,7 @@ Feature: Set of tests to view and submit tasks
         And user arrives on the Schul-Cloud homepage
 		And student logs in with email '<studentUserName>' and password '<password>'
 		And student goes to tasks page
-		And student clicks completed task tab
+		And student clicks 'Completed' task tab
 		#And student filter by '<courseName>'
 		And student clicks at task '<taskName>'
 		And student clicks on Comment-Grading tab

@@ -21,11 +21,38 @@ const ratingViewSel = '.grade';
 const remarkViewSel = '.ckcontent.comment';
 const submissionsTable = '#submissions table';
 const submissionRow = `${submissionsTable} tbody tr.userinfo`;
-const openTasksTab = "//span[@data-testid = 'openTasks']";
-const completedTasksTab = "//span[@data-testid = 'closedTasks']";
-const draftTasksTab = "//span[@data-testid = 'draftTasks']";
 const taskGrading = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]/section/div/div[@data-testid='taskGraded' and text() > '0']";
 let fileUrl;
+
+const taskActionMenuButton = {
+	finished: "//span[@data-testid = 'finishedTasks']",
+	open: "//span[@data-testid = 'openTasks']",
+	completed:"//span[@data-testid = 'closedTasks']",
+	draft: "//span[@data-testid = 'draftTasks']",
+};
+
+function getTaskActionMenuBtnSelector(buttonAction) {
+	let btnSel = "";
+	const action = buttonAction.toLowerCase();
+	switch (action) {
+		case 'finished':
+			btnSel = taskActionMenuButton.finished;
+			break;
+		case 'open':
+			btnSel = taskActionMenuButton.open;
+			break;
+		case 'completed':
+			btnSel = taskActionMenuButton.completed;
+			break;
+		case 'draft':
+			btnSel = taskActionMenuButton.draft;
+			break;
+		default:
+			console.error(`This action button: ${buttonAction} does not exist on the list of possible choices`);
+			break;
+	}
+	return btnSel;
+}
 
 async function gotoTasksTab() {
 	await elementHelpers.clickAndWait(hometasksTabSel);
@@ -162,16 +189,8 @@ async function isTaskSubmitted(studentname) {
 	await expect(isSubbmitedByStudent).to.equal(true);
 }
 
-async function clickOpenTasksTab(){
-	await elementHelpers.clickAndWait(openTasksTab);
-}
-
-async function clickCompletedTasksTab(){
-	await elementHelpers.clickAndWait(completedTasksTab);
-}
-
-async function clickDraftTasksTab(){
-	await elementHelpers.clickAndWait(draftTasksTab);
+async function clickOnTaskOverviewMenuOptions(button){
+	await elementHelpers.clickAndWait(getTaskActionMenuBtnSelector(button));
 }
 
 async function isTaskGraded(taskName){
@@ -203,8 +222,6 @@ module.exports = {
 	isFileVisible,
 	checkFileEvaluationStudent,
 	checkFileEvaluationTeacher,
-	clickOpenTasksTab,
-	clickCompletedTasksTab,
-	clickDraftTasksTab,
 	isTaskGraded,
+	clickOnTaskOverviewMenuOptions,
 };

@@ -28,14 +28,12 @@ const courseCheckbox = "//div[contains(.,'";
 const closeFilter = '.v-input__icon--append';
 const taskOverviewLoad = '.v-application--wrap';
 const taskTitleText = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]";
-const taskActionMenu =
-	"//a[div/div[@data-testid='taskTitle' and text() = '%s']]/div/button[starts-with(@data-testid,'task-menu')]";
-const editButton = "//*[text()[contains(.,'Bearbeiten')]]";
+const taskActionMenu = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]/div/button[starts-with(@data-testid,'task-menu')]";
 
-const taskButton = {
-	archive: '.fa-archive',
-	undoArchive: '.fa-mail-reply',
-	edit: '.fa-edit',
+const taskActionMenuButton = {
+	archive: "//*[text()[contains(.,'Abschließen')]]",
+	unarchive: "//*[text()[contains(.,'Wiederherstellen')]]",
+	edit: "//*[text()[contains(.,'Bearbeiten')]]",
 	copy: '.fa-copy',
 	delete: '.btn-delete',
 	taskOpen: '.assignment span.more',
@@ -46,22 +44,22 @@ function getTaskActionBtnSelector(buttonAction) {
 	const action = buttonAction.toLowerCase();
 	switch (action) {
 		case 'archive':
-			btnSel = taskButton.archive;
+			btnSel = taskActionMenuButton.archive;
 			break;
-		case 'undo archive':
-			btnSel = taskButton.undoArchive;
+		case 'unarchive':
+			btnSel = taskActionMenuButton.unarchive;
 			break;
 		case 'edit':
-			btnSel = taskButton.edit;
+			btnSel = taskActionMenuButton.edit;
 			break;
 		case 'copy':
-			btnSel = taskButton.copy;
+			btnSel = taskActionMenuButton.copy;
 			break;
 		case 'delete':
-			btnSel = taskButton.delete;
+			btnSel = taskActionMenuButton.delete;
 			break;
 		case 'task open':
-			btnSel = taskButton.taskOpen;
+			btnSel = taskActionMenuButton.taskOpen;
 			break;
 		default:
 			console.error(`This action button: ${buttonAction} does not exist on the list of possible choices`);
@@ -205,7 +203,7 @@ async function getNuxtTaskList() {
 
 async function hoverOverTaskAndClickMenu(taskName) {
 	await driver.pause(5000);
-	let taskTitle = await taskTitleSelector(taskName);
+	let taskTitle = await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName));
 	await taskTitle.scrollIntoView(false);
 	if (await taskTitle.isDisplayedInViewport()){
 		let xOffset = await taskTitle.getLocation('x');
@@ -217,8 +215,8 @@ async function hoverOverTaskAndClickMenu(taskName) {
 	}
 }
 
-async function clickTaskEditAction() {
-	await elementHelpers.hoverOverMenuOptions(editButton);
+async function clickTaskOnActionMenu(button){
+	await elementHelpers.hoverOverMenuOptions(getTaskActionBtnSelector(button))
 }
 
 async function taskTitleSelector(taskName){
@@ -244,6 +242,5 @@ module.exports = {
 	studentSubmittedTask,
 	getNuxtTaskList,
 	hoverOverTaskAndClickMenu,
-	clickTaskEditAction,
-	taskTitleSelector,
+	clickTaskOnActionMenu,
 };
