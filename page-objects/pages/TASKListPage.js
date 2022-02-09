@@ -243,4 +243,5 @@ module.exports = {
 	getNuxtTaskList,
 	hoverOverTaskAndClickMenu,
 	clickTaskOnActionMenu,
+	taskTitleSelector,
 };
