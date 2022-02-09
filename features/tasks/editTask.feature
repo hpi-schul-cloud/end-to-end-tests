@@ -10,7 +10,7 @@ Feature: create different types of task
 		When <userRole> logs in
 		And <userRole> goes to tasks page
 		And <userRole> hover over task '<taskName>'
-		And <userRole> 'Edit' the task '<taskName>'
+		And <userRole> 'Edit' task '<taskName>'
 		And <userRole> sets task name '<newTaskName>' in task form
 		And <userRole> sets task body '<newTaskBody>' in task form
 		And <userRole> chooses task courses 'No assignment'
