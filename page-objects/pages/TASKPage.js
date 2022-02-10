@@ -6,7 +6,8 @@ const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const tableHelpers = require('../../runtime/helpers/tableHelpers');
 const TASKListPage = require('./TASKListPage');
 const mod_extsprintf = require ('extsprintf');
-const gradingRemarksFieldSel = '.ck-content';
+const submissionTextFieldSel = '.ck-content';
+const remarksFieldSel ="//p[@data-placeholder = 'Bewertungskommentar']";
 const submitBtn = '.ckeditor-submit';
 const activeSubmissions = '.tab-content.section-homeworksubmissions.active';
 const gradeFilesListSel = '.list-group-files';
@@ -115,16 +116,16 @@ async function setRating(rating) {
 }
 
 async function setGradeRemarks(gradingRemarks) {
-	await waitHelpers.waitAndSetValue(gradingRemarksFieldSel, gradingRemarks);
+	await waitHelpers.waitAndSetValue(remarksFieldSel, gradingRemarks);
 }
 
 async function setTextSubmision(submissionText = 'here is some text which I want to submit') {
-	await waitHelpers.waitAndSetValue(gradingRemarksFieldSel, submissionText);
+	await waitHelpers.waitAndSetValue(submissionTextFieldSel, submissionText);
 }
 
 async function gradeTask({ rating, gradingRemarks }) {
-	if (rating) setRating(rating);
-	if (gradingRemarks) setGradeRemarks(gradingRemarks);
+	if (rating) await setRating(rating);
+	if (gradingRemarks) await setGradeRemarks(gradingRemarks);
 }
 
 async function isTaskRemark(remark) {

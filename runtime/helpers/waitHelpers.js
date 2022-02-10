@@ -228,9 +228,13 @@ async function waitUntilScriptResultIsTrue(script, timeoutMsg, timeout = pageLoa
 async function waitAndSetValue(selectorOrElement, value, timeout = setValueTimeout) {
 	await waitUntilElementIsVisible(selectorOrElement);
 	const element = await waitUntilElementIsEnabled(selectorOrElement);
-	await element.setValue(value);
-}
-
+	await element.click();
+	const arrValue = [...value]; // This is for converting string to charArray ['abc']  =>  ['a','b','c']
+	for(let i = 0 ; i< arrValue.length; i++) {
+		driver.keys(arrValue[i]);
+		await driver.pause(200);
+	}
+}	
 async function waitUntilElementAttributeEquals(
 	selectorOrElement,
 	attributeName,
