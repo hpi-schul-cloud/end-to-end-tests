@@ -4,12 +4,13 @@ Feature: create different types of task
 	Background:
 		Given user arrives on the Schul-Cloud homepage
 
-	@editTask @unstableTests #@tasks_and_other
+	@editTask @unstableTest
+	#@tasks_and_other
 	Scenario Outline: As a user, I want to be able to log in and edit an existing task
 		When <userRole> logs in
 		And <userRole> goes to tasks page
 		And <userRole> hover over task '<taskName>'
-		And <userRole> edit the task '<taskName>'
+		And <userRole> 'Edit' task '<taskName>'
 		And <userRole> sets task name '<newTaskName>' in task form
 		And <userRole> sets task body '<newTaskBody>' in task form
 		And <userRole> chooses task courses 'No assignment'
@@ -20,7 +21,7 @@ Feature: create different types of task
 		And <userRole> clicks on Student-submissions-visible-to-each-other checkbox
 		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
-		And <userRole> clicks on drafts tab
+		And <userRole> clicks 'Draft' task tab
 		Then <userRole> sees '<newTaskName>' in the list
 		Examples:
 			| userRole | taskName | newTaskName     | newTaskBody |

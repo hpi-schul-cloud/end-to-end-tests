@@ -4,8 +4,10 @@
 const waitHelpers = require('../../runtime/helpers/waitHelpers');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const tableHelpers = require('../../runtime/helpers/tableHelpers');
+const TASKListPage = require('./TASKListPage');
 const mod_extsprintf = require ('extsprintf');
-const gradingRemarksFieldSel = '.ck-content';
+const submissionTextFieldSel = '.ck-content';
+const remarksFieldSel ="//p[@data-placeholder = 'Bewertungskommentar']";
 const submitBtn = '.ckeditor-submit';
 const activeSubmissions = '.tab-content.section-homeworksubmissions.active';
 const gradeFilesListSel = '.list-group-files';
@@ -20,11 +22,38 @@ const ratingViewSel = '.grade';
 const remarkViewSel = '.ckcontent.comment';
 const submissionsTable = '#submissions table';
 const submissionRow = `${submissionsTable} tbody tr.userinfo`;
-const openTasksTab = "//span[@data-testid = 'openTasks']";
-const completedTasksTab = "//span[@data-testid = 'closedTasks']";
-const draftTasksTab = "//span[@data-testid = 'draftTasks']";
 const taskGrading = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]/section/div/div[@data-testid='taskGraded' and text() > '0']";
 let fileUrl;
+
+const taskActionMenuButton = {
+	finished: "//span[@data-testid = 'finishedTasks']",
+	open: "//span[@data-testid = 'openTasks']",
+	completed:"//span[@data-testid = 'closedTasks']",
+	draft: "//span[@data-testid = 'draftTasks']",
+};
+
+function getTaskActionMenuBtnSelector(buttonAction) {
+	let btnSel = "";
+	const action = buttonAction.toLowerCase();
+	switch (action) {
+		case 'finished':
+			btnSel = taskActionMenuButton.finished;
+			break;
+		case 'open':
+			btnSel = taskActionMenuButton.open;
+			break;
+		case 'completed':
+			btnSel = taskActionMenuButton.completed;
+			break;
+		case 'draft':
+			btnSel = taskActionMenuButton.draft;
+			break;
+		default:
+			console.error(`This action button: ${buttonAction} does not exist on the list of possible choices`);
+			break;
+	}
+	return btnSel;
+}
 
 async function gotoTasksTab() {
 	await elementHelpers.clickAndWait(hometasksTabSel);
@@ -87,16 +116,16 @@ async function setRating(rating) {
 }
 
 async function setGradeRemarks(gradingRemarks) {
-	await waitHelpers.waitAndSetValue(gradingRemarksFieldSel, gradingRemarks);
+	await waitHelpers.waitAndSetValue(remarksFieldSel, gradingRemarks);
 }
 
 async function setTextSubmision(submissionText = 'here is some text which I want to submit') {
-	await waitHelpers.waitAndSetValue(gradingRemarksFieldSel, submissionText);
+	await waitHelpers.waitAndSetValue(submissionTextFieldSel, submissionText);
 }
 
 async function gradeTask({ rating, gradingRemarks }) {
-	if (rating) setRating(rating);
-	if (gradingRemarks) setGradeRemarks(gradingRemarks);
+	if (rating) await setRating(rating);
+	if (gradingRemarks) await setGradeRemarks(gradingRemarks);
 }
 
 async function isTaskRemark(remark) {
@@ -161,21 +190,15 @@ async function isTaskSubmitted(studentname) {
 	await expect(isSubbmitedByStudent).to.equal(true);
 }
 
-async function clickOpenTasksTab(){
-	await elementHelpers.clickAndWait(openTasksTab);
-}
-
-async function clickCompletedTasksTab(){
-	await elementHelpers.clickAndWait(completedTasksTab);
-}
-
-async function clickDraftTasksTab(){
-	await elementHelpers.clickAndWait(draftTasksTab);
+async function clickOnTaskOverviewMenuOptions(button){
+	await elementHelpers.clickAndWait(getTaskActionMenuBtnSelector(button));
 }
 
 async function isTaskGraded(taskName){
 	await driver.pause(3000);
-	const actualResult = await elementHelpers.getElementText(mod_extsprintf.sprintf(taskGrading, taskName));
+	let taskTitle = await TASKListPage.taskTitleSelector(taskName);
+	await elementHelpers.scrollToElement(taskTitle);
+	let actualResult = await elementHelpers.getElementText(mod_extsprintf.sprintf(taskGrading, taskName));
 	await expect(actualResult).to.equal('1');
 	await driver.pause(3000);
 }
@@ -200,8 +223,6 @@ module.exports = {
 	isFileVisible,
 	checkFileEvaluationStudent,
 	checkFileEvaluationTeacher,
-	clickOpenTasksTab,
-	clickCompletedTasksTab,
-	clickDraftTasksTab,
 	isTaskGraded,
+	clickOnTaskOverviewMenuOptions,
 };

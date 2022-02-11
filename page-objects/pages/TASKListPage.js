@@ -5,6 +5,7 @@ const waitHelpers = require('../../runtime/helpers/waitHelpers');
 const navigationLeftPage = require('./NavigationLeftPage.js');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const { expect } = require('chai');
+const mod_extsprintf = require('extsprintf');
 
 const selectorCreateTaskButton = '[data-testid = "addTask"]';
 const selectorCreateTaskBtnInTheCourse = '.col-sm-12.add-button > a';
@@ -26,14 +27,13 @@ const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-con
 const courseCheckbox = "//div[contains(.,'";
 const closeFilter = '.v-input__icon--append';
 const taskOverviewLoad = '.v-application--wrap';
-const taskTitleText = "//div[@data-testid = 'taskTitle' and text()='";
-const taskActionMenu = "//button[@data-testid='task-menu-";
-const editButton = "//*[text()[contains(.,'Bearbeiten')]]";
+const taskTitleText = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]";
+const taskActionMenu = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]/div/button[starts-with(@data-testid,'task-menu')]";
 
-const taskButton = {
-	archive: '.fa-archive',
-	undoArchive: '.fa-mail-reply',
-	edit: '.fa-edit',
+const taskActionMenuButton = {
+	archive: "//*[text()[contains(.,'Abschließen')]]",
+	unarchive: "//*[text()[contains(.,'Wiederherstellen')]]",
+	edit: "//*[text()[contains(.,'Bearbeiten')]]",
 	copy: '.fa-copy',
 	delete: '.btn-delete',
 	taskOpen: '.assignment span.more',
@@ -44,22 +44,22 @@ function getTaskActionBtnSelector(buttonAction) {
 	const action = buttonAction.toLowerCase();
 	switch (action) {
 		case 'archive':
-			btnSel = taskButton.archive;
+			btnSel = taskActionMenuButton.archive;
 			break;
-		case 'undo archive':
-			btnSel = taskButton.undoArchive;
+		case 'unarchive':
+			btnSel = taskActionMenuButton.unarchive;
 			break;
 		case 'edit':
-			btnSel = taskButton.edit;
+			btnSel = taskActionMenuButton.edit;
 			break;
 		case 'copy':
-			btnSel = taskButton.copy;
+			btnSel = taskActionMenuButton.copy;
 			break;
 		case 'delete':
-			btnSel = taskButton.delete;
+			btnSel = taskActionMenuButton.delete;
 			break;
 		case 'task open':
-			btnSel = taskButton.taskOpen;
+			btnSel = taskActionMenuButton.taskOpen;
 			break;
 		default:
 			console.error(`This action button: ${buttonAction} does not exist on the list of possible choices`);
@@ -160,12 +160,14 @@ async function clickDeleteTaskButtonInPopup() {
 
 async function clickAtTask(taskName) {
 	await waitHelpers.waitUntilNuxtClientLoads();
+	await driver.pause(5000);
 	let clickOnThatTask = (await getTaskFromNuxtClient(taskName)).toString();
 	await elementHelpers.scrollToElement(clickOnThatTask);
 	await elementHelpers.clickAndWait(clickOnThatTask);
 }
 
 async function getTaskFromNuxtClient(taskName) {
+	await driver.pause(3000);
 	await waitHelpers.waitUntilElementIsVisible(taskOverviewLoad);
 	await driver.pause(3000);
 	const taskOverviewResult = await getNuxtTaskList();
@@ -201,16 +203,25 @@ async function getNuxtTaskList() {
 
 async function hoverOverTaskAndClickMenu(taskName) {
 	await driver.pause(5000);
-	// to be refactored, we shouldn't create selectors like that, we should try to use mod_extsprintf as in TASKPage function isTaskGraded
-	await driver.$(taskTitleText + taskName + "']").moveTo();
-	await driver.pause(5000);
-	// to be refactored, we shouldn't create selectors like that, we should try to use mod_extsprintf as in TASKPage function isTaskGraded
-	await elementHelpers.click(taskActionMenu + taskName + "']");
-	await driver.pause(3000);
+	let taskTitle = await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName));
+	await taskTitle.scrollIntoView(false);
+	if (await taskTitle.isDisplayedInViewport()){
+		let xOffset = await taskTitle.getLocation('x');
+		let yOffset = await taskTitle.getLocation('y');
+		taskTitle.moveTo(xOffset, yOffset);
+		await driver.pause(5000);
+		await elementHelpers.click(mod_extsprintf.sprintf(taskActionMenu, taskName));
+		await driver.pause(3000);
+	}
 }
 
-async function clickTaskEditAction() {
-	await elementHelpers.hoverOverMenuOptions(editButton);
+async function clickTaskOnActionMenu(button){
+	await elementHelpers.hoverOverMenuOptions(getTaskActionBtnSelector(button))
+}
+
+async function taskTitleSelector(taskName){
+	await driver.pause(3000);
+	return (await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName)));
 }
 
 module.exports = {
@@ -231,5 +242,6 @@ module.exports = {
 	studentSubmittedTask,
 	getNuxtTaskList,
 	hoverOverTaskAndClickMenu,
-	clickTaskEditAction,
+	clickTaskOnActionMenu,
+	taskTitleSelector,
 };
