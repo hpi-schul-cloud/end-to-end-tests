@@ -160,12 +160,14 @@ async function clickDeleteTaskButtonInPopup() {
 
 async function clickAtTask(taskName) {
 	await waitHelpers.waitUntilNuxtClientLoads();
+	await driver.pause(5000);
 	let clickOnThatTask = (await getTaskFromNuxtClient(taskName)).toString();
 	await elementHelpers.scrollToElement(clickOnThatTask);
 	await elementHelpers.clickAndWait(clickOnThatTask);
 }
 
 async function getTaskFromNuxtClient(taskName) {
+	await driver.pause(3000);
 	await waitHelpers.waitUntilElementIsVisible(taskOverviewLoad);
 	await driver.pause(3000);
 	const taskOverviewResult = await getNuxtTaskList();
@@ -217,6 +219,11 @@ async function clickTaskOnActionMenu(button){
 	await elementHelpers.hoverOverMenuOptions(getTaskActionBtnSelector(button))
 }
 
+async function taskTitleSelector(taskName){
+	await driver.pause(3000);
+	return (await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName)));
+}
+
 module.exports = {
 	clickCreateTaskButton,
 	sortTasksLastEdited,
@@ -236,4 +243,5 @@ module.exports = {
 	getNuxtTaskList,
 	hoverOverTaskAndClickMenu,
 	clickTaskOnActionMenu,
+	taskTitleSelector,
 };
