@@ -288,11 +288,8 @@ async function scrollToElement(selector){
 		scrollToElement.moveTo(xOffset, yOffset);
 		await driver.pause(1500);
 	}else{
-		console.log('Entered into moveTo');
-		console.log(xOffset, yOffset);
 		scrollToElement.moveTo(xOffset, yOffset);
 		await driver.pause(1500);
-		console.log('Leaving moveTo');
 	}
 }
 
