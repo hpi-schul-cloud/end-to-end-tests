@@ -167,7 +167,7 @@ async function clickAtTask(taskName) {
 		let xOffset = await clickOnThatTask.getLocation('x');
 		let yOffset = await clickOnThatTask.getLocation('y');
 		clickOnThatTask.moveTo(xOffset, yOffset);
-		await driver.pause(5000);
+		await driver.pause(1500);
 	}
 	await elementHelpers.clickAndWait(clickOnThatTask);
 }
@@ -176,7 +176,6 @@ async function getTaskFromTaskOverview(taskName) {
 	let tasksOnThePage = [];
 	await driver.pause(3000);
 	await waitHelpers.waitUntilElementIsVisible(taskOverviewLoad);
-	await driver.pause(1000);
 	await driver.$(taskSection).$$(taskTitle).forEach(async function (element)  {
 		tasksOnThePage.push(await element.getText());
 	})
@@ -201,15 +200,14 @@ async function studentSubmittedTask() {
 }
 
 async function hoverOverTaskAndClickMenu(taskName) {
-	await driver.pause(5000);
+	await driver.pause(3000);
 	let taskTitle = await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName));
 	if (await taskTitle.isDisplayedInViewport()){
 		let xOffset = await taskTitle.getLocation('x');
 		let yOffset = await taskTitle.getLocation('y');
 		taskTitle.moveTo(xOffset, yOffset);
-		await driver.pause(5000);
+		await driver.pause(1500);
 		await elementHelpers.click(mod_extsprintf.sprintf(taskActionMenu, taskName));
-		await driver.pause(3000);
 	}
 }
 
