@@ -161,8 +161,10 @@ async function clickDeleteTaskButtonInPopup() {
 async function clickAtTask(taskName) {
 	await driver.pause(3000);
 	let clickOnThatTask = (await getTaskFromTaskOverview(taskName));
-	await elementHelpers.scrollToElement(clickOnThatTask);
-	await elementHelpers.clickAndWait(clickOnThatTask);
+	if (clickOnThatTask === undefined || clickOnThatTask != undefined){
+		await elementHelpers.scrollToElement(clickOnThatTask);
+		await elementHelpers.clickAndWait(clickOnThatTask);
+	}
 }
 
 async function getTaskFromTaskOverview(taskName) {
