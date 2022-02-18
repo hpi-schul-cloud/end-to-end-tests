@@ -6,7 +6,6 @@ const navigationLeftPage = require('./NavigationLeftPage.js');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const { expect } = require('chai');
 const mod_extsprintf = require('extsprintf');
-const sharedHelpers = require('../../runtime/helpers/sharedHelpers');
 
 const selectorCreateTaskButton = '[data-testid = "addTask"]';
 const selectorCreateTaskBtnInTheCourse = '.col-sm-12.add-button > a';
@@ -30,7 +29,6 @@ const closeFilter = '.v-input__icon--append';
 const taskOverviewLoad = '.v-application--wrap';
 const taskTitleText = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]";
 const taskActionMenu = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]/div/button[starts-with(@data-testid,'task-menu')]";
-const taskElement = "//div[text()='%s']";
 
 const taskActionMenuButton = {
 	archive: "//*[text()[contains(.,'Abschließen')]]",
@@ -180,7 +178,7 @@ async function getTaskFromTaskOverview(taskName) {
 		tasksOnThePage.push(await element.getText());
 	})
 	let isTaskInTheList = new Boolean(false);
-	isTaskInTheList =  (tasksOnThePage.includes(taskName)) ? driver.$(mod_extsprintf.sprintf(taskElement, taskName)) : false ;
+	isTaskInTheList =  (tasksOnThePage.includes(taskName)) ? driver.$(mod_extsprintf.sprintf(taskTitleText, taskName)) : false ;
 	return isTaskInTheList
 }
 
