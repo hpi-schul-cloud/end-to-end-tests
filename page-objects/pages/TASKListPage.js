@@ -201,9 +201,16 @@ async function studentSubmittedTask() {
 async function hoverOverTaskAndClickMenu(taskName) {
 	await driver.pause(3000);
 	let taskTitle = await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName));
-	await elementHelpers.scrollToElement(taskTitle);
-	await driver.pause(5000);
-	await elementHelpers.click(mod_extsprintf.sprintf(taskActionMenu, taskName));
+	if (taskTitle === undefined || taskTitle != undefined){
+		await elementHelpers.scrollToElement(taskTitle);
+		await driver.pause(1500);
+		if (!(taskTitle.isDisplayedInViewport())){
+			await elementHelpers.scrollToElement(taskTitle);
+			await driver.pause(1500);
+		}
+		await elementHelpers.click(mod_extsprintf.sprintf(taskActionMenu, taskName));
+	}
+	await driver.pause(500);
 }
 
 async function clickTaskOnActionMenu(button){

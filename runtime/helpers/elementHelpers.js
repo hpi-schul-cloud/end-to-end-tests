@@ -279,12 +279,11 @@ async function scrollToElement(selector){
 	let xOffset = await scrollToElement.getLocation('x');
 	let yOffset = await scrollToElement.getLocation('y');
 	if (!(scrollToElement.isDisplayedInViewport())){
-		console.log('Entered')
 		scrollToElement.scrollIntoView({
 			behavior: "smooth",
 			block: "start",
 			inline: "nearest"});
-		await driver.pause(2000);
+		driver.pause(2000);
 		scrollToElement.moveTo(xOffset, yOffset);
 		await driver.pause(1500);
 	}else{
