@@ -162,7 +162,6 @@ async function clickAtTask(taskName) {
 	await driver.pause(3000);
 	let clickOnThatTask = (await getTaskFromTaskOverview(taskName));
 	if (clickOnThatTask === undefined || clickOnThatTask != undefined){
-		await elementHelpers.scrollToElement(clickOnThatTask);
 		if (clickOnThatTask.isDisplayedInViewport()) {
 			await elementHelpers.clickAndWait(clickOnThatTask);
 		}else{
