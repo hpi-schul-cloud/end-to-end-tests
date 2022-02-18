@@ -198,6 +198,7 @@ async function isTaskGraded(taskName){
 	await driver.pause(3000);
 	let taskTitle = await TASKListPage.taskTitleSelector(taskName);
 	await elementHelpers.scrollToElement(taskTitle);
+	await driver.pause(5000);
 	let actualResult = await elementHelpers.getElementText(mod_extsprintf.sprintf(taskGrading, taskName));
 	await expect(actualResult).to.equal('1');
 	await driver.pause(3000);
