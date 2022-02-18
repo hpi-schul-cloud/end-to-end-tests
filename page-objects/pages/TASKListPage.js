@@ -161,12 +161,7 @@ async function clickDeleteTaskButtonInPopup() {
 async function clickAtTask(taskName) {
 	await driver.pause(3000);
 	let clickOnThatTask = (await getTaskFromTaskOverview(taskName));
-	if (await clickOnThatTask.isDisplayedInViewport()){
-		let xOffset = await clickOnThatTask.getLocation('x');
-		let yOffset = await clickOnThatTask.getLocation('y');
-		clickOnThatTask.moveTo(xOffset, yOffset);
-		await driver.pause(1500);
-	}
+	await elementHelpers.scrollToElement(clickOnThatTask);
 	await elementHelpers.clickAndWait(clickOnThatTask);
 }
 
@@ -200,13 +195,8 @@ async function studentSubmittedTask() {
 async function hoverOverTaskAndClickMenu(taskName) {
 	await driver.pause(3000);
 	let taskTitle = await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName));
-	if (await taskTitle.isDisplayedInViewport()){
-		let xOffset = await taskTitle.getLocation('x');
-		let yOffset = await taskTitle.getLocation('y');
-		taskTitle.moveTo(xOffset, yOffset);
-		await driver.pause(1500);
-		await elementHelpers.click(mod_extsprintf.sprintf(taskActionMenu, taskName));
-	}
+	await elementHelpers.scrollToElement(taskTitle);
+	await elementHelpers.click(mod_extsprintf.sprintf(taskActionMenu, taskName));
 }
 
 async function clickTaskOnActionMenu(button){

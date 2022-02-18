@@ -268,15 +268,21 @@ function SelectorConflictException (message) {
 }
 
 async function hoverOverMenuOptions(selectorOrElement){
-	await driver.$(selectorOrElement).moveTo();
+	let hoverOverMenuOptions = await driver.$(selectorOrElement);
+	await scrollToElement(hoverOverMenuOptions);
 	await driver.pause(3000);
 	await click(selectorOrElement);
 }
 
 async function scrollToElement(selector){
-	await driver.pause(5000);
+	await driver.pause(3000);
 	let scrollToElement = await driver.$(selector);
-	await scrollToElement.scrollIntoView(false);
+	if (await scrollToElement.isDisplayedInViewport()){
+		let xOffset = await scrollToElement.getLocation('x');
+		let yOffset = await scrollToElement.getLocation('y');
+		scrollToElement.moveTo(xOffset, yOffset);
+		await driver.pause(1500);
+	}
 }
 
 module.exports = {
