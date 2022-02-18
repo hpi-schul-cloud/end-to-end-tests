@@ -276,9 +276,17 @@ async function hoverOverMenuOptions(selectorOrElement){
 async function scrollToElement(selector){
 	await driver.pause(3000);
 	let scrollToElement = await driver.$(selector);
-	if (await scrollToElement.isDisplayedInViewport()){
-		let xOffset = await scrollToElement.getLocation('x');
-		let yOffset = await scrollToElement.getLocation('y');
+	let xOffset = await scrollToElement.getLocation('x');
+	let yOffset = await scrollToElement.getLocation('y');
+	if (!(scrollToElement.isDisplayedInViewport())){
+		scrollToElement.scrollIntoView({
+			behavior: "smooth",
+			block: "start",
+			inline: "nearest"});
+		await driver.pause(2000);	
+		scrollToElement.moveTo(xOffset, yOffset);
+		await driver.pause(1500);
+	}else{
 		scrollToElement.moveTo(xOffset, yOffset);
 		await driver.pause(1500);
 	}

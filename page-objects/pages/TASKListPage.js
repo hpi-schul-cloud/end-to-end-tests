@@ -163,7 +163,12 @@ async function clickAtTask(taskName) {
 	let clickOnThatTask = (await getTaskFromTaskOverview(taskName));
 	if (clickOnThatTask === undefined || clickOnThatTask != undefined){
 		await elementHelpers.scrollToElement(clickOnThatTask);
-		await elementHelpers.clickAndWait(clickOnThatTask);
+		if (clickOnThatTask.isDisplayedInViewport()) {
+			await elementHelpers.clickAndWait(clickOnThatTask);
+		}else{
+			await elementHelpers.scrollToElement(clickOnThatTask);
+			await elementHelpers.clickAndWait(clickOnThatTask);
+		}
 	}
 }
 
