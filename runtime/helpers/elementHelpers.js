@@ -270,6 +270,7 @@ function SelectorConflictException (message) {
 async function hoverOverMenuOptions(selector){
 	await waitHelpers.waitUntilElementIsClickable(selector);
 	let hoverOverMenuOptions = await driver.$(selector);
+	JSON.stringify(hoverOverMenuOptions);
 	await scrollToElement(hoverOverMenuOptions);
 	await click(selector);
 }
