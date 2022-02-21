@@ -26,7 +26,6 @@ const filterSelect = '.v-select__selections';
 const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
 const courseCheckbox = "//div[contains(.,'";
 const closeFilter = '.v-input__icon--append';
-const taskOverviewLoad = '.v-application--wrap';
 const taskTitleText = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]";
 const taskActionMenu = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]/div/button[starts-with(@data-testid,'task-menu')]";
 
@@ -140,18 +139,6 @@ async function goToPrivateTasksArea() {
 	await navigationLeftPage.clickNavItemTasksPrivate();
 }
 
-async function clickOnTaskFromList(taskname) {
-	let areThereAnyTasks = await driver.$$(tasksContainer);
-	await expect(areThereAnyTasks.length).not.to.equal(0);
-	for (var i = 1; i <= areThereAnyTasks.length; i++) {
-		let taskSelector = await driver.$('#homeworks > ol > div > li:nth-child(' + i + ') .h5.title');
-		let tasknameOnPage = await taskSelector.getText();
-		if (tasknameOnPage == taskname) {
-			await elementHelpers.clickAndWait(taskSelector);
-		}
-	}
-}
-
 async function clickDeleteTaskButtonInPopup() {
 	await waitHelpers.waitUntilLegacyPageLoads();
 	await elementHelpers.clickAndWait(deleteTaskButtonInPopup);
@@ -174,7 +161,7 @@ async function clickAtTask(taskName) {
 async function getTaskFromTaskOverview(taskName) {
 	let tasksOnThePage = [];
 	await driver.pause(3000);
-	await waitHelpers.waitUntilElementIsVisible(taskOverviewLoad);
+	await waitHelpers.waitUntilElementIsVisible(taskSection);
 	await driver.$(taskSection).$$(taskTitle).forEach(async function (element)  {
 		tasksOnThePage.push(await element.getText());
 	})
@@ -230,7 +217,6 @@ module.exports = {
 	clickOnTask,
 	isTaskVisible,
 	goToPrivateTasksArea,
-	clickOnTaskFromList,
 	getTaskDescription,
 	clickCreateTaskButtonInTheCourse,
 	clickDeleteTaskButtonInPopup,
