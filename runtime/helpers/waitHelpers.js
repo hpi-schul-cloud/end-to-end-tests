@@ -19,7 +19,8 @@ const titleTimeout = 30000;
 const shortInterval = 50;
 const mediumInterval = 100;
 const pageLoadLegacy = "//dl[@role='navigation']";
-const pageLoadNuxt = "div#nuxt-loading";
+const pageLoaded = "div.topbar";
+const pageNotLoaded = "div#nuxt-loading";
 
 async function waitUntilElementIsPresent(selectorOrElement, timeout = elementIsPresentTimeout) {
 	let element = await sharedHelpers.getElement(selectorOrElement);
@@ -196,13 +197,16 @@ async function waitUntilLegacyPageLoads(timeout = pageLoadingTimeout) {
 }
 
 async function waitUntilNuxtClientLoads(timeout = pageLoadingTimeout) {
+	await driver.pause(3000);
 	try {
 		let nuxtPageLoad = false;
 		const timeoutMsg = 'Page is not loaded';
 		await waitUntilScriptResultIsTrue(() => document.readyState.includes('complete'), timeoutMsg, timeout);
 		while (!nuxtPageLoad) {
-			await waitUntilElementIsNotPresent(pageLoadNuxt);
-			nuxtPageLoad = true;
+			await waitUntilElementIsNotPresent(pageNotLoaded);
+			if (await waitUntilElementIsPresent(pageLoaded)){
+				nuxtPageLoad = true;
+			}
 		}
 	} catch (error) {
 		const msg = error.message;

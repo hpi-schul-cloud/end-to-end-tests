@@ -148,6 +148,16 @@ async function clickDeleteTaskButtonInPopup() {
 async function clickAtTask(taskName) {
 	await waitHelpers.waitUntilNuxtClientLoads();
 	let clickOnThatTask = (await getTaskFromTaskOverview(taskName));
+	if (clickOnThatTask === undefined){
+		let isTaskClickable = new Boolean (false);
+		while (!isTaskClickable){
+			elementHelpers.scrollToElement(clickOnThatTask);
+			await waitHelpers.waitUntilElementIsVisible(clickOnThatTask);
+			if (clickOnThatTask.isDisplayedInViewport()){
+				isTaskClickable = true;
+			}
+		}
+	}
 	if (clickOnThatTask.isDisplayedInViewport()) {
 		await elementHelpers.clickAndWait(clickOnThatTask);
 	}else{
@@ -159,7 +169,7 @@ async function clickAtTask(taskName) {
 async function getTaskFromTaskOverview(taskName) {
 	let tasksOnThePage = [];
 	await waitHelpers.waitUntilNuxtClientLoads();
-	await waitHelpers.waitUntilElementIsVisible(taskSection);
+	await waitHelpers.waitUntilElementIsPresent(taskSection);
 	await driver.$(taskSection).$$(taskTitle).forEach(async function (element)  {
 		tasksOnThePage.push(await element.getText());
 	})
@@ -200,7 +210,7 @@ async function clickTaskOnActionMenu(button){
 }
 
 async function taskTitleSelector(taskName){
-	await waitHeplers.waitUntilNuxtClientLoads();
+	await waitHelpers.waitUntilNuxtClientLoads();
 	return (await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName)));
 }
 
