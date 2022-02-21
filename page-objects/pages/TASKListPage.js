@@ -197,12 +197,12 @@ async function hoverOverTaskAndClickMenu(taskName) {
 	await waitHelpers.waitUntilNuxtClientLoads();
 	let taskTitle = await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName));
 	await elementHelpers.scrollToElement(taskTitle);
-	await waitHelpers.waitUntilElementIsPresent(taskTitle);
-		while (!(taskTitle.isDisplayedInViewport())){
-			await elementHelpers.scrollToElement(taskTitle);
-			await waitHelpers.waitUntilElementIsPresent(taskTitle);
-		}
-		await elementHelpers.click(mod_extsprintf.sprintf(taskActionMenu, taskName));
+	await waitHelpers.waitUntilElementIsVisible(taskTitle);
+	if (!(taskTitle.isDisplayedInViewport())){
+		await elementHelpers.scrollToElement(taskTitle);
+		await waitHelpers.waitUntilElementIsVisible(taskTitle);
+	}
+	await elementHelpers.click(mod_extsprintf.sprintf(taskActionMenu, taskName));
 }
 
 async function clickTaskOnActionMenu(button){
