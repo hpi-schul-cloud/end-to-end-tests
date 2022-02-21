@@ -194,18 +194,22 @@ async function studentSubmittedTask() {
 }
 
 async function hoverOverTaskAndClickMenu(taskName) {
-	await waitHelpers.waitUntilNuxtClientLoads();
 	let taskTitle = await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName));
-	await elementHelpers.scrollToElement(taskTitle);
-	await waitHelpers.waitUntilElementIsVisible(taskTitle);
-	if (!(taskTitle.isDisplayedInViewport())){
+	await waitHelpers.waitUntilNuxtClientLoads();
+	if (taskTitle.isDisplayedInViewport()){
+		if (waitHelpers.waitUntilElementIsVisible(taskTitle)){
+			await elementHelpers.scrollToElement(taskTitle);
+			elementHelpers.click(mod_extsprintf.sprintf(taskActionMenu, taskName));
+		}
+	}else {
 		await elementHelpers.scrollToElement(taskTitle);
 		await waitHelpers.waitUntilElementIsVisible(taskTitle);
+		await elementHelpers.click(mod_extsprintf.sprintf(taskActionMenu, taskName));
 	}
-	await elementHelpers.click(mod_extsprintf.sprintf(taskActionMenu, taskName));
 }
 
 async function clickTaskOnActionMenu(button){
+
 	await elementHelpers.hoverOverMenuOptions(getTaskActionBtnSelector(button))
 }
 
