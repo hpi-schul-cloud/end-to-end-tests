@@ -195,16 +195,16 @@ async function clickOnTaskOverviewMenuOptions(button){
 }
 
 async function isTaskGraded(taskName){
-	await driver.pause(3000);
+	await waitHelpers.waitUntilNuxtClientLoads();
 	let taskTitle = await TASKListPage.taskTitleSelector(taskName);
 	if (!(taskTitle.isDisplayedInViewport())) {
 		await elementHelpers.scrollToElement(taskTitle);
-		await driver.pause(5000);
+		await waitHelpers.waitUntilElementIsVisible(taskTitle);
 	}else{
+		await waitHelpers.waitUntilElementIsPresent(taskTitle);
 		let actualResult = await elementHelpers.getElementText(mod_extsprintf.sprintf(taskGrading, taskName));
 		await expect(actualResult).to.equal('1');
 	}
-	await driver.pause(3000);
 }
 
 module.exports = {

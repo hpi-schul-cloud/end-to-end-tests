@@ -19,7 +19,7 @@ const titleTimeout = 30000;
 const shortInterval = 50;
 const mediumInterval = 100;
 const pageLoadLegacy = "//dl[@role='navigation']";
-const pageLoadNuxt = "//div[@class = 'topbar']";
+const pageLoadNuxt = "div#nuxt-loading";
 
 async function waitUntilElementIsPresent(selectorOrElement, timeout = elementIsPresentTimeout) {
 	let element = await sharedHelpers.getElement(selectorOrElement);
@@ -201,7 +201,7 @@ async function waitUntilNuxtClientLoads(timeout = pageLoadingTimeout) {
 		const timeoutMsg = 'Page is not loaded';
 		await waitUntilScriptResultIsTrue(() => document.readyState.includes('complete'), timeoutMsg, timeout);
 		while (!nuxtPageLoad) {
-			await waitUntilElementIsPresent(pageLoadNuxt);
+			await waitUntilElementIsNotPresent(pageLoadNuxt);
 			nuxtPageLoad = true;
 		}
 	} catch (error) {
@@ -232,7 +232,7 @@ async function waitAndSetValue(selectorOrElement, value, timeout = setValueTimeo
 	await element.click();
 	driver.keys(value);
 	await driver.pause(200);
-}	
+}
 
 async function waitUntilElementAttributeEquals(
 	selectorOrElement,

@@ -274,7 +274,7 @@ async function hoverOverMenuOptions(selectorOrElement){
 }
 
 async function scrollToElement(selector){
-	await driver.pause(3000);
+	await waitHelpers.waitUntilNuxtClientLoads();
 	let scrollToElement = await driver.$(selector);
 	let xOffset = await scrollToElement.getLocation('x');
 	let yOffset = await scrollToElement.getLocation('y');
@@ -283,12 +283,12 @@ async function scrollToElement(selector){
 			behavior: "smooth",
 			block: "start",
 			inline: "nearest"});
-		driver.pause(2000);
+		await waitHelpers.waitUntilElementIsPresent(scrollToElement);
 		scrollToElement.moveTo(xOffset, yOffset);
-		await driver.pause(1500);
+		await waitHelpers.waitUntilElementIsVisible(scrollToElement);
 	}else{
 		scrollToElement.moveTo(xOffset, yOffset);
-		await driver.pause(1500);
+		await waitHelpers.waitUntilElementIsVisible(scrollToElement);
 	}
 }
 

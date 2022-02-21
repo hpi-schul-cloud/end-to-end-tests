@@ -146,7 +146,7 @@ async function clickDeleteTaskButtonInPopup() {
 }
 
 async function clickAtTask(taskName) {
-	await driver.pause(3000);
+	await waitHelpers.waitUntilNuxtClientLoads();
 	let clickOnThatTask = (await getTaskFromTaskOverview(taskName));
 	if (clickOnThatTask.isDisplayedInViewport()) {
 		await elementHelpers.clickAndWait(clickOnThatTask);
@@ -158,7 +158,7 @@ async function clickAtTask(taskName) {
 
 async function getTaskFromTaskOverview(taskName) {
 	let tasksOnThePage = [];
-	await driver.pause(3000);
+	await waitHelpers.waitUntilNuxtClientLoads();
 	await waitHelpers.waitUntilElementIsVisible(taskSection);
 	await driver.$(taskSection).$$(taskTitle).forEach(async function (element)  {
 		tasksOnThePage.push(await element.getText());
@@ -184,16 +184,15 @@ async function studentSubmittedTask() {
 }
 
 async function hoverOverTaskAndClickMenu(taskName) {
-	await driver.pause(3000);
+	await waitHelpers.waitUntilNuxtClientLoads();
 	let taskTitle = await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName));
 	await elementHelpers.scrollToElement(taskTitle);
-	await driver.pause(1500);
-		if (!(taskTitle.isDisplayedInViewport())){
+	await waitHelpers.waitUntilElementIsPresent(taskTitle);
+		while (!(taskTitle.isDisplayedInViewport())){
 			await elementHelpers.scrollToElement(taskTitle);
-			await driver.pause(1500);
+			await waitHelpers.waitUntilElementIsPresent(taskTitle);
 		}
 		await elementHelpers.click(mod_extsprintf.sprintf(taskActionMenu, taskName));
-	}
 }
 
 async function clickTaskOnActionMenu(button){
@@ -201,7 +200,7 @@ async function clickTaskOnActionMenu(button){
 }
 
 async function taskTitleSelector(taskName){
-	await driver.pause(3000);
+	await waitHeplers.waitUntilNuxtClientLoads();
 	return (await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName)));
 }
 
