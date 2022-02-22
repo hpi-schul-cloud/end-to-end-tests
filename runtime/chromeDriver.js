@@ -33,7 +33,8 @@ module.exports = async function chromeDriver(options) {
 			browserName: 'chrome',
 			"goog:chromeOptions":  {
 				"args": [
-					"window-size=1920,1080"]
+					"start-maximized",
+				]
 			}
 		},
 		path: '/wd/hub',
@@ -51,7 +52,7 @@ module.exports = async function chromeDriver(options) {
 			autodetect: false
 		};
 	}
-	
+
 	const extendedOptions = Object.assign(defaults, options);
 	global.driver = await wdio.remote(extendedOptions);
 	//await driver.setWindowSize(1920,1080); //this is done on init now
