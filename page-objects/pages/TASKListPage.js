@@ -209,6 +209,7 @@ async function hoverOverTaskAndClickMenu(taskName) {
 }
 
 async function clickTaskOnActionMenu(button){
+	await waitHelpers.waitUntilElementIsClickable(getTaskActionBtnSelector(button));
 	await elementHelpers.hoverOverMenuOptions(getTaskActionBtnSelector(button))
 }
 
