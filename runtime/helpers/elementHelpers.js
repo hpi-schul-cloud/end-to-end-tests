@@ -270,26 +270,26 @@ function SelectorConflictException (message) {
 async function hoverOverMenuOptions(selector){
 	await waitHelpers.waitUntilElementIsClickable(selector);
 	let hoverOverMenuOptions = await driver.$(selector);
-	await scrollToElement(hoverOverMenuOptions);
+	await moveToElement(hoverOverMenuOptions);
 	await click(selector);
 }
 
-async function scrollToElement(selector){
+async function moveToElement(selector){
 	await waitHelpers.waitUntilNuxtClientLoads();
-	let scrollToElement = await driver.$(selector);
-	let xOffset = await scrollToElement.getLocation('x');
-	let yOffset = await scrollToElement.getLocation('y');
-	if (!(scrollToElement.isDisplayedInViewport())){
-		scrollToElement.scrollIntoView({
+	let moveToElement = await driver.$(selector);
+	let xOffset = await moveToElement.getLocation('x');
+	let yOffset = await moveToElement.getLocation('y');
+	if (!(moveToElement.isDisplayedInViewport())){
+		moveToElement.scrollIntoView({
 			behavior: "smooth",
 			block: "start",
 			inline: "nearest"});
-		await waitHelpers.waitUntilElementIsPresent(scrollToElement);
-		scrollToElement.moveTo(xOffset, yOffset);
-		await waitHelpers.waitUntilElementIsVisible(scrollToElement);
+		await waitHelpers.waitUntilElementIsPresent(moveToElement);
+		moveToElement.moveTo(xOffset, yOffset);
+		await waitHelpers.waitUntilElementIsVisible(moveToElement);
 	}else{
-		scrollToElement.moveTo(xOffset, yOffset);
-		await waitHelpers.waitUntilElementIsVisible(scrollToElement);
+		moveToElement.moveTo(xOffset, yOffset);
+		await waitHelpers.waitUntilElementIsVisible(moveToElement);
 	}
 }
 
@@ -324,5 +324,5 @@ module.exports = {
 	getDisplayedElement,
   	loadPageNuxtClient,
 	hoverOverMenuOptions,
-	scrollToElement,
+	moveToElement,
 };

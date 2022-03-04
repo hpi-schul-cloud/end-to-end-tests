@@ -198,7 +198,7 @@ async function isTaskGraded(taskName){
 	await waitHelpers.waitUntilNuxtClientLoads();
 	let taskTitle = await TASKListPage.taskTitleSelector(taskName);
 	if (!(taskTitle.isDisplayedInViewport())) {
-		await elementHelpers.scrollToElement(taskTitle);
+		await elementHelpers.moveToElement(taskTitle);
 		await waitHelpers.waitUntilElementIsVisible(taskTitle);
 	}else{
 		await waitHelpers.waitUntilElementIsPresent(taskTitle);
