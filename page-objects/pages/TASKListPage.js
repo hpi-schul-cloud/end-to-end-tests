@@ -195,7 +195,7 @@ async function studentSubmittedTask() {
 
 async function hoverOverTaskAndClickMenu(taskName) {
 	let taskTitle = await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName));
-	await waitHelpers.waitUntilElementIsPresent(taskTitle);
+	await waitHelpers.waitUntilElementIsClickable(taskTitle);
 	if (!(taskTitle.isDisplayedInViewport())){
 		await elementHelpers.moveToElement(taskTitle);
 	}
