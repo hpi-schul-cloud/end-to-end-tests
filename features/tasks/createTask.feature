@@ -33,12 +33,12 @@ Feature: Set of tests to create tasks
 		And <userRole> clicks Add-task-submit button
 		And <userRole> goes to tasks page
 		And <userRole> hover over task '<taskName>'
-		And <userRole> 'Archive' task '<taskName>'
+		And <userRole> clicks on 'Archive' button for task with name '<taskName>'
 		And <userRole> clicks 'Finished' task tab
 		#And <userRole> filter by '<courseName>'
 		Then <userRole> sees '<taskName>' in the list
 		And <userRole> hover over task '<taskName>'
-		And <userRole> 'Unarchive' task '<taskName>'
+		And <userRole> clicks on 'Unarchive' button for task with name '<taskName>'
 		Then <userRole> sees '<taskName>' not in the list
 		Examples:
 			| userRole | courseName  | taskName     | taskBody         |
