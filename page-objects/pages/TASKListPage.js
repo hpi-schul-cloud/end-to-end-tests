@@ -2,7 +2,6 @@
 'use strict';
 
 const waitHelpers = require('../../runtime/helpers/waitHelpers');
-const navigationLeftPage = require('./NavigationLeftPage.js');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const { expect } = require('chai');
 const mod_extsprintf = require('extsprintf');
@@ -14,9 +13,7 @@ const select = '#selection-picker > div > div';
 const lastedited =
 	'body > div.md-select-menu.md-menu-content-bottom-start.md-menu-content-small.md-menu-content.md-theme-default > div > ul > li:nth-child(2) > button';
 const submitBtn = '.md-button.md-primary.md-theme-default > div > div';
-const taskTitleContainer = '.assignment.card .title';
 const taskDescriptionContainer = '.assignment .text-muted.ckcontent';
-const taskContainer = '.homework li.card';
 const deleteTaskButtonInPopup = '.delete-modal button.btn-submit';
 const taskSection = '.v-window-item--active';
 const taskTitle = "//div[@data-testid = 'taskTitle']";
