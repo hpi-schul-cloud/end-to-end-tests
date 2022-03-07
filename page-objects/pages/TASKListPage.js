@@ -180,7 +180,9 @@ async function getTaskFromTaskOverview(taskName) {
 
 async function taskDisplayed(taskName) {
 	let taskInTheList = (await getTaskFromTaskOverview(taskName));
-	await waitHelpers.waitUntilElementIsPresent(taskInTheList);
+	let isTaskPresent = new Boolean(false);
+	isTaskPresent = await waitHelpers.waitUntilElementIsPresent(taskInTheList);
+	expect(isTaskPresent).to.equal(true);
 }
 
 async function taskNotDisplayed(taskName) {
