@@ -205,7 +205,6 @@ module.exports = {
 	gradeTask,
 	isTaskRating,
 	isTaskRemark,
-	isTaskSubmitted,
 	isFileVisible,
 	checkFileEvaluationStudent,
 	checkFileEvaluationTeacher,
