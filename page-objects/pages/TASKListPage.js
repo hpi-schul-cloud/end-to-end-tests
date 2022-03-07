@@ -103,53 +103,16 @@ async function sortTasksCourse(courseName) {
 	await waitHelpers.waitUntilPageLoads();
 }*/
 
-async function getListOfTaskTitles() {
-	await waitHelpers.waitUntilElementIsNotVisible('.loaded #MathJax_Message');
-	return await elementHelpers.getTextFromAllElements(taskTitleContainer);
-}
-
-async function getListOfTask() {
-	await waitHelpers.waitUntilElementIsNotVisible('.loaded #MathJax_Message');
-	return elementHelpers.getListOfAllElements(taskContainer);
-}
-
-async function clickOnTask(button) {
+async function clickTaskOnActionMenu(button) {
 	await waitHelpers.waitUntilPageLoads();
 	const actionButton = await driver.$(getTaskActionBtnSelector(button));
 	await elementHelpers.clickAndWait(actionButton);
-}
-
-async function isTaskVisible(taskname, expectedValue) {
-	const allTasks = await getListOfTaskTitles();
-	const isTaskOnList = allTasks.some((element) => element.includes(taskname));
-	const fillString = !expectedValue ? ' not' : '';
-	const msg = `Task with name ${taskname} is${fillString} visible on the list: \n`;
-	const resultMsg = 'Expected: ' + taskname + ', Actual: ' + allTasks;
-	await expect(isTaskOnList, msg + resultMsg).to.equal(expectedValue);
-	await waitHelpers.waitUntilPageLoads();
 }
 
 async function getTaskDescription() {
 	await waitHelpers.waitUntilPageLoads();
 	const descriptionList = await elementHelpers.getTextFromAllElements(taskDescriptionContainer);
 	return descriptionList;
-}
-
-async function goToPrivateTasksArea() {
-	await navigationLeftPage.clickNavItemTasks();
-	await navigationLeftPage.clickNavItemTasksPrivate();
-}
-
-async function clickOnTaskFromList(taskname) {
-	let areThereAnyTasks = await driver.$$(tasksContainer);
-	await expect(areThereAnyTasks.length).not.to.equal(0);
-	for (var i = 1; i <= areThereAnyTasks.length; i++) {
-		let taskSelector = await driver.$('#homeworks > ol > div > li:nth-child(' + i + ') .h5.title');
-		let tasknameOnPage = await taskSelector.getText();
-		if (tasknameOnPage == taskname) {
-			await elementHelpers.clickAndWait(taskSelector);
-		}
-	}
 }
 
 async function clickDeleteTaskButtonInPopup() {
@@ -215,10 +178,6 @@ async function hoverOverTaskAndClickMenu(taskName) {
 	}
 }
 
-async function clickTaskOnActionMenu(button){
-	await elementHelpers.hoverOverMenuOptions(getTaskActionBtnSelector(button))
-}
-
 async function taskTitleSelector(taskName){
 	await driver.pause(3000);
 	return (await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName)));
@@ -227,12 +186,6 @@ async function taskTitleSelector(taskName){
 module.exports = {
 	clickCreateTaskButton,
 	sortTasksLastEdited,
-	getListOfTaskTitles,
-	getListOfTask,
-	clickOnTask,
-	isTaskVisible,
-	goToPrivateTasksArea,
-	clickOnTaskFromList,
 	getTaskDescription,
 	clickCreateTaskButtonInTheCourse,
 	clickDeleteTaskButtonInPopup,

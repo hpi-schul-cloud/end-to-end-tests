@@ -7,12 +7,12 @@ Feature: Set of tests to view and submit tasks
     @submitAndViewTask @tasks_and_other
     Scenario Outline: As a user, I want to see the open tasks in tasks tab, sumbit them and check that it is shown at completed tasks tab
         When <userRole> logs in
-       And <userRole> goes to tasks page
+       	And <userRole> goes to tasks page
         And <userRole> clicks at task '<taskName>'
         And <userRole> clicks on Submission tab
         And <userRole> sets submission text 'Test submission text'
         And <userRole> clicks on submit button
-       And <userRole> goes to tasks page
+       	And <userRole> goes to tasks page
         And <userRole> clicks 'Completed' task tab
         Then <userRole> sees '<taskName>' in the list
         Examples:
