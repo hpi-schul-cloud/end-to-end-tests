@@ -181,7 +181,7 @@ async function getTaskFromTaskOverview(taskName) {
 async function taskDisplayed(taskName) {
 	let taskInTheList = (await getTaskFromTaskOverview(taskName));
 	let isTaskPresent = new Boolean(false);
-	isTaskPresent = await waitHelpers.waitUntilElementIsPresent(taskInTheList);
+	isTaskPresent = (await waitHelpers.waitUntilElementIsPresent(taskInTheList)) ? true : false;
 	expect(isTaskPresent).to.equal(true);
 }
 
