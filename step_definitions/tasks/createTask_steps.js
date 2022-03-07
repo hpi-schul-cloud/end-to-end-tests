@@ -23,7 +23,7 @@ When(/^.* clicks Create-a-task button in the course '([^'].*)'$/, async function
 });
 
 Then(/^.* clicks on '([^']*)' button for task with name '([^']*)'$/, async function (button, taskname) {
-	await TASKListPage.clickTaskOnActionMenu(button);
+	await TASKListPage.clickActionFromMenuOnTask(button);
 });
 
 When(/^.* clicks Add-task button$/, function () {
@@ -48,7 +48,7 @@ When(/^.* clicks on Student-submissions-visible-to-each-other checkbox$/, async 
 
 When(/^.* clicks on task with name '(.*)'$/, async function (taskName) {
     await TASKListPage.sortTasksLastEdited();
-    await TASKListPage.clickTaskOnActionMenu(taskName, 'Task open');
+    await TASKListPage.clickActionFromMenuOnTask(taskName, 'Task open');
 });
 
 Then(/^.* chooses task courses '([^']*)'$/, async function (listOfTaskCourses) {

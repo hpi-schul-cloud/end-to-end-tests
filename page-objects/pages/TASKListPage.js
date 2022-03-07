@@ -103,7 +103,7 @@ async function sortTasksCourse(courseName) {
 	await waitHelpers.waitUntilPageLoads();
 }*/
 
-async function clickTaskOnActionMenu(button) {
+async function clickActionFromMenuOnTask(button) {
 	await waitHelpers.waitUntilPageLoads();
 	const actionButton = await driver.$(getTaskActionBtnSelector(button));
 	await elementHelpers.clickAndWait(actionButton);
@@ -195,6 +195,6 @@ module.exports = {
 	studentSubmittedTask,
 	getNuxtTaskList,
 	hoverOverTaskAndClickMenu,
-	clickTaskOnActionMenu,
+	clickActionFromMenuOnTask,
 	taskTitleSelector,
 };
