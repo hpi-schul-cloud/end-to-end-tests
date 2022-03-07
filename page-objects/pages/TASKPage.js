@@ -194,19 +194,6 @@ async function clickOnTaskOverviewMenuOptions(button){
 	await elementHelpers.clickAndWait(getTaskActionMenuBtnSelector(button));
 }
 
-async function isTaskGraded(taskName){
-	await waitHelpers.waitUntilNuxtClientLoads();
-	let taskTitle = await TASKListPage.taskTitleSelector(taskName);
-	if (!(taskTitle.isDisplayedInViewport())) {
-		await elementHelpers.moveToElement(taskTitle);
-		await waitHelpers.waitUntilElementIsVisible(taskTitle);
-	}else{
-		await waitHelpers.waitUntilElementIsPresent(taskTitle);
-		let actualResult = await elementHelpers.getElementText(mod_extsprintf.sprintf(taskGrading, taskName));
-		await expect(actualResult).to.equal('1');
-	}
-}
-
 module.exports = {
 	gotoTasksTab,
 	clickTeacherSubmissionsTab,
@@ -227,6 +214,5 @@ module.exports = {
 	isFileVisible,
 	checkFileEvaluationStudent,
 	checkFileEvaluationTeacher,
-	isTaskGraded,
 	clickOnTaskOverviewMenuOptions,
 };

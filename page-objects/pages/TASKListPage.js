@@ -212,9 +212,17 @@ async function clickTaskOnActionMenu(button){
 	await elementHelpers.hoverOverMenuOptions(getTaskActionBtnSelector(button))
 }
 
-async function taskTitleSelector(taskName){
-	await waitHelpers.waitUntilElementIsPresent(taskTitle);
-	return (await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName)));
+async function isTaskGraded(taskName){
+	await waitHelpers.waitUntilNuxtClientLoads();
+	let taskTitle = await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName));
+	if (!(taskTitle.isDisplayedInViewport())) {
+		await elementHelpers.moveToElement(taskTitle);
+		await waitHelpers.waitUntilElementIsVisible(taskTitle);
+	}else{
+		await waitHelpers.waitUntilElementIsPresent(taskTitle);
+		let actualResult = await elementHelpers.getElementText(mod_extsprintf.sprintf(taskGrading, taskName));
+		expect(actualResult).to.equal('1');
+	}
 }
 
 module.exports = {
@@ -234,5 +242,5 @@ module.exports = {
 	studentSubmittedTask,
 	hoverOverTaskAndClickMenu,
 	clickTaskOnActionMenu,
-	taskTitleSelector,
+	isTaskGraded,
 };
