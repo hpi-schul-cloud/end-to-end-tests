@@ -211,4 +211,5 @@ module.exports = {
 	hoverOverTaskAndClickMenu,
 	clickTaskOnActionMenu,
 	isTaskGraded,
+	clickActionFromMenuOnTask,
 };
