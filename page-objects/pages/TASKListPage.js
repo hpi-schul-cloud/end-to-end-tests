@@ -2,7 +2,6 @@
 'use strict';
 
 const waitHelpers = require('../../runtime/helpers/waitHelpers');
-const navigationLeftPage = require('./NavigationLeftPage.js');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const { expect } = require('chai');
 const mod_extsprintf = require('extsprintf');
@@ -14,9 +13,7 @@ const select = '#selection-picker > div > div';
 const lastedited =
 	'body > div.md-select-menu.md-menu-content-bottom-start.md-menu-content-small.md-menu-content.md-theme-default > div > ul > li:nth-child(2) > button';
 const submitBtn = '.md-button.md-primary.md-theme-default > div > div';
-const taskTitleContainer = '.assignment.card .title';
 const taskDescriptionContainer = '.assignment .text-muted.ckcontent';
-const taskContainer = '.homework li.card';
 const deleteTaskButtonInPopup = '.delete-modal button.btn-submit';
 const taskSection = ".v-window-item--active";
 const taskTitle = "div[data-testid='taskTitle']";
@@ -103,41 +100,16 @@ async function sortTasksCourse(courseName) {
 	await waitHelpers.waitUntilPageLoads();
 }*/
 
-async function getListOfTaskTitles() {
-	await waitHelpers.waitUntilElementIsNotVisible('.loaded #MathJax_Message');
-	return await elementHelpers.getTextFromAllElements(taskTitleContainer);
-}
-
-async function getListOfTask() {
-	await waitHelpers.waitUntilElementIsNotVisible('.loaded #MathJax_Message');
-	return elementHelpers.getListOfAllElements(taskContainer);
-}
-
-async function clickOnTask(button) {
+async function clickActionFromMenuOnTask(button) {
 	await waitHelpers.waitUntilPageLoads();
 	const actionButton = await driver.$(getTaskActionBtnSelector(button));
 	await elementHelpers.clickAndWait(actionButton);
-}
-
-async function isTaskVisible(taskname, expectedValue) {
-	const allTasks = await getListOfTaskTitles();
-	const isTaskOnList = allTasks.some((element) => element.includes(taskname));
-	const fillString = !expectedValue ? ' not' : '';
-	const msg = `Task with name ${taskname} is${fillString} visible on the list: \n`;
-	const resultMsg = 'Expected: ' + taskname + ', Actual: ' + allTasks;
-	await expect(isTaskOnList, msg + resultMsg).to.equal(expectedValue);
-	await waitHelpers.waitUntilPageLoads();
 }
 
 async function getTaskDescription() {
 	await waitHelpers.waitUntilPageLoads();
 	const descriptionList = await elementHelpers.getTextFromAllElements(taskDescriptionContainer);
 	return descriptionList;
-}
-
-async function goToPrivateTasksArea() {
-	await navigationLeftPage.clickNavItemTasks();
-	await navigationLeftPage.clickNavItemTasksPrivate();
 }
 
 async function clickDeleteTaskButtonInPopup() {
@@ -229,11 +201,6 @@ async function isTaskGraded(taskName){
 module.exports = {
 	clickCreateTaskButton,
 	sortTasksLastEdited,
-	getListOfTaskTitles,
-	getListOfTask,
-	clickOnTask,
-	isTaskVisible,
-	goToPrivateTasksArea,
 	getTaskDescription,
 	clickCreateTaskButtonInTheCourse,
 	clickDeleteTaskButtonInPopup,
@@ -244,4 +211,5 @@ module.exports = {
 	hoverOverTaskAndClickMenu,
 	clickTaskOnActionMenu,
 	isTaskGraded,
+	clickActionFromMenuOnTask,
 };

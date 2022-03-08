@@ -101,10 +101,6 @@ async function clickOnCommentGradingTab() {
 	await elementHelpers.clickAndWait(commentGradingTabSel);
 }
 
-async function getListOfSubmisions() {
-	return elementHelpers.getListOfAllElements(submissionRow);
-}
-
 async function getCurrentTabUrl() {
 	const handles = await driver.getWindowHandles();
 	await driver.switchToWindow(handles[handles.length - 1]);
@@ -180,16 +176,6 @@ async function checkFileEvaluationStudent(file) {
 	expect(studentFileUrl.pathname).to.equal(fileUrl.pathname);
 }
 
-async function isTaskSubmitted(studentname) {
-	await clickTeacherSubmissionsTab();
-	const listOfSubmisionStudentNames = await getListOfSubmisions();
-	const isSubbmitedByStudent = listOfSubmisionStudentNames.some(
-		async (element) =>
-			(await element.getText()).includes(studentname) && (await element.$$('i.fa-check')).length == 1
-	);
-	await expect(isSubbmitedByStudent).to.equal(true);
-}
-
 async function clickOnTaskOverviewMenuOptions(button){
 	await elementHelpers.clickAndWait(getTaskActionMenuBtnSelector(button));
 }
@@ -210,7 +196,6 @@ module.exports = {
 	gradeTask,
 	isTaskRating,
 	isTaskRemark,
-	isTaskSubmitted,
 	isFileVisible,
 	checkFileEvaluationStudent,
 	checkFileEvaluationTeacher,
