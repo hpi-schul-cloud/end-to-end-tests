@@ -267,16 +267,30 @@ function SelectorConflictException (message) {
 	this.name = "SelectorConflictException";
 }
 
-async function hoverOverMenuOptions(selectorOrElement){
-	await driver.$(selectorOrElement).moveTo();
-	await driver.pause(3000);
-	await click(selectorOrElement);
+async function hoverOverMenuOptions(selector){
+	await waitHelpers.waitUntilElementIsClickable(selector);
+	let hoverOverMenuOptions = await driver.$(selector);
+	await moveToElement(hoverOverMenuOptions);
+	await click(selector);
 }
 
-async function scrollToElement(selector){
-	await driver.pause(5000);
-	let scrollToElement = await driver.$(selector);
-	await scrollToElement.scrollIntoView(false);
+async function moveToElement(selector){
+	await waitHelpers.waitUntilNuxtClientLoads();
+	let moveToElement = await driver.$(selector);
+	let xOffset = await moveToElement.getLocation('x');
+	let yOffset = await moveToElement.getLocation('y');
+	if (!(moveToElement.isDisplayedInViewport())){
+		moveToElement.scrollIntoView({
+			behavior: "smooth",
+			block: "start",
+			inline: "nearest"});
+		await waitHelpers.waitUntilElementIsPresent(moveToElement);
+		moveToElement.moveTo(xOffset, yOffset);
+		await waitHelpers.waitUntilElementIsVisible(moveToElement);
+	}else{
+		moveToElement.moveTo(xOffset, yOffset);
+		await waitHelpers.waitUntilElementIsVisible(moveToElement);
+	}
 }
 
 module.exports = {
@@ -310,5 +324,5 @@ module.exports = {
 	getDisplayedElement,
   	loadPageNuxtClient,
 	hoverOverMenuOptions,
-	scrollToElement,
+	moveToElement,
 };

@@ -18,17 +18,17 @@ const taskTitleContainer = '.assignment.card .title';
 const taskDescriptionContainer = '.assignment .text-muted.ckcontent';
 const taskContainer = '.homework li.card';
 const deleteTaskButtonInPopup = '.delete-modal button.btn-submit';
-const taskSection = '.v-window-item--active';
-const taskTitle = "//div[@data-testid = 'taskTitle']";
+const taskSection = ".v-window-item--active";
+const taskTitle = "div[data-testid='taskTitle']";
 const submittedTask = "//a[@id='submissions-tab-link']";
 const studentSubmitTask = "//td[text()='Boris']";
 const filterSelect = '.v-select__selections';
 const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-content md-ripple']";
 const courseCheckbox = "//div[contains(.,'";
 const closeFilter = '.v-input__icon--append';
-const taskOverviewLoad = '.v-application--wrap';
 const taskTitleText = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]";
 const taskActionMenu = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]/div/button[starts-with(@data-testid,'task-menu')]";
+const taskGrading = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]/section/div/div[@data-testid='taskGraded' and text() > '0']";
 
 const taskActionMenuButton = {
 	archive: "//*[text()[contains(.,'Abschließen')]]",
@@ -140,18 +140,6 @@ async function goToPrivateTasksArea() {
 	await navigationLeftPage.clickNavItemTasksPrivate();
 }
 
-async function clickOnTaskFromList(taskname) {
-	let areThereAnyTasks = await driver.$$(tasksContainer);
-	await expect(areThereAnyTasks.length).not.to.equal(0);
-	for (var i = 1; i <= areThereAnyTasks.length; i++) {
-		let taskSelector = await driver.$('#homeworks > ol > div > li:nth-child(' + i + ') .h5.title');
-		let tasknameOnPage = await taskSelector.getText();
-		if (tasknameOnPage == taskname) {
-			await elementHelpers.clickAndWait(taskSelector);
-		}
-	}
-}
-
 async function clickDeleteTaskButtonInPopup() {
 	await waitHelpers.waitUntilLegacyPageLoads();
 	await elementHelpers.clickAndWait(deleteTaskButtonInPopup);
@@ -160,31 +148,47 @@ async function clickDeleteTaskButtonInPopup() {
 
 async function clickAtTask(taskName) {
 	await waitHelpers.waitUntilNuxtClientLoads();
-	await driver.pause(5000);
-	let clickOnThatTask = (await getTaskFromNuxtClient(taskName)).toString();
-	await elementHelpers.scrollToElement(clickOnThatTask);
-	await elementHelpers.clickAndWait(clickOnThatTask);
+	let clickOnThatTask = (await getTaskFromTaskOverview(taskName));
+	if (clickOnThatTask === undefined){
+		let isTaskClickable = new Boolean(false);
+		while (!isTaskClickable){
+			elementHelpers.moveToElement(clickOnThatTask);
+			await waitHelpers.waitUntilElementIsVisible(clickOnThatTask);
+			if (clickOnThatTask.isDisplayedInViewport()){
+				isTaskClickable = true;
+			}
+		}
+	}
+	if (clickOnThatTask.isDisplayedInViewport()) {
+		await elementHelpers.clickAndWait(clickOnThatTask);
+	}else{
+		await elementHelpers.moveToElement(clickOnThatTask);
+		await elementHelpers.clickAndWait(clickOnThatTask);
+	}
 }
 
-async function getTaskFromNuxtClient(taskName) {
-	await driver.pause(3000);
-	await waitHelpers.waitUntilElementIsVisible(taskOverviewLoad);
-	await driver.pause(3000);
-	const taskOverviewResult = await getNuxtTaskList();
-	const taskIndex = taskOverviewResult.indexOf(taskName);
-	let clickOnTask = taskOverviewResult[taskIndex];
-	const taskInTheList = '//div[text() =' + "'" + clickOnTask + "'" + ']';
-	return taskInTheList;
+async function getTaskFromTaskOverview(taskName) {
+	let tasksOnThePage = [];
+	await waitHelpers.waitUntilNuxtClientLoads();
+	await waitHelpers.waitUntilElementIsPresent(taskSection);
+	await driver.$(taskSection).$$(taskTitle).forEach(async function (element)  {
+		tasksOnThePage.push(await element.getText());
+	})
+	let isTaskInTheList = new Boolean(false);
+	isTaskInTheList =  (tasksOnThePage.includes(taskName)) ? driver.$(mod_extsprintf.sprintf(taskTitleText, taskName)) : false ;
+	return isTaskInTheList
 }
 
 async function taskDisplayed(taskName) {
-	let taskInTheList = (await getTaskFromNuxtClient(taskName)).toString();
-	await waitHelpers.waitUntilElementIsPresent(taskInTheList);
+	let taskInTheList = (await getTaskFromTaskOverview(taskName));
+	let isTaskPresent = new Boolean(false);
+	isTaskPresent = (await waitHelpers.waitUntilElementIsPresent(taskInTheList)) ? true : false;
+	expect(isTaskPresent).to.equal(true);
 }
 
 async function taskNotDisplayed(taskName) {
-	let taskInTheList = (await getTaskFromNuxtClient(taskName)).toString();
-	await waitHelpers.waitUntilElementIsNotPresent(taskInTheList);
+	let taskInTheList = (await getTaskFromTaskOverview(taskName));
+	expect(taskInTheList).to.equal(false);
 }
 
 async function studentSubmittedTask() {
@@ -192,36 +196,34 @@ async function studentSubmittedTask() {
 	await elementHelpers.clickAndWait(studentSubmitTask);
 }
 
-async function getNuxtTaskList() {
-	const listOfAllNuxtTasks = [];
-	let elements = await driver.$(taskSection);
-	await elements.$$(taskTitle).map(async function (element) {
-		listOfAllNuxtTasks.push(await element.getText());
-	});
-	return listOfAllNuxtTasks;
-}
-
 async function hoverOverTaskAndClickMenu(taskName) {
-	await driver.pause(5000);
 	let taskTitle = await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName));
-	await taskTitle.scrollIntoView(false);
-	if (await taskTitle.isDisplayedInViewport()){
-		let xOffset = await taskTitle.getLocation('x');
-		let yOffset = await taskTitle.getLocation('y');
-		taskTitle.moveTo(xOffset, yOffset);
-		await driver.pause(5000);
-		await elementHelpers.click(mod_extsprintf.sprintf(taskActionMenu, taskName));
-		await driver.pause(3000);
+	await waitHelpers.waitUntilElementIsClickable(taskTitle);
+	if (!(taskTitle.isDisplayedInViewport())){
+		await elementHelpers.moveToElement(taskTitle);
 	}
+	await waitHelpers.waitUntilElementIsVisible(taskTitle);
+	await elementHelpers.moveToElement(taskTitle);;
+	await elementHelpers.click(mod_extsprintf.sprintf(taskActionMenu, taskName));
+
 }
 
 async function clickTaskOnActionMenu(button){
+	await waitHelpers.waitUntilElementIsClickable(getTaskActionBtnSelector(button));
 	await elementHelpers.hoverOverMenuOptions(getTaskActionBtnSelector(button))
 }
 
-async function taskTitleSelector(taskName){
-	await driver.pause(3000);
-	return (await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName)));
+async function isTaskGraded(taskName){
+	await waitHelpers.waitUntilNuxtClientLoads();
+	let taskTitle = await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName));
+	if (!(taskTitle.isDisplayedInViewport())) {
+		await elementHelpers.moveToElement(taskTitle);
+		await waitHelpers.waitUntilElementIsVisible(taskTitle);
+	}else{
+		await waitHelpers.waitUntilElementIsPresent(taskTitle);
+		let actualResult = await elementHelpers.getElementText(mod_extsprintf.sprintf(taskGrading, taskName));
+		expect(actualResult).to.equal('1');
+	}
 }
 
 module.exports = {
@@ -232,7 +234,6 @@ module.exports = {
 	clickOnTask,
 	isTaskVisible,
 	goToPrivateTasksArea,
-	clickOnTaskFromList,
 	getTaskDescription,
 	clickCreateTaskButtonInTheCourse,
 	clickDeleteTaskButtonInPopup,
@@ -240,8 +241,7 @@ module.exports = {
 	taskDisplayed,
 	taskNotDisplayed,
 	studentSubmittedTask,
-	getNuxtTaskList,
 	hoverOverTaskAndClickMenu,
 	clickTaskOnActionMenu,
-	taskTitleSelector,
+	isTaskGraded,
 };
