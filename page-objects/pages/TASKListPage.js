@@ -115,6 +115,7 @@ async function getTaskDescription() {
 async function clickDeleteTaskButtonInPopup() {
 	await waitHelpers.waitUntilLegacyPageLoads();
 	await elementHelpers.clickAndWait(deleteTaskButtonInPopup);
+	await driver.refresh();
 }
 
 async function clickAtTask(taskName) {
@@ -151,6 +152,7 @@ async function getTaskFromTaskOverview(taskName) {
 }
 
 async function taskDisplayed(taskName) {
+	await waitHelpers.waitUntilElementIsVisible(taskTitle);
 	let taskInTheList = (await getTaskFromTaskOverview(taskName));
 	let isTaskPresent = new Boolean(false);
 	isTaskPresent = (await waitHelpers.waitUntilElementIsPresent(taskInTheList)) ? true : false;
@@ -158,6 +160,7 @@ async function taskDisplayed(taskName) {
 }
 
 async function taskNotDisplayed(taskName) {
+	await waitHelpers.waitUntilElementIsNotPresent(taskTitle);
 	let taskInTheList = (await getTaskFromTaskOverview(taskName));
 	expect(taskInTheList).to.equal(false);
 }
