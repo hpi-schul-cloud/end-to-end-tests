@@ -178,11 +178,6 @@ async function hoverOverTaskAndClickMenu(taskName) {
 
 }
 
-async function clickTaskOnActionMenu(button){
-	await waitHelpers.waitUntilElementIsClickable(getTaskActionBtnSelector(button));
-	await elementHelpers.hoverOverMenuOptions(getTaskActionBtnSelector(button))
-}
-
 async function isTaskGraded(taskName){
 	await waitHelpers.waitUntilNuxtClientLoads();
 	let taskTitle = await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName));
@@ -207,7 +202,6 @@ module.exports = {
 	taskNotDisplayed,
 	studentSubmittedTask,
 	hoverOverTaskAndClickMenu,
-	clickTaskOnActionMenu,
 	isTaskGraded,
 	clickActionFromMenuOnTask,
 };
