@@ -159,7 +159,6 @@ async function taskDisplayed(taskName) {
 }
 
 async function taskNotDisplayed(taskName) {
-	await driver.refresh();
 	let taskInTheList = (await getTaskFromTaskOverview(taskName));
 	expect(taskInTheList).to.equal(false);
 }

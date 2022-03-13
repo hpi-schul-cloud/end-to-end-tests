@@ -39,8 +39,7 @@ Feature: Set of tests to create tasks
 		Then <userRole> sees '<taskName>' in the list
 		And <userRole> hover over task '<taskName>'
 		And <userRole> clicks on 'Unarchive' button for task with name '<taskName>'
-		And <userRole> goes to tasks page
-		Then <userRole> sees '<taskName>' in the list
+		Then <userRole> sees '<taskName>' not in the list
 		Examples:
 			| userRole | courseName  | taskName     | taskBody         |
 			| teacher  | Mathe       | task example | text of the task |
