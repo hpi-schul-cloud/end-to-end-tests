@@ -118,6 +118,7 @@ async function clickDeleteTaskButtonInPopup() {
 }
 
 async function clickAtTask(taskName) {
+	await waitHelpers.waitUntilElementIsVisible(taskTitle);
 	let clickOnThatTask = (await getTaskFromTaskOverview(taskName));
 	if (clickOnThatTask === undefined){
 		let isTaskClickable = new Boolean(false);
