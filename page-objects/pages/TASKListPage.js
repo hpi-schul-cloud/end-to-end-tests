@@ -129,10 +129,10 @@ async function clickAtTask(taskName) {
 			}
 		}
 	}
-	if (clickOnThatTask.isDisplayedInViewport()) {
+	if (!(clickOnThatTask.isDisplayedInViewport())) {
+		await elementHelpers.moveToElement(clickOnThatTask);
 		await elementHelpers.clickAndWait(clickOnThatTask);
 	}else{
-		await elementHelpers.moveToElement(clickOnThatTask);
 		await elementHelpers.clickAndWait(clickOnThatTask);
 	}
 }
