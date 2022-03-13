@@ -115,11 +115,9 @@ async function getTaskDescription() {
 async function clickDeleteTaskButtonInPopup() {
 	await waitHelpers.waitUntilLegacyPageLoads();
 	await elementHelpers.clickAndWait(deleteTaskButtonInPopup);
-	await driver.refresh();
 }
 
 async function clickAtTask(taskName) {
-	await waitHelpers.waitUntilNuxtClientLoads();
 	let clickOnThatTask = (await getTaskFromTaskOverview(taskName));
 	if (clickOnThatTask === undefined){
 		let isTaskClickable = new Boolean(false);
