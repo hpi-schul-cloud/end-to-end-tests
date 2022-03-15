@@ -197,15 +197,19 @@ async function waitUntilLegacyPageLoads(timeout = pageLoadingTimeout) {
 }
 
 async function waitUntilNuxtClientLoads(timeout = pageLoadingTimeout) {
-	await driver.pause(3000);
+	await driver.pause(1000);
 	try {
 		let nuxtPageLoad = false;
-		const timeoutMsg = 'Page is not loaded';
-		await waitUntilScriptResultIsTrue(() => document.readyState.includes('complete'), timeoutMsg, timeout);
+		await waitUntilPageLoads();
 		while (!nuxtPageLoad) {
 			await waitUntilElementIsNotPresent(pageNotLoaded);
 			if (await waitUntilElementIsPresent(pageLoaded)){
 				nuxtPageLoad = true;
+			}else {
+				await driver.refresh();
+				if(await waitUntilElementIsPresent(pageLoaded)){
+					nuxtPageLoad = true;
+				}
 			}
 		}
 	} catch (error) {

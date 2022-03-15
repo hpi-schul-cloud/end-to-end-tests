@@ -11,6 +11,7 @@ Feature: Set of tests to delete tasks
 		And <userRole> clicks at task '<taskName>'
 		And <userRole> clicks on 'Delete' button for task with name '<taskName>'
 		And <userRole> clicks on Delete task button
+		And <userRole> goes to tasks page
 		Then <userRole> sees '<taskName>' not in the list
 		Examples:
 			| userRole | taskName |

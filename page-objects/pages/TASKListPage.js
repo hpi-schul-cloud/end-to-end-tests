@@ -119,9 +119,9 @@ async function clickDeleteTaskButtonInPopup() {
 }
 
 async function clickAtTask(taskName) {
-	await waitHelpers.waitUntilNuxtClientLoads();
+	await waitHelpers.waitUntilElementIsVisible(taskTitle);
 	let clickOnThatTask = (await getTaskFromTaskOverview(taskName));
-	if (clickOnThatTask === undefined){
+	if (typeof(clickOnThatTask) === 'undefined'){
 		let isTaskClickable = new Boolean(false);
 		while (!isTaskClickable){
 			elementHelpers.moveToElement(clickOnThatTask);
@@ -130,11 +130,10 @@ async function clickAtTask(taskName) {
 				isTaskClickable = true;
 			}
 		}
-	}
-	if (clickOnThatTask.isDisplayedInViewport()) {
+	}else if (typeof(clickOnThatTask.isDisplayedInViewport()) != 'object') {
+		await elementHelpers.moveToElement(clickOnThatTask);
 		await elementHelpers.clickAndWait(clickOnThatTask);
 	}else{
-		await elementHelpers.moveToElement(clickOnThatTask);
 		await elementHelpers.clickAndWait(clickOnThatTask);
 	}
 }
@@ -180,11 +179,6 @@ async function hoverOverTaskAndClickMenu(taskName) {
 
 }
 
-async function clickTaskOnActionMenu(button){
-	await waitHelpers.waitUntilElementIsClickable(getTaskActionBtnSelector(button));
-	await elementHelpers.hoverOverMenuOptions(getTaskActionBtnSelector(button))
-}
-
 async function isTaskGraded(taskName){
 	await waitHelpers.waitUntilNuxtClientLoads();
 	let taskTitle = await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName));
@@ -209,7 +203,6 @@ module.exports = {
 	taskNotDisplayed,
 	studentSubmittedTask,
 	hoverOverTaskAndClickMenu,
-	clickTaskOnActionMenu,
 	isTaskGraded,
 	clickActionFromMenuOnTask,
 };
