@@ -121,7 +121,7 @@ async function clickDeleteTaskButtonInPopup() {
 async function clickAtTask(taskName) {
 	await waitHelpers.waitUntilElementIsVisible(taskTitle);
 	let clickOnThatTask = (await getTaskFromTaskOverview(taskName));
-	if (clickOnThatTask === undefined){
+	if (typeof(clickOnThatTask) === 'undefined'){
 		let isTaskClickable = new Boolean(false);
 		while (!isTaskClickable){
 			elementHelpers.moveToElement(clickOnThatTask);
@@ -130,8 +130,7 @@ async function clickAtTask(taskName) {
 				isTaskClickable = true;
 			}
 		}
-	}
-	if (!(clickOnThatTask.isDisplayedInViewport())) {
+	}else if (typeof(clickOnThatTask.isDisplayedInViewport()) != 'object') {
 		await elementHelpers.moveToElement(clickOnThatTask);
 		await elementHelpers.clickAndWait(clickOnThatTask);
 	}else{
