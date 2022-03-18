@@ -119,22 +119,34 @@ async function clickDeleteTaskButtonInPopup() {
 }
 
 async function clickAtTask(taskName) {
-	await waitHelpers.waitUntilElementIsVisible(taskTitle);
-	let clickOnThatTask = (await getTaskFromTaskOverview(taskName));
-	if (typeof(clickOnThatTask) === 'undefined'){
-		let isTaskClickable = new Boolean(false);
-		while (!isTaskClickable){
-			elementHelpers.moveToElement(clickOnThatTask);
-			await waitHelpers.waitUntilElementIsVisible(clickOnThatTask);
-			if (clickOnThatTask.isDisplayedInViewport()){
-				isTaskClickable = true;
+	try {
+		let taskTitle = await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName));
+		await waitHelpers.waitUntilElementIsClickable(taskTitle);
+		let clickOnThatTask = (await getTaskFromTaskOverview(taskName));
+		if (typeof(clickOnThatTask) === 'undefined'){
+			let isTaskClickable = new Boolean(false);
+			while (!isTaskClickable){
+				elementHelpers.moveToElement(clickOnThatTask);
+				await waitHelpers.waitUntilElementIsClickable(clickOnThatTask);
+				clickOnThatTask = (await getTaskFromTaskOverview(taskName));
+				if (typeof(clickOnThatTask) === 'object'){
+					isTaskClickable = true;
+					await elementHelpers.clickAndWait(clickOnThatTask);
+				}
 			}
+		}else if (typeof(clickOnThatTask) != 'object') {
+			await elementHelpers.moveToElement(clickOnThatTask);
+			await waitHelpers.waitUntilElementIsClickable(clickOnThatTask);
+			clickOnThatTask = (await getTaskFromTaskOverview(taskName));
+			if (typeof(clickOnThatTask) === 'object'){
+				await elementHelpers.clickAndWait(clickOnThatTask);
+			}
+		}else{
+			await elementHelpers.clickAndWait(clickOnThatTask);
 		}
-	}else if (typeof(clickOnThatTask.isDisplayedInViewport()) != 'object') {
-		await elementHelpers.moveToElement(clickOnThatTask);
-		await elementHelpers.clickAndWait(clickOnThatTask);
-	}else{
-		await elementHelpers.clickAndWait(clickOnThatTask);
+	}catch(error) {
+		const msg = error.message;
+		throw msg;
 	}
 }
 
@@ -168,12 +180,12 @@ async function studentSubmittedTask() {
 }
 
 async function hoverOverTaskAndClickMenu(taskName) {
+	await waitHelpers.waitUntilNuxtClientLoads();
 	let taskTitle = await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName));
-	await waitHelpers.waitUntilElementIsClickable(taskTitle);
 	if (!(taskTitle.isDisplayedInViewport())){
 		await elementHelpers.moveToElement(taskTitle);
 	}
-	await waitHelpers.waitUntilElementIsVisible(taskTitle);
+	await waitHelpers.waitUntilElementIsClickable(taskTitle);
 	await elementHelpers.moveToElement(taskTitle);;
 	await elementHelpers.click(mod_extsprintf.sprintf(taskActionMenu, taskName));
 
