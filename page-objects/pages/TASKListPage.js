@@ -170,6 +170,7 @@ async function taskDisplayed(taskName) {
 }
 
 async function taskNotDisplayed(taskName) {
+	await waitHelpers.waitUntilNuxtClientLoads();
 	let taskInTheList = (await getTaskFromTaskOverview(taskName));
 	expect(taskInTheList).to.equal(false);
 }
@@ -182,12 +183,11 @@ async function studentSubmittedTask() {
 async function hoverOverTaskAndClickMenu(taskName) {
 	await waitHelpers.waitUntilNuxtClientLoads();
 	let taskTitle = await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName));
-	if (!(taskTitle.isDisplayedInViewport())){
-		await elementHelpers.moveToElement(taskTitle);
-	}
+	let taskActionMenuOption = await driver.$(mod_extsprintf.sprintf(taskActionMenu, taskName));
+	await elementHelpers.moveToElement(taskTitle);
+	await elementHelpers.moveToElement(taskActionMenuOption);
 	await waitHelpers.waitUntilElementIsClickable(taskTitle);
-	await elementHelpers.moveToElement(taskTitle);;
-	await elementHelpers.click(mod_extsprintf.sprintf(taskActionMenu, taskName));
+	await elementHelpers.click(taskActionMenuOption);
 
 }
 
