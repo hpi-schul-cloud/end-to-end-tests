@@ -120,8 +120,7 @@ async function clickDeleteTaskButtonInPopup() {
 
 async function clickAtTask(taskName) {
 	try {
-		let taskTitle = await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName));
-		await waitHelpers.waitUntilElementIsClickable(taskTitle);
+		await waitHelpers.waitUntilNuxtClientLoads();
 		let clickOnThatTask = (await getTaskFromTaskOverview(taskName));
 		if (typeof(clickOnThatTask) === 'undefined'){
 			let isTaskClickable = new Boolean(false);
