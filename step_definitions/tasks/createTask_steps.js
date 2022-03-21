@@ -73,10 +73,3 @@ When(/^.* sets Task-processing-end-date: today .1 day, 11:00$/, async function (
 		(await dateTimeHelpers.getCurrentFormattedDateWithOffset({ days: +1, format: 'dd/MM/yyyy' })) + ' 11:00';
 	await addEditTaskPage.setTaskProcessingEndDate(endDate);
 });
-
-//THEN
-Then(/^.* task body is '([^']*)'$/, async function (taskbody) {
-	let descriptions = await TASKListPage.getTaskDescription();
-	await expect(descriptions.some((x) => x.includes(taskbody))).to.be.true;
-});
-

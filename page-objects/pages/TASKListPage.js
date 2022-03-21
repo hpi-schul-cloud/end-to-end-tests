@@ -31,8 +31,8 @@ const taskActionMenuButton = {
 	archive: "//*[text()[contains(.,'Abschließen')]]",
 	unarchive: "//*[text()[contains(.,'Wiederherstellen')]]",
 	edit: "//*[text()[contains(.,'Bearbeiten')]]",
-	copy: '.fa-copy',
-	delete: '.btn-delete',
+	copy: "//*[text()[contains(.,'Kopieren')]]",
+	delete: "//*[text()[contains(.,'Löschen')]]",
 	taskOpen: '.assignment span.more',
 };
 
@@ -104,12 +104,6 @@ async function clickActionFromMenuOnTask(button) {
 	await waitHelpers.waitUntilPageLoads();
 	const actionButton = await driver.$(getTaskActionBtnSelector(button));
 	await elementHelpers.clickAndWait(actionButton);
-}
-
-async function getTaskDescription() {
-	await waitHelpers.waitUntilPageLoads();
-	const descriptionList = await elementHelpers.getTextFromAllElements(taskDescriptionContainer);
-	return descriptionList;
 }
 
 async function clickDeleteTaskButtonInPopup() {
@@ -195,7 +189,6 @@ async function isTaskGraded(taskName){
 module.exports = {
 	clickCreateTaskButton,
 	sortTasksLastEdited,
-	getTaskDescription,
 	clickCreateTaskButtonInTheCourse,
 	clickDeleteTaskButtonInPopup,
 	clickAtTask,
