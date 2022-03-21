@@ -10,8 +10,8 @@ Feature: Set of tests to delete tasks
 		And <userRole> goes to tasks page
 		And <userRole> hover over task '<taskName>'
 		And <userRole> clicks on 'Delete' button for task with name '<taskName>'
-		#And <userRole> clicks on 'New Delete Pop Up' button
-		#Then <userRole> sees '<taskName>' not in the list
+		And <userRole> clicks on 'New Delete Pop Up' button
+		Then <userRole> sees '<taskName>' not in the list
 		Examples:
 			| userRole | taskName |
 			| teacher  | Task14   |
