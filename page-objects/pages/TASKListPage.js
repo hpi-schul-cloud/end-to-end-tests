@@ -118,7 +118,7 @@ async function clickActionFromMenuOnTask(button) {
 }
 
 async function clickDeleteTaskButtonInPopup(button) {
-	await waitHelpers.waitUntilLegacyPageLoads();
+	await driver.pause(500);
 	const actionButton = await driver.$(getTaskActionBtnSelector(button));
 	await elementHelpers.clickAndWait(actionButton);
 	await driver.refresh();
