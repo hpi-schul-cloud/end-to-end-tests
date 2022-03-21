@@ -13,8 +13,6 @@ const select = '#selection-picker > div > div';
 const lastedited =
 	'body > div.md-select-menu.md-menu-content-bottom-start.md-menu-content-small.md-menu-content.md-theme-default > div > ul > li:nth-child(2) > button';
 const submitBtn = '.md-button.md-primary.md-theme-default > div > div';
-const taskDescriptionContainer = '.assignment .text-muted.ckcontent';
-const deleteTaskButtonInPopup = '.delete-modal button.btn-submit';
 const taskSection = ".v-window-item--active";
 const taskTitle = "div[data-testid='taskTitle']";
 const submittedTask = "//a[@id='submissions-tab-link']";
