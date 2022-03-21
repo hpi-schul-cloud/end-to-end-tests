@@ -22,7 +22,7 @@ const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-con
 const courseCheckbox = "//div[contains(.,'";
 const closeFilter = '.v-input__icon--append';
 const taskTitleText = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]";
-const taskActionMenu = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]/div/button[starts-with(@data-testid,'task-menu')]";
+const taskActionMenu = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]/div/div/button[starts-with(@data-testid,'task-menu')]";
 const taskGrading = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]/section/div/div[@data-testid='taskGraded' and text() > '0']";
 
 const deletePopUpButton = {

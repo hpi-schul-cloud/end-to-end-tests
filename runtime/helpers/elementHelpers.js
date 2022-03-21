@@ -272,7 +272,7 @@ async function moveToElement(selector){
 	let moveToElement = await driver.$(selector);
 	let xOffset = await moveToElement.getLocation('x');
 	let yOffset = await moveToElement.getLocation('y');
-	if (!(moveToElement.isDisplayedInViewport())){
+	if (!(await moveToElement.isDisplayedInViewport())){
 		moveToElement.scrollIntoView({
 			behavior: "smooth",
 			block: "start",
