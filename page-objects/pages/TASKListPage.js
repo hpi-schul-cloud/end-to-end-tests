@@ -27,6 +27,11 @@ const taskTitleText = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]"
 const taskActionMenu = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]/div/button[starts-with(@data-testid,'task-menu')]";
 const taskGrading = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]/section/div/div[@data-testid='taskGraded' and text() > '0']";
 
+const deletePopUpButton = {
+	deletePopUp: ".delete-modal button.btn-submit",
+	newDeletePopUp: "//span[text()[contains(.,'Löschen')]]"
+}
+
 const taskActionMenuButton = {
 	archive: "//*[text()[contains(.,'Abschließen')]]",
 	unarchive: "//*[text()[contains(.,'Wiederherstellen')]]",
@@ -57,6 +62,12 @@ function getTaskActionBtnSelector(buttonAction) {
 			break;
 		case 'task open':
 			btnSel = taskActionMenuButton.taskOpen;
+			break;
+		case 'delete pop up':
+			btnSel = deletePopUpButton.deletePopUp;
+			break;
+		case 'new delete pop up':
+			btnSel = deletePopUpButton.newDeletePopUp;
 			break;
 		default:
 			console.error(`This action button: ${buttonAction} does not exist on the list of possible choices`);
@@ -106,9 +117,10 @@ async function clickActionFromMenuOnTask(button) {
 	await elementHelpers.clickAndWait(actionButton);
 }
 
-async function clickDeleteTaskButtonInPopup() {
+async function clickDeleteTaskButtonInPopup(button) {
 	await waitHelpers.waitUntilLegacyPageLoads();
-	await elementHelpers.clickAndWait(deleteTaskButtonInPopup);
+	const actionButton = await driver.$(getTaskActionBtnSelector(button));
+	await elementHelpers.clickAndWait(actionButton);
 	await driver.refresh();
 }
 
