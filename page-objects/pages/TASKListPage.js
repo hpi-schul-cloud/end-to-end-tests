@@ -22,8 +22,10 @@ const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-con
 const courseCheckbox = "//div[contains(.,'";
 const closeFilter = '.v-input__icon--append';
 const taskTitleText = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]";
-const taskActionMenu = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]/div/button[starts-with(@data-testid,'task-menu')]";
-const taskGrading = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]/section/div/div[@data-testid='taskGraded' and text() > '0']";
+const taskActionMenu =
+	"//a[div/div[@data-testid='taskTitle' and text() = '%s']]/div/div/button[starts-with(@data-testid,'task-menu')]";
+const taskGrading =
+	"//a[div/div[@data-testid='taskTitle' and text() = '%s']]/section/div/div[@data-testid='taskGraded' and text() > '0']";
 
 const deletePopUpButton = {
 	deletePopUp: ".delete-modal button.btn-submit",
@@ -125,29 +127,29 @@ async function clickDeleteTaskButtonInPopup(button) {
 async function clickAtTask(taskName) {
 	try {
 		await waitHelpers.waitUntilNuxtClientLoads();
-		let clickOnThatTask = (await getTaskFromTaskOverview(taskName));
-		if (typeof(clickOnThatTask) === 'undefined'){
+		let clickOnThatTask = await getTaskFromTaskOverview(taskName);
+		if (typeof clickOnThatTask === 'undefined') {
 			let isTaskClickable = new Boolean(false);
-			while (!isTaskClickable){
+			while (!isTaskClickable) {
 				elementHelpers.moveToElement(clickOnThatTask);
 				await waitHelpers.waitUntilElementIsClickable(clickOnThatTask);
-				clickOnThatTask = (await getTaskFromTaskOverview(taskName));
-				if (typeof(clickOnThatTask) === 'object'){
+				clickOnThatTask = await getTaskFromTaskOverview(taskName);
+				if (typeof clickOnThatTask === 'object') {
 					isTaskClickable = true;
 					await elementHelpers.clickAndWait(clickOnThatTask);
 				}
 			}
-		}else if (typeof(clickOnThatTask) != 'object') {
+		} else if (typeof clickOnThatTask != 'object') {
 			await elementHelpers.moveToElement(clickOnThatTask);
 			await waitHelpers.waitUntilElementIsClickable(clickOnThatTask);
-			clickOnThatTask = (await getTaskFromTaskOverview(taskName));
-			if (typeof(clickOnThatTask) === 'object'){
+			clickOnThatTask = await getTaskFromTaskOverview(taskName);
+			if (typeof clickOnThatTask === 'object') {
 				await elementHelpers.clickAndWait(clickOnThatTask);
 			}
-		}else{
+		} else {
 			await elementHelpers.clickAndWait(clickOnThatTask);
 		}
-	}catch(error) {
+	} catch (error) {
 		const msg = error.message;
 		throw msg;
 	}
@@ -157,16 +159,21 @@ async function getTaskFromTaskOverview(taskName) {
 	let tasksOnThePage = [];
 	await waitHelpers.waitUntilNuxtClientLoads();
 	await waitHelpers.waitUntilElementIsPresent(taskSection);
-	await driver.$(taskSection).$$(taskTitle).forEach(async function (element)  {
-		tasksOnThePage.push(await element.getText());
-	})
+	await driver
+		.$(taskSection)
+		.$$(taskTitle)
+		.forEach(async function (element) {
+			tasksOnThePage.push(await element.getText());
+		});
 	let isTaskInTheList = new Boolean(false);
-	isTaskInTheList =  (tasksOnThePage.includes(taskName)) ? driver.$(mod_extsprintf.sprintf(taskTitleText, taskName)) : false ;
-	return isTaskInTheList
+	isTaskInTheList = tasksOnThePage.includes(taskName)
+		? driver.$(mod_extsprintf.sprintf(taskTitleText, taskName))
+		: false;
+	return isTaskInTheList;
 }
 
 async function taskDisplayed(taskName) {
-	let taskInTheList = (await getTaskFromTaskOverview(taskName));
+	let taskInTheList = await getTaskFromTaskOverview(taskName);
 	let isTaskPresent = new Boolean(false);
 	isTaskPresent = (await waitHelpers.waitUntilElementIsPresent(taskInTheList)) ? true : false;
 	expect(isTaskPresent).to.equal(true);
@@ -174,7 +181,7 @@ async function taskDisplayed(taskName) {
 
 async function taskNotDisplayed(taskName) {
 	await waitHelpers.waitUntilNuxtClientLoads();
-	let taskInTheList = (await getTaskFromTaskOverview(taskName));
+	let taskInTheList = await getTaskFromTaskOverview(taskName);
 	expect(taskInTheList).to.equal(false);
 }
 
@@ -191,16 +198,15 @@ async function hoverOverTaskAndClickMenu(taskName) {
 	await elementHelpers.moveToElement(taskActionMenuOption);
 	await waitHelpers.waitUntilElementIsClickable(taskTitle);
 	await elementHelpers.click(taskActionMenuOption);
-
 }
 
-async function isTaskGraded(taskName){
+async function isTaskGraded(taskName) {
 	await waitHelpers.waitUntilNuxtClientLoads();
 	let taskTitle = await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName));
-	if (!(taskTitle.isDisplayedInViewport())) {
+	if (!taskTitle.isDisplayedInViewport()) {
 		await elementHelpers.moveToElement(taskTitle);
 		await waitHelpers.waitUntilElementIsVisible(taskTitle);
-	}else{
+	} else {
 		await waitHelpers.waitUntilElementIsPresent(taskTitle);
 		let actualResult = await elementHelpers.getElementText(mod_extsprintf.sprintf(taskGrading, taskName));
 		expect(actualResult).to.equal('1');
