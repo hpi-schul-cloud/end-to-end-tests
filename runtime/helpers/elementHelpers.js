@@ -275,7 +275,7 @@ async function moveToElement(selector){
 	if (!(await moveToElement.isDisplayedInViewport())){
 		moveToElement.scrollIntoView({
 			behavior: "smooth",
-			block: "start",
+			block: "end",
 			inline: "nearest"});
 		await waitHelpers.waitUntilElementIsPresent(moveToElement);
 		moveToElement.moveTo(xOffset, yOffset);

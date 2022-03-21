@@ -193,7 +193,6 @@ async function hoverOverTaskAndClickMenu(taskName) {
 	let taskTitle = await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName));
 	let taskActionMenuOption = await driver.$(mod_extsprintf.sprintf(taskActionMenu, taskName));
 	await elementHelpers.moveToElement(taskTitle);
-	await elementHelpers.moveToElement(taskActionMenuOption);
 	await waitHelpers.waitUntilElementIsClickable(taskTitle);
 	await elementHelpers.click(taskActionMenuOption);
 }
