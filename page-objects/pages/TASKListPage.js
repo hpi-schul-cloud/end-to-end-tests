@@ -26,8 +26,8 @@ const taskActionMenu = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]
 const taskGrading = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]/section/div/div[@data-testid='taskGraded' and text() > '0']";
 
 const deletePopUpButton = {
-	deletePopUp: ".delete-modal button.btn-submit",
-	newDeletePopUp: "//span[text()[contains(.,'Löschen')]]"
+	delete: ".delete-modal button.btn-submit",
+	deletePopUp: "//span[text()[contains(.,'Löschen')]]"
 }
 
 const taskActionMenuButton = {
@@ -61,11 +61,11 @@ function getTaskActionBtnSelector(buttonAction) {
 		case 'task open':
 			btnSel = taskActionMenuButton.taskOpen;
 			break;
+		case 'delete':
+			btnSel = deletePopUpButton.delete;
+			break;
 		case 'delete pop up':
 			btnSel = deletePopUpButton.deletePopUp;
-			break;
-		case 'new delete pop up':
-			btnSel = deletePopUpButton.newDeletePopUp;
 			break;
 		default:
 			console.error(`This action button: ${buttonAction} does not exist on the list of possible choices`);

@@ -10,7 +10,7 @@ Feature: Set of tests to delete tasks
 		And <userRole> goes to tasks page
 		And <userRole> hover over task '<taskName>'
 		And <userRole> clicks on 'Delete' button for task with name '<taskName>'
-		And <userRole> clicks on 'New Delete Pop Up' button
+		And <userRole> clicks on 'Delete Pop Up' button
 		Then <userRole> sees '<taskName>' not in the list
 		Examples:
 			| userRole | taskName |
@@ -33,7 +33,7 @@ Feature: Set of tests to delete tasks
 		Then <userRole> sees '<taskName>' in the list
 		And <userRole> clicks at task '<taskName>'
 		And <userRole> should clicks on 'Delete' button for task with name '[<courseName>] - <taskName>'
-		And <userRole> clicks on 'Delete Pop Up' button
+		And <userRole> clicks on 'Delete' button
 		When <userRole> goes to tasks page
 		Then <userRole> sees '<taskName>' not in the list
 		Examples:
