@@ -14,7 +14,7 @@ Feature: Set of tests to delete tasks
 		Then <userRole> sees '<taskName>' not in the list
 		Examples:
 			| userRole | taskName |
-			| teacher  | Task14   |
+			| teacher  | Task19   |
 
 	@deleteTaskWithCourse @tasks_and_other
 	Scenario Outline: As a user, I want to be able to create a simple task and try to delete it
