@@ -277,6 +277,7 @@ async function moveToElement(selector){
 			behavior: "smooth",
 			block: "end",
 			inline: "nearest"});
+		await driver.pause(500);
 		await waitHelpers.waitUntilElementIsPresent(moveToElement);
 		moveToElement.moveTo(xOffset, yOffset);
 		await waitHelpers.waitUntilElementIsVisible(moveToElement);
