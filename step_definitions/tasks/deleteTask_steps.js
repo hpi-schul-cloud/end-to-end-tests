@@ -4,8 +4,8 @@ const TASKListPage = require('../../page-objects/pages/TASKListPage.js');
 
 //WHEN
 
-When(/^.* clicks on Delete task button$/, async function () {
-	await TASKListPage.clickDeleteTaskButtonInPopup();
+When(/^.* clicks on '([^']*)' button$/, async function (button) {
+	await TASKListPage.clickDeleteTaskButtonInPopup(button);
 });
 
 When(/^.* filter by '([^']*)'$/, async function (courseName){

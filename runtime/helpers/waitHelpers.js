@@ -197,7 +197,7 @@ async function waitUntilLegacyPageLoads(timeout = pageLoadingTimeout) {
 }
 
 async function waitUntilNuxtClientLoads(timeout = pageLoadingTimeout) {
-	await driver.pause(1000);
+	await driver.pause(5000);
 	try {
 		let nuxtPageLoad = false;
 		await waitUntilPageLoads();
