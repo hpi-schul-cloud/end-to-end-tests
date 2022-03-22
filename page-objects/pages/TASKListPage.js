@@ -13,9 +13,7 @@ const select = '#selection-picker > div > div';
 const lastedited =
 	'body > div.md-select-menu.md-menu-content-bottom-start.md-menu-content-small.md-menu-content.md-theme-default > div > ul > li:nth-child(2) > button';
 const submitBtn = '.md-button.md-primary.md-theme-default > div > div';
-const taskDescriptionContainer = '.assignment .text-muted.ckcontent';
-const deleteTaskButtonInPopup = '.delete-modal button.btn-submit';
-const taskSection = '.v-window-item--active';
+const taskSection = ".v-window-item--active";
 const taskTitle = "div[data-testid='taskTitle']";
 const submittedTask = "//a[@id='submissions-tab-link']";
 const studentSubmitTask = "//td[text()='Boris']";
@@ -24,17 +22,20 @@ const courseSelect = "//div[contains(., 'Kurse...') and @class='md-list-item-con
 const courseCheckbox = "//div[contains(.,'";
 const closeFilter = '.v-input__icon--append';
 const taskTitleText = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]";
-const taskActionMenu =
-	"//a[div/div[@data-testid='taskTitle' and text() = '%s']]/div/div/button[starts-with(@data-testid,'task-menu')]";
-const taskGrading =
-	"//a[div/div[@data-testid='taskTitle' and text() = '%s']]/section/div/div[@data-testid='taskGraded' and text() > '0']";
+const taskActionMenu = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]/div/div/button[starts-with(@data-testid,'task-menu')]";
+const taskGrading = "//a[div/div[@data-testid='taskTitle' and text() = '%s']]/section/div/div[@data-testid='taskGraded' and text() > '0']";
+
+const deletePopUpButton = {
+	deletePopUp: ".delete-modal button.btn-submit",
+	newDeletePopUp: "//span[text()[contains(.,'Löschen')]]"
+}
 
 const taskActionMenuButton = {
 	archive: "//*[text()[contains(.,'Abschließen')]]",
 	unarchive: "//*[text()[contains(.,'Wiederherstellen')]]",
 	edit: "//*[text()[contains(.,'Bearbeiten')]]",
-	copy: '.fa-copy',
-	delete: '.btn-delete',
+	copy: "//*[text()[contains(.,'Kopieren')]]",
+	delete: "//*[text()[contains(.,'Löschen')]]",
 	taskOpen: '.assignment span.more',
 };
 
@@ -59,6 +60,12 @@ function getTaskActionBtnSelector(buttonAction) {
 			break;
 		case 'task open':
 			btnSel = taskActionMenuButton.taskOpen;
+			break;
+		case 'delete pop up':
+			btnSel = deletePopUpButton.deletePopUp;
+			break;
+		case 'new delete pop up':
+			btnSel = deletePopUpButton.newDeletePopUp;
 			break;
 		default:
 			console.error(`This action button: ${buttonAction} does not exist on the list of possible choices`);
@@ -108,15 +115,10 @@ async function clickActionFromMenuOnTask(button) {
 	await elementHelpers.clickAndWait(actionButton);
 }
 
-async function getTaskDescription() {
-	await waitHelpers.waitUntilPageLoads();
-	const descriptionList = await elementHelpers.getTextFromAllElements(taskDescriptionContainer);
-	return descriptionList;
-}
-
-async function clickDeleteTaskButtonInPopup() {
-	await waitHelpers.waitUntilLegacyPageLoads();
-	await elementHelpers.clickAndWait(deleteTaskButtonInPopup);
+async function clickDeleteTaskButtonInPopup(button) {
+	await driver.pause(500);
+	const actionButton = await driver.$(getTaskActionBtnSelector(button));
+	await elementHelpers.clickAndWait(actionButton);
 	await driver.refresh();
 }
 
@@ -191,7 +193,6 @@ async function hoverOverTaskAndClickMenu(taskName) {
 	let taskTitle = await driver.$(mod_extsprintf.sprintf(taskTitleText, taskName));
 	let taskActionMenuOption = await driver.$(mod_extsprintf.sprintf(taskActionMenu, taskName));
 	await elementHelpers.moveToElement(taskTitle);
-	await elementHelpers.moveToElement(taskActionMenuOption);
 	await waitHelpers.waitUntilElementIsClickable(taskTitle);
 	await elementHelpers.click(taskActionMenuOption);
 }
@@ -212,7 +213,6 @@ async function isTaskGraded(taskName) {
 module.exports = {
 	clickCreateTaskButton,
 	sortTasksLastEdited,
-	getTaskDescription,
 	clickCreateTaskButtonInTheCourse,
 	clickDeleteTaskButtonInPopup,
 	clickAtTask,
