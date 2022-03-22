@@ -48,7 +48,7 @@
 		"browserstack-local": "^1.4.8",
 		"chai": "^4.3.4",
 		"clean": "^4.0.2",
-		"commander": "^8.2.0",
+		"commander": "^8.3.0",
 		"cucumber-html-reporter": "^5.5.0",
 		"fs-extra": "^10.0.0",
 		"merge": "^2.1.1",
