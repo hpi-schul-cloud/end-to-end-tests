@@ -102,8 +102,11 @@ When(/^.* goes to initials$/, async function () {
 });
 
 When(/^.* goes to user settings$/, async function () {
-	await navigationTopPage.clickInitials();
 	await navigationTopPage.clickSettings();
+});
+
+When(/^.* goes to user menu$/, async function () {
+	await navigationTopPage.clickInitials();
 });
 
 /*first login*/
