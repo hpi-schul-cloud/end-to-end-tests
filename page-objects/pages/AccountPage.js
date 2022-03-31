@@ -1,5 +1,7 @@
 "use strict";
 
+const chromeDriver = require("../../runtime/chromeDriver.js");
+const { click } = require("../../runtime/helpers/elementHelpers.js");
 const elementHelpers = require("../../runtime/helpers/elementHelpers.js");
 const waitHelpers = require("../../runtime/helpers/waitHelpers.js");
 const LoginPage = require("./generalPagesBeforeLogin/LoginPage.js");
@@ -9,7 +11,35 @@ const newPasswordInput = 'input[data-testid="settings_password_new"]';
 const newPasswordConfInput = 'input[data-testid="settings_password_control"]';
 const submitAccountDataBtn = '[data-testid="submit_new_password_btn"]';
 
-const languageSelect = '#language_chosen';
+const languageMenu = {
+	german: "//a[@data-testid = 'selected-language-de']",
+	english: "//a[@data-testid='available-language-en']",
+	spanish:"//a[@data-testid = 'available-language-es']",
+	ukrainian: "//a[@data-testid = 'available-language-ua']",
+};
+
+/*function getLanguageSelector(language) {
+	let languageSel = "";
+	const action = language.toLowerCase();
+	switch (action) {
+		case 'german':
+			languageSel = languageMenu.german;
+			break;
+		case 'english':
+			languageSel = languageMenu.english;
+			break;
+		case 'spanish':
+			languageSel = languageMenu.spanish;
+			break;
+		case 'ukrainian':
+			languageSel = languageMenu.ukrainian;
+			break;
+		default:
+			console.error(`This language: ${language} does not exist on the list of possible choices`);
+			break;
+	}
+	return languageSel;
+}*/
 
 async function clickSubmitAccountDataBtn() {
     await elementHelpers.clickAndWait(submitAccountDataBtn);
@@ -27,8 +57,21 @@ async function setNewPasswordConfirmation(newPassword = LoginPage.defaultNewPass
     await waitHelpers.waitAndSetValue(newPasswordConfInput, newPassword);
 }
 
-async function setLanguage(language) {
-    await elementHelpers.selectOptionsByText(languageSelect, language);
+async function selectLanguage(language) {
+    await elementHelpers.clickAndWait(languageMenu.german);
+    if (language === 'English') {
+        await elementHelpers.clickAndWait(languageMenu.english);
+        await driver.pause(500);
+    } else if (language === 'Spanish'){
+        await elementHelpers.clickAndWait(languageMenu.spanish);
+        await driver.pause(500);
+    } else if (language === 'Ukrainian'){
+        await elementHelpers.clickAndWait(languageMenu.ukrainian);
+        await driver.pause(500);
+    } else {
+        await elementHelpers.clickAndWait(languageMenu.german);
+        await driver.pause(500);
+    }
 }
 
 async function changePassword(oldPassword, newPassword) {
@@ -43,8 +86,7 @@ async function fillPassword(password) {
 }
 
 async function changeLanguage(language) {
-	await setLanguage(language);
-    await clickSubmitAccountDataBtn();
+	await selectLanguage(language);
 }
 
 module.exports = {

@@ -7,6 +7,7 @@ Feature: Test set to edit password
     	@changePassword
 	    Scenario Outline: As a user, I want to be able to change the password
 		When <userRole> logs in with email '<username>' and password '<password>'
+		And <userRole> goes to user menu
 		And <userRole> goes to user settings
 		When <userRole> changes password from '<password>' to '<newPassword>'
 		And <userRole> logs out
