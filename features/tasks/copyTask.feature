@@ -1,10 +1,10 @@
-@task @copyTask @stableTest
+@task @copyTask
 Feature: Set of tests to copy tasks
 
 	Background: User opens Schul-cloud homepage Website
 		Given user arrives on the Schul-Cloud homepage
 
-	@copySimpleTask @e2eCore @tasks_and_other
+	@copySimpleTask @e2eCore @tasks_and_other @unstableTest
 	Scenario Outline: As a user, I want to be able to log in and copy an existing task
 		When <userRole> logs in
 		And <userRole> goes to tasks page
