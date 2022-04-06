@@ -62,7 +62,6 @@ const Axios = require('axios');
 	async function getUserInfo (attribute) {
 		const cookie = await driver.getCookies(['jwt']);
 		const jwt = cookie[0].value;
-		console.log(jwt);
 		const info = await Axios.request({
 			url: `${SERVER.URL}/me`,
 			method: 'get',
