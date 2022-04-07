@@ -66,7 +66,7 @@ const Axios = require('axios');
 			url: `${SERVER.URL}/me`,
 			method: 'get',
 			headers: {
-				Authorization: `${jwt}`,
+				Authorization: `Bearer ${jwt}`,
 			},
 		});
 		let object = info.data;

@@ -1,7 +1,5 @@
 "use strict";
 
-const chromeDriver = require("../../runtime/chromeDriver.js");
-const { click } = require("../../runtime/helpers/elementHelpers.js");
 const elementHelpers = require("../../runtime/helpers/elementHelpers.js");
 const waitHelpers = require("../../runtime/helpers/waitHelpers.js");
 const LoginPage = require("./generalPagesBeforeLogin/LoginPage.js");
@@ -18,7 +16,7 @@ const languageMenu = {
 	ukrainian: "//a[@data-testid = 'available-language-ua']",
 };
 
-/*function getLanguageSelector(language) {
+function getLanguageSelector(language) {
 	let languageSel = "";
 	const action = language.toLowerCase();
 	switch (action) {
@@ -39,7 +37,7 @@ const languageMenu = {
 			break;
 	}
 	return languageSel;
-}*/
+}
 
 async function clickSubmitAccountDataBtn() {
     await elementHelpers.clickAndWait(submitAccountDataBtn);
@@ -59,19 +57,8 @@ async function setNewPasswordConfirmation(newPassword = LoginPage.defaultNewPass
 
 async function selectLanguage(language) {
     await elementHelpers.clickAndWait(languageMenu.german);
-    if (language === 'English') {
-        await elementHelpers.clickAndWait(languageMenu.english);
-        await driver.pause(500);
-    } else if (language === 'Spanish'){
-        await elementHelpers.clickAndWait(languageMenu.spanish);
-        await driver.pause(500);
-    } else if (language === 'Ukrainian'){
-        await elementHelpers.clickAndWait(languageMenu.ukrainian);
-        await driver.pause(500);
-    } else {
-        await elementHelpers.clickAndWait(languageMenu.german);
-        await driver.pause(500);
-    }
+	await elementHelpers.clickAndWait(getLanguageSelector (language));
+	await driver.pause(500);
 }
 
 async function changePassword(oldPassword, newPassword) {
