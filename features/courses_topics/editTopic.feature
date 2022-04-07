@@ -15,8 +15,6 @@ Feature: Set of tests to edit topics
         And <userRole> changes title of content from '<contentTitle>' to '<newContentTitle>'
         And <userRole> changes description of content from '<contentText>' to '<newContentText>'
         And <userRole> clicks Save-changes button
-        Then <userRole> should see that first topic with name '<changedTopicName>' is visible on the list
-        When <userRole> clicks on topic with name '<changedTopicName>'
         Then <userRole> should see that topic title is '<changedTopicName>'
         And <userRole> should see that content text title is '<newContentTitle>'
         And <userRole> should see that content text contains text '<newContentText>'
