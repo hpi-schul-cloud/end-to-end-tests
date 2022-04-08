@@ -134,7 +134,7 @@ async function clickAtTask(taskName) {
 				clickOnThatTask = await getTaskFromTaskOverview(taskName);
 				if (typeof clickOnThatTask === 'object') {
 					isTaskClickable = true;
-					await elementHelpers.clickAndWait(clickOnThatTask);
+					await driver.execute(`arguments[0].click()`, clickOnThatTask);
 				}
 			}
 		} else if (typeof clickOnThatTask != 'object') {
@@ -142,10 +142,10 @@ async function clickAtTask(taskName) {
 			await waitHelpers.waitUntilElementIsClickable(clickOnThatTask);
 			clickOnThatTask = await getTaskFromTaskOverview(taskName);
 			if (typeof clickOnThatTask === 'object') {
-				await elementHelpers.clickAndWait(clickOnThatTask);
+				await driver.execute(`arguments[0].click()`, clickOnThatTask);
 			}
 		} else {
-			await elementHelpers.clickAndWait(clickOnThatTask);
+			await driver.execute(`arguments[0].click()`, clickOnThatTask);
 		}
 	} catch (error) {
 		const msg = error.message;
@@ -194,7 +194,7 @@ async function hoverOverTaskAndClickMenu(taskName) {
 	let taskActionMenuOption = await driver.$(mod_extsprintf.sprintf(taskActionMenu, taskName));
 	await elementHelpers.moveToElement(taskTitle);
 	await waitHelpers.waitUntilElementIsClickable(taskTitle);
-	await elementHelpers.click(taskActionMenuOption);
+	await driver.execute(`arguments[0].click()`, taskActionMenuOption);
 }
 
 async function isTaskGraded(taskName) {
