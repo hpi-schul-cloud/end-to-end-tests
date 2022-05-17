@@ -53,7 +53,7 @@ Feature: Set of tests to delete teachers
 		Then <checkUserRole> can not see deleted teacher with name '<teacherName>' on the list of teachers
 		Examples:
 			| userRole | adminUsername                | adminPassword  | courseName                    | teacherName | teacherNames  | teacherMailAddress              | checkUserRole | teacherUsername                 |
-			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | Course with subject and tasks | Lara Hande  | Herzog, Hande | lara.teacher.qa@schul-cloud.org | teacher       | karl.teacher.qa@schul-cloud.org |
+			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | Course with subject and tasks | Hande, Lara  | Hande, Herzog | lara.teacher.qa@schul-cloud.org | teacher       | karl.teacher.qa@schul-cloud.org |
 
 	@deletedTeacherIsNotVisibleInClass @deletionConcept
 	Scenario Outline: As a user, I want to delete a teacher from a class and he will be no longer visible as class teacher
@@ -70,4 +70,3 @@ Feature: Set of tests to delete teachers
 		Examples:
 			| userRole | adminUsername                | password       | teacherUsername                 | className |
 			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | karl.teacher.qa@schul-cloud.org | 9a        |
-	
