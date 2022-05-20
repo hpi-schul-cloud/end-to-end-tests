@@ -11,7 +11,7 @@
 
 ## Installation
 
-First you need to setup and start a local version of Schulcloud & a database following this documentation: https://docs.hpi-schul-cloud.org/display/SCDOK/Setup
+First you need to setup and start a local version of Schulcloud & a database following this documentation: https://docs.dbildungscloud.de/x/vwITD
 This is the project against we run all the tests
 
 ```bash
