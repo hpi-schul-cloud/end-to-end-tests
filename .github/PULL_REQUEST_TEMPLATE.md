@@ -16,7 +16,7 @@
 <!--
 Base links to copy
 - https://github.com/hpi-schul-cloud/schulcloud-server/pull/????
-- https://ticketsystem.hpi-schul-cloud.org/browse/SC-????
+- https://ticketsystem.hpi-schul-cloud.org/browse/BC-????
 -->
 
 ## Changes
@@ -50,4 +50,4 @@ Base links to copy
 > Notice: Please remove the WIP label if the PR is ready to review, otherwise nobody will review it.
 
 ### Link to Definition of Done
-More and detailed information on the *definition of done* can be found [on Confluence](https://docs.hpi-schul-cloud.org/pages/viewpage.action?pageId=92831762)
+More and detailed information on the *definition of done* can be found [on Confluence](https://docs.dbildungscloud.de/x/mAITD)
