@@ -1,4 +1,4 @@
-# BDD Testing for the dBildungscloud
+# BDD Testing for the Schulcloud-Verbund
 
 ## Available Tests
 
@@ -11,7 +11,7 @@
 
 ## Installation
 
-First you need to setup and start a local version of dBildungscloud & a database.
+First you need to setup and start a local version of Schulcloud-Verbund & a database.
 This is the project against we run all the tests
 
 ```bash
