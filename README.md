@@ -1,4 +1,4 @@
-# BDD Testing for the HPI Schul-Cloud
+# BDD Testing for the dBildungscloud
 
 ## Available Tests
 
@@ -11,7 +11,7 @@
 
 ## Installation
 
-First you need to setup and start a local version of Schulcloud & a database following this documentation: https://docs.dbildungscloud.de/x/vwITD
+First you need to setup and start a local version of dBildungscloud & a database.
 This is the project against we run all the tests
 
 ```bash
