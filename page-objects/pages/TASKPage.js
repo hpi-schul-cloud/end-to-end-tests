@@ -16,13 +16,13 @@ const studentSubmissionTab = "//a[@id='submission-tab-link' and contains(.,  'Ab
 const remoteFilePathInput = 'input[type=file][class=dz-hidden-input]';
 const commentBtn = '#comment-tab-link';
 const commentGradingTabSel = '#feedback-tab-link';
-const createTaskBtn = "//button//span//div[@class='d-flex align-center']";
+const createTaskAndTopicBtn = "//div[@data-testid='add-content-button']";
 const taskRatingInput = '[data-testid="evaluation_procent"]';
 const ratingViewSel = '.grade';
 const remarkViewSel = '.ckcontent.comment';
 const submissionsTable = '#submissions table';
 const submissionRow = `${submissionsTable} tbody tr.userinfo`;
-const taskBtn = '//a[@data-testid="fab_button_add_task"]'
+const createTaskBtn = '//a[@data-testid="fab_button_add_task"]'
 
 let fileUrl;
 
@@ -57,8 +57,8 @@ function getTaskActionMenuBtnSelector(buttonAction) {
 }
 
 async function gotoTasksTab() {
+	await elementHelpers.clickAndWait(createTaskAndTopicBtn)
 	await elementHelpers.clickAndWait(createTaskBtn)
-	await elementHelpers.clickAndWait(taskBtn)
 }
 
 async function clickSaveAndSendSubmissionBtn() {

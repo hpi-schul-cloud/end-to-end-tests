@@ -82,7 +82,7 @@ async function getBasicSelectorOfTheCourseByName(nameOfCourse) {
 
 async function getCourseColourSel(courseName) {
 	let basicSel = await getBasicSelectorOfTheCourseByName(courseName);
-	return `${basicSel} > div > span > div.v-avatar`
+	return `${basicSel} > div.v-avatar`
 }
 
 async function isCourseColour(courseName, colour) {
