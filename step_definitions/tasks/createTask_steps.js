@@ -19,7 +19,7 @@ When(/^.* clicks Create-a-task button in the course '([^'].*)'$/, async function
 	await navigationLeftPage.clickNavItemRoomsOverview();
 	await roomsOverview.clickOnTheElementWithName(coursename);
 	await TASKPage.gotoTasksTab();
-	await TASKListPage.clickCreateTaskButtonInTheCourse();
+	//await TASKListPage.clickCreateTaskButtonInTheCourse();
 });
 
 Then(/^.* clicks on '([^']*)' button for task with name '([^']*)'$/, async function (button, taskname) {
