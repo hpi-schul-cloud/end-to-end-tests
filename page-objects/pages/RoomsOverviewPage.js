@@ -4,6 +4,7 @@ const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const sharedHelpers = require('../../runtime/helpers/sharedHelpers');
 const navigationLeftPage = require('./NavigationLeftPage');
 const generalCoursePage = require('../pages/coursePages/CRSSGeneralCoursePage');
+const editCoursePage = require('../pages/coursePages/CRSSEditCopyCoursePage')
 const elementsContainer = ".rooms-container"
 const rowsSelector = '.room-overview-row'
 const columsSelector = ".room-overview-col"
@@ -163,6 +164,7 @@ async function isNumberOfCourseMembers(courseName, expectedNumberOfMembers) {
 	await navigationLeftPage.clickNavItemRoomsOverview()
 	await clickOnTheElementWithName(courseName);
 	await generalCoursePage.clickEditCourse();
+	await editCoursePage.clickEditOptionButton()
 	const numOfMembers = await generalCoursePage.getNumberOfCourseMembers();
 	const membersToString = numOfMembers.toString();
 	expect(membersToString).to.equal(expectedNumberOfMembers);
