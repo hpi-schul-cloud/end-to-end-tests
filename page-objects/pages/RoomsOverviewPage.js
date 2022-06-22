@@ -4,6 +4,7 @@ const elementHelpers = require('../../runtime/helpers/elementHelpers');
 const sharedHelpers = require('../../runtime/helpers/sharedHelpers');
 const navigationLeftPage = require('./NavigationLeftPage');
 const generalCoursePage = require('../pages/coursePages/CRSSGeneralCoursePage');
+const editCoursePage = require('../pages/coursePages/CRSSEditCopyCoursePage')
 const elementsContainer = ".rooms-container"
 const rowsSelector = '.room-overview-row'
 const columsSelector = ".room-overview-col"
@@ -72,7 +73,7 @@ async function getBasicSelectorOfTheCourseByName(nameOfCourse) {
             let nameOfCurrentElementSel = await sharedHelpers.getElement(`${elementsContainer} > ${rowsSelector}:nth-child(${i}) > ${columsSelector}:nth-child(${j}) > div div:nth-child(2)`);
             let nameOfCurrentElement = await nameOfCurrentElementSel.getText();
             if (nameOfCurrentElement==nameOfCourse) {
-				return `${elementsContainer} > ${rowsSelector}:nth-child(${i}) > ${columsSelector}:nth-child(${j})`;
+				return `${elementsContainer} > ${rowsSelector}:nth-child(${i}) > ${columsSelector}:nth-child(${j}) > div > span > div`;
             }
         }
     }
@@ -82,7 +83,7 @@ async function getBasicSelectorOfTheCourseByName(nameOfCourse) {
 
 async function getCourseColourSel(courseName) {
 	let basicSel = await getBasicSelectorOfTheCourseByName(courseName);
-	return `${basicSel} > div > span > div.v-avatar`
+	return `${basicSel}.v-avatar`
 }
 
 async function isCourseColour(courseName, colour) {
@@ -163,6 +164,7 @@ async function isNumberOfCourseMembers(courseName, expectedNumberOfMembers) {
 	await navigationLeftPage.clickNavItemRoomsOverview()
 	await clickOnTheElementWithName(courseName);
 	await generalCoursePage.clickEditCourse();
+	await editCoursePage.clickEditOptionButton()
 	const numOfMembers = await generalCoursePage.getNumberOfCourseMembers();
 	const membersToString = numOfMembers.toString();
 	expect(membersToString).to.equal(expectedNumberOfMembers);

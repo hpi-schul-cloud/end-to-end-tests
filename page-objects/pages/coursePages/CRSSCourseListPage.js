@@ -5,6 +5,7 @@ const waitHelpers = require('../../../runtime/helpers/waitHelpers');
 const sharedHelpers = require('../../../runtime/helpers/sharedHelpers');
 const navigationLeftPage = require('../NavigationLeftPage');
 const generalCoursePage = require('./CRSSGeneralCoursePage');
+const editCoursePage = require('./CRSSEditCopyCoursePage')
 const roomsOverview = require('../RoomsOverviewPage');
 const courseDescription = '.ckcontent';
 const courseDescriptionSel = '#courseDescription';
@@ -238,6 +239,7 @@ async function isCountOfCourseMembers(courseName, expectedCountOfCourseMembers, 
 async function isCourseDescription(courseName, expectedDescription) {
 	await roomsOverview.clickOnTheElementWithName(courseName)
 	await generalCoursePage.clickEditCourse();
+	await editCoursePage.clickEditOptionButton()
 	const descriptionElement = await sharedHelpers.getElement(courseDescriptionSel);
 	const actualDescription = await descriptionElement.getText();
 	const msg = 'Course with name: ' + courseName + ' has wrong description. \n';

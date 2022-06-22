@@ -1,38 +1,38 @@
-@task @gradeTask @stableTest
-Feature: Set of tests to submit and grade tasks
+#@task @gradeTask @stableTest
+#Feature: Set of tests to submit and grade tasks
 
-	Background: User opens Schul-cloud homepage Website
-		Given user arrives on the Schul-Cloud homepage
-
-	@studentSubmitsTask
+#	Background: User opens Schul-cloud homepage Website
+#		Given user arrives on the Schul-Cloud homepage
+#
+#	@studentSubmitsTask
 	#@tasks_and_other
-	Scenario Outline: As a student, I want to see the open tasks in in tasks tab and sumbit them
-		When <userRole> logs in
-		And <userRole> goes to tasks page
-		And <userRole> clicks at task '<taskName>'
-		And <userRole> clicks on Submission tab
-		And <userRole> sets submission text 'Test submission text'
-		Then <userRole> clicks on submit button
-		Examples:
-			| userRole | taskName |
-			| student  | Task11   |
+#	Scenario Outline: As a student, I want to see the open tasks in in tasks tab and sumbit them
+#		When <userRole> logs in
+#		And <userRole> goes to tasks page
+#		And <userRole> clicks at task '<taskName>'
+#		And <userRole> clicks on Submission tab
+#		And <userRole> sets submission text 'Test submission text'
+#		Then <userRole> clicks on submit button
+#		Examples:
+#			| userRole | taskName |
+#			| student  | Task11   |
 
-	@teacherGradesAndViewsTask @noDBReset
+#	@teacherGradesAndViewsTask @noDBReset
 	#@tasks_and_other
-	Scenario Outline: As a teacher, I want to see the task in tasks tab, grade it and check that it is shown at graded tasks tab
-		When <userRole> logs in
-		And <userRole> goes to tasks page
-		And <userRole> clicks at task '<taskName>'
-		And <userRole> clicks on student submitted the task
-		And <userRole> clicks on Comment tab
-		And <userRole> grades task with rate '<taskRating>'% and remarks '<taskRemark>'
-		And <userRole> clicks Save-and-send grading button
-		And <userRole> goes to tasks page
-		Then <userRole> sees that the task '<taskName>' is graded
-		Examples:
-			| userRole | taskRating | taskRemark | taskName |
-			| teacher  | 95         | good job   | Task11   |
-
+#	Scenario Outline: As a teacher, I want to see the task in tasks tab, grade it and check that it is shown at graded tasks tab
+#		When <userRole> logs in
+#		And <userRole> goes to tasks page
+#		And <userRole> clicks at task '<taskName>'
+#		And <userRole> clicks on student submitted the task
+#		And <userRole> clicks on Comment tab
+#		And <userRole> grades task with rate '<taskRating>'% and remarks '<taskRemark>'
+#		And <userRole> clicks Save-and-send grading button
+#		And <userRole> goes to tasks page
+#		Then <userRole> sees that the task '<taskName>' is graded
+#		Examples:
+#			| userRole | taskRating | taskRemark | taskName |
+#			| teacher  | 95         | good job   | Task11   |
+###############################################################
 #@gradeTaskWithFile
 #Scenario Outline: As a user, I want to be able to grade a task submission by uploading a file
 #When <userRole> logs in

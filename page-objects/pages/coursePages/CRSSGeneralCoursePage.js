@@ -11,7 +11,7 @@ const deleteTopicButtonInPopup = "body > div.modal.fade.delete-modal.in > div > 
 const courseMembersSelector = "#studentsId_chosen > ul .search-choice"
 
 const setting = {
-	editCourse: '.btn-course-edit',
+	editCourse: 'div.course-title button.three-dot-button',
 	createInvitation: '.btn-create-invitation',
 	createShareCourse: '.btn-create-share-course',
 	cloneCourse: '.fa-clone',
@@ -56,7 +56,6 @@ async function cloneCourse () {
 
 async function clickEditCourse () {
 	try {
-		await clickThreePointSettingsIcon();
 		await clickSettingsDropdownMenuBtn(setting.editCourse);
 	} catch (error) {
 		log.error("Can not click on element: " + error.message);
