@@ -9,6 +9,7 @@ const courseDescriptionInput = 'textarea';
 const deleteButton = 'a.btn-delete-course';
 const deleteButtonConfirmation = '.modal-content button.btn-submit';
 const courseTeacherInput = "select[name='teacherIds[]'] + div.chosen-container  span";
+const editOptionBtn = "//div[contains(text(), 'Bearbeiten/Löschen')]"
 
 async function clickSubmitButton() {
 	await elementHelpers.clickAndWait(submitBtn);
@@ -22,7 +23,12 @@ async function clickDeleteButton() {
 	await elementHelpers.clickAndWait(deleteButton);
 }
 
+async function clickEditOptionButton() {
+	await elementHelpers.clickAndWait(editOptionBtn)
+}
+
 async function setNewCourseName(courseName) {
+	await clickEditOptionButton()
 	await waitHelpers.waitAndSetValue(courseNameInput, courseName);
 }
 
@@ -47,4 +53,5 @@ module.exports = {
 	setNewCourseName,
 	setNewCourseDescription,
 	isTeacherVisible,
+	clickEditOptionButton,
 };
