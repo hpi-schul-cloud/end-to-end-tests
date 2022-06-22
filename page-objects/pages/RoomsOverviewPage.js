@@ -72,7 +72,7 @@ async function getBasicSelectorOfTheCourseByName(nameOfCourse) {
             let nameOfCurrentElementSel = await sharedHelpers.getElement(`${elementsContainer} > ${rowsSelector}:nth-child(${i}) > ${columsSelector}:nth-child(${j}) > div div:nth-child(2)`);
             let nameOfCurrentElement = await nameOfCurrentElementSel.getText();
             if (nameOfCurrentElement==nameOfCourse) {
-				return `${elementsContainer} > ${rowsSelector}:nth-child(${i}) > ${columsSelector}:nth-child(${j}) > div > span`;
+				return `${elementsContainer} > ${rowsSelector}:nth-child(${i}) > ${columsSelector}:nth-child(${j}) > div > span > div`;
             }
         }
     }
@@ -82,7 +82,7 @@ async function getBasicSelectorOfTheCourseByName(nameOfCourse) {
 
 async function getCourseColourSel(courseName) {
 	let basicSel = await getBasicSelectorOfTheCourseByName(courseName);
-	return `${basicSel} > div.v-avatar`
+	return `${basicSel} >.v-avatar`
 }
 
 async function isCourseColour(courseName, colour) {
