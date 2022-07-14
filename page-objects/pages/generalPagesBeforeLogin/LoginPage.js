@@ -4,9 +4,9 @@ const elementHelpers = require('../../../runtime/helpers/elementHelpers.js');
 const waitHelpers = require('../../../runtime/helpers/waitHelpers.js');
 
 const loginFailureMessages = ['Login fehlgeschlagen.', 'Login failed.'];
-const usernameInput = 'section#loginarea input[data-testid="username"]';
-const passwordInput = 'section#loginarea input[data-testid="password"]';
-const loginBtn = 'input[data-testid="submit-login"]';
+const usernameInput = 'section#loginarea input[data-testid="username-email"]';
+const passwordInput = 'section#loginarea input[data-testid="password-email"]';
+const loginBtn = 'input[data-testid="submit-login-email"]';
 const forgotPasswordBtn = 'a.submit-pwrecovery';
 const fillEmailInputResetPassword = '.modal-body input.form-control';
 const resetPasswordBtn = '.modal-footer > button.btn-submit';
