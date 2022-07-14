@@ -103,7 +103,7 @@ before(){
 	curl -X POST localhost:3333/api/management/database/seed
 
 	echo "waiting max 4 minutes for server to be available"
-	npx wait-on http://localhost:3030 -t 240000 --httpTimeout 250 --log
+	npx wait-on http://localhost:3030/serverversion -t 240000 --httpTimeout 250 --log
 	echo "server is now online"
 
 	echo "waiting max 4 minutes for client to be available"
