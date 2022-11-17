@@ -64,7 +64,7 @@
 	},
 	"devDependencies": {
 		"chromedriver": "^92.0.2",
-		"geckodriver": "^2.0.4",
+		"geckodriver": "^3.2.0",
 		"glob": "^7.2.0",
 		"reuse-cucumber-scenarios": "^1.1.7",
 		"util-arity": "^1.1.0"
