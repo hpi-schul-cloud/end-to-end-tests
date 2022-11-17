@@ -12,13 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        cases: 
+        cases:
          - courses_and_topics
          - management
          - navi_user_settings
          - tasks_and_other
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: ${{ inputs.ref }}
       - name: Set BRANCH_NAME on push
@@ -35,11 +35,11 @@ jobs:
           DOCKER_ID: ${{ secrets.DOCKER_ID }}
           MY_DOCKER_PASSWORD: ${{ secrets.MY_DOCKER_PASSWORD }}
         run: curl "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/main/scripts/ci/fetch.github.sh" | bash -s ${{ matrix.cases }}
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         name: upload result
         if: always()
         with:
           name: report
           path: end-to-end-tests/reports
-          
-  
+
+

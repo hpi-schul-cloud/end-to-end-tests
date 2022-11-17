@@ -14,7 +14,7 @@ jobs:
   e2e:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: ${{ inputs.ref }}
       - name: Set BRANCH_NAME on push
@@ -31,7 +31,7 @@ jobs:
           DOCKER_ID: ${{ secrets.DOCKER_ID }}
           MY_DOCKER_PASSWORD: ${{ secrets.MY_DOCKER_PASSWORD }}
         run: curl "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/main/scripts/ci/fetch.github.sh" | bash -s ${{ inputs.e2e_tag }}
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         name: upload result
         if: always()
         with:
