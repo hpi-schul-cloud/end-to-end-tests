@@ -5,7 +5,7 @@ const elementHelpers = require('../../../runtime/helpers/elementHelpers');
 const waitHelpers = require('../../../runtime/helpers/waitHelpers');
 const navigationLeftPage = require('../NavigationLeftPage');
 const teamNameContainer = '.tasks .title';
-const addTeamBtn = "[data-testid='add-team-btn']";
+const addTeamBtn = "[data-testid='add-team-button']";
 const addTeamWhenZeroTeamsBtn = 'a.btn-add';
 const teamWrapper = '.section-teams .sc-card-wrapper';
 const teamTitleSel = '.title';
