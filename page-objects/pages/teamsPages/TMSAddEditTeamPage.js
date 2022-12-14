@@ -16,7 +16,7 @@ const teamColour = {
 	yellowColour: "span[data-color='rgb(255, 217, 90)']",
 
 };
-const createTeamBtn = 'button[data-testid="create_team_btn"]';
+const createTeamBtn = 'button[data-testid="save_team_button"]';
 const colourSelect = '.sp-dd';
 
 function getColourFromTable(colour){
