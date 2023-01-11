@@ -13,6 +13,7 @@ const config = {
 			* needed when running the tests locally
 			* return `https://${instance}-${localBranchName}.cd.dbildungscloud.dev`;
 			*/
+			console.log("uwe testet" + `${config.CLIENT.PROTOCOLL}://${config.CLIENT.HOST}:${config.CLIENT.PORT}`)
 			return `${config.CLIENT.PROTOCOLL}://${config.CLIENT.HOST}:${config.CLIENT.PORT}`;
 		},
 	},
