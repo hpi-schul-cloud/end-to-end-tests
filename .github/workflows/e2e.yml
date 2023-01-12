@@ -36,4 +36,4 @@ jobs:
         if: always()
         with:
           name: report
-          path: end-to-end-tests/reports
+          path: end-to-end-tests/end-to-end-tests/reports
