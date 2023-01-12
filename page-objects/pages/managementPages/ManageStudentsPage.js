@@ -167,7 +167,7 @@ async function submitConsent(e_mail) {
 		let emailPromise = await driver.$(tableOfStudents + ' > tr:nth-child(' + i + ') > td:nth-child(5)');
 		let email = await emailPromise.getText();
 		if (email === e_mail) {
-			let boxConsent = tableOfStudents + ' > tr:nth-child(' + i + ') > td:nth-child(9)';
+			let boxConsent = tableOfStudents + ' > tr:nth-child(' + i + ') > td:nth-child(9) > a';
 			await elementHelpers.click(boxConsent);
 			await elementHelpers.clickAndWait(createLinkBtn);
 			await elementHelpers.click(cancelLinkModal);
