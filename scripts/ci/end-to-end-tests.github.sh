@@ -76,6 +76,8 @@ before(){
 	git clone https://github.com/hpi-schul-cloud/end-to-end-tests.git end-to-end-tests
 	switchBranch "end-to-end-tests"
 
+	export IT_CLIENT_HOST=$(hostname -I | cut -d ' ' -f 1)
+
 	echo "CONTAINER STARTUP"
 	cd docker-compose
 	docker-compose -f compose-files/docker-compose.yml up -d mongodb mongodb-secondary mongodb-arbiter redis rabbit mailcatcher selenium-hub calendar-init
