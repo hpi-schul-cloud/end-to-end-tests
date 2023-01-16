@@ -91,8 +91,9 @@ before(){
 
 	echo "INSTALL DEPENDNECIES..."
 	cd end-to-end-tests && npm ci && cd ..
-	cd nuxt-client && rm package.json package-lock.json && npm install express http-proxy-middleware
+	cd nuxt-client && rm package.json package-lock.json && npm install express && npm install http-proxy-middleware
 	sleep 10
+	npm ls
 	node server-proxy.js &
 	cd ..
 	echo "INSTALL DEPENDNECIES DONE"
