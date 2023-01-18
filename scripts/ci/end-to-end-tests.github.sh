@@ -92,11 +92,6 @@ before(){
 	echo "INSTALL DEPENDNECIES..."
 	cd end-to-end-tests && npm ci && cd ..
 
-
-	set -e
-	set -u
-	set -o pipefail
-	set -x
 	echo "1. ls"
 	echo $NODE_ENV
 	npm ls
@@ -113,10 +108,6 @@ before(){
 	ls
 	node server-proxy.js &
 	cd ..
-	set +e
-	set +u
-	set +o pipefail
-	set +x
 
 	echo "INSTALL DEPENDNECIES DONE"
 
