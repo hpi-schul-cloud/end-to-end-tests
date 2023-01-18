@@ -89,17 +89,27 @@ before(){
 	docker-compose -f compose-files/docker-compose.yml up server server-management client nuxtclient &
 	cd ..
 
-	echo "INSTALL DEPENDNECIES... (12:16)"
+	echo "INSTALL DEPENDNECIES..."
 	cd end-to-end-tests && npm ci && cd ..
 
+
+	set -e
+	set -u
+	set -o pipefail
+	set -x
 	cd nuxt-client
 	rm package.json package-lock.json
 	npm cache clean --force
 	npm install http-proxy-middleware
 	npm install express
 	npm ls
+	ls
 	node server-proxy.js &
 	cd ..
+	set +e
+	set +u
+	set +o pipefail
+	set +x
 
 	echo "INSTALL DEPENDNECIES DONE"
 
