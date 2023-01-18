@@ -91,11 +91,15 @@ before(){
 
 	echo "INSTALL DEPENDNECIES..."
 	cd end-to-end-tests && npm ci && cd ..
-	cd nuxt-client && rm package.json package-lock.json && npm install express && npm install http-proxy-middleware
-	sleep 10
+
+	cd nuxt-client
+	rm package.json package-lock.json
+	npm cache clean --force
+	npm install express http-proxy-middleware
 	npm ls
 	node server-proxy.js &
 	cd ..
+
 	echo "INSTALL DEPENDNECIES DONE"
 
 	echo "waiting max 4 minutes for server-management to be available"
