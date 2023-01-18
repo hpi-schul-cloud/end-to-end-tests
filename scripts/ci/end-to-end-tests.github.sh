@@ -95,7 +95,7 @@ before(){
 	cd nuxt-client
 	rm package.json package-lock.json
 	npm cache clean --force
-	npm install http-proxy-middleware
+	npm install http-proxy-middleware -dd
 	npm install express
 	npm ls
 	node server-proxy.js &
