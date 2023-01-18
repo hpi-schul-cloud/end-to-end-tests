@@ -97,11 +97,18 @@ before(){
 	set -u
 	set -o pipefail
 	set -x
+	echo "1. ls"
+	echo $NODE_ENV
+	npm ls
+	ls
 	cd nuxt-client
+	echo "2. ls"
+	npm ls
 	rm package.json package-lock.json
 	npm cache clean --force
 	npm install http-proxy-middleware -dd
 	npm install express
+	echo "3. ls"
 	npm ls
 	ls
 	node server-proxy.js &
