@@ -191,7 +191,6 @@ async function waitUntilLegacyPageLoads(timeout = pageLoadingTimeout) {
 			break;
 		}
 	} catch (error) {
-		console.log('we failed on ' + await driver.getUrl() + ', title' + await driver.getTitle(), + ' ,' + await driver.getPageSource());
 		const msg = error.message;
 		throw msg;
 	}
