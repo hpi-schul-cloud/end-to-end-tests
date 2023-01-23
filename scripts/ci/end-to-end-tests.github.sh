@@ -77,7 +77,7 @@ before(){
 	switchBranch "end-to-end-tests"
 
 	export IT_CLIENT_HOST=$(hostname -I | cut -d ' ' -f 1)
-	export API_URL=$IT_CLIENT_HOST/api
+	export API_URL=http://$IT_CLIENT_HOST/api
 
 	echo "CONTAINER STARTUP"
 	cd docker-compose
