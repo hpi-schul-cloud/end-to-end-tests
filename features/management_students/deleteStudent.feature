@@ -102,4 +102,4 @@
 
 #		Examples:
 #			| userRole | adminUsername                | password       | studentUserName                 | customClassName | schoolYear | studentOne    | studentTwo   | numberOfStudentsInClass |
-#			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | boris.wasser.qa@schul-cloud.org | 7e              | 2021/22    | Herbert Kraft | Boris Wasser | 2                       |
+#			| admin    | kai.admin.qa@schul-cloud.org | Schulcloud1qa! | boris.wasser.qa@schul-cloud.org | 7e              | 2022/23    | Herbert Kraft | Boris Wasser | 2                       |
