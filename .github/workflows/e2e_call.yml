@@ -18,9 +18,6 @@ jobs:
          - navi_user_settings
          - tasks_and_other
     steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: ${{ inputs.ref }}
       - name: Set BRANCH_NAME on push
         run: |
             branch_arg=${{ inputs.ref }}

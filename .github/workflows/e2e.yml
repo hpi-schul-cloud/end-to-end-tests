@@ -14,9 +14,6 @@ jobs:
   e2e:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: ${{ inputs.ref }}
       - name: Set BRANCH_NAME on push
         run: |
             branch_arg=${{ inputs.ref }}

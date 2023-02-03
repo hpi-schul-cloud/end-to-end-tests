@@ -7,7 +7,7 @@ const config = {
 	CLIENT: {
 		PROTOCOLL: process.env.IT_CLIENT_PROTOCOLL || 'http',
 		HOST: process.env.IT_CLIENT_HOST || 'localhost',
-		PORT: process.env.IT_CLIENT_PORT || '4000',
+		PORT: process.env.IT_CLIENT_PORT || '4242',
 		get URL() {
 			/**
 			* needed when running the tests locally

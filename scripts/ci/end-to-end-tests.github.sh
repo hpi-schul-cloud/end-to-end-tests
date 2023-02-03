@@ -76,10 +76,8 @@ before(){
 	git clone https://github.com/hpi-schul-cloud/end-to-end-tests.git end-to-end-tests
 	switchBranch "end-to-end-tests"
 
-	echo "IT_CLIENT ENVS..."
-	echo "IT_CLIENT_HOST="$IT_CLIENT_HOST
-	echo "IT_CLIENT_PORT="$IT_CLIENT_PORT
-	echo "IT_CLIENT ENVS DONE"
+	export IT_CLIENT_HOST=$(hostname -I | cut -d ' ' -f 1)
+	export API_URL=http://$IT_CLIENT_HOST:4242/api
 
 	echo "CONTAINER STARTUP"
 	cd docker-compose
@@ -94,6 +92,13 @@ before(){
 
 	echo "INSTALL DEPENDNECIES..."
 	cd end-to-end-tests && npm ci && cd ..
+
+	cd nuxt-client
+	rm package.json package-lock.json
+	npm install express http-proxy-middleware
+	node server-proxy.js &
+	cd ..
+
 	echo "INSTALL DEPENDNECIES DONE"
 
 	echo "waiting max 4 minutes for server-management to be available"
@@ -113,6 +118,10 @@ before(){
 	echo "waiting max 4 minutes for nuxt to be available"
 	npx wait-on http://localhost:4000 -t 240000 --httpTimeout 250 --log
 	echo "nuxt is now online"
+
+	echo "waiting max 4 minutes for server-proxy to be available"
+	npx wait-on http://localhost:4242 -t 240000 --httpTimeout 250 --log
+	echo "server-proxy is now online"
 
 	#log_docker
 	#docker ps &
