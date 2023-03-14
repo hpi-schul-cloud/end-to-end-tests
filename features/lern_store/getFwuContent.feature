@@ -1,4 +1,4 @@
-@lernStore @stableTest
+@lernStore
 Feature: Set of tests to find FWU content
 
     Background: User opens Schul-cloud homepage Website
