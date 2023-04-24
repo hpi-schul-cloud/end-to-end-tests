@@ -19,6 +19,6 @@ Examples:
         | admin     | olivier.admin.qa@schul-cloud.org  | Schulcloud1qa! | Spanish   | PANEL,CURSOS,EQUIPOS,MIS ARCHIVOS,NOTICIAS,CALENDARIO,LERN-STORE,COMPLEMENTOS,ADMINISTRACIÓN,SECCIÓN DE AYUDA               |
         | teacher   | dmitri.teacher.qa@schul-cloud.org | Schulcloud1qa! | Spanish   | PANEL,CURSOS,EQUIPOS,TAREAS,MIS ARCHIVOS,NOTICIAS,CALENDARIO,LERN-STORE,COMPLEMENTOS,ADMINISTRACIÓN,SECCIÓN DE AYUDA        |
         | student   | ole.bart.qa@schul-cloud.org       | Schulcloud1qa! | Spanish   | PANEL,CURSOS,EQUIPOS,TAREAS,MIS ARCHIVOS,NOTICIAS,CALENDARIO,LERN-STORE,COMPLEMENTOS,SECCIÓN DE AYUDA                       |
-        | admin     | olivier.admin.qa@schul-cloud.org  | Schulcloud1qa! | Ukrainian | ПАНЕЛЬ КЕРУВАННЯ,КУРСИ,КОМАНДИ,МОЇ ФАЙЛИ,НОВИНИ,КАЛЕНДАР,НАВЧАЛЬНИЙ МАГАЗИН,ДОПОВНЕННЯ,КЕРУВАННЯ,ДОВІДКОВИЙ РОЗДІЛ          |
-        | teacher   | dmitri.teacher.qa@schul-cloud.org | Schulcloud1qa! | Ukrainian | ПАНЕЛЬ КЕРУВАННЯ,КУРСИ,КОМАНДИ,ЗАВДАННЯ,МОЇ ФАЙЛИ,НОВИНИ,КАЛЕНДАР,НАВЧАЛЬНИЙ МАГАЗИН,ДОПОВНЕННЯ,КЕРУВАННЯ,ДОВІДКОВИЙ РОЗДІЛ |
+        | admin     | olivier.admin.qa@schul-cloud.org  | Schulcloud1qa! | Ukrainian | ПАНЕЛЬ КЕРУВАННЯ,КУРСИ,КОМАНДИ,МОЇ ФАЙЛИ,НОВИНИ,КАЛЕНДАР,НАВЧАЛЬНИЙ МАГАЗИН,ДОПОВНЕННЯ,УПРАВЛІННЯ,ДОВІДКОВИЙ РОЗДІЛ          |
+        | teacher   | dmitri.teacher.qa@schul-cloud.org | Schulcloud1qa! | Ukrainian | ПАНЕЛЬ КЕРУВАННЯ,КУРСИ,КОМАНДИ,ЗАВДАННЯ,МОЇ ФАЙЛИ,НОВИНИ,КАЛЕНДАР,НАВЧАЛЬНИЙ МАГАЗИН,ДОПОВНЕННЯ,УПРАВЛІННЯ,ДОВІДКОВИЙ РОЗДІЛ |
         | student   | ole.bart.qa@schul-cloud.org       | Schulcloud1qa! | Ukrainian | ПАНЕЛЬ КЕРУВАННЯ,КУРСИ,КОМАНДИ,ЗАВДАННЯ,МОЇ ФАЙЛИ,НОВИНИ,КАЛЕНДАР,НАВЧАЛЬНИЙ МАГАЗИН,ДОПОВНЕННЯ,ДОВІДКОВИЙ РОЗДІЛ           |
