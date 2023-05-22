@@ -40,7 +40,8 @@ async function getListOfElementsRoomsOverview() {
         let columns= columnsEls.length;
         for (var j=1; j<=columns; j++ ) {
             let nameOfCurrentElementSel = await sharedHelpers.getElement(`${elementsContainer} > ${rowsSelector}:nth-child(${i}) > ${columsSelector}:nth-child(${j}) > div div:nth-child(2)`);
-            let nameOfCurrentElement = await nameOfCurrentElementSel.getText();
+            // linebreaks around tags (that prettier enforces) are condensed into a single space, so we need trimming to compare the actual text
+			let nameOfCurrentElement = await nameOfCurrentElementSel.getText().then((text) => text.trim());
             coursesOnThePage.push(nameOfCurrentElement)
         }
     }
@@ -57,7 +58,7 @@ async function isCourseNameDisplayedOnTheList(courseName, expectedValue) {
 		: `${defaultString} should not be visible on the list`;
 
 	const resultMsg = 'Actual list of courses: ' + allCourseNamesOnTheRoomsOverview;
-	const isCourseOnList = await allCourseNamesOnTheRoomsOverview.includes(courseName.trim()); // linebreaks around tags (that prettier enforces) are condensed into a single space, so we need trimming to compare the actual text
+	const isCourseOnList = await allCourseNamesOnTheRoomsOverview.includes(courseName.trim());
 	expect(isCourseOnList, msg + resultMsg).to.equal(expectedValue);
 }
 
