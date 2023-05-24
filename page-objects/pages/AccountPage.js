@@ -13,7 +13,7 @@ const languageMenu = {
 	german: "//a[@data-testid = 'selected-language-de']",
 	english: "//a[@data-testid='available-language-en']",
 	spanish:"//a[@data-testid = 'available-language-es']",
-	ukrainian: "//a[@data-testid = 'available-language-ua']",
+	ukrainian: "//a[@data-testid = 'available-language-uk']",
 };
 
 function getLanguageSelector(language) {
