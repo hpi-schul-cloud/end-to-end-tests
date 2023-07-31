@@ -15,7 +15,7 @@ Feature: I want to edit a class
 		Then <userRole> should see that class with name '<newCustomClassName>' and teacher lastname '<teacherLastname>' is visible
 		Examples:
 			| userRole | customClassName | newCustomClassName | schoolYear | teacherLastname | schoolYearOld |
-			| teacher  | 8a              | 4d                 | 2022/23    | Herzog          | 2021/22       |
+			| teacher  | 8a              | 4d                 | 2023/24    | Herzog          | 2022/23       |
 
 	@editClassAddStudentTeacherAndDeleteStudentTeacher @e2eCore
 	Scenario Outline: As a user, I want to be able to edit a class and add teacher+student and then delete teacher+student
