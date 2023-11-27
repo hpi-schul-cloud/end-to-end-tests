@@ -20,8 +20,7 @@ async function setNewsTitle(newsTitle) {
 
 async function setNewsContent(newsContent) {
 	await elementHelpers.click(contentField);
-	await waitHelpers.waitAndSetValue(contentField, newsContent);
-	await waitHelpers.wait(1000);
+	await waitHelpers.waitAndSetValue(contentField, newsContent, 1000);
 }
 
 async function setNewsPublishDate(newsDate) {
