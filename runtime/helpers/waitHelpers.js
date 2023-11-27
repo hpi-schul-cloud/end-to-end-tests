@@ -233,13 +233,13 @@ async function waitUntilScriptResultIsTrue(script, timeoutMsg, timeout = pageLoa
 	);
 }
 
-async function waitAndSetValue(selectorOrElement, value, timeout = setValueTimeout) {
+async function waitAndSetValue(selectorOrElement, value, pause = 200) {
 	await waitUntilElementIsVisible(selectorOrElement);
 	const element = await waitUntilElementIsEnabled(selectorOrElement);
 	await element.clearValue();
 	await element.click();
 	driver.keys(value);
-	await driver.pause(200);
+	await driver.pause(pause);
 }
 
 async function waitUntilElementAttributeEquals(
@@ -333,10 +333,6 @@ async function waitUntilPageTitleEquals(expectedTitle, timeout = titleTimeout) {
 	}
 }
 
-async function wait(timeout = setValueTimeout) {
-	await driver.pause(timeout);
-}
-
 module.exports = {
 	waitUntilElementIsPresent,
 	waitUntilElementIsNotPresent,
@@ -358,5 +354,4 @@ module.exports = {
 	waitUntilPageTitleContains,
 	waitUntilPageTitleEquals,
 	waitUntilNuxtClientLoads,
-	wait,
 };
