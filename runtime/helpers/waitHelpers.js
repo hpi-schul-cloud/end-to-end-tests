@@ -19,8 +19,8 @@ const titleTimeout = 30000;
 const shortInterval = 50;
 const mediumInterval = 100;
 const pageLoadLegacy = "//dl[@role='navigation']";
-const pageLoaded = 'div.topbar';
-const pageNotLoaded = 'div#nuxt-loading';
+const pageLoaded = "div.topbar";
+const pageNotLoaded = "div#nuxt-loading";
 
 async function waitUntilElementIsPresent(selectorOrElement, timeout = elementIsPresentTimeout) {
 	let element = await sharedHelpers.getElement(selectorOrElement);
@@ -203,11 +203,11 @@ async function waitUntilNuxtClientLoads(timeout = pageLoadingTimeout) {
 		await waitUntilPageLoads();
 		while (!nuxtPageLoad) {
 			await waitUntilElementIsNotPresent(pageNotLoaded);
-			if (await waitUntilElementIsPresent(pageLoaded)) {
+			if (await waitUntilElementIsPresent(pageLoaded)){
 				nuxtPageLoad = true;
-			} else {
+			}else {
 				await driver.refresh();
-				if (await waitUntilElementIsPresent(pageLoaded)) {
+				if(await waitUntilElementIsPresent(pageLoaded)){
 					nuxtPageLoad = true;
 				}
 			}
