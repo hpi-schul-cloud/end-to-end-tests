@@ -6,7 +6,7 @@ const waitHelpers = require('../../runtime/helpers/waitHelpers');
 const submitNewsBtn = '[data-testid="btn_news_submit"]';
 const addNewsBtn = "[data-testid='create-news-btn']";
 const titleField = 'input.h1';
-const contentField = '.editor [contenteditable="true"]';
+const contentField = '.ck-editor [contenteditable="true"]';
 const dateTimeSelector = '[data-testid="news_date"] input'
 
 async function goToNewNews () {
@@ -20,7 +20,7 @@ async function setNewsTitle (newsTitle) {
 
 async function setNewsContent (newsContent) {
     await elementHelpers.click(contentField);
-    await waitHelpers.waitAndSetValue(contentField, newsContent);
+    await waitHelpers.waitAndSetValue(contentField, newsContent, 1000);
 }
 
 async function setNewsPublishDate (newsDate) {
