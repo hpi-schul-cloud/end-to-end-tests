@@ -63,7 +63,7 @@
 		"winston": "^3.3.3"
 	},
 	"devDependencies": {
-		"chromedriver": "^92.0.2",
+		"chromedriver": "^119.0.1",
 		"geckodriver": "^2.0.4",
 		"glob": "^7.2.0",
 		"reuse-cucumber-scenarios": "^1.1.7",
