@@ -10,7 +10,7 @@ const roomsOverview = require('../RoomsOverviewPage');
 const courseDescription = '.ckcontent';
 const courseDescriptionSel = '#courseDescription';
 const courseHeader = '.sc-card-header';
-const searchCourseField = '[data-testid="search-field"] input, input[data-testid="search-field"]';
+const searchCourseField = '[data-testid="search-field"] input';
 const courseWrapper = '.sc-card-wrapper';
 const titleOfCourse = '.title';
 const memberBtn = '.btn-member';
