@@ -10,7 +10,7 @@ const roomsOverview = require('../RoomsOverviewPage');
 const courseDescription = '.ckcontent';
 const courseDescriptionSel = '#courseDescription';
 const courseHeader = '.sc-card-header';
-const searchCourseFiled = '[data-testid="search-field"] input';
+const searchCourseField = '[data-testid="search-field"] input, input[data-testid="search-field"]';
 const courseWrapper = '.sc-card-wrapper';
 const titleOfCourse = '.title';
 const memberBtn = '.btn-member';
@@ -106,7 +106,7 @@ function getColourSelector(colourName) {
 }
 
 async function setCourseNameIntoSearchInputField(courseName) {
-	await waitHelpers.waitAndSetValue(searchCourseFiled, courseName);
+	await waitHelpers.waitAndSetValue(searchCourseField, courseName);
 }
 
 async function getCountOfDisplayedCoursesForSection(section) {
