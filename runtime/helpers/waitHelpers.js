@@ -19,8 +19,8 @@ const titleTimeout = 30000;
 const shortInterval = 50;
 const mediumInterval = 100;
 const pageLoadLegacy = "//dl[@role='navigation']";
-const pageLoaded = "div.topbar";
-const pageNotLoaded = "div#nuxt-loading";
+const pageLoaded = 'div.topbar';
+const pageNotLoaded = 'div#nuxt-loading';
 
 async function waitUntilElementIsPresent(selectorOrElement, timeout = elementIsPresentTimeout) {
 	let element = await sharedHelpers.getElement(selectorOrElement);
@@ -203,11 +203,11 @@ async function waitUntilNuxtClientLoads(timeout = pageLoadingTimeout) {
 		await waitUntilPageLoads();
 		while (!nuxtPageLoad) {
 			await waitUntilElementIsNotPresent(pageNotLoaded);
-			if (await waitUntilElementIsPresent(pageLoaded)){
+			if (await waitUntilElementIsPresent(pageLoaded)) {
 				nuxtPageLoad = true;
-			}else {
+			} else {
 				await driver.refresh();
-				if(await waitUntilElementIsPresent(pageLoaded)){
+				if (await waitUntilElementIsPresent(pageLoaded)) {
 					nuxtPageLoad = true;
 				}
 			}
@@ -236,6 +236,14 @@ async function waitUntilScriptResultIsTrue(script, timeoutMsg, timeout = pageLoa
 async function waitAndSetValue(selectorOrElement, value, pause = 200) {
 	await waitUntilElementIsVisible(selectorOrElement);
 	const element = await waitUntilElementIsEnabled(selectorOrElement);
+	await element.clearValue();
+	await element.click();
+	driver.keys(value);
+	await driver.pause(pause);
+}
+
+async function waitAndSetValueWithoutVisiblityCheck(selectorOrElement, value, pause = 200) {
+	const element = await waitUntilElementIsPresent(selectorOrElement);
 	await element.clearValue();
 	await element.click();
 	driver.keys(value);
@@ -349,6 +357,7 @@ module.exports = {
 	waitUntilPageLoads,
 	waitUntilLegacyPageLoads,
 	waitAndSetValue,
+	waitAndSetValueWithoutVisiblityCheck,
 	waitUntilElementAttributeEquals,
 	waitUntilElementAttributeContains,
 	waitUntilPageTitleContains,
