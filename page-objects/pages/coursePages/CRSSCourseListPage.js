@@ -5,12 +5,12 @@ const waitHelpers = require('../../../runtime/helpers/waitHelpers');
 const sharedHelpers = require('../../../runtime/helpers/sharedHelpers');
 const navigationLeftPage = require('../NavigationLeftPage');
 const generalCoursePage = require('./CRSSGeneralCoursePage');
-const editCoursePage = require('./CRSSEditCopyCoursePage')
+const editCoursePage = require('./CRSSEditCopyCoursePage');
 const roomsOverview = require('../RoomsOverviewPage');
 const courseDescription = '.ckcontent';
 const courseDescriptionSel = '#courseDescription';
 const courseHeader = '.sc-card-header';
-const searchCourseFiled = '[data-testid="search-field"]';;
+const searchCourseField = '[data-testid="search-field"] input, input[data-testid="search-field"]';
 const courseWrapper = '.sc-card-wrapper';
 const titleOfCourse = '.title';
 const memberBtn = '.btn-member';
@@ -18,7 +18,7 @@ const importCourseBtn = '[data-testid="import-course-btn"]';
 const createCourseBtn = '[data-testid="add-course-button"]';
 const listOfMembersSel = '#member-modal-body > ol > li';
 const popupMembers = ".member-modal.in[role='dialog']";
-const closeMemberModalBtn = ".member-modal button.close";
+const closeMemberModalBtn = '.member-modal button.close';
 
 const courseColours = {
 	grey: 'background: #455B6A',
@@ -106,7 +106,7 @@ function getColourSelector(colourName) {
 }
 
 async function setCourseNameIntoSearchInputField(courseName) {
-	await waitHelpers.waitAndSetValue(searchCourseFiled, courseName);
+	await waitHelpers.waitAndSetValue(searchCourseField, courseName);
 }
 
 async function getCountOfDisplayedCoursesForSection(section) {
@@ -114,7 +114,7 @@ async function getCountOfDisplayedCoursesForSection(section) {
 	var numberOfDisplayedCourses = 0;
 	for (var i = 0; i < elem.length; i++) {
 		if ((await elem[i].isDisplayed()) == true) {
-			numberOfDisplayedCourses ++;
+			numberOfDisplayedCourses++;
 		}
 	}
 	return numberOfDisplayedCourses;
@@ -237,9 +237,9 @@ async function isCountOfCourseMembers(courseName, expectedCountOfCourseMembers, 
 }
 
 async function isCourseDescription(courseName, expectedDescription) {
-	await roomsOverview.clickOnTheElementWithName(courseName)
+	await roomsOverview.clickOnTheElementWithName(courseName);
 	await generalCoursePage.clickEditCourse();
-	await editCoursePage.clickEditOptionButton()
+	await editCoursePage.clickEditOptionButton();
 	const descriptionElement = await sharedHelpers.getElement(courseDescriptionSel);
 	const actualDescription = await descriptionElement.getText();
 	const msg = 'Course with name: ' + courseName + ' has wrong description. \n';
@@ -292,7 +292,6 @@ async function isCourseVisible(courseName, section, expectedValue) {
 	const resultMsg = 'Actual list of courses: ' + (await getListOfCourseTitlesInSection(section));
 	const isCourseOnList = await isCourseOnListInSection(courseName, section);
 	expect(isCourseOnList, msg + resultMsg).to.equal(expectedValue);
-
 }
 
 module.exports = {
