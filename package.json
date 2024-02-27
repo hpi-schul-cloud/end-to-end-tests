@@ -29,7 +29,7 @@
 	},
 	"main": "index.js",
 	"scripts": {
-		"test": "npm run test:stable",
+		"test": "node index.js -d --tags @test",
 		"test:all": "node index.js -d",
 		"test:dev": "node index.js -d -k",
 		"test:courses_and_topics": "node index.js -d --tags @courses_and_topics",
@@ -58,12 +58,12 @@
 		"request": "^2.88.2",
 		"request-promise": "^4.2.6",
 		"require-dir": "^1.2.0",
-		"selenium-standalone": "^7.1.0",
+		"selenium-standalone": "^9.3.3",
 		"webdriverio": "^7.13.1",
 		"winston": "^3.3.3"
 	},
 	"devDependencies": {
-		"chromedriver": "^92.0.2",
+		"chromedriver": "^122.0.3",
 		"geckodriver": "^2.0.4",
 		"glob": "^7.2.0",
 		"reuse-cucumber-scenarios": "^1.1.7",

@@ -14,5 +14,5 @@ Feature: Set of tests to create teachers
 		When <userRole> set teacher firstname '<firstName>', lastname '<lastName>', email '<teacherEmail>'
 		And <userRole> sees that teacher with email '<teacherEmail>' is visible on the list
 		Examples:
-			| userRole | firstName  | lastName   | teacherEmail					| username                     | password       |
+			| userRole | firstName  | lastName   | teacherEmail                 | username                     | password       |
 			| admin    | Theophilus | Hermelates | t.hermelates@schul-cloud.org | kai.admin.qa@schul-cloud.org | Schulcloud1qa! |
