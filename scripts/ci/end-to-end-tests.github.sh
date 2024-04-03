@@ -49,7 +49,7 @@ fetch(){
 log_docker() {
 	echo "CONTAINER STARTUP LOG"
 	cd docker-compose
-	docker-compose -f compose-files/docker-compose.yml logs -f &
+	docker compose -f compose-files/docker-compose.yml logs -f &
 	cd ..
 }
 
@@ -81,13 +81,13 @@ before(){
 
 	echo "CONTAINER STARTUP"
 	cd docker-compose
-	docker-compose -f compose-files/docker-compose.yml up -d mongodb mongodb-secondary mongodb-arbiter redis rabbit mailcatcher selenium-hub calendar-init
+	docker compose -f compose-files/docker-compose.yml up -d mongodb mongodb-secondary mongodb-arbiter redis rabbit mailcatcher selenium-hub calendar-init
 	sleep 10
-	docker-compose -f compose-files/docker-compose.yml up -d chrome mongosetup maildrop calendar-postgres
+	docker compose -f compose-files/docker-compose.yml up -d chrome mongosetup maildrop calendar-postgres
 	sleep 15
-	docker-compose -f compose-files/docker-compose.yml up -d calendar
+	docker compose -f compose-files/docker-compose.yml up -d calendar
 	sleep 15
-	docker-compose -f compose-files/docker-compose.yml up server server-management client nuxtclient &
+	docker compose -f compose-files/docker-compose.yml up server server-management client nuxtclient &
 	cd ..
 
 	echo "INSTALL DEPENDNECIES..."
