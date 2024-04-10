@@ -4,11 +4,11 @@ const { expect } = require('chai');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 
 async function clickElementFromNavigation(selector) {
-	await elementHelpers.clickAndWait(selector)
+	await elementHelpers.clickAndWait(selector);
 }
 
 async function clickElementFromNavigation(selector) {
-	await elementHelpers.clickAndWait(selector)
+	await elementHelpers.clickAndWait(selector);
 }
 
 const navItemsEnum = {
@@ -47,7 +47,7 @@ const navItemDashboard = navItemString1stLevel.replace('XXX', 'Übersicht');
 const navItemRoomsOverview = navItemString1stLevel.replace('XXX', 'Course-Overview');
 const navItemTeams = navItemString1stLevel.replace('XXX', 'Teams');
 const navItemTasks = navItemString1stLevel.replace('XXX', 'Aufgaben');
-const navItemFiles = navItemString1stLevel.replace('XXX', 'Meine Dateien');
+const navItemFiles = navItemString1stLevel.replace('XXX', 'Dateien');
 const navItemFilesMy = navItemString2ndLevel.replace('XXX', 'persönliche Dateien');
 const navItemFilesCourses = navItemString2ndLevel.replace('XXX', 'Kurse');
 const navItemFilesTeams = navItemString2ndLevel.replace('XXX', 'Teams');
@@ -70,7 +70,6 @@ const navItemHelpContact = navItemString2ndLevel.replace('XXX', 'Kontakt');
 
 const item = '.sidebar-list .link-name';
 const subitem = '.subitem .link-name';
-
 
 async function clickNavItemLogo() {
 	await clickElementFromNavigation(navItemLogo);
