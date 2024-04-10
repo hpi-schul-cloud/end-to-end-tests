@@ -15,8 +15,8 @@ Then(/^.*clicks left navigation item '([^']*)'$/, function (string) {
 			return leftNavigation.clickNavItemTasks();
 		case leftMenuItems.FILES:
 			return leftNavigation.clickNavItemFiles();
-		case leftMenuItems.MYFILES:
-			return leftNavigation.clickNavItemFilesMy();
+		case leftMenuItems.PERSONALFILES:
+			return leftNavigation.clickNavItemFilesPersonal();
 		case leftMenuItems.COURSEFILES:
 			return leftNavigation.clickNavItemFilesCourses();
 		case leftMenuItems.TEAMFILES:
@@ -56,7 +56,7 @@ Then(/^.*clicks left navigation item '([^']*)'$/, function (string) {
 		/* add after the rooms-overview element is ready 
 		case leftMenuItems.ROOMS_OVERVIEW::
 			return leftNavigation.clickNavItemHelpRoomsOverview();
-		*/	
+		*/
 		default:
 			return Error("no such element found in 'click left navigation item {string}' " + navigationItem);
 	}

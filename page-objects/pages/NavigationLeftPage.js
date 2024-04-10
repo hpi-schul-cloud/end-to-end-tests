@@ -4,11 +4,11 @@ const { expect } = require('chai');
 const elementHelpers = require('../../runtime/helpers/elementHelpers');
 
 async function clickElementFromNavigation(selector) {
-	await elementHelpers.clickAndWait(selector)
+	await elementHelpers.clickAndWait(selector);
 }
 
 async function clickElementFromNavigation(selector) {
-	await elementHelpers.clickAndWait(selector)
+	await elementHelpers.clickAndWait(selector);
 }
 
 const navItemsEnum = {
@@ -18,7 +18,7 @@ const navItemsEnum = {
 	TEAMS: 'teams',
 	TASKS: 'tasks',
 	FILES: 'files',
-	MYFILES: 'my files',
+	PERSONALFILES: 'personal files',
 	COURSEFILES: 'course files',
 	TEAMFILES: 'team files',
 	SHAREDFILES: 'shared files',
@@ -47,8 +47,8 @@ const navItemDashboard = navItemString1stLevel.replace('XXX', 'Übersicht');
 const navItemRoomsOverview = navItemString1stLevel.replace('XXX', 'Course-Overview');
 const navItemTeams = navItemString1stLevel.replace('XXX', 'Teams');
 const navItemTasks = navItemString1stLevel.replace('XXX', 'Aufgaben');
-const navItemFiles = navItemString1stLevel.replace('XXX', 'Meine Dateien');
-const navItemFilesMy = navItemString2ndLevel.replace('XXX', 'persönliche Dateien');
+const navItemFiles = navItemString1stLevel.replace('XXX', 'Dateien');
+const navItemFilesPersonal = navItemString2ndLevel.replace('XXX', 'persönliche Dateien');
 const navItemFilesCourses = navItemString2ndLevel.replace('XXX', 'Kurse');
 const navItemFilesTeams = navItemString2ndLevel.replace('XXX', 'Teams');
 const navItemFilesShared = navItemString2ndLevel.replace('XXX', 'geteilte Dateien');
@@ -70,7 +70,6 @@ const navItemHelpContact = navItemString2ndLevel.replace('XXX', 'Kontakt');
 
 const item = '.sidebar-list .link-name';
 const subitem = '.subitem .link-name';
-
 
 async function clickNavItemLogo() {
 	await clickElementFromNavigation(navItemLogo);
@@ -96,8 +95,8 @@ async function clickNavItemFiles() {
 	await clickElementFromNavigation(navItemFiles);
 }
 
-async function clickNavItemFilesMy() {
-	await clickElementFromNavigation(navItemFilesMy);
+async function clickNavItemFilesPersonal() {
+	await clickElementFromNavigation(navItemFilesPersonal);
 }
 
 async function clickNavItemFilesCourses() {
@@ -218,7 +217,7 @@ module.exports = {
 	clickNavItemTeams,
 	clickNavItemTasks,
 	clickNavItemFiles,
-	clickNavItemFilesMy,
+	clickNavItemFilesPersonal,
 	clickNavItemFilesCourses,
 	clickNavItemFilesTeams,
 	clickNavItemFilesShared,
