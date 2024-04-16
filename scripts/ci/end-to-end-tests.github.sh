@@ -128,6 +128,9 @@ before(){
 
 	#log_docker
 	#docker ps &
+
+	echo "### LS 2 ###"
+	docker container ls -a
 }
 
 main(){
