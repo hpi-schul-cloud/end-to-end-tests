@@ -90,9 +90,6 @@ before(){
 	docker compose -f compose-files/docker-compose.yml up server server-management client nuxtclient &
 	cd ..
 
-	echo "### LS ###"
-	docker container ls -a
-
 	echo "INSTALL DEPENDNECIES..."
 	cd end-to-end-tests && npm ci && cd ..
 
@@ -128,9 +125,6 @@ before(){
 
 	#log_docker
 	#docker ps &
-
-	echo "### LS 2 ###"
-	docker container ls -a
 }
 
 main(){
