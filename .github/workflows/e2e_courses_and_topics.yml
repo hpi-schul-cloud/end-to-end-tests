@@ -8,7 +8,7 @@ on:
 
 jobs:
   tag-courses_and_topics:
-    uses: hpi-schul-cloud/end-to-end-tests/.github/workflows/e2e.yml@main
+    uses: hpi-schul-cloud/end-to-end-tests/.github/workflows/e2e.yml@BC-6654-update-mongodb
     with:
       ref: ${{ github.ref }}
       e2e_tag: courses_and_topics
