@@ -106,6 +106,7 @@ function getColourSelector (colourName) {
 }
 
 async function setCourseNameIntoSearchInputField (courseName) {
+	await elementHelpers.moveToElement(searchCourseField)
 	await waitHelpers.waitAndSetValue(searchCourseField, courseName)
 }
 
