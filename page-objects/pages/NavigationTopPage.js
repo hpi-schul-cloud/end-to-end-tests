@@ -16,7 +16,7 @@ const navItemHelpQuestionCircle = '[data-testid="question-circle"]';
 const navItemHelpWishProblem = '[data-testid="submit-wish-or-problem]';
 const navItemHelpContactAdmin = '[data-testid="contact-admin"]';
 const navItemHelpTraining = '[data-testid="fortbildungen"]';
-const avatarCircle = '.avatar-circle';
+const avatarCircle = '[data-testid="initials"]';
 
 async function isSchoolNameCorrect () {
     let schoolNameProvidedByAPI = await apiHelpers.getSchoolName();
