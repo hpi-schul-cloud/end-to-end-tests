@@ -226,6 +226,7 @@ async function getListOfAllElements(selector) {
 	try {
 		await waitHelpers.waitUntilElementIsVisible(selector);
 	} catch (err) {
+		console.log('krokodil');
 		return [];
 	}
 	return driver.$$(selector);
