@@ -184,7 +184,7 @@ async function areSubMenuItemsVisible(listOfExpectedSubItems) {
 		return item.trim();
 	});
 	const listOfSubItems = await getListOfSubItems();
-	console.log('pampelmuse', listOfSubItems);
+	// console.log('pampelmuse', listOfSubItems);
 	const isSame =
 		listOfExpectedSubItems.length == listOfSubItems.length &&
 		listOfSubItems.every(function (element, index) {

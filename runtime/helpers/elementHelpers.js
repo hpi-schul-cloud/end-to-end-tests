@@ -4,7 +4,6 @@ const waitHelpers = require('./waitHelpers');
 
 const LOAD_PAGE_TIMEOUT = 10000;
 
-
 /**
  * show displayed selector on the page matching with the id/class_name in the parameter.
  * useful in situations where a mobile and desktop versions are loaded at the same time, so there are multiple
@@ -15,19 +14,21 @@ const LOAD_PAGE_TIMEOUT = 10000;
  *    this.getDisplayedElements('section#loginarea input[data-testid="username"]')
  */
 
-async function getDisplayedElement(selector){
+async function getDisplayedElement(selector) {
 	let displayedElements = []; // initialize an array where displayed element(s) will be stored
 	const presentElements = await driver.$$(selector); // puts mathing elements in the array
 	for (let element of presentElements) {
-		let isDisplayed = await element.isDisplayed()
+		let isDisplayed = await element.isDisplayed();
 		if (isDisplayed) {
-			displayedElements.push(element)
+			displayedElements.push(element);
 		}
 	}
-	if (displayedElements.length!==1) {
-		throw new SelectorConflictException('multiple/or none displayed selectors with the same identifier on the page!')
+	if (displayedElements.length !== 1) {
+		throw new SelectorConflictException(
+			'multiple/or none displayed selectors with the same identifier on the page!'
+		);
 	} else {
-		return displayedElements[0]
+		return displayedElements[0];
 	}
 }
 
@@ -215,6 +216,7 @@ async function getValueOfElement(selector) {
 async function getTextFromAllElements(selector) {
 	await waitHelpers.waitUntilPageLoads();
 	const listOfElements = await getListOfAllElements(selector);
+	console.log('pampelmuse', listOfElements);
 	let textList = await getTextListFromListOfElements(listOfElements);
 	return textList;
 }
@@ -262,26 +264,27 @@ async function getElementIncludingText(selector, text) {
 	return listOfElements[index];
 }
 
-function SelectorConflictException (message) {
+function SelectorConflictException(message) {
 	this.message = message;
-	this.name = "SelectorConflictException";
+	this.name = 'SelectorConflictException';
 }
 
-async function moveToElement(selector){
+async function moveToElement(selector) {
 	await waitHelpers.waitUntilNuxtClientLoads();
 	let moveToElement = await driver.$(selector);
 	let xOffset = await moveToElement.getLocation('x');
 	let yOffset = await moveToElement.getLocation('y');
-	if (!(await moveToElement.isDisplayedInViewport())){
+	if (!(await moveToElement.isDisplayedInViewport())) {
 		moveToElement.scrollIntoView({
-			behavior: "smooth",
-			block: "end",
-			inline: "nearest"});
+			behavior: 'smooth',
+			block: 'end',
+			inline: 'nearest',
+		});
 		await driver.pause(500);
 		await waitHelpers.waitUntilElementIsPresent(moveToElement);
 		moveToElement.moveTo(xOffset, yOffset);
 		await waitHelpers.waitUntilElementIsVisible(moveToElement);
-	}else{
+	} else {
 		moveToElement.moveTo(xOffset, yOffset);
 		await waitHelpers.waitUntilElementIsVisible(moveToElement);
 	}
@@ -316,6 +319,6 @@ module.exports = {
 	getElementByText,
 	getElementIncludingText,
 	getDisplayedElement,
-  	loadPageNuxtClient,
+	loadPageNuxtClient,
 	moveToElement,
 };
