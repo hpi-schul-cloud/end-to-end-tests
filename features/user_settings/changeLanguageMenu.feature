@@ -13,8 +13,8 @@ Feature: Test set for user settings
 		Then <userRole> should see that all menu items are visible: '<menuItems>'
 		Examples:
 			| userRole | username                          | password       | language  | menuItems                                                                                                                |
-			| admin    | olivier.admin.qa@schul-cloud.org  | Schulcloud1qa! | English   | Dashbord,Courses,Teams,FTasks,Files,News,Calendar,Learning Store,Add-ons,Management,Help Section,System                         |
-			| teacher  | dmitri.teacher.qa@schul-cloud.org | Schulcloud1qa! | English   | Dashbord,Courses,Teams,TASKS,Tasks,Files,News,Calendar,Learning Store,Add-ons,Management,Help Section,System                    |
+			| admin    | olivier.admin.qa@schul-cloud.org  | Schulcloud1qa! | English   | Dashbord,Courses,Teams,Files,News,Calendar,Learning Store,Add-ons,Management,Help Section,System                         |
+			| teacher  | dmitri.teacher.qa@schul-cloud.org | Schulcloud1qa! | English   | Dashbord,Courses,Teams,Tasks,Files,News,Calendar,Learning Store,Add-ons,Management,Help Section,System                    |
 			| student  | ole.bart.qa@schul-cloud.org       | Schulcloud1qa! | English   | Dashbord,Courses,Teams,Tasks,Files,News,Calendar,Learning Store,Add-ons,Help Section,System                                     |
 			| admin    | olivier.admin.qa@schul-cloud.org  | Schulcloud1qa! | Spanish   | Panel,Cursos,Equipos,Archivos,Noticias,Calendario,Lern-Store,Complementos,Administración,Sección de ayuda,Sistema                |
 			| teacher  | dmitri.teacher.qa@schul-cloud.org | Schulcloud1qa! | Spanish   | Panel,Cursos,Equipos,Tareas,Archivos,Noticias,Calendario,Lern-Store,Complementos,Administración,Sección de ayuda,Sistema         |
