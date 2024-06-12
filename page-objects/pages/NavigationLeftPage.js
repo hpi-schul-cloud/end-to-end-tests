@@ -69,7 +69,7 @@ const navItemHelpTrainings = navItemString2ndLevel.replace('XXX', 'Fortbildungen
 const navItemHelpContact = navItemString2ndLevel.replace('XXX', 'Kontakt');
 
 const item = '.sidebar-list .link-name';
-const subitem = '.sidebar-list .subitem .link-name';
+const subitem = '.subitem .link-name';
 
 async function clickNavItemLogo() {
 	await clickElementFromNavigation(navItemLogo);
