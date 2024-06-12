@@ -216,7 +216,6 @@ async function getValueOfElement(selector) {
 async function getTextFromAllElements(selector) {
 	await waitHelpers.waitUntilPageLoads();
 	const listOfElements = await getListOfAllElements(selector);
-	console.log('pampelmuse', listOfElements);
 	let textList = await getTextListFromListOfElements(listOfElements);
 	return textList;
 }
@@ -226,7 +225,6 @@ async function getListOfAllElements(selector) {
 	try {
 		await waitHelpers.waitUntilElementIsVisible(selector);
 	} catch (err) {
-		console.log('krokodil');
 		return [];
 	}
 	return driver.$$(selector);
