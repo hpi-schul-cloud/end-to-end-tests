@@ -7,7 +7,7 @@ const initialsDiv = '[data-testid="initials"]';
 const initialsDDSettings = 'a[data-testid="settings"]';
 const initialsDDLogout = '[data-testid="logout"]';
 const nameBox = '.dropdown-name';
-const schoolNameSelector = '.nav-item.school-data';
+const schoolNameSelector = '.school-data';
 const exclamationTriangle = '.fa.fa-exclamation-triangle';
 const fullScreenMode = '[data-testid="fullscreen-mode"]';
 const qrIcon = '.fa.fa-qrcode';
