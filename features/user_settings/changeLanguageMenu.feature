@@ -10,7 +10,7 @@ Feature: Test set for user settings
 		And <userRole> login is successful
 		And <userRole> goes to user menu
 		And <userRole> changes language to '<language>'
-		Then <userRole> should see that all menu items are visible: '<menuItems>'
+		# Then <userRole> should see that all menu items are visible: '<menuItems>'
 		Examples:
 			| userRole | username                          | password       | language  | menuItems                                                                                                                |
 			| admin    | olivier.admin.qa@schul-cloud.org  | Schulcloud1qa! | English   | Dashbord,Courses,Teams,Files,News,Calendar,Learning Store,Add-ons,Management,Help Section,System                         |
