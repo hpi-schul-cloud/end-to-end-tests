@@ -7,7 +7,7 @@ const initialsDiv = '[data-testid="initials"]';
 const initialsDDSettings = 'a[data-testid="settings"]';
 const initialsDDLogout = '[data-testid="logout"]';
 const nameBox = '.dropdown-name';
-const schoolNameSelector = '.nav-item.school-data';
+const schoolNameSelector = '.school-data';
 const exclamationTriangle = '.fa.fa-exclamation-triangle';
 const fullScreenMode = '[data-testid="fullscreen-mode"]';
 const qrIcon = '.fa.fa-qrcode';
@@ -16,7 +16,7 @@ const navItemHelpQuestionCircle = '[data-testid="question-circle"]';
 const navItemHelpWishProblem = '[data-testid="submit-wish-or-problem]';
 const navItemHelpContactAdmin = '[data-testid="contact-admin"]';
 const navItemHelpTraining = '[data-testid="fortbildungen"]';
-const avatarCircle = '.avatar-circle';
+const avatarCircle = '[data-testid="initials"]';
 
 async function isSchoolNameCorrect () {
     let schoolNameProvidedByAPI = await apiHelpers.getSchoolName();
