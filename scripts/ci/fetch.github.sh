@@ -24,10 +24,13 @@ set -e
 # install dependencies
 # sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv B00A0BD1E2C63C11
 #wget -qO - https://pgp.mongodb.com/server-6.0.asc | sudo apt-key add -
+sudo apt-get -y install gnupg curl apt-transport-https ca-certificates curl git
+sudo apt-get update
+# install mongodb
 curl -fsSL https://www.mongodb.org/static/pgp/server-6.0.asc | sudo gpg -o /usr/share/keyrings/mongodb-server-6.0.gpg --dearmor
 echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb.list
-sudo apt update
-sudo apt install -y apt-transport-https ca-certificates curl git mongodb-database-tools
+sudo apt-get update
+sudo apt-get install -y mongodb-database-tools
 
 if [[ -z "$BRANCH_NAME" ]]; then
     echo "Must provide BRANCH_NAME in environment"
