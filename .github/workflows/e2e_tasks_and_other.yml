@@ -12,4 +12,3 @@ jobs:
     with:
       ref: ${{ github.ref }}
       e2e_tag: tasks_and_other
-
